@@ -3,16 +3,18 @@ import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MainNavigation from "./navigation/MainNavigation";
 import { GestureHandlerRootView } from "react-native-gesture-handler"; // Import GestureHandlerRootView
-
+import { Provider } from "react-redux";
+import store from "./redux/store";
 export default function App() {
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      {/* Wrap everything in GestureHandlerRootView */}
-      <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
-        <StatusBar style="auto" />
-        <MainNavigation />
-      </SafeAreaView>
-    </GestureHandlerRootView>
+    <Provider store={store}>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+          <StatusBar style="auto" />
+          <MainNavigation />
+        </SafeAreaView>
+      </GestureHandlerRootView>
+    </Provider>
   );
 }
 

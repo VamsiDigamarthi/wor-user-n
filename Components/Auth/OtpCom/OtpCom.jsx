@@ -1,10 +1,14 @@
 import React, { useRef, useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
 
 const OtpRelatedInput = ({ btnShow = true }) => {
+  const route = useRoute(); // Use useRoute to get the route object
+  const { mobile } = route.params;
+
+  console.log("this is otp screen", mobile);
   const navigation = useNavigation();
 
   const handleNavigateToOTP = () => {

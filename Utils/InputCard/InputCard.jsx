@@ -10,22 +10,21 @@ const InputBox = ({
   placeholder = "",
   secureTextEntry = false,
   onChangeText = () => {},
-  multiline = false, // New prop
-  numberOfLines = 1,
+  isValid = true, // New prop for validation
 }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{label}</Text>
-      <View style={styles.inputCard}>
+      <Text style={[styles.label, !isValid && styles.invalidLabel]}>
+        {label}
+      </Text>
+      <View style={[styles.inputCard, !isValid && styles.invalidInputCard]}>
         {isIconsNotText ? <Ionicons name={icon} size={20} /> : <Text>+91</Text>}
         <TextInput
           style={styles.textInput}
           keyboardType={keyboardType}
           placeholder={placeholder}
           onChangeText={onChangeText}
-          secureTextEntry={secureTextEntry} // Use secureTextEntry prop
-          multiline={multiline} // Pass the multiline prop
-          numberOfLines={numberOfLines}
+          secureTextEntry={secureTextEntry}
         />
       </View>
     </View>
@@ -36,17 +35,20 @@ export default InputBox;
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%", // Full width
-    flexDirection: "column", // Flex column direction
-    gap: 4, // Equivalent to gap-1 (you may need to manage the gap manually)
+    width: "100%",
+    flexDirection: "column",
+    gap: 4,
   },
   label: {
-    fontSize: 11, // Font size equivalent to text-[11px]
-    color: "#A0AEC0", // Gray color for text (equivalent to gray-600)
+    fontSize: 11,
+    color: "#A0AEC0",
+  },
+  invalidLabel: {
+    color: "red", // Change label color to red
   },
   inputCard: {
     elevation: 1,
-    backgroundColor: "#FFFFFF", // White background
+    backgroundColor: "#FFFFFF",
     borderRadius: 10,
     paddingHorizontal: 16,
     paddingVertical: 10,
@@ -59,8 +61,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
   },
+  invalidInputCard: {
+    borderWidth: 1,
+    borderColor: "red", // Change border color to red
+  },
   textInput: {
-    width: "90%", // Set the width to 90%
-    padding: 0, // Remove default padding
+    width: "90%",
+    padding: 0,
   },
 });
