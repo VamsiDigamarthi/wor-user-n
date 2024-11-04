@@ -1,13 +1,31 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import AadharFaceNavigator from "../../../Utils/AadharFaceNagivetor/AadharFaceNagivetor";
-import OtpRelatedInput from "../OtpCom/OtpCom";
+
 import AadharFrontBackImageCard from "../../../Utils/AadharFrontBackImageCard/AadharFrontBackImageCard";
 import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
+import AddharOtpUi from "./OtpUi/OtpUi";
+import { useAadharVerificationComHook } from "./AadharVerificationCom.hook";
 
 const AadharVerificationCom = () => {
-  const handlePress = () => {};
-  const handleNavigateToOTP = () => {};
+  const {
+    handleInputChange,
+    aadharNumber,
+    onAadharCardGetOtpFunction,
+    error,
+    displayOtpBox,
+    onVerifyAddharOtp,
+    aadharUploadImageDisplay,
+    otpVerificationFailed,
+    // otp related
+    inputs,
+    handleKeyPress,
+    handleChange,
+    otp,
+    otpInputEditable,
+    changeGetOtpToVerified,
+  } = useAadharVerificationComHook();
+
   return (
     <View style={styles.container}>
       <Text>AadharVerificationCom</Text>
@@ -16,25 +34,53 @@ const AadharVerificationCom = () => {
         isText={true}
         textWidth="30%"
         inputWidth="70%"
-        onPress={handlePress}
+        onPress={onAadharCardGetOtpFunction}
+        onTextChange={handleInputChange}
+        value={aadharNumber}
+        isEditable={otpInputEditable}
+        pressBtnOrText={changeGetOtpToVerified}
       />
-      <Text style={styles.checkingOtp}>
-        check <Text style={styles.checkingOtpHighlight}>OTP</Text> from your
-        aadhar linked number
-      </Text>
-      <OtpRelatedInput btnShow={false} />
+      {error && (
+        <View style={styles.errorCard}>
+          <Text style={styles.errorMsg}>{error}</Text>
+        </View>
+      )}
+      {displayOtpBox && (
+        <>
+          <Text style={styles.checkingOtp}>
+            check <Text style={styles.checkingOtpHighlight}>OTP</Text> from your
+            aadhar linked number
+          </Text>
 
-      <Text style={styles.uploadAddarText}>
-        Update Your Aadhar Front & Back Photos
-      </Text>
+          <AddharOtpUi
+            handleChange={handleChange}
+            handleKeyPress={handleKeyPress}
+            inputs={inputs}
+            otp={otp}
+          />
+          <CustomBtn
+            title="Verify OTP"
+            btnBg="#fff"
+            btnColor="#E02E88"
+            onPress={onVerifyAddharOtp}
+          />
+          {otpVerificationFailed && (
+            <View style={styles.errorCard}>
+              <Text style={styles.otpVerificationFailed}>{error}</Text>
+            </View>
+          )}
+        </>
+      )}
 
-      <AadharFrontBackImageCard />
-      <CustomBtn
-        title="continue"
-        btnBg="#fff"
-        btnColor="#E02E88"
-        onPress={handleNavigateToOTP}
-      />
+      {aadharUploadImageDisplay && (
+        <>
+          <Text style={styles.uploadAddarText}>
+            Update Your Aadhar Front & Back Photos
+          </Text>
+
+          <AadharFrontBackImageCard />
+        </>
+      )}
     </View>
   );
 };
@@ -54,6 +100,14 @@ const styles = StyleSheet.create({
     color: "#E02E88",
   },
   uploadAddarText: {
+    fontSize: 14,
+  },
+
+  errorCard: {
+    width: "100%",
+  },
+  errorMsg: {
+    color: "red",
     fontSize: 14,
   },
 });

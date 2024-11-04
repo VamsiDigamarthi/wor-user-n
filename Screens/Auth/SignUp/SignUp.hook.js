@@ -1,13 +1,8 @@
 import { useState } from "react";
 
 import * as ImagePicker from "expo-image-picker";
-import { useRoute } from "@react-navigation/native";
 
 export const useSignUpHook = () => {
-  const route = useRoute();
-  const { mobile } = route.params;
-  console.log("sign up", mobile);
-
   const [selectedImage, setSelectedImage] = useState(null);
   const handleImagePick = async () => {
     // Request permission to access the camera roll

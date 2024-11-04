@@ -13,13 +13,10 @@ import ShowPrice from "../Screens/Dashboard/ShowPrice/ShowPrice";
 import LookingForRide from "../Screens/Dashboard/LookingForRide/LookingForRide";
 import CaptainAcceptRide from "../Screens/Dashboard/CaptainAcceptRide/CaptainAcceptRide";
 
-// Drawer Navigator
 const Drawer = createDrawerNavigator();
 
-// Stack Navigator for RideBook and other stack-based screens
 const Stack = createNativeStackNavigator();
 
-// Drawer containing Home and Profile
 const DrawerNavigator = () => {
   return (
     <>
@@ -27,7 +24,7 @@ const DrawerNavigator = () => {
 
       <Drawer.Navigator
         screenOptions={{
-          header: ({ navigation }) => <CustomAppBar navigation={navigation} />, // Use custom app bar
+          header: ({ navigation }) => <CustomAppBar navigation={navigation} />,
         }}
       >
         <Drawer.Screen name="Home" component={Home} />
@@ -37,7 +34,6 @@ const DrawerNavigator = () => {
   );
 };
 
-// Authenticated stack containing Drawer and RideBook screen
 const AuthenticatedStack = () => {
   return (
     <Stack.Navigator>
@@ -47,7 +43,7 @@ const AuthenticatedStack = () => {
         component={DrawerNavigator}
         options={{ headerShown: false }}
       />
-      {/* RideBook is only accessible to authenticated users */}
+
       <Stack.Screen name="RideBook" component={RideBook} />
       <Stack.Screen
         name="SelectDropLocation"
@@ -60,7 +56,7 @@ const AuthenticatedStack = () => {
             shadowOpacity: 0,
           },
           headerTitleStyle: {
-            color: "#302f2f", // You can also set title color
+            color: "#302f2f",
           },
           headerLeft: () => (
             <TouchableOpacity

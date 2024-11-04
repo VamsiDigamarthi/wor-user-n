@@ -1,53 +1,51 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
-import * as ImagePicker from "expo-image-picker";
+import { useAadharFrontBackImageCardHook } from "./AadharFrontBackImageCard.hook";
+import CustomBtn from "../CustomBtn/CustomBtn";
 
 const AadharFrontBackImageCard = () => {
-  const [frontImage, setFrontImage] = useState(null);
-  const [backImage, setBackImage] = useState(null);
+  const {
+    frontImage,
+    backImage,
+    handleImagePick,
+    handleSubmit,
+    showErrorMessage,
+  } = useAadharFrontBackImageCardHook();
 
-  const handleImagePick = async (side) => {
-    // Request permission to access the camera roll
-    const permissionResult =
-      await ImagePicker.requestMediaLibraryPermissionsAsync();
-
-    if (permissionResult.granted === false) {
-      alert("Permission to access camera roll is required!");
-      return;
-    }
-
-    const result = await ImagePicker.launchImageLibraryAsync();
-
-    if (!result.canceled) {
-      if (side === "front") {
-        setFrontImage(result.assets[0].uri);
-      } else {
-        setBackImage(result.assets[0].uri);
-      }
-    }
-  };
   return (
-    <View style={styles.imageContainer}>
-      <Pressable
-        style={[styles.imageBox, styles.frontBox]}
-        onPress={() => handleImagePick("front")}
-      >
-        {frontImage ? (
-          <Image source={{ uri: frontImage }} style={styles.image} />
-        ) : (
-          <Text style={styles.boxText}>Front</Text>
-        )}
-      </Pressable>
-      <Pressable
-        style={[styles.imageBox, styles.backBox]}
-        onPress={() => handleImagePick("back")}
-      >
-        {backImage ? (
-          <Image source={{ uri: backImage }} style={styles.image} />
-        ) : (
-          <Text style={styles.boxText}>Back</Text>
-        )}
-      </Pressable>
+    <View style={styles.container}>
+      <View style={styles.imageContainer}>
+        <Pressable
+          style={[styles.imageBox, styles.frontBox]}
+          onPress={() => handleImagePick("front")}
+        >
+          {frontImage ? (
+            <Image source={{ uri: frontImage }} style={styles.image} />
+          ) : (
+            <Text style={styles.boxText}>Front</Text>
+          )}
+        </Pressable>
+        <Pressable
+          style={[styles.imageBox, styles.backBox]}
+          onPress={() => handleImagePick("back")}
+        >
+          {backImage ? (
+            <Image source={{ uri: backImage }} style={styles.image} />
+          ) : (
+            <Text style={styles.boxText}>Back</Text>
+          )}
+        </Pressable>
+      </View>
+      {showErrorMessage && (
+        <View style={styles.errorCard}>
+          <Text style={styles.errorMsg}>{showErrorMessage}</Text>
+        </View>
+      )}
+      <CustomBtn
+        title="continue"
+        btnBg="#fff"
+        btnColor="#E02E88"
+        onPress={handleSubmit}
+      />
     </View>
   );
 };
@@ -55,6 +53,7 @@ const AadharFrontBackImageCard = () => {
 export default AadharFrontBackImageCard;
 
 const styles = StyleSheet.create({
+  container: { gap: 20, marginBottom: 20 },
   imageContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -89,5 +88,13 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     borderRadius: 10,
+  },
+
+  errorCard: {
+    width: "100%",
+  },
+  errorMsg: {
+    color: "red",
+    fontSize: 14,
   },
 });

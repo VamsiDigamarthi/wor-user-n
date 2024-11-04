@@ -1,14 +1,22 @@
-import { Alert, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import React, { useEffect } from "react";
 import AadharFaceNagivetor from "../../../Utils/AadharFaceNagivetor/AadharFaceNagivetor";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 const DocumentRelatedCheck = () => {
   const navigation = useNavigation();
+
   const handlePress = () => {
     console.log("Press");
     navigation.navigate("aadharverification");
   };
+
+  const onFaceAuthentication = () => {
+    console.log("Face Authentication");
+    // navigation.navigate("faceauthentication");
+  };
+
   return (
     <View style={styles.container}>
       <AadharFaceNagivetor
@@ -17,7 +25,7 @@ const DocumentRelatedCheck = () => {
       />
       <AadharFaceNagivetor
         title="For Face Authentication"
-        onPress={handlePress}
+        onPress={onFaceAuthentication}
       />
     </View>
   );

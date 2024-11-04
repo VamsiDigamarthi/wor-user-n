@@ -5,9 +5,9 @@ import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
 import { useNavigation } from "@react-navigation/native";
 import { useSignUpRelatedHook } from "./SignUpRelated.hook";
 
-const SignUpRelated = () => {
-  const { formData, handleInputChange, handleNavigateToOTP } =
-    useSignUpRelatedHook();
+const SignUpRelated = ({ selectedImage, mobile }) => {
+  const { formData, handleInputChange, handleNavigateToOTP, apiError } =
+    useSignUpRelatedHook({ selectedImage, mobile });
 
   return (
     <View style={styles.container}>
@@ -50,6 +50,11 @@ const SignUpRelated = () => {
         value={formData.emergencyContact}
         onChangeText={(value) => handleInputChange("emergencyContact", value)}
       />
+      {apiError && (
+        <View style={styles.errorCard}>
+          <Text style={styles.errorMsg}>{apiError}</Text>
+        </View>
+      )}
       <CustomBtn
         title="continue"
         btnBg="#fff"
@@ -68,5 +73,12 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     gap: 15,
+  },
+  errorCard: {
+    width: "100%",
+  },
+  errorMsg: {
+    color: "red",
+    fontSize: 14,
   },
 });

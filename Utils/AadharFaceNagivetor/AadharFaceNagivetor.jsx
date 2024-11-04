@@ -8,24 +8,43 @@ const AadharFaceNavigator = ({
   isText = false,
   inputWidth = "80%",
   textWidth = "20%",
+  onTextChange = () => {},
+  value = "",
+  isEditable = true,
+  pressBtnOrText = true,
 }) => {
   return (
     <View style={styles.container}>
       <View style={[styles.firstCard, { width: inputWidth }]}>
         {isInput ? (
-          <TextInput placeholder="Enter your aadhar number" />
+          <TextInput
+            onChangeText={onTextChange}
+            placeholder="Enter your aadhar number"
+            value={value}
+            keyboardType="numeric"
+            editable={isEditable}
+          />
         ) : (
           <Text>{title}</Text>
         )}
       </View>
-      <View style={[styles.secondCard, { width: textWidth }]}>
-        <Pressable onPress={onPress}>
-          {isText ? (
-            <Text style={styles.otpTextColor}>Get OTP</Text>
-          ) : (
-            <Ionicons name="arrow-forward-outline" size={25} color="#fff" />
-          )}
-        </Pressable>
+      <View
+        style={[
+          styles.secondCard,
+          { width: textWidth, backgroundColor: !pressBtnOrText && "#f797c7" },
+        ]}
+      >
+        {pressBtnOrText ? (
+          <Pressable android_ripple={{ color: "#ccc" }} onPress={onPress}>
+            {isText ? (
+              <Text style={styles.otpTextColor}>Get OTP</Text>
+            ) : (
+              <Ionicons name="arrow-forward-outline" size={25} color="#fff" />
+            )}
+          </Pressable>
+        ) : (
+          <Text style={styles.verifiedText}>Verified</Text>
+        )}
       </View>
     </View>
   );
@@ -64,5 +83,8 @@ const styles = StyleSheet.create({
   otpTextColor: {
     color: "#fff",
     fontWeight: "600",
+  },
+  verifiedText: {
+    color: "#fff",
   },
 });

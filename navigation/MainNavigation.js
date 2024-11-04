@@ -7,8 +7,6 @@ import AuthStack from "./AuthStack";
 import { Text } from "react-native";
 
 const MainNavigation = () => {
-  // const dispatch = useDispatch();
-  // const { token, loading, isSigningUp } = useSelector((state) => state.token);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -32,8 +30,6 @@ const MainNavigation = () => {
   if (loading) {
     return <Text>Loading...</Text>;
   }
-
-  // console.log("iuytt", isSigningUp);
 
   return (
     <NavigationContainer>

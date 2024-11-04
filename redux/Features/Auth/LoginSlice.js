@@ -47,6 +47,7 @@ const tokenSlice = createSlice({
   },
   reducers: {
     logout: (state) => {
+      console.log("kjhgf");
       state.token = null;
       state.isSigningUp = false;
       AsyncStorage.removeItem("token");

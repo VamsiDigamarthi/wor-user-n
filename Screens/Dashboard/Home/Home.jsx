@@ -14,15 +14,17 @@ import SliderComponent from "../../../Utils/SliderComponent/SliderComponent";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../redux/Features/Auth/LoginSlice";
 import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Home = () => {
   const navigation = useNavigation();
 
   const dispatch = useDispatch();
 
-  const handleRideBookNavigation = () => {
-    dispatch(logout());
-    // navigation.navigate("RideBook");
+  const handleRideBookNavigation = async () => {
+    await AsyncStorage.removeItem("token");
+    // dispatch(logout());
+    navigation.replace("AuthStack");
   };
   return (
     <View style={styles.container}>

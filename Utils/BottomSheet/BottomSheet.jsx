@@ -7,7 +7,7 @@ import SignUpRelated from "../../Components/Auth/SignUpRelated/SignUpRelated";
 import DocumentRelatedCheck from "../../Components/Auth/DocumentRelatedCheck/DocumentRelatedCheck";
 import AadharVerificationCom from "../../Components/Auth/AadharVerificationCom/AadharVerificationCom";
 
-const BottomSheet = ({ uiDisplay }) => {
+const BottomSheet = ({ uiDisplay, selectedImage = "", mobile = "" }) => {
   const onUiChange = () => {
     switch (uiDisplay) {
       case "login":
@@ -15,7 +15,7 @@ const BottomSheet = ({ uiDisplay }) => {
       case "otp":
         return <OtpRelatedInput />;
       case "signup":
-        return <SignUpRelated />;
+        return <SignUpRelated selectedImage={selectedImage} mobile={mobile} />;
       case "documentCheck":
         return <DocumentRelatedCheck />;
       case "aadharVerification":

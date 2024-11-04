@@ -3,6 +3,8 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
 
 import { useOtpComHook } from "./OtpCom.hook";
+import { useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const OtpRelatedInput = ({ btnShow = true }) => {
   const {
@@ -13,6 +15,11 @@ const OtpRelatedInput = ({ btnShow = true }) => {
     inputs,
     otpError,
   } = useOtpComHook();
+
+  useEffect(async () => {
+    const storedToken = await AsyncStorage.getItem("token");
+    console.log(JSON.parse(storedToken));
+  }, []);
 
   return (
     <View style={styles.container}>

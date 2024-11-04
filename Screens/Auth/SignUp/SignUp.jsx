@@ -5,8 +5,12 @@ import BottomSheet from "../../../Utils/BottomSheet/BottomSheet";
 
 import { TouchableOpacity } from "react-native";
 import { useSignUpHook } from "./SignUp.hook";
+import { useRoute } from "@react-navigation/native";
 
 const SignUp = () => {
+  const route = useRoute();
+  const { mobile } = route.params;
+  console.log("sign up", mobile);
   const { selectedImage, handleImagePick } = useSignUpHook();
 
   return (
@@ -31,7 +35,11 @@ const SignUp = () => {
             </View>
           </TouchableOpacity>
         </View>
-        <BottomSheet uiDisplay="signup" />
+        <BottomSheet
+          uiDisplay="signup"
+          selectedImage={selectedImage}
+          mobile={mobile}
+        />
       </View>
     </AuthScreenLayout>
   );
@@ -66,7 +74,7 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
     borderRadius: 75,
-    backgroundColor: "red",
+    // backgroundColor: "red",
     overflow: "hidden",
   },
   image: {
