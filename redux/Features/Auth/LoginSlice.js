@@ -8,7 +8,7 @@ export const loadToken = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const token = await AsyncStorage.getItem("token");
-      return token ? JSON.parse(token) : null; // Return parsed token if found
+      return token ? JSON.parse(token) : null;
     } catch (error) {
       console.error("Failed to load token from AsyncStorage", error);
       return rejectWithValue("Failed to load token");
@@ -16,23 +16,20 @@ export const loadToken = createAsyncThunk(
   }
 );
 
-// Async function to handle user login
+// Async function for user login
 export const userLogin = createAsyncThunk(
   "auth/login",
-  async ({ mobile, otp, navigate }, { rejectWithValue }) => {
+  async ({ mobile, otp, termsAndCondition }, { rejectWithValue }) => {
     try {
-      const response = await API.post("/auth/verify-otp", { mobile, otp });
-      await AsyncStorage.setItem("token", JSON.stringify(response.data.token)); // Save token
-
-      // navigate("otp"); // Navigate to OTP screen
+      const response = await API.post("/auth/verify-otp", {
+        mobile,
+        otp,
+        termsAndCondition,
+      });
+      await AsyncStorage.setItem("token", JSON.stringify(response.data.token));
       return response.data;
     } catch (error) {
-      navigate("signup");
-      if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
+      if (error?.response?.data?.message) {
         return rejectWithValue(error.response.data.message);
       }
       return rejectWithValue(error.message);
@@ -40,43 +37,44 @@ export const userLogin = createAsyncThunk(
   }
 );
 
-// Create token slice
 const tokenSlice = createSlice({
   name: "auth",
   initialState: {
     token: null,
     loading: false,
     error: null,
+    isSigningUp: false,
   },
   reducers: {
     logout: (state) => {
-      state.token = null; // Clear token
-      AsyncStorage.removeItem("token"); // Remove token from AsyncStorage
+      state.token = null;
+      state.isSigningUp = false;
+      AsyncStorage.removeItem("token");
+    },
+    setIsSigningUp: (state, action) => {
+      state.isSigningUp = action.payload;
     },
   },
   extraReducers: (builder) => {
-    // Handle loading token from AsyncStorage
     builder
       .addCase(loadToken.pending, (state) => {
-        state.loading = true; // Set loading state
+        state.loading = true;
       })
       .addCase(loadToken.fulfilled, (state, action) => {
-        state.loading = false; // Set loading to false
-        state.token = action.payload; // Set the token from AsyncStorage
+        state.loading = false;
+        state.token = action.payload;
       })
       .addCase(loadToken.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload; // Handle error state
-      });
-
-    // Handle user login logic
-    builder
+        state.error = action.payload;
+      })
       .addCase(userLogin.pending, (state) => {
         state.loading = true;
       })
       .addCase(userLogin.fulfilled, (state, action) => {
         state.loading = false;
-        state.token = action.payload.token; // Set the token from the API response
+        state.token = action.payload.token;
+        state.isSigningUp = false;
       })
       .addCase(userLogin.rejected, (state, action) => {
         state.loading = false;
@@ -85,7 +83,6 @@ const tokenSlice = createSlice({
   },
 });
 
-// Export the logout action
-export const { logout } = tokenSlice.actions;
+export const { logout, setIsSigningUp } = tokenSlice.actions;
 
 export default tokenSlice.reducer;

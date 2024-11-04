@@ -11,12 +11,18 @@ import { useNavigation } from "@react-navigation/native";
 import DropLocation from "../../../Components/Dashboard/DropLocation/DropLocation";
 import AllServices from "../../../Components/Dashboard/Home/AllServices/AllServices";
 import SliderComponent from "../../../Utils/SliderComponent/SliderComponent";
+import { useDispatch } from "react-redux";
+import { logout } from "../../../redux/Features/Auth/LoginSlice";
+import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
 
 const Home = () => {
   const navigation = useNavigation();
 
+  const dispatch = useDispatch();
+
   const handleRideBookNavigation = () => {
-    navigation.navigate("RideBook"); // Navigate to RideBook in the Stack
+    dispatch(logout());
+    // navigation.navigate("RideBook");
   };
   return (
     <View style={styles.container}>
@@ -41,6 +47,7 @@ const Home = () => {
           <AllServices />
           <SliderComponent />
         </View>
+        <CustomBtn title="remove" onPress={handleRideBookNavigation} />
       </ScrollView>
     </View>
   );

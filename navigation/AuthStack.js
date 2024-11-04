@@ -8,9 +8,9 @@ import DocumentCheck from "../Screens/Auth/DocumentCheck/DocumentCheck";
 
 const Stack = createNativeStackNavigator();
 
-const AuthStack = () => {
+const AuthStack = ({ initialRouteName = "login" }) => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName={initialRouteName}>
       <Stack.Screen
         name="login"
         component={Login}

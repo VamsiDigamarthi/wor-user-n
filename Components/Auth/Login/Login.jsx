@@ -1,4 +1,4 @@
-import { Alert, StyleSheet } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import InputBox from "../../../Utils/InputCard/InputCard";
 import CustomCheckbox from "../../../Utils/CustomCheckbox/CustomCheckbox";
@@ -7,10 +7,15 @@ import { useNavigation } from "@react-navigation/native";
 import { API } from "../../../Constants/url";
 
 const LoginRelatedInput = () => {
+  const [isChecked, setIsChecked] = useState(false);
   const [mobile, setMobile] = useState("");
   const [isValid, setIsValid] = useState(true);
   const [error, setError] = useState("");
   const navigation = useNavigation();
+
+  const handleCheck = () => {
+    setIsChecked(!isChecked);
+  };
 
   const handleLogin = async () => {
     if (!mobile || mobile.length !== 10) {
@@ -25,6 +30,7 @@ const LoginRelatedInput = () => {
       await API.post("/auth/send-otp", { mobile: mobile });
       navigation.navigate("otp", {
         mobile: mobile,
+        termsAndCondition: isChecked,
       });
     } catch (error) {
       console.log(error);
@@ -43,8 +49,12 @@ const LoginRelatedInput = () => {
         onChangeText={(text) => setMobile(text)}
         isValid={isValid}
       />
-      <CustomCheckbox />
-      {error && <Text style={styles.errorMsg}>{error}</Text>}
+      <CustomCheckbox handleCheck={handleCheck} isChecked={isChecked} />
+      {error && (
+        <View style={styles.errorCard}>
+          <Text style={styles.errorMsg}>{error}</Text>
+        </View>
+      )}
       <CustomBtn
         title="continue"
         btnBg="#fff"
@@ -58,6 +68,9 @@ const LoginRelatedInput = () => {
 export default LoginRelatedInput;
 
 const styles = StyleSheet.create({
+  errorCard: {
+    width: "100%",
+  },
   errorMsg: {
     color: "red",
     fontSize: 14,

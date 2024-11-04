@@ -1,20 +1,35 @@
 import { Image, StyleSheet, View } from "react-native";
-import React from "react";
 import AuthScreenLayout from "../../../Layouts/AuthScreenLayout";
 import Logo from "../../../Utils/Logo/Logo";
 import BottomSheet from "../../../Utils/BottomSheet/BottomSheet";
 
+import { TouchableOpacity } from "react-native";
+import { useSignUpHook } from "./SignUp.hook";
+
 const SignUp = () => {
+  const { selectedImage, handleImagePick } = useSignUpHook();
+
   return (
     <AuthScreenLayout>
       <View style={styles.container}>
         <View style={styles.logoContainer}>
           <Logo />
-          <Image
-            source={require("../../../assets/images/undraw_profile_pic_re_iwgo 2.png")}
-            style={styles.image}
-            resizeMode="contain"
-          />
+          <TouchableOpacity
+            style={styles.imgeContainer}
+            onPress={handleImagePick}
+          >
+            <View style={styles.imageInnerCard}>
+              <Image
+                source={
+                  selectedImage
+                    ? { uri: selectedImage }
+                    : require("../../../assets/images/undraw_profile_pic_re_iwgo 2.png")
+                }
+                style={styles.image}
+                resizeMode="contain"
+              />
+            </View>
+          </TouchableOpacity>
         </View>
         <BottomSheet uiDisplay="signup" />
       </View>
@@ -40,8 +55,23 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 12,
   },
+  imgeContainer: {
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+
+    // backgroundColor: "red",
+  },
+  imageInnerCard: {
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    backgroundColor: "red",
+    overflow: "hidden",
+  },
   image: {
-    width: "70%",
-    height: 200,
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
   },
 });

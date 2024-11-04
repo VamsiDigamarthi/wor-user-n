@@ -2,13 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons"; // For checkbox icon
 
-const CustomCheckbox = () => {
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleCheck = () => {
-    setIsChecked(!isChecked);
-  };
-
+const CustomCheckbox = ({ handleCheck, isChecked }) => {
   return (
     <View style={styles.container}>
       <Pressable onPress={handleCheck} style={styles.checkboxContainer}>

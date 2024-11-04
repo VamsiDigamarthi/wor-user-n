@@ -1,31 +1,43 @@
 import { NavigationContainer } from "@react-navigation/native";
 
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import AuthenticatedStack from "./AuthenticatedStack";
 import AuthStack from "./AuthStack";
-import { useDispatch, useSelector } from "react-redux";
-import { loadToken } from "../redux/Features/Auth/LoginSlice";
 import { Text } from "react-native";
 
-const Stack = createNativeStackNavigator();
-
 const MainNavigation = () => {
-  const dispatch = useDispatch();
-  const { token, loading } = useSelector((state) => state.token);
-  console.log("token", token);
+  // const dispatch = useDispatch();
+  // const { token, loading, isSigningUp } = useSelector((state) => state.token);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    dispatch(loadToken());
-  }, [dispatch]);
+    const checkToken = async () => {
+      try {
+        const token = await AsyncStorage.getItem("token");
+        if (token) {
+          setIsLoggedIn(true);
+        }
+      } catch (error) {
+        console.error("Error reading token", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkToken();
+  }, []);
 
   if (loading) {
-    return <Text>Loading</Text>;
+    return <Text>Loading...</Text>;
   }
+
+  // console.log("iuytt", isSigningUp);
 
   return (
     <NavigationContainer>
-      {token ? <AuthenticatedStack /> : <AuthStack />}
+      {isLoggedIn ? <AuthenticatedStack /> : <AuthStack />}
     </NavigationContainer>
   );
 };

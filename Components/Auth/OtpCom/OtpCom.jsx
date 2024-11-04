@@ -1,39 +1,18 @@
-import React, { useRef, useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
-import { useNavigation, useRoute } from "@react-navigation/native";
 import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
 
+import { useOtpComHook } from "./OtpCom.hook";
+
 const OtpRelatedInput = ({ btnShow = true }) => {
-  const route = useRoute(); // Use useRoute to get the route object
-  const { mobile } = route.params;
-
-  console.log("this is otp screen", mobile);
-  const navigation = useNavigation();
-
-  const handleNavigateToOTP = () => {
-    navigation.navigate("signup");
-  };
-
-  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-  const inputs = useRef([]);
-
-  const handleChange = (text, index) => {
-    const newOtp = [...otp];
-    newOtp[index] = text;
-
-    if (text && index < inputs.current.length - 1) {
-      inputs.current[index + 1].focus();
-    }
-
-    setOtp(newOtp);
-  };
-
-  const handleKeyPress = (e, index) => {
-    if (e.nativeEvent.key === "Backspace" && index > 0 && otp[index] === "") {
-      inputs.current[index - 1].focus();
-    }
-  };
+  const {
+    otp,
+    handleChange,
+    handleKeyPress,
+    onHandleOtpApiCall,
+    inputs,
+    otpError,
+  } = useOtpComHook();
 
   return (
     <View style={styles.container}>
@@ -70,12 +49,17 @@ const OtpRelatedInput = ({ btnShow = true }) => {
       <View style={styles.resentOtpCard}>
         <Text style={{ color: "#E02E88", fontSize: 13 }}>Resend Otp</Text>
       </View>
+      {otpError && (
+        <View style={styles.errorCard}>
+          <Text style={styles.errorMsg}>{otpError}</Text>
+        </View>
+      )}
       {btnShow && (
         <CustomBtn
           title="continue"
           btnBg="#fff"
           btnColor="#E02E88"
-          onPress={handleNavigateToOTP}
+          onPress={onHandleOtpApiCall}
         />
       )}
     </View>
@@ -112,5 +96,12 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "flex-end",
     alignItems: "flex-end",
+  },
+  errorCard: {
+    width: "100%",
+  },
+  errorMsg: {
+    color: "red",
+    fontSize: 14,
   },
 });
