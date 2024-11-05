@@ -17,14 +17,17 @@ const Drawer = createDrawerNavigator();
 
 const Stack = createNativeStackNavigator();
 
-const DrawerNavigator = () => {
+const DrawerNavigator = ({ route }) => {
+  const placeName = route?.params?.placeName || "";
   return (
     <>
       <StatusBar backgroundColor="#f5f2f2" barStyle="dark-content" />
 
       <Drawer.Navigator
         screenOptions={{
-          header: ({ navigation }) => <CustomAppBar navigation={navigation} />,
+          header: ({ navigation }) => (
+            <CustomAppBar navigation={navigation} placeName={placeName} />
+          ),
         }}
       >
         <Drawer.Screen name="Home" component={Home} />
@@ -49,7 +52,7 @@ const AuthenticatedStack = () => {
         name="SelectDropLocation"
         component={SelectDropLocation}
         options={({ navigation }) => ({
-          title: "Book Your Ride", // Set the title of the app bar
+          title: "Designation", // Set the title of the app bar
           headerStyle: {
             backgroundColor: "#fff5f9",
             elevation: 0,

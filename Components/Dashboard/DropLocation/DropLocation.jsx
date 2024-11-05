@@ -1,18 +1,32 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
-import { TextInput } from "react-native-gesture-handler";
 import DropLocationItem from "./Components/DropLocationItem/DropLocationItem";
-const DropLocation = () => {
+import { TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import ShowPickDropCard from "../ShowPrices/ShowPickDropCard/ShowPickDropCard";
+const DropLocation = ({ nearbyPlaces, placeName }) => {
+  const navigation = useNavigation();
+  const handleNavigate = () => {
+    navigation.navigate("SelectDropLocation", {
+      placeName,
+    });
+  };
   return (
     <View style={styles.container}>
-      <View style={styles.inputCard}>
+      <TouchableOpacity style={styles.inputCard} onPress={handleNavigate}>
         <Ionicons name="location" size={25} color="#E02E88" />
-        <TextInput style={styles.input} placeholder="Enter Drop Location" />
-      </View>
-      <DropLocationItem />
-      <DropLocationItem />
-      <DropLocationItem />
+        <View style={styles.inputTypeCard}>
+          <Text>Enter Drop Location</Text>
+        </View>
+      </TouchableOpacity>
+      {nearbyPlaces?.slice(0, 3)?.map((eachPlace, key) => (
+        <DropLocationItem
+          mainPlace={eachPlace?.name}
+          subPlace={eachPlace.vicinity}
+          key={key}
+        />
+      ))}
     </View>
   );
 };
@@ -41,8 +55,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 3,
   },
-  input: {
+  inputTypeCard: {
     width: "90%",
     height: "100%",
+    justifyContent: "center",
   },
 });

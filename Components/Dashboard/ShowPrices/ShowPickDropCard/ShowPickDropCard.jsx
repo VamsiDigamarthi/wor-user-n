@@ -1,19 +1,21 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import ShowPickDropItem from "./Component/ShowPickDropItem/ShowPickDropItem";
+import IconButton from "../../../../Utils/IconButton/IconButton";
 
-const ShowPickDropCard = () => {
+const ShowPickDropCard = ({ placeName }) => {
   return (
     <View style={styles.container}>
       <ShowPickDropItem
         icons="location"
-        location="Nuhvin Global server Limited"
+        location={placeName}
         border={styles.borderBo}
         time
       />
       <ShowPickDropItem
         icons="locate-sharp"
         location="Hi-Tech city Metro Station"
+        isInputShow={true}
       />
     </View>
   );
@@ -27,10 +29,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     elevation: 0,
     borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#ffe2e6",
   },
   borderBo: {
     borderBottomWidth: 1,
-    borderBlockColor: "#e02e99",
+    borderBlockColor: "#ffe2e6",
     position: "relative",
   },
 });

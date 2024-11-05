@@ -1,24 +1,12 @@
-import {
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  Image,
-  Button,
-} from "react-native";
+import { StatusBar, StyleSheet, View, ScrollView } from "react-native";
 import React from "react";
-import DropLocation from "../../../Components/Dashboard/DropLocation/DropLocation";
-import AllServices from "../../../Components/Dashboard/Home/AllServices/AllServices";
-import SliderComponent from "../../../Utils/SliderComponent/SliderComponent";
-import { useNavigation } from "@react-navigation/native";
-
+import ShowPickDropCard from "../../../Components/Dashboard/ShowPrices/ShowPickDropCard/ShowPickDropCard";
+import { useRoute } from "@react-navigation/native";
+import IconButton from "../../../Utils/IconButton/IconButton";
 const SelectDropLocation = () => {
-  const navigation = useNavigation();
+  const route = useRoute();
 
-  const onNavigatePrice = () => {
-    navigation.navigate("ShowPrice");
-  };
+  const { placeName } = route.params;
 
   return (
     <View style={styles.container}>
@@ -32,16 +20,13 @@ const SelectDropLocation = () => {
         }}
         showsVerticalScrollIndicator={false}
       >
-        <DropLocation />
-        <AllServices />
-        <SliderComponent />
-        <Image
-          style={styles.images}
-          source={{
-            uri: "https://s3-alpha-sig.figma.com/img/7911/de63/52b2a75265856d69f141a38e4434558f?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=RAocZw5Rc3jB8VsL64WqRmTcZsABcJV4rNDw4rdVJ3gZKC8iLxUAiPZul0RJnCgirjIrvjJT1FBxkNXOYwoJW0UvlmRhI9BtAmQUzZGPg15wqw1Uz~E6EEbDAKAofy7aCQ2ZGsg-A48C~9n0ozfB1b2gTGC8wsuHz05K3Z9q4zwvfbJy3tJbiEnWNFDaEGvo2MAst9ckOtdE~W6YjEH41GSjdlx1UtPSVuqH4HODgwRnxUGgqYayCpkkiLiHQB1w5lesRCndmYVgGQG3m2v1Q9TSI09LwJxAk5066FcD9mt2SrVTwBNeTMK8rZYluvhUnGYX-fDOgCFjsdSN7Yj5SA__",
-          }}
-        />
-        <Button title="Price" onPress={onNavigatePrice} />
+        <View style={styles.pickDropBtnCard}>
+          <ShowPickDropCard placeName={placeName} />
+          <View style={styles.mapFavoriteCard}>
+            <IconButton icons="location" title="Select on Map" />
+            <IconButton icons="location" title="Favorite Places" />
+          </View>
+        </View>
       </ScrollView>
     </View>
   );
@@ -63,5 +48,22 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 10,
     overflow: "hidden",
+  },
+
+  pickDropBtnCard: {
+    borderWidth: 1,
+    borderColor: "#ffe2e6",
+    borderRadius: 8,
+    backgroundColor: "#fff",
+  },
+
+  mapFavoriteCard: {
+    width: "100%",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    alignItems: "center",
+    paddingVertical: 15,
+    gap: 15,
   },
 });

@@ -1,22 +1,26 @@
 import React from "react";
-import { View, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons"; // Import icons from expo vector icons
 
-const CustomAppBar = ({ navigation }) => {
+const CustomAppBar = ({ navigation, placeName }) => {
   return (
     <View style={styles.appBarContainer}>
-      {/* Drawer Icon on the left */}
       <TouchableOpacity onPress={() => navigation.openDrawer()}>
         <Ionicons name="menu" size={24} color="#e02e88" />
       </TouchableOpacity>
 
-      {/* Center: TextInput with Location Icon */}
       <View style={styles.locationInputContainer}>
         <Ionicons name="location-sharp" size={20} color="lightgray" />
-        <TextInput placeholder="Enter location" style={styles.locationInput} />
+        <Text style={styles.title}>{placeName || "Women Rider"}</Text>
+        {/* <TextInput placeholder="Enter location" style={styles.locationInput} /> */}
       </View>
 
-      {/* Love Icon on the right */}
       <TouchableOpacity onPress={() => alert("Love icon pressed!")}>
         <Ionicons name="heart-outline" size={24} color="lightgray" />
       </TouchableOpacity>
@@ -30,7 +34,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     marginHorizontal: 20,
-    marginVertical: 20,
+    marginTop: 20,
+    marginBottom: 5,
     borderWidth: 1, // Apply border to all sides
     borderColor: "#f7f5f5",
     paddingHorizontal: 13,
@@ -51,6 +56,12 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 5,
     fontSize: 16,
+  },
+  title: {
+    fontSize: 13,
+    fontWeight: "600",
+    color: "gray",
+    marginLeft: 6,
   },
 });
 

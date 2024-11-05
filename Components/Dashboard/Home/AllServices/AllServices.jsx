@@ -8,14 +8,13 @@ import {
 } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
 
 const AllServices = () => {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
-  const onNavigateDropSelectedScreen = () => {
-    navigation.navigate("SelectDropLocation");
-  };
+  // const onNavigateDropSelectedScreen = () => {
+  //   navigation.navigate("SelectDropLocation");
+  // };
 
   return (
     <View style={styles.container}>
@@ -34,13 +33,13 @@ const AllServices = () => {
       >
         {/* Service Items */}
         <View style={styles.singleItem}>
-          <Pressable onPress={onNavigateDropSelectedScreen}>
-            <Image
-              source={require("../../../../assets/images/image.png")}
-              style={styles.image} // Apply styles for images
-            />
-            <Text>Scooty</Text>
-          </Pressable>
+          {/* <Pressable onPress={onNavigateDropSelectedScreen}> */}
+          <Image
+            source={require("../../../../assets/images/image.png")}
+            style={styles.image} // Apply styles for images
+          />
+          <Text>Scooty</Text>
+          {/* </Pressable> */}
         </View>
         <View style={styles.singleItem}>
           <Image

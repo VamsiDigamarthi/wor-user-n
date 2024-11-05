@@ -1,14 +1,48 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { StyleSheet, Text, TextInput, View } from "react-native";
+import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { nearPlacesByText } from "../../../../../../Constants/displaylocationmap";
 
-const ShowPickDropItem = ({ icons, location, border, time }) => {
+const ShowPickDropItem = ({ icons, location, border, time, isInputShow }) => {
+  const [inputValue, setInputValue] = useState("");
+
+  const [suggestions, setSuggestions] = useState([]);
+
+  const fetchPlaceSuggestions = async (input) => {
+    console.log(input);
+    let nearPlaces = await nearPlacesByText(input);
+    console.log(nearPlaces);
+    // setSuggestions(nearPlaces);
+  };
+
+  // Handle text input changes
+  const handleInputChange = (text) => {
+    setInputValue(text);
+    if (text.length > 2) {
+      fetchPlaceSuggestions(text);
+    } else {
+      setSuggestions([]);
+    }
+  };
+
   return (
     <View style={[styles.constainer, border]}>
       <Ionicons name={icons} size={25} color="#E02E88" />
-      <Text numberOfLines={1} ellipsizeMode="tail" style={styles.locationText}>
-        {location}
-      </Text>
+      {isInputShow ? (
+        <TextInput
+          placeholder="Enter Destination"
+          value={inputValue}
+          onChangeText={handleInputChange}
+        />
+      ) : (
+        <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          style={styles.locationText}
+        >
+          {location}
+        </Text>
+      )}
       {time && (
         <View style={styles.timeCard}>
           <Ionicons name="time-outline" size={18} color="#E02E88" />
@@ -29,10 +63,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 10,
     flexDirection: "row",
-    // overflow: "hidden",
   },
   locationText: {
-    flex: 1, // Allow the text to take up available space
+    flex: 1,
   },
   timeCard: {
     width: 70,

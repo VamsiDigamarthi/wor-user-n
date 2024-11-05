@@ -3,16 +3,16 @@ import React from "react";
 
 import { Ionicons } from "@expo/vector-icons";
 
-const DropLocationItem = () => {
+const DropLocationItem = ({ mainPlace, subPlace }) => {
   return (
     <View style={styles.container}>
       <View style={styles.first}>
         <Ionicons name="location" size={25} color="#fff" />
       </View>
       <View style={styles.second}>
-        <Text style={styles.locText}>Your Location</Text>
+        <Text style={styles.locText}>{mainPlace}</Text>
         <Text style={styles.subLocText} numberOfLines={1}>
-          Sagar Nagar, Manasa Hills, Rajendranagar
+          {subPlace}
         </Text>
       </View>
       <View style={styles.third}>
