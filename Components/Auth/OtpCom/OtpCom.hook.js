@@ -42,7 +42,8 @@ export const useOtpComHook = () => {
       );
       // console.log(response);
       if (response.payload && response.payload.token) {
-        navigation.navigate("Home"); // Replace "Home" with your authenticated screen
+        // navigation.navigate("Home"); // Replace "Home" with your authenticated screen
+        navigation.navigate("DrawerNavigator");
       } else if (response.payload === "User does not exist") {
         // dispatch(setIsSigningUp(true));
         navigation.navigate("signup", {

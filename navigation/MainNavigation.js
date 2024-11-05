@@ -4,7 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import AuthenticatedStack from "./AuthenticatedStack";
 import AuthStack from "./AuthStack";
-import { Text } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 
 const MainNavigation = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -28,7 +28,14 @@ const MainNavigation = () => {
   }, []);
 
   if (loading) {
-    return <Text>Loading...</Text>;
+    return (
+      <View style={styles.loadingCard}>
+        <Image
+          style={styles.loadingImage}
+          source={require("../assets/images/logo.png")}
+        />
+      </View>
+    );
   }
 
   return (
@@ -39,3 +46,16 @@ const MainNavigation = () => {
 };
 
 export default MainNavigation;
+
+const styles = StyleSheet.create({
+  loadingCard: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  loadingImage: {
+    width: 200,
+    height: 200,
+    resizeMode: "contain",
+  },
+});

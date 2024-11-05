@@ -24,7 +24,7 @@ const Home = () => {
   const handleRideBookNavigation = async () => {
     await AsyncStorage.removeItem("token");
     // dispatch(logout());
-    navigation.replace("AuthStack");
+    navigation.navigate("login");
   };
   return (
     <View style={styles.container}>
