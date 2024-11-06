@@ -58,7 +58,7 @@ export const useHomeHook = () => {
   return {
     location,
     nearByRandomItems,
-    placeName,
-    nearbyPlaces,
+    placeName, // based on coordinates to get own location
+    nearbyPlaces, // based on coordinates to get near places
   };
 };

@@ -7,11 +7,13 @@ import { useSelectDropLocationHook } from "./SelectDropLocation.hhok";
 import DropLocationItem from "../../../Components/Dashboard/DropLocation/Components/DropLocationItem/DropLocationItem";
 const SelectDropLocation = () => {
   const {
-    placeName,
     inputValue,
     suggestions,
     handleInputChange,
+    placeName,
     nearbyPlaces,
+    onUserSelectDropLocationByNeardPlace,
+    onUserSelectDropLocationByEnterInput,
   } = useSelectDropLocationHook();
   // console.log(nearbyPlaces);
   return (
@@ -40,13 +42,15 @@ const SelectDropLocation = () => {
         renderItem={({ item }) =>
           suggestions && suggestions.length > 0 ? (
             <DropLocationItem
-              mainPlace={item?.structuredFormatting?.mainText}
-              subPlace={item?.structuredFormatting?.secondaryText}
+              mainPlace={item?.name}
+              subPlace={item?.secondaryText}
+              onPress={onUserSelectDropLocationByEnterInput.bind(this, item)}
             />
           ) : (
             <DropLocationItem
               mainPlace={item?.name}
               subPlace={item?.vicinity}
+              onPress={onUserSelectDropLocationByNeardPlace.bind(this, item)}
             />
           )
         }

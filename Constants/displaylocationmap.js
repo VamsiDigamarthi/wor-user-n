@@ -38,15 +38,12 @@ export const nearPlacesByText = async (text) => {
   try {
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data?.predictions);
     if (data.predictions) {
       const formattedPredictions = data.predictions.map((prediction) => ({
         description: prediction.description,
         placeId: prediction.place_id,
-        structuredFormatting: {
-          mainText: prediction.structured_formatting.main_text,
-          secondaryText: prediction.structured_formatting.secondary_text,
-        },
+        name: prediction.structured_formatting.main_text,
+        secondaryText: prediction.structured_formatting.secondary_text,
       }));
 
       return formattedPredictions;
@@ -66,6 +63,7 @@ export const getCoordinatesFromPlaceId = async (placeId) => {
     const data = await response.json();
     if (data.status === "OK") {
       const location = data.result.geometry.location;
+
       return {
         lat: location.lat,
         lng: location.lng,

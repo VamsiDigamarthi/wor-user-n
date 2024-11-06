@@ -31,9 +31,10 @@ const Home = () => {
         <View style={styles.bottomSheet}>
           <Text style={styles.text}></Text>
           <DropLocation
-            nearByRandomItems={nearByRandomItems}
-            placeName={placeName}
-            nearbyPlaces={nearbyPlaces}
+            nearByRandomItems={nearByRandomItems} // this is display 3 items
+            placeName={placeName} // this prop is store current location text
+            nearbyPlaces={nearbyPlaces} // this prop store nearby places from user current location to 1 km radius famous location [place this data into "select drop location screen to display initial locations"]
+            location={location} // this is location used for pass this data into price screen
           />
           <AllServices />
           <SliderComponent />

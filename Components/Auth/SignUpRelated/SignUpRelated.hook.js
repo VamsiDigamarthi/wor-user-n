@@ -13,6 +13,7 @@ export const useSignUpRelatedHook = ({ selectedImage, mobile }) => {
     email: "",
     address: "",
     emergencyContact: "",
+    role: "user",
   });
 
   const handleInputChange = (field, value) => {

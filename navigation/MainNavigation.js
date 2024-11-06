@@ -5,8 +5,11 @@ import { useEffect, useState } from "react";
 import AuthenticatedStack from "./AuthenticatedStack";
 import AuthStack from "./AuthStack";
 import { Image, StyleSheet, View } from "react-native";
+import { useDispatch } from "react-redux";
+import { setToken } from "../redux/Features/Auth/LoginSlice";
 
 const MainNavigation = () => {
+  const dispatch = useDispatch();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -16,6 +19,7 @@ const MainNavigation = () => {
         const token = await AsyncStorage.getItem("token");
         if (token) {
           setIsLoggedIn(true);
+          await dispatch(setToken(JSON.parse(token)));
         }
       } catch (error) {
         console.error("Error reading token", error);

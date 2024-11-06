@@ -10,8 +10,18 @@ import React from "react";
 import ShowPickDropCard from "../../../Components/Dashboard/ShowPrices/ShowPickDropCard/ShowPickDropCard";
 import ShowVehicle from "../../../Components/Dashboard/ShowPrices/ShowVehicle/ShowVehicle";
 import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
-
+import { useShowPriceHook } from "./ShowPrice.hook.js";
 const ShowPrice = () => {
+  const {
+    placeName,
+    dropDetails,
+    pricesInKM,
+    handleVehiclePress,
+    selectedVehicle,
+    onPlaceTheOrder,
+    apiError,
+  } = useShowPriceHook();
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#f5f2f2" />
@@ -33,11 +43,32 @@ const ShowPrice = () => {
 
         <View style={styles.bottomSheet}>
           <Text style={styles.text}></Text>
-          <ShowPickDropCard />
-          <ShowVehicle />
-          <ShowVehicle />
-
-          <ShowVehicle />
+          <ShowPickDropCard
+            placeName={placeName}
+            isInputShow={false}
+            dropLocation={dropDetails?.name}
+          />
+          <ShowVehicle
+            image={require("../../../assets/images/scooty.png")}
+            personCount={1}
+            price={pricesInKM?.scooty}
+            isSelected={selectedVehicle === "scooty"}
+            onPress={() => handleVehiclePress("scooty")}
+          />
+          <ShowVehicle
+            image={require("../../../assets/images/car.png")}
+            personCount={4}
+            price={pricesInKM?.car}
+            isSelected={selectedVehicle === "car"}
+            onPress={() => handleVehiclePress("car")}
+          />
+          <ShowVehicle
+            image={require("../../../assets/images/auto.png")}
+            personCount={3}
+            price={pricesInKM?.auto}
+            isSelected={selectedVehicle === "auto"}
+            onPress={() => handleVehiclePress("auto")}
+          />
         </View>
         <View style={styles.coupneWithBtn}>
           <View style={styles.couponTextCard}>
@@ -47,11 +78,18 @@ const ShowPrice = () => {
               <Text>Cash</Text>
             </Text>
           </View>
+          {apiError && (
+            <View style={styles.errorCard}>
+              <Text style={styles.errorMsg}>{apiError}</Text>
+            </View>
+          )}
           <CustomBtn
             width="100%"
             btnBg="#e02e88"
             btnColor="#fff"
             title="Book Ride"
+            onPress={onPlaceTheOrder}
+            disabled={true}
           />
         </View>
       </ScrollView>
@@ -126,5 +164,12 @@ const styles = StyleSheet.create({
     width: 67,
     justifyContent: "flex-end",
     alignItems: "flex-end",
+  },
+  errorCard: {
+    width: "100%",
+  },
+  errorMsg: {
+    color: "red",
+    fontSize: 14,
   },
 });

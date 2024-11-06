@@ -5,12 +5,12 @@ import { nearPlacesByText } from "../../../../../../Constants/displaylocationmap
 
 const ShowPickDropItem = ({
   icons,
-  location,
+  location, // this is comming from first or second card display pick location
   border,
   time,
-  isInputShow,
-  inputValue,
-  handleInputChange,
+  isInputShow, // realted input
+  inputValue, // realted input
+  handleInputChange, // realted input
 }) => {
   return (
     <View style={[styles.constainer, border]}>

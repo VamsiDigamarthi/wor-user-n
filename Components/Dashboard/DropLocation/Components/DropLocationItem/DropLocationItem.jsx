@@ -3,7 +3,7 @@ import React from "react";
 
 import { Ionicons } from "@expo/vector-icons";
 
-const DropLocationItem = ({ mainPlace, subPlace }) => {
+const DropLocationItem = ({ mainPlace, subPlace, onPress }) => {
   return (
     <View style={styles.container}>
       <Pressable
@@ -12,6 +12,7 @@ const DropLocationItem = ({ mainPlace, subPlace }) => {
           borderless: false, // Ensures ripple stays within the bounds of the button
         }}
         style={styles.pressableCard}
+        onPress={onPress}
       >
         <View style={styles.first}>
           <Ionicons name="location" size={25} color="#fff" />

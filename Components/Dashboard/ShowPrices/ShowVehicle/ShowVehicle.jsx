@@ -1,22 +1,15 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-const ShowVehicle = () => {
-  const navigation = useNavigation();
 
-  const onNavigateLookForRide = () => {
-    navigation.navigate("lookingforride");
-  };
+const ShowVehicle = ({ image, personCount, price, isSelected, onPress }) => {
   return (
-    <Pressable style={{ width: "100%" }} onPress={onNavigateLookForRide}>
+    <Pressable
+      style={[styles.pressContainer, isSelected && styles.pressedContainer]} // Apply border if selected
+      onPress={onPress} // Call onPress when clicked
+    >
       <View style={styles.container}>
-        <Image
-          style={styles.image}
-          source={{
-            uri: "https://s3-alpha-sig.figma.com/img/6c39/c344/6842997a36ea8546ed6bc9872ca9d015?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=qIsO~FlCf0CY6so-yw3WzH4wxW7IB82Uxm5HjKvRIeaNJzH4CiW9FeIScedd6-DK2EBLhDgEQp4g3q0haJlacsof5pdKwiz02nGhladaKXlKD-vjGR3ivGo89XPYzyRl30F0eFphhxXth4uMDvSMXTND57B7VOlLJ0VxAFQlY0jfSDuD-JH8S5qNgvW9tjgstLP-DwgnbYfAnlc1bklQD28RTe-tjWrBBSaKhtUqgRmqidlTSuh5mR6uZxsbS5yXo57wEYHpqhruJsGVZ1FDXfQDvmbIRuXTdi7amlhZ0RKgBsgtm4v8JT1ldol6XGlW4RMPdnrFtJIPgTZVM7pXcA__",
-          }}
-        />
+        <Image style={styles.image} source={image} />
         <View style={styles.textCard}>
           <View style={styles.textWithPersonCard}>
             <Text style={styles.vehicleType}>Scooty</Text>
@@ -24,12 +17,12 @@ const ShowVehicle = () => {
               style={{ flexDirection: "row", gap: 2, alignItems: "center" }}
             >
               <Ionicons name="person-outline" size={13} color="#E02E88" />
-              <Text style={{ fontSize: 12, color: "gray" }}>1</Text>
+              <Text style={{ fontSize: 12, color: "gray" }}>{personCount}</Text>
             </View>
           </View>
           <Text style={styles.captionText}>Beat the traffic & Pay less</Text>
         </View>
-        <Text style={styles.price}>₹70</Text>
+        <Text style={styles.price}>₹{price?.toFixed(0)}</Text>
       </View>
     </Pressable>
   );
@@ -38,6 +31,14 @@ const ShowVehicle = () => {
 export default ShowVehicle;
 
 const styles = StyleSheet.create({
+  pressContainer: {
+    width: "100%",
+  },
+  pressedContainer: {
+    borderWidth: 1,
+    borderColor: "#E02E88", // Border color for selected vehicle
+    borderRadius: 8,
+  },
   container: {
     width: "100%",
     backgroundColor: "#fff",
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   image: {
-    width: 50,
+    width: 45,
     height: 50,
     resizeMode: "contain",
   },
@@ -62,7 +63,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    // gap: 30,
   },
   vehicleType: { fontWeight: "bold", fontSize: 14, color: "#e02e88" },
   captionText: {

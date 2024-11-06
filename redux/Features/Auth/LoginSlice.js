@@ -52,6 +52,10 @@ const tokenSlice = createSlice({
       state.isSigningUp = false;
       AsyncStorage.removeItem("token");
     },
+
+    setToken: (state, action) => {
+      state.token = action.payload;
+    },
     setIsSigningUp: (state, action) => {
       state.isSigningUp = action.payload;
     },
@@ -84,6 +88,6 @@ const tokenSlice = createSlice({
   },
 });
 
-export const { logout, setIsSigningUp } = tokenSlice.actions;
+export const { logout, setIsSigningUp, setToken } = tokenSlice.actions;
 
 export default tokenSlice.reducer;
