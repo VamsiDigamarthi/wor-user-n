@@ -5,16 +5,20 @@ import { useEffect, useState } from "react";
 import AuthenticatedStack from "./AuthenticatedStack";
 import AuthStack from "./AuthStack";
 import { Image, StyleSheet, View } from "react-native";
-import { useDispatch } from "react-redux";
-import { setToken } from "../redux/Features/Auth/LoginSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  noToken,
+  setIsLogin,
+  setToken,
+} from "../redux/Features/Auth/LoginSlice";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const Stack = createNativeStackNavigator();
 
 const MainNavigation = () => {
   const dispatch = useDispatch();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [loading, setLoading] = useState(true);
+
+  const { token, loading } = useSelector((state) => state.token);
 
   useEffect(() => {
     const checkToken = async () => {
@@ -22,16 +26,15 @@ const MainNavigation = () => {
         const token = await AsyncStorage.getItem("token");
         if (token) {
           console.log("token found");
-          setIsLoggedIn(true);
-          await dispatch(setToken(JSON.parse(token)));
+          dispatch(setToken(JSON.parse(token)));
         } else {
           console.log("no token");
-          setIsLoggedIn(false);
+          dispatch(noToken(false));
         }
       } catch (error) {
         console.error("Error reading token", error);
       } finally {
-        setLoading(false);
+        // setLoading(false);
       }
     };
 
@@ -49,18 +52,16 @@ const MainNavigation = () => {
     );
   }
 
-  console.log(isLoggedIn);
-
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName={isLoggedIn ? "AuthenticatedStack" : "AuthStack"}
+        initialRouteName={token ? "AuthenticatedStack" : "AuthStack"}
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen
           name="AuthenticatedStack"
           component={AuthenticatedStack}
-          initialParams={{ isLoggedIn }}
+          // initialParams={{ isLogin }}
           initialRouteName="DrawerNavigator"
           options={{ headerShown: false }}
         />
@@ -69,7 +70,7 @@ const MainNavigation = () => {
           name="AuthStack"
           component={AuthStack}
           initialRouteName="login"
-          initialParams={{ isLoggedIn }}
+          // initialParams={{ isLogin }}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

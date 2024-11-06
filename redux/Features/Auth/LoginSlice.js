@@ -41,10 +41,10 @@ const tokenSlice = createSlice({
   name: "auth",
   initialState: {
     token: null,
-    loading: false,
+    loading: true,
     error: null,
     isSigningUp: false,
-    isLogin:false
+    isLogin: false,
   },
   reducers: {
     logout: (state) => {
@@ -56,14 +56,15 @@ const tokenSlice = createSlice({
 
     setToken: (state, action) => {
       state.token = action.payload;
+      state.loading = false;
     },
     setIsSigningUp: (state, action) => {
       state.isSigningUp = action.payload;
     },
 
-    setIsLogin:(state, action)=>{
-      state.isLogin = action.payload;
-    }
+    noToken: (state, action) => {
+      state.loading = false;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -97,6 +98,7 @@ const tokenSlice = createSlice({
   },
 });
 
-export const { logout, setIsSigningUp, setToken, setIsLogin } = tokenSlice.actions;
+export const { logout, setIsSigningUp, setToken, setIsLogin, noToken } =
+  tokenSlice.actions;
 
 export default tokenSlice.reducer;

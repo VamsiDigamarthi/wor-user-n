@@ -40,18 +40,7 @@ const DrawerNavigator = ({ route }) => {
   );
 };
 
-const AuthenticatedStack = ({ route }) => {
-  const navigation = useNavigation();
-
-  const isLogin = useSelector((state) => state.token.isLogin);
-
-  useEffect(() => {
-    if (!isLogin) {
-      console.log(isLogin, "from authenticatedstack");
-      navigation.navigate("AuthStack");
-    }
-  }, [isLogin]);
-
+const AuthenticatedStack = () => {
   return (
     <Stack.Navigator>
       {/* Drawer screens */}

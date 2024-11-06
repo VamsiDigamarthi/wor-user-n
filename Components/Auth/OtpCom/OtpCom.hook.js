@@ -43,8 +43,6 @@ export const useOtpComHook = () => {
       );
 
       if (response.payload && response.payload.token) {
-        // navigation.navigate("Home"); // Replace "Home" with your authenticated screen
-        setIsLogin(true);
         navigation.navigate("AuthenticatedStack");
       } else if (response.payload === "User does not exist") {
         // dispatch(setIsSigningUp(true));
