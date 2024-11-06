@@ -7,6 +7,9 @@ import AuthStack from "./AuthStack";
 import { Image, StyleSheet, View } from "react-native";
 import { useDispatch } from "react-redux";
 import { setToken } from "../redux/Features/Auth/LoginSlice";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+const Stack = createNativeStackNavigator();
 
 const MainNavigation = () => {
   const dispatch = useDispatch();
@@ -20,6 +23,10 @@ const MainNavigation = () => {
         if (token) {
           setIsLoggedIn(true);
           await dispatch(setToken(JSON.parse(token)));
+        }
+        else {
+          console.log(token);
+          setIsLoggedIn(false);
         }
       } catch (error) {
         console.error("Error reading token", error);
@@ -44,8 +51,27 @@ const MainNavigation = () => {
 
   return (
     <NavigationContainer>
-      {isLoggedIn ? <AuthenticatedStack /> : <AuthStack />}
-    </NavigationContainer>
+    <Stack.Navigator
+    initialRouteName={isLoggedIn ? "AuthenticatedStack" : "AuthStack"}
+    screenOptions={{ headerShown: false }}
+  >
+    <Stack.Screen
+      name="AuthenticatedStack"
+      component={AuthenticatedStack}
+      initialParams={{ isLoggedIn }}
+      initialRouteName="DrawerNavigator"
+      options={{ headerShown: false }}
+    />
+
+    <Stack.Screen
+      name="AuthStack"
+      component={AuthStack}
+      initialRouteName="login"
+      initialParams={{ isLoggedIn }}
+      options={{ headerShown: false }}
+    />
+  </Stack.Navigator>
+</NavigationContainer>
   );
 };
 

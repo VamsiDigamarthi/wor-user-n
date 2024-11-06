@@ -7,7 +7,7 @@ import { useHomeHook } from "./Home.hook";
 import BackgroundImage from "../../../Utils/BackgroundImage/BackgroundImage";
 import HomeMap from "../../../Utils/HomeMap/HomeMap";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useNavigation } from "@react-navigation/native";
+import { CommonActions, useNavigation } from "@react-navigation/native";
 
 const Home = () => {
   const navigation = useNavigation();
@@ -15,11 +15,16 @@ const Home = () => {
   const { location, nearByRandomItems, placeName, nearbyPlaces } =
     useHomeHook();
 
-  const onBackLogin = async () => {
-    await AsyncStorage.removeItem("token");
-    navigation.navigate("login");
-  };
-
+    const onBackLogin = async () => {
+      await AsyncStorage.removeItem("token");
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: "AuthStack" }],
+        })
+      );
+    };
+  
   return (
     <View style={styles.container}>
       <HomeMap location={location} />
@@ -39,7 +44,7 @@ const Home = () => {
           <AllServices />
           <SliderComponent />
           <BackgroundImage />
-          <Button title="Go BAck" onPress={onBackLogin} />
+          <Button title="Go Back" onPress={onBackLogin} />
         </View>
       </ScrollView>
     </View>

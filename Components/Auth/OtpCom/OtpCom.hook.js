@@ -1,12 +1,15 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   userLogin,
   setIsSigningUp,
+  setIsLogin
 } from "../../../redux/Features/Auth/LoginSlice";
 
 export const useOtpComHook = () => {
+
+
   const inputs = useRef([]);
   const route = useRoute();
   const { mobile, termsAndCondition } = route.params;
@@ -40,10 +43,11 @@ export const useOtpComHook = () => {
       const response = await dispatch(
         userLogin({ mobile, otp: otp.join(""), termsAndCondition })
       );
-      // console.log(response);
+      console.log(response);
       if (response.payload && response.payload.token) {
         // navigation.navigate("Home"); // Replace "Home" with your authenticated screen
-        navigation.navigate("DrawerNavigator");
+        setIsLogin(true);
+        navigation.navigate("AuthenticatedStack");
       } else if (response.payload === "User does not exist") {
         // dispatch(setIsSigningUp(true));
         navigation.navigate("signup", {
