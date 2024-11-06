@@ -12,6 +12,9 @@ import { Ionicons } from "@expo/vector-icons";
 import ShowPrice from "../Screens/Dashboard/ShowPrice/ShowPrice";
 import LookingForRide from "../Screens/Dashboard/LookingForRide/LookingForRide";
 import CaptainAcceptRide from "../Screens/Dashboard/CaptainAcceptRide/CaptainAcceptRide";
+import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const Drawer = createDrawerNavigator();
 
@@ -37,7 +40,24 @@ const DrawerNavigator = ({ route }) => {
   );
 };
 
-const AuthenticatedStack = () => {
+const AuthenticatedStack = ({route }) => {
+  
+  
+  const navigation = useNavigation()
+
+  const isLogin = useSelector((state)=>state.token.isLogin)
+
+
+  
+useEffect(()=>{
+  
+  if (!isLogin) {
+    console.log(isLogin, "from authenticatedstack");
+    navigation.navigate("AuthStack")
+  }
+
+},[isLogin])
+
   return (
     <Stack.Navigator>
       {/* Drawer screens */}
@@ -45,6 +65,7 @@ const AuthenticatedStack = () => {
         name="DrawerNavigator"
         component={DrawerNavigator}
         options={{ headerShown: false }}
+
       />
 
       <Stack.Screen name="RideBook" component={RideBook} />

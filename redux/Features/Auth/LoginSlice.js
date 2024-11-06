@@ -44,6 +44,7 @@ const tokenSlice = createSlice({
     loading: false,
     error: null,
     isSigningUp: false,
+    isLogin:false
   },
   reducers: {
     logout: (state) => {
@@ -59,6 +60,10 @@ const tokenSlice = createSlice({
     setIsSigningUp: (state, action) => {
       state.isSigningUp = action.payload;
     },
+
+    setIsLogin:(state, action)=>{
+      state.isLogin = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -68,10 +73,12 @@ const tokenSlice = createSlice({
       .addCase(loadToken.fulfilled, (state, action) => {
         state.loading = false;
         state.token = action.payload;
+        state.isLogin = true;
       })
       .addCase(loadToken.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        state.isLogin = false;
       })
       .addCase(userLogin.pending, (state) => {
         state.loading = true;
@@ -80,14 +87,16 @@ const tokenSlice = createSlice({
         state.loading = false;
         state.token = action.payload.token;
         state.isSigningUp = false;
+        state.isLogin = true;
       })
       .addCase(userLogin.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        state.isLogin = false;
       });
   },
 });
 
-export const { logout, setIsSigningUp, setToken } = tokenSlice.actions;
+export const { logout, setIsSigningUp, setToken, setIsLogin } = tokenSlice.actions;
 
 export default tokenSlice.reducer;
