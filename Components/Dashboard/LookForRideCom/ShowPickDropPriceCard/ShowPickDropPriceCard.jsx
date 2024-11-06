@@ -2,27 +2,26 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import ShowPickDropItem from "../../ShowPrices/ShowPickDropCard/Component/ShowPickDropItem/ShowPickDropItem";
 import { Ionicons } from "@expo/vector-icons";
-const ShowPickDropPriceCard = () => {
+const ShowPickDropPriceCard = ({
+  vehicleType,
+  price,
+  placeName,
+  dropAddress,
+}) => {
   return (
     <View style={styles.showPickDropPriceCard}>
-      <ShowPickDropItem
-        icons="location"
-        location="Nuhvin Global server Limited"
-      />
-      <ShowPickDropItem
-        icons="locate-sharp"
-        location="Hi-Tech city Metro Station"
-      />
+      <ShowPickDropItem icons="location" location={placeName} />
+      <ShowPickDropItem icons="locate-sharp" location={dropAddress} />
       <View style={styles.donwArraowCard}>
         <Ionicons name="arrow-down" size={25} color="#E02E88" />
       </View>
       <View style={styles.priceShowCard}>
         <Text style={styles.priceText}>
           Fare Charge:
-          <Text style={styles.price}> ₹34</Text>
+          <Text style={styles.price}> ₹{price}</Text>
         </Text>
         <Text style={styles.priceText}>
-          Ride Type:<Text style={styles.price}> Scooty</Text>
+          Ride Type:<Text style={styles.price}> {vehicleType}</Text>
         </Text>
       </View>
     </View>

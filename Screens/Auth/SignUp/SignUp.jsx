@@ -6,12 +6,16 @@ import BottomSheet from "../../../Utils/BottomSheet/BottomSheet";
 import { TouchableOpacity } from "react-native";
 import { useSignUpHook } from "./SignUp.hook";
 import { useRoute } from "@react-navigation/native";
+import { useState } from "react";
 
 const SignUp = () => {
   const route = useRoute();
   const { mobile } = route.params;
-  console.log("sign up", mobile);
   const { selectedImage, handleImagePick } = useSignUpHook();
+  const [imageBorder, setImageBorder] = useState(false);
+  const onImageError = () => {
+    setImageBorder(true);
+  };
 
   return (
     <AuthScreenLayout>
@@ -22,7 +26,7 @@ const SignUp = () => {
             style={styles.imgeContainer}
             onPress={handleImagePick}
           >
-            <View style={styles.imageInnerCard}>
+            <View style={[styles.imageInnerCard, imageBorder && styles.border]}>
               <Image
                 source={
                   selectedImage
@@ -39,6 +43,7 @@ const SignUp = () => {
           uiDisplay="signup"
           selectedImage={selectedImage}
           mobile={mobile}
+          onImageError={onImageError}
         />
       </View>
     </AuthScreenLayout>
@@ -81,5 +86,9 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     resizeMode: "cover",
+  },
+  border: {
+    borderWidth: 3,
+    borderColor: "red",
   },
 });

@@ -5,9 +5,9 @@ import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
 import { useNavigation } from "@react-navigation/native";
 import { useSignUpRelatedHook } from "./SignUpRelated.hook";
 
-const SignUpRelated = ({ selectedImage, mobile }) => {
-  const { formData, handleInputChange, handleNavigateToOTP, apiError } =
-    useSignUpRelatedHook({ selectedImage, mobile });
+const SignUpRelated = ({ selectedImage, mobile, onImageError }) => {
+  const { formData, handleInputChange, handleNavigateToOTP, apiError, errors } =
+    useSignUpRelatedHook({ selectedImage, mobile, onImageError });
 
   return (
     <View style={styles.container}>
@@ -17,6 +17,7 @@ const SignUpRelated = ({ selectedImage, mobile }) => {
         placeholder="Enter Your Name"
         value={formData.name}
         onChangeText={(value) => handleInputChange("name", value)}
+        isValid={errors?.name?.length > 0 ? false : true}
       />
       <InputBox
         label="Date of Birth"
@@ -24,6 +25,7 @@ const SignUpRelated = ({ selectedImage, mobile }) => {
         placeholder="09-12-2015"
         value={formData.dob}
         onChangeText={(value) => handleInputChange("dob", value)}
+        isValid={errors?.dob?.length > 0 ? false : true}
       />
       <InputBox
         label="Email"
@@ -32,6 +34,7 @@ const SignUpRelated = ({ selectedImage, mobile }) => {
         keyboardType="email-address"
         value={formData.email}
         onChangeText={(value) => handleInputChange("email", value)}
+        isValid={errors?.email?.length > 0 ? false : true}
       />
       <InputBox
         label="Address"
@@ -42,6 +45,7 @@ const SignUpRelated = ({ selectedImage, mobile }) => {
         textAlignVertical="top"
         value={formData.address}
         onChangeText={(value) => handleInputChange("address", value)}
+        isValid={errors?.address?.length > 0 ? false : true}
       />
       <InputBox
         label="Emergency Contact Number"
@@ -55,11 +59,13 @@ const SignUpRelated = ({ selectedImage, mobile }) => {
           <Text style={styles.errorMsg}>{apiError}</Text>
         </View>
       )}
+      <View style={{ height: 10 }} />
       <CustomBtn
         title="continue"
         btnBg="#fff"
         btnColor="#E02E88"
         onPress={handleNavigateToOTP}
+        width="100%"
       />
     </View>
   );

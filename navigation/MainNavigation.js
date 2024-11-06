@@ -21,11 +21,11 @@ const MainNavigation = () => {
       try {
         const token = await AsyncStorage.getItem("token");
         if (token) {
+          console.log("token found");
           setIsLoggedIn(true);
           await dispatch(setToken(JSON.parse(token)));
-        }
-        else {
-          console.log(token);
+        } else {
+          console.log("no token");
           setIsLoggedIn(false);
         }
       } catch (error) {
@@ -49,29 +49,31 @@ const MainNavigation = () => {
     );
   }
 
+  console.log(isLoggedIn);
+
   return (
     <NavigationContainer>
-    <Stack.Navigator
-    initialRouteName={isLoggedIn ? "AuthenticatedStack" : "AuthStack"}
-    screenOptions={{ headerShown: false }}
-  >
-    <Stack.Screen
-      name="AuthenticatedStack"
-      component={AuthenticatedStack}
-      initialParams={{ isLoggedIn }}
-      initialRouteName="DrawerNavigator"
-      options={{ headerShown: false }}
-    />
+      <Stack.Navigator
+        initialRouteName={isLoggedIn ? "AuthenticatedStack" : "AuthStack"}
+        screenOptions={{ headerShown: false }}
+      >
+        <Stack.Screen
+          name="AuthenticatedStack"
+          component={AuthenticatedStack}
+          initialParams={{ isLoggedIn }}
+          initialRouteName="DrawerNavigator"
+          options={{ headerShown: false }}
+        />
 
-    <Stack.Screen
-      name="AuthStack"
-      component={AuthStack}
-      initialRouteName="login"
-      initialParams={{ isLoggedIn }}
-      options={{ headerShown: false }}
-    />
-  </Stack.Navigator>
-</NavigationContainer>
+        <Stack.Screen
+          name="AuthStack"
+          component={AuthStack}
+          initialRouteName="login"
+          initialParams={{ isLoggedIn }}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 

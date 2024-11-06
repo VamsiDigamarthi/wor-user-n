@@ -4,12 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   userLogin,
   setIsSigningUp,
-  setIsLogin
+  setIsLogin,
 } from "../../../redux/Features/Auth/LoginSlice";
 
 export const useOtpComHook = () => {
-
-
   const inputs = useRef([]);
   const route = useRoute();
   const { mobile, termsAndCondition } = route.params;
@@ -43,7 +41,7 @@ export const useOtpComHook = () => {
       const response = await dispatch(
         userLogin({ mobile, otp: otp.join(""), termsAndCondition })
       );
-      console.log(response);
+
       if (response.payload && response.payload.token) {
         // navigation.navigate("Home"); // Replace "Home" with your authenticated screen
         setIsLogin(true);

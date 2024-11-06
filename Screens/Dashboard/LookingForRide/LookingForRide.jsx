@@ -3,9 +3,11 @@ import React from "react";
 import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
 import ProgressBar from "../../../Components/Dashboard/LookForRideCom/ProgressBar/ProgressBar";
 import ShowPickDropPriceCard from "../../../Components/Dashboard/LookForRideCom/ShowPickDropPriceCard/ShowPickDropPriceCard";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 const LookingForRide = () => {
+  const route = useRoute();
+  const { vehicleType, price, placeName, dropAddress } = route.params;
   const navigation = useNavigation();
 
   const onCaptaineRide = () => {
@@ -50,7 +52,12 @@ const LookingForRide = () => {
               />
             </View>
           </View>
-          <ShowPickDropPriceCard />
+          <ShowPickDropPriceCard
+            vehicleType={vehicleType}
+            price={price}
+            placeName={placeName}
+            dropAddress={dropAddress}
+          />
         </View>
       </ScrollView>
     </View>

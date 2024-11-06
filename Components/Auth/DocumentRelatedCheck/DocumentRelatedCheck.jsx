@@ -4,6 +4,7 @@ import AadharFaceNagivetor from "../../../Utils/AadharFaceNagivetor/AadharFaceNa
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import DocumentRelatedChecCom from "./DocumentRelatedChecCom";
 const DocumentRelatedCheck = () => {
   const navigation = useNavigation();
 
@@ -14,16 +15,15 @@ const DocumentRelatedCheck = () => {
 
   const onFaceAuthentication = () => {
     console.log("Face Authentication");
-    // navigation.navigate("faceauthentication");
   };
 
   return (
     <View style={styles.container}>
-      <AadharFaceNagivetor
+      <DocumentRelatedChecCom
         title="For Aadhar Verification"
         onPress={handlePress}
       />
-      <AadharFaceNagivetor
+      <DocumentRelatedChecCom
         title="For Face Authentication"
         onPress={onFaceAuthentication}
       />

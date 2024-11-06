@@ -1,10 +1,12 @@
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { haversineDistance } from "../../../Constants/calculateKM";
 import { useSelector } from "react-redux";
 import { API } from "../../../Constants/url";
 
 export const useShowPriceHook = () => {
+  const navigation = useNavigation();
+
   const { token } = useSelector((state) => state.token);
   const route = useRoute();
   const { placeName, pickUpCoordinated, dropDetails } = route.params;
@@ -93,12 +95,17 @@ export const useShowPriceHook = () => {
     })
       .then((res) => {
         console.log(res.data);
+        navigation.navigate("lookingforride", {
+          price: beforeOrder.price,
+          vehicleType: selectedVehicle,
+          placeName,
+          dropAddress: dropDetails?.name,
+        });
       })
       .catch((e) => {
         console.log(e);
         console.log(e.response?.data?.message);
         setApisError(e.response?.data?.message);
-        // handle error message here if required. For now, just log it.
       });
   };
 

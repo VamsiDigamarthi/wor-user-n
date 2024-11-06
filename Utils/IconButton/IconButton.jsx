@@ -26,7 +26,6 @@ export default IconButton;
 const styles = StyleSheet.create({
   pressable: {
     borderRadius: 30,
-
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",

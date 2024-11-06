@@ -62,6 +62,7 @@ const OtpRelatedInput = ({ btnShow = true }) => {
           btnBg="#fff"
           btnColor="#E02E88"
           onPress={onHandleOtpApiCall}
+          width="100%"
         />
       )}
     </View>

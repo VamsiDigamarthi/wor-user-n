@@ -39,6 +39,7 @@ const AadharVerificationCom = () => {
         value={aadharNumber}
         isEditable={otpInputEditable}
         pressBtnOrText={changeGetOtpToVerified}
+        displayOtpBox={displayOtpBox}
       />
       {error && (
         <View style={styles.errorCard}>

@@ -29,12 +29,12 @@ export const useAadharFrontBackImageCardHook = () => {
 
   const handleSubmit = async () => {
     if (!frontImage) {
-      setShowErrorMessage("Please select back images.");
+      setShowErrorMessage("Please select front aadhar images.");
       return;
     }
 
     if (!backImage) {
-      setShowErrorMessage("Please select  front images.");
+      setShowErrorMessage("Please select back aadhar images.");
       return;
     }
 
@@ -61,17 +61,17 @@ export const useAadharFrontBackImageCardHook = () => {
 
     // Append back image
 
-    try {
-      const response = await fetch("YOUR_API_ENDPOINT_HERE", {
-        method: "POST",
-        body: formData,
-      });
+    // try {
+    //   const response = await fetch("YOUR_API_ENDPOINT_HERE", {
+    //     method: "POST",
+    //     body: formData,
+    //   });
 
-      const responseData = await response.json();
-      console.log(responseData);
-    } catch (error) {
-      console.error(error);
-    }
+    //   const responseData = await response.json();
+    //   console.log(responseData);
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
 
   return {

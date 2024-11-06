@@ -12,6 +12,7 @@ const AadharFaceNavigator = ({
   value = "",
   isEditable = true,
   pressBtnOrText = true,
+  displayOtpBox,
 }) => {
   return (
     <View style={styles.container}>
@@ -31,7 +32,15 @@ const AadharFaceNavigator = ({
       <View
         style={[
           styles.secondCard,
-          { width: textWidth, backgroundColor: !pressBtnOrText && "#f797c7" },
+          {
+            width: textWidth,
+            backgroundColor:
+              !displayOtpBox && pressBtnOrText
+                ? "#e02e88" // When displayOtpBox is false and pressBtnOrText is true
+                : displayOtpBox && pressBtnOrText
+                ? "#ede6e6" // When displayOtpBox is true and pressBtnOrText is true
+                : displayOtpBox && pressBtnOrText && "#e691bb", // When displayOtpBox is true and pressBtnOrText is false
+          },
         ]}
       >
         {pressBtnOrText ? (

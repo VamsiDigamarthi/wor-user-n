@@ -28,6 +28,7 @@ const LoginRelatedInput = () => {
     try {
       console.log(mobile);
       await API.post("/auth/send-otp", { mobile: mobile });
+      console.log("kjhgc");
       navigation.navigate("otp", {
         mobile: mobile,
         termsAndCondition: isChecked,
@@ -60,6 +61,7 @@ const LoginRelatedInput = () => {
         btnBg="#fff"
         btnColor="#E02E88"
         onPress={handleLogin}
+        width="100%"
       />
     </>
   );

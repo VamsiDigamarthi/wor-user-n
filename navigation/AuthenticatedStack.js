@@ -40,23 +40,17 @@ const DrawerNavigator = ({ route }) => {
   );
 };
 
-const AuthenticatedStack = ({route }) => {
-  
-  
-  const navigation = useNavigation()
+const AuthenticatedStack = ({ route }) => {
+  const navigation = useNavigation();
 
-  const isLogin = useSelector((state)=>state.token.isLogin)
+  const isLogin = useSelector((state) => state.token.isLogin);
 
-
-  
-useEffect(()=>{
-  
-  if (!isLogin) {
-    console.log(isLogin, "from authenticatedstack");
-    navigation.navigate("AuthStack")
-  }
-
-},[isLogin])
+  useEffect(() => {
+    if (!isLogin) {
+      console.log(isLogin, "from authenticatedstack");
+      navigation.navigate("AuthStack");
+    }
+  }, [isLogin]);
 
   return (
     <Stack.Navigator>
@@ -65,7 +59,6 @@ useEffect(()=>{
         name="DrawerNavigator"
         component={DrawerNavigator}
         options={{ headerShown: false }}
-
       />
 
       <Stack.Screen name="RideBook" component={RideBook} />
