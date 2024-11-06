@@ -9,6 +9,7 @@ export const useHomeHook = () => {
   const [placeName, setPlaceName] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [nearbyPlaces, setNearbyPlaces] = useState([]);
+  const [nearByRandomItems, setNearByRandomItems] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -50,17 +51,14 @@ export const useHomeHook = () => {
   }, []);
 
   useEffect(() => {
-    if (placeName) {
-      // Update the app bar title using setOptions when placeName changes
-      navigation.setOptions({
-        title: placeName || "Women Rider", // Dynamically update the title
-      });
-    }
-  }, [placeName, navigation]);
+    const shuffledItems = [...nearbyPlaces].sort(() => 0.5 - Math.random());
+    setNearByRandomItems(shuffledItems.slice(0, 3));
+  }, [nearbyPlaces]);
 
   return {
     location,
-    nearbyPlaces,
+    nearByRandomItems,
     placeName,
+    nearbyPlaces,
   };
 };

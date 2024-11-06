@@ -38,13 +38,14 @@ export const nearPlacesByText = async (text) => {
   try {
     const response = await fetch(url);
     const data = await response.json();
+    console.log(data?.predictions);
     if (data.predictions) {
       const formattedPredictions = data.predictions.map((prediction) => ({
         description: prediction.description,
-        place_id: prediction.place_id,
-        structured_formatting: {
-          main_text: prediction.structured_formatting.main_text,
-          secondary_text: prediction.structured_formatting.secondary_text,
+        placeId: prediction.place_id,
+        structuredFormatting: {
+          mainText: prediction.structured_formatting.main_text,
+          secondaryText: prediction.structured_formatting.secondary_text,
         },
       }));
 
@@ -55,4 +56,26 @@ export const nearPlacesByText = async (text) => {
     console.error("Error fetching nearby places:", error);
     return [];
   }
+};
+
+export const getCoordinatesFromPlaceId = async (placeId) => {
+  const url = `https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeId}&key=${YOUR_API_KEY}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    if (data.status === "OK") {
+      const location = data.result.geometry.location;
+      return {
+        lat: location.lat,
+        lng: location.lng,
+      }; // Return coordinates as an object
+    } else {
+      console.error("Error fetching place details:", data.status);
+    }
+  } catch (error) {
+    console.error("Error fetching place details:", error);
+  }
+
+  return null; // Return null if there was an issue
 };

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 
 import { Ionicons } from "@expo/vector-icons";
@@ -6,18 +6,26 @@ import { Ionicons } from "@expo/vector-icons";
 const DropLocationItem = ({ mainPlace, subPlace }) => {
   return (
     <View style={styles.container}>
-      <View style={styles.first}>
-        <Ionicons name="location" size={25} color="#fff" />
-      </View>
-      <View style={styles.second}>
-        <Text style={styles.locText}>{mainPlace}</Text>
-        <Text style={styles.subLocText} numberOfLines={1}>
-          {subPlace}
-        </Text>
-      </View>
-      <View style={styles.third}>
-        <Ionicons name="heart-outline" size={20} color="gray" />
-      </View>
+      <Pressable
+        android_ripple={{
+          color: "#f7e1ec", // Set ripple color
+          borderless: false, // Ensures ripple stays within the bounds of the button
+        }}
+        style={styles.pressableCard}
+      >
+        <View style={styles.first}>
+          <Ionicons name="location" size={25} color="#fff" />
+        </View>
+        <View style={styles.second}>
+          <Text style={styles.locText}>{mainPlace}</Text>
+          <Text style={styles.subLocText} numberOfLines={1}>
+            {subPlace}
+          </Text>
+        </View>
+        <View style={styles.third}>
+          <Ionicons name="heart-outline" size={20} color="gray" />
+        </View>
+      </Pressable>
     </View>
   );
 };
@@ -26,6 +34,10 @@ export default DropLocationItem;
 
 const styles = StyleSheet.create({
   container: {
+    width: "100%",
+  },
+
+  pressableCard: {
     width: "100%",
     flexDirection: "row",
     alignItems: "center",
@@ -36,6 +48,7 @@ const styles = StyleSheet.create({
     borderColor: "#fff",
     paddingVertical: 5,
   },
+
   first: {
     width: 35,
     height: 35,

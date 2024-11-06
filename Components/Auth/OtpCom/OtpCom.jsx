@@ -16,11 +16,6 @@ const OtpRelatedInput = ({ btnShow = true }) => {
     otpError,
   } = useOtpComHook();
 
-  useEffect(async () => {
-    const storedToken = await AsyncStorage.getItem("token");
-    console.log(JSON.parse(storedToken));
-  }, []);
-
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>

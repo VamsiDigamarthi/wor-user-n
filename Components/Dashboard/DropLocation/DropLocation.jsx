@@ -5,11 +5,12 @@ import DropLocationItem from "./Components/DropLocationItem/DropLocationItem";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import ShowPickDropCard from "../ShowPrices/ShowPickDropCard/ShowPickDropCard";
-const DropLocation = ({ nearbyPlaces, placeName }) => {
+const DropLocation = ({ nearByRandomItems, placeName, nearbyPlaces }) => {
   const navigation = useNavigation();
   const handleNavigate = () => {
     navigation.navigate("SelectDropLocation", {
       placeName,
+      nearbyPlaces,
     });
   };
   return (
@@ -20,7 +21,7 @@ const DropLocation = ({ nearbyPlaces, placeName }) => {
           <Text>Enter Drop Location</Text>
         </View>
       </TouchableOpacity>
-      {nearbyPlaces?.slice(0, 3)?.map((eachPlace, key) => (
+      {nearByRandomItems?.map((eachPlace, key) => (
         <DropLocationItem
           mainPlace={eachPlace?.name}
           subPlace={eachPlace.vicinity}

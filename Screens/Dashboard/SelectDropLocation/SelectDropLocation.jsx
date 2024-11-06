@@ -1,33 +1,58 @@
-import { StatusBar, StyleSheet, View, ScrollView } from "react-native";
+import { StatusBar, StyleSheet, View, FlatList } from "react-native";
 import React from "react";
 import ShowPickDropCard from "../../../Components/Dashboard/ShowPrices/ShowPickDropCard/ShowPickDropCard";
-import { useRoute } from "@react-navigation/native";
+
 import IconButton from "../../../Utils/IconButton/IconButton";
+import { useSelectDropLocationHook } from "./SelectDropLocation.hhok";
+import DropLocationItem from "../../../Components/Dashboard/DropLocation/Components/DropLocationItem/DropLocationItem";
 const SelectDropLocation = () => {
-  const route = useRoute();
-
-  const { placeName } = route.params;
-
+  const {
+    placeName,
+    inputValue,
+    suggestions,
+    handleInputChange,
+    nearbyPlaces,
+  } = useSelectDropLocationHook();
+  // console.log(nearbyPlaces);
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff5f9" />
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          justifyContent: "space-between",
-          alignItems: "center",
-          gap: 20,
-        }}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={styles.pickDropBtnCard}>
-          <ShowPickDropCard placeName={placeName} />
-          <View style={styles.mapFavoriteCard}>
-            <IconButton icons="location" title="Select on Map" />
-            <IconButton icons="location" title="Favorite Places" />
-          </View>
+
+      <View style={styles.pickDropBtnCard}>
+        <ShowPickDropCard
+          inputValue={inputValue}
+          handleInputChange={handleInputChange}
+          placeName={placeName}
+        />
+        <View style={styles.mapFavoriteCard}>
+          <IconButton icons="location" title="Select on Map" />
+          <IconButton icons="location" title="Favorite Places" />
         </View>
-      </ScrollView>
+      </View>
+
+      <FlatList
+        data={
+          suggestions && suggestions.length > 0 ? suggestions : nearbyPlaces
+        }
+        keyExtractor={(item) =>
+          suggestions && suggestions.length > 0 ? item.placeId : item.id
+        }
+        renderItem={({ item }) =>
+          suggestions && suggestions.length > 0 ? (
+            <DropLocationItem
+              mainPlace={item?.structuredFormatting?.mainText}
+              subPlace={item?.structuredFormatting?.secondaryText}
+            />
+          ) : (
+            <DropLocationItem
+              mainPlace={item?.name}
+              subPlace={item?.vicinity}
+            />
+          )
+        }
+        ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
+        showsVerticalScrollIndicator={false}
+      />
     </View>
   );
 };

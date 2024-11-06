@@ -1,9 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import ShowPickDropItem from "./Component/ShowPickDropItem/ShowPickDropItem";
-import IconButton from "../../../../Utils/IconButton/IconButton";
 
-const ShowPickDropCard = ({ placeName }) => {
+const ShowPickDropCard = ({ placeName, inputValue, handleInputChange }) => {
   return (
     <View style={styles.container}>
       <ShowPickDropItem
@@ -16,6 +15,8 @@ const ShowPickDropCard = ({ placeName }) => {
         icons="locate-sharp"
         location="Hi-Tech city Metro Station"
         isInputShow={true}
+        inputValue={inputValue}
+        handleInputChange={handleInputChange}
       />
     </View>
   );

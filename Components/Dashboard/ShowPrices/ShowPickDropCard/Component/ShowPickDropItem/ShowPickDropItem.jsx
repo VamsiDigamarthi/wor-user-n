@@ -3,28 +3,15 @@ import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { nearPlacesByText } from "../../../../../../Constants/displaylocationmap";
 
-const ShowPickDropItem = ({ icons, location, border, time, isInputShow }) => {
-  const [inputValue, setInputValue] = useState("");
-
-  const [suggestions, setSuggestions] = useState([]);
-
-  const fetchPlaceSuggestions = async (input) => {
-    console.log(input);
-    let nearPlaces = await nearPlacesByText(input);
-    console.log(nearPlaces);
-    // setSuggestions(nearPlaces);
-  };
-
-  // Handle text input changes
-  const handleInputChange = (text) => {
-    setInputValue(text);
-    if (text.length > 2) {
-      fetchPlaceSuggestions(text);
-    } else {
-      setSuggestions([]);
-    }
-  };
-
+const ShowPickDropItem = ({
+  icons,
+  location,
+  border,
+  time,
+  isInputShow,
+  inputValue,
+  handleInputChange,
+}) => {
   return (
     <View style={[styles.constainer, border]}>
       <Ionicons name={icons} size={25} color="#E02E88" />

@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Button, ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import DropLocation from "../../../Components/Dashboard/DropLocation/DropLocation";
 import AllServices from "../../../Components/Dashboard/Home/AllServices/AllServices";
@@ -6,9 +6,19 @@ import SliderComponent from "../../../Utils/SliderComponent/SliderComponent";
 import { useHomeHook } from "./Home.hook";
 import BackgroundImage from "../../../Utils/BackgroundImage/BackgroundImage";
 import HomeMap from "../../../Utils/HomeMap/HomeMap";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
 
 const Home = () => {
-  const { location, nearbyPlaces, placeName } = useHomeHook();
+  const navigation = useNavigation();
+
+  const { location, nearByRandomItems, placeName, nearbyPlaces } =
+    useHomeHook();
+
+  const onBackLogin = async () => {
+    await AsyncStorage.removeItem("token");
+    navigation.navigate("login");
+  };
 
   return (
     <View style={styles.container}>
@@ -20,10 +30,15 @@ const Home = () => {
       >
         <View style={styles.bottomSheet}>
           <Text style={styles.text}></Text>
-          <DropLocation nearbyPlaces={nearbyPlaces} placeName={placeName} />
+          <DropLocation
+            nearByRandomItems={nearByRandomItems}
+            placeName={placeName}
+            nearbyPlaces={nearbyPlaces}
+          />
           <AllServices />
           <SliderComponent />
           <BackgroundImage />
+          <Button title="Go BAck" onPress={onBackLogin} />
         </View>
       </ScrollView>
     </View>
