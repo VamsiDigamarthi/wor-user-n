@@ -52,6 +52,8 @@ const MainNavigation = () => {
     );
   }
 
+  console.log("main screen");
+
   return (
     <NavigationContainer>
       <Stack.Navigator

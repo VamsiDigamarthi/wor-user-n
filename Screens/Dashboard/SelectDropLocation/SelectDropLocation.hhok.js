@@ -58,6 +58,11 @@ export const useSelectDropLocationHook = () => {
     });
   };
 
+  // navigate to map preview screen
+  const onNavigateToMapPreviewScreen = () => {
+    navigation.navigate("MapPreview");
+  };
+
   return {
     inputValue,
     suggestions,
@@ -67,5 +72,6 @@ export const useSelectDropLocationHook = () => {
     pickUpCoordinated,
     onUserSelectDropLocationByNeardPlace,
     onUserSelectDropLocationByEnterInput,
+    onNavigateToMapPreviewScreen,
   };
 };

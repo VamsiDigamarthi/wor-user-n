@@ -1,25 +1,21 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  userLogin,
-  setIsSigningUp,
-  setIsLogin,
-} from "../../../redux/Features/Auth/LoginSlice";
+import { userLogin } from "../../../redux/Features/Auth/LoginSlice";
 
 export const useOtpComHook = () => {
+  const { error } = useSelector((state) => state.token);
   const inputs = useRef([]);
   const route = useRoute();
   const { mobile, termsAndCondition } = route.params;
   const dispatch = useDispatch();
-  const [otpError, setOtpError] = useState("");
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const [otpError, setOtpError] = useState("");
   const navigation = useNavigation();
 
   const handleChange = (text, index) => {
     const newOtp = [...otp];
     newOtp[index] = text;
-
     if (text && index < inputs.current.length - 1) {
       inputs.current[index + 1].focus();
     }
@@ -40,20 +36,38 @@ export const useOtpComHook = () => {
     try {
       const response = await dispatch(
         userLogin({ mobile, otp: otp.join(""), termsAndCondition })
-      );
+      ).unwrap();
+      console.log("otp com hook line number 39:", response);
 
-      if (response.payload && response.payload.token) {
+      // If user login is successful, navigate to authenticated stack
+      if (response.token) {
         navigation.navigate("AuthenticatedStack");
-      } else if (response.payload === "User does not exist") {
-        // dispatch(setIsSigningUp(true));
-        navigation.navigate("signup", {
-          mobile: mobile,
-        });
-      } else {
-        setOtpError(response.payload || "Invalid OTP. Please try again.");
+      } else if (response.message === "User does not exist") {
+        navigation.navigate("signup", { mobile });
       }
     } catch (error) {
-      setOtpError("An error occurred while processing the OTP");
+      console.log("OTP Hook catch block:", error);
+
+      // Handle specific errors from the backend
+      switch (error) {
+        case "User not found in database":
+          setOtpError("User not found. Please sign up.");
+
+          navigation.navigate("signup", { mobile });
+          break;
+        case "Invalid OTP":
+          setOtpError("Invalid OTP. Please try again.");
+          break;
+        case "User does not exist":
+          setOtpError("User does not exist. Please sign up.");
+          console.log("from switch code ", error);
+          navigation.navigate("signup", { mobile });
+          break;
+        default:
+          // Handle general errors
+          setOtpError(error || "An error occurred. Please try again.");
+          break;
+      }
     }
   };
 

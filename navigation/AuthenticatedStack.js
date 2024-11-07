@@ -1,24 +1,50 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Profile from "../Screens/Dashboard/Profile/Profile";
 import Home from "../Screens/Dashboard/Home/Home";
 import RideBook from "../Screens/Dashboard/RideBook/RideBook";
 import CustomAppBar from "../Utils/CustomAppBar/CustomAppBar";
 import SelectDropLocation from "../Screens/Dashboard/SelectDropLocation/SelectDropLocation";
-
 import { StatusBar, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import ShowPrice from "../Screens/Dashboard/ShowPrice/ShowPrice";
 import LookingForRide from "../Screens/Dashboard/LookingForRide/LookingForRide";
 import CaptainAcceptRide from "../Screens/Dashboard/CaptainAcceptRide/CaptainAcceptRide";
 import { useNavigation } from "@react-navigation/native";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import MapPreview from "../Screens/Dashboard/MapPreview/MapPreview";
 
 const Drawer = createDrawerNavigator();
-
 const Stack = createNativeStackNavigator();
+
+// Reusable function to handle common header options
+const getCommonOptions = (navigation, title, backgroundColor = "#fff5f9") => ({
+  title: title || "Title", // Set the title
+  headerStyle: {
+    backgroundColor: backgroundColor,
+    elevation: 0,
+    shadowOpacity: 0,
+  },
+  headerTitleStyle: {
+    color: "#302f2f",
+  },
+  headerLeft: () => (
+    <TouchableOpacity
+      style={{
+        marginLeft: 10,
+        marginRight: 10,
+        borderWidth: 1,
+        borderColor: "#ffffff",
+        borderRadius: 4,
+        backgroundColor: "#fff",
+        padding: 5,
+        elevation: 2,
+      }}
+      onPress={() => navigation.goBack()}
+    >
+      <Ionicons name="chevron-back" size={24} color="#E02E88" />
+    </TouchableOpacity>
+  ),
+});
 
 const DrawerNavigator = ({ route }) => {
   const placeName = route?.params?.placeName || "";
@@ -50,84 +76,42 @@ const AuthenticatedStack = () => {
         options={{ headerShown: false }}
       />
 
+      {/* RideBook screen */}
       <Stack.Screen name="RideBook" component={RideBook} />
+
+      {/* SelectDropLocation screen using reusable function */}
       <Stack.Screen
         name="SelectDropLocation"
         component={SelectDropLocation}
-        options={({ navigation }) => ({
-          title: "Designation", // Set the title of the app bar
-          headerStyle: {
-            backgroundColor: "#fff5f9",
-            elevation: 0,
-            shadowOpacity: 0,
-          },
-          headerTitleStyle: {
-            color: "#302f2f",
-          },
-          headerLeft: () => (
-            <TouchableOpacity
-              style={{
-                marginLeft: 10,
-                marginRight: 10,
-                borderWidth: 1, // Add border to the back icon
-                borderColor: "#ffffff", // Border color
-                borderRadius: 4, // Rounded border
-                backgroundColor: "#fff", // White background
-                padding: 5, // Padding for the icon to give some space
-              }}
-              onPress={() => navigation.goBack()} // Go back when pressed
-            >
-              <Ionicons
-                name="chevron-back"
-                size={24}
-                color="#E02E88" // Icon color (matching the theme)
-              />
-            </TouchableOpacity>
-          ),
-        })}
+        options={({ navigation }) =>
+          getCommonOptions(navigation, "Designation")
+        }
       />
+
+      {/* ShowPrice screen using reusable function */}
       <Stack.Screen
         name="ShowPrice"
         component={ShowPrice}
-        options={({ navigation }) => ({
-          title: "Book Your Ride", // Set the title of the app bar
-          headerStyle: {
-            backgroundColor: "#f5f2f2",
-            elevation: 0,
-            shadowOpacity: 0,
-          },
-          headerTitleStyle: {
-            color: "#302f2f", // You can also set title color
-          },
-          headerLeft: () => (
-            <TouchableOpacity
-              style={{
-                marginLeft: 10,
-                marginRight: 10,
-                borderWidth: 1, // Add border to the back icon
-                borderColor: "#ffffff", // Border color
-                borderRadius: 4, // Rounded border
-                backgroundColor: "#fff", // White background
-                padding: 5,
-                elevation: 2,
-              }}
-              onPress={() => navigation.goBack()} // Go back when pressed
-            >
-              <Ionicons
-                name="chevron-back"
-                size={24}
-                color="#E02E88" // Icon color (matching the theme)
-              />
-            </TouchableOpacity>
-          ),
-        })}
+        options={({ navigation }) =>
+          getCommonOptions(navigation, "Book Your Ride", "#f5f2f2")
+        }
       />
 
+      {/* Looking for Ride screen */}
       <Stack.Screen
         name="lookingforride"
         component={LookingForRide}
         options={{ headerShown: false }}
       />
+
+      {/* MapPreview screen using reusable function */}
+      <Stack.Screen
+        name="MapPreview"
+        component={MapPreview}
+        options={({ navigation }) => getCommonOptions(navigation, "Map")}
+      />
+
+      {/* CaptainAcceptRide screen */}
       <Stack.Screen
         name="captaineacceptride"
         component={CaptainAcceptRide}

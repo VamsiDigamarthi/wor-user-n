@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API } from "../../../Constants/url";
 
-// Async function for user login
 export const userLogin = createAsyncThunk(
   "auth/login",
   async ({ mobile, otp, termsAndCondition }, { rejectWithValue }) => {
@@ -12,10 +11,13 @@ export const userLogin = createAsyncThunk(
         otp,
         termsAndCondition,
       });
+      console.log("LoginSlice response:", response);
       await AsyncStorage.setItem("token", JSON.stringify(response.data.token));
       return response.data;
     } catch (error) {
+      console.log("LoginSlice error:", error?.response?.data);
       if (error?.response?.data?.message) {
+        // Pass the error message to the catch block in OTPComHook
         return rejectWithValue(error.response.data.message);
       }
       return rejectWithValue(error.message);
@@ -32,17 +34,14 @@ const tokenSlice = createSlice({
   },
   reducers: {
     logout: (state) => {
-      console.log("kjhgf");
       state.token = null;
-      state.isSigningUp = false;
       AsyncStorage.removeItem("token");
     },
-
     setToken: (state, action) => {
       state.token = action.payload;
       state.loading = false;
     },
-    noToken: (state, action) => {
+    noToken: (state) => {
       state.loading = false;
     },
   },
@@ -59,7 +58,6 @@ const tokenSlice = createSlice({
       .addCase(userLogin.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-        state.isLogin = false;
       });
   },
 });

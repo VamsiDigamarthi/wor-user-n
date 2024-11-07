@@ -14,8 +14,9 @@ const SelectDropLocation = () => {
     nearbyPlaces,
     onUserSelectDropLocationByNeardPlace,
     onUserSelectDropLocationByEnterInput,
+    onNavigateToMapPreviewScreen,
   } = useSelectDropLocationHook();
-  // console.log(nearbyPlaces);
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff5f9" />
@@ -27,7 +28,11 @@ const SelectDropLocation = () => {
           placeName={placeName}
         />
         <View style={styles.mapFavoriteCard}>
-          <IconButton icons="location" title="Select on Map" />
+          <IconButton
+            onPress={onNavigateToMapPreviewScreen}
+            icons="location"
+            title="Select on Map"
+          />
           <IconButton icons="location" title="Favorite Places" />
         </View>
       </View>
