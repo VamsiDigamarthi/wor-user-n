@@ -41,7 +41,6 @@ export const useShowPriceHook = () => {
         pickUpCoordinated,
         dropDetails?.location
       );
-      console.log(`Distance: ${distance} km`);
       const scootyRate = 7;
       const carRate = 10;
       const authRate = 8;
@@ -85,8 +84,6 @@ export const useShowPriceHook = () => {
       dropAddress: dropDetails?.name,
     };
 
-    console.log(orderDetails);
-    console.log("token", token);
     API.post("/user/placed-order", orderDetails, {
       headers: {
         Authorization: `Bearer ${token}`,

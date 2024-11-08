@@ -60,8 +60,13 @@ export const useSelectDropLocationHook = () => {
 
   // navigate to map preview screen
   const onNavigateToMapPreviewScreen = () => {
-    navigation.navigate("MapPreview");
+    navigation.navigate("MapPreview", {
+      placeName,
+      pickUpCoordinated,
+    });
   };
+
+  // this function exicute after open map user click save icon on to fetch data (coordinates)
 
   return {
     inputValue,

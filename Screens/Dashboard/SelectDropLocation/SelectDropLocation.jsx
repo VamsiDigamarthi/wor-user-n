@@ -48,13 +48,15 @@ const SelectDropLocation = () => {
           suggestions && suggestions.length > 0 ? (
             <DropLocationItem
               mainPlace={item?.name}
-              subPlace={item?.secondaryText}
+              subPlace={item?.vicinity}
+              eachPlace={item}
               onPress={onUserSelectDropLocationByEnterInput.bind(this, item)}
             />
           ) : (
             <DropLocationItem
               mainPlace={item?.name}
               subPlace={item?.vicinity}
+              eachPlace={item}
               onPress={onUserSelectDropLocationByNeardPlace.bind(this, item)}
             />
           )

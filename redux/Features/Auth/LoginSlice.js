@@ -12,7 +12,7 @@ export const userLogin = createAsyncThunk(
         termsAndCondition,
       });
       console.log("LoginSlice response:", response);
-      await AsyncStorage.setItem("token", JSON.stringify(response.data.token));
+      // await AsyncStorage.setItem("token", JSON.stringify(response.data.token));
       return response.data;
     } catch (error) {
       console.log("LoginSlice error:", error?.response?.data);

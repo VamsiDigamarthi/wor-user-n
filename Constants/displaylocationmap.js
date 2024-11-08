@@ -21,7 +21,7 @@ export const fetchNearbyPlaces = async (latitude, longitude) => {
         lat: place.geometry.location.lat,
         lng: place.geometry.location.lng,
       },
-      icon: place.icon, // Icon URL
+      // icon: place.icon, // Icon URL
       photo: place.photos ? place.photos[0].photo_reference : null,
       vicinity: place.vicinity,
     }));
@@ -43,7 +43,7 @@ export const nearPlacesByText = async (text) => {
         description: prediction.description,
         placeId: prediction.place_id,
         name: prediction.structured_formatting.main_text,
-        secondaryText: prediction.structured_formatting.secondary_text,
+        vicinity: prediction.structured_formatting.secondary_text,
       }));
 
       return formattedPredictions;
@@ -76,4 +76,39 @@ export const getCoordinatesFromPlaceId = async (placeId) => {
   }
 
   return null; // Return null if there was an issue
+};
+
+// const getPlaceName = async (lat, lon) => {
+//   const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`;
+
+//   try {
+//     const response = await fetch(url);
+//     const data = await response.json();
+//     const placeName = data.display_name;
+//     console.log("Place Name:", placeName);
+//     return placeName;
+//   } catch (error) {
+//     console.error("Error fetching place name:", error);
+//   }
+// };
+
+export const getPlaceName = async (lat, lng) => {
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${YOUR_API_KEY}`;
+
+  try {
+    const response = await fetch(url);
+
+    const data = await response.json();
+
+    if (data && data.results && data.results.length > 0) {
+      const address = data.results[0].formatted_address;
+      // console.log("Place Name:", address);
+      return address; // Returning the place name
+    } else {
+      console.log("No results found for the given coordinates.");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching place name:", error);
+  }
 };

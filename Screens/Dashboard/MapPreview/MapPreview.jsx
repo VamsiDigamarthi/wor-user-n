@@ -3,27 +3,46 @@ import { Alert, StyleSheet, Text, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
+import { getPlaceName } from "../../../Constants/displaylocationmap";
+import { useRoute } from "@react-navigation/native";
 const MapPreview = ({ navigation }) => {
+  const route = useRoute();
+  const { pickUpCoordinated, placeName } = route.params;
+
   const [selectedLocation, setSelectedLocation] = useState(null);
+  const [
+    finalSelecetLocationNameWithCoordinates,
+    setFinalSelecetLocationNameWithCoordinates,
+  ] = useState(null);
 
   const region = {
-    latitude: 17.4579453,
-    longitude: 78.3745024,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
+    latitude: pickUpCoordinated?.lat,
+    longitude: pickUpCoordinated?.lng,
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.01,
   };
 
-  const onLocation = (e) => {
+  const onLocation = async (e) => {
     const latitude = e.nativeEvent.coordinate.latitude;
     const longitude = e.nativeEvent.coordinate.longitude;
     setSelectedLocation({ latitude, longitude });
+    let placeName = await getPlaceName(latitude, longitude);
+    setFinalSelecetLocationNameWithCoordinates({
+      location: { lat: latitude, lng: longitude },
+      name: placeName,
+    });
   };
 
   const savePickLocationHandle = useCallback(() => {
-    if (selectedLocation) {
+    if (finalSelecetLocationNameWithCoordinates) {
       //   navigation;
+      navigation.navigate("ShowPrice", {
+        placeName,
+        pickUpCoordinated,
+        dropDetails: finalSelecetLocationNameWithCoordinates,
+      });
     }
-  }, [navigation, selectedLocation]);
+  }, [navigation, finalSelecetLocationNameWithCoordinates]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -33,12 +52,15 @@ const MapPreview = ({ navigation }) => {
         </TouchableOpacity>
       ),
     });
-  }, [navigation]);
+  }, [navigation, savePickLocationHandle]);
 
   return (
     <MapView style={styles.map} initialRegion={region} onPress={onLocation}>
       {selectedLocation && (
-        <Marker title="Pick Location" coordinate={selectedLocation} />
+        <Marker
+          title={finalSelecetLocationNameWithCoordinates?.name}
+          coordinate={selectedLocation}
+        />
       )}
     </MapView>
   );

@@ -39,6 +39,7 @@ const DropLocation = ({
         <DropLocationItem
           mainPlace={eachPlace?.name}
           subPlace={eachPlace.vicinity}
+          eachPlace={eachPlace}
           key={key}
           onPress={onNavigateToDirectPriceScreen.bind(this, eachPlace)}
         />

@@ -1,20 +1,58 @@
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
 import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
-
-import { useOtpComHook } from "./OtpCom.hook";
-import { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useOtpComHook } from "./OtpCom.hook";
+import { useEffect, useState } from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { API } from "../../../Constants/url";
 
 const OtpRelatedInput = ({ btnShow = true }) => {
   const {
     otp,
     handleChange,
     handleKeyPress,
-    onHandleOtpApiCall,
+    // onHandleOtpApiCall,
     inputs,
-    otpError,
+    // otpError,
   } = useOtpComHook();
+
+  const route = useRoute();
+  const navigation = useNavigation();
+
+  const { mobile, termsAndCondition } = route.params;
+
+  const [otpError, setOtpError] = useState("");
+
+  const justLog = async () => {
+    try {
+      console.log(otp);
+
+      const response = await API.post("/auth/verify-otp", {
+        mobile,
+        otp: otp.join(""),
+        termsAndCondition: termsAndCondition,
+      });
+
+      if (response.data.token) {
+        await AsyncStorage.setItem(
+          "token",
+          JSON.stringify(response.data.token)
+        );
+        navigation.navigate("AuthenticatedStack");
+      }
+    } catch (error) {
+      console.log(error);
+
+      if (error.response?.data?.message === "Invalid OTP") {
+        setOtpError("Invalid Otp");
+      } else if (error.response?.data?.message === "User does not exist") {
+        console.log("navigating");
+
+        navigation.navigate("signup", { mobile });
+      }
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -61,7 +99,7 @@ const OtpRelatedInput = ({ btnShow = true }) => {
           title="continue"
           btnBg="#fff"
           btnColor="#E02E88"
-          onPress={onHandleOtpApiCall}
+          onPress={justLog}
           width="100%"
         />
       )}
