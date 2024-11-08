@@ -66,6 +66,13 @@ export const useSelectDropLocationHook = () => {
     });
   };
 
+  const onNavigateToFavoriteScreen = () => {
+    navigation.navigate("Favorite", {
+      placeName, // this prop is store current location text
+      pickUpCoordinated, // this prop store currect location coodinates
+    });
+  };
+
   // this function exicute after open map user click save icon on to fetch data (coordinates)
 
   return {
@@ -78,5 +85,6 @@ export const useSelectDropLocationHook = () => {
     onUserSelectDropLocationByNeardPlace,
     onUserSelectDropLocationByEnterInput,
     onNavigateToMapPreviewScreen,
+    onNavigateToFavoriteScreen,
   };
 };

@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import MainNavigation from "./navigation/MainNavigation";
 import { GestureHandlerRootView } from "react-native-gesture-handler"; // Import GestureHandlerRootView
 import { Provider } from "react-redux";
+import Toast from "react-native-toast-message";
 import store from "./redux/store";
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
         <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
           <StatusBar style="auto" />
           <MainNavigation />
+          <Toast />
         </SafeAreaView>
       </GestureHandlerRootView>
     </Provider>

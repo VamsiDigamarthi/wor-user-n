@@ -4,7 +4,13 @@ import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useDropLocationItemHook } from "./DropLocationItem.hook";
 
-const DropLocationItem = ({ mainPlace, subPlace, onPress, eachPlace }) => {
+const DropLocationItem = ({
+  mainPlace,
+  subPlace,
+  onPress,
+  eachPlace,
+  favoriteIconDisplay = true,
+}) => {
   const { onAddPlaceToFavoriteHandler } = useDropLocationItemHook();
   return (
     <View style={styles.container}>
@@ -25,16 +31,18 @@ const DropLocationItem = ({ mainPlace, subPlace, onPress, eachPlace }) => {
             {subPlace}
           </Text>
         </View>
-        <View style={styles.third}>
-          <Pressable>
-            <Ionicons
-              name="heart-outline"
-              size={23}
-              color="gray"
-              onPress={() => onAddPlaceToFavoriteHandler(eachPlace)}
-            />
-          </Pressable>
-        </View>
+        {favoriteIconDisplay && (
+          <View style={styles.third}>
+            <Pressable>
+              <Ionicons
+                name="heart-outline"
+                size={23}
+                color="gray"
+                onPress={() => onAddPlaceToFavoriteHandler(eachPlace)}
+              />
+            </Pressable>
+          </View>
+        )}
       </Pressable>
     </View>
   );

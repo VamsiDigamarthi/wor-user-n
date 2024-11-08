@@ -91,12 +91,14 @@ export const useShowPriceHook = () => {
       },
     })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         navigation.navigate("lookingforride", {
           price: beforeOrder.price,
           vehicleType: selectedVehicle,
           placeName,
-          dropAddress: dropDetails?.name,
+          dropAddress: dropDetails,
+          pickUpCoordinated,
+          orderId: res?.data?.order?._id,
         });
       })
       .catch((e) => {

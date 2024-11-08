@@ -12,6 +12,7 @@ import LookingForRide from "../Screens/Dashboard/LookingForRide/LookingForRide";
 import CaptainAcceptRide from "../Screens/Dashboard/CaptainAcceptRide/CaptainAcceptRide";
 import { useNavigation } from "@react-navigation/native";
 import MapPreview from "../Screens/Dashboard/MapPreview/MapPreview";
+import FavoritePlace from "../Screens/Dashboard/FavoritePlace/FavoritePlace";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -109,6 +110,12 @@ const AuthenticatedStack = () => {
         name="MapPreview"
         component={MapPreview}
         options={({ navigation }) => getCommonOptions(navigation, "Map")}
+      />
+
+      <Stack.Screen
+        name="Favorite"
+        component={FavoritePlace}
+        options={({ navigation }) => getCommonOptions(navigation, "Favorite")}
       />
 
       {/* CaptainAcceptRide screen */}

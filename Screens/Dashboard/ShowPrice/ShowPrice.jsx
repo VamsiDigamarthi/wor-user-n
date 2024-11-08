@@ -11,6 +11,7 @@ import ShowPickDropCard from "../../../Components/Dashboard/ShowPrices/ShowPickD
 import ShowVehicle from "../../../Components/Dashboard/ShowPrices/ShowVehicle/ShowVehicle";
 import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
 import { useShowPriceHook } from "./ShowPrice.hook.js";
+import { coordinationMap } from "../../../Constants/displaylocationmap.js";
 const ShowPrice = () => {
   const {
     placeName,
@@ -20,6 +21,7 @@ const ShowPrice = () => {
     selectedVehicle,
     onPlaceTheOrder,
     apiError,
+    pickUpCoordinated,
   } = useShowPriceHook();
 
   return (
@@ -31,11 +33,15 @@ const ShowPrice = () => {
           justifyContent: "space-between",
           alignItems: "center",
         }}
+        showsVerticalScrollIndicator={false}
       >
         <View style={styles.mapContainer}>
           <Image
             source={{
-              uri: "https://developers.google.com/static/maps/images/landing/hero_maps_static_api.png",
+              uri: coordinationMap(
+                pickUpCoordinated?.lat,
+                pickUpCoordinated?.lng
+              ),
             }}
             style={styles.mapImage} // Define your desired styles here
           />

@@ -15,6 +15,7 @@ const SelectDropLocation = () => {
     onUserSelectDropLocationByNeardPlace,
     onUserSelectDropLocationByEnterInput,
     onNavigateToMapPreviewScreen,
+    onNavigateToFavoriteScreen,
   } = useSelectDropLocationHook();
 
   return (
@@ -33,7 +34,11 @@ const SelectDropLocation = () => {
             icons="location"
             title="Select on Map"
           />
-          <IconButton icons="location" title="Favorite Places" />
+          <IconButton
+            icons="location"
+            title="Favorite Places"
+            onPress={onNavigateToFavoriteScreen}
+          />
         </View>
       </View>
 

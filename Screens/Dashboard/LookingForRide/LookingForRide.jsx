@@ -4,22 +4,31 @@ import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
 import ProgressBar from "../../../Components/Dashboard/LookForRideCom/ProgressBar/ProgressBar";
 import ShowPickDropPriceCard from "../../../Components/Dashboard/LookForRideCom/ShowPickDropPriceCard/ShowPickDropPriceCard";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { useLookingForRideHook } from "./LookingForRide.hook";
+import { coordinationMap } from "../../../Constants/displaylocationmap";
 
 const LookingForRide = () => {
-  const route = useRoute();
-  const { vehicleType, price, placeName, dropAddress } = route.params;
-  const navigation = useNavigation();
-
-  const onCaptaineRide = () => {
-    navigation.navigate("captaineacceptride");
-  };
+  const {
+    dropAddress,
+    vehicleType,
+    price,
+    placeName,
+    pickUpCoordinated,
+    progressWidth,
+    showCancelWithReOrderBtn,
+    onCancelRide,
+    onRePlaceOrder,
+  } = useLookingForRideHook();
 
   return (
     <View style={styles.container}>
       <View style={styles.mapContainer}>
         <Image
           source={{
-            uri: "https://developers.google.com/static/maps/images/landing/hero_maps_static_api.png",
+            uri: coordinationMap(
+              pickUpCoordinated?.lat,
+              pickUpCoordinated?.lng
+            ),
           }}
           style={styles.mapImage} // Define your desired styles here
         />
@@ -34,7 +43,7 @@ const LookingForRide = () => {
       >
         <View style={styles.bottomSheet}>
           <Text style={styles.text}></Text>
-          <ProgressBar />
+          <ProgressBar progressWidth={progressWidth} />
           <View style={styles.cancelBtnWithImage}>
             <Image
               style={styles.images}
@@ -44,11 +53,15 @@ const LookingForRide = () => {
             />
             <View style={styles.cancelBtn}>
               <CustomBtn
-                title="Cancel Ride"
+                title={`${
+                  showCancelWithReOrderBtn ? "Cancel" : "Re-Place"
+                } Ride`}
                 btnBg="#fff"
                 btnColor="#001"
                 width="100%"
-                onPress={onCaptaineRide}
+                onPress={
+                  showCancelWithReOrderBtn ? onCancelRide : onRePlaceOrder
+                }
               />
             </View>
           </View>
@@ -56,7 +69,7 @@ const LookingForRide = () => {
             vehicleType={vehicleType}
             price={price}
             placeName={placeName}
-            dropAddress={dropAddress}
+            dropAddress={dropAddress?.name}
           />
         </View>
       </ScrollView>

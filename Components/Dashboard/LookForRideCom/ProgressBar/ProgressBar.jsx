@@ -1,27 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { View, Animated, StyleSheet, Text } from "react-native";
 
-const ProgressBar = () => {
-  const [isAccepted, setIsAccepted] = useState(false);
-  const progress = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    Animated.timing(progress, {
-      toValue: 100,
-      duration: 10000,
-      useNativeDriver: false,
-    }).start(({ finished }) => {
-      if (!isAccepted && finished) {
-        console.log("Ride not accepted, go back.");
-      }
-    });
-  }, [isAccepted, progress]);
-
-  const progressWidth = progress.interpolate({
-    inputRange: [0, 100],
-    outputRange: ["0%", "100%"],
-  });
-
+const ProgressBar = ({ progressWidth }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Waiting for captain to accept the ride...</Text>
