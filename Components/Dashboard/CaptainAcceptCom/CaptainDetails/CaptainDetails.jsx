@@ -1,21 +1,30 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { imageUrl } from "../../../../Constants/url";
 
-const CaptainDetails = () => {
+const CaptainDetails = ({ captainDetails }) => {
+  const captainImageUrl = `${imageUrl}/${captainDetails?.profilePic}`;
+
   return (
     <View>
       <View style={styles.imageVehilcCard}>
         <View style={styles.captaineImageCard}>
           <Image
             style={styles.captainImage}
-            source={require("../../../../assets/images/women.jpg")}
+            source={{
+              uri: captainImageUrl,
+            }}
           />
           <View style={styles.vehiclTypeImageCard}></View>
         </View>
         <View style={styles.vehicleDetails}>
-          <Text style={styles.captainName}>Dharani B</Text>
-          <Text style={styles.vehicleNumber}>TS07 BC 1234</Text>
-          <Text style={styles.captainName}>Active 4G</Text>
+          <Text style={styles.captainName}>{captainDetails?.name}</Text>
+          <Text style={styles.vehicleNumber}>
+            {captainDetails?.vehicleNumber ?? "No Number"}
+          </Text>
+          <Text style={styles.captainName}>
+            {captainDetails?.captainVehicleType ?? "Not Availeble"}
+          </Text>
         </View>
       </View>
     </View>
