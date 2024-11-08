@@ -91,7 +91,7 @@ export const useShowPriceHook = () => {
       },
     })
       .then((res) => {
-        // console.log(res.data);
+        // console.log(res.data?.order);
         navigation.navigate("lookingforride", {
           price: beforeOrder.price,
           vehicleType: selectedVehicle,

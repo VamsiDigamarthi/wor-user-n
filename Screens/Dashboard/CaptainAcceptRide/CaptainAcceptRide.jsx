@@ -6,8 +6,11 @@ import CaptainDetails from "../../../Components/Dashboard/CaptainAcceptCom/Capta
 import RatingMsgCall from "../../../Components/Dashboard/CaptainAcceptCom/RatingMsgCall/RatingMsgCall";
 import ReferAndEarn from "../../../Components/Dashboard/CaptainAcceptCom/ReferAndEarn/ReferAndEarn";
 import RatingCard from "../../../Components/Dashboard/CaptainAcceptCom/RatingCard/RatingCard";
+import { useCaptainAcceptRideHook } from "./CaptainAcceptRide.hook";
+import { coordinationMap } from "../../../Constants/displaylocationmap";
 
 const CaptainAcceptRide = () => {
+  const { orderDetails } = useCaptainAcceptRideHook();
   return (
     <View style={styles.container}>
       <ScrollView
@@ -20,7 +23,10 @@ const CaptainAcceptRide = () => {
         <View style={styles.mapContainer}>
           <Image
             source={{
-              uri: "https://developers.google.com/static/maps/images/landing/hero_maps_static_api.png",
+              uri: coordinationMap(
+                orderDetails?.pickup?.coordinates[1],
+                orderDetails?.pickup?.coordinates[0]
+              ),
             }}
             style={styles.mapImage} // Define your desired styles here
           />
@@ -28,8 +34,8 @@ const CaptainAcceptRide = () => {
         <View style={styles.bottomSheet}>
           <Text style={styles.text}></Text>
           <CaptainTime />
-          <CaptainRideOpt />
-          <CaptainDetails />
+          <CaptainRideOpt orderOtp={orderDetails?.orderOtp} />
+          <CaptainDetails captainDetails={orderDetails?.acceptCaptain} />
           <RatingMsgCall />
           <ReferAndEarn />
           <RatingCard />

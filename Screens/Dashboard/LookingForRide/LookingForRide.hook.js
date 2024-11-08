@@ -7,7 +7,6 @@ import Toast from "react-native-toast-message";
 
 export const useLookingForRideHook = () => {
   const { token } = useSelector((state) => state.token);
-
   const route = useRoute();
   const {
     vehicleType,
@@ -20,18 +19,25 @@ export const useLookingForRideHook = () => {
   const navigation = useNavigation();
   const [showCancelWithReOrderBtn, setShowCancelWithReOrderBtn] =
     useState(true);
-
-  //   progress logic
   const [isAccepted, setIsAccepted] = useState(false);
   const progress = useRef(new Animated.Value(0)).current;
-
   const intervalRef = useRef(null);
 
   useEffect(() => {
+    startAnimation();
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [isAccepted]);
+
+  const startAnimation = () => {
+    progress.setValue(0);
+
     Animated.timing(progress, {
       toValue: 100,
-      duration: 60000,
-      //   duration: 100000, // 100 seconds
+      duration: 60000, // 60 seconds duration
       useNativeDriver: false,
     }).start(({ finished }) => {
       if (!isAccepted && finished) {
@@ -42,15 +48,12 @@ export const useLookingForRideHook = () => {
       }
     });
 
-    // Start an interval to call the API every 5 seconds
     intervalRef.current = setInterval(() => {
       if (!isAccepted) {
         callApiEvery5Seconds();
       }
     }, 5000);
-
-    return () => clearInterval(intervalRef.current);
-  }, [isAccepted, progress]);
+  };
 
   const callApiEvery5Seconds = async () => {
     try {
@@ -60,7 +63,15 @@ export const useLookingForRideHook = () => {
         },
       });
 
-      console.log(response?.data);
+      if (response?.data?.status === "accept") {
+        setIsAccepted(true);
+        clearInterval(intervalRef.current);
+        navigation.navigate("captaineacceptride", {
+          orderDetails: response.data,
+        });
+      } else {
+        console.log(response?.data);
+      }
     } catch (error) {
       console.log(error);
       Toast.show({
@@ -72,6 +83,8 @@ export const useLookingForRideHook = () => {
   };
 
   const callFinalApi = async () => {
+    if (isAccepted) return; // Ensure this function does not execute if accepted
+
     try {
       console.log(orderId);
       await API.patch(
@@ -85,14 +98,14 @@ export const useLookingForRideHook = () => {
       );
       setShowCancelWithReOrderBtn(false);
       Toast.show({
-        text1: "No one accept user order please replace the order",
+        text1: "No one accepted the order. Please reorder.",
         type: "success",
         position: "bottom",
       });
     } catch (error) {
       console.log(error.response.data);
       Toast.show({
-        text1: "Automatic cancellation api faild",
+        text1: "Automatic cancellation failed",
         type: "error",
         position: "bottom",
       });
@@ -104,8 +117,6 @@ export const useLookingForRideHook = () => {
     outputRange: ["0%", "100%"],
   });
 
-  //   this cancel api only user manually cancel there order
-  //   added reason also
   const onCancelRide = async () => {
     try {
       const response = await API.patch(
@@ -124,8 +135,8 @@ export const useLookingForRideHook = () => {
         type: "success",
         position: "bottom",
       });
-
-      navigation.navigate("AuthenticatedStack");
+      console.log("Manually canceled order");
+      navigation.goBack();
     } catch (error) {
       console.log(error);
       Toast.show({
@@ -134,7 +145,6 @@ export const useLookingForRideHook = () => {
         position: "bottom",
       });
     }
-    // navigation.navigate("captaineacceptride");
   };
 
   const onRePlaceOrder = async () => {
@@ -146,14 +156,10 @@ export const useLookingForRideHook = () => {
     const formattedDate = `${day}-${month}-${year}`;
     const timePart = indiaDateTime.split(",")[1].trim();
 
-    const formattedTime = timePart;
-
     const orderDetails = {
       orderPlaceDate: formattedDate,
-      orderPlaceTime: formattedTime,
+      orderPlaceTime: timePart,
     };
-
-    console.log(orderDetails);
 
     try {
       await API.patch(`/user/re-place-order/${orderId}`, orderDetails, {
@@ -168,10 +174,11 @@ export const useLookingForRideHook = () => {
         type: "success",
         position: "bottom",
       });
+      startAnimation();
     } catch (error) {
       console.log(error);
       Toast.show({
-        text1: "Re-Place  Order failed",
+        text1: "Re-Place Order failed",
         type: "error",
         position: "bottom",
       });
