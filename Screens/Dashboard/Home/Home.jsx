@@ -15,16 +15,17 @@ const Home = () => {
   const { location, nearByRandomItems, placeName, nearbyPlaces } =
     useHomeHook();
 
-    const onBackLogin = async () => {
-      await AsyncStorage.removeItem("token");
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [{ name: "AuthStack" }],
-        })
-      );
-    };
-  
+  const onBackLogin = async () => {
+    // await AsyncStorage.removeItem("token");
+    // navigation.dispatch(
+    //   CommonActions.reset({
+    //     index: 0,
+    //     routes: [{ name: "AuthStack" }],
+    //   })
+    // );
+    navigation.navigate("RideHistory"); // replace AuthStack with your stack name for login screen
+  };
+
   return (
     <View style={styles.container}>
       <HomeMap location={location} />
