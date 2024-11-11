@@ -1,7 +1,16 @@
 import React from "react";
 import { StyleSheet, Text, View, Pressable } from "react-native";
 
-const CustomBtn = ({ title, onPress, btnColor, btnBg, width, height }) => {
+const CustomBtn = ({
+  title,
+  onPress,
+  btnColor,
+  btnBg,
+  width,
+  height,
+  borderWidth,
+  borderColor,
+}) => {
   return (
     <View style={styles.container}>
       <Pressable
@@ -11,25 +20,16 @@ const CustomBtn = ({ title, onPress, btnColor, btnBg, width, height }) => {
         }}
         style={({ pressed }) => [
           styles.pressable, // Keep the style for Pressable button here
-          { backgroundColor: pressed ? "#f2f2f2" : btnBg }, // Optional background change when pressed
-        ]}
-        onPress={onPress}
-      >
-        <Text style={[styles.buttonText, { color: btnColor }]}>{title}</Text>
-      </Pressable>
-      {/* <Pressable
-        style={[
-          styles.button,
           {
-            backgroundColor: btnBg,
-            width,
-            paddingVertical: height ? height : 8,
+            backgroundColor: pressed ? "#f2f2f2" : btnBg, // Optional background change when pressed
+            borderWidth: borderWidth, // Apply border width dynamically
+            borderColor: borderColor, // Apply border color dynamically
           },
         ]}
         onPress={onPress}
       >
         <Text style={[styles.buttonText, { color: btnColor }]}>{title}</Text>
-      </Pressable> */}
+      </Pressable>
     </View>
   );
 };
@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 50,
     overflow: "hidden",
-
     borderRadius: 25,
   },
   pressable: {
@@ -53,16 +52,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     width: "100%",
     height: "100%",
-  },
-  button: {
-    // paddingVertical: 8,
-    paddingHorizontal: 22,
-    borderRadius: 20, // Rounded corners
-    alignItems: "center",
-    height: 50,
+    borderRadius: 25, // Ensure the button has rounded corners
   },
   buttonText: {
     fontSize: 16,
-    fontWeight: 500,
+    fontWeight: "500",
   },
 });
