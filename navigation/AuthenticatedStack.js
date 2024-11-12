@@ -18,8 +18,14 @@ import CustomDrawerContent from "../Utils/CustomDrawerContent/CustomDrawerConten
 import ReferAndEarn from "../Screens/Dashboard/ReferAndEarn/ReferAndEarn";
 import Notification from "../Screens/Dashboard/Notification/Notification";
 import Help from "../Screens/Dashboard/Help/Help";
+
 import ProfileScreen from "../Screens/Dashboard/ProfileScreen/ProfileScreen";
 import PersonalInfo from "../Screens/Dashboard/ProfileScreen/Screens/PersonalInfo/PersonalInfo";
+
+import SafetyHome from "../Screens/Dashboard/Safety/SafetyHome";
+import EmailVerification from "../Screens/Dashboard/Safety/EmailVerification";
+import MobileVerification from "../Screens/Dashboard/Safety/MobileVerification";
+
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -182,6 +188,31 @@ const AuthenticatedStack = () => {
           getCommonOptions(navigation, "Book History")
         }
       />
+
+      <Stack.Screen
+        name="Safety"
+        component={SafetyHome}
+        options={({ navigation }) =>
+          getCommonOptions(navigation, "Safety & Privacy")
+        }
+      />
+
+      <Stack.Screen
+        name="EmailVerification"
+        component={EmailVerification}
+        options={({ navigation }) =>
+          getCommonOptions(navigation, "Email Verification")
+        }
+      />
+
+      <Stack.Screen
+        name="MobileVerification"
+        component={MobileVerification}
+        options={({ navigation }) =>
+          getCommonOptions(navigation, "Mobile Verification")
+        }
+      />
+
 
       <Stack.Screen
         name="ReferAndEarn"
