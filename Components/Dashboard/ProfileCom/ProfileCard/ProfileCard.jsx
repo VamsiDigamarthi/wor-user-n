@@ -1,19 +1,21 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+import { useProfileCardHook } from "./ProfileCard.hook";
 
 const ProfileCard = () => {
+  const { profile, imageSource, pickImage } = useProfileCardHook();
+
   return (
     <View style={styles.container}>
       <View style={styles.imageCard}>
-        <Image
-          style={styles.image}
-          source={require("../../../../assets/images/profile/Services.png")}
-        />
+        <Image style={styles.image} source={imageSource} />
         <View style={styles.editCard}>
-          <FontAwesome name="edit" size={25} color="#e02e88" />
+          <Pressable onPress={pickImage}>
+            <FontAwesome name="edit" size={25} color="#e02e88" />
+          </Pressable>
         </View>
       </View>
-      <Text style={styles.textCard}>Dharani</Text>
+      <Text style={styles.textCard}>{profile?.name || "WOR"}</Text>
     </View>
   );
 };

@@ -1,15 +1,25 @@
 import * as Location from "expo-location";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { fetchNearbyPlaces } from "../../../Constants/displaylocationmap";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { onProfileSection } from "../../../redux/Features/Auth/ProfileSlice";
 
 export const useHomeHook = () => {
   const navigation = useNavigation();
+  const { token } = useSelector((state) => state.token);
   const [location, setLocation] = useState(null);
   const [placeName, setPlaceName] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [nearbyPlaces, setNearbyPlaces] = useState([]);
-  const [nearByRandomItems, setNearByRandomItems] = useState([]);
+  // const [nearByRandomItems, setNearByRandomItems] = useState([]);
+
+  console.log("home screen", token);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(onProfileSection({ token }));
+  }, [dispatch, token]);
 
   useEffect(() => {
     (async () => {
@@ -50,9 +60,14 @@ export const useHomeHook = () => {
     })();
   }, []);
 
-  useEffect(() => {
-    const shuffledItems = [...nearbyPlaces].sort(() => 0.5 - Math.random());
-    setNearByRandomItems(shuffledItems.slice(0, 3));
+  // useEffect(() => {
+  //   const shuffledItems = [...nearbyPlaces].sort(() => 0.5 - Math.random());
+  //   setNearByRandomItems(shuffledItems.slice(0, 3));
+  // }, [nearbyPlaces]);
+
+  const nearByRandomItems = useMemo(() => {
+    if (nearbyPlaces.length === 0) return [];
+    return [...nearbyPlaces].sort(() => 0.5 - Math.random()).slice(0, 3);
   }, [nearbyPlaces]);
 
   return {

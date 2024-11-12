@@ -10,7 +10,8 @@ const InputBox = ({
   placeholder = "",
   secureTextEntry = false,
   onChangeText = () => {},
-  isValid = true, // New prop for validation
+  isValid = true,
+  value = "", // Add initial value prop for controlled component
 }) => {
   return (
     <View style={styles.container}>
@@ -25,6 +26,7 @@ const InputBox = ({
           placeholder={placeholder}
           onChangeText={onChangeText}
           secureTextEntry={secureTextEntry}
+          value={value}
         />
       </View>
     </View>

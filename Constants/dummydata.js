@@ -224,3 +224,39 @@ let orderAccept = {
   userAuthenticationImage: null,
   vehicleType: "scooty",
 };
+
+// const pickImage = async () => {
+//   const { status } = await ImagePicker.getMediaLibraryPermissionsAsync();
+
+//   if (status !== "granted") {
+//     // If permission has not been granted, request it again
+//     const { status: newStatus } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+//     if (newStatus !== "granted") {
+//       // If permission is still not granted, show an alert
+//       Alert.alert(
+//         "Permission Required",
+//         "You need to allow access to your gallery to pick an image.",
+//         [
+//           { text: "OK" },
+//           { text: "Settings", onPress: () => ImagePicker.openSettings() }, // Redirect to settings if necessary
+//         ]
+//       );
+//       return;
+//     }
+//   }
+
+//   // Open the image picker if permission is granted
+//   let result = await ImagePicker.launchImageLibraryAsync({
+//     mediaTypes: ImagePicker.MediaTypeOptions.Images,
+//     allowsEditing: true,
+//     aspect: [1, 1],
+//     quality: 1,
+//   });
+
+//   if (!result.canceled) {
+//     const selectedImage = result.assets[0];
+//     setImageSource({ uri: selectedImage.uri });
+//     onProfilePicChange(selectedImage);
+//   }
+// };
