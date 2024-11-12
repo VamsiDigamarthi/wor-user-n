@@ -1,33 +1,12 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
+import RideHistoryFirst from "./RideHistoryFirst";
 
 const RideHistoryItem = () => {
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.conatiner}>
-        <View style={styles.firstCard}>
-          <Text style={styles.rideDetails}>Ride Details</Text>
-          <Text style={styles.status}>Cancelled</Text>
-        </View>
-        <View style={styles.iconWithLocationCard}>
-          <Ionicons name="locate-outline" size={18} color="#E02E88" />
-          <Text numberOfLines={1} ellipsizeMode="tail">
-            Nuhvin Global Services
-          </Text>
-        </View>
-        <View style={styles.iconWithLocationCardSeond}>
-          <Ionicons name="lock-closed" size={18} color="#E02E88" />
-          <Text numberOfLines={1} ellipsizeMode="tail">
-            Hi-Tech City Metro Station
-          </Text>
-        </View>
-        <View style={styles.iconsCard}>
-          <Pressable>
-            <Ionicons name="arrow-down" size={20} color="#e02e88" />
-          </Pressable>
-        </View>
-      </View>
+      <RideHistoryFirst />
       <View style={styles.priceTimeCard}>
         <View style={styles.priceTimeInnerCard}>
           <View style={styles.scootyImageCard}>
@@ -67,54 +46,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#fff",
   },
-  conatiner: {
-    backgroundColor: "#fff",
-    borderColor: "#ffe2e6",
-    borderWidth: 1,
-    borderRadius: 10,
-    position: "relative",
-  },
 
-  iconsCard: {
-    position: "absolute",
-    padding: 5,
-    backgroundColor: "#f5f5f5",
-    top: 10,
-    right: 10,
-    borderRadius: 5,
-  },
-  firstCard: {
-    width: "100%",
-    flexDirection: "row",
-    gap: 10,
-    alignItems: "center",
-    padding: 10,
-  },
-  rideDetails: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  status: {
-    fontSize: 12,
-    color: "red",
-  },
-  iconWithLocationCard: {
-    width: "100%",
-    flexDirection: "row",
-    gap: 10,
-    alignItems: "center",
-    borderBottomWidth: 1,
-    borderBottomColor: "#e02e88",
-    padding: 10,
-  },
-  iconWithLocationCardSeond: {
-    width: "100%",
-    flexDirection: "row",
-    gap: 10,
-    alignItems: "center",
-    padding: 10,
-    paddingVertical: 15,
-  },
   priceTimeCard: {
     padding: 10,
     gap: 15,

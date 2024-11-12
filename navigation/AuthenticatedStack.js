@@ -18,9 +18,14 @@ import CustomDrawerContent from "../Utils/CustomDrawerContent/CustomDrawerConten
 import ReferAndEarn from "../Screens/Dashboard/ReferAndEarn/ReferAndEarn";
 import Notification from "../Screens/Dashboard/Notification/Notification";
 import Help from "../Screens/Dashboard/Help/Help";
+
+import ProfileScreen from "../Screens/Dashboard/ProfileScreen/ProfileScreen";
+import PersonalInfo from "../Screens/Dashboard/ProfileScreen/Screens/PersonalInfo/PersonalInfo";
+
 import SafetyHome from "../Screens/Dashboard/Safety/SafetyHome";
 import EmailVerification from "../Screens/Dashboard/Safety/EmailVerification";
 import MobileVerification from "../Screens/Dashboard/Safety/MobileVerification";
+
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -228,6 +233,20 @@ const AuthenticatedStack = () => {
         component={Help}
         options={({ navigation }) =>
           getCommonOptions(navigation, "Help", "#f5f2f2")
+        }
+      />
+      <Stack.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={({ navigation }) =>
+          getCommonOptions(navigation, "Profile", "#f5f2f2")
+        }
+      />
+      <Stack.Screen
+        name="PersonalInfo"
+        component={PersonalInfo}
+        options={({ navigation }) =>
+          getCommonOptions(navigation, "Personal Info", "#f5f2f2")
         }
       />
     </Stack.Navigator>
