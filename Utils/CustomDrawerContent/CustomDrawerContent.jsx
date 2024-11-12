@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { Ionicons } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
+import { imageUrl } from "../../Constants/url";
 
 const CustomDrawerContent = (props) => {
   const [selectedItem, setSelectedItem] = useState("");
+  const { profile } = useSelector((state) => state.profileSlice);
 
   const handleItemPress = (itemName) => {
     setSelectedItem(itemName); // Set selected item
@@ -17,6 +20,10 @@ const CustomDrawerContent = (props) => {
       : {}; // Default style
   };
 
+  let image = profile
+    ? `${imageUrl}/${profile?.profilePic}`
+    : "https://via.placeholder.com/80";
+
   return (
     <DrawerContentScrollView
       {...props}
@@ -25,12 +32,9 @@ const CustomDrawerContent = (props) => {
     >
       {/* Profile Header */}
       <View style={styles.headerContainer}>
-        <Image
-          source={{ uri: "https://via.placeholder.com/80" }}
-          style={styles.profilePic}
-        />
-        <Text style={styles.profileName}>John Doe</Text>
-        <Text style={styles.profileEmail}>john.doe@example.com</Text>
+        <Image source={{ uri: image }} style={styles.profilePic} />
+        <Text style={styles.profileName}>{profile?.name}</Text>
+        <Text style={styles.profileEmail}>{profile?.mobile}</Text>
       </View>
 
       {/* Drawer Items */}

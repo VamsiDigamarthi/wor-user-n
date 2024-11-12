@@ -5,7 +5,7 @@ import Home from "../Screens/Dashboard/Home/Home";
 import RideBook from "../Screens/Dashboard/RideBook/RideBook";
 import CustomAppBar from "../Utils/CustomAppBar/CustomAppBar";
 import SelectDropLocation from "../Screens/Dashboard/SelectDropLocation/SelectDropLocation";
-import { StatusBar, Text, TouchableOpacity } from "react-native";
+import { Settings, StatusBar, Text, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import ShowPrice from "../Screens/Dashboard/ShowPrice/ShowPrice";
 import LookingForRide from "../Screens/Dashboard/LookingForRide/LookingForRide";
@@ -25,7 +25,9 @@ import PersonalInfo from "../Screens/Dashboard/ProfileScreen/Screens/PersonalInf
 import SafetyHome from "../Screens/Dashboard/Safety/SafetyHome";
 import EmailVerification from "../Screens/Dashboard/Safety/EmailVerification";
 import MobileVerification from "../Screens/Dashboard/Safety/MobileVerification";
-
+import SettingsScreen from "../Screens/Dashboard/Settings/Settings";
+import Preference from "../Screens/Dashboard/Preference/Preference";
+import About from "../Screens/Dashboard/About/About";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -35,7 +37,8 @@ const getCommonOptions = (
   navigation,
   title,
   backgroundColor = "#fff5f9",
-  showRight = false
+  showRight = false,
+  rightText = "FAQs"
 ) => {
   const options = {
     title: title || "Title", // Set the title
@@ -83,7 +86,7 @@ const getCommonOptions = (
           borderColor: "#E02E88",
           marginRight: 0,
         }}
-        onPress={() => navigation.navigate("FAQs")} // Replace with your desired navigation action
+        onPress={() => navigation.navigate(rightText)} // Replace with your desired navigation action
       >
         <Ionicons name="help-circle-outline" size={18} color="#E02E88" />
         <Text
@@ -94,7 +97,7 @@ const getCommonOptions = (
             fontWeight: "bold",
           }}
         >
-          FAQs
+          {rightText}
         </Text>
       </TouchableOpacity>
     );
@@ -193,7 +196,7 @@ const AuthenticatedStack = () => {
         name="Safety"
         component={SafetyHome}
         options={({ navigation }) =>
-          getCommonOptions(navigation, "Safety & Privacy")
+          getCommonOptions(navigation, "Safety & Privacy", "#fff")
         }
       />
 
@@ -212,7 +215,6 @@ const AuthenticatedStack = () => {
           getCommonOptions(navigation, "Mobile Verification")
         }
       />
-
 
       <Stack.Screen
         name="ReferAndEarn"
@@ -247,6 +249,27 @@ const AuthenticatedStack = () => {
         component={PersonalInfo}
         options={({ navigation }) =>
           getCommonOptions(navigation, "Personal Info", "#f5f2f2")
+        }
+      />
+      <Stack.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={({ navigation }) =>
+          getCommonOptions(navigation, "Settings", "#f5f2f2")
+        }
+      />
+      <Stack.Screen
+        name="Preference"
+        component={Preference}
+        options={({ navigation }) =>
+          getCommonOptions(navigation, "Preference", "#f5f2f2")
+        }
+      />
+      <Stack.Screen
+        name="About"
+        component={About}
+        options={({ navigation }) =>
+          getCommonOptions(navigation, "About", "#f5f2f2", true, "Help")
         }
       />
     </Stack.Navigator>

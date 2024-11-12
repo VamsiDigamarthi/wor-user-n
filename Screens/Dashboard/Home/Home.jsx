@@ -16,14 +16,14 @@ const Home = () => {
     useHomeHook();
 
   const onBackLogin = async () => {
-    // await AsyncStorage.removeItem("token");
-    // navigation.dispatch(
-    //   CommonActions.reset({
-    //     index: 0,
-    //     routes: [{ name: "AuthStack" }],
-    //   })
-    // );
-    navigation.navigate("RideHistory"); // replace AuthStack with your stack name for login screen
+    await AsyncStorage.removeItem("token");
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: "AuthStack" }],
+      })
+    );
+    // navigation.navigate("RideHistory"); // replace AuthStack with your stack name for login screen
   };
 
   return (
