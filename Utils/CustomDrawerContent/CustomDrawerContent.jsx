@@ -43,6 +43,13 @@ const CustomDrawerContent = (props) => {
           style={getItemStyle("Home")}
         />
         <DrawerItem
+          label="Profile"
+          icon={() => <Ionicons name="person-outline" size={22} color="gray" />}
+          onPress={() => handleItemPress("Profile")}
+          labelStyle={styles.labelStyle}
+          style={getItemStyle("Profile")}
+        />
+        <DrawerItem
           label="Notifications"
           icon={() => (
             <Ionicons name="notifications-outline" size={22} color="gray" />
