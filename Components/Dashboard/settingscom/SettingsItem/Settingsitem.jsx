@@ -14,11 +14,16 @@ const Settingsitem = ({
   label,
   screenName,
   displayIcon = true,
+  onPress,
 }) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate(screenName);
+    if (onPress) {
+      onPress(); // Call the custom onPress function if provided
+    } else if (screenName) {
+      navigation.navigate(screenName); // Otherwise, navigate to the screen
+    }
   };
   let Icon;
   switch (iconType) {

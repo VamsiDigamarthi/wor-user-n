@@ -2,7 +2,7 @@ import { StyleSheet, ScrollView } from "react-native";
 import React from "react";
 import Settingsitem from "./Settingsitem";
 
-const SettingsItemsList = () => {
+const SettingsItemsList = ({ onOpenDeleteModal }) => {
   return (
     <ScrollView style={styles.container}>
       <Settingsitem
@@ -43,6 +43,7 @@ const SettingsItemsList = () => {
         iconName="delete"
         iconType="AntDesign"
         label="Delete Account"
+        onPress={onOpenDeleteModal}
       />
     </ScrollView>
   );
