@@ -31,6 +31,9 @@ import About from "../Screens/Dashboard/About/About";
 import ParcelHome from "../Screens/Parcels/ParcelHome/ParcelHome";
 import PersonalInfoPreview from "../Screens/Dashboard/ProfileScreen/Screens/PersonalInfoPreview/PersonalInfoPreview";
 import Donation from "../Screens/Dashboard/Donation/Donation";
+import PaymentMethods from "../Screens/Dashboard/PaymnetMethods/PaymentMethods";
+import SendAndReceiveParcel from "../Screens/Parcels/SendAndReceiveParcel/SendAndReceiveParcel";
+import PickLocation from "../Screens/Parcels/PickLocation/PickLocation";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -308,12 +311,34 @@ const AuthenticatedStack = () => {
         }
       />
 
+      <Stack.Screen
+        name="PaymentMethod"
+        component={PaymentMethods}
+        options={({ navigation }) =>
+          getCommonOptions(navigation, "Payment", "#f5f2f2")
+        }
+      />
+
       {/* parcel screens */}
       <Stack.Screen
         name="ParcelHome"
         component={ParcelHome}
         options={({ navigation }) =>
           getCommonOptions(navigation, "Send or Receive Parcel", "#f5f2f2")
+        }
+      />
+      <Stack.Screen
+        name="SendReceiveParcel"
+        component={SendAndReceiveParcel}
+        options={({ navigation }) =>
+          getCommonOptions(navigation, "Send or Receive Parcel", "#f5f2f2")
+        }
+      />
+      <Stack.Screen
+        name="ParcelPickLocation"
+        component={PickLocation}
+        options={({ navigation }) =>
+          getCommonOptions(navigation, "Pickup Location", "#fff")
         }
       />
     </Stack.Navigator>
