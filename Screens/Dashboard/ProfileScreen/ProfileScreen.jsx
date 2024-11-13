@@ -19,7 +19,8 @@ const ProfileScreen = () => {
       >
         <ProfileNavigationCard
           title="Personal Info"
-          navigateTo="PersonalInfo"
+          // navigateTo="PersonalInfo"
+          navigateTo="PersonalInfoPreview"
         />
         <ProfileNavigationCard title="Safety & Privacy" />
         <ProfileNavigationCard title="Document" />

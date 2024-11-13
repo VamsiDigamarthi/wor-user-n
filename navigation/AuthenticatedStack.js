@@ -28,6 +28,9 @@ import MobileVerification from "../Screens/Dashboard/Safety/MobileVerification";
 import SettingsScreen from "../Screens/Dashboard/Settings/Settings";
 import Preference from "../Screens/Dashboard/Preference/Preference";
 import About from "../Screens/Dashboard/About/About";
+import ParcelHome from "../Screens/Parcels/ParcelHome/ParcelHome";
+import PersonalInfoPreview from "../Screens/Dashboard/ProfileScreen/Screens/PersonalInfoPreview/PersonalInfoPreview";
+import Donation from "../Screens/Dashboard/Donation/Donation";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -38,7 +41,8 @@ const getCommonOptions = (
   title,
   backgroundColor = "#fff5f9",
   showRight = false,
-  rightText = "FAQs"
+  rightText = "FAQs",
+  navigationText
 ) => {
   const options = {
     title: title || "Title", // Set the title
@@ -86,7 +90,7 @@ const getCommonOptions = (
           borderColor: "#E02E88",
           marginRight: 0,
         }}
-        onPress={() => navigation.navigate(rightText)} // Replace with your desired navigation action
+        onPress={() => navigation.navigate(navigationText)} // Replace with your desired navigation action
       >
         <Ionicons name="help-circle-outline" size={18} color="#E02E88" />
         <Text
@@ -220,7 +224,13 @@ const AuthenticatedStack = () => {
         name="ReferAndEarn"
         component={ReferAndEarn}
         options={({ navigation }) =>
-          getCommonOptions(navigation, "Refer and Earn", "#f5f2f2", true)
+          getCommonOptions(
+            navigation,
+            "Refer and Earn",
+            "#f5f2f2",
+            true,
+            "FAQs"
+          )
         }
       />
       <Stack.Screen
@@ -234,7 +244,7 @@ const AuthenticatedStack = () => {
         name="Help"
         component={Help}
         options={({ navigation }) =>
-          getCommonOptions(navigation, "Help", "#f5f2f2")
+          getCommonOptions(navigation, "Help", "#f5f2f2", true)
         }
       />
       <Stack.Screen
@@ -251,6 +261,22 @@ const AuthenticatedStack = () => {
           getCommonOptions(navigation, "Personal Info", "#f5f2f2")
         }
       />
+
+      <Stack.Screen
+        name="PersonalInfoPreview"
+        component={PersonalInfoPreview}
+        options={({ navigation }) =>
+          getCommonOptions(
+            navigation,
+            "Personal Info",
+            "#f5f2f2",
+            true,
+            "Edit Profile",
+            "PersonalInfo"
+          )
+        }
+      />
+
       <Stack.Screen
         name="Settings"
         component={SettingsScreen}
@@ -265,11 +291,29 @@ const AuthenticatedStack = () => {
           getCommonOptions(navigation, "Preference", "#f5f2f2")
         }
       />
+
+      <Stack.Screen
+        name="Donation"
+        component={Donation}
+        options={({ navigation }) =>
+          getCommonOptions(navigation, "Support Our Mission", "#f5f2f2")
+        }
+      />
+
       <Stack.Screen
         name="About"
         component={About}
         options={({ navigation }) =>
-          getCommonOptions(navigation, "About", "#f5f2f2", true, "Help")
+          getCommonOptions(navigation, "About", "#f5f2f2", true, "Help", "Help")
+        }
+      />
+
+      {/* parcel screens */}
+      <Stack.Screen
+        name="ParcelHome"
+        component={ParcelHome}
+        options={({ navigation }) =>
+          getCommonOptions(navigation, "Send or Receive Parcel", "#f5f2f2")
         }
       />
     </Stack.Navigator>

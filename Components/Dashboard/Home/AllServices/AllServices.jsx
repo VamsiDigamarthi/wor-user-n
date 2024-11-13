@@ -8,13 +8,14 @@ import {
 } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const AllServices = () => {
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
 
-  // const onNavigateDropSelectedScreen = () => {
-  //   navigation.navigate("SelectDropLocation");
-  // };
+  const onNavigateParcelScreen = () => {
+    navigation.navigate("ParcelHome");
+  };
 
   return (
     <View style={styles.container}>
@@ -56,11 +57,13 @@ const AllServices = () => {
           <Text>Car</Text>
         </View>
         <View style={styles.singleItem}>
-          <Image
-            source={require("../../../../assets/images/image.png")}
-            style={styles.image}
-          />
-          <Text>Truck</Text>
+          <Pressable onPress={onNavigateParcelScreen}>
+            <Image
+              source={require("../../../../assets/images/image.png")}
+              style={styles.image}
+            />
+            <Text>Parcel</Text>
+          </Pressable>
         </View>
       </ScrollView>
     </View>
