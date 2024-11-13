@@ -1,36 +1,44 @@
-import {
-  Dimensions,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import React from "react";
+import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
 import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
 
+import DonationImage from "../../../Components/Dashboard/DonationCom/DonationImage/DonationImage";
+import DonationSelectBox from "../../../Components/Dashboard/DonationCom/DonationSelectBox/DonationSelectBox";
+import DonationSuccessStories from "../../../Components/Dashboard/DonationCom/DonationSuccesStories/DonationSuccessStories";
+
 const screenWidth = Dimensions.get("window").width;
+
 const Donation = () => {
   return (
     <View style={styles.conatiner}>
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
-          //   justifyContent: "space-between",
-          //   alignItems: "center",
           gap: 15,
+          paddingBottom: 80,
         }}
+        showsVerticalScrollIndicator={false}
       >
-        <Image
-          style={styles.image}
-          source={require("../../../assets/images/profile/donation.png")}
-        />
+        <DonationImage />
         <Text style={styles.mainText}>Empower Women Rider</Text>
         <Text style={styles.subText}>
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
           since the
         </Text>
+        <DonationSelectBox />
+        <DonationSuccessStories />
+        <Text style={styles.mainText}>Enter Amount</Text>
+        <Text style={styles.womenRiderText}>
+          Make sure this is Monthly Donation for the Empower Women Rider
+        </Text>
+        <View style={{ flexDirection: "row", gap: 10 }}>
+          <View style={styles.ruppesCard}>
+            <Text style={{ fontWeight: "bold" }}>10 Rs</Text>
+          </View>
+          <View style={styles.ruppesCard}>
+            <Text style={{ fontWeight: "bold" }}>20 Rs</Text>
+          </View>
+        </View>
       </ScrollView>
       <View style={styles.positionCard}>
         <CustomBtn title="Donate Now" btnBg="#e02e88" btnColor="#fff" />
@@ -56,7 +64,6 @@ const styles = StyleSheet.create({
     left: 0,
     padding: 20,
   },
-
   image: {
     width: "100%",
     resizeMode: "contain",
@@ -71,5 +78,26 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 18,
     textAlign: "justify",
+  },
+  pickerContainer: {
+    backgroundColor: "#fff",
+    borderColor: "#ffe2e6",
+    borderWidth: 2,
+    borderRadius: 5,
+    borderRadius: 10,
+    overflow: "hidden",
+  },
+  womenRiderText: {
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  ruppesCard: {
+    flexDirection: "row",
+    gap: 5,
+    borderWidth: 2,
+    borderColor: "#e02e88",
+    borderRadius: 25,
+    paddingVertical: 6,
+    paddingHorizontal: 15,
   },
 });

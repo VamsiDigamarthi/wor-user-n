@@ -88,7 +88,7 @@ const CustomDrawerContent = (props) => {
         <DrawerItem
           label="Payment Method"
           icon={() => <Ionicons name="card-outline" size={22} color="gray" />}
-          onPress={() => handleItemPress("Payment Method")}
+          onPress={() => handleItemPress("PaymentMethod")}
           labelStyle={styles.labelStyle}
           style={getItemStyle("Payment Method")}
         />
