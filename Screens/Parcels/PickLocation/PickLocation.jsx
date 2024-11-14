@@ -5,8 +5,9 @@ import {
   View,
   TextInput,
   FlatList,
+  Pressable,
 } from "react-native";
-import { FontAwesome6 } from "@expo/vector-icons";
+import { FontAwesome6, Ionicons } from "@expo/vector-icons";
 import IconButton from "../../../Utils/IconButton/IconButton";
 import { usePickLocationHook } from "./PickLocation.hook";
 import DropLocationItem from "../../../Components/Dashboard/DropLocation/Components/DropLocationItem/DropLocationItem";
@@ -16,7 +17,10 @@ const PickLocation = () => {
     inputValue,
     handleInputChange,
     suggestions,
+    nearbyPlaces,
     onUserSelectDropLocationByEnterInput,
+    onUserSelectPickLocationNearPlaces,
+    onYourLocationClick,
   } = usePickLocationHook();
 
   return (
@@ -39,29 +43,41 @@ const PickLocation = () => {
           />
         </View>
       </View>
-      {suggestions?.length > 0 ? (
-        <FlatList
-          data={suggestions}
-          renderItem={({ item }) => (
+      <Pressable onPress={onYourLocationClick}>
+        <View style={styles.yourLocation}>
+          <View style={styles.first}>
+            <Ionicons name="location" size={25} color="#fff" />
+          </View>
+          <Text style={styles.yourLocationText}>Your Location</Text>
+        </View>
+      </Pressable>
+      <FlatList
+        data={
+          suggestions && suggestions.length > 0 ? suggestions : nearbyPlaces
+        }
+        keyExtractor={(item) =>
+          suggestions && suggestions.length > 0 ? item.placeId : item.id
+        }
+        renderItem={({ item }) =>
+          suggestions && suggestions.length > 0 ? (
             <DropLocationItem
               mainPlace={item?.name}
               subPlace={item?.vicinity}
               eachPlace={item}
               onPress={onUserSelectDropLocationByEnterInput.bind(this, item)}
             />
-          )}
-          ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
-          showsVerticalScrollIndicator={false}
-        />
-      ) : (
-        <View style={styles.noData}>
-          <Text style={styles.noDataText}>
-            Please Search Your Pick Up Location
-          </Text>
-          <Text style={styles.orText}>Or</Text>
-          <Text style={styles.noDataText}>Select on Map</Text>
-        </View>
-      )}
+          ) : (
+            <DropLocationItem
+              mainPlace={item?.name}
+              subPlace={item?.vicinity}
+              eachPlace={item}
+              onPress={onUserSelectPickLocationNearPlaces.bind(this, item)}
+            />
+          )
+        }
+        ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
+        showsVerticalScrollIndicator={false}
+      />
     </View>
   );
 };
@@ -111,5 +127,22 @@ const styles = StyleSheet.create({
   noDataText: {
     fontSize: 13,
     color: "#808080",
+  },
+  yourLocation: {
+    flexDirection: "row",
+    gap: 10,
+    alignItems: "center",
+  },
+  yourLocationText: {
+    fontSize: 14,
+    fontWeight: "600",
+  },
+  first: {
+    width: 35,
+    height: 35,
+    borderRadius: 30,
+    backgroundColor: "#E02E88",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

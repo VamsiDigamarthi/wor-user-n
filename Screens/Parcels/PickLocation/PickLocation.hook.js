@@ -1,6 +1,8 @@
+import * as Location from "expo-location";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
+  fetchNearbyPlaces,
   getCoordinatesFromPlaceId,
   nearPlacesByText,
 } from "../../../Constants/displaylocationmap";
@@ -9,13 +11,60 @@ export const usePickLocationHook = () => {
   //   const route = useRoute();
   const navigation = useNavigation();
   //   const { typeOfLocation } = route.params;
+  const [location, setLocation] = useState(null);
+  const [nearbyPlaces, setNearbyPlaces] = useState([]);
+  const [placeName, setPlaceName] = useState(null);
 
   const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== "granted") {
+          console.log("Permission to access location was denied");
+          return;
+        }
+
+        let currentLocation = await Location.getCurrentPositionAsync({});
+        setLocation({
+          lat: currentLocation.coords.latitude,
+          lng: currentLocation.coords.longitude,
+        }); // Update state with the location
+
+        let nearbyPlaces = await fetchNearbyPlaces(
+          currentLocation.coords.latitude,
+          currentLocation.coords.longitude
+        );
+        // console.log(nearbyPlaces); near place have coordinates
+        setNearbyPlaces(nearbyPlaces);
+
+        let [place] = await Location.reverseGeocodeAsync({
+          latitude: currentLocation.coords.latitude,
+          longitude: currentLocation.coords.longitude,
+        });
+
+        if (place) {
+          let newPlace = {
+            name: place.name,
+            vicinity: place.formattedAddress,
+          };
+          setPlaceName(newPlace);
+        } else {
+          setPlaceName("Location not found");
+        }
+      } catch (error) {
+        console.log(error.message || "Something went wrong");
+      }
+    })();
+  }, []);
+
+  // user enter text to fetch places but this type of location have not coordinates
   const fetchPlaceSuggestions = async (input) => {
     console.log(input);
     let nearPlaces = await nearPlacesByText(input);
+    // console.log(nearPlaces);
     setSuggestions(nearPlaces);
   };
 
@@ -39,10 +88,29 @@ export const usePickLocationHook = () => {
     });
   };
 
+  const onUserSelectPickLocationNearPlaces = (place) => {
+    navigation.navigate("SendReceiveParcel", {
+      pickUpLocationCoorWithName: place,
+    });
+  };
+
+  const onYourLocationClick = () => {
+    let newPlace = {
+      ...placeName,
+      location: location,
+    };
+    navigation.navigate("SendReceiveParcel", {
+      pickUpLocationCoorWithName: newPlace,
+    });
+  };
+
   return {
     inputValue,
     handleInputChange,
     suggestions,
+    nearbyPlaces,
     onUserSelectDropLocationByEnterInput,
+    onUserSelectPickLocationNearPlaces,
+    onYourLocationClick,
   };
 };
