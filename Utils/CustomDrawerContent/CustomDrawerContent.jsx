@@ -104,7 +104,7 @@ const CustomDrawerContent = (props) => {
         <DrawerItem
           label="Parcel Send"
           icon={() => <Ionicons name="cube-outline" size={22} color="gray" />}
-          onPress={() => handleItemPress("Parcel Send")}
+          onPress={() => handleItemPress("ParcelHome")}
           labelStyle={styles.labelStyle}
           style={getItemStyle("Parcel Send")}
         />

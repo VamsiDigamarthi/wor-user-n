@@ -22,7 +22,9 @@ const SendAndReceiveParcel = () => {
         }}
         showsVerticalScrollIndicator={false}
       >
+        {/* send and receive parcel card  */}
         <ParcelSendReceivesCard selectedCard={selectedCard} />
+        {/* pick and drop card */}
         <SendAndReceiveParcelPicDropCard
           pickUpLocationCoorWithName={pickUpLocationCoorWithName}
         />
