@@ -6,6 +6,7 @@ import RideBook from "../Screens/Dashboard/RideBook/RideBook";
 import CustomAppBar from "../Utils/CustomAppBar/CustomAppBar";
 import SelectDropLocation from "../Screens/Dashboard/SelectDropLocation/SelectDropLocation";
 import {
+  Pressable,
   Settings,
   StatusBar,
   StyleSheet,
@@ -212,7 +213,7 @@ const AuthenticatedStack = () => {
         name="Notifications"
         component={Notification}
         options={({ navigation }) =>
-          getCommonOptions(navigation, "Notifications", "#f5f2f2")
+          getCommonOptions(navigation, "Notifications", "#f5f2f2", true, "Edit")
         }
       />
       <Stack.Screen
@@ -323,7 +324,7 @@ const CustomHeader = ({
   navigation,
   title,
   backgroundColor,
-  showRight,
+  showRight = true,
   rightText,
   navigationText,
 }) => (
@@ -338,14 +339,24 @@ const CustomHeader = ({
     </View>
 
     <View style={[styles.textContainer]}>
-      <Ionicons
-        name="location-sharp"
-        size={20}
-        color="lightgray"
-        style={[styles.icon]}
-      />
+      <View style={styles.textinnerCard}>
+        <Ionicons
+          name="location-sharp"
+          size={20}
+          color="lightgray"
+          style={[styles.icon]}
+        />
 
-      <Text style={[styles.text]}>{title || "Title"}</Text>
+        <Text style={[styles.text]}>{title || "Title"}</Text>
+      </View>
+      {showRight && (
+        <Pressable
+          onPress={() => navigation.navigate(navigationText)}
+          style={styles.rightIconCard}
+        >
+          <Text>{rightText}</Text>
+        </Pressable>
+      )}
     </View>
   </View>
 );
@@ -391,22 +402,39 @@ const styles = StyleSheet.create({
     width: "85%",
     height: "100%",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
     gap: 8,
     borderRadius: 30,
     paddingRight: 20,
     position: "relative",
+    // backgroundColor: "red",
   },
-
+  textinnerCard: {
+    flexDirection: "row",
+    gap: 5,
+    width: "75%",
+    marginLeft: 5,
+    alignItems: "center",
+    // backgroundColor: "blue",
+  },
   text: {
     color: "#302f2f",
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
     textAlign: "center",
-    width: "100%",
+    // width: "100%",
   },
   icon: {
-    position: "absolute",
-    left: 10,
+    marginTop: 2,
+  },
+  rightIconCard: {
+    width: "25%",
+    height: "60%",
+    borderWidth: 1,
+    borderColor: "#ffe2e6",
+    borderRadius: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    // backgroundColor: "red",
   },
 });
