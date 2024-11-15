@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 import { imageUrl } from "../../Constants/url";
 
@@ -34,18 +34,28 @@ const CustomDrawerContent = (props) => {
       <View style={styles.headerContainer}>
         <Image source={{ uri: image }} style={styles.profilePic} />
         <Text style={styles.profileName}>{profile?.name}</Text>
-        <Text style={styles.profileEmail}>{profile?.mobile}</Text>
+        <View
+          style={{
+            flexDirection: "row",
+            gap: 5,
+            paddingTop: 5,
+            alignItems: "center",
+          }}
+        >
+          <FontAwesome name="star" size={20} color="gold" />
+          <Text style={styles.profileEmail}>4.5</Text>
+        </View>
       </View>
 
       {/* Drawer Items */}
       <View style={styles.drawerItemsContainer}>
-        <DrawerItem
+        {/* <DrawerItem
           label="Home"
           icon={() => <Ionicons name="home-outline" size={22} color="gray" />}
           onPress={() => handleItemPress("Home")}
           labelStyle={styles.labelStyle}
           style={getItemStyle("Home")}
-        />
+        /> */}
         <DrawerItem
           label="Profile"
           icon={() => <Ionicons name="person-outline" size={22} color="gray" />}
@@ -61,6 +71,13 @@ const CustomDrawerContent = (props) => {
           onPress={() => handleItemPress("Notifications")}
           labelStyle={styles.labelStyle}
           style={getItemStyle("Notifications")}
+        />
+        <DrawerItem
+          label="Parcel"
+          icon={() => <Ionicons name="cube-outline" size={22} color="gray" />}
+          onPress={() => handleItemPress("ParcelHome")}
+          labelStyle={styles.labelStyle}
+          style={getItemStyle("Parcel Send")}
         />
         <DrawerItem
           label="Ride History"
@@ -101,13 +118,7 @@ const CustomDrawerContent = (props) => {
           labelStyle={styles.labelStyle}
           style={getItemStyle("Help")}
         />
-        <DrawerItem
-          label="Parcel Send"
-          icon={() => <Ionicons name="cube-outline" size={22} color="gray" />}
-          onPress={() => handleItemPress("ParcelHome")}
-          labelStyle={styles.labelStyle}
-          style={getItemStyle("Parcel Send")}
-        />
+
         <DrawerItem
           label="Refer to Earn"
           icon={() => <Ionicons name="gift-outline" size={22} color="gray" />}
@@ -127,7 +138,7 @@ const CustomDrawerContent = (props) => {
       </View>
 
       {/* Logout Button at the End */}
-      <View style={styles.logoutContainer}>
+      {/* <View style={styles.logoutContainer}>
         <DrawerItem
           label="Logout"
           icon={() => <Ionicons name="exit-outline" size={22} color="red" />}
@@ -137,7 +148,7 @@ const CustomDrawerContent = (props) => {
           }}
           labelStyle={styles.logoutLabel}
         />
-      </View>
+      </View> */}
     </DrawerContentScrollView>
   );
 };
@@ -164,6 +175,8 @@ const styles = StyleSheet.create({
     height: 80,
     borderRadius: 40,
     marginBottom: 10,
+    borderWidth: 1,
+    borderColor: "#e02e88",
   },
   profileName: {
     fontSize: 18,

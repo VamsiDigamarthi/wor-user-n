@@ -8,6 +8,7 @@ import SelectDropLocation from "../Screens/Dashboard/SelectDropLocation/SelectDr
 import {
   Settings,
   StatusBar,
+  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -40,6 +41,8 @@ import Donation from "../Screens/Dashboard/Donation/Donation";
 import PaymentMethods from "../Screens/Dashboard/PaymnetMethods/PaymentMethods";
 import SendAndReceiveParcel from "../Screens/Parcels/SendAndReceiveParcel/SendAndReceiveParcel";
 import PickLocation from "../Screens/Parcels/PickLocation/PickLocation";
+import RideDetails from "../Components/Dashboard/CaptainAcceptCom/RideDetails/RideDetails";
+import CaptainRideComplete from "../Components/Dashboard/CaptainAcceptCom/CapatinRideComplete/CaptainRideComplete";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -53,71 +56,18 @@ const getCommonOptions = (
   rightText = "FAQs",
   navigationText
 ) => {
-  const options = {
-    title: title || "Title", // Set the title
-    headerStyle: {
-      backgroundColor: backgroundColor,
-      elevation: 0,
-      shadowOpacity: 0, // Removes shadow on iOS
-      shadowRadius: 0, // Removes shadow on iOS
-      shadowOffset: { width: 0, height: 0 }, // Removes shadow offset on iOS
-    },
-    headerTitleStyle: {
-      color: "#302f2f",
-    },
-
-    headerLeft: () => (
-      <TouchableOpacity
-        style={{
-          marginLeft: 10,
-          marginRight: 10,
-          borderWidth: 1,
-          borderColor: "#ffffff",
-          borderRadius: 4,
-          backgroundColor: "#fff",
-          padding: 5,
-          elevation: 2,
-        }}
-        onPress={() => navigation.goBack()}
-      >
-        <Ionicons name="chevron-back" size={24} color="#E02E88" />
-      </TouchableOpacity>
+  return {
+    header: () => (
+      <CustomHeader
+        navigation={navigation}
+        title={title}
+        backgroundColor={backgroundColor}
+        showRight={showRight}
+        rightText={rightText}
+        navigationText={navigationText}
+      />
     ),
   };
-
-  // Conditionally add headerRight if showRight is true
-  if (showRight) {
-    options.headerRight = () => (
-      <TouchableOpacity
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          backgroundColor: "#fff",
-          paddingVertical: 3,
-          paddingHorizontal: 5,
-          borderRadius: 20,
-          borderWidth: 1,
-          borderColor: "#E02E88",
-          marginRight: 0,
-        }}
-        onPress={() => navigation.navigate(navigationText)} // Replace with your desired navigation action
-      >
-        <Ionicons name="help-circle-outline" size={18} color="#E02E88" />
-        <Text
-          style={{
-            color: "#E02E88",
-            marginLeft: 2,
-            fontSize: 12,
-            fontWeight: "bold",
-          }}
-        >
-          {rightText}
-        </Text>
-      </TouchableOpacity>
-    );
-  }
-
-  return options;
 };
 
 const DrawerNavigator = ({ route }) => {
@@ -198,6 +148,21 @@ const AuthenticatedStack = () => {
         component={CaptainAcceptRide}
         options={{ headerShown: false }}
       />
+
+      <Stack.Screen
+        name="captaineacceptrideusershowridedetails"
+        component={RideDetails}
+        options={({ navigation }) =>
+          getCommonOptions(navigation, "Ride Details", "#f5f2f2")
+        }
+      />
+
+      <Stack.Screen
+        name="captainrideComplete"
+        component={CaptainRideComplete}
+        options={{ headerShown: false }}
+      />
+
       <Stack.Screen
         name="RideHistory"
         component={RideHistory}
@@ -353,3 +318,95 @@ const AuthenticatedStack = () => {
 };
 
 export default AuthenticatedStack;
+
+const CustomHeader = ({
+  navigation,
+  title,
+  backgroundColor,
+  showRight,
+  rightText,
+  navigationText,
+}) => (
+  <View style={[styles.mainContainer]}>
+    <View style={[styles.btnContainer]}>
+      <TouchableOpacity
+        style={[styles.btn]}
+        onPress={() => navigation.goBack()}
+      >
+        <Ionicons name="chevron-back" size={30} color="#E02E88" />
+      </TouchableOpacity>
+    </View>
+
+    <View style={[styles.textContainer]}>
+      <Ionicons
+        name="location-sharp"
+        size={20}
+        color="lightgray"
+        style={[styles.icon]}
+      />
+
+      <Text style={[styles.text]}>{title || "Title"}</Text>
+    </View>
+  </View>
+);
+
+const styles = StyleSheet.create({
+  mainContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginHorizontal: 20,
+    marginTop: 20,
+    marginBottom: 5,
+    borderWidth: 1, // Apply border to all sides
+    borderColor: "#FFE2E6",
+    // paddingHorizontal: 13,
+    // paddingVertical: 5,
+    backgroundColor: "white",
+    borderRadius: 6,
+    height: 50,
+    borderTopRightRadius: 30,
+    borderBottomRightRadius: 30,
+    paddingLeft: 10,
+  },
+
+  btnContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: "15%",
+    height: "100%",
+  },
+
+  btn: {
+    height: 40,
+    width: 40,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  textContainer: {
+    flexDirection: "row",
+    borderWidth: 1,
+    borderColor: "#FFE2E6",
+    width: "85%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+    borderRadius: 30,
+    paddingRight: 20,
+    position: "relative",
+  },
+
+  text: {
+    color: "#302f2f",
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+    width: "100%",
+  },
+  icon: {
+    position: "absolute",
+    left: 10,
+  },
+});

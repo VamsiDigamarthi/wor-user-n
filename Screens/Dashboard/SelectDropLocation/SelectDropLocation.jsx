@@ -20,7 +20,7 @@ const SelectDropLocation = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#fff5f9" />
+      <StatusBar barStyle="dark-content" backgroundColor="#f5f2f2" />
 
       <View style={styles.pickDropBtnCard}>
         <ShowPickDropCard

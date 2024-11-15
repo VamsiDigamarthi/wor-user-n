@@ -8,37 +8,38 @@ import ReferAndEarn from "../../../Components/Dashboard/CaptainAcceptCom/ReferAn
 import RatingCard from "../../../Components/Dashboard/CaptainAcceptCom/RatingCard/RatingCard";
 import { useCaptainAcceptRideHook } from "./CaptainAcceptRide.hook";
 import { coordinationMap } from "../../../Constants/displaylocationmap";
+import CaptainAcceptRideDetails from "../../../Components/Dashboard/CaptainAcceptCom/CaptainAcceptRideDetails/CaptainAcceptRideDetails";
 
 const CaptainAcceptRide = () => {
   const { orderDetails } = useCaptainAcceptRideHook();
   return (
     <View style={styles.container}>
+      <View style={styles.mapContainer}>
+        <Image
+          source={{
+            uri: coordinationMap(
+              orderDetails?.pickup?.coordinates[1],
+              orderDetails?.pickup?.coordinates[0]
+            ),
+          }}
+          style={styles.mapImage} // Define your desired styles here
+        />
+      </View>
       <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
+        contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}
       >
-        <View style={styles.mapContainer}>
-          <Image
-            source={{
-              uri: coordinationMap(
-                orderDetails?.pickup?.coordinates[1],
-                orderDetails?.pickup?.coordinates[0]
-              ),
-            }}
-            style={styles.mapImage} // Define your desired styles here
-          />
-        </View>
         <View style={styles.bottomSheet}>
           <Text style={styles.text}></Text>
           <CaptainTime />
           <CaptainRideOpt orderOtp={orderDetails?.orderOtp} />
-          <CaptainDetails captainDetails={orderDetails?.acceptCaptain} />
-          <RatingMsgCall />
+          <View style={styles.userCalCard}>
+            <CaptainDetails captainDetails={orderDetails?.acceptCaptain} />
+            <RatingMsgCall />
+          </View>
+          <CaptainAcceptRideDetails orderDetails={orderDetails} />
           <ReferAndEarn />
-          <RatingCard />
+          {/* <RatingCard /> */}
         </View>
       </ScrollView>
     </View>
@@ -50,16 +51,28 @@ export default CaptainAcceptRide;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // gap: 20,
+    // paddingTop: 12,
+  },
+  userCalCard: {
     gap: 20,
-    paddingTop: 12,
+    padding: 10,
+    paddingVertical: 15,
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#ffe2e6",
   },
   mapContainer: {
     width: "100%",
-    paddingHorizontal: 20,
     height: 250,
-    marginBottom: 20,
-    borderRadius: 10,
-    overflow: "hidden",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+  },
+  scrollContainer: {
+    paddingTop: 250,
   },
   mapImage: {
     width: "100%",
@@ -79,6 +92,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 24,
     paddingBottom: 28,
     backgroundColor: "#fff5f9",
+    paddingBottom: 50,
   },
   text: {
     width: 120,

@@ -38,6 +38,7 @@ const DropLocationItem = ({
                 name="heart-outline"
                 size={23}
                 color="gray"
+                style={{ backgroundColor: "#fff" }}
                 onPress={() => onAddPlaceToFavoriteHandler(eachPlace)}
               />
             </Pressable>
@@ -53,6 +54,8 @@ export default DropLocationItem;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
+    borderBottomWidth: 1,
+    borderBottomColor: "#ffe2e6",
   },
 
   pressableCard: {
@@ -80,7 +83,7 @@ const styles = StyleSheet.create({
     // gap: 2,
   },
   locText: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: "600",
   },
   subLocText: {

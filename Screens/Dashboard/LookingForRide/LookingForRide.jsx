@@ -18,6 +18,7 @@ const LookingForRide = () => {
     showCancelWithReOrderBtn,
     onCancelRide,
     onRePlaceOrder,
+    onNewCancelHandle,
   } = useLookingForRideHook();
 
   return (
@@ -63,6 +64,15 @@ const LookingForRide = () => {
                   showCancelWithReOrderBtn ? onCancelRide : onRePlaceOrder
                 }
               />
+              {!showCancelWithReOrderBtn && (
+                <CustomBtn
+                  title="Cancel Order"
+                  btnBg="#fff"
+                  btnColor="#001"
+                  width="100%"
+                  onPress={onNewCancelHandle}
+                />
+              )}
             </View>
           </View>
           <ShowPickDropPriceCard
@@ -122,7 +132,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 200,
     position: "relative",
-    // backgroundColor: "red",
   },
 
   images: {
@@ -141,5 +150,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     // backgroundColor: "red",
     padding: 10,
+    gap: 20,
   },
 });

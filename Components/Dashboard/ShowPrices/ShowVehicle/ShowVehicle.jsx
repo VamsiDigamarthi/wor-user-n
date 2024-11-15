@@ -33,10 +33,14 @@ export default ShowVehicle;
 const styles = StyleSheet.create({
   pressContainer: {
     width: "100%",
+    borderWidth: 1,
+    borderColor: "#ffe2e6",
+    borderRadius: 10,
   },
   pressedContainer: {
     borderWidth: 1,
-    borderColor: "#E02E88", // Border color for selected vehicle
+    borderColor: "#e02e88",
+    // Border color for selected vehicle
     borderRadius: 8,
   },
   container: {
