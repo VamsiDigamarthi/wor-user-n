@@ -7,15 +7,13 @@ import { TouchableOpacity } from "react-native";
 import { useSignUpHook } from "./SignUp.hook";
 import { useRoute } from "@react-navigation/native";
 import { useState } from "react";
+import SignUpRelated from "../../../Components/Auth/SignUpRelated/SignUpRelated";
 
 const SignUp = () => {
   const route = useRoute();
   const { mobile } = route.params;
-  const { selectedImage, handleImagePick } = useSignUpHook();
-  const [imageBorder, setImageBorder] = useState(false);
-  const onImageError = () => {
-    setImageBorder(true);
-  };
+  const { selectedImage, handleImagePick, imageBorder, onImageError } =
+    useSignUpHook();
 
   return (
     <AuthScreenLayout>
@@ -39,11 +37,11 @@ const SignUp = () => {
             </View>
           </TouchableOpacity>
         </View>
-        <BottomSheet
-          uiDisplay="signup"
+        <SignUpRelated
           selectedImage={selectedImage}
           mobile={mobile}
           onImageError={onImageError}
+          imageBorder={imageBorder}
         />
       </View>
     </AuthScreenLayout>

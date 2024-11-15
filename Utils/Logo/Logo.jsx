@@ -17,5 +17,8 @@ const styles = StyleSheet.create({
   logo: {
     width: "40%", // Set the width to 40%
     // You can add more styles here if needed
+    // backgroundColor: "red",
+    resizeMode: "cover",
+    height: 74,
   },
 });

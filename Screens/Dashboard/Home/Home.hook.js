@@ -1,3 +1,5 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import * as Location from "expo-location";
 import { useEffect, useMemo, useState } from "react";
 import { fetchNearbyPlaces } from "../../../Constants/displaylocationmap";
@@ -15,6 +17,14 @@ export const useHomeHook = () => {
   // const [nearByRandomItems, setNearByRandomItems] = useState([]);
 
   console.log("home screen", token);
+
+  // const onFetchTokenFromLocal = async () => {
+  //   const token = await AsyncStorage.getItem("token");
+  //   console.log(token);
+  // };
+  // useEffect(() => {
+  //   onFetchTokenFromLocal();
+  // }, []);
 
   const dispatch = useDispatch();
   useEffect(() => {

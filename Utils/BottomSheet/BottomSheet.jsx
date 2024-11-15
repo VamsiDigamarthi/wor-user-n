@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 24,
     paddingBottom: 28,
     backgroundColor: "#fff5f9",
+    paddingBottom: 60,
   },
   text: {
     width: 120,

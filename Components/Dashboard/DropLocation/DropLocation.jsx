@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import DropLocationItem from "./Components/DropLocationItem/DropLocationItem";
@@ -29,21 +29,23 @@ const DropLocation = ({
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.inputCard} onPress={handleNavigate}>
+      <Pressable style={styles.inputCard} onPress={handleNavigate}>
         <Ionicons name="location" size={25} color="#E02E88" />
         <View style={styles.inputTypeCard}>
           <Text>Enter Drop Location</Text>
         </View>
-      </TouchableOpacity>
-      {nearByRandomItems?.map((eachPlace, key) => (
-        <DropLocationItem
-          mainPlace={eachPlace?.name}
-          subPlace={eachPlace.vicinity}
-          eachPlace={eachPlace}
-          key={key}
-          onPress={onNavigateToDirectPriceScreen.bind(this, eachPlace)}
-        />
-      ))}
+      </Pressable>
+      <View style={styles.innerCard}>
+        {nearByRandomItems?.map((eachPlace, key) => (
+          <DropLocationItem
+            mainPlace={eachPlace?.name}
+            subPlace={eachPlace.vicinity}
+            eachPlace={eachPlace}
+            key={key}
+            onPress={onNavigateToDirectPriceScreen.bind(this, eachPlace)}
+          />
+        ))}
+      </View>
     </View>
   );
 };
@@ -53,13 +55,34 @@ export default DropLocation;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
+    position: "relative",
+    height: 250,
+
+    // gap: 10,
+  },
+  innerCard: {
+    backgroundColor: "#fff",
+    padding: 10,
+    overflow: "hidden",
+    height: 230,
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    width: "100%",
+    zIndex: 2,
+    borderBottomRightRadius: 10,
+    borderBottomLeftRadius: 10,
+    borderWidth: 1,
+    borderColor: "#ffe2e6",
     gap: 10,
   },
   inputCard: {
     width: "100%",
     height: 50,
-    borderColor: "#f5f0f0",
     borderWidth: 1,
+    borderColor: "#ffe2e6",
     borderRadius: 5,
     paddingHorizontal: 10,
     elevation: 0,
@@ -71,6 +94,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 3,
+    borderRadius: 30,
+    position: "absolute",
+    zIndex: 3,
   },
   inputTypeCard: {
     width: "90%",

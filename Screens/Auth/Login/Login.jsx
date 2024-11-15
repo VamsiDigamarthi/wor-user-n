@@ -3,6 +3,7 @@ import { View, Image, StyleSheet, Text } from "react-native";
 import AuthScreenLayout from "../../../Layouts/AuthScreenLayout";
 import Logo from "../../../Utils/Logo/Logo";
 import BottomSheet from "../../../Utils/BottomSheet/BottomSheet";
+import LoginRelatedInput from "../../../Components/Auth/Login/Login";
 // import Logo from "../components/logo";
 // import BottomSheet from "../components/BottomSheet/BottomSheet";
 
@@ -18,7 +19,7 @@ export default function Login() {
             resizeMode="contain"
           />
         </View>
-        <BottomSheet uiDisplay="login" />
+        <LoginRelatedInput />
       </View>
     </AuthScreenLayout>
   );
