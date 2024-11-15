@@ -185,6 +185,10 @@ export const useLookingForRideHook = () => {
     }
   };
 
+  const onNewCancelHandle = () => {
+    navigation.goBack();
+  };
+
   return {
     onCancelRide,
     dropAddress,
@@ -195,5 +199,6 @@ export const useLookingForRideHook = () => {
     progressWidth,
     showCancelWithReOrderBtn,
     onRePlaceOrder,
+    onNewCancelHandle,
   };
 };

@@ -51,11 +51,6 @@ export default function SafetyHome() {
         />
         <MenuItem text="Ride Insurance" />
         <MenuItem text="Donation" />
-
-        <TouchableOpacity style={styles.logoutBtn}>
-          <Ionicons name="log-out-outline" size={40} color="#e02e88" />
-          <Text style={{ fontWeight: "bold" }}>Logout</Text>
-        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -126,11 +121,14 @@ const styles = StyleSheet.create({
   menuItem: {
     flexDirection: "row",
     justifyContent: "space-between",
-    borderBottomColor: "#e02e88",
-    borderBottomWidth: 2,
+    borderColor: "#e02e88",
+    paddingHorizontal: 10,
+    borderWidth: 1,
     marginVertical: 10,
     paddingVertical: 10,
     fontSize: 14,
+    backgroundColor: "#fff",
+    borderRadius: 10,
   },
 
   logoutBtn: {

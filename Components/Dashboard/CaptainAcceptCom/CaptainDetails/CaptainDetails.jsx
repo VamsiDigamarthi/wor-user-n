@@ -46,8 +46,8 @@ const styles = StyleSheet.create({
   },
   vehiclTypeImageCard: {
     position: "absolute",
-    right: 0,
-    bottom: 10,
+    right: -10,
+    bottom: -5,
     padding: 20,
     backgroundColor: "#fff",
     borderRadius: 20,
@@ -56,11 +56,11 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   captainImage: {
-    width: 120,
-    height: 120,
-    borderRadius: 500,
+    width: 80,
+    height: 80,
+    borderRadius: 40,
     borderColor: "#e02e88",
-    borderWidth: 5,
+    borderWidth: 2,
   },
 
   vehicleDetails: {

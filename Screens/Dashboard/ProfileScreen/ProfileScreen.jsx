@@ -3,6 +3,7 @@ import React from "react";
 import ProfileCard from "../../../Components/Dashboard/ProfileCom/ProfileCard/ProfileCard";
 import ProfileRatingRideCountCard from "../../../Components/Dashboard/ProfileCom/ProfileRatingRideCountCard/ProfileRatingRideCountCard";
 import ProfileNavigationCard from "../../../Components/Dashboard/ProfileCom/ProfileNavigationCard/ProfileNavigationCard";
+import Settingsitem from "../../../Components/Dashboard/settingscom/SettingsItem/Settingsitem";
 
 const ProfileScreen = () => {
   return (
@@ -12,21 +13,29 @@ const ProfileScreen = () => {
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
-          justifyContent: "space-between",
+          // justifyContent: "space-between",
           alignItems: "center",
         }}
         showsVerticalScrollIndicator={false}
       >
-        <ProfileNavigationCard
-          title="Personal Info"
-          // navigateTo="PersonalInfo"
-          navigateTo="PersonalInfoPreview"
+        <Settingsitem
+          iconName="person-outline"
+          iconType="Ionicons"
+          label="Personal Info"
+          screenName="PersonalInfoPreview"
         />
-        <ProfileNavigationCard title="Safety & Privacy" />
-        <ProfileNavigationCard title="Document" />
-        <ProfileNavigationCard title="Banking Deatils" />
-        <ProfileNavigationCard title="Upload ID Proof" />
-        <ProfileNavigationCard title="LogOut" />
+        <Settingsitem
+          iconName="document-text-outline"
+          iconType="Ionicons"
+          label="Document"
+          // screenName="PersonalInfoPreview"
+        />
+        <Settingsitem
+          iconName="logout"
+          iconType="MaterialIcons"
+          label="Logout"
+          // screenName="PersonalInfoPreview"
+        />
       </ScrollView>
     </View>
   );

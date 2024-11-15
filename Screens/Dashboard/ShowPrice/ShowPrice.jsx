@@ -49,32 +49,34 @@ const ShowPrice = () => {
 
         <View style={styles.bottomSheet}>
           <Text style={styles.text}></Text>
-          <ShowPickDropCard
-            placeName={placeName}
-            isInputShow={false}
-            dropLocation={dropDetails?.name}
-          />
-          <ShowVehicle
-            image={require("../../../assets/images/scooty.png")}
-            personCount={1}
-            price={pricesInKM?.scooty}
-            isSelected={selectedVehicle === "scooty"}
-            onPress={() => handleVehiclePress("scooty")}
-          />
-          <ShowVehicle
-            image={require("../../../assets/images/car.png")}
-            personCount={4}
-            price={pricesInKM?.car}
-            isSelected={selectedVehicle === "car"}
-            onPress={() => handleVehiclePress("car")}
-          />
-          <ShowVehicle
-            image={require("../../../assets/images/auto.png")}
-            personCount={3}
-            price={pricesInKM?.auto}
-            isSelected={selectedVehicle === "auto"}
-            onPress={() => handleVehiclePress("auto")}
-          />
+          <View style={styles.bottomSheetInner}>
+            <ShowPickDropCard
+              placeName={placeName}
+              isInputShow={false}
+              dropLocation={dropDetails?.name}
+            />
+            <ShowVehicle
+              image={require("../../../assets/images/scooty.png")}
+              personCount={1}
+              price={pricesInKM?.scooty}
+              isSelected={selectedVehicle === "scooty"}
+              onPress={() => handleVehiclePress("scooty")}
+            />
+            <ShowVehicle
+              image={require("../../../assets/images/car.png")}
+              personCount={4}
+              price={pricesInKM?.car}
+              isSelected={selectedVehicle === "car"}
+              onPress={() => handleVehiclePress("car")}
+            />
+            <ShowVehicle
+              image={require("../../../assets/images/auto.png")}
+              personCount={3}
+              price={pricesInKM?.auto}
+              isSelected={selectedVehicle === "auto"}
+              onPress={() => handleVehiclePress("auto")}
+            />
+          </View>
         </View>
         <View style={styles.coupneWithBtn}>
           <View style={styles.couponTextCard}>
@@ -91,11 +93,13 @@ const ShowPrice = () => {
           )}
           <CustomBtn
             width="100%"
-            btnBg="#e02e88"
-            btnColor="#fff"
+            btnBg={selectedVehicle ? "#e02e88" : "#fff"}
+            btnColor={selectedVehicle ? "#fff" : "#e02e88"}
             title="Book Ride"
             onPress={onPlaceTheOrder}
             disabled={true}
+            borderColor="#e02e88"
+            borderWidth={1}
           />
         </View>
       </ScrollView>
@@ -133,11 +137,20 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     justifyContent: "center",
     alignItems: "center",
-    gap: 12,
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
     paddingBottom: 28,
+    gap: 15,
     backgroundColor: "#fff5f9",
+    height: 420,
+  },
+
+  bottomSheetInner: {
+    backgroundColor: "#fff",
+    borderWidth: 1,
+    borderColor: "#ffe3e6",
+    gap: 20,
+    borderRadius: 10,
   },
   text: {
     width: 120,
@@ -151,7 +164,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingVertical: 20,
     gap: 20,
-
+    paddingBottom: 80,
     alignItems: "center",
   },
   couponTextCard: {

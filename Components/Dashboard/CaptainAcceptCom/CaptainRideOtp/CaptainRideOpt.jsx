@@ -29,12 +29,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 10,
     flexDirection: "row",
-    borderBottomWidth: 1,
-    borderBottomColor: "lightgray",
+    padding: 15,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#ffe2e6",
+    backgroundColor: "#fff",
   },
   pinText: {
     color: "black",
-    fontSize: 12,
+    fontSize: 10,
     fontWeight: "600",
   },
   allOtpBox: {

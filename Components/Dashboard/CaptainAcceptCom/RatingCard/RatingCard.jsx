@@ -12,15 +12,6 @@ const RatingCard = () => {
   };
   return (
     <View style={styles.container}>
-      <View style={styles.vehcleConfirmCard}>
-        <Text style={styles.vehicleWasCheck}>
-          was the vehicle numberis correct
-        </Text>
-        <View style={styles.connfirmVehicleCard}>
-          <Text style={[styles.confimrText, styles.confirmTextColor]}>Yes</Text>
-          <Text style={styles.confimrText}>No</Text>
-        </View>
-      </View>
       <View style={styles.starCard}>
         <Text>Rating the Rider</Text>
         <View style={styles.starContainer}>
@@ -48,7 +39,6 @@ const RatingCard = () => {
           width="60%"
         />
         <Text style={styles.thankyou}>Thanks for choosing us.</Text>
-        <Text>skip to home screen</Text>
       </View>
     </View>
   );
