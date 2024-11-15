@@ -5,7 +5,13 @@ import Home from "../Screens/Dashboard/Home/Home";
 import RideBook from "../Screens/Dashboard/RideBook/RideBook";
 import CustomAppBar from "../Utils/CustomAppBar/CustomAppBar";
 import SelectDropLocation from "../Screens/Dashboard/SelectDropLocation/SelectDropLocation";
-import { Settings, StatusBar, Text, TouchableOpacity } from "react-native";
+import {
+  Settings,
+  StatusBar,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import ShowPrice from "../Screens/Dashboard/ShowPrice/ShowPrice";
 import LookingForRide from "../Screens/Dashboard/LookingForRide/LookingForRide";
@@ -59,6 +65,7 @@ const getCommonOptions = (
     headerTitleStyle: {
       color: "#302f2f",
     },
+
     headerLeft: () => (
       <TouchableOpacity
         style={{

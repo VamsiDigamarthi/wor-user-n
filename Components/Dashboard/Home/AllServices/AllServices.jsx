@@ -75,6 +75,11 @@ export default AllServices;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
+    backgroundColor: "#fff",
+    padding: 10,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#ffe2e6",
   },
   serviceTextCard: {
     flexDirection: "row",
@@ -98,6 +103,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 4,
     borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#f5f5f5",
   },
   image: {
     width: 60, // Define width for images

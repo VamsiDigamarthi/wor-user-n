@@ -11,7 +11,8 @@ const InputBox = ({
   secureTextEntry = false,
   onChangeText = () => {},
   isValid = true,
-  value = "", // Add initial value prop for controlled component
+  value = "",
+  maxLength = undefined,
 }) => {
   return (
     <View style={styles.container}>
@@ -27,6 +28,7 @@ const InputBox = ({
           onChangeText={onChangeText}
           secureTextEntry={secureTextEntry}
           value={value}
+          maxLength={maxLength}
         />
       </View>
     </View>
@@ -43,7 +45,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 11,
-    color: "#A0AEC0",
+    color: "#000",
   },
   invalidLabel: {
     color: "red", // Change label color to red

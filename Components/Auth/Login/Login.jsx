@@ -1,80 +1,129 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputBox from "../../../Utils/InputCard/InputCard";
 import CustomCheckbox from "../../../Utils/CustomCheckbox/CustomCheckbox";
 import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
 import { useNavigation } from "@react-navigation/native";
 import { API } from "../../../Constants/url";
+import { loginValidation } from "../../../Validations/LoginValidation";
+import BottomLayout from "../../../Layouts/BottomLayout";
 
 const LoginRelatedInput = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [mobile, setMobile] = useState("");
-  const [isValid, setIsValid] = useState(true);
-  const [error, setError] = useState("");
+  const [apiError, setApiError] = useState("");
+  const [errorState, setErrorState] = useState({
+    mobile: "",
+    termsAndCondition: "",
+  });
   const navigation = useNavigation();
 
   const handleCheck = () => {
     setIsChecked(!isChecked);
   };
 
+  const handleMobileChange = (text) => {
+    setMobile(text);
+  };
+
   const handleLogin = async () => {
-    if (!mobile || mobile.length !== 10) {
-      setIsValid(false);
+    const errors = loginValidation(mobile, isChecked);
+    setErrorState(errors);
+
+    if (Object.keys(errors).length > 0) {
       return;
     }
 
-    setIsValid(true);
-
     try {
-      console.log(mobile);
-      await API.post("/auth/send-otp", { mobile: mobile });
-      console.log("kjhgc");
+      const response = await API.post("/auth/send-otp", { mobile: mobile });
       navigation.navigate("otp", {
         mobile: mobile,
         termsAndCondition: isChecked,
+        message:
+          response.data?.name === "user not found"
+            ? "WOR"
+            : response.data?.name,
       });
     } catch (error) {
       console.log(error);
-      console.log(error?.response?.data?.message);
-      setError(error?.response?.data?.message);
+      setApiError(error?.response?.data?.message);
     }
   };
 
+  useEffect(() => {
+    if (mobile?.length === 10) {
+      setErrorState((prevState) => ({
+        ...prevState,
+        mobile: "",
+      }));
+    }
+    if (isChecked) {
+      setErrorState((prevState) => ({
+        ...prevState,
+        privacy: "",
+      }));
+    }
+    if (isChecked && mobile?.length === 10) {
+      setErrorState({});
+    }
+  }, [mobile, isChecked]);
+
   return (
-    <>
-      <InputBox
-        label="Mobile Number"
-        isIconsNotText={false}
-        keyboardType="numeric"
-        value={mobile}
-        onChangeText={(text) => setMobile(text)}
-        isValid={isValid}
-      />
-      <CustomCheckbox handleCheck={handleCheck} isChecked={isChecked} />
-      {error && (
-        <View style={styles.errorCard}>
-          <Text style={styles.errorMsg}>{error}</Text>
+    <BottomLayout
+      title="Verify Your Mobile Number"
+      subTitle="By Entering your mobile number you are agreeing to our terms & condition"
+    >
+      <View style={styles.container}>
+        <InputBox
+          label={errorState.mobile ? errorState.mobile : "Mobile Number"}
+          isIconsNotText={false}
+          keyboardType="numeric"
+          value={mobile}
+          onChangeText={handleMobileChange}
+          isValid={!errorState.mobile}
+          maxLength={10}
+        />
+        <View style={styles.checkboxCard}>
+          <CustomCheckbox handleCheck={handleCheck} isChecked={isChecked} />
+          {errorState.privacy && (
+            <View style={styles.errorCard}>
+              <Text style={styles.errorMsg}>{errorState.privacy}</Text>
+            </View>
+          )}
         </View>
-      )}
-      <CustomBtn
-        title="continue"
-        btnBg="#fff"
-        btnColor="#E02E88"
-        onPress={handleLogin}
-        width="100%"
-      />
-    </>
+        {apiError && (
+          <View style={styles.errorCard}>
+            <Text style={styles.errorMsg}>{apiError}</Text>
+          </View>
+        )}
+
+        <CustomBtn
+          title="continue"
+          btnBg={Object.keys(errorState)?.length > 0 ? "#fff" : "#E02E88"}
+          btnColor={Object.keys(errorState)?.length > 0 ? "#E02E88" : "#fff"}
+          onPress={handleLogin}
+          width="100%"
+        />
+      </View>
+    </BottomLayout>
   );
 };
 
 export default LoginRelatedInput;
 
 const styles = StyleSheet.create({
+  container: {
+    width: "100%",
+    gap: 20,
+  },
   errorCard: {
     width: "100%",
   },
   errorMsg: {
     color: "red",
-    fontSize: 14,
+    fontSize: 11,
+  },
+  checkboxCard: {
+    gap: 2,
   },
 });

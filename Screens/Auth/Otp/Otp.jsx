@@ -2,7 +2,7 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import AuthScreenLayout from "../../../Layouts/AuthScreenLayout";
 import Logo from "../../../Utils/Logo/Logo";
-import BottomSheet from "../../../Utils/BottomSheet/BottomSheet";
+import OtpRelatedInput from "../../../Components/Auth/OtpCom/OtpCom";
 
 const Otp = () => {
   return (
@@ -16,7 +16,8 @@ const Otp = () => {
             resizeMode="contain"
           />
         </View>
-        <BottomSheet uiDisplay="otp" />
+        {/* <BottomSheet uiDisplay="otp" /> */}
+        <OtpRelatedInput />
       </View>
     </AuthScreenLayout>
   );

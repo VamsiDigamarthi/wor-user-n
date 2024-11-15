@@ -15,15 +15,16 @@ const CustomAppBar = ({ navigation, placeName }) => {
         <Ionicons name="menu" size={24} color="#e02e88" />
       </TouchableOpacity>
 
-      <View style={styles.locationInputContainer}>
-        <Ionicons name="location-sharp" size={20} color="lightgray" />
-        <Text style={styles.title}>{placeName || "Women Rider"}</Text>
-        {/* <TextInput placeholder="Enter location" style={styles.locationInput} /> */}
-      </View>
+      <View style={styles.appSecondCard}>
+        <View style={styles.locationInputContainer}>
+          <Ionicons name="location-sharp" size={20} color="lightgray" />
+          <Text style={styles.title}>{placeName || "Women Rider"}</Text>
+        </View>
 
-      <TouchableOpacity onPress={() => alert("Love icon pressed!")}>
-        <Ionicons name="heart-outline" size={24} color="lightgray" />
-      </TouchableOpacity>
+        <TouchableOpacity onPress={() => alert("Love icon pressed!")}>
+          <Ionicons name="heart-outline" size={24} color="lightgray" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -37,11 +38,27 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 5,
     borderWidth: 1, // Apply border to all sides
-    borderColor: "#f7f5f5",
-    paddingHorizontal: 13,
-    paddingVertical: 5,
+    borderColor: "#fff5f9",
+    // paddingHorizontal: 13,
+    // paddingVertical: 5,
     backgroundColor: "white",
     borderRadius: 6,
+    height: 50,
+    borderTopRightRadius: 30,
+    borderBottomRightRadius: 30,
+    paddingLeft: 10,
+  },
+  appSecondCard: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    // backgroundColor: "red",
+    width: "90%",
+    borderRadius: 30,
+    borderWidth: 1,
+    borderColor: "#fff5f9",
+    height: "100%",
+    paddingRight: 20,
   },
   locationInputContainer: {
     flexDirection: "row",

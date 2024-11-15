@@ -4,6 +4,11 @@ import * as ImagePicker from "expo-image-picker";
 
 export const useSignUpHook = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [imageBorder, setImageBorder] = useState(false);
+  const onImageError = () => {
+    console.log("signup image function");
+    setImageBorder(true);
+  };
   const handleImagePick = async () => {
     // Request permission to access the camera roll
     const permissionResult =
@@ -26,6 +31,7 @@ export const useSignUpHook = () => {
     }
     if (result.assets && result.assets.length > 0) {
       setSelectedImage(result.assets[0].uri); // Access the uri from the first asset
+      setImageBorder(false);
     }
   };
 
@@ -34,5 +40,7 @@ export const useSignUpHook = () => {
   return {
     selectedImage,
     handleImagePick,
+    imageBorder,
+    onImageError,
   };
 };
