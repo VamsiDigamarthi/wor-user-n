@@ -10,11 +10,21 @@ import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-const AllServices = () => {
+const AllServices = ({ placeName, location, nearbyPlaces }) => {
   const navigation = useNavigation();
 
   const onNavigateParcelScreen = () => {
     navigation.navigate("ParcelHome");
+  };
+
+  const onNavaigetPickLocationScreen = (vehicle) => {
+    console.log(vehicle);
+    navigation.navigate("SelectDropLocation", {
+      placeName, // this prop is store current location text,
+      pickUpCoordinated: location, // this prop store current location user coordinates to pass price screen to calculate the price
+      nearbyPlaces, // this prop store nearby places from user current location to 1 km radius famous location [place this data into "select drop location screen to display initial locations"]
+      selectedVehicleType: vehicle,
+    });
   };
 
   return (
@@ -34,27 +44,33 @@ const AllServices = () => {
       >
         {/* Service Items */}
         <View style={styles.singleItem}>
-          {/* <Pressable onPress={onNavigateDropSelectedScreen}> */}
-          <Image
-            source={require("../../../../assets/images/image.png")}
-            style={styles.image} // Apply styles for images
-          />
-          <Text>Scooty</Text>
-          {/* </Pressable> */}
+          <Pressable
+            onPress={onNavaigetPickLocationScreen.bind(this, "scooty")}
+          >
+            <Image
+              source={require("../../../../assets/images/scooty.png")}
+              style={styles.image} // Apply styles for images
+            />
+            <Text>Scooty</Text>
+          </Pressable>
         </View>
         <View style={styles.singleItem}>
-          <Image
-            source={require("../../../../assets/images/image.png")}
-            style={styles.image}
-          />
-          <Text>Bike</Text>
+          <Pressable onPress={onNavaigetPickLocationScreen.bind(this, "car")}>
+            <Image
+              source={require("../../../../assets/images/car.png")}
+              style={styles.image}
+            />
+            <Text>Car</Text>
+          </Pressable>
         </View>
         <View style={styles.singleItem}>
-          <Image
-            source={require("../../../../assets/images/image.png")}
-            style={styles.image}
-          />
-          <Text>Car</Text>
+          <Pressable onPress={onNavaigetPickLocationScreen.bind(this, "auto")}>
+            <Image
+              source={require("../../../../assets/images/auto.png")}
+              style={styles.image}
+            />
+            <Text>Auto</Text>
+          </Pressable>
         </View>
         <View style={styles.singleItem}>
           <Pressable onPress={onNavigateParcelScreen}>

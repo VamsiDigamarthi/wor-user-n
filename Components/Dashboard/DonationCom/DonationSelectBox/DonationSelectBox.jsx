@@ -9,15 +9,15 @@ const DonationSelectBox = () => {
       <RNPickerSelect
         onValueChange={(value) => setSelectedValue(value)}
         items={[
-          { label: "Java", value: "java" },
-          { label: "JavaScript", value: "javascript" },
-          { label: "Python", value: "python" },
-          { label: "C++", value: "cpp" },
+          { label: "Java", value: "java", key: "java" },
+          { label: "JavaScript", value: "javascript", key: "javascript" },
+          { label: "Python", value: "python", key: "python" },
+          { label: "C++", value: "cpp", key: "cpp" },
         ]}
         value={selectedValue}
         style={pickerSelectStyles}
         placeholder={{
-          label: "How Its Work",
+          label: "How It Works",
           value: null,
           color: "#9EA0A4",
         }}
@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
     borderColor: "#ffe2e6",
     borderWidth: 2,
     borderRadius: 5,
-    borderRadius: 10,
     overflow: "hidden",
   },
 });
@@ -45,13 +44,11 @@ const pickerSelectStyles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#ffff",
     color: "#ffe2e6",
-    borderRadius: 10,
   },
   inputAndroid: {
     fontSize: 16,
     borderRadius: 10,
     backgroundColor: "#ffff",
     color: "black",
-    borderRadius: 10,
   },
 });

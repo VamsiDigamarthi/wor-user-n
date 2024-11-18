@@ -24,8 +24,6 @@ const ShowPrice = () => {
     apiError,
     pickUpCoordinated,
   } = useShowPriceHook();
-  console.log("drop", dropDetails?.location);
-  console.log("pick", pickUpCoordinated);
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#f5f2f2" />

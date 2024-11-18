@@ -2,9 +2,12 @@ import { useSelector } from "react-redux";
 import { getCoordinatesFromPlaceId } from "../../../../../Constants/displaylocationmap";
 import { API } from "../../../../../Constants/url";
 import Toast from "react-native-toast-message";
+import { useEffect, useState } from "react";
 
 export const useDropLocationItemHook = () => {
   const { token } = useSelector((state) => state.token);
+
+  const [favoritePlacesApi, setFavoritePlacesApi] = useState([]);
 
   const onAdddFavoriteApi = async (place) => {
     try {
@@ -21,6 +24,7 @@ export const useDropLocationItemHook = () => {
         type: "success",
         position: "bottom",
       });
+      onFetchFavoritePlaces();
     } catch (error) {
       Toast.show({
         text1: "Added favorite failed",
@@ -42,7 +46,31 @@ export const useDropLocationItemHook = () => {
       onAdddFavoriteApi(place);
     }
   };
+
+  const onFetchFavoritePlaces = async () => {
+    try {
+      const response = await API.get("/user/favorites-places", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      setFavoritePlacesApi(response.data);
+    } catch (error) {
+      Toast.show({
+        text1: "Failed to fetch favorite places",
+        type: "error",
+        position: "bottom",
+      });
+    }
+  };
+
+  useEffect(() => {
+    onFetchFavoritePlaces();
+  }, []);
+  // console.log(favoritePlacesApi);
   return {
     onAddPlaceToFavoriteHandler,
+    favoritePlacesApi,
   };
 };
