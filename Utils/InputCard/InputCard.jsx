@@ -1,6 +1,17 @@
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import React from "react";
-import { Ionicons } from "@expo/vector-icons";
+import {
+  Entypo,
+  EvilIcons,
+  Feather,
+  FontAwesome5,
+  Ionicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+  Octicons,
+  SimpleLineIcons,
+  Zocial,
+} from "@expo/vector-icons";
 
 const InputBox = ({
   label,
@@ -13,14 +24,51 @@ const InputBox = ({
   isValid = true,
   value = "",
   maxLength = undefined,
+  iconType = "Ionicons",
 }) => {
+  let Icon;
+  switch (iconType) {
+    case "Ionicons":
+      Icon = Ionicons;
+      break;
+    case "Entypo":
+      Icon = Entypo;
+      break;
+    case "FontAwesome5":
+      Icon = FontAwesome5;
+      break;
+    case "MaterialCommunityIcons":
+      Icon = MaterialCommunityIcons;
+      break;
+    case "MaterialIcons":
+      Icon = MaterialIcons;
+      break;
+    case "SimpleLineIcons":
+      Icon = SimpleLineIcons;
+      break;
+    case "Zocial":
+      Icon = Zocial;
+      break;
+    case "Octicons":
+      Icon = Octicons;
+      break;
+    case "Feather":
+      Icon = Feather;
+      break;
+    case "EvilIcons":
+      Icon = EvilIcons;
+      break;
+    default:
+      Icon = Ionicons;
+  }
+
   return (
     <View style={styles.container}>
       <Text style={[styles.label, !isValid && styles.invalidLabel]}>
         {label}
       </Text>
       <View style={[styles.inputCard, !isValid && styles.invalidInputCard]}>
-        {isIconsNotText ? <Ionicons name={icon} size={20} /> : <Text>+91</Text>}
+        {isIconsNotText ? <Icon name={icon} size={20} /> : <Text>+91</Text>}
         <TextInput
           style={styles.textInput}
           keyboardType={keyboardType}

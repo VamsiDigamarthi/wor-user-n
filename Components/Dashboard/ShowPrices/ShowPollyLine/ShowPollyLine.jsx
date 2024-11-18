@@ -17,7 +17,7 @@ const ShowPollyLine = ({ origin, destination }) => {
         // console.log("Destination: ", destination);
 
         const response = await axios.get(
-          `https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude},${origin.longitude}&destination=${destination.latitude},${destination.longitude}&mode=driving&key=${GOOGLE_MAPS_APIKEY}`
+          `https://maps.googleapis.com/maps/api/directions/json?origin=${origin.lat},${origin.lng}&destination=${destination.lat},${destination.lng}&mode=driving&key=${GOOGLE_MAPS_APIKEY}`
         );
 
         // console.log("API Response: ", response.data); // Log the full API response
@@ -110,8 +110,8 @@ const ShowPollyLine = ({ origin, destination }) => {
         {routeCoordinates.length > 0 && (
           <Polyline
             coordinates={routeCoordinates}
-            strokeColor="#000" // Polyline color
-            strokeWidth={4} // Polyline width
+            strokeColor="#e02e88" // Polyline color
+            strokeWidth={2} // Polyline width
           />
         )}
       </MapView>

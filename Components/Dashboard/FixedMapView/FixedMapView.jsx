@@ -11,7 +11,7 @@ const { width, height } = Dimensions.get("window");
 
 const MapWithFixedMarker = ({ navigation }) => {
   const route = useRoute();
-  const { pickUpCoordinated, placeName } = route.params;
+  const { pickUpCoordinated, placeName, isParcelScreen = false } = route.params;
 
   const [
     finalSelecetLocationNameWithCoordinates,
@@ -27,6 +27,7 @@ const MapWithFixedMarker = ({ navigation }) => {
 
   const onFetchLocationName = async (latitude, longitude) => {
     let placeName = await getPlaceName(latitude, longitude);
+
     setFinalSelecetLocationNameWithCoordinates({
       location: { lat: latitude, lng: longitude },
       name: placeName,
@@ -37,6 +38,12 @@ const MapWithFixedMarker = ({ navigation }) => {
     onFetchLocationName(region.latitude, region.longitude);
   };
   const onNavigateShowPriceScreen = () => {
+    if (isParcelScreen) {
+      navigation.navigate("ParcelMapWithBottomSheet", {
+        pickUpLocationCoorWithName: finalSelecetLocationNameWithCoordinates,
+      });
+      return;
+    }
     navigation.navigate("ShowPrice", {
       placeName,
       pickUpCoordinated,

@@ -67,10 +67,7 @@ export const useSelectDropLocationHook = () => {
 
   // navigate to map preview screen
   const onNavigateToMapPreviewScreen = () => {
-    // navigation.navigate("MapPreview", {
-    //   placeName,
-    //   pickUpCoordinated,
-    // });
+    // console.log(placeName);
     navigation.navigate("FixMapPreview", {
       placeName,
       pickUpCoordinated,

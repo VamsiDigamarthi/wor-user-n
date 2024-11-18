@@ -1,35 +1,60 @@
-import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import {
+  Dimensions,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import ParcelSendReceivesCard from "../../../Components/Parcels/ParcelHomeCom/ParcelSendReceivedCard/ParcelSendReceivesCard";
 import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
-import { useNavigation } from "@react-navigation/native";
+import SendAndReceiveParcelPicDropCard from "../../../Components/Parcels/SendAndReceiveParcelCom/SendAndReceiveParcelPicDropCard/SendAndReceiveParcelPicDropCard";
+import SelectParcelType from "../../../Components/Parcels/SendAndReceiveParcelCom/SelectParcelType/SelectParcelType";
+import ParcelSpecification from "../../../Components/Parcels/SendAndReceiveParcelCom/ParcelSpecification/ParcelSpecification";
+import { useParcelHomeHook } from "./ParcelHome.hook";
 
 const screenWidth = Dimensions.get("window").width;
 
 const ParcelHome = () => {
-  const navigation = useNavigation();
-
-  const [selectedCard, setSelectedCard] = useState(null);
-
-  const handleCardClick = (card) => {
-    setSelectedCard(card);
-  };
-
-  const onHandleNavigateLocationScreen = () => {
-    // Navigate to the location screen
-    navigation.navigate("SendReceiveParcel", { selectedCard });
-  };
+  const {
+    onHandleNavigateLocationScreen,
+    selectedCard,
+    handleCardClick,
+    pickUpLocationCoorWithName,
+    dropLocationCoorWithName,
+  } = useParcelHomeHook();
 
   return (
     <View style={styles.container}>
-      <ParcelSendReceivesCard
-        handleCardClick={handleCardClick}
-        selectedCard={selectedCard}
-      />
-      <Image
-        style={styles.image}
-        source={require("../../../assets/images/parcels/parcel 1.png")}
-      />
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+          gap: 15,
+          paddingBottom: 100,
+        }}
+        showsVerticalScrollIndicator={false}
+      >
+        <ParcelSendReceivesCard
+          handleCardClick={handleCardClick}
+          selectedCard={selectedCard}
+        />
+        {selectedCard ? (
+          <>
+            <SendAndReceiveParcelPicDropCard
+              pickUpLocationCoorWithName={pickUpLocationCoorWithName}
+              dropLocationCoorWithName={dropLocationCoorWithName}
+            />
+            <SelectParcelType />
+            <ParcelSpecification />
+          </>
+        ) : (
+          <Image
+            style={styles.image}
+            source={require("../../../assets/images/parcels/parcel 1.png")}
+          />
+        )}
+      </ScrollView>
+
       <View style={styles.positionCard}>
         <CustomBtn
           title="Continue"
@@ -53,14 +78,14 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     gap: 15,
     position: "relative",
-    // backgroundColor: "red",
   },
   positionCard: {
     width: screenWidth,
     position: "absolute",
-    bottom: 0,
+    bottom: 0, // This keeps the button fixed at the bottom
     left: 0,
     padding: 20,
+    backgroundColor: "transparent", // Ensures no background over the content
   },
   image: {
     width: "100%",

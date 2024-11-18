@@ -8,9 +8,9 @@ import {
 } from "../../../Constants/displaylocationmap";
 
 export const usePickLocationHook = () => {
-  //   const route = useRoute();
+  const route = useRoute();
   const navigation = useNavigation();
-  //   const { typeOfLocation } = route.params;
+  const { typeOfLocation } = route.params;
   const [location, setLocation] = useState(null);
   const [nearbyPlaces, setNearbyPlaces] = useState([]);
   const [placeName, setPlaceName] = useState(null);
@@ -62,9 +62,7 @@ export const usePickLocationHook = () => {
 
   // user enter text to fetch places but this type of location have not coordinates
   const fetchPlaceSuggestions = async (input) => {
-    console.log(input);
     let nearPlaces = await nearPlacesByText(input);
-    // console.log(nearPlaces);
     setSuggestions(nearPlaces);
   };
 
@@ -83,13 +81,13 @@ export const usePickLocationHook = () => {
       ...place,
       location,
     };
-    navigation.navigate("SendReceiveParcel", {
+    navigation.navigate("ParcelMapWithBottomSheet", {
       pickUpLocationCoorWithName,
     });
   };
 
   const onUserSelectPickLocationNearPlaces = (place) => {
-    navigation.navigate("SendReceiveParcel", {
+    navigation.navigate("ParcelMapWithBottomSheet", {
       pickUpLocationCoorWithName: place,
     });
   };
@@ -99,8 +97,17 @@ export const usePickLocationHook = () => {
       ...placeName,
       location: location,
     };
-    navigation.navigate("SendReceiveParcel", {
+    navigation.navigate("ParcelMapWithBottomSheet", {
       pickUpLocationCoorWithName: newPlace,
+    });
+  };
+
+  const onNavigateToMapPreviewScreen = () => {
+    // console.log(placeName, location);
+    navigation.navigate("FixMapPreview", {
+      placeName: placeName?.name,
+      pickUpCoordinated: location,
+      isParcelScreen: true,
     });
   };
 
@@ -112,5 +119,6 @@ export const usePickLocationHook = () => {
     onUserSelectDropLocationByEnterInput,
     onUserSelectPickLocationNearPlaces,
     onYourLocationClick,
+    onNavigateToMapPreviewScreen,
   };
 };
