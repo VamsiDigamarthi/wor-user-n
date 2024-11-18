@@ -9,8 +9,8 @@ export const useShowPriceHook = () => {
 
   const { token } = useSelector((state) => state.token);
   const route = useRoute();
-  const { placeName, pickUpCoordinated, dropDetails } = route.params;
-
+  const { placeName, pickUpCoordinated, dropDetails, selectedVehicleType } =
+    route.params;
   // store this price and vehicleType where user selecter corresponsind services
   const [beforeOrder, setBeforeOrder] = useState({
     vehicleType: "",
@@ -23,7 +23,9 @@ export const useShowPriceHook = () => {
     auto: 0,
   });
 
-  const [selectedVehicle, setSelectedVehicle] = useState(null);
+  const [selectedVehicle, setSelectedVehicle] = useState(
+    selectedVehicleType ?? null
+  );
   const [apiError, setApisError] = useState("");
 
   const handleVehiclePress = (vehicle) => {

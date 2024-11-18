@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import { useDropLocationItemHook } from "./DropLocationItem.hook";
 
 const DropLocationItem = ({
@@ -11,7 +11,11 @@ const DropLocationItem = ({
   eachPlace,
   favoriteIconDisplay = true,
 }) => {
-  const { onAddPlaceToFavoriteHandler } = useDropLocationItemHook();
+  const { onAddPlaceToFavoriteHandler, favoritePlacesApi } =
+    useDropLocationItemHook();
+  const isFavorite = favoritePlacesApi.some(
+    (place) => place.name === eachPlace.name
+  );
   return (
     <View style={styles.container}>
       <Pressable
@@ -37,10 +41,10 @@ const DropLocationItem = ({
           <View style={styles.third}>
             <Pressable>
               <Ionicons
-                name="heart-outline"
+                name="heart"
                 size={23}
                 color="gray"
-                style={{ backgroundColor: "#fff" }}
+                style={{ color: isFavorite ? "#e02e88" : "#808080" }}
                 onPress={() => onAddPlaceToFavoriteHandler(eachPlace)}
               />
             </Pressable>

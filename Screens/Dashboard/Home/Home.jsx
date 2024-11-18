@@ -42,7 +42,11 @@ const Home = () => {
             nearbyPlaces={nearbyPlaces} // this prop store nearby places from user current location to 1 km radius famous location [place this data into "select drop location screen to display initial locations"]
             location={location} // this is location used for pass this data into price screen
           />
-          <AllServices />
+          <AllServices
+            placeName={placeName}
+            nearbyPlaces={nearbyPlaces}
+            location={location}
+          />
           <SliderComponent />
           <BackgroundImage />
           <Button title="Go Back" onPress={onBackLogin} />

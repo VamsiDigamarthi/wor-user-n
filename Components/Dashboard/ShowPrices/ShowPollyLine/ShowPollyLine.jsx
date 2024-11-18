@@ -13,14 +13,14 @@ const ShowPollyLine = ({ origin, destination }) => {
     const getDirections = async () => {
       try {
         // Log the origin and destination for debugging
-        console.log("Origin: ", origin);
-        console.log("Destination: ", destination);
+        // console.log("Origin: ", origin);
+        // console.log("Destination: ", destination);
 
         const response = await axios.get(
           `https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude},${origin.longitude}&destination=${destination.latitude},${destination.longitude}&mode=driving&key=${GOOGLE_MAPS_APIKEY}`
         );
 
-        console.log("API Response: ", response.data); // Log the full API response
+        // console.log("API Response: ", response.data); // Log the full API response
 
         if (response.data.routes && response.data.routes.length > 0) {
           const points = decode(

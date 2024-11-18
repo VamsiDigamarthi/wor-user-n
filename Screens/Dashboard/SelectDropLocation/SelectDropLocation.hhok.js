@@ -8,7 +8,12 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 export const useSelectDropLocationHook = () => {
   const route = useRoute();
   const navigation = useNavigation();
-  const { placeName, nearbyPlaces, pickUpCoordinated } = route.params;
+  const {
+    placeName,
+    nearbyPlaces,
+    pickUpCoordinated,
+    selectedVehicleType, // this is commming from home screen when user click car auto servercies
+  } = route.params;
 
   const [inputValue, setInputValue] = useState("");
 
@@ -36,6 +41,7 @@ export const useSelectDropLocationHook = () => {
       placeName, // this prop is store current location text
       pickUpCoordinated, // this prop store currect location coodinates
       dropDetails: place, // this prop store drop location data (coodinates, location name, vicinity) comming from home screen  --> this is take user direcly from home screen show 3 random location
+      selectedVehicleType,
     });
   };
 
@@ -55,6 +61,7 @@ export const useSelectDropLocationHook = () => {
       placeName, // this prop is store current location text
       pickUpCoordinated, // this prop store currect location coodinates
       dropDetails: newDropLocation, // this prop store drop location data (coodinates, name, secondaryText)
+      selectedVehicleType,
     });
   };
 
