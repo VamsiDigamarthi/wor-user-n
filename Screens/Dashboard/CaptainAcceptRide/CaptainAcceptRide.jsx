@@ -9,9 +9,12 @@ import RatingCard from "../../../Components/Dashboard/CaptainAcceptCom/RatingCar
 import { useCaptainAcceptRideHook } from "./CaptainAcceptRide.hook";
 import { coordinationMap } from "../../../Constants/displaylocationmap";
 import CaptainAcceptRideDetails from "../../../Components/Dashboard/CaptainAcceptCom/CaptainAcceptRideDetails/CaptainAcceptRideDetails";
+import RideDetailAmount from "../../../Components/Dashboard/CaptainAcceptCom/RideDetails/RideDetailAmount";
+import CaptainRideCompletePriceCard from "../../../Components/Dashboard/CaptainAcceptCom/CapatinRideComplete/CaptainRideCompletePriceCard";
 
 const CaptainAcceptRide = () => {
-  const { orderDetails } = useCaptainAcceptRideHook();
+  const { orderDetails, otpVerified, travellingTimeAndDistnace } =
+    useCaptainAcceptRideHook();
   return (
     <View style={styles.container}>
       <View style={styles.mapContainer}>
@@ -31,13 +34,34 @@ const CaptainAcceptRide = () => {
       >
         <View style={styles.bottomSheet}>
           <Text style={styles.text}></Text>
-          <CaptainTime />
-          <CaptainRideOpt orderOtp={orderDetails?.orderOtp} />
+          <CaptainTime
+            title={otpVerified ? "Total Ride Time" : "Rider on the way"}
+            time={travellingTimeAndDistnace?.durationInMinutes ?? "03:59"}
+          />
+          {!otpVerified && <CaptainRideOpt orderOtp={orderDetails?.orderOtp} />}
           <View style={styles.userCalCard}>
             <CaptainDetails captainDetails={orderDetails?.acceptCaptain} />
-            <RatingMsgCall />
+            <RatingMsgCall otpVerified={otpVerified} />
           </View>
-          <CaptainAcceptRideDetails orderDetails={orderDetails} />
+          {!otpVerified && (
+            <CaptainAcceptRideDetails
+              travellingTimeAndDistnace={travellingTimeAndDistnace}
+              orderDetails={orderDetails}
+            />
+          )}
+          {otpVerified && (
+            <CaptainRideCompletePriceCard
+              travellingTimeAndDistnace={travellingTimeAndDistnace}
+              orderDetails={orderDetails}
+            />
+          )}
+          {otpVerified && (
+            <RideDetailAmount
+              payButton={true}
+              orderDetails={orderDetails}
+              travellingTimeAndDistnace={travellingTimeAndDistnace}
+            />
+          )}
           <ReferAndEarn />
           {/* <RatingCard /> */}
         </View>

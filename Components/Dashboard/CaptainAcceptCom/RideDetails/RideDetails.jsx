@@ -8,7 +8,7 @@ import ReferAndEarn from "../ReferAndEarn/ReferAndEarn";
 import { useNavigation } from "@react-navigation/native";
 
 const RideDetails = () => {
-  const { orderDetails } = useRideDetailsHook();
+  const { orderDetails, travellingTimeAndDistnace } = useRideDetailsHook();
   const navigation = useNavigation();
 
   const onRideComplete = () => {
@@ -19,7 +19,10 @@ const RideDetails = () => {
 
   return (
     <View style={styles.container}>
-      <RideDetailsItem orderDetails={orderDetails} />
+      <RideDetailsItem
+        travellingTimeAndDistnace={travellingTimeAndDistnace}
+        orderDetails={orderDetails}
+      />
       <RideDetailAmount orderDetails={orderDetails} />
       <View style={{ width: "100%" }}>
         <CustomBtn

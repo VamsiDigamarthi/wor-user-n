@@ -44,6 +44,7 @@ import SendAndReceiveParcel from "../Screens/Parcels/SendAndReceiveParcel/SendAn
 import PickLocation from "../Screens/Parcels/PickLocation/PickLocation";
 import RideDetails from "../Components/Dashboard/CaptainAcceptCom/RideDetails/RideDetails";
 import CaptainRideComplete from "../Components/Dashboard/CaptainAcceptCom/CapatinRideComplete/CaptainRideComplete";
+import MapWithCurrentLocation from "../Components/Dashboard/FixedMapView/FixedMapView";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -134,6 +135,12 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="MapPreview"
         component={MapPreview}
+        options={({ navigation }) => getCommonOptions(navigation, "Map")}
+      />
+
+      <Stack.Screen
+        name="FixMapPreview"
+        component={MapWithCurrentLocation}
         options={({ navigation }) => getCommonOptions(navigation, "Map")}
       />
 
@@ -247,7 +254,7 @@ const AuthenticatedStack = () => {
             "Personal Info",
             "#f5f2f2",
             true,
-            "Edit Profile",
+            "Edit",
             "PersonalInfo"
           )
         }

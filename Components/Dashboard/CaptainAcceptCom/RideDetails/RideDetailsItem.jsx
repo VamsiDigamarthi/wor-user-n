@@ -3,7 +3,7 @@ import React from "react";
 
 import { FontAwesome6, FontAwesome5 } from "@expo/vector-icons";
 
-const RideDetailsItem = ({ orderDetails }) => {
+const RideDetailsItem = ({ orderDetails, travellingTimeAndDistnace }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Ride Details</Text>
@@ -35,9 +35,11 @@ const RideDetailsItem = ({ orderDetails }) => {
       />
       <Single
         firstText="Ride distance:"
-        firstHead="2.8 KMs"
+        firstHead={travellingTimeAndDistnace?.distance ?? "2.8 KMs"}
         secondText="Ride Time:"
-        secondHead="23 M"
+        secondHead={
+          `${travellingTimeAndDistnace?.durationInMinutes} M` ?? "23 M"
+        }
       />
     </View>
   );

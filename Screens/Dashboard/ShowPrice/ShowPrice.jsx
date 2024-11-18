@@ -12,6 +12,7 @@ import ShowVehicle from "../../../Components/Dashboard/ShowPrices/ShowVehicle/Sh
 import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
 import { useShowPriceHook } from "./ShowPrice.hook.js";
 import { coordinationMap } from "../../../Constants/displaylocationmap.js";
+import ShowPollyLine from "../../../Components/Dashboard/ShowPrices/ShowPollyLine/ShowPollyLine.jsx";
 const ShowPrice = () => {
   const {
     placeName,
@@ -23,30 +24,37 @@ const ShowPrice = () => {
     apiError,
     pickUpCoordinated,
   } = useShowPriceHook();
-
+  console.log("drop", dropDetails?.location);
+  console.log("pick", pickUpCoordinated);
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#f5f2f2" />
+
+      <View style={styles.mapContainer}>
+        {/* <Image
+          source={{
+            uri: coordinationMap(
+              pickUpCoordinated?.lat,
+              pickUpCoordinated?.lng
+            ),
+          }}
+          style={styles.mapImage} // Define your desired styles here
+        /> */}
+        <ShowPollyLine
+          origin={pickUpCoordinated}
+          // origin={{ lat: 17.4587171, lng: 78.3705414 }}
+          destination={dropDetails?.location}
+        />
+      </View>
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
           justifyContent: "space-between",
           alignItems: "center",
+          paddingBottom: 120,
         }}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.mapContainer}>
-          <Image
-            source={{
-              uri: coordinationMap(
-                pickUpCoordinated?.lat,
-                pickUpCoordinated?.lng
-              ),
-            }}
-            style={styles.mapImage} // Define your desired styles here
-          />
-        </View>
-
         <View style={styles.bottomSheet}>
           <Text style={styles.text}></Text>
           <View style={styles.bottomSheetInner}>
@@ -61,6 +69,7 @@ const ShowPrice = () => {
               price={pricesInKM?.scooty}
               isSelected={selectedVehicle === "scooty"}
               onPress={() => handleVehiclePress("scooty")}
+              vehicleType="Scooty"
             />
             <ShowVehicle
               image={require("../../../assets/images/car.png")}
@@ -68,6 +77,7 @@ const ShowPrice = () => {
               price={pricesInKM?.car}
               isSelected={selectedVehicle === "car"}
               onPress={() => handleVehiclePress("car")}
+              vehicleType="Car"
             />
             <ShowVehicle
               image={require("../../../assets/images/auto.png")}
@@ -75,34 +85,35 @@ const ShowPrice = () => {
               price={pricesInKM?.auto}
               isSelected={selectedVehicle === "auto"}
               onPress={() => handleVehiclePress("auto")}
+              vehicleType="Auto"
             />
           </View>
         </View>
-        <View style={styles.coupneWithBtn}>
-          <View style={styles.couponTextCard}>
-            <Text style={styles.coupnText}>Coupons</Text>
-            <Text style={styles.textLine}></Text>
-            <Text style={styles.coupnText}>
-              <Text>Cash</Text>
-            </Text>
-          </View>
-          {apiError && (
-            <View style={styles.errorCard}>
-              <Text style={styles.errorMsg}>{apiError}</Text>
-            </View>
-          )}
-          <CustomBtn
-            width="100%"
-            btnBg={selectedVehicle ? "#e02e88" : "#fff"}
-            btnColor={selectedVehicle ? "#fff" : "#e02e88"}
-            title="Book Ride"
-            onPress={onPlaceTheOrder}
-            disabled={true}
-            borderColor="#e02e88"
-            borderWidth={1}
-          />
-        </View>
       </ScrollView>
+      <View style={styles.coupneWithBtn}>
+        <View style={styles.couponTextCard}>
+          <Text style={styles.coupnText}>Coupons</Text>
+          <Text style={styles.textLine}></Text>
+          <Text style={styles.coupnText}>
+            <Text>Cash</Text>
+          </Text>
+        </View>
+        {apiError && (
+          <View style={styles.errorCard}>
+            <Text style={styles.errorMsg}>{apiError}</Text>
+          </View>
+        )}
+        <CustomBtn
+          width="100%"
+          btnBg={selectedVehicle ? "#e02e88" : "#fff"}
+          btnColor={selectedVehicle ? "#fff" : "#e02e88"}
+          title={selectedVehicle ? `Book ${selectedVehicle}` : "Book Ride"}
+          onPress={onPlaceTheOrder}
+          disabled={true}
+          borderColor="#e02e88"
+          borderWidth={1}
+        />
+      </View>
     </View>
   );
 };
@@ -112,8 +123,9 @@ export default ShowPrice;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    gap: 20,
+    gap: 0,
     paddingTop: 12,
+    position: "relative",
   },
   mapContainer: {
     width: "100%",
@@ -164,8 +176,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingVertical: 20,
     gap: 20,
-    paddingBottom: 80,
+
     alignItems: "center",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
   },
   couponTextCard: {
     width: "100%",

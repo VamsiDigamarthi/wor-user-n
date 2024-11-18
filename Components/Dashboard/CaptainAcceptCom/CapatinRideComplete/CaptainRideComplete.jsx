@@ -7,7 +7,7 @@ import CaptainRideCompletePriceCard from "./CaptainRideCompletePriceCard";
 
 const CaptainRideComplete = () => {
   const route = useRoute();
-  const { orderDetails } = route.params;
+  const { orderDetails, travellingTimeAndDistnace } = route.params;
   return (
     <View style={styles.conatiner}>
       <ScrollView
@@ -35,7 +35,10 @@ const CaptainRideComplete = () => {
           </View>
         </View>
         <RatingCard />
-        <CaptainRideCompletePriceCard />
+        <CaptainRideCompletePriceCard
+          orderDetails={orderDetails}
+          travellingTimeAndDistnace={travellingTimeAndDistnace}
+        />
         <Text style={styles.skip}>skip to home screen</Text>
       </ScrollView>
     </View>

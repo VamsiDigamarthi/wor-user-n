@@ -1,7 +1,22 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import CustomBtn from "../../../../Utils/CustomBtn/CustomBtn";
+import { useNavigation } from "@react-navigation/native";
 
-const RideDetailAmount = ({ orderDetails }) => {
+const RideDetailAmount = ({
+  orderDetails,
+  travellingTimeAndDistnace,
+  payButton = false,
+}) => {
+  const navigation = useNavigation();
+
+  const onNavigateRatingScreen = () => {
+    navigation.navigate("captainrideComplete", {
+      orderDetails,
+      travellingTimeAndDistnace,
+    });
+  };
+
   return (
     <View style={styles.container}>
       <View
@@ -34,6 +49,16 @@ const RideDetailAmount = ({ orderDetails }) => {
         </Text>
         <Text style={{ color: "#e02e88", fontWeight: "600" }}>Change</Text>
       </View>
+      {payButton && (
+        <View>
+          <CustomBtn
+            title="Pay Now"
+            btnBg="#e02e88"
+            btnColor="#fff"
+            onPress={onNavigateRatingScreen}
+          />
+        </View>
+      )}
     </View>
   );
 };

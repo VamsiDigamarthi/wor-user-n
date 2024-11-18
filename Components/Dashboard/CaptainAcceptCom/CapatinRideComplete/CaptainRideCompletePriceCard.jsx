@@ -1,28 +1,36 @@
 import { StyleSheet, Text, View } from "react-native";
 import { FontAwesome6, FontAwesome5 } from "@expo/vector-icons";
 
-const CaptainRideCompletePriceCard = () => {
+const CaptainRideCompletePriceCard = ({
+  orderDetails,
+  travellingTimeAndDistnace,
+}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Ride Details</Text>
       <SingleCard
-        title="Nuhvin Global Service"
+        title={orderDetails?.pickupAddress ?? "No Pick Up Address"}
         iconName="location-dot"
         iconColor="#31ff68"
       />
       <SingleCard
-        title="Nuhvin Global Service"
+        title={orderDetails?.dropAddress ?? "No Drop Up Address"}
         iconName="location-arrow"
         iconColor="#e02e88"
       />
       <View style={styles.timeKmCard}>
         <View style={{ alignItems: "center", gap: 2 }}>
-          <Text style={{ fontSize: 16, fontWeight: "600" }}>2.8 KM</Text>
+          <Text style={{ fontSize: 16, fontWeight: "600" }}>
+            {travellingTimeAndDistnace?.distance ?? "2.8 KM"}
+          </Text>
           <Text style={styles.subTetx}>Total Ride Distance</Text>
         </View>
         <View style={{ width: 1, height: 40, backgroundColor: "#808080" }} />
         <View style={{ alignItems: "center", gap: 2 }}>
-          <Text style={{ fontSize: 16, fontWeight: "600" }}>32 Mns</Text>
+          <Text style={{ fontSize: 16, fontWeight: "600" }}>
+            {`${travellingTimeAndDistnace?.durationInMinutes} Mins` ??
+              "32 Mins"}
+          </Text>
           <Text style={styles.subTetx}>Total Ride Time</Text>
         </View>
       </View>

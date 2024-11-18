@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const CaptainTime = () => {
+const CaptainTime = ({ title, time }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.pinkText}>Rider on the way</Text>
-      <Text style={styles.blackText}>ETA : 03:59</Text>
+      <Text style={styles.pinkText}>{title}</Text>
+      <Text style={styles.blackText}>ETA : {time}</Text>
     </View>
   );
 };
