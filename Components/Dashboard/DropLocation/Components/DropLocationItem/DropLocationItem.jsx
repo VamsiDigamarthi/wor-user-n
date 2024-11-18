@@ -26,7 +26,9 @@ const DropLocationItem = ({
           <Ionicons name="location" size={25} color="#fff" />
         </View>
         <View style={styles.second}>
-          <Text style={styles.locText}>{mainPlace}</Text>
+          <Text style={styles.locText} numberOfLines={1}>
+            {mainPlace}
+          </Text>
           <Text style={styles.subLocText} numberOfLines={1}>
             {subPlace}
           </Text>

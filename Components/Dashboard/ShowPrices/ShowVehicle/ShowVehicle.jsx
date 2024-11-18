@@ -2,7 +2,14 @@ import React from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const ShowVehicle = ({ image, personCount, price, isSelected, onPress }) => {
+const ShowVehicle = ({
+  image,
+  personCount,
+  price,
+  isSelected,
+  onPress,
+  vehicleType,
+}) => {
   return (
     <Pressable
       style={[styles.pressContainer, isSelected && styles.pressedContainer]} // Apply border if selected
@@ -12,7 +19,7 @@ const ShowVehicle = ({ image, personCount, price, isSelected, onPress }) => {
         <Image style={styles.image} source={image} />
         <View style={styles.textCard}>
           <View style={styles.textWithPersonCard}>
-            <Text style={styles.vehicleType}>Scooty</Text>
+            <Text style={styles.vehicleType}>{vehicleType}</Text>
             <View
               style={{ flexDirection: "row", gap: 2, alignItems: "center" }}
             >

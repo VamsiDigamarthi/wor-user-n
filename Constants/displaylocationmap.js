@@ -1,5 +1,5 @@
 const YOUR_API_KEY = "AIzaSyAvJUZ3vsynRkQhXSdZL-BIFo26bXH-Al8";
-
+import axios from "axios";
 export const coordinationMap = (lat, lng) => {
   // Construct the correct URL for the Google Static Maps API
   let mapImage = `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=15&size=400x200&maptype=roadmap&markers=color:red%7Clabel:S%7C${lat},${lng}&key=${YOUR_API_KEY}`;
@@ -110,5 +110,72 @@ export const getPlaceName = async (lat, lng) => {
     }
   } catch (error) {
     console.error("Error fetching place name:", error);
+  }
+};
+
+// calcualte time and distance
+
+const adjustTimeForAutoRickshaw = (carDurationInSeconds) => {
+  const autoMultiplier = 1.2; // Adjust based on local speeds
+  return carDurationInSeconds * autoMultiplier;
+};
+
+export const getTravelDetails = async (
+  startCoordinates,
+  endCoordinates,
+  vehicleType
+) => {
+  const [startLon, startLat] = startCoordinates;
+  const [endLon, endLat] = endCoordinates;
+
+  let mode;
+
+  // Select mode based on vehicle type
+  switch (vehicleType) {
+    case "car":
+      mode = "driving";
+      break;
+    case "scooty":
+      mode = "bicycling";
+      break;
+    case "auto":
+      mode = "driving"; // Use driving but adjust time later
+      break;
+    default:
+      mode = "driving"; // Default to driving
+      break;
+  }
+
+  const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${startLat},${startLon}&destinations=${endLat},${endLon}&key=${YOUR_API_KEY}&mode=driving`;
+
+  try {
+    const response = await axios.get(url);
+    const data = response.data;
+
+    if (data.rows[0].elements[0].status === "OK") {
+      let distance = data.rows[0].elements[0].distance.text;
+      let duration = data.rows[0].elements[0].duration.value; // Duration in seconds
+
+      // Adjust duration for auto-rickshaw
+      if (vehicleType === "auto") {
+        duration = adjustTimeForAutoRickshaw(duration);
+      }
+
+      const durationInMinutes = Math.round(duration / 60); // Convert to minutes
+
+      console.log(
+        `Distance: ${distance}, Duration: ${durationInMinutes} minutes`
+      );
+
+      return {
+        distance,
+        durationInMinutes,
+      };
+    } else {
+      console.error("No route found");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching travel details:", error);
   }
 };

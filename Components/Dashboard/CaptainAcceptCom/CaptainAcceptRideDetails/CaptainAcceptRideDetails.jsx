@@ -2,13 +2,17 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-const CaptainAcceptRideDetails = ({ orderDetails }) => {
+const CaptainAcceptRideDetails = ({
+  orderDetails,
+  travellingTimeAndDistnace,
+}) => {
   const navigate = useNavigation();
 
   const onNavigateRideDetails = () => {
     // Navigate to RideDetails screen
     navigate.navigate("captaineacceptrideusershowridedetails", {
       orderDetails,
+      travellingTimeAndDistnace,
     });
   };
   return (

@@ -66,7 +66,7 @@ export const useLookingForRideHook = () => {
       if (response?.data?.status === "accept") {
         setIsAccepted(true);
         clearInterval(intervalRef.current);
-        navigation.navigate("captaineacceptride", {
+        navigation.replace("captaineacceptride", {
           orderDetails: response.data,
         });
       } else {

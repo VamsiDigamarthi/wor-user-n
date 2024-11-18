@@ -1,20 +1,38 @@
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import React from "react";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons, FontAwesome } from "@expo/vector-icons";
 
-const RatingMsgCall = () => {
+const RatingMsgCall = ({ otpVerified }) => {
   return (
     <View style={styles.container}>
       <View style={styles.ratingCard}>
         <Text style={styles.ratingText}>4.3</Text>
         <Ionicons name="star" size={20} color="#e02e88" />
       </View>
-      <View style={styles.messageCard}>
-        <TextInput placeholder="Message Dharani" />
-      </View>
-      <View style={styles.callCard}>
-        <Ionicons name="call" size={20} color="#e02e88" />
-      </View>
+      {!otpVerified && (
+        <View style={styles.messageCard}>
+          <TextInput placeholder="Message Dharani" />
+        </View>
+      )}
+      {!otpVerified && (
+        <View style={styles.callCard}>
+          <Ionicons name="call" size={20} color="#e02e88" />
+        </View>
+      )}
+      {otpVerified && (
+        <View style={styles.supportCard}>
+          <View style={styles.supportSingleCard}>
+            <MaterialIcons name="support-agent" size={20} color="#e02e88" />
+            <Text style={{ fontSize: 14, fontWeight: "600" }}>Support</Text>
+          </View>
+          <View style={styles.supportSingleCard}>
+            <FontAwesome name="share-square-o" size={20} color="#e02e88" />
+            <Text style={{ fontSize: 14, fontWeight: "600" }}>
+              Share Live Location
+            </Text>
+          </View>
+        </View>
+      )}
     </View>
   );
 };
@@ -27,6 +45,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     gap: 5,
+    alignItems: "flex-end",
     // backgroundColor: "red",
   },
   ratingCard: {
@@ -39,6 +58,7 @@ const styles = StyleSheet.create({
     padding: 4,
     flexDirection: "row",
     gap: 5,
+    height: 38,
   },
   ratingText: {
     color: "#e02e88",
@@ -51,6 +71,7 @@ const styles = StyleSheet.create({
     borderColor: "#e02e88",
     padding: 4,
     paddingHorizontal: 10,
+    height: 38,
   },
   callCard: {
     borderRadius: 20,
@@ -58,6 +79,19 @@ const styles = StyleSheet.create({
     borderColor: "#e02e88",
     paddingHorizontal: 7,
     justifyContent: "center",
+    alignItems: "center",
+    height: 38,
+  },
+  supportCard: {
+    width: "70%",
+    // backgroundColor: "red",
+    gap: 2,
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+  },
+  supportSingleCard: {
+    flexDirection: "row",
+    gap: 5,
     alignItems: "center",
   },
 });

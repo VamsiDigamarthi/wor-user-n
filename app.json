@@ -16,7 +16,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/images/wor png.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.narasimha_62.woruser"
@@ -28,7 +28,7 @@
       [
         "expo-notifications",
         {
-          "icon": "./local/assets/images/logo.png",
+          "icon": "./assets/images/logo.png",
           "color": "#ffffff"
         }
       ]

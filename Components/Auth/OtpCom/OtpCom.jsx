@@ -46,7 +46,7 @@ const OtpRelatedInput = ({ btnShow = true }) => {
           "token",
           JSON.stringify(response.data.token)
         );
-        dispatch(setToken(JSON.parse(response.data.token)));
+        dispatch(setToken(response.data.token));
         navigation.navigate("AuthenticatedStack");
       }
     } catch (error) {
