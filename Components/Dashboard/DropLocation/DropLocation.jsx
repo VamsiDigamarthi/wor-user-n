@@ -39,7 +39,7 @@ const DropLocation = ({
         {nearByRandomItems?.map((eachPlace, key) => (
           <DropLocationItem
             mainPlace={eachPlace?.name}
-            subPlace={eachPlace.vicinity}
+            subPlace={eachPlace?.vicinity}
             eachPlace={eachPlace}
             key={key}
             onPress={onNavigateToDirectPriceScreen.bind(this, eachPlace)}

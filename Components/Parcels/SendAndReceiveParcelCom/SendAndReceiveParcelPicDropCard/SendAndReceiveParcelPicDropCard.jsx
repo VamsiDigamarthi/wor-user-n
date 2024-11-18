@@ -1,14 +1,18 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React from "react";
 import SendAndReceiveParcelPicDropCardItem from "./SendAndReceiveParcelPicDropCardItem";
-import IconButton from "../../../../Utils/IconButton/IconButton";
 import { useNavigation } from "@react-navigation/native";
 
-const SendAndReceiveParcelPicDropCard = ({ pickUpLocationCoorWithName }) => {
+const SendAndReceiveParcelPicDropCard = ({
+  pickUpLocationCoorWithName,
+  dropLocationCoorWithName,
+}) => {
   const navigation = useNavigation();
 
   const onNavigateToPickLocationScreen = (typeOfLocation) => {
-    navigation.navigate("ParcelPickLocation");
+    navigation.navigate("ParcelPickLocation", {
+      typeOfLocation,
+    });
   };
 
   return (
@@ -29,18 +33,7 @@ const SendAndReceiveParcelPicDropCard = ({ pickUpLocationCoorWithName }) => {
           iconName="location-arrow"
           iconColor="#e02e88"
           onPress={() => onNavigateToPickLocationScreen("Drop")}
-        />
-      </View>
-      <View style={styles.mapFavoriteCard}>
-        {/* <IconButton
-          // onPress={onNavigateToMapPreviewScreen}
-          icons="location"
-          title="Select on Map"
-        /> */}
-        <IconButton
-          icons="location"
-          title="Favorite Places"
-          // onPress={onNavigateToFavoriteScreen}
+          dataFromPickLocation={dropLocationCoorWithName}
         />
       </View>
     </View>
@@ -62,8 +55,6 @@ const styles = StyleSheet.create({
   },
   innerCard: {
     width: "100%",
-    borderWidth: 1,
-    borderColor: "#ffe2e6",
     borderRadius: 10,
   },
   borderStyle: {

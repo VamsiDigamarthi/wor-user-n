@@ -21,6 +21,7 @@ const PickLocation = () => {
     onUserSelectDropLocationByEnterInput,
     onUserSelectPickLocationNearPlaces,
     onYourLocationClick,
+    onNavigateToMapPreviewScreen,
   } = usePickLocationHook();
 
   return (
@@ -37,9 +38,14 @@ const PickLocation = () => {
         </View>
         <View style={styles.mapFavoriteCard}>
           <IconButton
-            // onPress={onNavigateToMapPreviewScreen}
+            onPress={onNavigateToMapPreviewScreen}
             icons="location"
             title="Select on Map"
+          />
+          <IconButton
+            icons="location"
+            title="Favorite Places"
+            // onPress={onNavigateToFavoriteScreen}
           />
         </View>
       </View>
@@ -109,8 +115,13 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   mapFavoriteCard: {
-    paddingVertical: 7,
-    paddingHorizontal: 10,
+    width: "100%",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    alignItems: "center",
+    paddingVertical: 10,
+    gap: 15,
   },
   noData: {
     width: "100%",

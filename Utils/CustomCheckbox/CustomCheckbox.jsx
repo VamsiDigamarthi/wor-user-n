@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons"; // For checkbox icon
 
-const CustomCheckbox = ({ handleCheck, isChecked }) => {
+const CustomCheckbox = ({
+  handleCheck,
+  isChecked,
+  title = "I agree to the terms and conditions",
+}) => {
   return (
     <View style={styles.container}>
       <Pressable onPress={handleCheck} style={styles.checkboxContainer}>
@@ -14,7 +18,7 @@ const CustomCheckbox = ({ handleCheck, isChecked }) => {
         >
           {isChecked && <Ionicons name="checkmark" size={16} color="white" />}
         </View>
-        <Text style={styles.label}>I agree to the terms and conditions</Text>
+        <Text style={styles.label}>{title}</Text>
       </Pressable>
     </View>
   );

@@ -40,11 +40,11 @@ import ParcelHome from "../Screens/Parcels/ParcelHome/ParcelHome";
 import PersonalInfoPreview from "../Screens/Dashboard/ProfileScreen/Screens/PersonalInfoPreview/PersonalInfoPreview";
 import Donation from "../Screens/Dashboard/Donation/Donation";
 import PaymentMethods from "../Screens/Dashboard/PaymnetMethods/PaymentMethods";
-import SendAndReceiveParcel from "../Screens/Parcels/SendAndReceiveParcel/SendAndReceiveParcel";
 import PickLocation from "../Screens/Parcels/PickLocation/PickLocation";
 import RideDetails from "../Components/Dashboard/CaptainAcceptCom/RideDetails/RideDetails";
 import CaptainRideComplete from "../Components/Dashboard/CaptainAcceptCom/CapatinRideComplete/CaptainRideComplete";
 import MapWithCurrentLocation from "../Components/Dashboard/FixedMapView/FixedMapView";
+import ParcelMapWithBottomSheet from "../Screens/Parcels/ParcelMapWithBottomSheet/ParcelMapWithBottomSheet";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -307,18 +307,25 @@ const AuthenticatedStack = () => {
           getCommonOptions(navigation, "Send or Receive Parcel", "#f5f2f2")
         }
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="SendReceiveParcel"
         component={SendAndReceiveParcel}
         options={({ navigation }) =>
           getCommonOptions(navigation, "Send or Receive Parcel", "#f5f2f2")
         }
-      />
+      /> */}
       <Stack.Screen
         name="ParcelPickLocation"
         component={PickLocation}
         options={({ navigation }) =>
           getCommonOptions(navigation, "Pickup Location", "#fff")
+        }
+      />
+      <Stack.Screen
+        name="ParcelMapWithBottomSheet"
+        component={ParcelMapWithBottomSheet}
+        options={({ navigation }) =>
+          getCommonOptions(navigation, "Sender Address", "#fff")
         }
       />
     </Stack.Navigator>
@@ -426,8 +433,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#302f2f",
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 13,
+    fontWeight: "600",
     textAlign: "center",
     // width: "100%",
   },
