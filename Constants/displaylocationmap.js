@@ -101,7 +101,7 @@ export const getPlaceName = async (lat, lng) => {
     const data = await response.json();
 
     if (data && data.results && data.results.length > 0) {
-      // console.log(data.results[0]);
+      // console.log("map", data.results[0]);
       const address = data.results[0].formatted_address;
       // console.log("Place Name:", address);
       return address; // Returning the place name

@@ -6,6 +6,7 @@ import { fetchNearbyPlaces } from "../../../Constants/displaylocationmap";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { onProfileSection } from "../../../redux/Features/Auth/ProfileSlice";
+import { API } from "../../../Constants/url";
 
 export const useHomeHook = () => {
   const navigation = useNavigation();
@@ -18,16 +19,31 @@ export const useHomeHook = () => {
 
   console.log("home screen", token);
 
-  // const onFetchTokenFromLocal = async () => {
-  //   const token = await AsyncStorage.getItem("token");
-  //   console.log(token);
-  // };
-  // useEffect(() => {
-  //   onFetchTokenFromLocal();
-  // }, []);
-
   const dispatch = useDispatch();
+
+  const [activeOrder, setActiveOrder] = useState({});
+
+  const onFetchActiveOrder = async () => {
+    try {
+      const response = await API.get("/user/active-ride", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      // console.log(response);
+      setActiveOrder(response.data);
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
+  };
+
   useEffect(() => {
+    onFetchActiveOrder();
+  }, []);
+
+  useEffect(() => {
+    // onFetchActiveOrder();
     dispatch(onProfileSection({ token }));
   }, [dispatch, token]);
 
@@ -59,6 +75,8 @@ export const useHomeHook = () => {
           longitude: currentLocation.coords.longitude,
         });
 
+        // console.log("place", place);
+
         if (place) {
           setPlaceName(place.formattedAddress);
         } else {
@@ -85,5 +103,6 @@ export const useHomeHook = () => {
     nearByRandomItems,
     placeName, // based on coordinates to get own location
     nearbyPlaces, // based on coordinates to get near places
+    activeOrder,
   };
 };

@@ -37,7 +37,7 @@ export const useLookingForRideHook = () => {
 
     Animated.timing(progress, {
       toValue: 100,
-      duration: 60000, // 60 seconds duration
+      duration: 63 * 1000, // 63 seconds duration
       useNativeDriver: false,
     }).start(({ finished }) => {
       if (!isAccepted && finished) {
