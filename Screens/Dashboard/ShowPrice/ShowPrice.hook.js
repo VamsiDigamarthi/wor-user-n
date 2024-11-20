@@ -59,6 +59,7 @@ export const useShowPriceHook = () => {
   }, [pickUpCoordinated, dropDetails]);
 
   const onPlaceTheOrder = () => {
+    console.log("drop", dropDetails);
     if (!selectedVehicle) {
       setApisError("Please select a vehicle");
       return;
@@ -72,6 +73,7 @@ export const useShowPriceHook = () => {
     const timePart = indiaDateTime.split(",")[1].trim();
 
     const formattedTime = timePart;
+    console.log(timePart);
 
     const orderDetails = {
       vehicleType: selectedVehicle,
@@ -84,6 +86,7 @@ export const useShowPriceHook = () => {
       dropLongitude: dropDetails?.location?.lng,
       pickupAddress: placeName,
       dropAddress: dropDetails?.name,
+      dropVicinity: dropDetails?.vicinity,
     };
 
     API.post("/user/placed-order", orderDetails, {

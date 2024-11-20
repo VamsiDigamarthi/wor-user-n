@@ -8,11 +8,12 @@ import BackgroundImage from "../../../Utils/BackgroundImage/BackgroundImage";
 import HomeMap from "../../../Utils/HomeMap/HomeMap";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CommonActions, useNavigation } from "@react-navigation/native";
+import ActiveRide from "../../../Utils/ActiveRide/ActiveRide";
 
 const Home = () => {
   const navigation = useNavigation();
 
-  const { location, nearByRandomItems, placeName, nearbyPlaces } =
+  const { location, nearByRandomItems, placeName, nearbyPlaces, activeOrder } =
     useHomeHook();
 
   const onBackLogin = async () => {
@@ -41,6 +42,7 @@ const Home = () => {
             placeName={placeName} // this prop is store current location text
             nearbyPlaces={nearbyPlaces} // this prop store nearby places from user current location to 1 km radius famous location [place this data into "select drop location screen to display initial locations"]
             location={location} // this is location used for pass this data into price screen
+            activeOrder={activeOrder} // check if active order have any pending status this will prevent  create another another
           />
           <AllServices
             placeName={placeName}
@@ -52,6 +54,7 @@ const Home = () => {
           <Button title="Go Back" onPress={onBackLogin} />
         </View>
       </ScrollView>
+      <ActiveRide activeOrder={activeOrder} />
     </View>
   );
 };
@@ -61,6 +64,7 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    position: "relative",
   },
 
   scrollContainer: {

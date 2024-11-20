@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
 import axios from "axios";
+import { FontAwesome } from "@expo/vector-icons";
 
 const ShowPollyLine = ({ origin, destination }) => {
   const [routeCoordinates, setRouteCoordinates] = useState([]);
@@ -12,15 +13,9 @@ const ShowPollyLine = ({ origin, destination }) => {
   useEffect(() => {
     const getDirections = async () => {
       try {
-        // Log the origin and destination for debugging
-        // console.log("Origin: ", origin);
-        // console.log("Destination: ", destination);
-
         const response = await axios.get(
           `https://maps.googleapis.com/maps/api/directions/json?origin=${origin.lat},${origin.lng}&destination=${destination.lat},${destination.lng}&mode=driving&key=${GOOGLE_MAPS_APIKEY}`
         );
-
-        // console.log("API Response: ", response.data); // Log the full API response
 
         if (response.data.routes && response.data.routes.length > 0) {
           const points = decode(
@@ -101,10 +96,14 @@ const ShowPollyLine = ({ origin, destination }) => {
         }}
       >
         {/* Marker for Start */}
-        <Marker coordinate={adjustedOrigin} title="Start Point" />
+        <Marker coordinate={adjustedOrigin} title="Start Point">
+          <FontAwesome name="map-pin" size={20} color="#e02e88" />
+        </Marker>
 
         {/* Marker for End */}
-        <Marker coordinate={adjustedDestination} title="End Point" />
+        <Marker coordinate={adjustedDestination} title="End Point">
+          <FontAwesome name="map-pin" size={20} color="#e02e88" />
+        </Marker>
 
         {/* Polyline for Directions */}
         {routeCoordinates.length > 0 && (
