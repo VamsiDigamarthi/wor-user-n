@@ -11,7 +11,12 @@ const { width, height } = Dimensions.get("window");
 
 const MapWithFixedMarker = ({ navigation }) => {
   const route = useRoute();
-  const { pickUpCoordinated, placeName, isParcelScreen = false } = route.params;
+  const {
+    pickUpCoordinated,
+    placeName,
+    isParcelScreen = false,
+    typeOfLocation,
+  } = route.params;
 
   const [
     finalSelecetLocationNameWithCoordinates,
@@ -41,6 +46,7 @@ const MapWithFixedMarker = ({ navigation }) => {
     if (isParcelScreen) {
       navigation.navigate("ParcelMapWithBottomSheet", {
         pickUpLocationCoorWithName: finalSelecetLocationNameWithCoordinates,
+        typeOfLocation,
       });
       return;
     }

@@ -6,8 +6,9 @@ import ParcelMap from "./ParcelMap";
 import ParcelMapInputCard from "./ParcelMapInputCard";
 
 const ParcelMapWithBottomSheet = () => {
-  const { pickUpLocationCoorWithName } = useParcelMapWithBottomSheetHook();
-  //   console.log(pickUpLocationCoorWithName);
+  const { pickUpLocationCoorWithName, typeOfLocation } =
+    useParcelMapWithBottomSheetHook();
+  console.log(pickUpLocationCoorWithName);
   return (
     <View style={styles.container}>
       <ParcelMap pickUpLocationCoorWithName={pickUpLocationCoorWithName} />
@@ -17,10 +18,16 @@ const ParcelMapWithBottomSheet = () => {
       >
         <View style={styles.bottomSheet}>
           <View style={styles.firstCard}>
-            <Text style={styles.enterText}>Enter Sender Details</Text>
+            <Text style={styles.enterText}>
+              Enter {typeOfLocation === "Pick Up" ? "Sender" : "Receiver"}{" "}
+              Details
+            </Text>
             <Text style={styles.locatedAddress}>Located Address In Map</Text>
           </View>
-          <ParcelMapInputCard />
+          <ParcelMapInputCard
+            pickUpLocationCoorWithName={pickUpLocationCoorWithName}
+            typeOfLocation={typeOfLocation}
+          />
         </View>
       </ScrollView>
     </View>

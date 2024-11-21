@@ -20,8 +20,8 @@ const ParcelHome = () => {
     onHandleNavigateLocationScreen,
     selectedCard,
     handleCardClick,
-    pickUpLocationCoorWithName,
-    dropLocationCoorWithName,
+    pickUpLocation,
+    dropLocation,
   } = useParcelHomeHook();
 
   return (
@@ -41,8 +41,8 @@ const ParcelHome = () => {
         {selectedCard ? (
           <>
             <SendAndReceiveParcelPicDropCard
-              pickUpLocationCoorWithName={pickUpLocationCoorWithName}
-              dropLocationCoorWithName={dropLocationCoorWithName}
+              pickUpLocationCoorWithName={pickUpLocation}
+              dropLocationCoorWithName={dropLocation}
             />
             <SelectParcelType />
             <ParcelSpecification />
