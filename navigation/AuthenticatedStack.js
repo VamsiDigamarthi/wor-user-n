@@ -325,7 +325,7 @@ const AuthenticatedStack = () => {
         name="ParcelMapWithBottomSheet"
         component={ParcelMapWithBottomSheet}
         options={({ navigation }) =>
-          getCommonOptions(navigation, "Sender Address", "#fff")
+          getCommonOptions(navigation, "Parcel Details", "#fff")
         }
       />
     </Stack.Navigator>

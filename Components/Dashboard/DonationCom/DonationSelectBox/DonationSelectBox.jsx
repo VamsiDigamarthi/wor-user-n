@@ -1,26 +1,30 @@
-import { StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
-import RNPickerSelect from "react-native-picker-select";
+import { StyleSheet, View } from "react-native";
+import DropDownPicker from "react-native-dropdown-picker";
 
 const DonationSelectBox = () => {
-  const [selectedValue, setSelectedValue] = useState("java");
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    { label: "Java", value: "java" },
+    { label: "JavaScript", value: "javascript" },
+    { label: "Python", value: "python" },
+    { label: "C++", value: "cpp" },
+  ]);
+
   return (
-    <View style={styles.pickerContainer}>
-      <RNPickerSelect
-        onValueChange={(value) => setSelectedValue(value)}
-        items={[
-          { label: "Java", value: "java", key: "java" },
-          { label: "JavaScript", value: "javascript", key: "javascript" },
-          { label: "Python", value: "python", key: "python" },
-          { label: "C++", value: "cpp", key: "cpp" },
-        ]}
-        value={selectedValue}
-        style={pickerSelectStyles}
-        placeholder={{
-          label: "How It Works",
-          value: null,
-          color: "#9EA0A4",
-        }}
+    <View style={styles.container}>
+      <DropDownPicker
+        open={open}
+        value={value}
+        items={items}
+        setOpen={setOpen}
+        setValue={setValue}
+        setItems={setItems}
+        placeholder="How It Works"
+        style={styles.dropdown}
+        dropDownContainerStyle={styles.dropdownContainer}
+        theme="LIGHT" // Explicitly set the theme (if 'light' is causing the issue)
       />
     </View>
   );
@@ -29,26 +33,21 @@ const DonationSelectBox = () => {
 export default DonationSelectBox;
 
 const styles = StyleSheet.create({
-  pickerContainer: {
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: "#fff",
-    borderColor: "#ffe2e6",
-    borderWidth: 2,
+    zIndex: 9,
+  },
+  dropdown: {
+    backgroundColor: "#ffe2e6",
+    borderColor: "#ccc",
+    borderWidth: 1,
     borderRadius: 5,
-    overflow: "hidden",
   },
-});
-
-const pickerSelectStyles = StyleSheet.create({
-  inputIOS: {
-    fontSize: 16,
-    borderRadius: 10,
-    backgroundColor: "#ffff",
-    color: "#ffe2e6",
-  },
-  inputAndroid: {
-    fontSize: 16,
-    borderRadius: 10,
-    backgroundColor: "#ffff",
-    color: "black",
+  dropdownContainer: {
+    borderColor: "#ccc",
+    borderRadius: 5,
   },
 });

@@ -83,12 +83,14 @@ export const usePickLocationHook = () => {
     };
     navigation.navigate("ParcelMapWithBottomSheet", {
       pickUpLocationCoorWithName,
+      typeOfLocation
     });
   };
 
   const onUserSelectPickLocationNearPlaces = (place) => {
     navigation.navigate("ParcelMapWithBottomSheet", {
       pickUpLocationCoorWithName: place,
+      typeOfLocation
     });
   };
 
@@ -99,6 +101,7 @@ export const usePickLocationHook = () => {
     };
     navigation.navigate("ParcelMapWithBottomSheet", {
       pickUpLocationCoorWithName: newPlace,
+      typeOfLocation
     });
   };
 
@@ -108,6 +111,7 @@ export const usePickLocationHook = () => {
       placeName: placeName?.name,
       pickUpCoordinated: location,
       isParcelScreen: true,
+      typeOfLocation 
     });
   };
 

@@ -27,6 +27,8 @@ const Home = () => {
     // navigation.navigate("RideHistory"); // replace AuthStack with your stack name for login screen
   };
 
+  // console.log(activeOrder);
+
   return (
     <View style={styles.container}>
       <HomeMap location={location} />
