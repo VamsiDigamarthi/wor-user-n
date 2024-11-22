@@ -31,7 +31,6 @@ export const useHomeHook = () => {
           "Content-Type": "application/json",
         },
       });
-      // console.log(response);
       setActiveOrder(response.data);
     } catch (error) {
       console.log(error.response.data.message);

@@ -63,11 +63,11 @@ const InputBox = ({
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, !isValid && styles.invalidInputCard]}>
       <Text style={[styles.label, !isValid && styles.invalidLabel]}>
         {label}
       </Text>
-      <View style={[styles.inputCard, !isValid && styles.invalidInputCard]}>
+      <View style={[styles.inputCard]}>
         {isIconsNotText ? <Icon name={icon} size={20} /> : <Text>+91</Text>}
         <TextInput
           style={styles.textInput}
@@ -89,29 +89,33 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     flexDirection: "column",
-    gap: 4,
+    // gap: 4,
+    backgroundColor: "#FFFFFF",
+    paddingHorizontal: 16,
+    paddingVertical: 7,
+    borderRadius: 10,
+    elevation: 1,
+
+    shadowColor: "red",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
   label: {
-    fontSize: 11,
+    fontSize: 8,
     color: "#000",
   },
   invalidLabel: {
     color: "red", // Change label color to red
   },
   inputCard: {
-    elevation: 1,
     backgroundColor: "#FFFFFF",
-    borderRadius: 10,
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    shadowColor: "#000",
-    height: 50,
+
+    // height: 50,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    gap: 5,
   },
   invalidInputCard: {
     borderWidth: 1,

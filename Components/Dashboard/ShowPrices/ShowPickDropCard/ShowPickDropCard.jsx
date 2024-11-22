@@ -8,21 +8,32 @@ const ShowPickDropCard = ({
   inputValue, // this is input value using for selected drop location component to fetch location meand enter kukat that corresponsind kukatpally surrounding famous location fetch
   handleInputChange, // this is input value using for selected drop location component only
   isInputShow = true, // this props show input or text in drop location place
+  shoRightIcons,
+  timeShow,
 }) => {
   return (
     <View style={styles.container}>
       <ShowPickDropItem
+        topIcon="Ionicons"
         icons="location"
         location={placeName}
         border={styles.borderBo}
-        time
+        IconsType="MaterialIcons"
+        iconsName="favorite"
+        showRightIcon={shoRightIcons}
+        timeShow={timeShow}
+        // time
       />
       <ShowPickDropItem
-        icons="locate-sharp"
+        topIcon="FontAwesome"
+        icons="location-arrow"
         location={dropLocation}
         isInputShow={isInputShow}
         inputValue={inputValue}
         handleInputChange={handleInputChange}
+        IconsType="FontAwesome"
+        iconsName="microphone"
+        showRightIcon={shoRightIcons}
       />
     </View>
   );
@@ -34,9 +45,9 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     backgroundColor: "#fff",
-    elevation: 0,
+    elevation: 1,
     borderRadius: 8,
-    borderWidth: 1,
+    // borderWidth: 1,
     borderColor: "#ffe2e6",
   },
   borderBo: {

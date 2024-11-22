@@ -383,10 +383,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginTop: 20,
     marginBottom: 5,
-    borderWidth: 1, // Apply border to all sides
+    // borderWidth: 1, // Apply border to all sides
     borderColor: "#FFE2E6",
     // paddingHorizontal: 13,
     // paddingVertical: 5,
+    elevation: 1,
     backgroundColor: "white",
     borderRadius: 6,
     height: 50,
@@ -411,7 +412,7 @@ const styles = StyleSheet.create({
 
   textContainer: {
     flexDirection: "row",
-    borderWidth: 1,
+    // borderWidth: 1,
     borderColor: "#FFE2E6",
     width: "85%",
     height: "100%",
@@ -421,6 +422,8 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     paddingRight: 20,
     position: "relative",
+    elevation: 1,
+    backgroundColor: "#fff",
     // backgroundColor: "red",
   },
   textinnerCard: {

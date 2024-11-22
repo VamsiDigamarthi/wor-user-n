@@ -4,6 +4,7 @@ import {
   ScrollView,
   Platform,
   StyleSheet,
+  StatusBar,
 } from "react-native";
 
 const AuthScreenLayout = ({ children }) => {
@@ -13,6 +14,7 @@ const AuthScreenLayout = ({ children }) => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
     >
+      <StatusBar backgroundColor="#fff" barStyle="dark-content" />
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,

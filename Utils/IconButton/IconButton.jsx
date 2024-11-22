@@ -1,7 +1,17 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-
-const IconButton = ({ icons, title, onPress = () => {} }) => {
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+const IconButton = ({ iconsName, icons, title, onPress = () => {} }) => {
+  let Icons;
+  switch (iconsName) {
+    case "MaterialIcons":
+      Icons = MaterialIcons;
+      break;
+    case "Ionicons":
+      Icons = Ionicons;
+      break;
+    default:
+      Icons = Ionicons;
+  }
   return (
     <View style={styles.container}>
       <Pressable
@@ -15,7 +25,7 @@ const IconButton = ({ icons, title, onPress = () => {} }) => {
         ]}
         onPress={onPress}
       >
-        <Ionicons name={icons} size={20} color="#E02E88" />
+        <Icons name={icons} size={20} color="#E02E88" />
         <Text style={styles.text}>{title}</Text>
       </Pressable>
     </View>

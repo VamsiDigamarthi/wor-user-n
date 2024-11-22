@@ -1,9 +1,10 @@
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import React, { useState } from "react";
-import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { nearPlacesByText } from "../../../../../../Constants/displaylocationmap";
 
 const ShowPickDropItem = ({
+  topIcon,
   icons,
   location, // this is comming from first or second card display pick location
   border,
@@ -11,10 +12,44 @@ const ShowPickDropItem = ({
   isInputShow, // realted input
   inputValue, // realted input
   handleInputChange, // realted input
+  iconsName,
+  IconsType,
+  showRightIcon = true,
+  timeShow,
 }) => {
+  let Topicons;
+  switch (topIcon) {
+    case "MaterialIcons":
+      Topicons = MaterialIcons;
+      break;
+    case "Ionicons":
+      Topicons = Ionicons;
+      break;
+    case "FontAwesome":
+      Topicons = FontAwesome;
+      break;
+    default:
+      Topicons = Ionicons;
+  }
+
+  let Icons;
+  switch (IconsType) {
+    case "MaterialIcons":
+      Icons = MaterialIcons;
+      break;
+    case "Ionicons":
+      Icons = Ionicons;
+      break;
+    case "FontAwesome":
+      Icons = FontAwesome;
+      break;
+    default:
+      Icons = Ionicons;
+  }
+
   return (
     <View style={[styles.constainer, border]}>
-      <Ionicons name={icons} size={25} color="#E02E88" />
+      <Topicons name={icons} size={25} color="#E02E88" />
       {isInputShow ? (
         <TextInput
           placeholder="Enter Destination"
@@ -30,10 +65,15 @@ const ShowPickDropItem = ({
           {location}
         </Text>
       )}
-      {time && (
+      {timeShow && (
         <View style={styles.timeCard}>
           <Ionicons name="time-outline" size={18} color="#E02E88" />
           <Text style={styles.timeText}>Time</Text>
+        </View>
+      )}
+      {showRightIcon && (
+        <View style={styles.favMicCard}>
+          <Icons name={iconsName} color="#e02e88" size={25} />
         </View>
       )}
     </View>
@@ -50,9 +90,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 10,
     flexDirection: "row",
+    position: "relative",
   },
   locationText: {
-    flex: 1,
+    // flex: 1,
+    width: "85%",
   },
   timeCard: {
     width: 70,
@@ -71,5 +113,15 @@ const styles = StyleSheet.create({
   },
   timeText: {
     fontSize: 12,
+  },
+  favMicCard: {
+    width: 35,
+    height: 40,
+    // backgroundColor: "#fff",
+    position: "absolute",
+    top: 7,
+    right: 10,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

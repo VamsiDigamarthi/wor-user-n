@@ -56,7 +56,9 @@ const Home = () => {
           <Button title="Go Back" onPress={onBackLogin} />
         </View>
       </ScrollView>
-      <ActiveRide activeOrder={activeOrder} />
+      {Object.keys(activeOrder)?.length > 0 && (
+        <ActiveRide activeOrder={activeOrder} />
+      )}
     </View>
   );
 };
@@ -74,13 +76,13 @@ const styles = StyleSheet.create({
   },
   bottomSheet: {
     width: "100%",
-    paddingHorizontal: 26,
+    paddingHorizontal: 10,
     paddingVertical: 12,
     backgroundColor: "#fff5f9",
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
     zIndex: 1,
-    gap: 20,
+    gap: 10,
   },
   text: {
     width: 120,

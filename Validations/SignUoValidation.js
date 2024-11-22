@@ -2,7 +2,7 @@ export const signUpValidation = (onImageError, selectedImage, formData) => {
   const newErrors = {};
 
   if (!formData.name) {
-    newErrors.name = "Name is required";
+    newErrors.name = "Full Name is required";
   } else if (!/^[A-Za-z\s]+$/.test(formData.name)) {
     newErrors.name = "Name should only contain alphabetic characters";
   } else if (formData.name?.length < 3) {
@@ -16,7 +16,7 @@ export const signUpValidation = (onImageError, selectedImage, formData) => {
     newErrors.email = "Valid email is required";
   }
   if (!formData.address) {
-    newErrors.address = "Address is required";
+    newErrors.address = "Current Address is required";
   }
 
   return Object.keys(newErrors)?.length > 0 ? newErrors : {};
