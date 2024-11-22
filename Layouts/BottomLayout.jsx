@@ -16,7 +16,7 @@ const BottomLayout = ({
   };
   return (
     <View style={styles.container}>
-      <Text style={styles.text}></Text>
+      {/* <Text style={styles.text}></Text> */}
       <BottomSheetTitle title={title} />
 
       <View style={styles.sibTextCard}>
@@ -43,13 +43,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 26,
     paddingVertical: 12,
     justifyContent: "center",
-    alignItems: "center",
+    // alignItems: "center",
     gap: 20,
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
-    paddingBottom: 28,
     backgroundColor: "#fff5f9",
     paddingBottom: 60,
+    paddingTop: 20,
   },
   text: {
     width: 120,

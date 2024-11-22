@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons"; // For checkbox icon
 const CustomCheckbox = ({
   handleCheck,
   isChecked,
-  title = "I agree to the terms and conditions",
+  title = "By continuing, you accept the T&C and Privacy Policy",
 }) => {
   return (
     <View style={styles.container}>
@@ -48,7 +48,8 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   label: {
-    fontSize: 13,
-    color: "#333",
+    fontSize: 10,
+    color: "gray",
+    lineHeight: 17,
   },
 });

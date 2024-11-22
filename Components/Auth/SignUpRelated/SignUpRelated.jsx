@@ -17,12 +17,12 @@ const SignUpRelated = ({
 
   return (
     <BottomLayout
-      title="Details"
+      title="Create Your Account"
       subTitle="okiuytfdrszxdfgh uohidrseztdxcyug iudreztxdfcg y7t6fdrtfgyug 78tftuygvh"
     >
       <View style={styles.container}>
         <InputBox
-          label={errors.name ? errors.name : "Name *"}
+          label={errors.name ? errors.name : "Full Name *"}
           icon="person-outline"
           placeholder="Enter Your Name"
           value={formData.name}
@@ -47,7 +47,7 @@ const SignUpRelated = ({
           isValid={errors?.email?.length > 0 ? false : true}
         />
         <InputBox
-          label={errors?.address ? errors?.address : "Address *"}
+          label={errors?.address ? errors?.address : "Current Address *"}
           icon="location-outline"
           placeholder=" Enter your address"
           multiline={true}
@@ -58,12 +58,20 @@ const SignUpRelated = ({
           isValid={errors?.address?.length > 0 ? false : true}
         />
         <InputBox
-          label="Alternate Number"
+          label="Emergency Contact Number"
           icon="contract"
           placeholder="Enter your emergency contact"
           value={formData.emergencyContact}
           onChangeText={(value) => handleInputChange("emergencyContact", value)}
         />
+        <InputBox
+          label="Referal Code"
+          icon="contract"
+          placeholder="Enter Referal Code"
+          value={formData.referalCode}
+          onChangeText={(value) => handleInputChange("referalCode", value)}
+        />
+
         {apiError && (
           <View style={styles.errorCard}>
             <Text style={styles.errorMsg}>{apiError}</Text>

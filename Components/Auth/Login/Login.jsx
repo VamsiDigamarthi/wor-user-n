@@ -70,8 +70,8 @@ const LoginRelatedInput = () => {
 
   return (
     <BottomLayout
-      title="Verify Your Mobile Number"
-      subTitle="By Entering your mobile number you are agreeing to our terms & condition"
+      title="Enter Your Mobile Number"
+      subTitle="By entering your mobile number, you agree it will be used for verification and updates."
     >
       <View style={styles.container}>
         <InputBox
@@ -98,7 +98,7 @@ const LoginRelatedInput = () => {
         )}
 
         <CustomBtn
-          title="continue"
+          title="Continue"
           btnBg={Object.keys(errorState)?.length > 0 ? "#fff" : "#E02E88"}
           btnColor={Object.keys(errorState)?.length > 0 ? "#E02E88" : "#fff"}
           onPress={handleLogin}

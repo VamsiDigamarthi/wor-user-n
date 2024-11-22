@@ -78,5 +78,6 @@ export const useOtpComHook = () => {
     onHandleOtpApiCall,
     inputs,
     otpError,
+    mobile,
   };
 };

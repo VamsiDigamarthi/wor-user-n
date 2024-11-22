@@ -1,10 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import React from "react";
-import { Ionicons } from "@expo/vector-icons";
 import DropLocationItem from "./Components/DropLocationItem/DropLocationItem";
-import { TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { useDropLocationHook } from "./DropLocation.hook";
+import { FontAwesome } from "@expo/vector-icons";
 const DropLocation = ({
   nearByRandomItems,
   placeName,
@@ -19,9 +16,17 @@ const DropLocation = ({
   return (
     <View style={styles.container}>
       <Pressable style={styles.inputCard} onPress={handleNavigate}>
-        <Ionicons name="location" size={25} color="#E02E88" />
+        <FontAwesome
+          name="location-arrow"
+          style={{ marginRight: 5 }}
+          size={27}
+          color="#E02E88"
+        />
         <View style={styles.inputTypeCard}>
-          <Text>Enter Drop Location</Text>
+          <Text>Destination Location</Text>
+        </View>
+        <View style={styles.miceIconcard}>
+          <FontAwesome size={26} color="#e02e88" name="microphone" />
         </View>
       </Pressable>
       <View style={styles.innerCard}>
@@ -46,6 +51,7 @@ const styles = StyleSheet.create({
     width: "100%",
     position: "relative",
     height: 250,
+    elevation: 1,
 
     // gap: 10,
   },
@@ -55,7 +61,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     height: 230,
     justifyContent: "flex-end",
-    alignItems: "flex-end",
+    alignItems: "flex-start",
     position: "absolute",
     bottom: 0,
     left: 0,
@@ -63,13 +69,13 @@ const styles = StyleSheet.create({
     zIndex: 2,
     borderBottomRightRadius: 10,
     borderBottomLeftRadius: 10,
-    borderWidth: 1,
+    // borderWidth: 1,
     borderColor: "#ffe2e6",
     gap: 10,
   },
   inputCard: {
     width: "100%",
-    height: 50,
+    height: 56,
     borderWidth: 1,
     borderColor: "#ffe2e6",
     borderRadius: 5,
@@ -91,5 +97,16 @@ const styles = StyleSheet.create({
     width: "90%",
     height: "100%",
     justifyContent: "center",
+  },
+  miceIconcard: {
+    width: 40,
+    height: 40,
+    // backgroundColor: "red",
+    position: "absolute",
+    top: 6,
+    right: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 5,
   },
 });

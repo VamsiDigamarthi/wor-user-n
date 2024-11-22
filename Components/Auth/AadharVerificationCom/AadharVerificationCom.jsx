@@ -6,6 +6,7 @@ import AadharFrontBackImageCard from "../../../Utils/AadharFrontBackImageCard/Aa
 import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
 import AddharOtpUi from "./OtpUi/OtpUi";
 import { useAadharVerificationComHook } from "./AadharVerificationCom.hook";
+import BottomLayout from "../../../Layouts/BottomLayout";
 
 const AadharVerificationCom = () => {
   const {
@@ -27,62 +28,67 @@ const AadharVerificationCom = () => {
   } = useAadharVerificationComHook();
 
   return (
-    <View style={styles.container}>
-      <Text>AadharVerificationCom</Text>
-      <AadharFaceNavigator
-        isInput={true}
-        isText={true}
-        textWidth="30%"
-        inputWidth="70%"
-        onPress={onAadharCardGetOtpFunction}
-        onTextChange={handleInputChange}
-        value={aadharNumber}
-        isEditable={otpInputEditable}
-        pressBtnOrText={changeGetOtpToVerified}
-        displayOtpBox={displayOtpBox}
-      />
-      {error && (
-        <View style={styles.errorCard}>
-          <Text style={styles.errorMsg}>{error}</Text>
-        </View>
-      )}
-      {displayOtpBox && (
-        <>
-          <Text style={styles.checkingOtp}>
-            check <Text style={styles.checkingOtpHighlight}>OTP</Text> from your
-            aadhar linked number
-          </Text>
+    <BottomLayout
+      title="User Verification"
+      subTitle="Identity Check with Aadhaar and Face Scan for Safe Ride Bookings"
+    >
+      <View style={styles.container}>
+        <Text>AadharVerificationCom</Text>
+        <AadharFaceNavigator
+          isInput={true}
+          isText={true}
+          textWidth="30%"
+          inputWidth="70%"
+          onPress={onAadharCardGetOtpFunction}
+          onTextChange={handleInputChange}
+          value={aadharNumber}
+          isEditable={otpInputEditable}
+          pressBtnOrText={changeGetOtpToVerified}
+          displayOtpBox={displayOtpBox}
+        />
+        {error && (
+          <View style={styles.errorCard}>
+            <Text style={styles.errorMsg}>{error}</Text>
+          </View>
+        )}
+        {displayOtpBox && (
+          <>
+            <Text style={styles.checkingOtp}>
+              check <Text style={styles.checkingOtpHighlight}>OTP</Text> from
+              your aadhar linked number
+            </Text>
 
-          <AddharOtpUi
-            handleChange={handleChange}
-            handleKeyPress={handleKeyPress}
-            inputs={inputs}
-            otp={otp}
-          />
-          <CustomBtn
-            title="Verify OTP"
-            btnBg="#fff"
-            btnColor="#E02E88"
-            onPress={onVerifyAddharOtp}
-          />
-          {otpVerificationFailed && (
-            <View style={styles.errorCard}>
-              <Text style={styles.otpVerificationFailed}>{error}</Text>
-            </View>
-          )}
-        </>
-      )}
+            <AddharOtpUi
+              handleChange={handleChange}
+              handleKeyPress={handleKeyPress}
+              inputs={inputs}
+              otp={otp}
+            />
+            <CustomBtn
+              title="Verify OTP"
+              btnBg="#fff"
+              btnColor="#E02E88"
+              onPress={onVerifyAddharOtp}
+            />
+            {otpVerificationFailed && (
+              <View style={styles.errorCard}>
+                <Text style={styles.otpVerificationFailed}>{error}</Text>
+              </View>
+            )}
+          </>
+        )}
 
-      {aadharUploadImageDisplay && (
-        <>
-          <Text style={styles.uploadAddarText}>
-            Update Your Aadhar Front & Back Photos
-          </Text>
+        {aadharUploadImageDisplay && (
+          <>
+            <Text style={styles.uploadAddarText}>
+              Update Your Aadhar Front & Back Photos
+            </Text>
 
-          <AadharFrontBackImageCard />
-        </>
-      )}
-    </View>
+            <AadharFrontBackImageCard />
+          </>
+        )}
+      </View>
+    </BottomLayout>
   );
 };
 

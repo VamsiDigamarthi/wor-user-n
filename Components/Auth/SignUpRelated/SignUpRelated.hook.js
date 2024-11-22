@@ -23,6 +23,7 @@ export const useSignUpRelatedHook = ({
     address: "",
     emergencyContact: "",
     role: "user",
+    referalCode: "",
   });
 
   const [validationCheck, setValidationCheck] = useState({
@@ -41,13 +42,13 @@ export const useSignUpRelatedHook = ({
   };
 
   const handleNavigateToOTP = async () => {
-    if (!selectedImage) {
-      console.log(onImageError);
-      onImageError();
-      setApiError("Provide Profile Images");
-    } else {
-      setApiError("");
-    }
+    // if (!selectedImage) {
+    //   console.log(onImageError);
+    //   onImageError();
+    //   setApiError("Provide Profile Images");
+    // } else {
+    //   setApiError("");
+    // }
     const errors = signUpValidation(onImageError, selectedImage, formData);
     console.log(errors);
     setErrors(errors);
@@ -109,7 +110,7 @@ export const useSignUpRelatedHook = ({
     if (!formData.name && validationCheck.name) {
       setErrors((prev) => ({
         ...prev,
-        name: "Name is required",
+        name: "Full Name is required",
       }));
     } else if (!/^[A-Za-z\s]+$/.test(formData.name) && validationCheck.name) {
       setErrors((prev) => ({
@@ -186,7 +187,7 @@ export const useSignUpRelatedHook = ({
     if (!formData.address && validationCheck.address) {
       setErrors((prev) => ({
         ...prev,
-        address: "Address is required",
+        address: "Current Address is required",
       }));
     }
   }, [formData]);

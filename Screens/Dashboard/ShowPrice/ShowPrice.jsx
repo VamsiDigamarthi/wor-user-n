@@ -24,43 +24,42 @@ const ShowPrice = () => {
     apiError,
     pickUpCoordinated,
   } = useShowPriceHook();
+
+  let shoRightIcons = false;
+  let timeShow = true;
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#f5f2f2" />
 
       <View style={styles.mapContainer}>
-        {/* <Image
-          source={{
-            uri: coordinationMap(
-              pickUpCoordinated?.lat,
-              pickUpCoordinated?.lng
-            ),
-          }}
-          style={styles.mapImage} // Define your desired styles here
-        /> */}
         <ShowPollyLine
           origin={pickUpCoordinated}
           // origin={{ lat: 17.4587171, lng: 78.3705414 }}
           destination={dropDetails?.location}
         />
       </View>
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          justifyContent: "space-between",
-          alignItems: "center",
-          paddingBottom: 120,
-        }}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={styles.bottomSheet}>
-          <Text style={styles.text}></Text>
-          <View style={styles.bottomSheetInner}>
-            <ShowPickDropCard
-              placeName={placeName}
-              isInputShow={false}
-              dropLocation={dropDetails?.name}
-            />
+
+      <View style={styles.bottomSheet}>
+        <Text style={styles.text}></Text>
+        <View style={styles.bottomSheetInner}>
+          <ShowPickDropCard
+            placeName={placeName}
+            isInputShow={false}
+            dropLocation={dropDetails?.name}
+            shoRightIcons={shoRightIcons}
+            timeShow={timeShow}
+          />
+          <ScrollView
+            contentContainerStyle={{
+              flexGrow: 1,
+              // justifyContent: "space-between",
+              alignItems: "center",
+              paddingBottom: 120,
+              gap: 20,
+              // backgroundColor: "red",
+            }}
+            showsVerticalScrollIndicator={false}
+          >
             <ShowVehicle
               image={require("../../../assets/images/scooty.png")}
               personCount={1}
@@ -85,9 +84,9 @@ const ShowPrice = () => {
               onPress={() => handleVehiclePress("auto")}
               vehicleType="Auto"
             />
-          </View>
+          </ScrollView>
         </View>
-      </ScrollView>
+      </View>
       <View style={styles.coupneWithBtn}>
         <View style={styles.couponTextCard}>
           <Text style={styles.coupnText}>Coupons</Text>
@@ -143,7 +142,7 @@ const styles = StyleSheet.create({
   bottomSheet: {
     width: "100%",
     height: "fit-content",
-    paddingHorizontal: 26,
+    paddingHorizontal: 10,
     paddingVertical: 12,
     justifyContent: "center",
     alignItems: "center",
@@ -153,11 +152,13 @@ const styles = StyleSheet.create({
     gap: 15,
     backgroundColor: "#fff5f9",
     height: 420,
+    paddingTop: 30,
   },
 
   bottomSheetInner: {
     backgroundColor: "#fff",
     borderWidth: 1,
+    // elevation: 2,
     borderColor: "#ffe3e6",
     gap: 20,
     borderRadius: 10,

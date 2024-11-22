@@ -27,7 +27,7 @@ const DropLocationItem = ({
         onPress={onPress}
       >
         <View style={styles.first}>
-          <Ionicons name="location" size={25} color="#fff" />
+          <FontAwesome name="location-arrow" size={25} color="#fff" />
         </View>
         <View style={styles.second}>
           <Text style={styles.locText} numberOfLines={1}>
@@ -59,8 +59,9 @@ export default DropLocationItem;
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    borderBottomWidth: 1,
+    width: "90%",
+    // borderBottomWidth: 1,
+    // backgroundColor: "red",
     borderBottomColor: "#ffe2e6",
   },
 
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
     gap: 10,
     alignItems: "center",
     position: "relative",
-    borderBottomWidth: 2,
+    // borderBottomWidth: 2,
     borderColor: "#fff",
     paddingVertical: 5,
   },
@@ -101,7 +102,7 @@ const styles = StyleSheet.create({
   third: {
     position: "absolute",
     top: 1,
-    right: 10,
+    right: -40,
     width: 30,
     height: 30,
     justifyContent: "center",

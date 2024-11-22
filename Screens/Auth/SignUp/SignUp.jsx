@@ -20,7 +20,7 @@ const SignUp = () => {
       <View style={styles.container}>
         <View style={styles.logoContainer}>
           <Logo />
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.imgeContainer}
             onPress={handleImagePick}
           >
@@ -35,7 +35,7 @@ const SignUp = () => {
                 resizeMode="contain"
               />
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <SignUpRelated
           selectedImage={selectedImage}

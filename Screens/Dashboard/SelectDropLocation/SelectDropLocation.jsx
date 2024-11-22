@@ -33,10 +33,12 @@ const SelectDropLocation = () => {
             onPress={onNavigateToMapPreviewScreen}
             icons="location"
             title="Select on Map"
+            iconsName="Ionicons"
           />
           <IconButton
-            icons="location"
+            icons="favorite"
             title="Favorite Places"
+            iconsName="MaterialIcons"
             onPress={onNavigateToFavoriteScreen}
           />
         </View>
@@ -79,7 +81,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff5f9",
-    paddingHorizontal: 26,
+    paddingHorizontal: 10,
     paddingVertical: 12,
     gap: 20,
   },
@@ -92,10 +94,11 @@ const styles = StyleSheet.create({
   },
 
   pickDropBtnCard: {
-    borderWidth: 1,
+    // borderWidth: 1,
     borderColor: "#ffe2e6",
     borderRadius: 8,
     backgroundColor: "#fff",
+    elevation: 2,
   },
 
   mapFavoriteCard: {

@@ -3,6 +3,7 @@ import { Image, View, StyleSheet } from "react-native";
 import Logo from "../../../Utils/Logo/Logo";
 import AuthScreenLayout from "../../../Layouts/AuthScreenLayout";
 import BottomSheet from "../../../Utils/BottomSheet/BottomSheet";
+import DocumentRelatedCheck from "../../../Components/Auth/DocumentRelatedCheck/DocumentRelatedCheck";
 
 const DocumentCheck = () => {
   return (
@@ -16,7 +17,7 @@ const DocumentCheck = () => {
             resizeMode="contain"
           />
         </View>
-        <BottomSheet uiDisplay="documentCheck" />
+        <DocumentRelatedCheck />
       </View>
     </AuthScreenLayout>
   );

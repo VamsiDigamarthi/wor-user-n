@@ -3,6 +3,7 @@ import { Image, View, StyleSheet } from "react-native";
 import BottomSheet from "../../../Utils/BottomSheet/BottomSheet";
 import Logo from "../../../Utils/Logo/Logo";
 import AuthScreenLayout from "../../../Layouts/AuthScreenLayout";
+import AadharVerificationCom from "../../../Components/Auth/AadharVerificationCom/AadharVerificationCom";
 
 const AadharVerification = () => {
   return (
@@ -16,7 +17,7 @@ const AadharVerification = () => {
             resizeMode="contain"
           />
         </View>
-        <BottomSheet uiDisplay="aadharVerification" />
+        <AadharVerificationCom />
       </View>
     </AuthScreenLayout>
   );

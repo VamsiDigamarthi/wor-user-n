@@ -65,7 +65,10 @@ const OtpRelatedInput = ({ btnShow = true }) => {
   return (
     <BottomLayout
       title={`Welcom Back ${message}`}
-      subTitle="By Entering your mobile number you are agreeing to our terms & condition"
+      subTitle={`Please Enter the 6-digit code sent to your registered number +91 ${mobile.slice(
+        0,
+        2
+      )}****${mobile.slice(6)}.`}
       displayChangeNumber={true}
     >
       <View style={styles.container}>
@@ -142,10 +145,11 @@ const styles = StyleSheet.create({
     height: 40,
     backgroundColor: "#FFFFFF", // White background
     borderRadius: 25, // Fully rounded input
-    borderWidth: 1,
+    // borderWidth: 1,
     textAlign: "center", // Center the text
     fontSize: 18, // Adjust font size
-    color: "#000000", // Text color
+    color: "#000000",
+    elevation: 2,
   },
   resentOtpCard: {
     width: "100%",
