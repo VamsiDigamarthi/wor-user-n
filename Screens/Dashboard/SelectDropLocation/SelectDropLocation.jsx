@@ -5,6 +5,7 @@ import ShowPickDropCard from "../../../Components/Dashboard/ShowPrices/ShowPickD
 import IconButton from "../../../Utils/IconButton/IconButton";
 import { useSelectDropLocationHook } from "./SelectDropLocation.hhok";
 import DropLocationItem from "../../../Components/Dashboard/DropLocation/Components/DropLocationItem/DropLocationItem";
+import { COLORS } from "../../../Constants/colors";
 const SelectDropLocation = () => {
   const {
     inputValue,
@@ -16,8 +17,11 @@ const SelectDropLocation = () => {
     onUserSelectDropLocationByEnterInput,
     onNavigateToMapPreviewScreen,
     onNavigateToFavoriteScreen,
+    favoritePlaces,
+    previousOrders,
+    nearByFavPrevPlace,
   } = useSelectDropLocationHook();
-
+  // console.log("jugfghjn", nearByFavPrevPlace);
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#f5f2f2" />
@@ -46,10 +50,12 @@ const SelectDropLocation = () => {
 
       <FlatList
         data={
-          suggestions && suggestions.length > 0 ? suggestions : nearbyPlaces
+          suggestions && suggestions.length > 0
+            ? suggestions
+            : nearByFavPrevPlace
         }
         keyExtractor={(item) =>
-          suggestions && suggestions.length > 0 ? item.placeId : item.id
+          suggestions && suggestions.length > 0 ? item.placeId : item.name
         }
         renderItem={({ item }) =>
           suggestions && suggestions.length > 0 ? (
@@ -99,6 +105,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: "#fff",
     elevation: 2,
+    backgroundColor: COLORS.cardBackground,
   },
 
   mapFavoriteCard: {

@@ -1,4 +1,11 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  Linking,
+} from "react-native";
 import React from "react";
 import BottomSheetTitle from "../Utils/BottomSheet/Components/BottomSheetTitle/BottomSheetTitle";
 import { useNavigation } from "@react-navigation/native";
@@ -14,6 +21,14 @@ const BottomLayout = ({
   const onHandleChangeLogin = () => {
     navigation.navigate("login");
   };
+
+  const openLink = () => {
+    const url = "https://nuhvin.com"; // Replace with your desired URL
+    Linking.openURL(url).catch((err) =>
+      console.error("Failed to open URL:", err)
+    );
+  };
+
   return (
     <View style={styles.container}>
       {/* <Text style={styles.text}></Text> */}
@@ -30,11 +45,19 @@ const BottomLayout = ({
         )}
       </View>
       {children}
+      <View style={styles.loginBottomCard}>
+        <Text style={styles.loginBottomCardText}>A Product From</Text>
+        <Pressable onPress={openLink}>
+          <Text style={styles.companyName}>Nuhvin</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
 
 export default BottomLayout;
+
+const width = Dimensions.width;
 
 const styles = StyleSheet.create({
   container: {
@@ -50,6 +73,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff5f9",
     paddingBottom: 60,
     paddingTop: 20,
+    position: "relative",
   },
   text: {
     width: 120,
@@ -63,7 +87,7 @@ const styles = StyleSheet.create({
   },
   subText: {
     fontSize: 12,
-    color: "gray",
+    color: "#595959",
     lineHeight: 17,
   },
   changeNumber: {
@@ -75,5 +99,33 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "flex-end",
     justifyContent: "flex-end",
+  },
+  loginBottomCard: {
+    position: "absolute",
+    width: width,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    backgroundColor: "red",
+    flexDirection: "row",
+    // justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "rgba(202, 193, 198, 0.38)",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
+
+  loginBottomCardText: {
+    color: "#2d2d2d",
+    fontSize: 15,
+  },
+
+  companyName: {
+    color: "#ff6600",
+    textDecorationColor: "#000000",
+    textDecorationLine: "underline",
   },
 });

@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
@@ -10,11 +10,14 @@ const DropLocationItem = ({
   onPress,
   eachPlace,
   favoriteIconDisplay = true,
+  isPreviousOrder = false, // this prop tell if this previous order item chech name
 }) => {
   const { onAddPlaceToFavoriteHandler, favoritePlacesApi } =
     useDropLocationItemHook();
   const isFavorite = favoritePlacesApi.some(
-    (place) => place.name === eachPlace.name
+    (place) =>
+      place.name ===
+      (isPreviousOrder ? eachPlace?.dropAddress : eachPlace?.name)
   );
   return (
     <View style={styles.container}>
@@ -27,7 +30,11 @@ const DropLocationItem = ({
         onPress={onPress}
       >
         <View style={styles.first}>
-          <FontAwesome name="location-arrow" size={25} color="#fff" />
+          {/* <FontAwesome name="location-arrow" size={25} color="#fff" /> */}
+          <Image
+            style={styles.firstImage}
+            source={require("../../../../../assets/images/locationIcons/pin locator 2.png")}
+          />
         </View>
         <View style={styles.second}>
           <Text style={styles.locText} numberOfLines={1}>
@@ -45,7 +52,12 @@ const DropLocationItem = ({
                 size={23}
                 color="gray"
                 style={{ color: isFavorite ? "#e02e88" : "#808080" }}
-                onPress={() => onAddPlaceToFavoriteHandler(eachPlace)}
+                onPress={() =>
+                  onAddPlaceToFavoriteHandler(
+                    eachPlace,
+                    isPreviousOrder ? "previous" : "remain"
+                  )
+                }
               />
             </Pressable>
           </View>
@@ -81,9 +93,15 @@ const styles = StyleSheet.create({
     width: 35,
     height: 35,
     borderRadius: 30,
-    backgroundColor: "#E02E88",
+    // backgroundColor: "#E02E88",
     justifyContent: "center",
     alignItems: "center",
+  },
+  firstImage: {
+    width: "90%",
+    height: "90%",
+    resizeMode: "contain",
+    // backgroundColor: "red",
   },
   second: {
     width: "90%",

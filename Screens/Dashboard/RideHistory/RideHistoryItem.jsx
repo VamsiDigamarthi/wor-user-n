@@ -3,10 +3,10 @@ import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import RideHistoryFirst from "./RideHistoryFirst";
 
-const RideHistoryItem = () => {
+const RideHistoryItem = ({ ride }) => {
   return (
     <View style={styles.mainContainer}>
-      <RideHistoryFirst />
+      <RideHistoryFirst ride={ride} />
       <View style={styles.priceTimeCard}>
         <View style={styles.priceTimeInnerCard}>
           <View style={styles.scootyImageCard}>
@@ -29,7 +29,7 @@ const RideHistoryItem = () => {
         </View>
         <View style={styles.totalPriceCard}>
           <Text style={styles.totalText}>Total Fare Price</Text>
-          <Text style={styles.totalPriceNumber}>₹30</Text>
+          <Text style={styles.totalPriceNumber}>₹{ride.price}</Text>
         </View>
       </View>
     </View>

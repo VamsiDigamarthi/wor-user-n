@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Image,
   Pressable,
@@ -6,82 +7,110 @@ import {
   Text,
   View,
 } from "react-native";
-import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-const AllServices = ({ placeName, location, nearbyPlaces }) => {
-  const navigation = useNavigation();
+// A reusable service card component
+const ServiceCard = ({ imageSource, label, onPress }) => {
+  return (
+    <Pressable onPress={onPress} style={styles.singleItem}>
+      <Image source={imageSource} style={styles.image} />
+      <Text>{label}</Text>
+    </Pressable>
+  );
+};
 
-  const onNavigateParcelScreen = () => {
+const AllServices = ({
+  placeName,
+  location,
+  nearbyPlaces,
+  favoritePlaces,
+  previousOrders,
+}) => {
+  const navigation = useNavigation();
+  const [viewAll, setViewAll] = useState(false);
+
+  const toggleViewAll = () => setViewAll((prev) => !prev);
+
+  const navigateToParcelScreen = () => {
     navigation.navigate("ParcelHome");
   };
 
-  const onNavaigetPickLocationScreen = (vehicle) => {
-    console.log(vehicle);
+  const navigateToPickLocationScreen = (vehicle) => {
     navigation.navigate("SelectDropLocation", {
-      placeName, // this prop is store current location text,
-      pickUpCoordinated: location, // this prop store current location user coordinates to pass price screen to calculate the price
-      nearbyPlaces, // this prop store nearby places from user current location to 1 km radius famous location [place this data into "select drop location screen to display initial locations"]
+      placeName, // current location text
+      pickUpCoordinated: location, // user coordinates to calculate the price
+      nearbyPlaces, // nearby places for the "select drop location" screen
       selectedVehicleType: vehicle,
+      favoritePlaces,
+      previousOrders,
     });
+  };
+
+  const renderServices = () => {
+    const services = [
+      {
+        label: "Scooty",
+        image: require("../../../../assets/images/scooty.png"),
+        vehicle: "scooty",
+      },
+      {
+        label: "Car",
+        image: require("../../../../assets/images/car.png"),
+        vehicle: "car",
+      },
+      {
+        label: "Auto",
+        image: require("../../../../assets/images/auto.png"),
+        vehicle: "auto",
+      },
+      {
+        label: "Parcel",
+        image: require("../../../../assets/images/image.png"),
+        vehicle: null,
+        isParcel: true,
+      },
+    ];
+
+    return services.map((service, index) => (
+      <ServiceCard
+        key={index}
+        imageSource={service.image}
+        label={service.label}
+        onPress={
+          service.isParcel
+            ? navigateToParcelScreen
+            : () => navigateToPickLocationScreen(service.vehicle)
+        }
+      />
+    ));
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.serviceTextCard}>
+      <View style={styles.header}>
         <Text style={styles.headerText}>Services Now</Text>
-        <View style={styles.viewAllCard}>
-          <Text style={styles.viewAllText}>View All</Text>
+        <View style={styles.viewAllContainer}>
+          <Pressable onPress={toggleViewAll}>
+            <Text style={styles.viewAllText}>
+              {viewAll ? "Remove All" : "View All"}
+            </Text>
+          </Pressable>
           <Ionicons name="arrow-forward" size={20} color="#E02E88" />
         </View>
       </View>
 
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={styles.scrollView}
-      >
-        {/* Service Items */}
-        <View style={styles.singleItem}>
-          <Pressable
-            onPress={onNavaigetPickLocationScreen.bind(this, "scooty")}
-          >
-            <Image
-              source={require("../../../../assets/images/scooty.png")}
-              style={styles.image} // Apply styles for images
-            />
-            <Text>Scooty</Text>
-          </Pressable>
-        </View>
-        <View style={styles.singleItem}>
-          <Pressable onPress={onNavaigetPickLocationScreen.bind(this, "car")}>
-            <Image
-              source={require("../../../../assets/images/car.png")}
-              style={styles.image}
-            />
-            <Text>Car</Text>
-          </Pressable>
-        </View>
-        <View style={styles.singleItem}>
-          <Pressable onPress={onNavaigetPickLocationScreen.bind(this, "auto")}>
-            <Image
-              source={require("../../../../assets/images/auto.png")}
-              style={styles.image}
-            />
-            <Text>Auto</Text>
-          </Pressable>
-        </View>
-        <View style={styles.singleItem}>
-          <Pressable onPress={onNavigateParcelScreen}>
-            <Image
-              source={require("../../../../assets/images/image.png")}
-              style={styles.image}
-            />
-            <Text>Parcel</Text>
-          </Pressable>
-        </View>
-      </ScrollView>
+      {viewAll ? (
+        <View style={styles.serviceGrid}>{renderServices()}</View>
+      ) : (
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={styles.scrollView}
+        >
+          {renderServices()}
+        </ScrollView>
+      )}
     </View>
   );
 };
@@ -91,48 +120,54 @@ export default AllServices;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    backgroundColor: "#fff",
+    backgroundColor: "#fdfdfd",
     padding: 10,
     borderRadius: 10,
-    borderWidth: 1,
+    // borderWidth: 1,
     borderColor: "#ffe2e6",
+    elevation: 1,
   },
-  serviceTextCard: {
+  header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 10, // Add some spacing
+    marginBottom: 10,
   },
-  viewAllCard: {
+  viewAllContainer: {
     flexDirection: "row",
-    gap: 2,
     alignItems: "center",
-    justifyContent: "center",
   },
-  scrollView: {
-    paddingVertical: 10, // Vertical padding for the ScrollView
+  viewAllText: {
+    color: "#E02E88",
+    marginRight: 5,
+  },
+  headerText: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  serviceGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    // justifyContent: "space-between",
   },
   singleItem: {
-    marginRight: 10, // Space between cards
-    minWidth: 100, // Minimum width for cards
     alignItems: "center",
     backgroundColor: "#fff",
     padding: 4,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "#f5f5f5",
+    marginBottom: 10,
+    minWidth: 95,
+    marginRight: 10, // Space between cards in horizontal scroll
   },
   image: {
-    width: 60, // Define width for images
-    height: 60, // Define height for images
-    marginBottom: 5, // Space between image and text
+    width: 60,
+    height: 60,
+    marginBottom: 5,
     resizeMode: "contain",
   },
-  headerText: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  viewAllText: {
-    color: "#E02E88",
+  scrollView: {
+    paddingVertical: 10,
   },
 });

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, Dimensions } from "react-native";
+import { StyleSheet, View, Text, Dimensions, Image } from "react-native";
 import MapView from "react-native-maps";
 import * as Location from "expo-location";
 import { useRoute } from "@react-navigation/native";
@@ -69,7 +69,11 @@ const MapWithFixedMarker = ({ navigation }) => {
           {/* Marker at a fixed position on the screen (slightly below the center) */}
           <View style={styles.fixedMarker}>
             <View style={styles.marker}>
-              <Text style={styles.markerText}>📍</Text>
+              <Image
+                style={styles.marker}
+                source={require("../../../assets/images/locationIcons/pin locator 4.png")}
+              />
+              {/* <Text style={styles.markerText}>📍</Text> */}
             </View>
           </View>
         </>
@@ -138,5 +142,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#e02d88",
     textAlign: "center",
+  },
+  marker: {
+    width: "90%",
+    height: "90%",
+    resizeMode: "contain",
+    // backgroundColor: "red",
   },
 });

@@ -7,6 +7,7 @@ import {
   Text,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons"; // Import icons from expo vector icons
+import { COLORS } from "../../Constants/colors";
 
 const CustomAppBar = ({ navigation, placeName }) => {
   return (
@@ -37,16 +38,18 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginTop: 20,
     marginBottom: 5,
-    borderWidth: 1, // Apply border to all sides
-    borderColor: "#fff5f9",
+    // borderWidth: 1, // Apply border to all sides
+    // borderColor: "#fff5f9",
     // paddingHorizontal: 13,
     // paddingVertical: 5,
-    backgroundColor: "white",
+    backgroundColor: COLORS.cardBackground,
     borderRadius: 6,
     height: 50,
     borderTopRightRadius: 30,
     borderBottomRightRadius: 30,
     paddingLeft: 10,
+    elevation: 1,
+    shadowColor: "red",
   },
   appSecondCard: {
     flexDirection: "row",
@@ -55,10 +58,13 @@ const styles = StyleSheet.create({
     // backgroundColor: "red",
     width: "90%",
     borderRadius: 30,
-    borderWidth: 1,
-    borderColor: "#fff5f9",
+    // borderWidth: 1,
+    // borderColor: "#fff5f9",
     height: "100%",
     paddingRight: 20,
+    elevation: 1,
+    backgroundColor: "#fff",
+    shadowColor: "red",
   },
   locationInputContainer: {
     flexDirection: "row",
@@ -77,7 +83,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 13,
     fontWeight: "600",
-    color: "gray",
+    color: COLORS.heading,
     marginLeft: 6,
   },
 });

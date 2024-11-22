@@ -99,7 +99,7 @@ const LoginRelatedInput = () => {
 
         <CustomBtn
           title="Continue"
-          btnBg={Object.keys(errorState)?.length > 0 ? "#fff" : "#E02E88"}
+          btnBg={Object.keys(errorState)?.length > 0 ? "#fdfdfd" : "#E02E88"}
           btnColor={Object.keys(errorState)?.length > 0 ? "#E02E88" : "#fff"}
           onPress={handleLogin}
           width="100%"

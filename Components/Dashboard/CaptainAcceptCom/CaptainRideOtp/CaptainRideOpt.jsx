@@ -30,10 +30,11 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     flexDirection: "row",
     padding: 15,
-    borderRadius: 10,
-    borderWidth: 1,
+    // borderRadius: 10,
+    // borderWidth: 1,
     borderColor: "#ffe2e6",
     backgroundColor: "#fff",
+    elevation: 1,
   },
   pinText: {
     color: "black",

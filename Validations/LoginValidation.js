@@ -8,7 +8,8 @@ export const loginValidation = (mobile, isChecked) => {
   }
 
   if (!isChecked) {
-    errors.privacy = "You must accept the terms and conditions.";
+    errors.privacy =
+      "You must accept the Terms and Conditions and Privacy Policy";
   }
 
   return errors.mobile || errors.privacy ? errors : {};

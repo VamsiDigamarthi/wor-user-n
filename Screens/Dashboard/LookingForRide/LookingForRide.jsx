@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   mapContainer: {
     width: "100%",
     paddingHorizontal: 20,
-    height: "40%",
+    height: "50%",
     borderRadius: 20,
   },
   mapImage: {
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     paddingHorizontal: 26,
-    paddingVertical: 12,
+    paddingVertical: 14,
     // justifyContent: "center",
     alignItems: "center",
     gap: 20,
@@ -122,8 +122,8 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   text: {
-    width: 120,
-    height: 4,
+    width: 80,
+    height: 3,
     backgroundColor: "grey",
     borderRadius: 100,
   },
@@ -132,6 +132,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 200,
     position: "relative",
+    marginTop: 50,
   },
 
   images: {

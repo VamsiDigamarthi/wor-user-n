@@ -220,7 +220,13 @@ const AuthenticatedStack = () => {
         name="Notifications"
         component={Notification}
         options={({ navigation }) =>
-          getCommonOptions(navigation, "Notifications", "#f5f2f2", true, "Edit")
+          getCommonOptions(
+            navigation,
+            "Notifications",
+            "#f5f2f2",
+            true,
+            "Filter"
+          )
         }
       />
       <Stack.Screen

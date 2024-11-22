@@ -37,9 +37,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   checkbox: {
-    width: 22,
-    height: 22,
-    borderWidth: 2,
+    width: 18,
+    height: 18,
+    borderWidth: 1,
     borderColor: "#ccc",
     justifyContent: "center",
     alignItems: "center",
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 10,
-    color: "gray",
+    color: "#9d9e9d",
     lineHeight: 17,
   },
 });

@@ -72,7 +72,7 @@ const CustomBtn = ({ title, btnBg, btnColor, onPress }) => {
   const handlePressOut = () => {
     if (btnBg !== "#E02E88") {
       // console.log("not equal");
-      setBtnBgColor("#fff");
+      setBtnBgColor("#fdfdfd");
     }
   };
   const handleLongPress = () => {
@@ -110,10 +110,11 @@ const styles = StyleSheet.create({
     height: 50,
     width: "50%",
     overflow: "hidden", // Ensure rounded corners and ripple effect
-    // elevation: 3,
+    elevation: 1,
     // borderWidth: 0.5,
     // borderColor: "#fff",
     width: "100%",
+    shadowColor: "#e02e88",
   },
 
   btn: {

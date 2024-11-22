@@ -2,16 +2,51 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import DropLocationItem from "./Components/DropLocationItem/DropLocationItem";
 import { useDropLocationHook } from "./DropLocation.hook";
 import { FontAwesome } from "@expo/vector-icons";
+import { COLORS } from "../../../Constants/colors";
 const DropLocation = ({
   nearByRandomItems,
   placeName,
   nearbyPlaces,
   location,
-  activeOrder,
+  favoritePlaces,
+  previousOrders,
 }) => {
   const { handleNavigate, onNavigateToDirectPriceScreen } = useDropLocationHook(
-    { placeName, nearbyPlaces, location, activeOrder }
+    { placeName, nearbyPlaces, location, favoritePlaces, previousOrders }
   );
+
+  function getRandomElement(arr) {
+    const randomIndex = Math.floor(Math.random() * arr.length);
+    return [arr[randomIndex]];
+  }
+
+  let randomFavoritePlace =
+    favoritePlaces?.length > 0 ? getRandomElement(favoritePlaces) : [];
+
+  function getRandomItems(arr, numItems) {
+    if (numItems >= arr.length) {
+      return arr;
+    } else if (numItems === 1) {
+      const randomIndex = Math.floor(Math.random() * arr.length);
+      return [arr[randomIndex]];
+    } else if (numItems > 1) {
+      const randomIndex = Math.floor(
+        Math.random() * (arr.length - numItems + 1)
+      );
+      return arr.slice(randomIndex, randomIndex + numItems);
+    }
+  }
+
+  let randomTwoPreviousOrders =
+    previousOrders?.length > 0 ? getRandomItems(previousOrders, 3) : [];
+
+  let remainingPlaces = 3;
+  if (randomFavoritePlace?.length) {
+    remainingPlaces -= 1;
+  }
+  if (randomTwoPreviousOrders?.length) {
+    remainingPlaces -= randomTwoPreviousOrders?.length;
+  }
 
   return (
     <View style={styles.container}>
@@ -30,13 +65,45 @@ const DropLocation = ({
         </View>
       </Pressable>
       <View style={styles.innerCard}>
-        {nearByRandomItems?.map((eachPlace, key) => (
+        {randomFavoritePlace?.length > 0 &&
+          randomFavoritePlace?.map((eachPlace, key) => (
+            <DropLocationItem
+              mainPlace={eachPlace?.name}
+              subPlace={eachPlace?.vicinity}
+              eachPlace={eachPlace}
+              key={key}
+              onPress={onNavigateToDirectPriceScreen.bind(
+                this,
+                eachPlace,
+                "favorite"
+              )}
+            />
+          ))}
+        {randomTwoPreviousOrders?.map((eachPlace, key) => (
+          <DropLocationItem
+            mainPlace={eachPlace?.dropAddress}
+            subPlace={eachPlace?.dropVicinity}
+            eachPlace={eachPlace}
+            key={key}
+            isPreviousOrder={true}
+            onPress={onNavigateToDirectPriceScreen.bind(
+              this,
+              eachPlace,
+              "previous"
+            )}
+          />
+        ))}
+        {nearByRandomItems.slice(0, remainingPlaces)?.map((eachPlace, key) => (
           <DropLocationItem
             mainPlace={eachPlace?.name}
             subPlace={eachPlace?.vicinity}
             eachPlace={eachPlace}
             key={key}
-            onPress={onNavigateToDirectPriceScreen.bind(this, eachPlace)}
+            onPress={onNavigateToDirectPriceScreen.bind(
+              this,
+              eachPlace,
+              "nearby"
+            )}
           />
         ))}
       </View>
@@ -50,13 +117,14 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     position: "relative",
-    height: 250,
-    elevation: 1,
-
+    height: 240,
+    marginBottom: 8,
+    // elevation: 1,
+    // backgroundColor: "red",
     // gap: 10,
   },
   innerCard: {
-    backgroundColor: "#fff",
+    backgroundColor: "#fdfdfd",
     padding: 10,
     overflow: "hidden",
     height: 230,
@@ -72,15 +140,20 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     borderColor: "#ffe2e6",
     gap: 10,
+    // backgroundColor: "blue",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    elevation: 1,
   },
   inputCard: {
     width: "100%",
     height: 56,
-    borderWidth: 1,
+    elevation: 1,
+    shadowColor: "red",
     borderColor: "#ffe2e6",
     borderRadius: 5,
     paddingHorizontal: 10,
-    elevation: 0,
+    elevation: 2,
     backgroundColor: "white",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
@@ -92,6 +165,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     position: "absolute",
     zIndex: 3,
+    backgroundColor: COLORS.desBackground,
   },
   inputTypeCard: {
     width: "90%",
