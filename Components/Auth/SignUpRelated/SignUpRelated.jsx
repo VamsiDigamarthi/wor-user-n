@@ -18,7 +18,7 @@ const SignUpRelated = ({
   return (
     <BottomLayout
       title="Create Your Account"
-      subTitle="okiuytfdrszxdfgh uohidrseztdxcyug iudreztxdfcg y7t6fdrtfgyug 78tftuygvh"
+      subTitle="By sharing your information, we’ll set up your account."
     >
       <View style={styles.container}>
         <InputBox
@@ -80,7 +80,7 @@ const SignUpRelated = ({
         <View style={{ height: 10 }} />
         <CustomBtn
           title="continue"
-          btnBg={Object.keys(errors)?.length > 0 ? "#fff" : "#E02E88"}
+          btnBg={Object.keys(errors)?.length > 0 ? "#fdfdfd" : "#E02E88"}
           btnColor={Object.keys(errors)?.length > 0 ? "#E02E88" : "#fff"}
           onPress={handleNavigateToOTP}
           width="100%"

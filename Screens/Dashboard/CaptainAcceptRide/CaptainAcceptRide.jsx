@@ -34,11 +34,22 @@ const CaptainAcceptRide = () => {
       >
         <View style={styles.bottomSheet}>
           <Text style={styles.text}></Text>
-          <CaptainTime
-            title={otpVerified ? "Total Ride Time" : "Rider on the way"}
-            time={travellingTimeAndDistnace?.durationInMinutes ?? "03:59"}
-          />
-          {!otpVerified && <CaptainRideOpt orderOtp={orderDetails?.orderOtp} />}
+          <View
+            style={{
+              width: "100%",
+              elevation: 1,
+              borderRadius: 10,
+              overflow: "hidden",
+            }}
+          >
+            <CaptainTime
+              title={otpVerified ? "Total Ride Time" : "Rider on the way"}
+              time={travellingTimeAndDistnace?.durationInMinutes ?? "03:59"}
+            />
+            {!otpVerified && (
+              <CaptainRideOpt orderOtp={orderDetails?.orderOtp} />
+            )}
+          </View>
           <View style={styles.userCalCard}>
             <CaptainDetails captainDetails={orderDetails?.acceptCaptain} />
             <RatingMsgCall otpVerified={otpVerified} />
@@ -84,19 +95,20 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     backgroundColor: "#fff",
     borderRadius: 10,
-    borderWidth: 1,
+    // borderWidth: 1,
+    elevation: 1,
     borderColor: "#ffe2e6",
   },
   mapContainer: {
     width: "100%",
-    height: 250,
+    height: 430,
     position: "absolute",
     top: 0,
     left: 0,
     right: 0,
   },
   scrollContainer: {
-    paddingTop: 250,
+    paddingTop: 430,
   },
   mapImage: {
     width: "100%",
@@ -107,11 +119,11 @@ const styles = StyleSheet.create({
   bottomSheet: {
     width: "100%",
     height: "fit-content",
-    paddingHorizontal: 26,
-    paddingVertical: 12,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
     justifyContent: "center",
     alignItems: "center",
-    gap: 7,
+    gap: 8,
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
     paddingBottom: 28,
@@ -119,9 +131,9 @@ const styles = StyleSheet.create({
     paddingBottom: 50,
   },
   text: {
-    width: 120,
-    height: 4,
-    backgroundColor: "#E02E88",
+    width: 80,
+    height: 3,
+    backgroundColor: "grey",
     borderRadius: 100,
   },
 });

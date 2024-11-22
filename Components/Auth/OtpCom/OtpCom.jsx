@@ -113,7 +113,7 @@ const OtpRelatedInput = ({ btnShow = true }) => {
         {btnShow && (
           <CustomBtn
             title="continue"
-            btnBg={otp[5]?.length <= 0 ? "#fff" : "#e02e88"}
+            btnBg={otp[5]?.length <= 0 ? "#fdfdfd" : "#e02e88"}
             btnColor={otp[5]?.length <= 0 ? "#e02e88" : "#fff"}
             onPress={justLog}
             width="100%"

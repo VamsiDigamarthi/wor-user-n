@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   getCoordinatesFromPlaceId,
   nearPlacesByText,
@@ -13,11 +13,14 @@ export const useSelectDropLocationHook = () => {
     nearbyPlaces,
     pickUpCoordinated,
     selectedVehicleType, // this is commming from home screen when user click car auto servercies
+    favoritePlaces,
+    previousOrders,
   } = route.params;
 
   const [inputValue, setInputValue] = useState("");
 
   const [suggestions, setSuggestions] = useState([]);
+  const [nearByFavPrevPlace, setNearByFavPrevPlace] = useState([]);
 
   const fetchPlaceSuggestions = async (input) => {
     let nearPlaces = await nearPlacesByText(input);
@@ -83,6 +86,22 @@ export const useSelectDropLocationHook = () => {
 
   // this function exicute after open map user click save icon on to fetch data (coordinates)
 
+  // console.log("favoritePlaces", favoritePlaces);
+
+  // console.log("prev", [...nearbyPlaces, ...favoritePlaces, ...previousOrders]);
+
+  useEffect(() => {
+    const uniqueLocations = [
+      ...nearbyPlaces,
+      ...favoritePlaces,
+      ...previousOrders,
+    ].filter(
+      (value, index, self) =>
+        index === self.findIndex((t) => t.name === value.name)
+    );
+    setNearByFavPrevPlace(uniqueLocations);
+  }, [nearbyPlaces, favoritePlaces, previousOrders]);
+
   return {
     inputValue,
     suggestions,
@@ -94,5 +113,8 @@ export const useSelectDropLocationHook = () => {
     onUserSelectDropLocationByEnterInput,
     onNavigateToMapPreviewScreen,
     onNavigateToFavoriteScreen,
+    favoritePlaces,
+    previousOrders,
+    nearByFavPrevPlace,
   };
 };

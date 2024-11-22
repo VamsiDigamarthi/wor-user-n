@@ -89,13 +89,11 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     flexDirection: "column",
-    // gap: 4,
     backgroundColor: "#FFFFFF",
     paddingHorizontal: 16,
     paddingVertical: 7,
-    borderRadius: 10,
+    borderRadius: 12,
     elevation: 1,
-
     shadowColor: "red",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,

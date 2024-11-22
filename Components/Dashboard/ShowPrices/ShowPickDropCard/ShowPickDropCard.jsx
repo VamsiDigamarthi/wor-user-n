@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import ShowPickDropItem from "./Component/ShowPickDropItem/ShowPickDropItem";
+import { COLORS } from "../../../../Constants/colors";
 
 const ShowPickDropCard = ({
   placeName, // place name means user corrent location
@@ -49,6 +50,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     // borderWidth: 1,
     borderColor: "#ffe2e6",
+    backgroundColor: COLORS.desBackground,
   },
   borderBo: {
     borderBottomWidth: 1,

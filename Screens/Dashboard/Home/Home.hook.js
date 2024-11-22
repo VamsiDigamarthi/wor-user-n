@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { onProfileSection } from "../../../redux/Features/Auth/ProfileSlice";
 import { API } from "../../../Constants/url";
+import Toast from "react-native-toast-message";
 
 export const useHomeHook = () => {
   const navigation = useNavigation();
@@ -17,11 +18,14 @@ export const useHomeHook = () => {
   const [nearbyPlaces, setNearbyPlaces] = useState([]);
   // const [nearByRandomItems, setNearByRandomItems] = useState([]);
 
-  console.log("home screen", token);
+  // console.log("home screen", token);
 
   const dispatch = useDispatch();
 
   const [activeOrder, setActiveOrder] = useState({});
+
+  const [favoritePlaces, setFavoritePlace] = useState([]);
+  const [previousOrders, setPreviousOrders] = useState([]);
 
   const onFetchActiveOrder = async () => {
     try {
@@ -37,8 +41,46 @@ export const useHomeHook = () => {
     }
   };
 
+  const onFetchFavoritePlaces = async () => {
+    try {
+      const response = await API.get("/user/favorites-places", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      setFavoritePlace(response.data);
+    } catch (error) {
+      Toast.show({
+        text1: "Failed to fetch favorite places",
+        type: "error",
+        position: "bottom",
+      });
+    }
+  };
+
+  const onFetchPreviousOrders = async () => {
+    try {
+      const response = await API.get("/user/all-order", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      setPreviousOrders(response.data);
+    } catch (error) {
+      Toast.show({
+        text1: "Failed to fetch previous orders",
+        type: "error",
+        position: "bottom",
+      });
+    }
+  };
+
   useEffect(() => {
     onFetchActiveOrder();
+    onFetchFavoritePlaces();
+    onFetchPreviousOrders();
   }, []);
 
   useEffect(() => {
@@ -87,15 +129,13 @@ export const useHomeHook = () => {
     })();
   }, []);
 
-  // useEffect(() => {
-  //   const shuffledItems = [...nearbyPlaces].sort(() => 0.5 - Math.random());
-  //   setNearByRandomItems(shuffledItems.slice(0, 3));
-  // }, [nearbyPlaces]);
-
   const nearByRandomItems = useMemo(() => {
     if (nearbyPlaces.length === 0) return [];
     return [...nearbyPlaces].sort(() => 0.5 - Math.random()).slice(0, 3);
   }, [nearbyPlaces]);
+
+  // console.log("favoritePlaces", favoritePlaces);
+  // console.log("previos", previousOrders);
 
   return {
     location,
@@ -103,5 +143,7 @@ export const useHomeHook = () => {
     placeName, // based on coordinates to get own location
     nearbyPlaces, // based on coordinates to get near places
     activeOrder,
+    favoritePlaces,
+    previousOrders,
   };
 };

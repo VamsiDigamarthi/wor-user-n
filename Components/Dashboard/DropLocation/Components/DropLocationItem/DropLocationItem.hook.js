@@ -34,7 +34,19 @@ export const useDropLocationItemHook = () => {
     }
   };
 
-  const onAddPlaceToFavoriteHandler = async (place) => {
+  const onAddPlaceToFavoriteHandler = async (place, type) => {
+    if (type === "previous") {
+      let newDropPlace = {
+        name: place?.dropAddress,
+        vicinity: place?.dropVicinity,
+        location: {
+          lat: place.drop?.coordinates?.[1],
+          lng: place.drop?.coordinates?.[0],
+        },
+      };
+      onAdddFavoriteApi(newDropPlace);
+      return;
+    }
     if (place.placeId) {
       let location = await getCoordinatesFromPlaceId(place?.placeId);
       let newDropLocation = {

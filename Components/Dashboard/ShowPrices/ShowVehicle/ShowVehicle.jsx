@@ -12,10 +12,10 @@ const ShowVehicle = ({
 }) => {
   return (
     <Pressable
-      style={[styles.pressContainer]} // Apply border if selected
+      style={[styles.pressContainer, isSelected && styles.pressedContainer]} // Apply border if selected
       onPress={onPress} // Call onPress when clicked
     >
-      <View style={[styles.container, isSelected && styles.pressedContainer]}>
+      <View style={[styles.container]}>
         <Image style={styles.image} source={image} />
         <View style={styles.textCard}>
           <View style={styles.textWithPersonCard}>
@@ -49,13 +49,13 @@ const styles = StyleSheet.create({
     // backgroundColor: "red",
   },
   pressedContainer: {
-    height: 60,
+    height: 53,
     // borderWidth: 1,
     borderColor: "#e02e88",
     // Border color for selected vehicle
     borderRadius: 8,
     elevation: 1,
-    // backgroundColor: "blue",
+    shadowColor: "#f7027e",
   },
   container: {
     width: "100%",
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     alignItems: "center",
     flexDirection: "row",
-    paddingVertical: 4,
+    paddingVertical: 0,
     justifyContent: "space-between",
   },
   image: {

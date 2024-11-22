@@ -1,23 +1,23 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const RideHistoryFirst = () => {
+const RideHistoryFirst = ({ ride }) => {
   return (
     <View style={styles.conatiner}>
       <View style={styles.firstCard}>
         <Text style={styles.rideDetails}>Ride Details</Text>
-        <Text style={styles.status}>Cancelled</Text>
+        <Text style={styles.status}>{ride.status}</Text>
       </View>
       <View style={styles.iconWithLocationCard}>
         <Ionicons name="locate-outline" size={18} color="#E02E88" />
         <Text numberOfLines={1} ellipsizeMode="tail">
-          Nuhvin Global Services
+          {ride.pickupAddress}
         </Text>
       </View>
       <View style={styles.iconWithLocationCardSeond}>
         <Ionicons name="lock-closed" size={18} color="#E02E88" />
         <Text numberOfLines={1} ellipsizeMode="tail">
-          Hi-Tech City Metro Station
+          {ride.dropAddress}
         </Text>
       </View>
       <View style={styles.iconsCard}>

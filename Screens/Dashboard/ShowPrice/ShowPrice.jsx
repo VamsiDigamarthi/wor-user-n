@@ -29,7 +29,7 @@ const ShowPrice = () => {
   let timeShow = true;
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#f5f2f2" />
+      {/* <StatusBar barStyle="dark-content" backgroundColor="#f5f2f2" /> */}
 
       <View style={styles.mapContainer}>
         <ShowPollyLine
@@ -38,28 +38,21 @@ const ShowPrice = () => {
           destination={dropDetails?.location}
         />
       </View>
-
-      <View style={styles.bottomSheet}>
-        <Text style={styles.text}></Text>
-        <View style={styles.bottomSheetInner}>
-          <ShowPickDropCard
-            placeName={placeName}
-            isInputShow={false}
-            dropLocation={dropDetails?.name}
-            shoRightIcons={shoRightIcons}
-            timeShow={timeShow}
-          />
-          <ScrollView
-            contentContainerStyle={{
-              flexGrow: 1,
-              // justifyContent: "space-between",
-              alignItems: "center",
-              paddingBottom: 120,
-              gap: 20,
-              // backgroundColor: "red",
-            }}
-            showsVerticalScrollIndicator={false}
-          >
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.bottomSheet}>
+          <Text style={styles.text}></Text>
+          <View style={styles.bottomSheetInner}>
+            <ShowPickDropCard
+              placeName={placeName}
+              isInputShow={false}
+              dropLocation={dropDetails?.name}
+              shoRightIcons={shoRightIcons}
+              timeShow={timeShow}
+            />
+            <View style={{ height: 10 }} />
             <ShowVehicle
               image={require("../../../assets/images/scooty.png")}
               personCount={1}
@@ -84,9 +77,25 @@ const ShowPrice = () => {
               onPress={() => handleVehiclePress("auto")}
               vehicleType="Auto"
             />
-          </ScrollView>
+            <ShowVehicle
+              image={require("../../../assets/images/car.png")}
+              personCount={4}
+              price={pricesInKM?.car}
+              isSelected={selectedVehicle === "car"}
+              onPress={() => handleVehiclePress("car")}
+              vehicleType="Car 1"
+            />
+            <ShowVehicle
+              image={require("../../../assets/images/auto.png")}
+              personCount={3}
+              price={pricesInKM?.auto}
+              isSelected={selectedVehicle === "auto"}
+              onPress={() => handleVehiclePress("auto")}
+              vehicleType="Car 2"
+            />
+          </View>
         </View>
-      </View>
+      </ScrollView>
       <View style={styles.coupneWithBtn}>
         <View style={styles.couponTextCard}>
           <Text style={styles.coupnText}>Coupons</Text>
@@ -121,16 +130,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     gap: 0,
-    paddingTop: 12,
+    // paddingTop: 12,
     position: "relative",
   },
   mapContainer: {
     width: "100%",
-    paddingHorizontal: 20,
-    height: 200,
-    marginBottom: 20,
-    borderRadius: 10,
-    overflow: "hidden",
+    // paddingHorizontal: 20,
+    height: 230,
+    position: "absolute",
+    top: -80,
+    left: 0,
+    right: 0,
+    zIndex: -1,
   },
   mapImage: {
     width: "100%",
@@ -139,35 +150,39 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 
+  scrollContainer: {
+    paddingTop: 250,
+  },
+
   bottomSheet: {
     width: "100%",
-    height: "fit-content",
     paddingHorizontal: 10,
-    paddingVertical: 12,
+    paddingVertical: 5,
     justifyContent: "center",
     alignItems: "center",
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
-    paddingBottom: 28,
-    gap: 15,
+    gap: 5,
     backgroundColor: "#fff5f9",
-    height: 420,
-    paddingTop: 30,
+    marginBottom: 150,
   },
 
   bottomSheetInner: {
     backgroundColor: "#fff",
-    borderWidth: 1,
-    // elevation: 2,
+    // borderWidth: 1,
     borderColor: "#ffe3e6",
-    gap: 20,
+    elevation: 1,
+    shadowColor: "red",
+    gap: 0,
     borderRadius: 10,
   },
   text: {
-    width: 120,
-    height: 4,
-    backgroundColor: "#E02E88",
+    width: 60,
+    height: 3,
+    backgroundColor: "#ffe2e6",
     borderRadius: 100,
+    alignSelf: "center",
+    marginVertical: 10,
   },
   coupneWithBtn: {
     width: "100%",
@@ -175,7 +190,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingVertical: 20,
     gap: 20,
-
+    height: 150,
     alignItems: "center",
     position: "absolute",
     bottom: 0,
