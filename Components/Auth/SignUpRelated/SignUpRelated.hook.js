@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getMimeType } from "../../../Constants/imageAccepts";
 import { signUpValidation } from "../../../Validations/SignUoValidation";
+import { nearPlacesByText } from "../../../Constants/displaylocationmap";
 
 export const useSignUpRelatedHook = ({
   selectedImage,
@@ -33,8 +34,50 @@ export const useSignUpRelatedHook = ({
     address: false,
   });
 
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+  const [onOpenTextBasedLocationModal, setOnOpenTextBasedLocationModal] =
+    useState(false);
+
+  const [storeNearLocation, setStoreNearLocation] = useState([]);
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = (date) => {
+    setFormData((prev) => ({
+      ...prev,
+      dob: date?.toISOString()?.slice(0, 10),
+    }));
+    hideDatePicker();
+  };
+
+  const onFethcNearLocation = async (text) => {
+    const data = await nearPlacesByText(text);
+    setStoreNearLocation(data);
+  };
+
+  const onAddressSelect = (address) => {
+    // console.log(address);
+    setOnOpenTextBasedLocationModal(false);
+    setFormData((prev) => ({
+      ...prev,
+      address: `${address?.name} | ${address?.vicinity}`,
+    }));
+  };
+
   // Handle input change and reset validation errors for that field
   const handleInputChange = (field, value) => {
+    if (field === "address" && value?.length > 2) {
+      setOnOpenTextBasedLocationModal(true);
+      onFethcNearLocation(value);
+    }
+
     setFormData((prevData) => ({
       ...prevData,
       [field]: value,
@@ -42,13 +85,6 @@ export const useSignUpRelatedHook = ({
   };
 
   const handleNavigateToOTP = async () => {
-    // if (!selectedImage) {
-    //   console.log(onImageError);
-    //   onImageError();
-    //   setApiError("Provide Profile Images");
-    // } else {
-    //   setApiError("");
-    // }
     const errors = signUpValidation(onImageError, selectedImage, formData);
     console.log(errors);
     setErrors(errors);
@@ -122,22 +158,11 @@ export const useSignUpRelatedHook = ({
         ...prev,
         name: "Name should be at least 3 characters long",
       }));
+    } else {
+      delete errors?.name;
     }
 
     if (formData.dob) {
-      // const today = new Date();
-      // const birthDate = new Date(formData.dob);
-      // const age = today.getFullYear() - birthDate.getFullYear();
-      // const m = today.getMonth() - birthDate.getMonth();
-      // if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      //   age--;
-      // }
-      // if(age < 18){
-      //   setErrors((prevState) => ({
-      //    ...prevState,
-      //     dob: "Age should be 18 or above",
-      //   }));
-      // }
       setErrors((prevState) => ({
         ...prevState,
         dob: "",
@@ -164,8 +189,6 @@ export const useSignUpRelatedHook = ({
         email: true,
       }));
     }
-    console.log(validationCheck.email);
-    console.log(!/^\S+@\S+\.\S+$/.test(formData.email));
     if (!/^\S+@\S+\.\S+$/.test(formData.email) && validationCheck.email) {
       setErrors((prev) => ({
         ...prev,
@@ -198,5 +221,12 @@ export const useSignUpRelatedHook = ({
     handleNavigateToOTP,
     apiError,
     errors,
+    hideDatePicker,
+    handleConfirm,
+    isDatePickerVisible,
+    showDatePicker,
+    onOpenTextBasedLocationModal,
+    storeNearLocation,
+    onAddressSelect,
   };
 };

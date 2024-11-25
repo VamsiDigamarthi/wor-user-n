@@ -31,7 +31,6 @@ const BottomLayout = ({
 
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.text}></Text> */}
       <BottomSheetTitle title={title} />
 
       <View style={styles.sibTextCard}>
@@ -73,7 +72,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff5f9",
     paddingBottom: 60,
     paddingTop: 20,
-    position: "relative",
+    // position: "relative",
   },
   text: {
     width: 120,
@@ -116,6 +115,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
+    zIndex: 4,
   },
 
   loginBottomCardText: {

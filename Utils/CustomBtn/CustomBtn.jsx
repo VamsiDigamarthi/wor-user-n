@@ -70,9 +70,10 @@ const CustomBtn = ({ title, btnBg, btnColor, onPress }) => {
     setBtnBgColor("#ed61a8");
   };
   const handlePressOut = () => {
-    if (btnBg !== "#E02E88") {
-      // console.log("not equal");
+    if (btnBg?.toUpperCase() !== "#E02E88") {
       setBtnBgColor("#fdfdfd");
+    } else {
+      setBtnBgColor("#E02E88");
     }
   };
   const handleLongPress = () => {

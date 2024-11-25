@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import { FontAwesome6, FontAwesome5 } from "@expo/vector-icons";
+import { COLORS } from "../../../../Constants/colors";
 
 const CaptainRideCompletePriceCard = ({
   orderDetails,
@@ -8,16 +9,18 @@ const CaptainRideCompletePriceCard = ({
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Ride Details</Text>
-      <SingleCard
-        title={orderDetails?.pickupAddress ?? "No Pick Up Address"}
-        iconName="location-dot"
-        iconColor="#31ff68"
-      />
-      <SingleCard
-        title={orderDetails?.dropAddress ?? "No Drop Up Address"}
-        iconName="location-arrow"
-        iconColor="#e02e88"
-      />
+      <View style={styles.singleComCard}>
+        <SingleCard
+          title={orderDetails?.pickupAddress ?? "No Pick Up Address"}
+          iconName="location-dot"
+          iconColor="#31ff68"
+        />
+        <SingleCard
+          title={orderDetails?.dropAddress ?? "No Drop Up Address"}
+          iconName="location-arrow"
+          iconColor="#e02e88"
+        />
+      </View>
       <View style={styles.timeKmCard}>
         <View style={{ alignItems: "center", gap: 2 }}>
           <Text style={{ fontSize: 16, fontWeight: "600" }}>
@@ -65,11 +68,14 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     // padding: 20,
-    borderWidth: 1,
+    // borderWidth: 1,
     borderColor: "#ffe2e6",
     backgroundColor: "#fff",
     borderRadius: 10,
+    elevation: 1,
+    borderColor: "#ffe2e6",
     gap: 10,
+    shadowColor: "gray",
   },
   text: {
     fontSize: 15,
@@ -82,12 +88,14 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     paddingHorizontal: 20,
     paddingVertical: 10,
-    borderWidth: 1,
+    // borderWidth: 1,
     borderColor: "#ffe2e6",
     flexDirection: "row",
     // justifyContent: "space-between",
-    gap: 20,
+    gap: 10,
     alignItems: "center",
+    overflow: "hidden",
+    width: "97%",
   },
   timeKmCard: {
     width: "100%",
@@ -98,5 +106,10 @@ const styles = StyleSheet.create({
   },
   subTetx: {
     fontSize: 10,
+  },
+  singleComCard: {
+    elevation: 1,
+    backgroundColor: COLORS.cardBackground,
+    borderRadius: 10,
   },
 });

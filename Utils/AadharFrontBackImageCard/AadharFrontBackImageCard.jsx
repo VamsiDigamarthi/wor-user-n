@@ -2,7 +2,7 @@ import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { useAadharFrontBackImageCardHook } from "./AadharFrontBackImageCard.hook";
 import CustomBtn from "../CustomBtn/CustomBtn";
 
-const AadharFrontBackImageCard = () => {
+const AadharFrontBackImageCard = ({ otpVerified }) => {
   const {
     frontImage,
     backImage,
@@ -15,8 +15,12 @@ const AadharFrontBackImageCard = () => {
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Pressable
-          style={[styles.imageBox, styles.frontBox]}
-          onPress={() => handleImagePick("front")}
+          style={[
+            styles.imageBox,
+            styles.frontBox,
+            !otpVerified && { backgroundColor: "#808080" },
+          ]}
+          onPress={otpVerified ? () => handleImagePick("front") : null}
         >
           {frontImage ? (
             <Image source={{ uri: frontImage }} style={styles.image} />
@@ -26,7 +30,7 @@ const AadharFrontBackImageCard = () => {
         </Pressable>
         <Pressable
           style={[styles.imageBox, styles.backBox]}
-          onPress={() => handleImagePick("back")}
+          onPress={otpVerified ? () => handleImagePick("back") : null}
         >
           {backImage ? (
             <Image source={{ uri: backImage }} style={styles.image} />

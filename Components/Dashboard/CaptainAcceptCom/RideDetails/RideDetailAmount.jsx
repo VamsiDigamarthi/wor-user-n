@@ -71,8 +71,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 15,
     borderRadius: 10,
-    borderWidth: 1,
+    // borderWidth: 1,
     borderColor: "#ffe2e6",
     gap: 10,
+    elevation: 1,
+    borderColor: "#ffe2e6",
+    marginBottom: 7,
   },
 });

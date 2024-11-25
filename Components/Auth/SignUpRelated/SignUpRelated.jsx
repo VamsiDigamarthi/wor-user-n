@@ -1,10 +1,13 @@
-import { StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import InputBox from "../../../Utils/InputCard/InputCard";
 import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
 import { useNavigation } from "@react-navigation/native";
 import { useSignUpRelatedHook } from "./SignUpRelated.hook";
 import BottomLayout from "../../../Layouts/BottomLayout";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import CustDatePickBtn from "../../../Utils/CustDatePickBtn/CustDatePickBtn";
+import SignUpLocationTextCard from "./SignUpLocationTextCard";
 
 const SignUpRelated = ({
   selectedImage,
@@ -12,8 +15,27 @@ const SignUpRelated = ({
   onImageError,
   imageBorder,
 }) => {
-  const { formData, handleInputChange, handleNavigateToOTP, apiError, errors } =
-    useSignUpRelatedHook({ selectedImage, mobile, onImageError, imageBorder });
+  const {
+    formData,
+    handleInputChange,
+    handleNavigateToOTP,
+    apiError,
+    errors,
+    hideDatePicker,
+    handleConfirm,
+    isDatePickerVisible,
+    showDatePicker,
+    onOpenTextBasedLocationModal,
+    storeNearLocation,
+    onAddressSelect,
+  } = useSignUpRelatedHook({
+    selectedImage,
+    mobile,
+    onImageError,
+    imageBorder,
+  });
+
+  // console.log(errors);
 
   return (
     <BottomLayout
@@ -29,13 +51,17 @@ const SignUpRelated = ({
           onChangeText={(value) => handleInputChange("name", value)}
           isValid={errors?.name?.length > 0 ? false : true}
         />
-        <InputBox
-          label={errors?.dob ? errors?.dob : "Date of Birth *"}
-          icon="calendar-clear-outline"
-          placeholder="09-12-2015"
-          value={formData.dob}
-          onChangeText={(value) => handleInputChange("dob", value)}
+
+        <CustDatePickBtn
+          onPress={showDatePicker}
+          title={formData?.dob?.length > 0 ? formData?.dob : "1999-10-11"}
           isValid={errors?.dob?.length > 0 ? false : true}
+        />
+        <DateTimePickerModal
+          isVisible={isDatePickerVisible}
+          mode="date"
+          onConfirm={handleConfirm}
+          onCancel={hideDatePicker}
         />
         <InputBox
           label={errors?.email ? errors?.email : "Email *"}
@@ -46,23 +72,40 @@ const SignUpRelated = ({
           onChangeText={(value) => handleInputChange("email", value)}
           isValid={errors?.email?.length > 0 ? false : true}
         />
-        <InputBox
-          label={errors?.address ? errors?.address : "Current Address *"}
-          icon="location-outline"
-          placeholder=" Enter your address"
-          multiline={true}
-          numberOfLines={3}
-          textAlignVertical="top"
-          value={formData.address}
-          onChangeText={(value) => handleInputChange("address", value)}
-          isValid={errors?.address?.length > 0 ? false : true}
-        />
+
+        <View style={styles.googleNearMapLocationCard}>
+          <InputBox
+            label={errors?.address ? errors?.address : "Current Address *"}
+            icon="location-outline"
+            placeholder=" Enter your address"
+            multiline={true}
+            numberOfLines={3}
+            textAlignVertical="top"
+            value={formData.address?.split("|")[0]}
+            onChangeText={(value) => handleInputChange("address", value)}
+            isValid={errors?.address?.length > 0 ? false : true}
+          />
+          {onOpenTextBasedLocationModal && (
+            <View style={styles.nearAddress}>
+              {storeNearLocation?.map((each, index) => (
+                <SignUpLocationTextCard
+                  key={index}
+                  mainPlace={each?.name}
+                  subPlace={each?.vicinity}
+                  onPress={() => onAddressSelect(each)}
+                />
+              ))}
+            </View>
+          )}
+        </View>
         <InputBox
           label="Emergency Contact Number"
           icon="contract"
           placeholder="Enter your emergency contact"
           value={formData.emergencyContact}
           onChangeText={(value) => handleInputChange("emergencyContact", value)}
+          maxLength={10}
+          keyboardType="numeric"
         />
         <InputBox
           label="Referal Code"
@@ -105,5 +148,26 @@ const styles = StyleSheet.create({
   errorMsg: {
     color: "red",
     fontSize: 14,
+  },
+
+  googleNearMapLocationCard: {
+    position: "relative",
+    zIndex: 6,
+    height: 60,
+    // backgroundColor: "yellow",
+  },
+  nearAddress: {
+    position: "absolute",
+    top: 60,
+    left: 0,
+    right: 0,
+    backgroundColor: "#fff",
+    padding: 10,
+    borderRadius: 10,
+    width: "100%",
+    height: 245,
+    overflow: "scroll",
+    elevation: 2,
+    // zIndex: 31,
   },
 });
