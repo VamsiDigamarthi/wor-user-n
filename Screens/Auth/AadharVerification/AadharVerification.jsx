@@ -4,6 +4,7 @@ import BottomSheet from "../../../Utils/BottomSheet/BottomSheet";
 import Logo from "../../../Utils/Logo/Logo";
 import AuthScreenLayout from "../../../Layouts/AuthScreenLayout";
 import AadharVerificationCom from "../../../Components/Auth/AadharVerificationCom/AadharVerificationCom";
+import NewAadharVefirication from "../../../Components/Auth/NewAadharVerification/NewAadharVefirication";
 
 const AadharVerification = () => {
   return (
@@ -17,7 +18,8 @@ const AadharVerification = () => {
             resizeMode="contain"
           />
         </View>
-        <AadharVerificationCom />
+        {/* <AadharVerificationCom /> */}
+        <NewAadharVefirication />
       </View>
     </AuthScreenLayout>
   );
