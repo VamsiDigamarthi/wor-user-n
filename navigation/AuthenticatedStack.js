@@ -45,6 +45,9 @@ import RideDetails from "../Components/Dashboard/CaptainAcceptCom/RideDetails/Ri
 import CaptainRideComplete from "../Components/Dashboard/CaptainAcceptCom/CapatinRideComplete/CaptainRideComplete";
 import MapWithCurrentLocation from "../Components/Dashboard/FixedMapView/FixedMapView";
 import ParcelMapWithBottomSheet from "../Screens/Parcels/ParcelMapWithBottomSheet/ParcelMapWithBottomSheet";
+import VoiceTest from "../Components/BgVoice/VoiceTest"
+import BgTest from "../Components/BgVoice/BgTest";
+
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -334,6 +337,29 @@ const AuthenticatedStack = () => {
           getCommonOptions(navigation, "Parcel Details", "#fff")
         }
       />
+
+
+      {/* Voice and Bg */}
+
+      <Stack.Screen
+        name="VoiceTest"
+        component={VoiceTest}
+        options={({ navigation }) =>
+          getCommonOptions(navigation, "VoiceTest", "#fff")
+        }
+      />
+
+
+
+<Stack.Screen
+        name="BgTest"
+        component={BgTest}
+        options={({ navigation }) =>
+          getCommonOptions(navigation, "BgTest", "#fff")
+        }
+      />
+
+
     </Stack.Navigator>
   );
 };

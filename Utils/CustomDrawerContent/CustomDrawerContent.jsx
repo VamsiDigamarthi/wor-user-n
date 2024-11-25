@@ -135,6 +135,26 @@ const CustomDrawerContent = (props) => {
           labelStyle={styles.labelStyle}
           style={getItemStyle("Settings")}
         />
+
+
+
+            
+        <DrawerItem
+          label="VoiceTest"
+          icon={() => <Ionicons name="gift-outline" size={22} color="gray" />}
+          onPress={() => handleItemPress("VoiceTest")}
+          labelStyle={styles.labelStyle}
+          style={getItemStyle("VoiceTest")}
+        />
+        <DrawerItem
+          label="BgTest"
+          icon={() => <Ionicons name="gift-outline" size={22} color="gray" />}
+          onPress={() => handleItemPress("BgTest")}
+          labelStyle={styles.labelStyle}
+          style={getItemStyle("BgTest")}
+        />
+
+
       </View>
 
       {/* Logout Button at the End */}
