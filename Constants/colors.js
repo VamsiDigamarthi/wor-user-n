@@ -3,4 +3,5 @@ export const COLORS = {
   subHeading: "#595959",
   cardBackground: "#fdfdfd",
   desBackground: "#fff",
+  bottomSheetBg: "#fff5f9",
 };

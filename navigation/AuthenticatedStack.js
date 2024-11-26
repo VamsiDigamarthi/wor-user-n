@@ -48,6 +48,8 @@ import ParcelMapWithBottomSheet from "../Screens/Parcels/ParcelMapWithBottomShee
 import VoiceTest from "../Components/BgVoice/VoiceTest";
 import BgTest from "../Components/BgVoice/BgTest";
 import FullMapPreview from "../Utils/FullMapPreview/FullMapPreview";
+import Rating from "../Screens/Dashboard/Rating/Rating";
+import Wallet from "../Screens/Dashboard/Wallet/Wallet";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -87,6 +89,9 @@ const DrawerNavigator = ({ route }) => {
           header: ({ navigation }) => (
             <CustomAppBar navigation={navigation} placeName={placeName} />
           ),
+          headerStyle: {
+            backgroundColor: "red", // Apply background color to the header
+          },
         }}
       >
         {/* Home Screen as default */}
@@ -313,6 +318,26 @@ const AuthenticatedStack = () => {
         component={FullMapPreview}
         options={{ headerShown: false }}
       />
+
+      {/* side bar screens */}
+
+      <Stack.Screen
+        name="Rating"
+        component={Rating}
+        options={({ navigation }) =>
+          getCommonOptions(navigation, "Rating", "#f5f2f2")
+        }
+      />
+
+      <Stack.Screen
+        name="Wallet"
+        component={Wallet}
+        options={({ navigation }) =>
+          getCommonOptions(navigation, "Wallet", "#f5f2f2")
+        }
+      />
+
+      {/* side bar screens */}
 
       {/* parcel screens */}
       <Stack.Screen
