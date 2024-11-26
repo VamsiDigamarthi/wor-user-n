@@ -1,9 +1,11 @@
 import { useRoute } from "@react-navigation/native";
-import { useEffect, useState } from "react";
-import { API } from "../../../Constants/url";
+import { useEffect, useRef, useState } from "react";
+import { API, imageUrl } from "../../../Constants/url";
 import Toast from "react-native-toast-message";
 import { useSelector } from "react-redux";
 import { getTravelDetails } from "../../../Constants/displaylocationmap";
+
+import { io } from "socket.io-client";
 
 export const useCaptainAcceptRideHook = () => {
   const route = useRoute();
@@ -11,9 +13,11 @@ export const useCaptainAcceptRideHook = () => {
   const { token } = useSelector((state) => state.token);
   const [travellingTimeAndDistnace, setTravellingTimeAndDistnace] =
     useState(null);
-
+  const socket = useRef(null);
   // State to track if OTP has been verified
   const [otpVerified, setOtpVerified] = useState(false);
+
+  const [liveCoordinates, setLiveCoordinates] = useState(null);
 
   const fetchApiData = async () => {
     try {
@@ -72,9 +76,30 @@ export const useCaptainAcceptRideHook = () => {
     orderDetails && calculateDistanceAndRideTime();
   }, [orderDetails]);
 
+  useEffect(() => {
+    socket.current = io(imageUrl, { transports: ["websocket"] });
+    socket.current.emit("new-user-add", orderDetails?._id);
+
+    socket.current.on("receive-coordinates", (data) => {
+      if (data.coordinates) {
+        const { lng, lat } = data.coordinates;
+        // console.log(lng, lat);
+        setLiveCoordinates({
+          latitude: lat,
+          longitude: lng,
+        });
+      }
+    });
+
+    return () => {
+      socket.current.off("send-coordinates");
+    };
+  }, []);
+
   return {
     orderDetails,
     otpVerified,
     travellingTimeAndDistnace,
+    liveCoordinates,
   };
 };

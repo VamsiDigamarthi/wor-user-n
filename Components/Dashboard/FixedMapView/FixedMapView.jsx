@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, Dimensions, Image } from "react-native";
+import { Octicons } from "@expo/vector-icons";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Dimensions,
+  Image,
+  Button,
+  Pressable,
+} from "react-native";
 import MapView from "react-native-maps";
 import * as Location from "expo-location";
 import { useRoute } from "@react-navigation/native";
 import { getPlaceName } from "../../../Constants/displaylocationmap";
 import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
+import { COLORS } from "../../../Constants/colors";
 
 // Get screen dimensions for positioning the marker
 const { width, height } = Dimensions.get("window");
@@ -32,7 +42,7 @@ const MapWithFixedMarker = ({ navigation }) => {
 
   const onFetchLocationName = async (latitude, longitude) => {
     let placeName = await getPlaceName(latitude, longitude);
-
+    // console.log(placeName);
     setFinalSelecetLocationNameWithCoordinates({
       location: { lat: latitude, lng: longitude },
       name: placeName,
@@ -73,7 +83,7 @@ const MapWithFixedMarker = ({ navigation }) => {
                 style={styles.marker}
                 source={require("../../../assets/images/locationIcons/pin locator 4.png")}
               />
-              {/* <Text style={styles.markerText}>📍</Text> */}
+              <Text style={styles.markerText}>📍</Text>
             </View>
           </View>
         </>
@@ -84,11 +94,36 @@ const MapWithFixedMarker = ({ navigation }) => {
       {/* Display center coordinates when map is moved */}
       {placeName && (
         <View style={styles.coordinatesContainer}>
-          <Text style={styles.coordinatesText}>
+          <View style={styles.coordinateFirstCard}>
+            <Text style={styles.selectedText}>Select your location</Text>
+            <View style={styles.changeTextBtnCard}>
+              <Pressable>
+                <Text style={{ fontSize: 18, fontWeight: "600" }}>Change</Text>
+              </Pressable>
+            </View>
+          </View>
+          <View style={styles.coordinateAddressCard}>
+            <Octicons name="dot" size={30} color="#e02e88" />
+            <View style={styles.coorlocationCard}>
+              <Text style={{ fontSize: 18, fontWeight: "600" }}>
+                {finalSelecetLocationNameWithCoordinates?.name?.split(",")?.[0]}
+              </Text>
+              <Text
+                style={{ fontSize: 14, color: "gray" }}
+                numberOfLines={1}
+                ellipsizeMode="tail"
+              >
+                {finalSelecetLocationNameWithCoordinates?.name
+                  ?.split(",")
+                  ?.slice(1)}
+              </Text>
+            </View>
+          </View>
+          {/* <Text style={styles.coordinatesText}>
             {finalSelecetLocationNameWithCoordinates?.name
               ? finalSelecetLocationNameWithCoordinates.name
               : placeName}
-          </Text>
+          </Text> */}
           <CustomBtn
             title="Save"
             btnBg="#e02e88"
@@ -133,10 +168,12 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 20,
     backgroundColor: "rgba(255, 255, 255, 0.8)",
-    padding: 10,
+    // padding: 10,
     borderRadius: 8,
     gap: 10,
     width: "100%",
+    paddingHorizontal: 10,
+    paddingVertical: 30,
   },
   coordinatesText: {
     fontSize: 16,
@@ -148,5 +185,36 @@ const styles = StyleSheet.create({
     height: "90%",
     resizeMode: "contain",
     // backgroundColor: "red",
+  },
+  coordinateFirstCard: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  selectedText: {
+    fontSize: 20,
+    fontWeight: "600",
+  },
+  changeTextBtnCard: {
+    backgroundColor: "transparent",
+    borderWidth: 1,
+    borderColor: "grey",
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    borderRadius: 20,
+  },
+  coordinateAddressCard: {
+    backgroundColor: "#fcfbf7",
+    borderWidth: 1,
+    borderColor: "#e8e8e8",
+    flexDirection: "row",
+    gap: 10,
+    alignItems: "center",
+    padding: 10,
+    borderRadius: 10,
+    width: "100%",
+  },
+  coorlocationCard: {
+    width: "90%",
   },
 });

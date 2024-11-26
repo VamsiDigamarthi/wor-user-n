@@ -45,9 +45,9 @@ import RideDetails from "../Components/Dashboard/CaptainAcceptCom/RideDetails/Ri
 import CaptainRideComplete from "../Components/Dashboard/CaptainAcceptCom/CapatinRideComplete/CaptainRideComplete";
 import MapWithCurrentLocation from "../Components/Dashboard/FixedMapView/FixedMapView";
 import ParcelMapWithBottomSheet from "../Screens/Parcels/ParcelMapWithBottomSheet/ParcelMapWithBottomSheet";
-import VoiceTest from "../Components/BgVoice/VoiceTest"
+import VoiceTest from "../Components/BgVoice/VoiceTest";
 import BgTest from "../Components/BgVoice/BgTest";
-
+import FullMapPreview from "../Utils/FullMapPreview/FullMapPreview";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -308,6 +308,12 @@ const AuthenticatedStack = () => {
         }
       />
 
+      <Stack.Screen
+        name="FullMapPreview"
+        component={FullMapPreview}
+        options={{ headerShown: false }}
+      />
+
       {/* parcel screens */}
       <Stack.Screen
         name="ParcelHome"
@@ -338,7 +344,6 @@ const AuthenticatedStack = () => {
         }
       />
 
-
       {/* Voice and Bg */}
 
       <Stack.Screen
@@ -349,17 +354,13 @@ const AuthenticatedStack = () => {
         }
       />
 
-
-
-<Stack.Screen
+      <Stack.Screen
         name="BgTest"
         component={BgTest}
         options={({ navigation }) =>
           getCommonOptions(navigation, "BgTest", "#fff")
         }
       />
-
-
     </Stack.Navigator>
   );
 };

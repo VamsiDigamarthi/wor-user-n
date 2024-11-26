@@ -1,10 +1,10 @@
 import axios from "axios";
 
 export const API = axios.create({
-  baseURL: "https://testnarasimha.nuhvin.com",
+  baseURL: "https://womenrapido.nuhvin.com",
 });
 
-export const imageUrl = "https://testnarasimha.nuhvin.com";
+export const imageUrl = "https://womenrapido.nuhvin.com";
 
 // 192.168.106.167
 

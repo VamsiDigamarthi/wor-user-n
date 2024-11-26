@@ -27,14 +27,13 @@ const ShowPrice = () => {
 
   let shoRightIcons = false;
   let timeShow = true;
+  console.log("pick", pickUpCoordinated);
+  console.log("des", dropDetails?.location);
   return (
     <View style={styles.container}>
-      {/* <StatusBar barStyle="dark-content" backgroundColor="#f5f2f2" /> */}
-
       <View style={styles.mapContainer}>
         <ShowPollyLine
           origin={pickUpCoordinated}
-          // origin={{ lat: 17.4587171, lng: 78.3705414 }}
           destination={dropDetails?.location}
         />
       </View>
@@ -152,6 +151,7 @@ const styles = StyleSheet.create({
 
   scrollContainer: {
     paddingTop: 250,
+    // backgroundColor: "red",
   },
 
   bottomSheet: {

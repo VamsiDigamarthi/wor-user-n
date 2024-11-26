@@ -3,13 +3,12 @@ import { StyleSheet, View } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
 import axios from "axios";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
+import { useRoute } from "@react-navigation/native";
 
-const ShowPollyLine = ({
-  origin,
-  destination,
-  height = 400,
-  liveCoordinates,
-}) => {
+const FullMapPreview = () => {
+  const route = useRoute();
+
+  const { origin, destination, liveCoordinates } = route.params;
   const [routeCoordinates, setRouteCoordinates] = useState([]);
   const [currentPosition, setCurrentPosition] = useState({
     latitude: origin.lat,
@@ -50,7 +49,6 @@ const ShowPollyLine = ({
 
   // Update the marker's position based on live coordinates received from the server
   useEffect(() => {
-    // console.log("live coordinates", liveCoordinates);
     if (liveCoordinates) {
       const { latitude, longitude } = liveCoordinates;
       setCurrentPosition({
@@ -105,8 +103,10 @@ const ShowPollyLine = ({
     longitude: destination.lng,
   };
 
+  console.log("live coor in full map", liveCoordinates);
+
   return (
-    <View style={[styles.container, { height }]}>
+    <View style={[styles.container]}>
       <MapView
         style={styles.map}
         initialRegion={{
@@ -117,21 +117,17 @@ const ShowPollyLine = ({
         }}
       >
         {/* Marker for Start */}
-        {adjustedOrigin.latitude && adjustedOrigin.longitude && (
-          <Marker coordinate={adjustedOrigin} title="Start Point">
-            <FontAwesome name="map-pin" size={20} color="#e02e88" />
-          </Marker>
-        )}
+        <Marker coordinate={adjustedOrigin} title="Start Point">
+          <FontAwesome name="map-pin" size={20} color="#e02e88" />
+        </Marker>
 
         {/* Marker for End */}
-        {adjustedDestination.latitude && adjustedDestination.longitude && (
-          <Marker coordinate={adjustedDestination} title="End Point">
-            <FontAwesome name="map-pin" size={20} color="#4caf50" />
-          </Marker>
-        )}
+        <Marker coordinate={adjustedDestination} title="End Point">
+          <FontAwesome name="map-pin" size={20} color="#4caf50" />
+        </Marker>
 
         {/* Live moving marker */}
-        {currentPosition.latitude && currentPosition.longitude && (
+        {currentPosition && (
           <Marker coordinate={currentPosition} title="Live Position">
             <MaterialCommunityIcons
               name="motorbike"
@@ -140,6 +136,7 @@ const ShowPollyLine = ({
             />
           </Marker>
         )}
+
         {/* Polyline for route */}
         {routeCoordinates.length > 0 && (
           <Polyline
@@ -153,7 +150,7 @@ const ShowPollyLine = ({
   );
 };
 
-export default ShowPollyLine;
+export default FullMapPreview;
 
 const styles = StyleSheet.create({
   container: {

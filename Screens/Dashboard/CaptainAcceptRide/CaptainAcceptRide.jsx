@@ -1,4 +1,11 @@
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React from "react";
 import CaptainTime from "../../../Components/Dashboard/CaptainAcceptCom/CaptainTime/CaptainTime";
 import CaptainRideOpt from "../../../Components/Dashboard/CaptainAcceptCom/CaptainRideOtp/CaptainRideOpt";
@@ -11,22 +18,56 @@ import { coordinationMap } from "../../../Constants/displaylocationmap";
 import CaptainAcceptRideDetails from "../../../Components/Dashboard/CaptainAcceptCom/CaptainAcceptRideDetails/CaptainAcceptRideDetails";
 import RideDetailAmount from "../../../Components/Dashboard/CaptainAcceptCom/RideDetails/RideDetailAmount";
 import CaptainRideCompletePriceCard from "../../../Components/Dashboard/CaptainAcceptCom/CapatinRideComplete/CaptainRideCompletePriceCard";
-
+import ShowPollyLine from "../../../Components/Dashboard/ShowPrices/ShowPollyLine/ShowPollyLine";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 const CaptainAcceptRide = () => {
-  const { orderDetails, otpVerified, travellingTimeAndDistnace } =
-    useCaptainAcceptRideHook();
+  const {
+    orderDetails,
+    otpVerified,
+    travellingTimeAndDistnace,
+    liveCoordinates,
+  } = useCaptainAcceptRideHook();
+  const navigation = useNavigation();
+
+  let pickCoor = {
+    lat: orderDetails?.pickup?.coordinates[1],
+    lng: orderDetails?.pickup?.coordinates?.[0],
+  };
+
+  let drop = {
+    lat: orderDetails?.drop?.coordinates[1],
+    lng: orderDetails?.drop?.coordinates?.[0],
+  };
+
+  // console.log("captainOrder", orderDetails?.captainCoor);
+
+  const onShowFullMap = () => {
+    navigation.navigate("FullMapPreview", {
+      origin: otpVerified ? pickCoor : orderDetails?.captainCoor,
+      destination: otpVerified ? drop : pickCoor,
+      liveCoordinates: liveCoordinates,
+    });
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.mapContainer}>
-        <Image
-          source={{
-            uri: coordinationMap(
-              orderDetails?.pickup?.coordinates[1],
-              orderDetails?.pickup?.coordinates[0]
-            ),
-          }}
-          style={styles.mapImage} // Define your desired styles here
+        <ShowPollyLine
+          origin={otpVerified ? pickCoor : orderDetails?.captainCoor}
+          destination={otpVerified ? drop : pickCoor}
+          height={460}
+          liveCoordinates={liveCoordinates}
         />
+      </View>
+      <View style={styles.mapFullCardIocn}>
+        <Pressable onPress={onShowFullMap}>
+          <MaterialCommunityIcons
+            name="checkbox-blank-outline"
+            color="#e02e88"
+            size={30}
+          />
+        </Pressable>
       </View>
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
@@ -88,6 +129,7 @@ const styles = StyleSheet.create({
     flex: 1,
     // gap: 20,
     // paddingTop: 12,
+    position: "relative",
   },
   userCalCard: {
     gap: 20,
@@ -101,14 +143,17 @@ const styles = StyleSheet.create({
   },
   mapContainer: {
     width: "100%",
-    height: 430,
+    height: 460,
     position: "absolute",
     top: 0,
     left: 0,
     right: 0,
+    backgroundColor: "red",
   },
   scrollContainer: {
     paddingTop: 430,
+    // backgroundColor: "red",
+    zIndex: 8,
   },
   mapImage: {
     width: "100%",
@@ -135,5 +180,13 @@ const styles = StyleSheet.create({
     height: 3,
     backgroundColor: "grey",
     borderRadius: 100,
+  },
+  mapFullCardIocn: {
+    position: "absolute",
+    top: 30,
+    right: 30,
+    backgroundColor: "#fff",
+    zIndex: 99,
+    padding: 0,
   },
 });
