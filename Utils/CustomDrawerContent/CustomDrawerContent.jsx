@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  Pressable,
+} from "react-native";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
@@ -24,6 +31,10 @@ const CustomDrawerContent = (props) => {
     ? `${imageUrl}/${profile?.profilePic}`
     : "https://via.placeholder.com/80";
 
+  const onNavigateRatingScreen = () => {
+    props.navigation.navigate("Rating"); // Navigate to the RatingScreen
+  };
+
   return (
     <DrawerContentScrollView
       {...props}
@@ -43,7 +54,9 @@ const CustomDrawerContent = (props) => {
           }}
         >
           <FontAwesome name="star" size={20} color="gold" />
-          <Text style={styles.profileEmail}>4.5</Text>
+          <Pressable onPress={onNavigateRatingScreen}>
+            <Text style={styles.profileEmail}>4.5</Text>
+          </Pressable>
         </View>
       </View>
 
@@ -136,9 +149,6 @@ const CustomDrawerContent = (props) => {
           style={getItemStyle("Settings")}
         />
 
-
-
-            
         <DrawerItem
           label="VoiceTest"
           icon={() => <Ionicons name="gift-outline" size={22} color="gray" />}
@@ -153,8 +163,6 @@ const CustomDrawerContent = (props) => {
           labelStyle={styles.labelStyle}
           style={getItemStyle("BgTest")}
         />
-
-
       </View>
 
       {/* Logout Button at the End */}
