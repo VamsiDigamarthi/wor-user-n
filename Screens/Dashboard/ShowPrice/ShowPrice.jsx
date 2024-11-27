@@ -1,18 +1,12 @@
-import {
-  Image,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import ShowPickDropCard from "../../../Components/Dashboard/ShowPrices/ShowPickDropCard/ShowPickDropCard";
 import ShowVehicle from "../../../Components/Dashboard/ShowPrices/ShowVehicle/ShowVehicle";
 import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
 import { useShowPriceHook } from "./ShowPrice.hook.js";
-import { coordinationMap } from "../../../Constants/displaylocationmap.js";
 import ShowPollyLine from "../../../Components/Dashboard/ShowPrices/ShowPollyLine/ShowPollyLine.jsx";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+
 const ShowPrice = () => {
   const {
     placeName,
@@ -23,12 +17,21 @@ const ShowPrice = () => {
     onPlaceTheOrder,
     apiError,
     pickUpCoordinated,
+    onTimeModalOpenCloseHandler,
+    isTimeModalOpenClose,
+    onHandleTimeValueHandler,
+    isDateTimeData,
+    normalDateFormat,
   } = useShowPriceHook();
 
   let shoRightIcons = false;
   let timeShow = true;
-  console.log("pick", pickUpCoordinated);
-  console.log("des", dropDetails?.location);
+
+  const currentDate = new Date();
+  // Set maximum date (7 days from the current date)
+  const maxDate = new Date();
+  maxDate.setDate(currentDate.getDate() + 7);
+
   return (
     <View style={styles.container}>
       <View style={styles.mapContainer}>
@@ -44,12 +47,14 @@ const ShowPrice = () => {
         <View style={styles.bottomSheet}>
           <Text style={styles.text}></Text>
           <View style={styles.bottomSheetInner}>
+            {/* this show pick drop card use show price screens also */}
             <ShowPickDropCard
               placeName={placeName}
               isInputShow={false}
               dropLocation={dropDetails?.name}
               shoRightIcons={shoRightIcons}
               timeShow={timeShow}
+              onTimeModalOpenCloseHandler={onTimeModalOpenCloseHandler}
             />
             <View style={{ height: 10 }} />
             <ShowVehicle
@@ -112,11 +117,24 @@ const ShowPrice = () => {
           width="100%"
           btnBg={selectedVehicle ? "#e02e88" : "#fff"}
           btnColor={selectedVehicle ? "#fff" : "#e02e88"}
-          title={selectedVehicle ? `Book ${selectedVehicle}` : "Book Ride"}
+          title={
+            selectedVehicle
+              ? `Book ${selectedVehicle} @ ${normalDateFormat}`
+              : `Book Ride ${normalDateFormat}`
+          }
           onPress={onPlaceTheOrder}
           disabled={true}
           borderColor="#e02e88"
           borderWidth={1}
+        />
+
+        <DateTimePickerModal
+          isVisible={isTimeModalOpenClose}
+          mode="datetime"
+          onConfirm={onHandleTimeValueHandler}
+          onCancel={onTimeModalOpenCloseHandler}
+          minimumDate={currentDate}
+          maximumDate={maxDate}
         />
       </View>
     </View>
@@ -135,7 +153,7 @@ const styles = StyleSheet.create({
   mapContainer: {
     width: "100%",
     // paddingHorizontal: 20,
-    height: 230,
+    height: 350,
     position: "absolute",
     top: -80,
     left: 0,
@@ -190,7 +208,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingVertical: 20,
     gap: 20,
-    height: 150,
+    height: 180,
     alignItems: "center",
     position: "absolute",
     bottom: 0,

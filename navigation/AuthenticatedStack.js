@@ -53,7 +53,12 @@ import Wallet from "../Screens/Dashboard/Wallet/Wallet";
 import { COLORS } from "../Constants/colors";
 import ProfileDocumentScreen from "../Screens/Dashboard/ProfileScreen/Screens/ProfileDocumentScreen";
 import RideHistoryDetailView from "../Screens/Dashboard/RideHistory/RideHistoryDetailView/RideHistoryDetailView";
+
 import Coins from "../Screens/Dashboard/Donation/Coins";
+
+import DrawerFavorite from "../Screens/Dashboard/DrawerFavorite/DrawerFavorite";
+import ParcelSavePlaces from "../Screens/Parcels/ParcelSavePlaces/ParcelSavePlaces";
+
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -374,6 +379,13 @@ const AuthenticatedStack = () => {
           getCommonOptions(navigation, "Wallet", "#f5f2f2")
         }
       />
+      <Stack.Screen
+        name="DrawerFavorite"
+        component={DrawerFavorite}
+        options={({ navigation }) =>
+          getCommonOptions(navigation, "Favorite", "#f5f2f2")
+        }
+      />
 
       {/* side bar screens */}
 
@@ -402,6 +414,14 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="ParcelMapWithBottomSheet"
         component={ParcelMapWithBottomSheet}
+        options={({ navigation }) =>
+          getCommonOptions(navigation, "Parcel Details", "#fff")
+        }
+      />
+
+      <Stack.Screen
+        name="ParcelSavePlaces"
+        component={ParcelSavePlaces}
         options={({ navigation }) =>
           getCommonOptions(navigation, "Parcel Details", "#fff")
         }

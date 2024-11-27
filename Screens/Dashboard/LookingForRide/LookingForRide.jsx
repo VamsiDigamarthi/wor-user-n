@@ -1,4 +1,12 @@
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Modal,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React from "react";
 import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
 import ProgressBar from "../../../Components/Dashboard/LookForRideCom/ProgressBar/ProgressBar";
@@ -6,6 +14,7 @@ import ShowPickDropPriceCard from "../../../Components/Dashboard/LookForRideCom/
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useLookingForRideHook } from "./LookingForRide.hook";
 import { coordinationMap } from "../../../Constants/displaylocationmap";
+import ModalUI from "../../../Utils/Modal/Modal";
 
 const LookingForRide = () => {
   const {
@@ -19,6 +28,9 @@ const LookingForRide = () => {
     onCancelRide,
     onRePlaceOrder,
     onNewCancelHandle,
+    calncelModalInfoOpenClose,
+    onOpenCancelOrderInfoHandle,
+    onConfirmCancelRide,
   } = useLookingForRideHook();
 
   return (
@@ -83,6 +95,16 @@ const LookingForRide = () => {
           />
         </View>
       </ScrollView>
+      <ModalUI
+        openCloseState={calncelModalInfoOpenClose}
+        rightBtnText="Cancel"
+        closeModalFun={onOpenCancelOrderInfoHandle}
+        rightBtnFun={onConfirmCancelRide}
+      >
+        <View>
+          <Text>Do You Want to Cancel The ride</Text>
+        </View>
+      </ModalUI>
     </View>
   );
 };

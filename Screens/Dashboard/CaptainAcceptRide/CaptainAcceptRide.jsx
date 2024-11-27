@@ -31,12 +31,12 @@ const CaptainAcceptRide = () => {
   const navigation = useNavigation();
 
   let pickCoor = {
-    lat: orderDetails?.pickup?.coordinates[1],
+    lat: orderDetails?.pickup?.coordinates?.[1],
     lng: orderDetails?.pickup?.coordinates?.[0],
   };
 
   let drop = {
-    lat: orderDetails?.drop?.coordinates[1],
+    lat: orderDetails?.drop?.coordinates?.[1],
     lng: orderDetails?.drop?.coordinates?.[0],
   };
 
@@ -46,7 +46,10 @@ const CaptainAcceptRide = () => {
     navigation.navigate("FullMapPreview", {
       origin: otpVerified ? pickCoor : orderDetails?.captainCoor,
       destination: otpVerified ? drop : pickCoor,
-      liveCoordinates: liveCoordinates,
+      liveCoordinates: liveCoordinates ?? {
+        latitude: 17.234532,
+        longitude: 78.987667,
+      },
     });
   };
 

@@ -63,7 +63,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 //   },
 // });
 
-const CustomBtn = ({ title, btnBg, btnColor, onPress }) => {
+const CustomBtn = ({ title, btnBg, btnColor, onPress, width = "100%" }) => {
   const [btnBgColor, setBtnBgColor] = useState(btnBg);
 
   const handlePressIn = () => {
@@ -88,7 +88,7 @@ const CustomBtn = ({ title, btnBg, btnColor, onPress }) => {
   // console.log(btnBgColor);
 
   return (
-    <View style={styles.btnContaier}>
+    <View style={[styles.btnContaier, { width }]}>
       <Pressable
         android_ripple={{ color: "#fff8f6", borderless: true }} // Ripple color
         onPressIn={handlePressIn}

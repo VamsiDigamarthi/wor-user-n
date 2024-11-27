@@ -11,41 +11,45 @@ const SendAndReceiveParcelPicDropCardItem = ({
   dataFromPickLocation,
 }) => {
   return (
-    <View style={[styles.container, bottomBorder]}>
-      <View style={styles.innerCard}>
-        <FontAwesome6 name={iconName} size={25} color={iconColor} />
+    <Pressable onPress={onPress}>
+      <View style={[styles.container, bottomBorder]}>
+        <View style={styles.innerCard}>
+          <FontAwesome6 name={iconName} size={25} color={iconColor} />
 
-        <View style={styles.locationCard}>
-          <Text style={styles.firstText} numberOfLines={1} ellipsizeMode="tail">
-            {dataFromPickLocation?.name ? dataFromPickLocation?.name : title}
-          </Text>
-          <Text
-            style={styles.secondText}
-            numberOfLines={1}
-            ellipsizeMode="tail"
-          >
-            {dataFromPickLocation?.vicinity
-              ? dataFromPickLocation?.vicinity
-              : subTitle}
-          </Text>
+          <View style={styles.locationCard}>
+            <Text
+              style={styles.firstText}
+              numberOfLines={1}
+              ellipsizeMode="tail"
+            >
+              {dataFromPickLocation?.name ? dataFromPickLocation?.name : title}
+            </Text>
+            <Text
+              style={styles.secondText}
+              numberOfLines={1}
+              ellipsizeMode="tail"
+            >
+              {dataFromPickLocation?.vicinity
+                ? dataFromPickLocation?.vicinity
+                : subTitle}
+            </Text>
+          </View>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            gap: 5,
+            alignItems: "center",
+          }}
+        >
+          <FontAwesome5 name="microphone" size={25} color="#e02e88" />
+
+          {/* <View style={styles.secondCard}>
+            <FontAwesome5 name="plus" size={15} color="#fff" />
+          </View> */}
         </View>
       </View>
-      <View
-        style={{
-          flexDirection: "row",
-          gap: 5,
-          alignItems: "center",
-        }}
-      >
-        <FontAwesome5 name="microphone" size={25} color="#e02e88" />
-
-        <Pressable onPress={onPress}>
-          <View style={styles.secondCard}>
-            <FontAwesome5 name="plus" size={15} color="#fff" />
-          </View>
-        </Pressable>
-      </View>
-    </View>
+    </Pressable>
   );
 };
 
@@ -61,7 +65,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 10,
     alignItems: "center",
-    width: "82%",
+    width: "92%",
   },
   locationCard: {
     width: "89%",
