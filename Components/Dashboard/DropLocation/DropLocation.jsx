@@ -50,20 +50,34 @@ const DropLocation = ({
 
   return (
     <View style={styles.container}>
-      <Pressable style={styles.inputCard} onPress={handleNavigate}>
-        <FontAwesome
-          name="location-arrow"
-          style={{ marginRight: 5 }}
-          size={27}
-          color="#E02E88"
-        />
-        <View style={styles.inputTypeCard}>
-          <Text>Destination Location</Text>
-        </View>
-        <View style={styles.miceIconcard}>
+      <View style={styles.inputCard}>
+        <Pressable
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 10,
+            width: "80%",
+            // backgroundColor: "red",
+          }}
+          onPress={handleNavigate.bind(this, false)}
+        >
+          <FontAwesome
+            name="location-arrow"
+            style={{ marginRight: 5 }}
+            size={27}
+            color="#E02E88"
+          />
+          <View style={styles.inputTypeCard}>
+            <Text>Destination Location</Text>
+          </View>
+        </Pressable>
+        <Pressable
+          onPress={handleNavigate.bind(this, true)}
+          style={styles.miceIconcard}
+        >
           <FontAwesome size={26} color="#e02e88" name="microphone" />
-        </View>
-      </Pressable>
+        </Pressable>
+      </View>
       <View style={styles.innerCard}>
         {randomFavoritePlace?.length > 0 &&
           randomFavoritePlace?.map((eachPlace, key) => (
@@ -152,14 +166,14 @@ const styles = StyleSheet.create({
     shadowColor: "red",
     borderColor: "#ffe2e6",
     borderRadius: 5,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
     elevation: 2,
     backgroundColor: "white",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
     gap: 3,
     borderRadius: 30,
@@ -168,9 +182,10 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.desBackground,
   },
   inputTypeCard: {
-    width: "90%",
+    width: "80%",
     height: "100%",
-    justifyContent: "center",
+    // backgroundColor: "red",
+    // justifyContent: "center",
   },
   miceIconcard: {
     width: 40,

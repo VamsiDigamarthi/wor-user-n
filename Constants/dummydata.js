@@ -64,3 +64,34 @@ let orderDeatils = {
   userAuthenticationImage: null,
   vehicleType: "scooty",
 };
+
+let rideHistory = [
+  {
+    __v: 0,
+    _id: "6745c625abfdce9d5a5c26a2",
+    drop: { coordinates: [Array], type: "Point" },
+    dropAddress: "Miyapur Police Station",
+    dropVicinity: "Tiwari Nagar, Miyapur, Telangana, India",
+    favorite: false,
+    giveVehicleNumber: true,
+    head: "674448b39bdda03116f20b1f",
+    howManyMans: 0,
+    isArrived: false,
+    mensProblem: false,
+    onNaviagtionChange: false,
+    orderOtp: 5108,
+    orderOtpVerified: false,
+    orderPlaceDate: "26-11-2024",
+    orderPlaceTime: "6:29:17 pm",
+    pickup: { coordinates: [Array], type: "Point" },
+    pickupAddress:
+      "Sprint Business Centre, 6th Floor, Jayabheri Silicon Towers, Kothaguda, Hyderabad, Telangana 500084, India",
+    price: 34,
+    rejectedCaptaine: [],
+    reviewTest: "",
+    saved: false,
+    status: "cancelled",
+    userAuthenticationImage: null,
+    vehicleType: "scooty",
+  },
+];

@@ -4,4 +4,5 @@ export const COLORS = {
   cardBackground: "#fdfdfd",
   desBackground: "#fff",
   bottomSheetBg: "#fff5f9",
+  borderColor: "#ffe2e6",
 };

@@ -5,10 +5,11 @@ import { useRideHistoryHook } from "./RideHistory.hook";
 
 const RideHistory = () => {
   const { rideHistory } = useRideHistoryHook();
-  console.log("RideHistory", rideHistory);
+  // console.log("RideHistory", rideHistory);
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff5f9" />
+
       <FlatList
         data={rideHistory}
         keyExtractor={(item) => item._id}

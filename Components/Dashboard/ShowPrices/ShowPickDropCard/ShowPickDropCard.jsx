@@ -11,6 +11,8 @@ const ShowPickDropCard = ({
   isInputShow = true, // this props show input or text in drop location place
   shoRightIcons,
   timeShow,
+  micVoiceText, // only use when mic text present
+  setIsMicModalOpenClose, // this is open for mic modal
 }) => {
   return (
     <View style={styles.container}>
@@ -30,11 +32,12 @@ const ShowPickDropCard = ({
         icons="location-arrow"
         location={dropLocation}
         isInputShow={isInputShow}
-        inputValue={inputValue}
+        inputValue={inputValue?.length > 0 ? inputValue : micVoiceText}
         handleInputChange={handleInputChange}
         IconsType="FontAwesome"
         iconsName="microphone"
         showRightIcon={shoRightIcons}
+        setIsMicModalOpenClose={setIsMicModalOpenClose}
       />
     </View>
   );

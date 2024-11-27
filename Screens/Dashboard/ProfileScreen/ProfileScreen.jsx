@@ -28,7 +28,7 @@ const ProfileScreen = () => {
           iconName="document-text-outline"
           iconType="Ionicons"
           label="Document"
-          // screenName="PersonalInfoPreview"
+          screenName="ProfileDocumentScreen"
         />
         <Settingsitem
           iconName="logout"
