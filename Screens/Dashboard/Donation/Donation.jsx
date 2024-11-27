@@ -4,10 +4,14 @@ import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
 import DonationImage from "../../../Components/Dashboard/DonationCom/DonationImage/DonationImage";
 import DonationSelectBox from "../../../Components/Dashboard/DonationCom/DonationSelectBox/DonationSelectBox";
 import DonationSuccessStories from "../../../Components/Dashboard/DonationCom/DonationSuccesStories/DonationSuccessStories";
+import { useNavigation } from "@react-navigation/native";
 
 const screenWidth = Dimensions.get("window").width;
 
 const Donation = () => {
+
+  const navigation = useNavigation()
+
   return (
     <View style={styles.conatiner}>
       <ScrollView
@@ -41,7 +45,9 @@ const Donation = () => {
         </View>
       </ScrollView>
       <View style={styles.positionCard}>
-        <CustomBtn title="Donate Now" btnBg="#e02e88" btnColor="#fff" />
+        <CustomBtn title="Donate Now" btnBg="#e02e88" btnColor="#fff" onPress={()=>{
+          navigation.navigate("Coins")
+        }} />
       </View>
     </View>
   );
