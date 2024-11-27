@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
-
+import { API } from "../../../Constants/url";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRoute } from "@react-navigation/native";
 export const useNewAadharVefiricationHook = () => {
   const [aadharNumber, setAadharNumber] = useState("");
   const [aadharError, setAadharError] = useState("");
@@ -21,6 +23,7 @@ export const useNewAadharVefiricationHook = () => {
   };
 
   const onAddharNumberGetOtpHandle = async () => {
+    const token = await AsyncStorage.getItem("token");
     if (!aadharNumber) {
       setAadharError("Aadhar number is required");
       return;
@@ -32,31 +35,44 @@ export const useNewAadharVefiricationHook = () => {
     setAadharError("");
     setAadharLoader(true);
     try {
-      const response = await axios.post(
-        "https://uat-hub.perfios.com/api/kyc/v3/aadhaar-xml/otp",
-        {
-          aadhaarNo: aadharNumber,
-          consent: "Y",
-        },
+      // const response = await axios.post(
+      //   "https://uat-hub.perfios.com/api/kyc/v3/aadhaar-xml/otp",
+      //   {
+      //     aadhaarNo: aadharNumber,
+      //     consent: "Y",
+      //   },
+      //   {
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       "x-auth-key": "q4Ewu5OELeimuoiS",
+      //     },
+      //   }
+      // );
+
+      const response = await API.post(
+        "/user/aadhar-otp",
+        { aadharCardNumber: aadharNumber },
         {
           headers: {
+            Authorization: `Bearer ${JSON.parse(token)}`,
             "Content-Type": "application/json",
-            "x-auth-key": "q4Ewu5OELeimuoiS",
           },
         }
       );
+
       setAadharLoader(false);
       setAadharError("");
       setAadharVerified(true);
       setStoreRequestId(response?.data?.requestId);
     } catch (error) {
-      console.log(error);
+      console.log(error?.response?.data);
       setAadharLoader(false);
       setAadharError("Sending OTP failed please try again");
     }
   };
 
   const onOtpVefirified = async () => {
+    const token = await AsyncStorage.getItem("token");
     if (!otpValue) {
       setOtpError("OTP is required");
       return;
@@ -67,25 +83,38 @@ export const useNewAadharVefiricationHook = () => {
     }
     setOtpLoader(true);
     try {
-      await axios.post(
-        "https://uat-hub.perfios.com/api/kyc/v3/aadhaar-xml/file",
-        {
-          otp: otpValue,
-          aadhaarNo: aadharNumber,
-          requestId: storeRequestId,
-        },
+      // await axios.post(
+      //   "https://uat-hub.perfios.com/api/kyc/v3/aadhaar-xml/file",
+      //   {
+      //     otp: otpValue,
+      //     aadhaarNo: aadharNumber,
+      //     requestId: storeRequestId,
+      //   },
+      //   {
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       "x-auth-key": "q4Ewu5OELeimuoiS",
+      //     },
+      //   }
+      // );
+
+      const response = await API.post(
+        "/user/aadhar-otp-verified",
+        { otp: "123456" },
         {
           headers: {
+            Authorization: `Bearer ${JSON.parse(token)}`,
             "Content-Type": "application/json",
-            "x-auth-key": "q4Ewu5OELeimuoiS",
           },
         }
       );
+
       setOptVerified(true);
       setOtpLoader(false);
     } catch (error) {
+      console.log(error?.response?.data);
       setOtpError("OTP Verification Failed");
-      setOtpLoader(true);
+      setOtpLoader(false);
     }
   };
 

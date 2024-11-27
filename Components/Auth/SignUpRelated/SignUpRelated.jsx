@@ -28,6 +28,7 @@ const SignUpRelated = ({
     onOpenTextBasedLocationModal,
     storeNearLocation,
     onAddressSelect,
+    validationCheck,
   } = useSignUpRelatedHook({
     selectedImage,
     mobile,
@@ -35,7 +36,7 @@ const SignUpRelated = ({
     imageBorder,
   });
 
-  // console.log(errors);
+  // console.log(validationCheck?.name);
 
   return (
     <BottomLayout
@@ -123,8 +124,23 @@ const SignUpRelated = ({
         <View style={{ height: 10 }} />
         <CustomBtn
           title="continue"
-          btnBg={Object.keys(errors)?.length > 0 ? "#fdfdfd" : "#E02E88"}
-          btnColor={Object.keys(errors)?.length > 0 ? "#E02E88" : "#fff"}
+          btnBg={
+            errors?.name?.length === 0 &&
+            validationCheck?.name &&
+            errors?.dob?.length === 0 &&
+            errors?.email?.length === 0 &&
+            errors?.address?.length === 0
+              ? "#E02E88"
+              : "#fdfdfd"
+          }
+          btnColor={
+            errors?.name?.length === 0 &&
+            errors?.dob?.length === 0 &&
+            errors?.email?.length === 0 &&
+            errors?.address?.length === 0
+              ? "#FFF"
+              : "#E02E88"
+          }
           onPress={handleNavigateToOTP}
           width="100%"
         />

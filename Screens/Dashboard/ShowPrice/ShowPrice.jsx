@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import ShowPickDropCard from "../../../Components/Dashboard/ShowPrices/ShowPickDropCard/ShowPickDropCard";
 import ShowVehicle from "../../../Components/Dashboard/ShowPrices/ShowVehicle/ShowVehicle";
@@ -6,6 +6,7 @@ import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
 import { useShowPriceHook } from "./ShowPrice.hook.js";
 import ShowPollyLine from "../../../Components/Dashboard/ShowPrices/ShowPollyLine/ShowPollyLine.jsx";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import ModalUI from "../../../Utils/Modal/Modal.jsx";
 
 const ShowPrice = () => {
   const {
@@ -20,15 +21,18 @@ const ShowPrice = () => {
     onTimeModalOpenCloseHandler,
     isTimeModalOpenClose,
     onHandleTimeValueHandler,
-    isDateTimeData,
     normalDateFormat,
+    rideBookBeforeCheckMPinAddhar,
+    onChangeRideBookBeforeCheckPinAddharHandler,
+    profile,
+    onNavigateAadharUploadUi,
   } = useShowPriceHook();
 
   let shoRightIcons = false;
   let timeShow = true;
 
   const currentDate = new Date();
-  // Set maximum date (7 days from the current date)
+
   const maxDate = new Date();
   maxDate.setDate(currentDate.getDate() + 7);
 
@@ -137,6 +141,23 @@ const ShowPrice = () => {
           maximumDate={maxDate}
         />
       </View>
+      <ModalUI
+        openCloseState={rideBookBeforeCheckMPinAddhar}
+        closeModalFun={onChangeRideBookBeforeCheckPinAddharHandler}
+      >
+        {!profile?.aadhr && (
+          <Pressable onPress={onNavigateAadharUploadUi}>
+            <Text>
+              Your not set Aadhar please set Aadhar first to book ride
+            </Text>
+          </Pressable>
+        )}
+        {!profile?.mpin && (
+          <Pressable>
+            <Text>Your not set MPIN please set M-pin first to book ride </Text>
+          </Pressable>
+        )}
+      </ModalUI>
     </View>
   );
 };
