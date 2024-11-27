@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "56216151764",
+    "project_id": "woruser-123",
+    "storage_bucket": "woruser-123.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:56216151764:android:29e450659b73fc6e7c7d41",
+        "android_client_info": {
+          "package_name": "com.narasimha_62.woruser"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6JrSVi902Mk2rmX3Pfl_mMB4PTE2lh0Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
