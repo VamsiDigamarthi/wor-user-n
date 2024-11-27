@@ -87,7 +87,7 @@ export const useDropLocationHook = ({
     }
   }
 
-  const handleNavigate = () => {
+  const handleNavigate = (isMic = false) => {
     navigation.navigate("SelectDropLocation", {
       placeName, // this prop is store current location text,
       pickUpCoordinated: location, // this prop store current location user coordinates to pass price screen to calculate the price
@@ -100,6 +100,7 @@ export const useDropLocationHook = ({
         previousOrders?.length > 0
           ? getRandomItems(previousOrders, 2, "prev")
           : [],
+      isMic: isMic,
     });
   };
 

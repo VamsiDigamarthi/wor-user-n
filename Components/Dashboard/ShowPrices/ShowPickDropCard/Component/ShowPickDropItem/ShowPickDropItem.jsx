@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import React, { useState } from "react";
 import { FontAwesome, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { nearPlacesByText } from "../../../../../../Constants/displaylocationmap";
@@ -16,6 +16,7 @@ const ShowPickDropItem = ({
   IconsType,
   showRightIcon = true,
   timeShow,
+  setIsMicModalOpenClose, // this this function open for mic modal
 }) => {
   let Topicons;
   switch (topIcon) {
@@ -47,6 +48,10 @@ const ShowPickDropItem = ({
       Icons = Ionicons;
   }
 
+  const onMiceOpen = () => {
+    setIsMicModalOpenClose(true);
+  };
+
   return (
     <View style={[styles.constainer, border]}>
       <Topicons name={icons} size={25} color="#E02E88" />
@@ -73,7 +78,9 @@ const ShowPickDropItem = ({
       )}
       {showRightIcon && (
         <View style={styles.favMicCard}>
-          <Icons name={iconsName} color="#e02e88" size={25} />
+          <Pressable onPress={iconsName === "microphone" ? onMiceOpen : null}>
+            <Icons name={iconsName} color="#e02e88" size={25} />
+          </Pressable>
         </View>
       )}
     </View>

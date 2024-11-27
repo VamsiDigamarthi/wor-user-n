@@ -6,18 +6,18 @@ const RideHistoryFirst = ({ ride }) => {
     <View style={styles.conatiner}>
       <View style={styles.firstCard}>
         <Text style={styles.rideDetails}>Ride Details</Text>
-        <Text style={styles.status}>{ride.status}</Text>
+        <Text style={styles.status}>{ride?.status}</Text>
       </View>
       <View style={styles.iconWithLocationCard}>
         <Ionicons name="locate-outline" size={18} color="#E02E88" />
         <Text numberOfLines={1} ellipsizeMode="tail">
-          {ride.pickupAddress}
+          {ride?.pickupAddress}
         </Text>
       </View>
       <View style={styles.iconWithLocationCardSeond}>
         <Ionicons name="lock-closed" size={18} color="#E02E88" />
         <Text numberOfLines={1} ellipsizeMode="tail">
-          {ride.dropAddress}
+          {ride?.dropAddress}
         </Text>
       </View>
       <View style={styles.iconsCard}>

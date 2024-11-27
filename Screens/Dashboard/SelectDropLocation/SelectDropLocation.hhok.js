@@ -4,7 +4,9 @@ import {
   nearPlacesByText,
 } from "../../../Constants/displaylocationmap";
 import { useNavigation, useRoute } from "@react-navigation/native";
-
+// Ensure you have react-native-vector-icons installed
+import Voice from "@react-native-voice/voice";
+import { Alert } from "react-native";
 export const useSelectDropLocationHook = () => {
   const route = useRoute();
   const navigation = useNavigation();
@@ -12,10 +14,72 @@ export const useSelectDropLocationHook = () => {
     placeName,
     nearbyPlaces,
     pickUpCoordinated,
-    selectedVehicleType, // this is commming from home screen when user click car auto servercies
+    selectedVehicleType,
     favoritePlaces,
     previousOrders,
+    isMic,
   } = route.params;
+
+  const [isMicModalOpenClose, setIsMicModalOpenClose] = useState(
+    isMic ?? false
+  );
+  const [micVoiceText, setMicVoiceText] = useState("");
+  const [isListening, setIsListening] = useState(false);
+
+  useEffect(() => {
+    Voice.onSpeechStart = onSpeechStart;
+    Voice.onSpeechResults = onSpeechResults;
+    Voice.onSpeechError = onSpeechError;
+
+    return () => {
+      Voice.destroy().then(Voice.removeAllListeners);
+    };
+  }, []);
+
+  const onSpeechStart = () => {
+    setIsListening(true);
+  };
+
+  const onSpeechResults = (e) => {
+    if (e.value && e.value.length > 0) {
+      setMicVoiceText(e.value[0]);
+      setIsMicModalOpenClose(false);
+      fetchPlaceSuggestions(e.value[0]);
+    }
+    setIsListening(false);
+  };
+
+  const onSpeechError = (e) => {
+    console.error(e);
+    Alert.alert("Error", "Speech recognition error");
+    setIsListening(false);
+  };
+
+  const startListening = async () => {
+    try {
+      setIsListening(true);
+      await Voice.start("en-US");
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const stopListening = async () => {
+    try {
+      setIsListening(false);
+      await Voice.stop();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleMicPress = () => {
+    if (isListening) {
+      stopListening();
+    } else {
+      startListening();
+    }
+  };
 
   const [inputValue, setInputValue] = useState("");
 
@@ -26,6 +90,10 @@ export const useSelectDropLocationHook = () => {
     let nearPlaces = await nearPlacesByText(input);
     setSuggestions(nearPlaces);
   };
+
+  // useEffect(() => {
+  //   micVoiceText?.length >=3 && fetchPlaceSuggestions()
+  // },[micVoiceText])
 
   // Handle text input changes
   const handleInputChange = (text) => {
@@ -84,12 +152,6 @@ export const useSelectDropLocationHook = () => {
     });
   };
 
-  // this function exicute after open map user click save icon on to fetch data (coordinates)
-
-  // console.log("favoritePlaces", favoritePlaces);
-
-  // console.log("prev", [...nearbyPlaces, ...favoritePlaces, ...previousOrders]);
-
   useEffect(() => {
     const uniqueLocations = [
       ...nearbyPlaces,
@@ -116,5 +178,11 @@ export const useSelectDropLocationHook = () => {
     favoritePlaces,
     previousOrders,
     nearByFavPrevPlace,
+    isMicModalOpenClose,
+    setIsMicModalOpenClose,
+    handleMicPress,
+    isListening,
+    micVoiceText,
+    setIsMicModalOpenClose,
   };
 };

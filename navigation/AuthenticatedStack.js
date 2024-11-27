@@ -50,6 +50,9 @@ import BgTest from "../Components/BgVoice/BgTest";
 import FullMapPreview from "../Utils/FullMapPreview/FullMapPreview";
 import Rating from "../Screens/Dashboard/Rating/Rating";
 import Wallet from "../Screens/Dashboard/Wallet/Wallet";
+import { COLORS } from "../Constants/colors";
+import ProfileDocumentScreen from "../Screens/Dashboard/ProfileScreen/Screens/ProfileDocumentScreen";
+import RideHistoryDetailView from "../Screens/Dashboard/RideHistory/RideHistoryDetailView/RideHistoryDetailView";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -79,6 +82,12 @@ const getCommonOptions = (
 
 const DrawerNavigator = ({ route }) => {
   const placeName = route?.params?.placeName || "";
+
+  const screenBackgroundColors = {
+    Rating: COLORS.bottomSheetBg,
+  };
+  console.log("routename", route.name);
+
   return (
     <>
       <StatusBar backgroundColor="#f5f2f2" barStyle="dark-content" />
@@ -92,6 +101,14 @@ const DrawerNavigator = ({ route }) => {
           headerStyle: {
             backgroundColor: "red", // Apply background color to the header
           },
+          // Apply background color to the individual screens
+          sceneContainerStyle: {
+            backgroundColor: screenBackgroundColors[route.name] || null, // Fallback to white if no color found
+          },
+        }}
+        // Apply background color to the drawer
+        drawerStyle={{
+          backgroundColor: "red", // Background color for the drawer
         }}
       >
         {/* Home Screen as default */}
@@ -183,7 +200,15 @@ const AuthenticatedStack = () => {
         name="RideHistory"
         component={RideHistory}
         options={({ navigation }) =>
-          getCommonOptions(navigation, "Book History")
+          getCommonOptions(navigation, "Ride History")
+        }
+      />
+
+      <Stack.Screen
+        name="RideHistoryDetailView"
+        component={RideHistoryDetailView}
+        options={({ navigation }) =>
+          getCommonOptions(navigation, "Ride Details")
         }
       />
 
@@ -241,7 +266,7 @@ const AuthenticatedStack = () => {
         name="Help"
         component={Help}
         options={({ navigation }) =>
-          getCommonOptions(navigation, "Help", "#f5f2f2", true)
+          getCommonOptions(navigation, "Help", "#f5f2f2")
         }
       />
       <Stack.Screen
@@ -317,6 +342,14 @@ const AuthenticatedStack = () => {
         name="FullMapPreview"
         component={FullMapPreview}
         options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="ProfileDocumentScreen"
+        component={ProfileDocumentScreen}
+        options={({ navigation }) =>
+          getCommonOptions(navigation, "Documentation", "#f5f2f2")
+        }
       />
 
       {/* side bar screens */}
@@ -438,7 +471,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginHorizontal: 20,
+    marginHorizontal: 10,
     marginTop: 20,
     marginBottom: 5,
     // borderWidth: 1, // Apply border to all sides

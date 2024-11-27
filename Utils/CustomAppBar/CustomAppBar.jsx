@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    // marginHorizontal: 20,
+    marginHorizontal: 20,
     marginTop: 20,
     marginBottom: 5,
     // borderWidth: 1, // Apply border to all sides
