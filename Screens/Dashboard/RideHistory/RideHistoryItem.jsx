@@ -5,9 +5,9 @@ import RideHistoryFirst from "./RideHistoryFirst";
 import { COLORS } from "../../../Constants/colors";
 import { useNavigation } from "@react-navigation/native";
 
-const RideHistoryItem = ({ ride }) => {
+const RideHistoryItem = ({ ride, isFavoriteOrRideHistory = true }) => {
   let color;
-  switch (ride.status) {
+  switch (ride?.status) {
     case "cancelled":
       color = "red";
       break;
@@ -25,40 +25,45 @@ const RideHistoryItem = ({ ride }) => {
   };
 
   return (
-    <View style={styles.mainContainer}>
-      <View style={styles.rowWithGap}>
-        <Text style={styles.rideDetailsText}>Ride Details</Text>
-        <Text style={[styles.completedText, { color: color }]}>
-          {ride?.status}
-        </Text>
-      </View>
-      <View style={styles.rowWithGap}>
-        <View style={styles.iconContainer}>
-          <FontAwesome size={25} name="location-arrow" color="#e02e88" />
-        </View>
-        <View style={styles.textContainer}>
-          <Text
-            numberOfLines={1}
-            ellipsizeMode="tail"
-            style={styles.headingText}
-          >
-            {ride?.dropAddress}
-          </Text>
-          <Text
-            numberOfLines={1}
-            ellipsizeMode="tail"
-            style={styles.subHeadingText}
-          >
-            {ride?.dropVicinity}
+    <Pressable onPress={onNavigateToRideDetailScreen}>
+      <View style={styles.mainContainer}>
+        <View style={styles.rowWithGap}>
+          <Text style={styles.rideDetailsText}>Ride Details</Text>
+          <Text style={[styles.completedText, { color: color }]}>
+            {ride?.status}
           </Text>
         </View>
-        <Pressable onPress={onNavigateToRideDetailScreen}>
-          <View style={styles.arrowContainer}>
-            <MaterialIcons name="arrow-forward-ios" size={20} color="#e02e88" />
+        <View style={styles.rowWithGap}>
+          <View style={styles.iconContainer}>
+            <FontAwesome size={25} name="location-arrow" color="#e02e88" />
           </View>
-        </Pressable>
+          <View style={styles.textContainer}>
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              style={styles.headingText}
+            >
+              {ride?.dropAddress}
+            </Text>
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              style={styles.subHeadingText}
+            >
+              {ride?.dropVicinity}
+            </Text>
+          </View>
+
+          <View style={styles.arrowContainer}>
+            <MaterialIcons
+              name={isFavoriteOrRideHistory ? "arrow-forward-ios" : "favorite"}
+              size={20}
+              color="#e02e88"
+            />
+          </View>
+        </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 

@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
   third: {
     position: "absolute",
     top: 1,
-    right: -40,
+    right: -33,
     width: 30,
     height: 30,
     justifyContent: "center",

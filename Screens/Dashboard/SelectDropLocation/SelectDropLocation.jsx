@@ -39,6 +39,7 @@ const SelectDropLocation = () => {
       <StatusBar barStyle="dark-content" backgroundColor="#f5f2f2" />
 
       <View style={styles.pickDropBtnCard}>
+        {/* this show pick drop card use show home screens also */}
         <ShowPickDropCard
           inputValue={inputValue}
           handleInputChange={handleInputChange}

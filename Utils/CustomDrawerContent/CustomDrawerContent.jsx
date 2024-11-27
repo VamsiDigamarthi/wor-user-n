@@ -111,7 +111,7 @@ const CustomDrawerContent = (props) => {
           icon={() => (
             <MaterialIcons name="favorite-border" size={22} color="gray" />
           )}
-          onPress={() => handleItemPress("Favorites")}
+          onPress={() => handleItemPress("DrawerFavorite")}
           labelStyle={styles.labelStyle}
           style={getItemStyle("Favorites")}
         />

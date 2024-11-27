@@ -12,18 +12,30 @@ const ParcelSendReceivesCard = ({
         style={[
           styles.firstCard,
           selectedCard === "firstCard" ? styles.selected : styles.unselected,
-          selectedCard === "firstCard" ? { width: "60%" } : { width: "50%" },
+          selectedCard === "firstCard" ? { width: "50%" } : { width: "50%" },
         ]}
         onPress={() => handleCardClick("firstCard")}
       >
         {selectedCard === "firstCard" && (
           <View style={styles.icon}>
-            <AntDesign name="checkcircle" size={20} color="#e02e88" />
+            <AntDesign name="checkcircle" size={16} color="#e02e88" />
           </View>
         )}
 
-        <Text style={{ fontSize: 16, fontWeight: "600" }}>Send Parcel</Text>
-        <Text style={{ fontSize: 11, color: "#808080" }}>
+        <Text
+          style={{
+            fontSize: selectedCard === "firstCard" ? 16 : 11,
+            fontWeight: "600",
+          }}
+        >
+          Send Parcel
+        </Text>
+        <Text
+          style={{
+            fontSize: selectedCard === "firstCard" ? 11 : 9,
+            color: "#808080",
+          }}
+        >
           Send with city limited
         </Text>
       </TouchableOpacity>
@@ -32,17 +44,29 @@ const ParcelSendReceivesCard = ({
         style={[
           styles.secondCard,
           selectedCard === "secondCard" ? styles.selected : styles.unselected,
-          selectedCard === "secondCard" ? { width: "60%" } : { width: "50%" },
+          selectedCard === "secondCard" ? { width: "50%" } : { width: "50%" },
         ]}
         onPress={() => handleCardClick("secondCard")}
       >
         {selectedCard === "secondCard" && (
           <View style={styles.iconSecond}>
-            <AntDesign name="checkcircle" size={20} color="#e02e88" />
+            <AntDesign name="checkcircle" size={16} color="#e02e88" />
           </View>
         )}
-        <Text style={{ fontSize: 16, fontWeight: "600" }}>Receive Parcel</Text>
-        <Text style={{ fontSize: 11, color: "#808080" }}>
+        <Text
+          style={{
+            fontSize: selectedCard === "secondCard" ? 16 : 11,
+            fontWeight: "600",
+          }}
+        >
+          Receive Parcel
+        </Text>
+        <Text
+          style={{
+            fontSize: selectedCard === "secondCard" ? 11 : 9,
+            color: "#808080",
+          }}
+        >
           Get parcel within city limited
         </Text>
       </TouchableOpacity>

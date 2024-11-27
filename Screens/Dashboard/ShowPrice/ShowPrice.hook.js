@@ -1,6 +1,9 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { haversineDistance } from "../../../Constants/calculateKM";
+import {
+  formatToIndiaISO,
+  haversineDistance,
+} from "../../../Constants/calculateKM";
 import { useSelector } from "react-redux";
 import { API } from "../../../Constants/url";
 
@@ -11,6 +14,14 @@ export const useShowPriceHook = () => {
   const route = useRoute();
   const { placeName, pickUpCoordinated, dropDetails, selectedVehicleType } =
     route.params;
+
+  const [isTimeModalOpenClose, setIsTimeModalOpenClose] = useState(false);
+  const [isDateTimeData, setIsDateTimeData] = useState("");
+  const [normalDateFormat, setNormalDateFormat] = useState("");
+  const onTimeModalOpenCloseHandler = () => {
+    setIsTimeModalOpenClose(!isTimeModalOpenClose);
+  };
+
   // store this price and vehicleType where user selecter corresponsind services
   const [beforeOrder, setBeforeOrder] = useState({
     vehicleType: "",
@@ -113,6 +124,13 @@ export const useShowPriceHook = () => {
       });
   };
 
+  const onHandleTimeValueHandler = (date) => {
+    const formattedIndiaTime = formatToIndiaISO(date);
+    setIsDateTimeData(formattedIndiaTime);
+    setNormalDateFormat(date?.toLocaleString());
+    onTimeModalOpenCloseHandler();
+  };
+
   return {
     placeName,
     pickUpCoordinated,
@@ -122,5 +140,11 @@ export const useShowPriceHook = () => {
     selectedVehicle,
     onPlaceTheOrder,
     apiError,
+    // time modal open close
+    onTimeModalOpenCloseHandler,
+    isTimeModalOpenClose,
+    onHandleTimeValueHandler,
+    isDateTimeData,
+    normalDateFormat,
   };
 };

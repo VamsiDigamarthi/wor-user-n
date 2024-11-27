@@ -13,6 +13,7 @@ const ShowPickDropCard = ({
   timeShow,
   micVoiceText, // only use when mic text present
   setIsMicModalOpenClose, // this is open for mic modal
+  onTimeModalOpenCloseHandler, // this is open for time modal
 }) => {
   return (
     <View style={styles.container}>
@@ -25,6 +26,7 @@ const ShowPickDropCard = ({
         iconsName="favorite"
         showRightIcon={shoRightIcons}
         timeShow={timeShow}
+        onTimeModalOpenCloseHandler={onTimeModalOpenCloseHandler}
         // time
       />
       <ShowPickDropItem
