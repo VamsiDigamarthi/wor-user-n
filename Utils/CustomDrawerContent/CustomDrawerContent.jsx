@@ -37,12 +37,13 @@ const CustomDrawerContent = (props) => {
 
   return (
     <DrawerContentScrollView
+      
       {...props}
       contentContainerStyle={styles.drawerContent}
       style={styles.drawer} // Ensure the scroll view fills the screen
     >
       {/* Profile Header */}
-      <View style={styles.headerContainer}>
+      <View style={[styles.headerContainer , {borderTopRightRadius:20}]}>
         <Image source={{ uri: image }} style={styles.profilePic} />
         <Text style={styles.profileName}>{profile?.name}</Text>
         <View
@@ -61,7 +62,7 @@ const CustomDrawerContent = (props) => {
       </View>
 
       {/* Drawer Items */}
-      <View style={styles.drawerItemsContainer}>
+      <View style={[styles.drawerItemsContainer]}>
         <DrawerItem
           label="Wallet"
           icon={() => <Ionicons name="wallet-outline" size={22} color="gray" />}

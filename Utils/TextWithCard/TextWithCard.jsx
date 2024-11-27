@@ -2,9 +2,9 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { COLORS } from "../../Constants/colors";
 
-const TextWithCard = ({ title, subTitle }) => {
+const TextWithCard = ({ title, subTitle , customStyle}) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, customStyle]}>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.subTitle}>{subTitle}</Text>
     </View>
