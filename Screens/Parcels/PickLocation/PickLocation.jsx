@@ -22,6 +22,7 @@ const PickLocation = () => {
     onUserSelectPickLocationNearPlaces,
     onYourLocationClick,
     onNavigateToMapPreviewScreen,
+    onNavigateToFavoriteScreen,
   } = usePickLocationHook();
 
   return (
@@ -94,7 +95,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    paddingHorizontal: 26,
+    paddingHorizontal: 10,
     paddingVertical: 12,
     gap: 20,
   },

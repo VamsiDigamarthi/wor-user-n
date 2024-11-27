@@ -83,15 +83,19 @@ export const usePickLocationHook = () => {
     };
     navigation.navigate("ParcelMapWithBottomSheet", {
       pickUpLocationCoorWithName,
-      typeOfLocation
+      typeOfLocation,
     });
   };
 
   const onUserSelectPickLocationNearPlaces = (place) => {
     navigation.navigate("ParcelMapWithBottomSheet", {
       pickUpLocationCoorWithName: place,
-      typeOfLocation
+      typeOfLocation,
     });
+  };
+
+  const onNavigateToFavoriteScreen = () => {
+    navigation.navigate("ParcelSavePlaces");
   };
 
   const onYourLocationClick = () => {
@@ -101,7 +105,7 @@ export const usePickLocationHook = () => {
     };
     navigation.navigate("ParcelMapWithBottomSheet", {
       pickUpLocationCoorWithName: newPlace,
-      typeOfLocation
+      typeOfLocation,
     });
   };
 
@@ -111,7 +115,7 @@ export const usePickLocationHook = () => {
       placeName: placeName?.name,
       pickUpCoordinated: location,
       isParcelScreen: true,
-      typeOfLocation 
+      typeOfLocation,
     });
   };
 
@@ -124,5 +128,6 @@ export const usePickLocationHook = () => {
     onUserSelectPickLocationNearPlaces,
     onYourLocationClick,
     onNavigateToMapPreviewScreen,
+    onNavigateToFavoriteScreen,
   };
 };

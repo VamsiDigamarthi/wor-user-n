@@ -17,6 +17,7 @@ const ShowPickDropItem = ({
   showRightIcon = true,
   timeShow,
   setIsMicModalOpenClose, // this this function open for mic modal
+  onTimeModalOpenCloseHandler, // this is function open for time modal
 }) => {
   let Topicons;
   switch (topIcon) {
@@ -72,8 +73,13 @@ const ShowPickDropItem = ({
       )}
       {timeShow && (
         <View style={styles.timeCard}>
-          <Ionicons name="time-outline" size={18} color="#E02E88" />
-          <Text style={styles.timeText}>Time</Text>
+          <Pressable
+            onPress={onTimeModalOpenCloseHandler}
+            style={{ flexDirection: "row", gap: 5, alignItems: "center" }}
+          >
+            <Ionicons name="time-outline" size={18} color="#E02E88" />
+            <Text style={styles.timeText}>Time</Text>
+          </Pressable>
         </View>
       )}
       {showRightIcon && (
