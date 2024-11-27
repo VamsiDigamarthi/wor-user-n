@@ -46,8 +46,8 @@ const AadharFrontBackImageCard = ({ otpVerified }) => {
       )}
       <CustomBtn
         title="continue"
-        btnBg="#fff"
-        btnColor="#E02E88"
+        btnBg={frontImage && backImage ? "#e02e88" : "#fff"}
+        btnColor={frontImage && backImage ? "#fff" : "#e02e88"}
         onPress={handleSubmit}
       />
     </View>

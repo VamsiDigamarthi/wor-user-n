@@ -1,17 +1,31 @@
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { useEffect, useState } from "react";
+import {
+  useFocusEffect,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
+import { useCallback, useEffect, useState } from "react";
 import {
   formatToIndiaISO,
   haversineDistance,
 } from "../../../Constants/calculateKM";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { API } from "../../../Constants/url";
+import { onProfileSection } from "../../../redux/Features/Auth/ProfileSlice";
 
 export const useShowPriceHook = () => {
   const navigation = useNavigation();
+  const { profile } = useSelector((state) => state.profileSlice);
+
+  const [rideBookBeforeCheckMPinAddhar, setRideBookBeforeCheckPinAddhar] =
+    useState(false);
+  const onChangeRideBookBeforeCheckPinAddharHandler = () => {
+    setRideBookBeforeCheckPinAddhar(!rideBookBeforeCheckMPinAddhar);
+  };
 
   const { token } = useSelector((state) => state.token);
   const route = useRoute();
+
+  const dispatch = useDispatch();
   const { placeName, pickUpCoordinated, dropDetails, selectedVehicleType } =
     route.params;
 
@@ -70,7 +84,11 @@ export const useShowPriceHook = () => {
   }, [pickUpCoordinated, dropDetails]);
 
   const onPlaceTheOrder = () => {
-    console.log("drop", dropDetails);
+    if (!profile?.mpin && !profile?.adhar) {
+      onChangeRideBookBeforeCheckPinAddharHandler();
+      return;
+    }
+
     if (!selectedVehicle) {
       setApisError("Please select a vehicle");
       return;
@@ -131,6 +149,18 @@ export const useShowPriceHook = () => {
     onTimeModalOpenCloseHandler();
   };
 
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(onProfileSection({ token }));
+    }, [])
+  );
+
+  const onNavigateAadharUploadUi = () => {
+    navigation.navigate("DashBoardAadharCard", {
+      isPriceScreen: true,
+    });
+  };
+
   return {
     placeName,
     pickUpCoordinated,
@@ -146,5 +176,9 @@ export const useShowPriceHook = () => {
     onHandleTimeValueHandler,
     isDateTimeData,
     normalDateFormat,
+    rideBookBeforeCheckMPinAddhar,
+    onChangeRideBookBeforeCheckPinAddharHandler,
+    profile,
+    onNavigateAadharUploadUi,
   };
 };

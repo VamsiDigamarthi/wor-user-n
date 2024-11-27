@@ -1,13 +1,37 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import React, { useEffect } from "react";
-import AadharFaceNagivetor from "../../../Utils/AadharFaceNagivetor/AadharFaceNagivetor";
+import React, { useEffect, useState, useCallback } from "react";
 import { AntDesign } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useNavigation } from "@react-navigation/native";
-import DocumentRelatedChecCom from "./DocumentRelatedChecCom";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import BottomLayout from "../../../Layouts/BottomLayout";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { API } from "../../../Constants/url";
+
 const DocumentRelatedCheck = () => {
   const navigation = useNavigation();
+  const [profile, setProfile] = useState(null);
+
+  const onFetchProfile = async () => {
+    const token = await AsyncStorage.getItem("token");
+    try {
+      const response = await API.get("/auth/profile", {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+        },
+      });
+      setProfile(response.data);
+    } catch (error) {
+      console.error(error?.response?.data);
+    }
+  };
+
+  // Use useFocusEffect to re-trigger the API call when navigating back to this screen
+  useFocusEffect(
+    useCallback(() => {
+      onFetchProfile();
+    }, [])
+  );
+
+  // console.log("Profile Data:", profile);
 
   const handlePress = () => {
     console.log("Press");
@@ -15,7 +39,7 @@ const DocumentRelatedCheck = () => {
   };
 
   const onFaceAuthentication = () => {
-    console.log("Face Authentication");
+    navigation.navigate("MPin");
   };
 
   return (
@@ -28,21 +52,28 @@ const DocumentRelatedCheck = () => {
           onPress={handlePress}
           idTitle="Government ID"
           title="Aadhaar information will be used to verify and create your account."
+          isBackground={profile?.adhar}
         />
         <OnAddharVerification
           onPress={onFaceAuthentication}
-          idTitle="Face Authentication"
+          idTitle="M-PIN"
           title="Face scan is required to complete your registration. It will be used to verify your identity when booking rides."
+          isBackground={profile?.mpin}
         />
       </View>
     </BottomLayout>
   );
 };
 
-const OnAddharVerification = ({ idTitle, title, onPress }) => {
+const OnAddharVerification = ({ idTitle, title, onPress, isBackground }) => {
   return (
     <Pressable onPress={onPress}>
-      <View style={styles.aadgarCard}>
+      <View
+        style={[
+          styles.aadgarCard,
+          isBackground && { backgroundColor: "#fac9c5" },
+        ]}
+      >
         <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
           <View
             style={{

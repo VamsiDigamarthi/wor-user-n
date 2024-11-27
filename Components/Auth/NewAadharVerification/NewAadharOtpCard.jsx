@@ -41,7 +41,7 @@ const NewAadharOtpCard = ({
         <View
           style={[
             styles.secondCard,
-            !aadharVerified && { backgroundColor: "#808080" },
+            !isEditable && { backgroundColor: "#808080" },
           ]}
         >
           <Pressable onPress={onPress}>

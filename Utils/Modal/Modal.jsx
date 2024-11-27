@@ -22,9 +22,11 @@ const ModalUI = ({
             <Pressable onPress={closeModalFun} style={styles.closeModalBtn}>
               <Text style={styles.closeText}>Close</Text>
             </Pressable>
-            <Pressable onPress={rightBtnFun} style={styles.closeModalBtn}>
-              <Text style={styles.closeText}>{rightBtnText}</Text>
-            </Pressable>
+            {rightBtnText && (
+              <Pressable onPress={rightBtnFun} style={styles.closeModalBtn}>
+                <Text style={styles.closeText}>{rightBtnText}</Text>
+              </Pressable>
+            )}
           </View>
         </View>
       </View>

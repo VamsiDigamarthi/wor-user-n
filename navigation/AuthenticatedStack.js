@@ -55,6 +55,7 @@ import ProfileDocumentScreen from "../Screens/Dashboard/ProfileScreen/Screens/Pr
 import RideHistoryDetailView from "../Screens/Dashboard/RideHistory/RideHistoryDetailView/RideHistoryDetailView";
 import DrawerFavorite from "../Screens/Dashboard/DrawerFavorite/DrawerFavorite";
 import ParcelSavePlaces from "../Screens/Parcels/ParcelSavePlaces/ParcelSavePlaces";
+import DashBoardAadharCard from "../Screens/Dashboard/ShowPrice/Screens/DashBoardAadharCard";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -343,6 +344,13 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="FullMapPreview"
         component={FullMapPreview}
+        options={{ headerShown: false }}
+      />
+
+      {/* extra */}
+      <Stack.Screen
+        name="DashBoardAadharCard"
+        component={DashBoardAadharCard}
         options={{ headerShown: false }}
       />
 

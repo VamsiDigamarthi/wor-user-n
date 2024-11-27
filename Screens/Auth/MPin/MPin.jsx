@@ -1,31 +1,28 @@
+import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { Image, View, StyleSheet } from "react-native";
-import BottomSheet from "../../../Utils/BottomSheet/BottomSheet";
-import Logo from "../../../Utils/Logo/Logo";
 import AuthScreenLayout from "../../../Layouts/AuthScreenLayout";
-import AadharVerificationCom from "../../../Components/Auth/AadharVerificationCom/AadharVerificationCom";
-import NewAadharVefirication from "../../../Components/Auth/NewAadharVerification/NewAadharVefirication";
+import Logo from "../../../Utils/Logo/Logo";
+import MPinRelatedUi from "../../../Components/Auth/MPinCom/MPinRelatedUi";
 
-const AadharVerification = ({ isPriceScreen }) => {
+const MPin = () => {
   return (
     <AuthScreenLayout>
       <View style={styles.container}>
         <View style={styles.logoContainer}>
           <Logo />
           <Image
-            source={require("../../../assets/images/5052617 2.png")}
+            source={require("../../../assets/images/undraw_two_factor_authentication_namy 2.png")}
             style={styles.image}
             resizeMode="contain"
           />
         </View>
-        {/* <AadharVerificationCom /> */}
-        <NewAadharVefirication isPriceScreen={isPriceScreen} />
+        <MPinRelatedUi />
       </View>
     </AuthScreenLayout>
   );
 };
 
-export default AadharVerification;
+export default MPin;
 
 const styles = StyleSheet.create({
   container: {
@@ -41,10 +38,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    padding: 12,
+    padding: 16,
   },
   image: {
-    width: "70%",
-    height: 200,
+    width: "80%",
   },
 });
