@@ -9,6 +9,8 @@ import { onProfileSection } from "../../../redux/Features/Auth/ProfileSlice";
 import { API } from "../../../Constants/url";
 import Toast from "react-native-toast-message";
 
+import messaging from "@react-native-firebase/messaging";
+
 export const useHomeHook = () => {
   const navigation = useNavigation();
   const { token } = useSelector((state) => state.token);
@@ -16,6 +18,7 @@ export const useHomeHook = () => {
   const [placeName, setPlaceName] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [nearbyPlaces, setNearbyPlaces] = useState([]);
+  const [fbToken, setFbToken] = useState("")
   // const [nearByRandomItems, setNearByRandomItems] = useState([]);
 
   // console.log("home screen", token);
@@ -77,10 +80,47 @@ export const useHomeHook = () => {
     }
   };
 
+  // Get the Firebase token for the device
+  async function getToken() {
+    const token = await messaging().getToken();
+    console.log("Device FCM Token:", token);
+    setFbToken(token)
+  }
+
+  const onAddedFbTokenToServer = async () => {
+    try {
+     await API.patch("/auth/fbtoken", {fbtoken : token},{
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      })
+      Toast.show({
+        text1: "fb-token-added successfully",
+        type: "success",
+        position: "bottom",
+      });
+    } catch (error) {
+      console.log(error?.response?.data?.message)
+      Toast.show({
+        text1:error?.response?.data?.message ?? "Failed to upload fbtoken",
+        type: "error",
+        position: "bottom",
+      });
+    }
+  }
   useEffect(() => {
-    onFetchActiveOrder();
-    onFetchFavoritePlaces();
-    onFetchPreviousOrders();
+    token && onAddedFbTokenToServer()
+  }, [token])
+
+  useEffect(() => {
+    async function allMix() {
+      onFetchActiveOrder();
+      onFetchFavoritePlaces();
+      onFetchPreviousOrders();
+      await getToken();
+    }
+    allMix()
   }, []);
 
   useEffect(() => {

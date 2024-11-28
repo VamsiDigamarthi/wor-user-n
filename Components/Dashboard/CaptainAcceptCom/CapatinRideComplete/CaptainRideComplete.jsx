@@ -1,13 +1,81 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React from "react";
-import { useRoute } from "@react-navigation/native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
+import {
+  CommonActions,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 import CaptainDetails from "../CaptainDetails/CaptainDetails";
 import RatingCard from "../RatingCard/RatingCard";
 import CaptainRideCompletePriceCard from "./CaptainRideCompletePriceCard";
-
+import Toast from "react-native-toast-message";
+import { API } from "../../../../Constants/url";
+import { useSelector } from "react-redux";
 const CaptainRideComplete = () => {
+  const { token } = useSelector((state) => state.token);
+  const navigation = useNavigation();
   const route = useRoute();
   const { orderDetails, travellingTimeAndDistnace } = route.params;
+  const [ratingData, setRatingData] = useState({
+    giveVehicleNumber: "yes",
+    reviewTest: "",
+    reviewRating: "",
+  });
+
+  const handleRatingChange = (key, value) => {
+    setRatingData((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
+
+  const onNavigateRatingScreen = () => {
+    console.log(ratingData);
+    try {
+      API.patch(`/user/review-order/${orderDetails?._id}`, ratingData, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      Toast.show({
+        text1: "review added successfully",
+        type: "success",
+        position: "bottom",
+      });
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0, // Ensures the specified route is the only route in the stack
+          routes: [{ name: "AuthenticatedStack" }], // Replace 'Home' with your target screen name
+        })
+      );
+    } catch (error) {
+      console.log(error?.response?.data?.message);
+      Toast.show({
+        text1: error?.response?.data?.message ?? "Post Review Failed",
+        type: "error",
+        position: "bottom",
+      });
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0, // Ensures the specified route is the only route in the stack
+          routes: [{ name: "AuthenticatedStack" }], // Replace 'Home' with your target screen name
+        })
+      );
+    }
+  };
+
+  // console.log(ratingData)
+
+  const onGoBacktoHomeScreen = () => {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0, // Ensures the specified route is the only route in the stack
+        routes: [{ name: "AuthenticatedStack" }], // Replace 'Home' with your target screen name
+      })
+    );
+  };
+
   return (
     <View style={styles.conatiner}>
       <ScrollView
@@ -25,21 +93,45 @@ const CaptainRideComplete = () => {
               was the vehicle number is correct
             </Text>
             <View style={{ flexDirection: "row", gap: 7 }}>
-              <Text
-                style={{ fontSize: 14, fontWeight: "600", color: "#e02e88" }}
+              <Pressable
+                onPress={() =>
+                  setRatingData((prev) => ({
+                    ...prev,
+                    giveVehicleNumber: "Yes",
+                  }))
+                }
               >
-                Yes
-              </Text>
-              <Text style={{ fontSize: 14, fontWeight: "600" }}>No</Text>
+                <Text
+                  style={{ fontSize: 14, fontWeight: "600", color: "#e02e88" }}
+                >
+                  Yes
+                </Text>
+              </Pressable>
+              <Pressable
+                onPress={() =>
+                  setRatingData((prev) => ({
+                    ...prev,
+                    giveVehicleNumber: "No",
+                  }))
+                }
+              >
+                <Text style={{ fontSize: 14, fontWeight: "600" }}>No</Text>
+              </Pressable>
             </View>
           </View>
         </View>
-        <RatingCard />
+        <RatingCard
+          handleRatingChange={handleRatingChange}
+          ratingData={ratingData}
+          onNavigateRatingScreen={onNavigateRatingScreen}
+        />
         <CaptainRideCompletePriceCard
           orderDetails={orderDetails}
           travellingTimeAndDistnace={travellingTimeAndDistnace}
         />
-        <Text style={styles.skip}>skip to home screen</Text>
+        <Pressable onPress={onGoBacktoHomeScreen}>
+          <Text style={styles.skip}>skip to home screen</Text>
+        </Pressable>
       </ScrollView>
     </View>
   );
