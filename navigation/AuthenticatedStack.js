@@ -59,7 +59,6 @@ import Coins from "../Screens/Dashboard/Donation/Coins";
 import DrawerFavorite from "../Screens/Dashboard/DrawerFavorite/DrawerFavorite";
 import ParcelSavePlaces from "../Screens/Parcels/ParcelSavePlaces/ParcelSavePlaces";
 
-
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -110,17 +109,23 @@ const DrawerNavigator = ({ route }) => {
           // Apply background color to the individual screens
           sceneContainerStyle: {
             backgroundColor: screenBackgroundColors[route.name] || null, // Fallback to white if no color found
+            
           },
-          drawerStyle:{
+          drawerStyle: {
+            width: 250,
+            borderTopRightRadius: 20,
             borderBottomRightRadius: 20,
-            borderTopRightRadius:20,
-            borderRightWidth:8,
-            borderColor:"#e02e88",
-          }
-
+            overflow:"hidden"
+            
+            // backgroundColor: "#fff", // Background color of the drawer
+            // borderRightWidth: 8, // Thickness of the right border
+            // borderColor: "#e02e88", // Pink border color
+          },
         }}
-        
       >
+
+
+        
         {/* Home Screen as default */}
         <Drawer.Screen name="Home" component={Home} />
       </Drawer.Navigator>
@@ -445,7 +450,6 @@ const AuthenticatedStack = () => {
         }
       />
 
-
       <Stack.Screen
         name="Coins"
         component={Coins}
@@ -453,8 +457,6 @@ const AuthenticatedStack = () => {
           getCommonOptions(navigation, "Your Coins", "#fff")
         }
       />
-
-
     </Stack.Navigator>
   );
 };
