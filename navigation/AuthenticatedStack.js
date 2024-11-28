@@ -59,6 +59,10 @@ import Coins from "../Screens/Dashboard/Donation/Coins";
 import DrawerFavorite from "../Screens/Dashboard/DrawerFavorite/DrawerFavorite";
 import ParcelSavePlaces from "../Screens/Parcels/ParcelSavePlaces/ParcelSavePlaces";
 
+import DashBoardAadharCard from "../Screens/Dashboard/ShowPrice/Screens/DashBoardAadharCard";
+import DashBoardMPinCard from "../Screens/Dashboard/ShowPrice/Screens/DashBoardMPinCard";
+
+
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -112,6 +116,7 @@ const DrawerNavigator = ({ route }) => {
             
           },
           drawerStyle: {
+
             width: 250,
             borderTopRightRadius: 20,
             borderBottomRightRadius: 20,
@@ -120,6 +125,11 @@ const DrawerNavigator = ({ route }) => {
             // backgroundColor: "#fff", // Background color of the drawer
             // borderRightWidth: 8, // Thickness of the right border
             // borderColor: "#e02e88", // Pink border color
+
+            borderBottomRightRadius: 20,
+            borderTopRightRadius: 20,
+            borderRightWidth: 8,
+            borderColor: "#e02e88",
           },
         }}
       >
@@ -356,6 +366,19 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="FullMapPreview"
         component={FullMapPreview}
+        options={{ headerShown: false }}
+      />
+
+      {/* extra */}
+      <Stack.Screen
+        name="DashBoardAadharCard"
+        component={DashBoardAadharCard}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="DashBoardMPinCard"
+        component={DashBoardMPinCard}
         options={{ headerShown: false }}
       />
 

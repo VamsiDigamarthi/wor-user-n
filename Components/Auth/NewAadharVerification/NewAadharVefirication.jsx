@@ -7,7 +7,7 @@ import AadharFrontBackImageCard from "../../../Utils/AadharFrontBackImageCard/Aa
 import { COLORS } from "../../../Constants/colors";
 import { useNewAadharVefiricationHook } from "./NewAadharVefirication.hook";
 
-const NewAadharVefirication = () => {
+const NewAadharVefirication = ({ isPriceScreen }) => {
   const {
     aadharNumber,
     handleInputChange,
@@ -21,6 +21,7 @@ const NewAadharVefirication = () => {
     onOtpVefirified,
     otpLoader,
   } = useNewAadharVefiricationHook();
+  // console.log(aadharVerified, otpVerified);
   return (
     <BottomLayout
       title="Aadhar Verification"
@@ -39,14 +40,17 @@ const NewAadharVefirication = () => {
         <NewAadharOtpCard
           onTextChange={onOtpChangehandle}
           aadharVerified={aadharVerified}
-          isEditable={aadharVerified}
+          isEditable={aadharVerified && !otpVerified ? true : false}
           otpLoader={otpLoader}
           onPress={onOtpVefirified}
         />
         <Text style={styles.uploadFrontBackImageCard}>
           Upload Aadhar Front/Back Images
         </Text>
-        <AadharFrontBackImageCard otpVerified={otpVerified} />
+        <AadharFrontBackImageCard
+          otpVerified={otpVerified}
+          isPriceScreen={isPriceScreen}
+        />
       </View>
     </BottomLayout>
   );

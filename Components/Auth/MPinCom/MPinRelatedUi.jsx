@@ -1,0 +1,198 @@
+import { StyleSheet, Text, TextInput, View, Alert } from "react-native";
+import React, { useState, useRef } from "react";
+import BottomLayout from "../../../Layouts/BottomLayout";
+import { COLORS } from "../../../Constants/colors";
+import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Toast from "react-native-toast-message";
+import { API } from "../../../Constants/url";
+import { useNavigation } from "@react-navigation/native";
+const MPinRelatedUi = ({ isPriceScreen }) => {
+  const [mPin, setMPin] = useState(["", "", "", ""]);
+  const [reEnterMPin, setReEnterMPin] = useState(["", "", "", ""]);
+  const [error, setError] = useState("");
+  const [reEnterError, setReEnterError] = useState("");
+  const navigation = useNavigation();
+
+  // Create refs for each set of TextInputs
+  const inputRefs = useRef([]);
+  const reEnterInputRefs = useRef([]);
+
+  const handleChange = (value, index, setPin, pinState, refs) => {
+    const newPin = [...pinState];
+
+    // Update the pin value and move focus forward or backward
+    if (value) {
+      newPin[index] = value;
+      setPin(newPin);
+      if (index < refs.current.length - 1) {
+        refs.current[index + 1].focus(); // Move to next input
+      }
+    } else {
+      newPin[index] = "";
+      setPin(newPin);
+      if (index > 0) {
+        refs.current[index - 1].focus(); // Move to previous input
+      }
+    }
+  };
+
+  const isValidMPin = (pinArray) => {
+    // Check if all fields are filled and no digits are repeated
+    const uniqueDigits = new Set(pinArray);
+    return uniqueDigits.size === pinArray.length && !pinArray.includes("");
+  };
+
+  const handleSubmit = async () => {
+    const token = await AsyncStorage.getItem("token");
+    let valid = true;
+
+    // Reset errors before checking
+    setError("");
+    setReEnterError("");
+
+    // Validate M-PIN
+    if (mPin.includes("")) {
+      setError("Please enter a complete M-PIN.");
+      valid = false;
+    } else if (!isValidMPin(mPin)) {
+      setError("M-PIN must contain unique digits.");
+      valid = false;
+    }
+
+    if (reEnterMPin.includes("")) {
+      setReEnterError("Please re-enter the M-PIN.");
+      valid = false;
+    } else if (!isValidMPin(reEnterMPin)) {
+      setReEnterError("Re-entered M-PIN must contain unique digits.");
+      valid = false;
+    } else if (mPin.join("") !== reEnterMPin.join("")) {
+      setReEnterError("M-PINs do not match.");
+      valid = false;
+    }
+
+    if (valid) {
+      try {
+        await API.patch(
+          "/user/m-pin",
+          {
+            mpin: mPin.join(""),
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${JSON.parse(token)}`,
+            },
+          }
+        );
+        Toast.show({
+          text1: "M-Pin added Successfully",
+          type: "success",
+          position: "bottom",
+        });
+        if (isPriceScreen) {
+          navigation.goBack();
+        } else {
+          navigation.navigate("AuthenticatedStack");
+        }
+      } catch (error) {
+        Toast.show({
+          text1: "SET M-PIN failed",
+          type: "error",
+          position: "bottom",
+        });
+      }
+    }
+  };
+
+  const renderInputBoxes = (pinState, setPin, refs) => {
+    return (
+      <View style={styles.inputContainer}>
+        {pinState.map((digit, index) => (
+          <TextInput
+            key={index}
+            style={styles.inputBox}
+            maxLength={1}
+            keyboardType="numeric"
+            value={digit}
+            onChangeText={(value) =>
+              handleChange(value, index, setPin, pinState, refs)
+            }
+            ref={(el) => (refs.current[index] = el)} // Assign refs to inputs
+          />
+        ))}
+      </View>
+    );
+  };
+
+  return (
+    <BottomLayout
+      title="Enter Your Mobile Number"
+      subTitle="By entering your mobile number, you agree it will be used for verification and updates."
+    >
+      <View style={styles.container}>
+        <Text style={styles.mpin}>Enter M-PIN</Text>
+        <Text style={styles.mpinsub}>
+          Set your 4 digit M-PIN number for security.
+        </Text>
+        {error && <Text style={styles.error}>{error}</Text>}
+        {renderInputBoxes(mPin, setMPin, inputRefs)}
+
+        <Text style={styles.mpin}>Re-Enter M-PIN</Text>
+        {reEnterError && <Text style={styles.error}>{reEnterError}</Text>}
+        {renderInputBoxes(reEnterMPin, setReEnterMPin, reEnterInputRefs)}
+
+        <CustomBtn
+          title="Continue"
+          btnBg={
+            mPin.join("")?.length === 4 && reEnterMPin.join("")?.length === 4
+              ? "#e02e88"
+              : "#fff"
+          }
+          btnColor={
+            mPin.join("")?.length === 4 && reEnterMPin.join("")?.length === 4
+              ? "#fff"
+              : "#e02e88"
+          }
+          onPress={handleSubmit}
+        />
+      </View>
+    </BottomLayout>
+  );
+};
+
+export default MPinRelatedUi;
+
+const styles = StyleSheet.create({
+  container: {
+    gap: 8,
+  },
+  mpin: {
+    fontSize: 15,
+    fontWeight: "600",
+    color: COLORS.heading,
+  },
+  mpinsub: {
+    color: COLORS.subHeading,
+    fontSize: 11,
+  },
+  inputContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 20,
+  },
+  inputBox: {
+    width: 50,
+    height: 50,
+    borderRadius: 10,
+    borderColor: COLORS.border,
+    textAlign: "center",
+    fontSize: 18,
+    backgroundColor: "#fff",
+    elevation: 1,
+  },
+  error: {
+    fontSize: 10,
+    color: "red",
+  },
+});
