@@ -12,6 +12,7 @@ import SendAndReceiveParcelPicDropCard from "../../../Components/Parcels/SendAnd
 import SelectParcelType from "../../../Components/Parcels/SendAndReceiveParcelCom/SelectParcelType/SelectParcelType";
 import ParcelSpecification from "../../../Components/Parcels/SendAndReceiveParcelCom/ParcelSpecification/ParcelSpecification";
 import { useParcelHomeHook } from "./ParcelHome.hook";
+import ParcelOrderSummary from "../ParcelOrderSummary/ParcelOrderSummary";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -44,8 +45,9 @@ const ParcelHome = () => {
               pickUpLocationCoorWithName={pickUpLocation}
               dropLocationCoorWithName={dropLocation}
             />
-            <SelectParcelType />
-            <ParcelSpecification />
+            {/* <SelectParcelType /> */}
+            {/* <ParcelSpecification /> */}
+            <ParcelOrderSummary/>
           </>
         ) : (
           <Image

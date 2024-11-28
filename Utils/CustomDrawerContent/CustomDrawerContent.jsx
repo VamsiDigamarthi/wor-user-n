@@ -1,20 +1,18 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  ScrollView,
-  Pressable,
-} from "react-native";
+import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { Ionicons, FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 import { imageUrl } from "../../Constants/url";
 
 const CustomDrawerContent = (props) => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(true); // Track drawer open/close
   const [selectedItem, setSelectedItem] = useState("");
   const { profile } = useSelector((state) => state.profileSlice);
+
+  const toggleDrawer = () => {
+    setIsDrawerOpen(!isDrawerOpen); // Toggle drawer state
+  };
 
   const handleItemPress = (itemName) => {
     setSelectedItem(itemName); // Set selected item
@@ -36,33 +34,86 @@ const CustomDrawerContent = (props) => {
   };
 
   return (
-    <DrawerContentScrollView
-      
-      {...props}
-      contentContainerStyle={styles.drawerContent}
-      style={styles.drawer} // Ensure the scroll view fills the screen
-    >
-      {/* Profile Header */}
-      <View style={[styles.headerContainer , {borderTopRightRadius:20}]}>
-        <Image source={{ uri: image }} style={styles.profilePic} />
-        <Text style={styles.profileName}>{profile?.name}</Text>
+    <View style={{ flex: 1 }}>
+      {/* Drawer Toggle Vector */}
+      <Pressable
+        // onPress={toggleDrawer}
+        style={{
+          position: "absolute",
+          height: 40,
+          width: 40,
+          top: 40,
+          right: isDrawerOpen ? 0 : -40, // Adjust placement based on drawer state
+          zIndex: 15,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#e02e88",
+          borderTopLeftRadius: 16,
+          borderBottomLeftRadius: 16,
+          elevation: 5,
+          
+          flexDirection:"row"
+        }}
+      >
+        <Ionicons
+          // name={isDrawerOpen ? "chevron-back" : "chevron-forward"}
+          name="chevron-back"
+          size={20}
+          color="#fff"
+        />
+        <Ionicons
+        name="chevron-forward"
+          // name={isDrawerOpen ? "chevron-back" : "chevron-forward"}
+          size={20}
+          color="#fff"
+        />
+      </Pressable>
+
+      {/* Fixed Pink View with Border Radius */}
+      {isDrawerOpen && (
         <View
           style={{
-            flexDirection: "row",
-            gap: 5,
-            paddingTop: 5,
-            alignItems: "center",
+            position: "absolute",
+            height: "100%",
+            backgroundColor: "#e02e88",
+            width: 12,
+            right: 0,
+            overflow: "hidden",
+            borderTopRightRadius: 16,
+            borderBottomRightRadius: 16,
+            zIndex: 10,
           }}
-        >
-          <FontAwesome name="star" size={20} color="gold" />
-          <Pressable onPress={onNavigateRatingScreen}>
-            <Text style={styles.profileEmail}>4.5</Text>
-          </Pressable>
-        </View>
-      </View>
+        />
+      )}
 
-      {/* Drawer Items */}
-      <View style={[styles.drawerItemsContainer]}>
+      {/* Scrollable Drawer Content */}
+      <DrawerContentScrollView
+        {...props}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.drawerContent}
+        style={styles.drawer}
+      >
+        {/* Profile Header */}
+        <View style={[styles.headerContainer, { borderTopRightRadius: 20 }]}>
+          <Image source={{ uri: image }} style={styles.profilePic} />
+          <Text style={styles.profileName}>{profile?.name}</Text>
+          <View
+            style={{
+              flexDirection: "row",
+              gap: 5,
+              paddingTop: 5,
+              alignItems: "center",
+            }}
+          >
+            <FontAwesome name="star" size={20} color="gold" />
+            <Pressable onPress={onNavigateRatingScreen}>
+              <Text style={styles.profileEmail}>4.5</Text>
+            </Pressable>
+          </View>
+        </View>
+
+        {/* Drawer Items */}
+        <View style={[styles.drawerItemsContainer]}>
         <DrawerItem
           label="Wallet"
           icon={() => <Ionicons name="wallet-outline" size={22} color="gray" />}
@@ -187,26 +238,26 @@ const CustomDrawerContent = (props) => {
           labelStyle={styles.logoutLabel}
         />
       </View> */}
-    </DrawerContentScrollView>
+      </DrawerContentScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   drawer: {
-    flex: 1, // Ensure it fills the screen and allows scrolling
+    flex: 1,
   },
   drawerContent: {
-    paddingTop: 0, // Remove any top padding to eliminate white space
+    paddingTop: 0,
   },
   headerContainer: {
     backgroundColor: "#fff5f9",
-    paddingHorizontal: 20,
     paddingBottom: 30,
-    paddingTop: 30,
     alignItems: "center",
     justifyContent: "center",
     borderBottomWidth: 1,
     borderBottomColor: "#e0e0e0",
+    width: "100%",
   },
   profilePic: {
     width: 80,
@@ -226,18 +277,10 @@ const styles = StyleSheet.create({
     color: "#777",
   },
   drawerItemsContainer: {
-    marginTop: 0, // Ensure no extra margin between items
+    marginTop: 0,
   },
   labelStyle: {
-    marginLeft: -10, // Decrease space between icon and label by 10px
-  },
-  logoutContainer: {
-    marginTop: "auto", // Place the logout button at the bottom
-    borderTopWidth: 1,
-    borderTopColor: "#e0e0e0",
-  },
-  logoutLabel: {
-    color: "red",
+    marginLeft: -10,
   },
 });
 
