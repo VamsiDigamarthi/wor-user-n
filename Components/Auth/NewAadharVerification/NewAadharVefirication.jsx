@@ -20,7 +20,6 @@ const NewAadharVefirication = ({ isPriceScreen }) => {
     onOtpChangehandle,
     onOtpVefirified,
     otpLoader,
-    // isPriceScrn,
   } = useNewAadharVefiricationHook();
   // console.log(aadharVerified, otpVerified);
   return (

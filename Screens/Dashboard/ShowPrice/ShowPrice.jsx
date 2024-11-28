@@ -1,4 +1,11 @@
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import React from "react";
 import ShowPickDropCard from "../../../Components/Dashboard/ShowPrices/ShowPickDropCard/ShowPickDropCard";
 import ShowVehicle from "../../../Components/Dashboard/ShowPrices/ShowVehicle/ShowVehicle";
@@ -7,6 +14,7 @@ import { useShowPriceHook } from "./ShowPrice.hook.js";
 import ShowPollyLine from "../../../Components/Dashboard/ShowPrices/ShowPollyLine/ShowPollyLine.jsx";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import ModalUI from "../../../Utils/Modal/Modal.jsx";
+import { COLORS } from "../../../Constants/colors.js";
 
 const ShowPrice = () => {
   const {
@@ -26,6 +34,13 @@ const ShowPrice = () => {
     onChangeRideBookBeforeCheckPinAddharHandler,
     profile,
     onNavigateAadharUploadUi,
+    onMpinScreen,
+    isOpenEnterConfirmMPinModal,
+    onOpenIsEnterConfirmPinModal,
+    handleChange,
+    inputRefs,
+    mPin,
+    mPinError,
   } = useShowPriceHook();
 
   let shoRightIcons = false;
@@ -35,7 +50,7 @@ const ShowPrice = () => {
 
   const maxDate = new Date();
   maxDate.setDate(currentDate.getDate() + 7);
-
+  // console.log(profile);
   return (
     <View style={styles.container}>
       <View style={styles.mapContainer}>
@@ -145,7 +160,7 @@ const ShowPrice = () => {
         openCloseState={rideBookBeforeCheckMPinAddhar}
         closeModalFun={onChangeRideBookBeforeCheckPinAddharHandler}
       >
-        {!profile?.aadhr && (
+        {profile?.adhar === null && (
           <Pressable onPress={onNavigateAadharUploadUi}>
             <Text>
               Your not set Aadhar please set Aadhar first to book ride
@@ -153,10 +168,32 @@ const ShowPrice = () => {
           </Pressable>
         )}
         {!profile?.mpin && (
-          <Pressable>
+          <Pressable onPress={onMpinScreen}>
             <Text>Your not set MPIN please set M-pin first to book ride </Text>
           </Pressable>
         )}
+      </ModalUI>
+      <ModalUI
+        openCloseState={isOpenEnterConfirmMPinModal}
+        closeModalFun={onOpenIsEnterConfirmPinModal}
+      >
+        <View style={{ gap: 10 }}>
+          <Text>Enter M-Pin</Text>
+          {mPinError && <Text style={styles.error}>{mPinError}</Text>}
+          <View style={styles.inputContainer}>
+            {mPin.map((digit, index) => (
+              <TextInput
+                key={index}
+                style={styles.inputBox}
+                maxLength={1}
+                keyboardType="numeric"
+                value={digit}
+                onChangeText={(value) => handleChange(value, index)}
+                ref={(el) => (inputRefs.current[index] = el)} // Assign refs to inputs
+              />
+            ))}
+          </View>
+        </View>
       </ModalUI>
     </View>
   );
@@ -258,5 +295,25 @@ const styles = StyleSheet.create({
   errorMsg: {
     color: "red",
     fontSize: 14,
+  },
+  inputContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 20,
+    width: "100%",
+  },
+  inputBox: {
+    width: 50,
+    height: 50,
+    borderRadius: 10,
+    borderColor: COLORS.border,
+    textAlign: "center",
+    fontSize: 18,
+    backgroundColor: "#fff",
+    elevation: 1,
+  },
+  error: {
+    fontSize: 10,
+    color: "red",
   },
 });

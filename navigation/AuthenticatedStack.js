@@ -59,7 +59,7 @@ import Coins from "../Screens/Dashboard/Donation/Coins";
 import DrawerFavorite from "../Screens/Dashboard/DrawerFavorite/DrawerFavorite";
 import ParcelSavePlaces from "../Screens/Parcels/ParcelSavePlaces/ParcelSavePlaces";
 import DashBoardAadharCard from "../Screens/Dashboard/ShowPrice/Screens/DashBoardAadharCard";
-
+import DashBoardMPinCard from "../Screens/Dashboard/ShowPrice/Screens/DashBoardMPinCard";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -112,15 +112,13 @@ const DrawerNavigator = ({ route }) => {
           sceneContainerStyle: {
             backgroundColor: screenBackgroundColors[route.name] || null, // Fallback to white if no color found
           },
-          drawerStyle:{
+          drawerStyle: {
             borderBottomRightRadius: 20,
-            borderTopRightRadius:20,
-            borderRightWidth:8,
-            borderColor:"#e02e88",
-          }
-
+            borderTopRightRadius: 20,
+            borderRightWidth: 8,
+            borderColor: "#e02e88",
+          },
         }}
-        
       >
         {/* Home Screen as default */}
         <Drawer.Screen name="Home" component={Home} />
@@ -363,6 +361,12 @@ const AuthenticatedStack = () => {
       />
 
       <Stack.Screen
+        name="DashBoardMPinCard"
+        component={DashBoardMPinCard}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
         name="ProfileDocumentScreen"
         component={ProfileDocumentScreen}
         options={({ navigation }) =>
@@ -453,7 +457,6 @@ const AuthenticatedStack = () => {
         }
       />
 
-
       <Stack.Screen
         name="Coins"
         component={Coins}
@@ -461,8 +464,6 @@ const AuthenticatedStack = () => {
           getCommonOptions(navigation, "Your Coins", "#fff")
         }
       />
-
-
     </Stack.Navigator>
   );
 };
