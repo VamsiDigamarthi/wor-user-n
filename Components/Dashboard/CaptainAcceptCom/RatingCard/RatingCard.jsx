@@ -3,24 +3,25 @@ import React, { useState } from "react";
 import { TextInput } from "react-native-gesture-handler";
 import CustomBtn from "../../../../Utils/CustomBtn/CustomBtn";
 import { Ionicons } from "@expo/vector-icons";
-const RatingCard = () => {
-  const [rating, setRating] = useState(0); // state to track the selected rating (0 to 5)
-
-  // Function to handle star press
-  const handleStarPress = (selectedRating) => {
-    setRating(selectedRating);
-  };
+const RatingCard = ({
+  handleRatingChange,
+  ratingData,
+  onNavigateRatingScreen,
+}) => {
   return (
     <View style={styles.container}>
       <View style={styles.starCard}>
         <Text>Rating the Rider</Text>
         <View style={styles.starContainer}>
           {[1, 2, 3, 4, 5].map((star) => (
-            <TouchableOpacity key={star} onPress={() => handleStarPress(star)}>
+            <TouchableOpacity
+              key={star}
+              onPress={() => handleRatingChange("reviewRating", star)}
+            >
               <Ionicons
                 name="star"
                 size={30}
-                color={star <= rating ? "#e02e88" : "#ccc"} // Change star color based on rating
+                color={star <= ratingData?.reviewRating ? "#e02e88" : "#ccc"} // Change star color based on rating
                 style={styles.star}
               />
             </TouchableOpacity>
@@ -28,7 +29,12 @@ const RatingCard = () => {
         </View>
         <View style={styles.starContainerInputCard}>
           {/* start place */}
-          <TextInput style={styles.inputCard} placeholder="Share Experience" />
+          <TextInput
+            value={ratingData?.reviewTest}
+            onChangeText={(value) => handleRatingChange("reviewTest", value)}
+            style={styles.inputCard}
+            placeholder="Share Experience"
+          />
         </View>
       </View>
       <View style={styles.btnThankCard}>
@@ -37,6 +43,7 @@ const RatingCard = () => {
           btnBg="#e02088"
           btnColor="#fff"
           width="60%"
+          onPress={onNavigateRatingScreen}
         />
         <Text style={styles.thankyou}>Thanks for choosing us.</Text>
       </View>

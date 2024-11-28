@@ -50,13 +50,7 @@ async function requestUserPermission() {
 }
 
 
-// Get the Firebase token for the device
-async function getToken() {
-  const token = await messaging().getToken();
-  console.log("Device FCM Token:", token);
 
-
-}
 
 // Handle foreground notifications
 messaging().onMessage(async (remoteMessage) => {
@@ -89,7 +83,7 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
 // Initialize permissions and token fetching
 async function initializeNotifications() {
   await requestUserPermission();
-  await getToken();
+  
 }
 
 initializeNotifications();

@@ -66,7 +66,9 @@ export const useShowPriceHook = () => {
       },
     })
       .then((res) => {
-        // console.log(res.data?.order);
+        console.log("success")
+        console.log(res.data?.order);
+        console.log(res.data?.message);
         onOpenIsEnterConfirmPinModal();
         navigation.navigate("lookingforride", {
           price: beforeOrder.price,
@@ -78,7 +80,8 @@ export const useShowPriceHook = () => {
         });
       })
       .catch((e) => {
-        console.log(e);
+
+        console.log("failure");
         console.log(e.response?.data?.message);
         setApisError(e.response?.data?.message);
       });
