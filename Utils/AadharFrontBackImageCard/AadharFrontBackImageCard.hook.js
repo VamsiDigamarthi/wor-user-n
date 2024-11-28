@@ -5,7 +5,7 @@ import Toast from "react-native-toast-message";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API } from "../../Constants/url";
 import { useNavigation } from "@react-navigation/native";
-export const useAadharFrontBackImageCardHook = () => {
+export const useAadharFrontBackImageCardHook = ({ isPriceScreen }) => {
   const [frontImage, setFrontImage] = useState(null);
   const [backImage, setBackImage] = useState(null);
   const [showErrorMessage, setShowErrorMessage] = useState("");
@@ -83,7 +83,11 @@ export const useAadharFrontBackImageCardHook = () => {
         type: "success",
         position: "bottom",
       });
-      navigation.navigate("documentCheck");
+      if (isPriceScreen) {
+        navigation.goBack();
+      } else {
+        navigation.navigate("documentCheck");
+      }
     } catch (error) {
       console.log(error?.response);
       Toast.show({

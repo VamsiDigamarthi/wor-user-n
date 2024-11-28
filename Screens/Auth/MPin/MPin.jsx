@@ -4,7 +4,7 @@ import AuthScreenLayout from "../../../Layouts/AuthScreenLayout";
 import Logo from "../../../Utils/Logo/Logo";
 import MPinRelatedUi from "../../../Components/Auth/MPinCom/MPinRelatedUi";
 
-const MPin = () => {
+const MPin = ({ isPriceScreen }) => {
   return (
     <AuthScreenLayout>
       <View style={styles.container}>
@@ -16,7 +16,7 @@ const MPin = () => {
             resizeMode="contain"
           />
         </View>
-        <MPinRelatedUi />
+        <MPinRelatedUi isPriceScreen={isPriceScreen} />
       </View>
     </AuthScreenLayout>
   );

@@ -6,6 +6,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Provider } from "react-redux";
 import Toast from "react-native-toast-message";
 import store from "./redux/store";
+
 import messaging from "@react-native-firebase/messaging";
 import * as Notifications from "expo-notifications";
 
@@ -48,10 +49,13 @@ async function requestUserPermission() {
   }
 }
 
+
 // Get the Firebase token for the device
 async function getToken() {
   const token = await messaging().getToken();
   console.log("Device FCM Token:", token);
+
+
 }
 
 // Handle foreground notifications
@@ -89,6 +93,7 @@ async function initializeNotifications() {
 }
 
 initializeNotifications();
+
 
 export default function App() {
   return (

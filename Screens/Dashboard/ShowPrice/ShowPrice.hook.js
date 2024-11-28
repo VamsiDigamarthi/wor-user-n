@@ -3,7 +3,7 @@ import {
   useNavigation,
   useRoute,
 } from "@react-navigation/native";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   formatToIndiaISO,
   haversineDistance,
@@ -20,6 +20,113 @@ export const useShowPriceHook = () => {
     useState(false);
   const onChangeRideBookBeforeCheckPinAddharHandler = () => {
     setRideBookBeforeCheckPinAddhar(!rideBookBeforeCheckMPinAddhar);
+  };
+  const [isOpenEnterConfirmMPinModal, setIsOpenEnterConfirmMPinModal] =
+    useState(false);
+
+  const onOpenIsEnterConfirmPinModal = () => {
+    setIsOpenEnterConfirmMPinModal(!isOpenEnterConfirmMPinModal);
+  };
+  const [mPin, setMPin] = useState(["", "", "", ""]);
+  const inputRefs = useRef([]);
+  const [mPinError, setMPinError] = useState("");
+
+  const onFinalPlaceOrder = () => {
+    console.log("onFinalPlaceOrder");
+    const indiaDateTime = new Date().toLocaleString("en-IN", {
+      timeZone: "Asia/Kolkata",
+    });
+    const datePart = indiaDateTime.split(",")[0];
+    const [day, month, year] = datePart.split("/");
+    const formattedDate = `${day}-${month}-${year}`;
+    const timePart = indiaDateTime.split(",")[1].trim();
+
+    const formattedTime = timePart;
+    console.log(timePart);
+
+    const orderDetails = {
+      vehicleType: selectedVehicle,
+      price: beforeOrder.price,
+      orderPlaceDate: formattedDate,
+      orderPlaceTime: formattedTime,
+      pickupLangitude: pickUpCoordinated?.lat,
+      pickupLongitude: pickUpCoordinated?.lng,
+      dropLangitude: dropDetails?.location?.lat,
+      dropLongitude: dropDetails?.location?.lng,
+      pickupAddress: placeName,
+      dropAddress: dropDetails?.name,
+      dropVicinity: dropDetails?.vicinity,
+      time: isDateTimeData ?? null,
+    };
+
+    API.post("/user/placed-order", orderDetails, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        // console.log(res.data?.order);
+        onOpenIsEnterConfirmPinModal();
+        navigation.navigate("lookingforride", {
+          price: beforeOrder.price,
+          vehicleType: selectedVehicle,
+          placeName,
+          dropAddress: dropDetails,
+          pickUpCoordinated,
+          orderId: res?.data?.order?._id,
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+        console.log(e.response?.data?.message);
+        setApisError(e.response?.data?.message);
+      });
+  };
+
+  const onCheckMyPinCorrectOrWrong = async (newPin) => {
+    try {
+      await API.patch(
+        "/user/check-mpin",
+        {
+          mpin: newPin?.join(""),
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      onFinalPlaceOrder();
+    } catch (error) {
+      console.log(error?.response?.data);
+      setMPinError(error?.response?.data?.message);
+    }
+  };
+
+  const handleChange = (value, index) => {
+    const newPin = [...mPin];
+
+    // If value is not empty, update and move forward
+    if (value) {
+      newPin[index] = value;
+      setMPin(newPin);
+      if (index < inputRefs.current.length - 1) {
+        inputRefs.current[index + 1].focus(); // Move to the next input
+      }
+
+      if (index === inputRefs.current.length - 1) {
+        onCheckMyPinCorrectOrWrong(newPin);
+      }
+    } else {
+      // If value is empty (backspace), move backward and clear the current input
+      newPin[index] = "";
+      setMPin(newPin);
+      if (index > 0) {
+        inputRefs.current[index - 1].focus(); // Move to the previous input
+      }
+    }
   };
 
   const { token } = useSelector((state) => state.token);
@@ -84,7 +191,7 @@ export const useShowPriceHook = () => {
   }, [pickUpCoordinated, dropDetails]);
 
   const onPlaceTheOrder = () => {
-    if (!profile?.mpin && !profile?.adhar) {
+    if (profile?.mpin === null || profile?.adhar === null) {
       onChangeRideBookBeforeCheckPinAddharHandler();
       return;
     }
@@ -93,53 +200,11 @@ export const useShowPriceHook = () => {
       setApisError("Please select a vehicle");
       return;
     }
-    const indiaDateTime = new Date().toLocaleString("en-IN", {
-      timeZone: "Asia/Kolkata",
-    });
-    const datePart = indiaDateTime.split(",")[0];
-    const [day, month, year] = datePart.split("/");
-    const formattedDate = `${day}-${month}-${year}`;
-    const timePart = indiaDateTime.split(",")[1].trim();
 
-    const formattedTime = timePart;
-    console.log(timePart);
-
-    const orderDetails = {
-      vehicleType: selectedVehicle,
-      price: beforeOrder.price,
-      orderPlaceDate: formattedDate,
-      orderPlaceTime: formattedTime,
-      pickupLangitude: pickUpCoordinated?.lat,
-      pickupLongitude: pickUpCoordinated?.lng,
-      dropLangitude: dropDetails?.location?.lat,
-      dropLongitude: dropDetails?.location?.lng,
-      pickupAddress: placeName,
-      dropAddress: dropDetails?.name,
-      dropVicinity: dropDetails?.vicinity,
-    };
-
-    API.post("/user/placed-order", orderDetails, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        // console.log(res.data?.order);
-        navigation.navigate("lookingforride", {
-          price: beforeOrder.price,
-          vehicleType: selectedVehicle,
-          placeName,
-          dropAddress: dropDetails,
-          pickUpCoordinated,
-          orderId: res?.data?.order?._id,
-        });
-      })
-      .catch((e) => {
-        console.log(e);
-        console.log(e.response?.data?.message);
-        setApisError(e.response?.data?.message);
-      });
+    if (!isOpenEnterConfirmMPinModal) {
+      onOpenIsEnterConfirmPinModal();
+      return;
+    }
   };
 
   const onHandleTimeValueHandler = (date) => {
@@ -157,6 +222,12 @@ export const useShowPriceHook = () => {
 
   const onNavigateAadharUploadUi = () => {
     navigation.navigate("DashBoardAadharCard", {
+      isPriceScreen: true,
+    });
+  };
+
+  const onMpinScreen = () => {
+    navigation.navigate("DashBoardMPinCard", {
       isPriceScreen: true,
     });
   };
@@ -180,5 +251,13 @@ export const useShowPriceHook = () => {
     onChangeRideBookBeforeCheckPinAddharHandler,
     profile,
     onNavigateAadharUploadUi,
+    onMpinScreen,
+    // confirm mpin
+    isOpenEnterConfirmMPinModal,
+    onOpenIsEnterConfirmPinModal,
+    handleChange,
+    inputRefs,
+    mPin,
+    mPinError,
   };
 };

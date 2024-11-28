@@ -7,7 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Toast from "react-native-toast-message";
 import { API } from "../../../Constants/url";
 import { useNavigation } from "@react-navigation/native";
-const MPinRelatedUi = () => {
+const MPinRelatedUi = ({ isPriceScreen }) => {
   const [mPin, setMPin] = useState(["", "", "", ""]);
   const [reEnterMPin, setReEnterMPin] = useState(["", "", "", ""]);
   const [error, setError] = useState("");
@@ -90,7 +90,11 @@ const MPinRelatedUi = () => {
           type: "success",
           position: "bottom",
         });
-        navigation.navigate("AuthenticatedStack");
+        if (isPriceScreen) {
+          navigation.goBack();
+        } else {
+          navigation.navigate("AuthenticatedStack");
+        }
       } catch (error) {
         Toast.show({
           text1: "SET M-PIN failed",
