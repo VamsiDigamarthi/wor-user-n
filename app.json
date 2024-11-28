@@ -16,7 +16,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/wor png.png",
+        "foregroundImage": "./assets/finallogo.png",
         "backgroundColor": "#ffffff"
       },
       "permissions": [

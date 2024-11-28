@@ -61,7 +61,7 @@ async function getToken() {
 // Handle foreground notifications
 messaging().onMessage(async (remoteMessage) => {
   console.log("Message received in foreground!", remoteMessage);
-
+  
   // Show notification using Expo Notifications
   await Notifications.scheduleNotificationAsync({
     content: {
