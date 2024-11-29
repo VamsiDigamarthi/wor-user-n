@@ -61,7 +61,7 @@ import ParcelSavePlaces from "../Screens/Parcels/ParcelSavePlaces/ParcelSavePlac
 
 import DashBoardAadharCard from "../Screens/Dashboard/ShowPrice/Screens/DashBoardAadharCard";
 import DashBoardMPinCard from "../Screens/Dashboard/ShowPrice/Screens/DashBoardMPinCard";
-
+import EmergencyContactNumber from "../Screens/Dashboard/ProfileScreen/Screens/EmergencyContactNumber/EmergencyContactNumber";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -113,15 +113,13 @@ const DrawerNavigator = ({ route }) => {
           // Apply background color to the individual screens
           sceneContainerStyle: {
             backgroundColor: screenBackgroundColors[route.name] || null, // Fallback to white if no color found
-            
           },
           drawerStyle: {
-
             width: 250,
             borderTopRightRadius: 20,
             borderBottomRightRadius: 20,
-            overflow:"hidden"
-            
+            overflow: "hidden",
+
             // backgroundColor: "#fff", // Background color of the drawer
             // borderRightWidth: 8, // Thickness of the right border
             // borderColor: "#e02e88", // Pink border color
@@ -133,9 +131,6 @@ const DrawerNavigator = ({ route }) => {
           },
         }}
       >
-
-
-        
         {/* Home Screen as default */}
         <Drawer.Screen name="Home" component={Home} />
       </Drawer.Navigator>
@@ -242,6 +237,14 @@ const AuthenticatedStack = () => {
         component={SafetyHome}
         options={({ navigation }) =>
           getCommonOptions(navigation, "Safety & Privacy", "#fff")
+        }
+      />
+
+      <Stack.Screen
+        name="EmergencyContactNumber"
+        component={EmergencyContactNumber}
+        options={({ navigation }) =>
+          getCommonOptions(navigation, "Emergency Contact Number", "#fff")
         }
       />
 

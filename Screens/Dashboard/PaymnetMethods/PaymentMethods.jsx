@@ -4,6 +4,8 @@ import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
 import PaymentMethodCard from "../../../Components/Dashboard/PaymentMethodsCom/PaymentMethodCard/PaymentMethodCard";
 import PaymnetItems from "./PaymentItems/PaymnetItems";
 import AddPaymnetCard from "./AddPaymnetCard/AddPaymnetCard";
+import WalletFirstCard from "../Wallet/WalletFirstCard";
+import WalletMoneyCard from "../Wallet/WalletMoneyCard";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -56,22 +58,13 @@ const PaymentMethods = () => {
         }}
         showsVerticalScrollIndicator={false}
       >
-        <PaymentMethodCard titles="Payment Option">
-          <PaymnetItems
-            title="Cash Payment"
-            iconsText="MaterialCommunityIcons"
-            iconName="cash-multiple"
-            isChecked={checkedItems.cashPayment}
-            onToggle={() => handleToggle("cashPayment")}
-          />
-          <PaymnetItems
-            title="Net Banking"
-            iconsText="MaterialCommunityIcons"
-            iconName="bank-transfer"
-            isChecked={checkedItems.netBanking}
-            onToggle={() => handleToggle("netBanking")}
-          />
-        </PaymentMethodCard>
+        <WalletFirstCard />
+        <WalletMoneyCard
+          isHeightChange={35}
+          isOpenAddMoney={true}
+          isCheckBox={true}
+        />
+
         <PaymentMethodCard titles="UPI">
           <PaymnetItems
             title="Google Pay"
@@ -89,7 +82,30 @@ const PaymentMethods = () => {
           />
           <AddPaymnetCard title="Add New UPI ID" />
         </PaymentMethodCard>
-        <PaymentMethodCard titles="Credit & Debit Cards">
+        <PaymentMethodCard titles="Other Payment">
+          <PaymnetItems
+            title="Cash Payment"
+            iconsText="MaterialCommunityIcons"
+            iconName="cash-multiple"
+            isChecked={checkedItems.cashPayment}
+            onToggle={() => handleToggle("cashPayment")}
+          />
+          {/* <PaymnetItems
+            title="Net Banking"
+            iconsText="MaterialCommunityIcons"
+            iconName="bank-transfer"
+            isChecked={checkedItems.netBanking}
+            onToggle={() => handleToggle("netBanking")}
+          /> */}
+          <PaymnetItems
+            title="Pay at Drop"
+            iconsText="MaterialCommunityIcons"
+            iconName="bank-transfer"
+            isChecked={checkedItems.netBanking}
+            // onToggle={() => handleToggle("netBanking")}
+          />
+        </PaymentMethodCard>
+        {/* <PaymentMethodCard titles="Credit & Debit Cards">
           <PaymnetItems
             title="Axis **** **** **** 9877"
             imageSource={require("../../../assets/images/Payments/matercard.png")}
@@ -105,11 +121,11 @@ const PaymentMethods = () => {
             isOpenIconOrCheckBox={false}
           />
           <AddPaymnetCard title="Add New Card" />
-        </PaymentMethodCard>
+        </PaymentMethodCard> */}
       </ScrollView>
-      <View style={styles.positionCard}>
+      {/* <View style={styles.positionCard}>
         <CustomBtn title="Pay Now" btnBg="#e02e88" btnColor="#fff" />
-      </View>
+      </View> */}
     </View>
   );
 };
@@ -119,7 +135,7 @@ export default PaymentMethods;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 26,
+    paddingHorizontal: 10,
     paddingVertical: 12,
     gap: 15,
     position: "relative",

@@ -22,9 +22,9 @@ const CustomAppBar = ({ navigation, placeName }) => {
           <Text style={styles.title}>{placeName || "Women Rider"}</Text>
         </View>
 
-        <TouchableOpacity onPress={() => alert("Love icon pressed!")}>
+        {/* <TouchableOpacity onPress={() => alert("Love icon pressed!")}>
           <Ionicons name="heart-outline" size={24} color="lightgray" />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </View>
   );

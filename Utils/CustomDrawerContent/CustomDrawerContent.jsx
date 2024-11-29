@@ -1,5 +1,12 @@
-import React, { useState } from "react";
-import { View, Text, Image, StyleSheet, Pressable } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Pressable,
+  Linking,
+} from "react-native";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { Ionicons, FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
@@ -9,7 +16,13 @@ const CustomDrawerContent = (props) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(true); // Track drawer open/close
   const [selectedItem, setSelectedItem] = useState("");
   const { profile } = useSelector((state) => state.profileSlice);
+  const [avgRating, setAvgRating] = useState("");
 
+  const [imageSrc, setImageSrc] = useState(
+    "https://via.placeholder.com/80" // Default placeholder
+  );
+
+  // console.log(profile);
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen); // Toggle drawer state
   };
@@ -25,12 +38,52 @@ const CustomDrawerContent = (props) => {
       : {}; // Default style
   };
 
-  let image = profile
-    ? `${imageUrl}/${profile?.profilePic}`
-    : "https://via.placeholder.com/80";
+  // let image = profile
+  //   ? `${imageUrl}/${profile?.profilePic}`
+  //   : "https://via.placeholder.com/80";
 
   const onNavigateRatingScreen = () => {
-    props.navigation.navigate("Rating"); // Navigate to the RatingScreen
+    props.navigation.navigate("Rating", {
+      avgRating,
+    }); // Navigate to the RatingScreen
+  };
+
+  const calculateAverageRating = (orders) => {
+    if (orders?.length === 0) return 0; // Avoid division by zero
+
+    const totalRating = orders?.reduce(
+      (sum, order) => sum + order.reviewRating,
+      0
+    );
+    return totalRating / orders?.length;
+  };
+
+  useEffect(() => {
+    if (profile) {
+      setAvgRating(calculateAverageRating(profile?.orders)?.toFixed(1));
+    }
+  }, [profile]);
+
+  useEffect(() => {
+    if (profile && profile.profilePic) {
+      const image = new Image();
+      const serverImage = `${imageUrl}/${profile.profilePic}`;
+
+      image.src = serverImage;
+
+      // If the image loads successfully, update the source
+      image.onload = () => setImageSrc(serverImage);
+
+      // If there's an error, keep the placeholder
+      image.onerror = () => setImageSrc("https://via.placeholder.com/80");
+    }
+  }, [profile, imageUrl]);
+
+  const openLink = () => {
+    const url = "https://nuhvin.com"; // Replace with your desired URL
+    Linking.openURL(url).catch((err) =>
+      console.error("Failed to open URL:", err)
+    );
   };
 
   return (
@@ -51,8 +104,8 @@ const CustomDrawerContent = (props) => {
           borderTopLeftRadius: 16,
           borderBottomLeftRadius: 16,
           elevation: 5,
-          
-          flexDirection:"row"
+
+          flexDirection: "row",
         }}
       >
         <Ionicons
@@ -62,7 +115,7 @@ const CustomDrawerContent = (props) => {
           color="#fff"
         />
         <Ionicons
-        name="chevron-forward"
+          name="chevron-forward"
           // name={isDrawerOpen ? "chevron-back" : "chevron-forward"}
           size={20}
           color="#fff"
@@ -76,7 +129,7 @@ const CustomDrawerContent = (props) => {
             position: "absolute",
             height: "100%",
             backgroundColor: "#e02e88",
-            width: 12,
+            width: 1,
             right: 0,
             overflow: "hidden",
             borderTopRightRadius: 16,
@@ -95,139 +148,149 @@ const CustomDrawerContent = (props) => {
       >
         {/* Profile Header */}
         <View style={[styles.headerContainer, { borderTopRightRadius: 20 }]}>
-          <Image source={{ uri: image }} style={styles.profilePic} />
+          <Image source={{ uri: imageSrc }} style={styles.profilePic} />
           <Text style={styles.profileName}>{profile?.name}</Text>
-          <View
+
+          <Pressable
             style={{
               flexDirection: "row",
               gap: 5,
               paddingTop: 5,
               alignItems: "center",
             }}
+            onPress={onNavigateRatingScreen}
           >
             <FontAwesome name="star" size={20} color="gold" />
-            <Pressable onPress={onNavigateRatingScreen}>
-              <Text style={styles.profileEmail}>4.5</Text>
-            </Pressable>
-          </View>
+            <Text style={styles.profileEmail}>{avgRating}</Text>
+          </Pressable>
         </View>
 
         {/* Drawer Items */}
         <View style={[styles.drawerItemsContainer]}>
-        <DrawerItem
-          label="Wallet"
-          icon={() => <Ionicons name="wallet-outline" size={22} color="gray" />}
-          onPress={() => handleItemPress("Wallet")}
-          labelStyle={styles.labelStyle}
-          style={getItemStyle("Wallet")}
-        />
-        <DrawerItem
-          label="Profile"
-          icon={() => <Ionicons name="person-outline" size={22} color="gray" />}
-          onPress={() => handleItemPress("Profile")}
-          labelStyle={styles.labelStyle}
-          style={getItemStyle("Profile")}
-        />
-        <DrawerItem
-          label="Notifications"
-          icon={() => (
-            <Ionicons name="notifications-outline" size={22} color="gray" />
-          )}
-          onPress={() => handleItemPress("Notifications")}
-          labelStyle={styles.labelStyle}
-          style={getItemStyle("Notifications")}
-        />
-        <DrawerItem
-          label="Parcel"
-          icon={() => <Ionicons name="cube-outline" size={22} color="gray" />}
-          onPress={() => handleItemPress("ParcelHome")}
-          labelStyle={styles.labelStyle}
-          style={getItemStyle("Parcel Send")}
-        />
-        <DrawerItem
-          label="Ride History"
-          icon={() => <Ionicons name="time-outline" size={22} color="gray" />}
-          onPress={() => handleItemPress("RideHistory")}
-          labelStyle={styles.labelStyle}
-          style={getItemStyle("Ride History")}
-        />
-        <DrawerItem
-          label="Payment Method"
-          icon={() => <Ionicons name="card-outline" size={22} color="gray" />}
-          onPress={() => handleItemPress("PaymentMethod")}
-          labelStyle={styles.labelStyle}
-          style={getItemStyle("Payment Method")}
-        />
-        <DrawerItem
-          label="Favorites"
-          icon={() => (
-            <MaterialIcons name="favorite-border" size={22} color="gray" />
-          )}
-          onPress={() => handleItemPress("DrawerFavorite")}
-          labelStyle={styles.labelStyle}
-          style={getItemStyle("Favorites")}
-        />
-        <DrawerItem
-          label="Safety"
-          icon={() => (
-            <Ionicons name="shield-checkmark-outline" size={22} color="gray" />
-          )}
-          onPress={() => handleItemPress("Safety")}
-          labelStyle={styles.labelStyle}
-          style={getItemStyle("Safety")}
-        />
-        <DrawerItem
-          label="Help"
-          icon={() => (
-            <Ionicons name="help-circle-outline" size={22} color="gray" />
-          )}
-          onPress={() => handleItemPress("Help")}
-          labelStyle={styles.labelStyle}
-          style={getItemStyle("Help")}
-        />
-        <DrawerItem
-          label="Donation"
-          icon={() => <Ionicons name="heart-outline" size={22} color="gray" />}
-          onPress={() => handleItemPress("Donation")}
-          labelStyle={styles.labelStyle}
-          style={getItemStyle("Donation")}
-        />
+          <DrawerItem
+            label="Wallet"
+            icon={() => (
+              <Ionicons name="wallet-outline" size={22} color="gray" />
+            )}
+            onPress={() => handleItemPress("Wallet")}
+            labelStyle={styles.labelStyle}
+            style={getItemStyle("Wallet")}
+          />
+          <DrawerItem
+            label="Profile"
+            icon={() => (
+              <Ionicons name="person-outline" size={22} color="gray" />
+            )}
+            onPress={() => handleItemPress("Profile")}
+            labelStyle={styles.labelStyle}
+            style={getItemStyle("Profile")}
+          />
+          <DrawerItem
+            label="Notifications"
+            icon={() => (
+              <Ionicons name="notifications-outline" size={22} color="gray" />
+            )}
+            onPress={() => handleItemPress("Notifications")}
+            labelStyle={styles.labelStyle}
+            style={getItemStyle("Notifications")}
+          />
+          <DrawerItem
+            label="Parcel"
+            icon={() => <Ionicons name="cube-outline" size={22} color="gray" />}
+            onPress={() => handleItemPress("ParcelHome")}
+            labelStyle={styles.labelStyle}
+            style={getItemStyle("Parcel Send")}
+          />
+          <DrawerItem
+            label="Ride History"
+            icon={() => <Ionicons name="time-outline" size={22} color="gray" />}
+            onPress={() => handleItemPress("RideHistory")}
+            labelStyle={styles.labelStyle}
+            style={getItemStyle("Ride History")}
+          />
+          <DrawerItem
+            label="Payment Method"
+            icon={() => <Ionicons name="card-outline" size={22} color="gray" />}
+            onPress={() => handleItemPress("PaymentMethod")}
+            labelStyle={styles.labelStyle}
+            style={getItemStyle("Payment Method")}
+          />
+          <DrawerItem
+            label="Favorites"
+            icon={() => (
+              <MaterialIcons name="favorite-border" size={22} color="gray" />
+            )}
+            onPress={() => handleItemPress("DrawerFavorite")}
+            labelStyle={styles.labelStyle}
+            style={getItemStyle("Favorites")}
+          />
+          <DrawerItem
+            label="Safety"
+            icon={() => (
+              <Ionicons
+                name="shield-checkmark-outline"
+                size={22}
+                color="gray"
+              />
+            )}
+            onPress={() => handleItemPress("Safety")}
+            labelStyle={styles.labelStyle}
+            style={getItemStyle("Safety")}
+          />
+          <DrawerItem
+            label="Help"
+            icon={() => (
+              <Ionicons name="help-circle-outline" size={22} color="gray" />
+            )}
+            onPress={() => handleItemPress("Help")}
+            labelStyle={styles.labelStyle}
+            style={getItemStyle("Help")}
+          />
+          <DrawerItem
+            label="Donation"
+            icon={() => (
+              <Ionicons name="heart-outline" size={22} color="gray" />
+            )}
+            onPress={() => handleItemPress("Donation")}
+            labelStyle={styles.labelStyle}
+            style={getItemStyle("Donation")}
+          />
 
-        <DrawerItem
-          label="Refer to Earn"
-          icon={() => <Ionicons name="gift-outline" size={22} color="gray" />}
-          onPress={() => handleItemPress("ReferAndEarn")}
-          labelStyle={styles.labelStyle}
-          style={getItemStyle("Refer to Earn")}
-        />
-        <DrawerItem
-          label="Settings"
-          icon={() => (
-            <Ionicons name="settings-outline" size={22} color="gray" />
-          )}
-          onPress={() => handleItemPress("Settings")}
-          labelStyle={styles.labelStyle}
-          style={getItemStyle("Settings")}
-        />
+          <DrawerItem
+            label="Refer to Earn"
+            icon={() => <Ionicons name="gift-outline" size={22} color="gray" />}
+            onPress={() => handleItemPress("ReferAndEarn")}
+            labelStyle={styles.labelStyle}
+            style={getItemStyle("Refer to Earn")}
+          />
+          <DrawerItem
+            label="Settings"
+            icon={() => (
+              <Ionicons name="settings-outline" size={22} color="gray" />
+            )}
+            onPress={() => handleItemPress("Settings")}
+            labelStyle={styles.labelStyle}
+            style={getItemStyle("Settings")}
+          />
 
-        <DrawerItem
-          label="VoiceTest"
-          icon={() => <Ionicons name="gift-outline" size={22} color="gray" />}
-          onPress={() => handleItemPress("VoiceTest")}
-          labelStyle={styles.labelStyle}
-          style={getItemStyle("VoiceTest")}
-        />
-        <DrawerItem
-          label="BgTest"
-          icon={() => <Ionicons name="gift-outline" size={22} color="gray" />}
-          onPress={() => handleItemPress("BgTest")}
-          labelStyle={styles.labelStyle}
-          style={getItemStyle("BgTest")}
-        />
-      </View>
+          <DrawerItem
+            label="VoiceTest"
+            icon={() => <Ionicons name="gift-outline" size={22} color="gray" />}
+            onPress={() => handleItemPress("VoiceTest")}
+            labelStyle={styles.labelStyle}
+            style={getItemStyle("VoiceTest")}
+          />
+          <DrawerItem
+            label="BgTest"
+            icon={() => <Ionicons name="gift-outline" size={22} color="gray" />}
+            onPress={() => handleItemPress("BgTest")}
+            labelStyle={styles.labelStyle}
+            style={getItemStyle("BgTest")}
+          />
+        </View>
 
-      {/* Logout Button at the End */}
-      {/* <View style={styles.logoutContainer}>
+        {/* Logout Button at the End */}
+        {/* <View style={styles.logoutContainer}>
         <DrawerItem
           label="Logout"
           icon={() => <Ionicons name="exit-outline" size={22} color="red" />}
@@ -238,6 +301,13 @@ const CustomDrawerContent = (props) => {
           labelStyle={styles.logoutLabel}
         />
       </View> */}
+
+        {/* <View style={styles.loginBottomCard}>
+          <Text style={styles.loginBottomCardText}>A Product From</Text>
+          <Pressable onPress={openLink}>
+            <Text style={styles.companyName}>Nuhvin</Text>
+          </Pressable>
+        </View> */}
       </DrawerContentScrollView>
     </View>
   );
@@ -246,6 +316,7 @@ const CustomDrawerContent = (props) => {
 const styles = StyleSheet.create({
   drawer: {
     flex: 1,
+    position: "relative",
   },
   drawerContent: {
     paddingTop: 0,
@@ -281,6 +352,29 @@ const styles = StyleSheet.create({
   },
   labelStyle: {
     marginLeft: -10,
+  },
+  loginBottomCard: {
+    position: "absolute",
+    width: "100%",
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    backgroundColor: "red",
+    flexDirection: "row",
+    // justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "rgba(202, 193, 198, 0.38)",
+    bottom: 70,
+    left: 0,
+    right: 0,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    zIndex: 4,
+  },
+
+  loginBottomCardText: {
+    color: "#2d2d2d",
+    fontSize: 15,
   },
 });
 

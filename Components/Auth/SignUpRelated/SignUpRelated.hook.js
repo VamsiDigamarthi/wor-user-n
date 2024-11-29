@@ -99,6 +99,9 @@ export const useSignUpRelatedHook = ({
     formDataToSend.append("dateOfBirth", formData.dob);
     formDataToSend.append("address", formData.address);
     formDataToSend.append("mobile", mobile);
+    formDataToSend.append("emergencyContact", formData?.emergencyContact);
+    formDataToSend.append("referalCode", formData?.referalCode);
+
     formDataToSend.append("role", "user");
     formDataToSend.append("longitude", "76.978987");
     formDataToSend.append("latitude", "17.8765678");
@@ -120,10 +123,12 @@ export const useSignUpRelatedHook = ({
       });
 
       await AsyncStorage.setItem("token", JSON.stringify(response.data.token));
-      navigate.navigate("documentCheck");
     } catch (error) {
       console.log(error?.response?.data?.message);
       setApiError(error?.response?.data?.message);
+      if (error?.response?.data?.message === "User Already Exist ....!") {
+        navigate.navigate("documentCheck");
+      }
     }
   };
 
