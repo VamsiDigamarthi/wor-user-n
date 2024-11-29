@@ -1,14 +1,20 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
-import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import {
+  Ionicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from "@expo/vector-icons";
+import { COLORS } from "../../../../Constants/colors";
 
 const PaymnetItems = ({
   title,
   imageSource,
   iconsText,
   iconName,
-  isOpenIconOrCheckBox = true,
+  isOpenIconOrCheckBox = false,
   isChecked = false,
   onToggle = () => {},
+  isMoney = false,
 }) => {
   let Icon;
   switch (iconsText) {
@@ -20,6 +26,9 @@ const PaymnetItems = ({
       break;
     case "UPI":
       Icon = MaterialCommunityIcons;
+      break;
+    case "Ionicons":
+      Icon = Ionicons;
       break;
     default:
       Icon = MaterialCommunityIcons;
@@ -37,12 +46,23 @@ const PaymnetItems = ({
         <Text style={{ fontSize: 13, fontWeight: "600" }}>{title}</Text>
       </View>
       {isOpenIconOrCheckBox ? (
-        <MaterialIcons name="arrow-forward-ios" color="#e02e88" size={18} />
+        <>
+          {isMoney ? (
+            <Text
+              style={{ fontSize: 16, color: "#e02e88", fontWeight: "bold" }}
+            >
+              ₹78
+            </Text>
+          ) : (
+            <MaterialIcons name="arrow-forward-ios" color="#e02e88" size={18} />
+          )}
+        </>
       ) : (
         <TouchableOpacity
           style={[styles.checkbox, isChecked && styles.checked]}
           onPress={onToggle}
         >
+          {/* {isChecked && <View style={styles.outerCard} />} */}
           {isChecked && <View style={styles.checkedMark} />}
         </TouchableOpacity>
       )}
@@ -74,10 +94,11 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     borderWidth: 2,
-    borderRadius: 4,
-    borderColor: "#333",
+    borderRadius: 20,
+    borderColor: "#c7c8c9",
     justifyContent: "center",
     alignItems: "center",
+    padding: 5,
     marginRight: 10,
   },
   checked: {
@@ -87,6 +108,6 @@ const styles = StyleSheet.create({
     width: 12,
     height: 12,
     backgroundColor: "#fff",
-    borderRadius: 2,
+    borderRadius: 20,
   },
 });

@@ -2,15 +2,18 @@ import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 
-const DonationSelectBox = () => {
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
+const DonationSelectBox = ({
+  data = [
     { label: "Java", value: "java" },
     { label: "JavaScript", value: "javascript" },
     { label: "Python", value: "python" },
     { label: "C++", value: "cpp" },
-  ]);
+  ],
+  style,
+}) => {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState(data);
 
   return (
     <View style={styles.container}>
@@ -22,9 +25,9 @@ const DonationSelectBox = () => {
         setValue={setValue}
         setItems={setItems}
         placeholder="How It Works"
-        style={styles.dropdown}
+        style={[styles.dropdown, style]}
         dropDownContainerStyle={styles.dropdownContainer}
-        theme="LIGHT" // Explicitly set the theme (if 'light' is causing the issue)
+        theme="LIGHT"
       />
     </View>
   );

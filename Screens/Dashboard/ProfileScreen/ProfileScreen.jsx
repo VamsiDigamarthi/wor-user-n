@@ -4,8 +4,22 @@ import ProfileCard from "../../../Components/Dashboard/ProfileCom/ProfileCard/Pr
 import ProfileRatingRideCountCard from "../../../Components/Dashboard/ProfileCom/ProfileRatingRideCountCard/ProfileRatingRideCountCard";
 import ProfileNavigationCard from "../../../Components/Dashboard/ProfileCom/ProfileNavigationCard/ProfileNavigationCard";
 import Settingsitem from "../../../Components/Dashboard/settingscom/SettingsItem/Settingsitem";
+import { CommonActions, useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ProfileScreen = () => {
+  const navigation = useNavigation();
+
+  const onLogOutHandler = async () => {
+    await AsyncStorage.removeItem("token");
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0, // Ensures the specified route is the only route in the stack
+        routes: [{ name: "AuthStack" }], // Replace 'Home' with your target screen name
+      })
+    );
+  };
+
   return (
     <View style={styles.container}>
       <ProfileCard />
@@ -31,9 +45,16 @@ const ProfileScreen = () => {
           screenName="ProfileDocumentScreen"
         />
         <Settingsitem
+          iconName="contacts"
+          iconType="AntDesign"
+          label="Emergency Contact Number"
+          screenName="EmergencyContactNumber"
+        />
+        <Settingsitem
           iconName="logout"
           iconType="MaterialIcons"
           label="Logout"
+          onPress={onLogOutHandler}
           // screenName="PersonalInfoPreview"
         />
       </ScrollView>

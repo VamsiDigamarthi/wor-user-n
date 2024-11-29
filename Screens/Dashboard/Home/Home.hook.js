@@ -10,6 +10,7 @@ import { API } from "../../../Constants/url";
 import Toast from "react-native-toast-message";
 
 import messaging from "@react-native-firebase/messaging";
+import * as Notifications from "expo-notifications";
 
 export const useHomeHook = () => {
   const navigation = useNavigation();
@@ -18,7 +19,7 @@ export const useHomeHook = () => {
   const [placeName, setPlaceName] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [nearbyPlaces, setNearbyPlaces] = useState([]);
-  const [fbToken, setFbToken] = useState("")
+  const [fbToken, setFbToken] = useState("");
   // const [nearByRandomItems, setNearByRandomItems] = useState([]);
 
   // console.log("home screen", token);
@@ -84,34 +85,38 @@ export const useHomeHook = () => {
   async function getToken() {
     const token = await messaging().getToken();
     console.log("Device FCM Token:", token);
-    setFbToken(token)
+    setFbToken(token);
   }
 
   const onAddedFbTokenToServer = async () => {
     try {
-     await API.patch("/auth/fbtoken", {fbtoken : token},{
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      })
+      await API.patch(
+        "/auth/fbtoken",
+        { fbtoken: token },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       Toast.show({
         text1: "fb-token-added successfully",
         type: "success",
         position: "bottom",
       });
     } catch (error) {
-      console.log(error?.response?.data?.message)
+      console.log(error?.response?.data?.message);
       Toast.show({
-        text1:error?.response?.data?.message ?? "Failed to upload fbtoken",
+        text1: error?.response?.data?.message ?? "Failed to upload fbtoken",
         type: "error",
         position: "bottom",
       });
     }
-  }
+  };
   useEffect(() => {
-    token && onAddedFbTokenToServer()
-  }, [token])
+    token && onAddedFbTokenToServer();
+  }, [token]);
 
   useEffect(() => {
     async function allMix() {
@@ -120,7 +125,7 @@ export const useHomeHook = () => {
       onFetchPreviousOrders();
       await getToken();
     }
-    allMix()
+    allMix();
   }, []);
 
   useEffect(() => {
@@ -176,6 +181,21 @@ export const useHomeHook = () => {
 
   // console.log("favoritePlaces", favoritePlaces);
   // console.log("previos", previousOrders);
+
+  useEffect(() => {
+    const sub = Notifications.addNotificationResponseReceivedListener((res) => {
+      console.log("Notification Response Received: ", res);
+      const notification = res?.notification?.request?.content; // Main notification
+      console.log("Notification Content: ", notification);
+
+      const data = notification?.data; // Custom data
+      console.log("Notification Data Received: ", data);
+    });
+
+    return () => {
+      sub.remove();
+    };
+  }, []);
 
   return {
     location,

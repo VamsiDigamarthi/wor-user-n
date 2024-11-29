@@ -4,7 +4,11 @@ import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useOtpComHook } from "./OtpCom.hook";
 import { useEffect, useState } from "react";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import {
+  CommonActions,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 import { API } from "../../../Constants/url";
 import BottomLayout from "../../../Layouts/BottomLayout";
 import { useDispatch } from "react-redux";
@@ -47,7 +51,13 @@ const OtpRelatedInput = ({ btnShow = true }) => {
           JSON.stringify(response.data.token)
         );
         dispatch(setToken(response.data.token));
-        navigation.navigate("AuthenticatedStack");
+        // navigation.navigate("AuthenticatedStack");
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0, // Ensures the specified route is the only route in the stack
+            routes: [{ name: "AuthenticatedStack" }], // Replace 'Home' with your target screen name
+          })
+        );
       }
     } catch (error) {
       console.log(error);

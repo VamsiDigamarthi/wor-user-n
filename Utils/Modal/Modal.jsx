@@ -7,16 +7,19 @@ const ModalUI = ({
   rightBtnText,
   rightBtnFun,
   children,
+  modalStyle = "fade",
+  style,
+  insideCardStyle,
 }) => {
   return (
     <Modal
-      animationType="fade"
+      animationType="slide"
       transparent={true}
       visible={openCloseState}
       onRequestClose={closeModalFun}
     >
-      <View style={styles.modalContainer}>
-        <View style={styles.modalContent}>
+      <View style={[styles.modalContainer, style]}>
+        <View style={[styles.modalContent, insideCardStyle]}>
           {children}
           <View style={styles.cancelBtnCard}>
             <Pressable onPress={closeModalFun} style={styles.closeModalBtn}>
@@ -60,5 +63,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 10,
     width: "100%",
+    marginTop: 10,
+  },
+  closeModalBtn: {
+    backgroundColor: "lightgray",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 10,
   },
 });

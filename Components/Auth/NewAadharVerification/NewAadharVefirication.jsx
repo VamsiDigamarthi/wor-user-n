@@ -37,6 +37,7 @@ const NewAadharVefirication = ({ isPriceScreen }) => {
           isEditable={!aadharVerified}
           aadharLoader={aadharLoader}
         />
+
         <NewAadharOtpCard
           onTextChange={onOtpChangehandle}
           aadharVerified={aadharVerified}

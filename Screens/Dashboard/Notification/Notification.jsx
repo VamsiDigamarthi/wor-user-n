@@ -6,7 +6,7 @@ const Notification = () => {
   const [notification, setNotification] = useState([]);
   return (
     <View style={styles.container}>
-      {notification?.length > 0 ? (
+      {!notification?.length > 0 ? (
         <NotificationItem />
       ) : (
         <View style={styles.noNotification}>
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     gap: 20,
-    paddingHorizontal: 26,
+    paddingHorizontal: 10,
     paddingVertical: 12,
   },
   noNotification: {

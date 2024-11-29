@@ -31,6 +31,7 @@ const NewAadharNumbercard = ({
             value={value}
             keyboardType="numeric"
             editable={isEditable}
+            maxLength={12}
           />
         </View>
         <View

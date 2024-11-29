@@ -100,7 +100,7 @@ const SignUpRelated = ({
           )}
         </View>
         <InputBox
-          label="Emergency Contact Number"
+          label="Emergency Contact Number (optional)"
           icon="contract"
           placeholder="Enter your emergency contact"
           value={formData.emergencyContact}
@@ -109,7 +109,7 @@ const SignUpRelated = ({
           keyboardType="numeric"
         />
         <InputBox
-          label="Referal Code"
+          label="Referal Code (optional)"
           icon="contract"
           placeholder="Enter Referal Code"
           value={formData.referalCode}

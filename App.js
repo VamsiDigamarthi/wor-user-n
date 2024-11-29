@@ -49,45 +49,44 @@ async function requestUserPermission() {
   }
 }
 
-
-
-
-// Handle foreground notifications
+// Handle foreground notifications// Foreground notifications
 messaging().onMessage(async (remoteMessage) => {
   console.log("Message received in foreground!", remoteMessage);
-  
-  // Show notification using Expo Notifications
-  await Notifications.scheduleNotificationAsync({
-    content: {
-      title: remoteMessage.notification?.title || "New Notification",
-      body: remoteMessage.notification?.body || "You have a new message",
-    },
-    trigger: null, // Immediate display
-  });
+
+  if (remoteMessage.notification) {
+    // Only schedule notification if not displayed natively
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: remoteMessage.notification.title,
+        body: remoteMessage.notification.body,
+      },
+      trigger: null, // Immediate display
+    });
+  }
 });
 
-// Handle background notifications
+// Background notifications
 messaging().setBackgroundMessageHandler(async (remoteMessage) => {
   console.log("Message received in background!", remoteMessage);
 
-  // Optionally show a notification
-  await Notifications.scheduleNotificationAsync({
-    content: {
-      title: remoteMessage.notification?.title || "Background Notification",
-      body: remoteMessage.notification?.body || "You received a new message",
-    },
-    trigger: null,
-  });
+  if (remoteMessage.notification) {
+    // Optionally schedule notification
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: remoteMessage.notification.title,
+        body: remoteMessage.notification.body,
+      },
+      trigger: null,
+    });
+  }
 });
 
 // Initialize permissions and token fetching
 async function initializeNotifications() {
   await requestUserPermission();
-  
 }
 
 initializeNotifications();
-
 
 export default function App() {
   return (

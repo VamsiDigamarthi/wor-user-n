@@ -2,14 +2,14 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { COLORS } from "../../../Constants/colors";
 import { Entypo } from "@expo/vector-icons";
-const RatingSecondCard = () => {
+const RatingSecondCard = ({ avgRating }) => {
   return (
     <View style={styles.container}>
       <View style={{ width: 40 }}>
         <Entypo name="star" color="#e02e88" size={30} />
       </View>
       <View style={{ width: "82%", gap: 2 }}>
-        <Text style={{ fontWeight: "600", fontSize: 17 }}>4.6/5</Text>
+        <Text style={{ fontWeight: "600", fontSize: 17 }}>{avgRating}/5</Text>
         <Text style={{ fontSize: 12, color: COLORS.subHeading }}>
           We use weighted average of all reviews submittedby users
         </Text>

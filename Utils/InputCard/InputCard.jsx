@@ -4,6 +4,7 @@ import {
   Entypo,
   EvilIcons,
   Feather,
+  FontAwesome,
   FontAwesome5,
   Ionicons,
   MaterialCommunityIcons,
@@ -57,6 +58,9 @@ const InputBox = ({
       break;
     case "EvilIcons":
       Icon = EvilIcons;
+      break;
+    case "FontAwesome":
+      Icon = FontAwesome;
       break;
     default:
       Icon = Ionicons;

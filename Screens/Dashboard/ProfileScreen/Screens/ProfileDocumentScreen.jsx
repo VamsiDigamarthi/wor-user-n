@@ -1,9 +1,19 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
 import { COLORS } from "../../../../Constants/colors";
 import CustomBtn from "../../../../Utils/CustomBtn/CustomBtn";
+import { useSelector } from "react-redux";
+import { imageUrl } from "../../../../Constants/url";
+import ModalUI from "../../../../Utils/Modal/Modal";
+import NewAadharVefirication from "../../../../Components/Auth/NewAadharVerification/NewAadharVefirication";
 
 const ProfileDocumentScreen = () => {
+  const { profile } = useSelector((state) => state.profileSlice);
+  const [uploadAddharModalOpen, setUploadAddharModalOpen] = useState(false);
+  const onOpenModalHandler = () => {
+    setUploadAddharModalOpen(!uploadAddharModalOpen);
+  };
+
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 12, color: COLORS.subHeading }}>ID Prof</Text>
@@ -11,9 +21,37 @@ const ProfileDocumentScreen = () => {
       <Text style={{ fontSize: 12, color: COLORS.subHeading }}>
         Aadhar Images
       </Text>
-      <AadharImageDetail />
+      <AadharImageDetail profile={profile} />
       <View style={{ height: 40 }} />
-      <CustomBtn title="Upload Addhar Card" btnBg="#fff" btnColor="#e02e88" />
+
+      <CustomBtn
+        onPress={onOpenModalHandler}
+        title={
+          profile?.adhar === null && profile?.adharBack === null
+            ? "Upload Addhar Card"
+            : "Re-Upload Aadhar Card"
+        }
+        btnBg={
+          profile?.adhar === null && profile?.adharBack === null
+            ? "#fff"
+            : "#e02e88"
+        }
+        btnColor={
+          profile?.adhar === null && profile?.adharBack === null
+            ? "#e02e88"
+            : "#fff"
+        }
+      />
+
+      <ModalUI
+        openCloseState={uploadAddharModalOpen}
+        closeModalFun={onOpenModalHandler}
+        modalStyle="slide"
+        style={styles.aadharModalStyles}
+        insideCardStyle={styles.insideCardStyle}
+      >
+        <NewAadharVefirication isPriceScreen={true} />
+      </ModalUI>
     </View>
   );
 };
@@ -41,21 +79,51 @@ const SingleAadharCardNumberDetail = () => {
   );
 };
 
-const AadharImageDetail = () => {
+const AadharImageDetail = ({ profile }) => {
+  let frontImage = `${imageUrl}/${profile.adhar}`;
+  let backImage = `${imageUrl}/${profile.adharBack}`;
+  console.log(frontImage);
   return (
     <View style={styles.aadharImageCard}>
-      <AadharImageSingleCard title="Front" />
-      <AadharImageSingleCard title="Back" />
+      <AadharImageSingleCard title="Front" image={frontImage} />
+      <AadharImageSingleCard title="Back" image={backImage} />
     </View>
   );
 };
 
-const AadharImageSingleCard = ({ title }) => {
+const AadharImageSingleCard = ({ title, image }) => {
+  const [aadharImage, setAadharImage] = useState("");
+  const [isImageOpen, setIsImageOpen] = useState(false);
+
+  const isOpenAadharImageHandler = (image) => {
+    setIsImageOpen(true);
+    setAadharImage(image);
+  };
+  const closeAadharImageHandler = () => {
+    setIsImageOpen(false);
+    setAadharImage("");
+  };
+
   return (
     <View style={styles.aadharcardSingleCard}>
-      <Text style={{ color: "#fff", fontWeight: "600", fontSize: 16 }}>
-        {title}
-      </Text>
+      {image ? (
+        <Pressable
+          onPress={() => isOpenAadharImageHandler(image)}
+          style={{ width: "100%", height: "100%" }}
+        >
+          <Image source={{ uri: image }} style={styles.aadharImage} />
+        </Pressable>
+      ) : (
+        <Text style={{ color: "#fff", fontWeight: "600", fontSize: 16 }}>
+          {title}
+        </Text>
+      )}
+      <ModalUI
+        openCloseState={isImageOpen}
+        closeModalFun={closeAadharImageHandler}
+      >
+        <Image source={{ uri: aadharImage }} style={styles.modalaadharImage} />
+      </ModalUI>
     </View>
   );
 };
@@ -63,9 +131,20 @@ const AadharImageSingleCard = ({ title }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     paddingVertical: 10,
     gap: 10,
+  },
+  aadharModalStyles: {
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+  },
+  insideCardStyle: {
+    paddingBottom: 20,
+    padding: 0,
+    width: "100%",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   documnetCard: {
     backgroundColor: "#fff",
@@ -88,5 +167,16 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.heading,
     justifyContent: "center",
     alignItems: "center",
+    overflow: "hidden",
+  },
+  aadharImage: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "contain",
+  },
+
+  modalaadharImage: {
+    width: "100%",
+    height: 350,
   },
 });
