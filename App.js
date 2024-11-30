@@ -9,6 +9,7 @@ import store from "./redux/store";
 
 import messaging from "@react-native-firebase/messaging";
 import * as Notifications from "expo-notifications";
+import { useEffect } from "react";
 
 // Configure foreground notifications for Expo
 Notifications.setNotificationHandler({
@@ -51,7 +52,7 @@ async function requestUserPermission() {
 
 // Handle foreground notifications// Foreground notifications
 messaging().onMessage(async (remoteMessage) => {
-  console.log("Message received in foreground!", remoteMessage);
+  // console.log("Message received in foreground!", remoteMessage);
 
   if (remoteMessage.notification) {
     // Only schedule notification if not displayed natively
@@ -59,15 +60,17 @@ messaging().onMessage(async (remoteMessage) => {
       content: {
         title: remoteMessage.notification.title,
         body: remoteMessage.notification.body,
+        data:{...remoteMessage.data}  
       },
-      trigger: null, // Immediate display
+      trigger: null,
+      mydata:remoteMessage.data        
     });
   }
 });
 
 // Background notifications
 messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-  console.log("Message received in background!", remoteMessage);
+  // console.log("Message received in background!", remoteMessage);
 
   if (remoteMessage.notification) {
     // Optionally schedule notification
@@ -75,12 +78,13 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
       content: {
         title: remoteMessage.notification.title,
         body: remoteMessage.notification.body,
+        data:{...remoteMessage.data}
       },
       trigger: null,
+      mydata:remoteMessage.data ,
     });
   }
 });
-
 // Initialize permissions and token fetching
 async function initializeNotifications() {
   await requestUserPermission();
@@ -89,6 +93,28 @@ async function initializeNotifications() {
 initializeNotifications();
 
 export default function App() {
+
+  
+  useEffect(() => {
+    const handleNotificationResponse = Notifications.addNotificationResponseReceivedListener(
+      (response) => {
+        const screen = response.notification.request.content.data.screen;
+
+        if (screen) {
+          console.log(`Navigating to screen: ${screen}`);
+          // Assuming you are using a navigation ref to navigate
+          navigationRef.current?.navigate(screen);
+        }
+      }
+    );
+
+    return () => {
+      handleNotificationResponse.remove();
+    };
+  }, []);
+  
+
+
   return (
     <Provider store={store}>
       <GestureHandlerRootView style={{ flex: 1 }}>

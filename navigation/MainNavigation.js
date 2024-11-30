@@ -1,4 +1,4 @@
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
@@ -6,6 +6,8 @@ import AuthenticatedStack from "./AuthenticatedStack";
 import AuthStack from "./AuthStack";
 import { Image, StyleSheet, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import * as Notifications from "expo-notifications";
+
 import {
   noToken,
   setIsLogin,
@@ -53,7 +55,7 @@ const MainNavigation = () => {
   }
 
   return (
-    <NavigationContainer>
+    <NavigationContainer >
       <Stack.Navigator
         initialRouteName={token ? "AuthenticatedStack" : "AuthStack"}
         screenOptions={{ headerShown: false }}
