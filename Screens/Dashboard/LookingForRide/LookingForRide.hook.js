@@ -44,6 +44,7 @@ export const useLookingForRideHook = () => {
 
     Animated.timing(progress, {
       toValue: 100,
+      // duration: 210000, // 3 minutes 30 seconds
       duration: 180000, // 60 seconds duration
       useNativeDriver: false,
     }).start(({ finished }) => {
@@ -176,6 +177,10 @@ export const useLookingForRideHook = () => {
     }
   };
 
+  const onNewCancelHandle = () => {
+    navigation.goBack();
+  };
+
   return {
     onCancelRide,
     dropAddress,
@@ -189,5 +194,6 @@ export const useLookingForRideHook = () => {
     calncelModalInfoOpenClose,
     onOpenCancelOrderInfoHandle,
     onConfirmCancelRide,
+    onNewCancelHandle,
   };
 };

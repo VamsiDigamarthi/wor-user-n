@@ -56,12 +56,12 @@ const CaptainAcceptRide = () => {
   return (
     <View style={styles.container}>
       <View style={styles.mapContainer}>
-        <ShowPollyLine
+        {/* <ShowPollyLine
           origin={otpVerified ? pickCoor : orderDetails?.captainCoor}
           destination={otpVerified ? drop : pickCoor}
           height={460}
           liveCoordinates={liveCoordinates}
-        />
+        /> */}
       </View>
       <View style={styles.mapFullCardIocn}>
         <Pressable onPress={onShowFullMap}>
