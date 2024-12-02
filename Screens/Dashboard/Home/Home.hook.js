@@ -92,7 +92,7 @@ export const useHomeHook = () => {
     try {
       await API.patch(
         "/auth/fbtoken",
-        { fbtoken: token },
+        { fbtoken: fbToken },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -115,8 +115,8 @@ export const useHomeHook = () => {
     }
   };
   useEffect(() => {
-    token && onAddedFbTokenToServer();
-  }, [token]);
+    fbToken && onAddedFbTokenToServer();
+  }, [fbToken]);
 
   useEffect(() => {
     async function allMix() {
