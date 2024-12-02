@@ -95,23 +95,6 @@ initializeNotifications();
 export default function App() {
 
   
-  useEffect(() => {
-    const handleNotificationResponse = Notifications.addNotificationResponseReceivedListener(
-      (response) => {
-        const screen = response.notification.request.content.data.screen;
-
-        if (screen) {
-          console.log(`Navigating to screen: ${screen}`);
-          // Assuming you are using a navigation ref to navigate
-          navigationRef.current?.navigate(screen);
-        }
-      }
-    );
-
-    return () => {
-      handleNotificationResponse.remove();
-    };
-  }, []);
   
 
 

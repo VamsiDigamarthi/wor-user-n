@@ -6,6 +6,7 @@ import RideBook from "../Screens/Dashboard/RideBook/RideBook";
 import CustomAppBar from "../Utils/CustomAppBar/CustomAppBar";
 import SelectDropLocation from "../Screens/Dashboard/SelectDropLocation/SelectDropLocation";
 import {
+  Alert,
   Pressable,
   Settings,
   StatusBar,
@@ -142,45 +143,45 @@ const AuthenticatedStack = () => {
 // My new code
 
 const navigation = useNavigation();
-const [appState, setAppState] = useState(AppState.currentState);
+// const [appState, setAppState] = useState(AppState.currentState);
 
-useEffect(() => {
-  const appStateListener = AppState.addEventListener("change", (nextAppState) => {
-    setAppState(nextAppState);
-  });
+// useEffect(() => {
+//   const appStateListener = AppState.addEventListener("change", (nextAppState) => {
+//     setAppState(nextAppState);
+//   });
 
-  const foregroundNotificationListener = Notifications.addNotificationReceivedListener(
-    (notification) => {
-      // console.log("Foreground notification:", notification);
-      // console.log("In Authenticated Stack",  notification?.request?.content?.data);
+//   const foregroundNotificationListener = Notifications.addNotificationReceivedListener(
+//     (notification) => {
+//       // console.log("Foreground notification:", notification);
+//       // console.log("In Authenticated Stack",  notification?.request?.content?.data);
       
-      if (appState === "active") {
-        // console.log("App is in the foreground, no automatic navigation");
-      } else {
-        handleNotification(navigation, notification);
-      }
-    }
-  );
+//       if (appState === "active") {
+//         // console.log("App is in the foreground, no automatic navigation");
+//       } else {
+//         handleNotification(navigation, notification);
+//       }
+//     }
+//   );
 
-  const backgroundNotificationListener = Notifications.addNotificationResponseReceivedListener(
-    (response) => {
-      // console.log("Background notification responded in authenticated stack", response);
-      handleNotification(navigation, response.notification);
-    }
-  );
+//   const backgroundNotificationListener = Notifications.addNotificationResponseReceivedListener(
+//     (response) => {
+//       // console.log("Background notification responded in authenticated stack", response);
+//       handleNotification(navigation, response.notification);
+//     }
+//   );
 
-  return () => {
-    appStateListener.remove();
-    foregroundNotificationListener.remove();
-    backgroundNotificationListener.remove();
-  };
-}, [appState, navigation]);
+//   return () => {
+//     appStateListener.remove();
+//     foregroundNotificationListener.remove();
+//     backgroundNotificationListener.remove();
+//   };
+// }, [appState, navigation]);
 
-const handleNotification = (navigation, notification) => {
+// const handleNotification = (navigation, notification) => {
   
-  console.log(notification.request.content.data.screen , "from authenticated stack");
-  navigation.navigate(notification?.request?.content?.data?.screen, { screen:notification?.request?.content?.data?.screen  });
-};
+//   console.log(notification.request.content.data.screen , "from authenticated stack");
+//   navigation.navigate(notification?.request?.content?.data?.screen, { screen:notification?.request?.content?.data?.screen  });
+// };
 
 
 
@@ -562,7 +563,17 @@ const CustomHeader = ({
           style={[styles.icon]}
         />
 
-        <Text style={[styles.text]}>{title || "Title"}</Text>
+        <Text style={[styles.text]}>{"title" || "Title"}</Text>
+
+
+        <Pressable onPress={()=>Alert.alert("Info Pressed")}>
+        <Ionicons
+          name="information-circle-outline"
+          size={15}
+          color="lightgray"
+          style={[styles.icon , {marginLeft:5}]}
+        />
+        </Pressable>
       </View>
       {showRight && (
         <Pressable
