@@ -12,7 +12,7 @@ const PersonalInfoPreview = () => {
       </View>
       <View style={styles.singleItem}>
         <Text style={styles.firstText}>Gender</Text>
-        <Text style={styles.secondText}>{profile?.gender}</Text>
+        <Text style={styles.secondText}>{profile?.gender ?? "Female"}</Text>
       </View>
       <View style={styles.singleItem}>
         <Text style={styles.firstText}>Mobile Number</Text>
@@ -21,6 +21,10 @@ const PersonalInfoPreview = () => {
       <View style={styles.singleItem}>
         <Text style={styles.firstText}>Email-ID</Text>
         <Text style={styles.secondText}>{profile?.email}</Text>
+      </View>
+      <View style={styles.singleItem}>
+        <Text style={styles.firstText}>DOB</Text>
+        <Text style={styles.secondText}>{profile?.dateOfBirth}</Text>
       </View>
       <View style={styles.singleItem}>
         <Text style={styles.firstText}>Member Since</Text>

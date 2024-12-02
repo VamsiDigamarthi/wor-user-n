@@ -35,6 +35,7 @@ export const useLookingForRideHook = () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
+      progress.stopAnimation();
     };
   }, [isAccepted]);
 
@@ -43,14 +44,14 @@ export const useLookingForRideHook = () => {
 
     Animated.timing(progress, {
       toValue: 100,
-      duration: 60000, // 60 seconds duration
+      duration: 180000, // 60 seconds duration
       useNativeDriver: false,
     }).start(({ finished }) => {
       if (!isAccepted && finished) {
         console.log("Ride not accepted, calling final API...");
         setShowCancelWithReOrderBtn(false);
         clearInterval(intervalRef.current);
-        callFinalApi();
+        // callFinalApi();
       }
     });
 
@@ -58,7 +59,7 @@ export const useLookingForRideHook = () => {
       if (!isAccepted) {
         callApiEvery5Seconds();
       }
-    }, 5000);
+    }, 30000);
   };
 
   const callApiEvery5Seconds = async () => {
@@ -79,43 +80,20 @@ export const useLookingForRideHook = () => {
         navigation.navigate("captaineacceptride", {
           orderDetails: response.data,
         });
+      } else if (response?.data?.status === "cancelled") {
+        setShowCancelWithReOrderBtn(false);
+        Toast.show({
+          text1: "No one accepted the order. Please reorder.",
+          type: "success",
+          position: "bottom",
+        });
       } else {
-        console.log(response?.data);
+        console.log("iuyt", response?.data);
       }
     } catch (error) {
       console.log(error?.response?.data?.message);
       Toast.show({
         text1: error?.response?.data?.message,
-        type: "error",
-        position: "bottom",
-      });
-    }
-  };
-
-  const callFinalApi = async () => {
-    if (isAccepted) return; // Ensure this function does not execute if accepted
-
-    try {
-      console.log(orderId);
-      await API.patch(
-        `/user/cancel-order/${orderId}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setShowCancelWithReOrderBtn(false);
-      Toast.show({
-        text1: "No one accepted the order. Please reorder.",
-        type: "success",
-        position: "bottom",
-      });
-    } catch (error) {
-      console.log(error.response.data);
-      Toast.show({
-        text1: "Automatic cancellation failed",
         type: "error",
         position: "bottom",
       });

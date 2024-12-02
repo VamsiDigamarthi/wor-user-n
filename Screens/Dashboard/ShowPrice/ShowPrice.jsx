@@ -138,7 +138,9 @@ const ShowPrice = () => {
           btnColor={selectedVehicle ? "#fff" : "#e02e88"}
           title={
             selectedVehicle
-              ? `Book ${selectedVehicle} @ ${normalDateFormat}`
+              ? `Book ${selectedVehicle} ${
+                  normalDateFormat && `@ ${normalDateFormat}`
+                }`
               : `Book Ride ${normalDateFormat}`
           }
           onPress={onPlaceTheOrder}
