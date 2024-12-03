@@ -10,10 +10,13 @@ const ModalUI = ({
   modalStyle = "fade",
   style,
   insideCardStyle,
+  btnStyles,
+  btnText = "Close",
+  btnTextStyle,
 }) => {
   return (
     <Modal
-      animationType="slide"
+      animationType={modalStyle}
       transparent={true}
       visible={openCloseState}
       onRequestClose={closeModalFun}
@@ -21,9 +24,17 @@ const ModalUI = ({
       <View style={[styles.modalContainer, style]}>
         <View style={[styles.modalContent, insideCardStyle]}>
           {children}
-          <View style={styles.cancelBtnCard}>
-            <Pressable onPress={closeModalFun} style={styles.closeModalBtn}>
-              <Text style={styles.closeText}>Close</Text>
+          <View
+            style={[
+              styles.cancelBtnCard,
+              btnStyles && { paddingHorizontal: 20 },
+            ]}
+          >
+            <Pressable
+              onPress={closeModalFun}
+              style={[styles.closeModalBtn, btnStyles]}
+            >
+              <Text style={[styles.closeText, btnTextStyle]}>{btnText}</Text>
             </Pressable>
             {rightBtnText && (
               <Pressable onPress={rightBtnFun} style={styles.closeModalBtn}>

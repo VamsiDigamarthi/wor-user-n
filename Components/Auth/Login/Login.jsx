@@ -7,6 +7,10 @@ import { useNavigation } from "@react-navigation/native";
 import { API } from "../../../Constants/url";
 import { loginValidation } from "../../../Validations/LoginValidation";
 import BottomLayout from "../../../Layouts/BottomLayout";
+import ModalUI from "../../../Utils/Modal/Modal";
+import LoginInfoUi from "../../InfoUi/LoginInfoUi";
+import { COLORS } from "../../../Constants/colors";
+import { infoModalStyles } from "../../InfoUi/Styles/InfoModalStyles";
 
 const LoginRelatedInput = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -68,10 +72,17 @@ const LoginRelatedInput = () => {
     }
   }, [mobile, isChecked]);
 
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
+
+  const onHandleOpenInfoModal = () => {
+    setIsInfoModalOpen(!isInfoModalOpen);
+  };
+
   return (
     <BottomLayout
       title="Enter Your Mobile Number"
       subTitle="By entering your mobile number, you agree it will be used for verification and updates."
+      onHandleOpenInfoModal={onHandleOpenInfoModal}
     >
       <View style={styles.container}>
         <InputBox
@@ -105,6 +116,18 @@ const LoginRelatedInput = () => {
           width="100%"
         />
       </View>
+      <ModalUI
+        openCloseState={isInfoModalOpen}
+        closeModalFun={onHandleOpenInfoModal}
+        modalStyle="slide"
+        style={infoModalStyles.aadharModalStyles}
+        insideCardStyle={infoModalStyles.insideCardStyle}
+        btnText="Okay, Got It"
+        btnStyles={infoModalStyles.modalCloseBtn}
+        btnTextStyle={infoModalStyles.btnTextStyle}
+      >
+        <LoginInfoUi />
+      </ModalUI>
     </BottomLayout>
   );
 };

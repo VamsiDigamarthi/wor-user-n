@@ -16,6 +16,7 @@ const BottomLayout = ({
   dynamicText,
   children,
   displayChangeNumber,
+  onHandleOpenInfoModal,
 }) => {
   const navigation = useNavigation();
   const onHandleChangeLogin = () => {
@@ -31,7 +32,10 @@ const BottomLayout = ({
 
   return (
     <View style={styles.container}>
-      <BottomSheetTitle title={title} />
+      <BottomSheetTitle
+        title={title}
+        onHandleOpenInfoModal={onHandleOpenInfoModal}
+      />
 
       <View style={styles.sibTextCard}>
         <Text style={styles.subText}>{subTitle}</Text>

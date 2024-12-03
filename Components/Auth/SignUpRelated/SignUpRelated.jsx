@@ -1,5 +1,5 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import InputBox from "../../../Utils/InputCard/InputCard";
 import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
 import { useNavigation } from "@react-navigation/native";
@@ -8,6 +8,10 @@ import BottomLayout from "../../../Layouts/BottomLayout";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import CustDatePickBtn from "../../../Utils/CustDatePickBtn/CustDatePickBtn";
 import SignUpLocationTextCard from "./SignUpLocationTextCard";
+import ModalUI from "../../../Utils/Modal/Modal";
+import { infoModalStyles } from "../../InfoUi/Styles/InfoModalStyles";
+import OtpInfoUi from "../../InfoUi/OtpInfoUi";
+import { signUpData } from "../../InfoUi/data/infoData";
 
 const SignUpRelated = ({
   selectedImage,
@@ -38,10 +42,17 @@ const SignUpRelated = ({
 
   // console.log(validationCheck?.name);
 
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
+
+  const onHandleOpenInfoModal = () => {
+    console.log("press");
+    setIsInfoModalOpen(!isInfoModalOpen);
+  };
   return (
     <BottomLayout
       title="Create Your Account"
       subTitle="By sharing your information, we’ll set up your account."
+      onHandleOpenInfoModal={onHandleOpenInfoModal}
     >
       <View style={styles.container}>
         <InputBox
@@ -145,6 +156,18 @@ const SignUpRelated = ({
           width="100%"
         />
       </View>
+      <ModalUI
+        openCloseState={isInfoModalOpen}
+        closeModalFun={onHandleOpenInfoModal}
+        modalStyle="slide"
+        style={infoModalStyles.aadharModalStyles}
+        insideCardStyle={infoModalStyles.insideCardStyle}
+        btnText="Okay, Got It"
+        btnStyles={infoModalStyles.modalCloseBtn}
+        btnTextStyle={infoModalStyles.btnTextStyle}
+      >
+        <OtpInfoUi mainTitle="Details For New User" data={signUpData} />
+      </ModalUI>
     </BottomLayout>
   );
 };

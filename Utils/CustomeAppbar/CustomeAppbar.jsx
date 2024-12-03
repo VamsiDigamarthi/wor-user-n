@@ -1,8 +1,18 @@
 import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import Infopressicons from "../BottomSheet/Components/Infopressicons";
+import ModalUI from "../Modal/Modal";
+import { infoModalStyles } from "../../Components/InfoUi/Styles/InfoModalStyles";
+import OtpInfoUi from "../../Components/InfoUi/OtpInfoUi";
+import {
+  bookYourRide,
+  destinationScreen,
+  donationScren,
+  walletData,
+} from "../../Components/InfoUi/data/infoData";
 const screenWidth = Dimensions.get("window").width;
 const CustomeAppbar = ({
   onBack,
@@ -13,6 +23,29 @@ const CustomeAppbar = ({
   top = 45,
 }) => {
   const navigation = useNavigation();
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
+
+  const onHandleOpenInfoModal = () => {
+    setIsInfoModalOpen(!isInfoModalOpen);
+  };
+
+  let infoData;
+  switch (title) {
+    case "Designation":
+      infoData = bookYourRide;
+      break;
+    case "Book Your Ride":
+      infoData = destinationScreen;
+      break;
+    case "Wallet":
+      infoData = walletData;
+      break;
+    case "Donation":
+      infoData = donationScren;
+      break;
+    default:
+      infoData = bookYourRide;
+  }
 
   return (
     <View style={[styles.mainContainer, { top }]}>
@@ -32,6 +65,7 @@ const CustomeAppbar = ({
           /> */}
 
           <Text style={[styles.text]}>{title || "Title"}</Text>
+          <Infopressicons onHandleOpenInfoModal={onHandleOpenInfoModal} />
         </View>
         {showRight && (
           <Pressable
@@ -42,6 +76,18 @@ const CustomeAppbar = ({
           </Pressable>
         )}
       </View>
+      <ModalUI
+        openCloseState={isInfoModalOpen}
+        closeModalFun={onHandleOpenInfoModal}
+        modalStyle="slide"
+        style={infoModalStyles.aadharModalStyles}
+        insideCardStyle={infoModalStyles.insideCardStyle}
+        btnText="Okay, Got It"
+        btnStyles={infoModalStyles.modalCloseBtn}
+        btnTextStyle={infoModalStyles.btnTextStyle}
+      >
+        <OtpInfoUi mainTitle="Book Your Ride" data={infoData} />
+      </ModalUI>
     </View>
   );
 };
@@ -103,7 +149,7 @@ const styles = StyleSheet.create({
   },
   textinnerCard: {
     flexDirection: "row",
-    gap: 5,
+    gap: 10,
     width: "75%",
     marginLeft: 5,
     alignItems: "center",
