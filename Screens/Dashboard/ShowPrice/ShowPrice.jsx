@@ -5,8 +5,10 @@ import {
   Text,
   TextInput,
   View,
+  Button,
+  Alert,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ShowPickDropCard from "../../../Components/Dashboard/ShowPrices/ShowPickDropCard/ShowPickDropCard";
 import ShowVehicle from "../../../Components/Dashboard/ShowPrices/ShowVehicle/ShowVehicle";
 import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
@@ -15,6 +17,9 @@ import ShowPollyLine from "../../../Components/Dashboard/ShowPrices/ShowPollyLin
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import ModalUI from "../../../Utils/Modal/Modal.jsx";
 import { COLORS } from "../../../Constants/colors.js";
+import DatePicker from "react-native-date-picker";
+
+console.log("Show");
 
 const ShowPrice = () => {
   const {
@@ -51,6 +56,51 @@ const ShowPrice = () => {
   const maxDate = new Date();
   maxDate.setDate(currentDate.getDate() + 7);
   // console.log(profile);
+
+  const [open, setOpen] = useState(false);
+  const [date, setDate] = useState(new Date());
+  const [minimumDate, setMinimumDate] = useState(new Date());
+
+  const calculateNextInterval = () => {
+    const now = date; // Use the selected date from state
+    let currentMinutes = now.getMinutes();
+    console.log(currentMinutes);
+
+    let nextTime = new Date(now); // Start with the selected date
+
+    // Apply minute intervals based on the current time
+    if (currentMinutes === 0) {
+      nextTime.setMinutes(15);
+    } else if (currentMinutes >= 1 && currentMinutes <= 15) {
+      nextTime.setMinutes(30);
+    } else if (currentMinutes >= 16 && currentMinutes <= 30) {
+      nextTime.setMinutes(45);
+    } else if (currentMinutes >= 31 && currentMinutes <= 45) {
+      nextTime.setHours(nextTime.getHours() + 1);
+      nextTime.setMinutes(0);
+    } else if (currentMinutes >= 46 && currentMinutes <= 59) {
+      nextTime.setHours(nextTime.getHours() + 1);
+      nextTime.setMinutes(15);
+    }
+
+    nextTime.setSeconds(0);
+    console.log(nextTime.getHours());
+
+    setMinimumDate(nextTime); // Set the minimum date based on calculated time
+  };
+  useEffect(() => {
+    if (open) {
+      calculateNextInterval(); // Recalculate when modal is opened
+    }
+  }, [open]); // Runs only when modal is toggled open
+
+  // Trigger recalculation of minimumDate whenever the user picks a new time
+  useEffect(() => {
+    if (date) {
+      calculateNextInterval(); // Recalculate when date is updated by user
+    }
+  }, [date]); // Runs whenever date state changes
+
   return (
     <View style={styles.container}>
       <View style={styles.mapContainer}>
@@ -92,6 +142,7 @@ const ShowPrice = () => {
               onPress={() => handleVehiclePress("car")}
               vehicleType="Car"
             />
+            <Button onPress={() => setOpen(!open)} title="open" />
             <ShowVehicle
               image={require("../../../assets/images/auto.png")}
               personCount={3}
@@ -100,22 +151,22 @@ const ShowPrice = () => {
               onPress={() => handleVehiclePress("auto")}
               vehicleType="Auto"
             />
-            <ShowVehicle
+            {/* <ShowVehicle
               image={require("../../../assets/images/car.png")}
               personCount={4}
               price={pricesInKM?.car}
               isSelected={selectedVehicle === "car"}
               onPress={() => handleVehiclePress("car")}
               vehicleType="Car 1"
-            />
-            <ShowVehicle
+            /> */}
+            {/* <ShowVehicle
               image={require("../../../assets/images/auto.png")}
               personCount={3}
               price={pricesInKM?.auto}
               isSelected={selectedVehicle === "auto"}
               onPress={() => handleVehiclePress("auto")}
               vehicleType="Car 2"
-            />
+            /> */}
           </View>
         </View>
       </ScrollView>
@@ -149,13 +200,27 @@ const ShowPrice = () => {
           borderWidth={1}
         />
 
-        <DateTimePickerModal
-          isVisible={isTimeModalOpenClose}
-          mode="datetime"
-          onConfirm={onHandleTimeValueHandler}
-          onCancel={onTimeModalOpenCloseHandler}
-          minimumDate={currentDate}
-          maximumDate={maxDate}
+        <DatePicker
+          modal
+          open={open}
+          date={date}
+          theme="light"
+          title="Select Future Time"
+          cancelText="Cancel"
+          confirmText="Confirm"
+          minimumDate={minimumDate} // Dynamically set to the next valid time
+          maximumDate={new Date("2024-12-06")}
+          minuteInterval={15} // Enforce 15-minute intervals
+          onConfirm={(selectedDate) => {
+            if (selectedDate.getTime() >= new Date().getTime()) {
+              setDate(selectedDate);
+            } else {
+              Alert.alert("You selected a past time");
+            }
+            setOpen(false);
+          }}
+          onCancel={() => setOpen(false)}
+          style={styles.datePicker}
         />
       </View>
       <ModalUI
@@ -317,5 +382,12 @@ const styles = StyleSheet.create({
   error: {
     fontSize: 10,
     color: "red",
+  },
+
+  datePicker: {
+    backgroundColor: "lightblue", // Custom background color for the date picker modal
+    borderRadius: 10, // Add rounded corners
+    width: 300, // Adjust width of the date picker modal
+    padding: 10, // Add padding inside the modal
   },
 });
