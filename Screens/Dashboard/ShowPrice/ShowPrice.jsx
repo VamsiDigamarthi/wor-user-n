@@ -1,4 +1,6 @@
 import {
+  Dimensions,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -6,7 +8,13 @@ import {
   TextInput,
   View,
 } from "react-native";
-import React from "react";
+
+import BottomSheet, {
+  BottomSheetModalProvider,
+  BottomSheetScrollView,
+} from "@gorhom/bottom-sheet";
+
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import ShowPickDropCard from "../../../Components/Dashboard/ShowPrices/ShowPickDropCard/ShowPickDropCard";
 import ShowVehicle from "../../../Components/Dashboard/ShowPrices/ShowVehicle/ShowVehicle";
 import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
@@ -15,6 +23,11 @@ import ShowPollyLine from "../../../Components/Dashboard/ShowPrices/ShowPollyLin
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import ModalUI from "../../../Utils/Modal/Modal.jsx";
 import { COLORS } from "../../../Constants/colors.js";
+import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar.jsx";
+
+const screenHeight = Dimensions.get("window").height;
+const androidHeight = [screenHeight * 0.1, screenHeight * 0.5]; // Adjust snap points
+const iosHeight = [screenHeight * 0.15, screenHeight * 0.6];
 
 const ShowPrice = () => {
   const {
@@ -41,6 +54,7 @@ const ShowPrice = () => {
     inputRefs,
     mPin,
     mPinError,
+    navigation,
   } = useShowPriceHook();
 
   let shoRightIcons = false;
@@ -50,21 +64,49 @@ const ShowPrice = () => {
 
   const maxDate = new Date();
   maxDate.setDate(currentDate.getDate() + 7);
+
+  // bottomsheet
+
+  const bottomSheetRef = useRef(null);
+  const [mapHeight, setMapHeight] = useState(androidHeight[0]); // Initial map height
+  const snapPoints = useMemo(
+    () => (Platform.OS === "ios" ? iosHeight : androidHeight),
+    []
+  );
+
+  const handleSheetChange = useCallback((index) => {
+    let height = screenHeight * 0.95; // Default map height
+    // console.log(index);
+    if (index === 2) {
+      height = screenHeight * 0.6; // Map height at middle snap point
+    }
+    setMapHeight(height);
+  }, []);
+
   // console.log(profile);
   return (
     <View style={styles.container}>
-      <View style={styles.mapContainer}>
+      <CustomeAppbar
+        title="Book Your Ride"
+        onBack={() => navigation.goBack()}
+      />
+      <View style={[styles.mapContainer, { height: mapHeight }]}>
         <ShowPollyLine
           origin={pickUpCoordinated}
           destination={dropDetails?.location}
         />
       </View>
-      <ScrollView
-        contentContainerStyle={styles.scrollContainer}
-        showsVerticalScrollIndicator={false}
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={1} // Initial snap point
+        snapPoints={snapPoints}
+        onChange={handleSheetChange}
+        enablePanDownToClose={false} // Prevent closing
+        style={styles.bottomSheet} // Apply custom styles
+        backgroundStyle={styles.backgroundStyle} // Set pink background
+        handleIndicatorStyle={styles.handleIndicator}
       >
-        <View style={styles.bottomSheet}>
-          <Text style={styles.text}></Text>
+        <BottomSheetScrollView contentContainerStyle={styles.sheetContent}>
           <View style={styles.bottomSheetInner}>
             {/* this show pick drop card use show price screens also */}
             <ShowPickDropCard
@@ -117,8 +159,8 @@ const ShowPrice = () => {
               vehicleType="Car 2"
             />
           </View>
-        </View>
-      </ScrollView>
+        </BottomSheetScrollView>
+      </BottomSheet>
       <View style={styles.coupneWithBtn}>
         <View style={styles.couponTextCard}>
           <Text style={styles.coupnText}>Coupons</Text>
@@ -206,19 +248,9 @@ export default ShowPrice;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    gap: 0,
-    // paddingTop: 12,
-    position: "relative",
   },
   mapContainer: {
     width: "100%",
-    // paddingHorizontal: 20,
-    height: 350,
-    position: "absolute",
-    top: -80,
-    left: 0,
-    right: 0,
-    zIndex: -1,
   },
   mapImage: {
     width: "100%",

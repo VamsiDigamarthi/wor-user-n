@@ -15,6 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import { TextInput } from "react-native-gesture-handler";
 import InputBox from "../../../Utils/InputCard/InputCard";
 import { useState } from "react";
+import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -30,6 +31,8 @@ const Donation = () => {
 
   return (
     <View style={styles.conatiner}>
+      <CustomeAppbar title="Donation" onBack={() => navigation.goBack()} />
+      <View style={{ height: 100 }} />
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,

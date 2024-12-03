@@ -92,11 +92,11 @@ export default function App() {
   return (
     <Provider store={store}>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
-          <StatusBar style="auto" />
-          <MainNavigation />
-          <Toast />
-        </SafeAreaView>
+        {/* <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}> */}
+        <StatusBar style="auto" />
+        <MainNavigation />
+        <Toast />
+        {/* </SafeAreaView> */}
       </GestureHandlerRootView>
     </Provider>
   );

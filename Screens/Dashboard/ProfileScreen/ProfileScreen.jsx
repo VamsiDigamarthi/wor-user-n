@@ -6,6 +6,7 @@ import ProfileNavigationCard from "../../../Components/Dashboard/ProfileCom/Prof
 import Settingsitem from "../../../Components/Dashboard/settingscom/SettingsItem/Settingsitem";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
@@ -22,6 +23,8 @@ const ProfileScreen = () => {
 
   return (
     <View style={styles.container}>
+      <CustomeAppbar title="Profile" onBack={() => navigation.goBack()} />
+      <View style={{ height: 60 }} />
       <ProfileCard />
       <ProfileRatingRideCountCard />
       <ScrollView
@@ -70,5 +73,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 26,
     paddingVertical: 12,
     gap: 15,
+    // backgroundColor: "red",
   },
 });

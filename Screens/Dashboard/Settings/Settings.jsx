@@ -3,6 +3,8 @@ import React, { useRef } from "react";
 import { Modalize } from "react-native-modalize";
 import SettingProfileCard from "../../../Components/Dashboard/settingscom/SettingProfileCard/SettingProfileCard";
 import SettingsItemsList from "../../../Components/Dashboard/settingscom/SettingsItem/SettingsItemsList";
+import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
+import { useNavigation } from "@react-navigation/native";
 
 const SettingsScreen = () => {
   // Create a reference for the bottom sheet
@@ -15,8 +17,12 @@ const SettingsScreen = () => {
     }
   };
 
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
+      <CustomeAppbar title="Settings" onBack={() => navigation.goBack()} />
+      <View style={{ height: 80 }} />
       <SettingProfileCard />
       <SettingsItemsList onOpenDeleteModal={onOpenModal} />
 
@@ -57,7 +63,7 @@ export default SettingsScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 26,
+    paddingHorizontal: 10,
     paddingVertical: 12,
     gap: 15,
   },

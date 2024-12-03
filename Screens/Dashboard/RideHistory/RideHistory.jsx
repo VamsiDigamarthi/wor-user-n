@@ -2,13 +2,15 @@ import { FlatList, StatusBar, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import RideHistoryItem from "./RideHistoryItem";
 import { useRideHistoryHook } from "./RideHistory.hook";
+import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
 
 const RideHistory = () => {
   const { rideHistory } = useRideHistoryHook();
   // console.log("RideHistory", rideHistory);
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#fff5f9" />
+      <CustomeAppbar title="Ride History" onBack={() => navigation.goBack()} />
+      <View style={{ height: 60 }} />
 
       <FlatList
         data={rideHistory}

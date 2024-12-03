@@ -268,5 +268,6 @@ export const useShowPriceHook = () => {
     inputRefs,
     mPin,
     mPinError,
+    navigation,
   };
 };
