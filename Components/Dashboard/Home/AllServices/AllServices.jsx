@@ -9,7 +9,11 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-
+import Infopressicons from "../../../../Utils/BottomSheet/Components/Infopressicons";
+import ModalUI from "../../../../Utils/Modal/Modal";
+import { infoModalStyles } from "../../../InfoUi/Styles/InfoModalStyles";
+import OtpInfoUi from "../../../InfoUi/OtpInfoUi";
+import { dashBoard } from "../../../InfoUi/data/infoData";
 // A reusable service card component
 const ServiceCard = ({ imageSource, label, onPress }) => {
   return (
@@ -86,10 +90,19 @@ const AllServices = ({
     ));
   };
 
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
+
+  const onHandleOpenInfoModal = () => {
+    setIsInfoModalOpen(!isInfoModalOpen);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>Services Now</Text>
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+          <Text style={styles.headerText}>Services Now</Text>
+          <Infopressicons onHandleOpenInfoModal={onHandleOpenInfoModal} />
+        </View>
         <View style={styles.viewAllContainer}>
           <Pressable onPress={toggleViewAll}>
             <Text style={styles.viewAllText}>
@@ -111,6 +124,19 @@ const AllServices = ({
           {renderServices()}
         </ScrollView>
       )}
+
+      <ModalUI
+        openCloseState={isInfoModalOpen}
+        closeModalFun={onHandleOpenInfoModal}
+        modalStyle="slide"
+        style={infoModalStyles.aadharModalStyles}
+        insideCardStyle={infoModalStyles.insideCardStyle}
+        btnText="Okay, Got It"
+        btnStyles={infoModalStyles.modalCloseBtn}
+        btnTextStyle={infoModalStyles.btnTextStyle}
+      >
+        <OtpInfoUi mainTitle="Dash Board" data={dashBoard} />
+      </ModalUI>
     </View>
   );
 };

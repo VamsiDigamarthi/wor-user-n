@@ -1,11 +1,21 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import NotificationItem from "../../../Components/Dashboard/NotificationCom/NotificationItem/NotificationItem";
+import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
+import { useNavigation } from "@react-navigation/native";
 
 const Notification = () => {
+  const navigation = useNavigation();
   const [notification, setNotification] = useState([]);
   return (
     <View style={styles.container}>
+      <CustomeAppbar
+        title="Notification"
+        onBack={() => navigation.goBack()}
+        showRight
+        rightText="Filter"
+      />
+      <View style={{ height: 80 }} />
       {!notification?.length > 0 ? (
         <NotificationItem />
       ) : (

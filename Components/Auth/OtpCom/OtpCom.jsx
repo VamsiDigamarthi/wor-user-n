@@ -13,6 +13,10 @@ import { API } from "../../../Constants/url";
 import BottomLayout from "../../../Layouts/BottomLayout";
 import { useDispatch } from "react-redux";
 import { setToken } from "../../../redux/Features/Auth/LoginSlice";
+import ModalUI from "../../../Utils/Modal/Modal";
+import { infoModalStyles } from "../../InfoUi/Styles/InfoModalStyles";
+import OtpInfoUi from "../../InfoUi/OtpInfoUi";
+import { otpInfo } from "../../InfoUi/data/infoData";
 
 const OtpRelatedInput = ({ btnShow = true }) => {
   const { otp, handleChange, handleKeyPress, inputs } = useOtpComHook();
@@ -72,6 +76,12 @@ const OtpRelatedInput = ({ btnShow = true }) => {
     }
   };
 
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
+
+  const onHandleOpenInfoModal = () => {
+    setIsInfoModalOpen(!isInfoModalOpen);
+  };
+
   return (
     <BottomLayout
       title={`Welcom Back ${message}`}
@@ -80,6 +90,7 @@ const OtpRelatedInput = ({ btnShow = true }) => {
         2
       )}****${mobile.slice(6)}.`}
       displayChangeNumber={true}
+      onHandleOpenInfoModal={onHandleOpenInfoModal}
     >
       <View style={styles.container}>
         <View style={styles.inputContainer}>
@@ -130,6 +141,18 @@ const OtpRelatedInput = ({ btnShow = true }) => {
           />
         )}
       </View>
+      <ModalUI
+        openCloseState={isInfoModalOpen}
+        closeModalFun={onHandleOpenInfoModal}
+        modalStyle="slide"
+        style={infoModalStyles.aadharModalStyles}
+        insideCardStyle={infoModalStyles.insideCardStyle}
+        btnText="Okay, Got It"
+        btnStyles={infoModalStyles.modalCloseBtn}
+        btnTextStyle={infoModalStyles.btnTextStyle}
+      >
+        <OtpInfoUi mainTitle="Welcome To WOR" data={otpInfo} />
+      </ModalUI>
     </BottomLayout>
   );
 };

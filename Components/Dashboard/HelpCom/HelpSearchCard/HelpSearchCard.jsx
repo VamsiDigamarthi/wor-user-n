@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     paddingHorizontal: 20,
-    marginHorizontal: 26,
+    marginHorizontal: 10,
   },
   inputCard: {
     width: "88%",

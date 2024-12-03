@@ -3,8 +3,11 @@ import React, { useState } from "react";
 import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
 import RideHistoryItem from "../RideHistory/RideHistoryItem";
 import ParcelAddres from "../../../Utils/ParcelAddress/ParcelAddres";
+import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
+import { useNavigation } from "@react-navigation/native";
 
 const DrawerFavorite = () => {
+  const navigation = useNavigation();
   const [isFavoriteOrParcelAddress, setIsFavoriteOrParcelAddress] =
     useState(false);
   const onChangeFavoriteToParcelAddress = () => {
@@ -16,6 +19,8 @@ const DrawerFavorite = () => {
   console.log(isFavoriteOrParcelAddress);
   return (
     <View style={styles.container}>
+      <CustomeAppbar title="Favorite" onBack={() => navigation.goBack()} />
+      <View style={{ height: 90 }} />
       <TabBtns
         onChangeFavoriteToParcelAddress={onChangeFavoriteToParcelAddress}
         isFavoriteOrParcelAddress={isFavoriteOrParcelAddress}

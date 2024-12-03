@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#fff",
 
-    marginHorizontal: 26,
+    marginHorizontal: 10,
   },
   fullRideHistory: {
     paddingVertical: 15,

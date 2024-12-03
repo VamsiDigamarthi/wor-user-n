@@ -7,6 +7,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Toast from "react-native-toast-message";
 import { API } from "../../../Constants/url";
 import { useNavigation } from "@react-navigation/native";
+import ModalUI from "../../../Utils/Modal/Modal";
+import { infoModalStyles } from "../../InfoUi/Styles/InfoModalStyles";
+import OtpInfoUi from "../../InfoUi/OtpInfoUi";
+import { setMPinData } from "../../InfoUi/data/infoData";
 const MPinRelatedUi = ({ isPriceScreen }) => {
   const [mPin, setMPin] = useState(["", "", "", ""]);
   const [reEnterMPin, setReEnterMPin] = useState(["", "", "", ""]);
@@ -125,10 +129,17 @@ const MPinRelatedUi = ({ isPriceScreen }) => {
     );
   };
 
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
+
+  const onHandleOpenInfoModal = () => {
+    setIsInfoModalOpen(!isInfoModalOpen);
+  };
+
   return (
     <BottomLayout
       title="Enter Your Mobile Number"
       subTitle="By entering your mobile number, you agree it will be used for verification and updates."
+      onHandleOpenInfoModal={onHandleOpenInfoModal}
     >
       <View style={styles.container}>
         <Text style={styles.mpin}>Enter M-PIN</Text>
@@ -157,6 +168,18 @@ const MPinRelatedUi = ({ isPriceScreen }) => {
           onPress={handleSubmit}
         />
       </View>
+      <ModalUI
+        openCloseState={isInfoModalOpen}
+        closeModalFun={onHandleOpenInfoModal}
+        modalStyle="slide"
+        style={infoModalStyles.aadharModalStyles}
+        insideCardStyle={infoModalStyles.insideCardStyle}
+        btnText="Okay, Got It"
+        btnStyles={infoModalStyles.modalCloseBtn}
+        btnTextStyle={infoModalStyles.btnTextStyle}
+      >
+        <OtpInfoUi mainTitle="Set M-PIN" data={setMPinData} />
+      </ModalUI>
     </BottomLayout>
   );
 };

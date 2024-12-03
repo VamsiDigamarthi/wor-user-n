@@ -7,14 +7,15 @@ import TextWithCard from "../../../Utils/TextWithCard/TextWithCard";
 import WalletBenefitCard from "./WalletBenefitCard";
 import WalletHowItsWork from "./WalletHowItsWork";
 import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
+import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
+import { useNavigation } from "@react-navigation/native";
 
 const Wallet = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <StatusBar
-        barStyle="dark-content"
-        backgroundColor={COLORS.bottomSheetBg}
-      />
+      <CustomeAppbar title="Wallet" onBack={() => navigation.goBack()} />
+      <View style={{ height: 100 }} />
       <WalletFirstCard />
       <ScrollView
         contentContainerStyle={styles.scrollContainer}

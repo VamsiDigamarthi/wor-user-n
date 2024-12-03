@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 import { imageUrl } from "../../../../Constants/url";
 import ModalUI from "../../../../Utils/Modal/Modal";
 import NewAadharVefirication from "../../../../Components/Auth/NewAadharVerification/NewAadharVefirication";
+import CustomeAppbar from "../../../../Utils/CustomeAppbar/CustomeAppbar";
+import { useNavigation } from "@react-navigation/native";
 
 const ProfileDocumentScreen = () => {
   const { profile } = useSelector((state) => state.profileSlice);
@@ -13,9 +15,12 @@ const ProfileDocumentScreen = () => {
   const onOpenModalHandler = () => {
     setUploadAddharModalOpen(!uploadAddharModalOpen);
   };
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
+      <CustomeAppbar title="Documentation" onBack={() => navigation.goBack()} />
+      <View style={{ height: 90 }} />
       <Text style={{ fontSize: 12, color: COLORS.subHeading }}>ID Prof</Text>
       <SingleAadharCardNumberDetail />
       <Text style={{ fontSize: 12, color: COLORS.subHeading }}>

@@ -58,6 +58,9 @@ import ParcelSavePlaces from "../Screens/Parcels/ParcelSavePlaces/ParcelSavePlac
 import DashBoardAadharCard from "../Screens/Dashboard/ShowPrice/Screens/DashBoardAadharCard";
 import DashBoardMPinCard from "../Screens/Dashboard/ShowPrice/Screens/DashBoardMPinCard";
 import EmergencyContactNumber from "../Screens/Dashboard/ProfileScreen/Screens/EmergencyContactNumber/EmergencyContactNumber";
+
+import NewHome from "../Screens/Dashboard/Home/NewHome";
+
 import { useEffect, useState } from "react";
 import * as Notifications from "expo-notifications";
 import { AppState } from "react-native";
@@ -98,7 +101,7 @@ const DrawerNavigator = ({ route }) => {
 
   return (
     <>
-      <StatusBar backgroundColor="#f5f2f2" barStyle="dark-content" />
+      {/* <StatusBar backgroundColor="#f5f2f2" barStyle="dark-content" /> */}
 
       <Drawer.Navigator
         drawerContent={(props) => <CustomDrawerContent {...props} />} // Use custom drawer
@@ -131,60 +134,56 @@ const DrawerNavigator = ({ route }) => {
         }}
       >
         {/* Home Screen as default */}
-        <Drawer.Screen name="Home" component={Home} />
+        <Drawer.Screen name="Home" component={NewHome} />
+        {/* <Drawer.Screen name="Home" component={Home} /> */}
       </Drawer.Navigator>
     </>
   );
 };
 
 const AuthenticatedStack = () => {
+  // My new code
 
+  const navigation = useNavigation();
+  // const [appState, setAppState] = useState(AppState.currentState);
 
-// My new code
+  // useEffect(() => {
+  //   const appStateListener = AppState.addEventListener("change", (nextAppState) => {
+  //     setAppState(nextAppState);
+  //   });
 
-const navigation = useNavigation();
-// const [appState, setAppState] = useState(AppState.currentState);
+  //   const foregroundNotificationListener = Notifications.addNotificationReceivedListener(
+  //     (notification) => {
+  //       // console.log("Foreground notification:", notification);
+  //       // console.log("In Authenticated Stack",  notification?.request?.content?.data);
 
-// useEffect(() => {
-//   const appStateListener = AppState.addEventListener("change", (nextAppState) => {
-//     setAppState(nextAppState);
-//   });
+  //       if (appState === "active") {
+  //         // console.log("App is in the foreground, no automatic navigation");
+  //       } else {
+  //         handleNotification(navigation, notification);
+  //       }
+  //     }
+  //   );
 
-//   const foregroundNotificationListener = Notifications.addNotificationReceivedListener(
-//     (notification) => {
-//       // console.log("Foreground notification:", notification);
-//       // console.log("In Authenticated Stack",  notification?.request?.content?.data);
-      
-//       if (appState === "active") {
-//         // console.log("App is in the foreground, no automatic navigation");
-//       } else {
-//         handleNotification(navigation, notification);
-//       }
-//     }
-//   );
+  //   const backgroundNotificationListener = Notifications.addNotificationResponseReceivedListener(
+  //     (response) => {
+  //       // console.log("Background notification responded in authenticated stack", response);
+  //       handleNotification(navigation, response.notification);
+  //     }
+  //   );
 
-//   const backgroundNotificationListener = Notifications.addNotificationResponseReceivedListener(
-//     (response) => {
-//       // console.log("Background notification responded in authenticated stack", response);
-//       handleNotification(navigation, response.notification);
-//     }
-//   );
+  //   return () => {
+  //     appStateListener.remove();
+  //     foregroundNotificationListener.remove();
+  //     backgroundNotificationListener.remove();
+  //   };
+  // }, [appState, navigation]);
 
-//   return () => {
-//     appStateListener.remove();
-//     foregroundNotificationListener.remove();
-//     backgroundNotificationListener.remove();
-//   };
-// }, [appState, navigation]);
+  // const handleNotification = (navigation, notification) => {
 
-// const handleNotification = (navigation, notification) => {
-  
-//   console.log(notification.request.content.data.screen , "from authenticated stack");
-//   navigation.navigate(notification?.request?.content?.data?.screen, { screen:notification?.request?.content?.data?.screen  });
-// };
-
-
-
+  //   console.log(notification.request.content.data.screen , "from authenticated stack");
+  //   navigation.navigate(notification?.request?.content?.data?.screen, { screen:notification?.request?.content?.data?.screen  });
+  // };
 
   return (
     <Stack.Navigator>
@@ -202,18 +201,20 @@ const navigation = useNavigation();
       <Stack.Screen
         name="SelectDropLocation"
         component={SelectDropLocation}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Designation")
-        }
+        // options={({ navigation }) =>
+        //   getCommonOptions(navigation, "Designation")
+        // }
+        options={{ headerShown: false }}
       />
 
       {/* ShowPrice screen using reusable function */}
       <Stack.Screen
         name="ShowPrice"
         component={ShowPrice}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Book Your Ride", "#f5f2f2")
-        }
+        options={{ headerShown: false }}
+        // options={({ navigation }) =>
+        //   getCommonOptions(navigation, "Book Your Ride", "#f5f2f2")
+        // }
       />
 
       {/* Looking for Ride screen */}
@@ -266,9 +267,10 @@ const navigation = useNavigation();
       <Stack.Screen
         name="RideHistory"
         component={RideHistory}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Ride History")
-        }
+        options={{ headerShown: false }}
+        // options={({ navigation }) =>
+        //   getCommonOptions(navigation, "Ride History")
+        // }
       />
 
       <Stack.Screen
@@ -282,17 +284,19 @@ const navigation = useNavigation();
       <Stack.Screen
         name="Safety"
         component={SafetyHome}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Safety & Privacy", "#fff")
-        }
+        options={{ headerShown: false }}
+        // options={({ navigation }) =>
+        //   getCommonOptions(navigation, "Safety & Privacy", "#fff")
+        // }
       />
 
       <Stack.Screen
         name="EmergencyContactNumber"
         component={EmergencyContactNumber}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Emergency Contact Number", "#fff")
-        }
+        // options={({ navigation }) =>
+        //   getCommonOptions(navigation, "Emergency Contact Number", "#fff")
+        // }
+        options={{ headerShown: false }}
       />
 
       <Stack.Screen
@@ -314,72 +318,79 @@ const navigation = useNavigation();
       <Stack.Screen
         name="ReferAndEarn"
         component={ReferAndEarn}
-        options={({ navigation }) =>
-          getCommonOptions(
-            navigation,
-            "Refer and Earn",
-            "#f5f2f2",
-            true,
-            "FAQs"
-          )
-        }
+        options={{ headerShown: false }}
+        // options={({ navigation }) =>
+        //   getCommonOptions(
+        //     navigation,
+        //     "Refer and Earn",
+        //     "#f5f2f2",
+        //     true,
+        //     "FAQs"
+        //   )
+        // }
       />
       <Stack.Screen
         name="Notifications"
         component={Notification}
-        options={({ navigation }) =>
-          getCommonOptions(
-            navigation,
-            "Notifications",
-            "#f5f2f2",
-            true,
-            "Filter"
-          )
-        }
+        options={{ headerShown: false }}
+        // options={({ navigation }) =>
+        //   getCommonOptions(
+        //     navigation,
+        //     "Notifications",
+        //     "#f5f2f2",
+        //     true,
+        //     "Filter"
+        //   )
+        // }
       />
       <Stack.Screen
         name="Help"
         component={Help}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Help", "#f5f2f2")
-        }
+        options={{ headerShown: false }}
+        // options={({ navigation }) =>
+        //   getCommonOptions(navigation, "Help", "#f5f2f2")
+        // }
       />
       <Stack.Screen
         name="Profile"
         component={ProfileScreen}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Profile", "#f5f2f2")
-        }
+        // options={({ navigation }) =>
+        //   getCommonOptions(navigation, "Profile", "#f5f2f2")
+        // }
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="PersonalInfo"
         component={PersonalInfo}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Personal Info", "#f5f2f2")
-        }
+        options={{ headerShown: false }}
+        // options={({ navigation }) =>
+        //   getCommonOptions(navigation, "Personal Info", "#f5f2f2")
+        // }
       />
 
       <Stack.Screen
         name="PersonalInfoPreview"
         component={PersonalInfoPreview}
-        options={({ navigation }) =>
-          getCommonOptions(
-            navigation,
-            "Personal Info",
-            "#f5f2f2",
-            true,
-            "Edit",
-            "PersonalInfo"
-          )
-        }
+        options={{ headerShown: false }}
+        // options={({ navigation }) =>
+        //   getCommonOptions(
+        //     navigation,
+        //     "Personal Info",
+        //     "#f5f2f2",
+        //     true,
+        //     "Edit",
+        //     "PersonalInfo"
+        //   )
+        // }
       />
 
       <Stack.Screen
         name="Settings"
         component={SettingsScreen}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Settings", "#f5f2f2")
-        }
+        options={{ headerShown: false }}
+        // options={({ navigation }) =>
+        //   getCommonOptions(navigation, "Settings", "#f5f2f2")
+        // }
       />
       <Stack.Screen
         name="Preference"
@@ -392,9 +403,10 @@ const navigation = useNavigation();
       <Stack.Screen
         name="Donation"
         component={Donation}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Support Our Mission", "#f5f2f2")
-        }
+        // options={({ navigation }) =>
+        //   getCommonOptions(navigation, "Support Our Mission", "#f5f2f2")
+        // }
+        options={{ headerShown: false }}
       />
 
       <Stack.Screen
@@ -408,9 +420,10 @@ const navigation = useNavigation();
       <Stack.Screen
         name="PaymentMethod"
         component={PaymentMethods}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Payment", "#f5f2f2")
-        }
+        options={{ headerShown: false }}
+        // options={({ navigation }) =>
+        //   getCommonOptions(navigation, "Payment", "#f5f2f2")
+        // }
       />
 
       <Stack.Screen
@@ -435,9 +448,11 @@ const navigation = useNavigation();
       <Stack.Screen
         name="ProfileDocumentScreen"
         component={ProfileDocumentScreen}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Documentation", "#f5f2f2")
-        }
+        options={{ headerShown: false }}
+        // options={({ navigation }) =>
+
+        //   getCommonOptions(navigation, "Documentation", "#f5f2f2")
+        // }
       />
 
       {/* side bar screens */}
@@ -453,16 +468,15 @@ const navigation = useNavigation();
       <Stack.Screen
         name="Wallet"
         component={Wallet}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Wallet", "#f5f2f2")
-        }
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="DrawerFavorite"
         component={DrawerFavorite}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Favorite", "#f5f2f2")
-        }
+        options={{ headerShown: false }}
+        // options={({ navigation }) =>
+        //   getCommonOptions(navigation, "Favorite", "#f5f2f2")
+        // }
       />
 
       {/* side bar screens */}
@@ -471,9 +485,10 @@ const navigation = useNavigation();
       <Stack.Screen
         name="ParcelHome"
         component={ParcelHome}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Send or Receive Parcel", "#f5f2f2")
-        }
+        options={{ headerShown: false }}
+        // options={({ navigation }) =>
+        //   getCommonOptions(navigation, "Send or Receive Parcel", "#f5f2f2")
+        // }
       />
       {/* <Stack.Screen
         name="SendReceiveParcel"
@@ -565,14 +580,13 @@ const CustomHeader = ({
 
         <Text style={[styles.text]}>{"title" || "Title"}</Text>
 
-
-        <Pressable onPress={()=>Alert.alert("Info Pressed")}>
-        <Ionicons
-          name="information-circle-outline"
-          size={15}
-          color="lightgray"
-          style={[styles.icon , {marginLeft:5}]}
-        />
+        <Pressable onPress={() => Alert.alert("Info Pressed")}>
+          <Ionicons
+            name="information-circle-outline"
+            size={15}
+            color="lightgray"
+            style={[styles.icon, { marginLeft: 5 }]}
+          />
         </Pressable>
       </View>
       {showRight && (
