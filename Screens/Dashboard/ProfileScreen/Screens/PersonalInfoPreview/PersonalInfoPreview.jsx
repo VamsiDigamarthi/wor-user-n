@@ -1,11 +1,23 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { useSelector } from "react-redux";
+import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
+import { useNavigation } from "@react-navigation/native";
 
 const PersonalInfoPreview = () => {
+  const navigation = useNavigation();
   const { profile } = useSelector((state) => state.profileSlice);
   return (
     <View style={styles.container}>
+      <CustomeAppbar
+        title="Personal Info"
+        top={25}
+        onBack={() => navigation.goBack()}
+        rightText="Edit"
+        showRight
+        navigationText="PersonalInfo"
+      />
+      <View style={{ height: 60 }} />
       <View style={styles.singleItem}>
         <Text style={styles.firstText}>Name</Text>
         <Text style={styles.secondText}>{profile?.name}</Text>

@@ -3,6 +3,7 @@ import { StyleSheet, View } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
 import axios from "axios";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
+import { customMapStyle } from "../../../../Constants/mapData";
 
 const ShowPollyLine = ({
   origin,
@@ -109,12 +110,22 @@ const ShowPollyLine = ({
     <View style={[styles.container, { height }]}>
       <MapView
         style={styles.map}
+        poiClickEnabled={false}
         initialRegion={{
           latitude: adjustedOrigin.latitude,
           longitude: adjustedOrigin.longitude,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
+        customMapStyle={customMapStyle}
+        showsMyLocationButton={false}
+        showsCompass={false}
+        showsIndoors={false}
+        showsIndoorLevelPicker={false}
+        showsTraffic={false}
+        showsScale={false}
+        showsBuildings={false}
+        showsPointsOfInterest={false}
       >
         {/* Marker for Start */}
         {adjustedOrigin.latitude && adjustedOrigin.longitude && (

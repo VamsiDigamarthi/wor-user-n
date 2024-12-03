@@ -13,6 +13,7 @@ import SelectParcelType from "../../../Components/Parcels/SendAndReceiveParcelCo
 import ParcelSpecification from "../../../Components/Parcels/SendAndReceiveParcelCom/ParcelSpecification/ParcelSpecification";
 import { useParcelHomeHook } from "./ParcelHome.hook";
 import ParcelOrderSummary from "../ParcelOrderSummary/ParcelOrderSummary";
+import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -27,6 +28,11 @@ const ParcelHome = () => {
 
   return (
     <View style={styles.container}>
+      <CustomeAppbar
+        title="Send or Receive Parcel"
+        onBack={() => navigation.goBack()}
+      />
+      <View style={{ height: 80 }} />
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
@@ -47,7 +53,7 @@ const ParcelHome = () => {
             />
             {/* <SelectParcelType /> */}
             {/* <ParcelSpecification /> */}
-            <ParcelOrderSummary/>
+            <ParcelOrderSummary />
           </>
         ) : (
           <Image
@@ -76,7 +82,7 @@ export default ParcelHome;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 26,
+    paddingHorizontal: 10,
     paddingVertical: 12,
     gap: 15,
     position: "relative",

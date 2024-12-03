@@ -50,6 +50,8 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     elevation: 1,
     shadowColor: "red",
+    position: "absolute",
+    top: 20,
   },
   appSecondCard: {
     flexDirection: "row",

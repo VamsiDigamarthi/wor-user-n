@@ -4,12 +4,17 @@ import InputBox from "../../../../../Utils/InputCard/InputCard";
 import CustomBtn from "../../../../../Utils/CustomBtn/CustomBtn";
 import AuthScreenLayout from "../../../../../Layouts/AuthScreenLayout";
 import { usePersonalInfoHook } from "./PersonalInfo.hook";
+import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
+import { useNavigation } from "@react-navigation/native";
 
 const PersonalInfo = () => {
   const { userData, handleInputChange, onChangeProfile } =
     usePersonalInfoHook();
+  const navigation = useNavigation();
   return (
     <AuthScreenLayout>
+      <CustomeAppbar title="Profile" onBack={() => navigation.goBack()} />
+      <View style={{ height: 90 }} />
       <View style={styles.container}>
         <InputBox
           label="Full Name"
@@ -55,7 +60,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     gap: 20,
-    paddingHorizontal: 26,
+    paddingHorizontal: 10,
     paddingVertical: 12,
     position: "relative",
     marginTop: 20,

@@ -184,5 +184,6 @@ export const useSelectDropLocationHook = () => {
     isListening,
     micVoiceText,
     setIsMicModalOpenClose,
+    navigation,
   };
 };

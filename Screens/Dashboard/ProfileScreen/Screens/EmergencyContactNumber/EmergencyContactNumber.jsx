@@ -3,14 +3,22 @@ import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import { COLORS } from "../../../../../Constants/colors";
 import { useState } from "react";
 import ModalUI from "../../../../../Utils/Modal/Modal";
+import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
+import { useNavigation } from "@react-navigation/native";
 
 const EmergencyContactNumber = () => {
   const [isAddContactOpen, setIsAddContactOpen] = useState(false);
   const onOpenAddContactHandler = () => {
     setIsAddContactOpen(!isAddContactOpen);
   };
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
+      <CustomeAppbar
+        title="Emergency Contact Number"
+        onBack={() => navigation.goBack()}
+      />
+      <View style={{ height: 90 }} />
       <View style={styles.innerCard}>
         <Text
           style={{ fontSize: 18, fontWeight: "600", color: COLORS.heading }}

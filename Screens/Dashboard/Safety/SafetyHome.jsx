@@ -5,11 +5,16 @@ import { useNavigation } from "@react-navigation/native";
 import SafetyFirst from "./Components/SafetyFirst";
 import { COLORS } from "../../../Constants/colors";
 import SafetyThird, { SingleCard } from "./Components/SafetyThird";
+import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
 export default function SafetyHome() {
   const navigation = useNavigation();
   return (
-    <ScrollView contentContainerStyle={{}} style={{ gap: 10 }}>
-      <StatusBar barStyle="dark-content" backgroundColor="#fff5f9" />
+    <ScrollView
+      contentContainerStyle={{}}
+      style={{ gap: 10, backgroundColor: COLORS.bottomSheetBg }}
+    >
+      <CustomeAppbar title="Favorite" onBack={() => navigation.goBack()} />
+      <View style={{ height: 100 }} />
       <SafetyFirst />
       <View
         style={{

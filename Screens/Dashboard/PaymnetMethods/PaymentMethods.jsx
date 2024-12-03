@@ -6,10 +6,14 @@ import PaymnetItems from "./PaymentItems/PaymnetItems";
 import AddPaymnetCard from "./AddPaymnetCard/AddPaymnetCard";
 import WalletFirstCard from "../Wallet/WalletFirstCard";
 import WalletMoneyCard from "../Wallet/WalletMoneyCard";
+import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
+import { COLORS } from "../../../Constants/colors";
+import { useNavigation } from "@react-navigation/native";
 
 const screenWidth = Dimensions.get("window").width;
 
 const PaymentMethods = () => {
+  const navigation = useNavigation();
   const [checkedItems, setCheckedItems] = useState({
     cashPayment: false,
     netBanking: false,
@@ -50,6 +54,8 @@ const PaymentMethods = () => {
 
   return (
     <View style={styles.container}>
+      <CustomeAppbar title="Payment" onBack={() => navigation.goBack()} />
+      <View style={{ height: 80 }} />
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
@@ -139,6 +145,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     gap: 15,
     position: "relative",
+    backgroundColor: COLORS.bottomSheetBg,
   },
   positionCard: {
     width: screenWidth,
