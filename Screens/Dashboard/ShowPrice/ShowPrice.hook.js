@@ -42,7 +42,7 @@ export const useShowPriceHook = () => {
     const timePart = indiaDateTime.split(",")[1].trim();
 
     const formattedTime = timePart;
-    console.log(timePart);
+    // console.log(timePart);
 
     const orderDetails = {
       vehicleType: selectedVehicle,
@@ -66,10 +66,15 @@ export const useShowPriceHook = () => {
       },
     })
       .then((res) => {
-        console.log("success")
-        console.log(res.data?.order);
+        console.log("success");
         console.log(res.data?.message);
+        console.log(res.data?.scheduledTime);
+        console.log(res.data?.notifiedTime);
         onOpenIsEnterConfirmPinModal();
+        if (isDateTimeData) {
+          console.log("scheduled order placed successfully");
+          return;
+        }
         navigation.navigate("lookingforride", {
           price: beforeOrder.price,
           vehicleType: selectedVehicle,
@@ -80,7 +85,6 @@ export const useShowPriceHook = () => {
         });
       })
       .catch((e) => {
-
         console.log("failure");
         console.log(e.response?.data?.message);
         setApisError(e.response?.data?.message);
@@ -101,6 +105,8 @@ export const useShowPriceHook = () => {
           },
         }
       );
+      setMPin(["", "", "", ""]);
+      setMPinError("");
       onFinalPlaceOrder();
     } catch (error) {
       console.log(error?.response?.data);

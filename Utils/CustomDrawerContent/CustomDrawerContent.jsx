@@ -11,6 +11,7 @@ import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { Ionicons, FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 import { imageUrl } from "../../Constants/url";
+import defaultImg from "../../assets/images/profile/Services.png";
 
 const CustomDrawerContent = (props) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(true); // Track drawer open/close
@@ -19,7 +20,9 @@ const CustomDrawerContent = (props) => {
   const [avgRating, setAvgRating] = useState("");
 
   const [imageSrc, setImageSrc] = useState(
-    "https://via.placeholder.com/80" // Default placeholder
+    profile?.profilePic
+      ? { uri: `${imageUrl}/${profile.profilePic}` }
+      : defaultImg
   );
 
   // console.log(profile);
@@ -64,20 +67,20 @@ const CustomDrawerContent = (props) => {
     }
   }, [profile]);
 
-  useEffect(() => {
-    if (profile && profile.profilePic) {
-      const image = new Image();
-      const serverImage = `${imageUrl}/${profile.profilePic}`;
+  // useEffect(() => {
+  //   if (profile && profile.profilePic) {
+  //     const image = new Image();
+  //     const serverImage = `${imageUrl}/${profile.profilePic}`;
 
-      image.src = serverImage;
+  //     image.src = serverImage;
 
-      // If the image loads successfully, update the source
-      image.onload = () => setImageSrc(serverImage);
+  //     // If the image loads successfully, update the source
+  //     image.onload = () => setImageSrc(serverImage);
 
-      // If there's an error, keep the placeholder
-      image.onerror = () => setImageSrc("https://via.placeholder.com/80");
-    }
-  }, [profile, imageUrl]);
+  //     // If there's an error, keep the placeholder
+  //     image.onerror = () => setImageSrc("https://via.placeholder.com/80");
+  //   }
+  // }, [profile, imageUrl]);
 
   const openLink = () => {
     const url = "https://nuhvin.com"; // Replace with your desired URL
@@ -97,7 +100,7 @@ const CustomDrawerContent = (props) => {
           width: 40,
           top: 40,
           right: isDrawerOpen ? 0 : -40, // Adjust placement based on drawer state
-          zIndex: 15,
+          zIndex: 5,
           justifyContent: "center",
           alignItems: "center",
           backgroundColor: "#e02e88",
@@ -148,7 +151,7 @@ const CustomDrawerContent = (props) => {
       >
         {/* Profile Header */}
         <View style={[styles.headerContainer, { borderTopRightRadius: 20 }]}>
-          <Image source={{ uri: imageSrc }} style={styles.profilePic} />
+          <Image source={imageSrc} style={styles.profilePic} />
           <Text style={styles.profileName}>{profile?.name}</Text>
 
           <Pressable
@@ -322,13 +325,14 @@ const styles = StyleSheet.create({
     paddingTop: 0,
   },
   headerContainer: {
-    backgroundColor: "#fff5f9",
+    backgroundColor: "#fff",
     paddingBottom: 30,
     alignItems: "center",
     justifyContent: "center",
     borderBottomWidth: 1,
     borderBottomColor: "#e0e0e0",
     width: "100%",
+    paddingTop: 20,
   },
   profilePic: {
     width: 80,
