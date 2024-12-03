@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import AuthenticatedStack from "./AuthenticatedStack";
 import AuthStack from "./AuthStack";
 import { Image, StyleSheet, View } from "react-native";
@@ -9,6 +9,8 @@ import * as Notifications from "expo-notifications";
 import { AppState } from "react-native";
 import { noToken, setToken } from "../redux/Features/Auth/LoginSlice";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { API } from "../Constants/url";
+import { setOrders } from "../redux/Features/Auth/PreviousOrders";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,51 +21,119 @@ const MainNavigation = () => {
   const navigationRef = useRef();
   const [appState, setAppState] = useState(AppState.currentState);
   const [pendingNotification, setPendingNotification] = useState(null);
-  const [processedNotifications, setProcessedNotifications] = useState(new Set());
+  const [processedNotifications, setProcessedNotifications] = useState(
+    new Set()
+  );
 
-      useEffect(  () => {
-        const checkToken = async () => {
-          try {
-            const storedToken = await AsyncStorage.getItem("token");
-            if (storedToken) {
-              dispatch(setToken(JSON.parse(storedToken)));
-            } else {
-              dispatch(noToken(false));
-            }
-          } catch (error) {
-            console.error("Error reading token", error);
-          }
-        };
-
-        checkToken();
-      }, []);
-
-  const handleNotification = (notification) => {
-    const id = notification?.request?.identifier; // Unique identifier for each notification
-    if (!id || processedNotifications.has(id)) {
-      // Skip if notification has already been processed
-      return;
-    }
-
-    const screen = notification?.request?.content?.data?.screen;
-    if (screen) {
-      if (navigationRef.current?.isReady()) {
-        navigationRef.current.navigate(screen, {
-          screen,
-        });
-      } else {
-        setPendingNotification(screen);
-      }
-    }
-
-    // Mark notification as processed
-    setProcessedNotifications((prev) => new Set(prev).add(id));
-  };
-
+  // Fetch token on app launch
   useEffect(() => {
-    const appStateListener = AppState.addEventListener("change", (nextAppState) => {
-      setAppState(nextAppState);
-    });
+    const checkToken = async () => {
+      try {
+        const storedToken = await AsyncStorage.getItem("token");
+        if (storedToken) {
+          // let previousOrders = await API.get("/user/all-orders", {
+          //   headers: {
+          //     Authorization: `Bearer ${JSON.parse(storedToken)}`,
+          //     "Content-Type": "application/json",
+          //   },
+          // });
+
+          // previousOrders?.data?.forEach((singleOrder) => {
+          //   console.log("single order", singleOrder);
+          //   if (singleOrder.status === "pending") {
+          //     let newObj = {
+          //       vehicleType: singleOrder.vehicleType,
+          //       price: singleOrder.price,
+          //       placeName: singleOrder.pickupAddress,
+          //       dropAddress: {
+          //         location: {
+          //           lat: singleOrder?.drop?.coordinates[1],
+          //           lng: singleOrder?.drop?.coordinates[0],
+          //         },
+          //         name: singleOrder?.dropAddress,
+          //         vicinity: singleOrder?.dropVicinity,
+          //       },
+          //       pickUpCoordinated: {
+          //         lat: singleOrder?.pickup?.coordinates[1],
+          //         lng: singleOrder?.pickup?.coordinates[0],
+          //       },
+          //       orderId: singleOrder._id,
+          //     };
+          //     console.log("new OBJ", newObj);
+          //   }
+          //   navigationRef.current.navigate("lookingforride", {
+          //     // ...newObj,
+          //   });
+          // });
+
+          // dispatch(setOrders(previousOrders?.data));
+
+          // console.log("previous", previousOrders?.data);
+
+          dispatch(setToken(JSON.parse(storedToken)));
+        } else {
+          dispatch(noToken(false));
+        }
+      } catch (error) {
+        console.error("Error reading token", error);
+      }
+    };
+
+    checkToken();
+  }, [dispatch]);
+
+  // Handle notifications
+  const handleNotification = useCallback(
+    (notification) => {
+      const id = notification?.request?.identifier;
+      if (!id || processedNotifications.has(id)) return;
+
+      const screen = notification?.request?.content?.data?.screen;
+      const order = notification?.request?.content?.data?.order;
+
+      if (screen) {
+        let newObj;
+        if (navigationRef.current?.isReady()) {
+          if (screen === "lookingforride") {
+            const newOrder = JSON.parse(order);
+            newObj = {
+              vehicleType: newOrder.vehicleType,
+              price: newOrder.price,
+              placeName: newOrder.pickupAddress,
+              dropAddress: {
+                location: {
+                  lat: newOrder?.drop?.coordinates[1],
+                  lng: newOrder?.drop?.coordinates[0],
+                },
+                name: newOrder?.dropAddress,
+                vicinity: newOrder?.dropVicinity,
+              },
+              pickUpCoordinated: {
+                lat: newOrder?.pickup?.coordinates[1],
+                lng: newOrder?.pickup?.coordinates[0],
+              },
+              orderId: newOrder._id,
+            };
+          } else if (screen === "captaineacceptride") {
+            newObj = JSON.parse(order);
+          }
+
+          navigationRef.current.navigate(screen, {
+            ...(newObj ?? null),
+          });
+        } else {
+          setPendingNotification(screen);
+        }
+      }
+
+      setProcessedNotifications((prev) => new Set(prev).add(id));
+    },
+    [processedNotifications]
+  );
+
+  // Listeners for AppState and Notifications
+  useEffect(() => {
+    const appStateListener = AppState.addEventListener("change", setAppState);
 
     const foregroundNotificationListener =
       Notifications.addNotificationReceivedListener((notification) => {
@@ -84,8 +154,9 @@ const MainNavigation = () => {
       foregroundNotificationListener.remove();
       backgroundNotificationListener.remove();
     };
-  }, [appState, processedNotifications]);
+  }, [appState, handleNotification]);
 
+  // Handle notifications received while app is launched
   useEffect(() => {
     const handleAppLaunchNotification = async () => {
       const response = await Notifications.getLastNotificationResponseAsync();
@@ -95,8 +166,9 @@ const MainNavigation = () => {
     };
 
     handleAppLaunchNotification();
-  }, [processedNotifications]);
+  }, [handleNotification]);
 
+  // Handle pending notifications when NavigationContainer is ready
   const onReady = () => {
     if (pendingNotification) {
       navigationRef.current.navigate(pendingNotification, {
@@ -127,14 +199,8 @@ const MainNavigation = () => {
           name="AuthenticatedStack"
           component={AuthenticatedStack}
           initialRouteName="DrawerNavigator"
-          options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="AuthStack"
-          component={AuthStack}
-          initialRouteName="login"
-          options={{ headerShown: false }}
-        />
+        <Stack.Screen name="AuthStack" component={AuthStack} />
       </Stack.Navigator>
     </NavigationContainer>
   );

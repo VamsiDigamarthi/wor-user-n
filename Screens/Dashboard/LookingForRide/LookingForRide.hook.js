@@ -16,6 +16,7 @@ export const useLookingForRideHook = () => {
     pickUpCoordinated,
     orderId,
   } = route.params;
+
   const navigation = useNavigation();
   const [showCancelWithReOrderBtn, setShowCancelWithReOrderBtn] =
     useState(true);

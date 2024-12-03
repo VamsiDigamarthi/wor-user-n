@@ -26,7 +26,7 @@ import { COLORS } from "../../../Constants/colors.js";
 import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar.jsx";
 
 const screenHeight = Dimensions.get("window").height;
-const androidHeight = [screenHeight * 0.1, screenHeight * 0.5]; // Adjust snap points
+const androidHeight = [screenHeight * 0.4, screenHeight * 0.8]; // Adjust snap points
 const iosHeight = [screenHeight * 0.15, screenHeight * 0.6];
 
 const ShowPrice = () => {
@@ -55,6 +55,7 @@ const ShowPrice = () => {
     mPin,
     mPinError,
     navigation,
+    isDateTimeData,
   } = useShowPriceHook();
 
   let shoRightIcons = false;
@@ -66,6 +67,8 @@ const ShowPrice = () => {
   maxDate.setDate(currentDate.getDate() + 7);
 
   // bottomsheet
+
+  console.log(isDateTimeData);
 
   const bottomSheetRef = useRef(null);
   const [mapHeight, setMapHeight] = useState(androidHeight[0]); // Initial map height
@@ -118,14 +121,17 @@ const ShowPrice = () => {
               onTimeModalOpenCloseHandler={onTimeModalOpenCloseHandler}
             />
             <View style={{ height: 10 }} />
-            <ShowVehicle
-              image={require("../../../assets/images/scooty.png")}
-              personCount={1}
-              price={pricesInKM?.scooty}
-              isSelected={selectedVehicle === "scooty"}
-              onPress={() => handleVehiclePress("scooty")}
-              vehicleType="Scooty"
-            />
+            {!isDateTimeData && (
+              <ShowVehicle
+                image={require("../../../assets/images/scooty.png")}
+                personCount={1}
+                price={pricesInKM?.scooty}
+                isSelected={selectedVehicle === "scooty"}
+                onPress={() => handleVehiclePress("scooty")}
+                vehicleType="Scooty"
+              />
+            )}
+
             <ShowVehicle
               image={require("../../../assets/images/car.png")}
               personCount={4}
@@ -134,30 +140,16 @@ const ShowPrice = () => {
               onPress={() => handleVehiclePress("car")}
               vehicleType="Car"
             />
-            <ShowVehicle
-              image={require("../../../assets/images/auto.png")}
-              personCount={3}
-              price={pricesInKM?.auto}
-              isSelected={selectedVehicle === "auto"}
-              onPress={() => handleVehiclePress("auto")}
-              vehicleType="Auto"
-            />
-            <ShowVehicle
-              image={require("../../../assets/images/car.png")}
-              personCount={4}
-              price={pricesInKM?.car}
-              isSelected={selectedVehicle === "car"}
-              onPress={() => handleVehiclePress("car")}
-              vehicleType="Car 1"
-            />
-            <ShowVehicle
-              image={require("../../../assets/images/auto.png")}
-              personCount={3}
-              price={pricesInKM?.auto}
-              isSelected={selectedVehicle === "auto"}
-              onPress={() => handleVehiclePress("auto")}
-              vehicleType="Car 2"
-            />
+            {!isDateTimeData && (
+              <ShowVehicle
+                image={require("../../../assets/images/auto.png")}
+                personCount={3}
+                price={pricesInKM?.auto}
+                isSelected={selectedVehicle === "auto"}
+                onPress={() => handleVehiclePress("auto")}
+                vehicleType="Auto"
+              />
+            )}
           </View>
         </BottomSheetScrollView>
       </BottomSheet>

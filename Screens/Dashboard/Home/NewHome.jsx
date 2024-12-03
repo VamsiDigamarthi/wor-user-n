@@ -1,22 +1,29 @@
-import { Dimensions, Platform, StyleSheet, Text, View } from "react-native";
+import {
+  Dimensions,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  Button,
+} from "react-native";
 import React, { useCallback, useMemo, useRef, useState } from "react";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import BottomSheet, {
   BottomSheetModalProvider,
   BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
 import { useHomeHook } from "./Home.hook";
-import { useNavigation } from "@react-navigation/native";
+import { CommonActions, useNavigation } from "@react-navigation/native";
 import HomeMap from "../../../Utils/HomeMap/HomeMap";
 import DropLocation from "../../../Components/Dashboard/DropLocation/DropLocation";
 import AllServices from "../../../Components/Dashboard/Home/AllServices/AllServices";
 import SliderComponent from "../../../Utils/SliderComponent/SliderComponent";
 import BackgroundImage from "../../../Utils/BackgroundImage/BackgroundImage";
-import { Button } from "react-native-web";
 import { COLORS } from "../../../Constants/colors";
+import DateTimePicker from "../../../Utils/DateTimePicker/DateTimePicker";
 
 const screenHeight = Dimensions.get("window").height;
-const androidHeight = [screenHeight * 0.1, screenHeight * 0.5]; // Adjust snap points
+const androidHeight = [screenHeight * 0.35, screenHeight * 0.5]; // Adjust snap points
 const iosHeight = [screenHeight * 0.15, screenHeight * 0.6];
 
 const NewHome = () => {
@@ -65,6 +72,7 @@ const NewHome = () => {
         {/* Map Container */}
         <View style={[styles.mapContainer, { height: mapHeight }]}>
           <HomeMap location={location} />
+          {/* <DateTimePicker /> */}
         </View>
 
         {/* Bottom Sheet */}
@@ -100,7 +108,7 @@ const NewHome = () => {
               <View style={{ height: 10 }} />
               <SliderComponent />
               <BackgroundImage />
-              {/* <Button title="Go Back" onPress={onBackLogin} /> */}
+              <Button title="Go Back" onPress={onBackLogin} />
             </View>
           </BottomSheetScrollView>
         </BottomSheet>
