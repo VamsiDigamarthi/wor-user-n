@@ -14,6 +14,9 @@ export const useCaptainAcceptRideHook = () => {
   const [travellingTimeAndDistnace, setTravellingTimeAndDistnace] =
     useState(null);
   const socket = useRef(null);
+
+  console.log(orderDetails);
+
   // State to track if OTP has been verified
   const [otpVerified, setOtpVerified] = useState(false);
 

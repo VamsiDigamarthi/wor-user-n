@@ -145,3 +145,78 @@ let profil = {
   userVerified: false,
   vehicleNumber: null,
 };
+
+// vehicle Type scooty
+//  LOG  price 1
+//  LOG  placeName Sprint Business Centre, 6th Floor, Jayabheri Silicon Towers, Kothaguda, Hyderabad, Telangana 500084, India
+//  LOG  dropAddress {"id": "ChIJ31MJbaOQyzsR3SvCCW2ETPA", "location": {"lat": 17.4578021, "lng": 78.36884549999999}, "name": "Kensium Solutions Pvt. Ltd.", "photo": "AdDdOWplh9ocDBdpmYurZNAHzZSeQi-F38t2BwazTsB1D7dHqYN2KLELg6QS-L-QblXeQRMBEVF-uboM3ygkEm6V8KU35M_wWpOjcKusnkLicq-RyeQfmmHPPtgoLCVdt3d8IhYDCSEY5w_fhLJtVsT8R2-YQIBEbv3oS8i6VlY8LJBfGewF", "vicinity": "4th Floor, Jyothi Pinnacle, Hitech City Road, Laxmi Cyber City, Whitefields, Kondapur"}
+//  LOG  pickUpCoordinated {"lat": 17.4587261, "lng": 78.3705371}
+//  LOG  orderId 674e9617c5fb38f26cac12f8
+
+let or = {
+  __v: 0,
+  _id: "674e97288348dd92f7480355",
+  attempts: 0,
+  drop: { coordinates: [78.36884549999999, 17.4578021], type: "Point" },
+  dropAddress: "Kensium Solutions Pvt. Ltd.",
+  dropVicinity:
+    "4th Floor, Jyothi Pinnacle, Hitech City Road, Laxmi Cyber City, Whitefields, Kondapur",
+  favorite: false,
+  futureTime: null,
+  giveVehicleNumber: true,
+  head: "6747788b11be4e1f4c9dd973",
+  howManyMans: 0,
+  isArrived: false,
+  mensProblem: false,
+  onNaviagtionChange: false,
+  orderOtp: 1141,
+  orderOtpVerified: false,
+  orderPlaceDate: "3-12-2024",
+  orderPlaceTime: "10:59:12 am",
+  pickup: { coordinates: [78.3705371, 17.4587261], type: "Point" },
+  pickupAddress:
+    "Sprint Business Centre, 6th Floor, Jayabheri Silicon Towers, Kothaguda, Hyderabad, Telangana 500084, India",
+  price: 1,
+  rejectedCaptaine: [],
+  reviewTest: "",
+  saved: false,
+  status: "cancelled",
+  time: "",
+  userAuthenticationImage: null,
+  vehicleType: "scooty",
+};
+
+let previous = [
+  {
+    __v: 0,
+    _id: "674ec31d4209bf509ee516cb",
+    attempts: 0,
+    drop: { coordinates: [Array], type: "Point" },
+    dropAddress: "Swagath-De-Royal",
+    dropVicinity:
+      "Kothaguda Cross Road Cyberabad, Gachibowli - Miyapur Road, Kondapur",
+    favorite: false,
+    futureTime: null,
+    giveVehicleNumber: true,
+    head: "6747788b11be4e1f4c9dd973",
+    howManyMans: 0,
+    isArrived: false,
+    mensProblem: false,
+    onNaviagtionChange: false,
+    orderOtp: 2021,
+    orderOtpVerified: false,
+    orderPlaceDate: "3-12-2024",
+    orderPlaceTime: "2:06:45 pm",
+    pickup: { coordinates: [Array], type: "Point" },
+    pickupAddress:
+      "4, Hitech City Rd, Kukatpally Housing Board Colony, Kukatpally, Hyderabad, Kothaguda, Telangana 500084, India",
+    price: 4,
+    rejectedCaptaine: [],
+    reviewTest: "",
+    saved: false,
+    status: "pending",
+    time: "",
+    userAuthenticationImage: null,
+    vehicleType: "scooty",
+  },
+];
