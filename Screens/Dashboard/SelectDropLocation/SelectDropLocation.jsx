@@ -36,6 +36,7 @@ const SelectDropLocation = () => {
     navigation,
   } = useSelectDropLocationHook();
   // console.log("jugfghjn", nearByFavPrevPlace);
+
   return (
     <View style={styles.container}>
       {/* <StatusBar barStyle="dark-content" backgroundColor="#f5f2f2" /> */}

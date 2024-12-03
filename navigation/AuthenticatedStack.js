@@ -65,7 +65,6 @@ import { useEffect, useState } from "react";
 import * as Notifications from "expo-notifications";
 import { AppState } from "react-native";
 
-
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -143,53 +142,48 @@ const DrawerNavigator = ({ route }) => {
 };
 
 const AuthenticatedStack = () => {
+  // My new code
 
+  const navigation = useNavigation();
+  // const [appState, setAppState] = useState(AppState.currentState);
 
-// My new code
+  // useEffect(() => {
+  //   const appStateListener = AppState.addEventListener("change", (nextAppState) => {
+  //     setAppState(nextAppState);
+  //   });
 
-const navigation = useNavigation();
-// const [appState, setAppState] = useState(AppState.currentState);
+  //   const foregroundNotificationListener = Notifications.addNotificationReceivedListener(
+  //     (notification) => {
+  //       // console.log("Foreground notification:", notification);
+  //       // console.log("In Authenticated Stack",  notification?.request?.content?.data);
 
-// useEffect(() => {
-//   const appStateListener = AppState.addEventListener("change", (nextAppState) => {
-//     setAppState(nextAppState);
-//   });
+  //       if (appState === "active") {
+  //         // console.log("App is in the foreground, no automatic navigation");
+  //       } else {
+  //         handleNotification(navigation, notification);
+  //       }
+  //     }
+  //   );
 
-//   const foregroundNotificationListener = Notifications.addNotificationReceivedListener(
-//     (notification) => {
-//       // console.log("Foreground notification:", notification);
-//       // console.log("In Authenticated Stack",  notification?.request?.content?.data);
-      
-//       if (appState === "active") {
-//         // console.log("App is in the foreground, no automatic navigation");
-//       } else {
-//         handleNotification(navigation, notification);
-//       }
-//     }
-//   );
+  //   const backgroundNotificationListener = Notifications.addNotificationResponseReceivedListener(
+  //     (response) => {
+  //       // console.log("Background notification responded in authenticated stack", response);
+  //       handleNotification(navigation, response.notification);
+  //     }
+  //   );
 
-//   const backgroundNotificationListener = Notifications.addNotificationResponseReceivedListener(
-//     (response) => {
-//       // console.log("Background notification responded in authenticated stack", response);
-//       handleNotification(navigation, response.notification);
-//     }
-//   );
+  //   return () => {
+  //     appStateListener.remove();
+  //     foregroundNotificationListener.remove();
+  //     backgroundNotificationListener.remove();
+  //   };
+  // }, [appState, navigation]);
 
-//   return () => {
-//     appStateListener.remove();
-//     foregroundNotificationListener.remove();
-//     backgroundNotificationListener.remove();
-//   };
-// }, [appState, navigation]);
+  // const handleNotification = (navigation, notification) => {
 
-// const handleNotification = (navigation, notification) => {
-  
-//   console.log(notification.request.content.data.screen , "from authenticated stack");
-//   navigation.navigate(notification?.request?.content?.data?.screen, { screen:notification?.request?.content?.data?.screen  });
-// };
-
-
-
+  //   console.log(notification.request.content.data.screen , "from authenticated stack");
+  //   navigation.navigate(notification?.request?.content?.data?.screen, { screen:notification?.request?.content?.data?.screen  });
+  // };
 
   return (
     <Stack.Navigator>
@@ -586,14 +580,13 @@ const CustomHeader = ({
 
         <Text style={[styles.text]}>{"title" || "Title"}</Text>
 
-
-        <Pressable onPress={()=>Alert.alert("Info Pressed")}>
-        <Ionicons
-          name="information-circle-outline"
-          size={15}
-          color="lightgray"
-          style={[styles.icon , {marginLeft:5}]}
-        />
+        <Pressable onPress={() => Alert.alert("Info Pressed")}>
+          <Ionicons
+            name="information-circle-outline"
+            size={15}
+            color="lightgray"
+            style={[styles.icon, { marginLeft: 5 }]}
+          />
         </Pressable>
       </View>
       {showRight && (

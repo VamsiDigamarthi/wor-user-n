@@ -5,6 +5,10 @@ import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import BottomLayout from "../../../Layouts/BottomLayout";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API } from "../../../Constants/url";
+import ModalUI from "../../../Utils/Modal/Modal";
+import { infoModalStyles } from "../../InfoUi/Styles/InfoModalStyles";
+import OtpInfoUi from "../../InfoUi/OtpInfoUi";
+import { userVerification } from "../../InfoUi/data/infoData";
 
 const DocumentRelatedCheck = () => {
   const navigation = useNavigation();
@@ -42,10 +46,17 @@ const DocumentRelatedCheck = () => {
     navigation.navigate("MPin");
   };
 
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
+
+  const onHandleOpenInfoModal = () => {
+    setIsInfoModalOpen(!isInfoModalOpen);
+  };
+
   return (
     <BottomLayout
       title="User Verification"
       subTitle="Identity Check with Aadhaar and Face Scan for Safe Ride Bookings"
+      onHandleOpenInfoModal={onHandleOpenInfoModal}
     >
       <View style={styles.container}>
         <OnAddharVerification
@@ -61,6 +72,18 @@ const DocumentRelatedCheck = () => {
           isBackground={profile?.mpin}
         />
       </View>
+      <ModalUI
+        openCloseState={isInfoModalOpen}
+        closeModalFun={onHandleOpenInfoModal}
+        modalStyle="slide"
+        style={infoModalStyles.aadharModalStyles}
+        insideCardStyle={infoModalStyles.insideCardStyle}
+        btnText="Okay, Got It"
+        btnStyles={infoModalStyles.modalCloseBtn}
+        btnTextStyle={infoModalStyles.btnTextStyle}
+      >
+        <OtpInfoUi mainTitle="User Verification" data={userVerification} />
+      </ModalUI>
     </BottomLayout>
   );
 };
