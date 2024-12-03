@@ -6,6 +6,7 @@ import RideBook from "../Screens/Dashboard/RideBook/RideBook";
 import CustomAppBar from "../Utils/CustomAppBar/CustomAppBar";
 import SelectDropLocation from "../Screens/Dashboard/SelectDropLocation/SelectDropLocation";
 import {
+  Alert,
   Pressable,
   Settings,
   StatusBar,
@@ -26,10 +27,8 @@ import CustomDrawerContent from "../Utils/CustomDrawerContent/CustomDrawerConten
 import ReferAndEarn from "../Screens/Dashboard/ReferAndEarn/ReferAndEarn";
 import Notification from "../Screens/Dashboard/Notification/Notification";
 import Help from "../Screens/Dashboard/Help/Help";
-
 import ProfileScreen from "../Screens/Dashboard/ProfileScreen/ProfileScreen";
 import PersonalInfo from "../Screens/Dashboard/ProfileScreen/Screens/PersonalInfo/PersonalInfo";
-
 import SafetyHome from "../Screens/Dashboard/Safety/SafetyHome";
 import EmailVerification from "../Screens/Dashboard/Safety/EmailVerification";
 import MobileVerification from "../Screens/Dashboard/Safety/MobileVerification";
@@ -53,15 +52,15 @@ import Wallet from "../Screens/Dashboard/Wallet/Wallet";
 import { COLORS } from "../Constants/colors";
 import ProfileDocumentScreen from "../Screens/Dashboard/ProfileScreen/Screens/ProfileDocumentScreen";
 import RideHistoryDetailView from "../Screens/Dashboard/RideHistory/RideHistoryDetailView/RideHistoryDetailView";
-
 import Coins from "../Screens/Dashboard/Donation/Coins";
-
 import DrawerFavorite from "../Screens/Dashboard/DrawerFavorite/DrawerFavorite";
 import ParcelSavePlaces from "../Screens/Parcels/ParcelSavePlaces/ParcelSavePlaces";
-
 import DashBoardAadharCard from "../Screens/Dashboard/ShowPrice/Screens/DashBoardAadharCard";
 import DashBoardMPinCard from "../Screens/Dashboard/ShowPrice/Screens/DashBoardMPinCard";
 import EmergencyContactNumber from "../Screens/Dashboard/ProfileScreen/Screens/EmergencyContactNumber/EmergencyContactNumber";
+import { useEffect, useState } from "react";
+import * as Notifications from "expo-notifications";
+import { AppState } from "react-native";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -139,6 +138,54 @@ const DrawerNavigator = ({ route }) => {
 };
 
 const AuthenticatedStack = () => {
+
+
+// My new code
+
+const navigation = useNavigation();
+// const [appState, setAppState] = useState(AppState.currentState);
+
+// useEffect(() => {
+//   const appStateListener = AppState.addEventListener("change", (nextAppState) => {
+//     setAppState(nextAppState);
+//   });
+
+//   const foregroundNotificationListener = Notifications.addNotificationReceivedListener(
+//     (notification) => {
+//       // console.log("Foreground notification:", notification);
+//       // console.log("In Authenticated Stack",  notification?.request?.content?.data);
+      
+//       if (appState === "active") {
+//         // console.log("App is in the foreground, no automatic navigation");
+//       } else {
+//         handleNotification(navigation, notification);
+//       }
+//     }
+//   );
+
+//   const backgroundNotificationListener = Notifications.addNotificationResponseReceivedListener(
+//     (response) => {
+//       // console.log("Background notification responded in authenticated stack", response);
+//       handleNotification(navigation, response.notification);
+//     }
+//   );
+
+//   return () => {
+//     appStateListener.remove();
+//     foregroundNotificationListener.remove();
+//     backgroundNotificationListener.remove();
+//   };
+// }, [appState, navigation]);
+
+// const handleNotification = (navigation, notification) => {
+  
+//   console.log(notification.request.content.data.screen , "from authenticated stack");
+//   navigation.navigate(notification?.request?.content?.data?.screen, { screen:notification?.request?.content?.data?.screen  });
+// };
+
+
+
+
   return (
     <Stack.Navigator>
       {/* Drawer screens */}
@@ -516,7 +563,17 @@ const CustomHeader = ({
           style={[styles.icon]}
         />
 
-        <Text style={[styles.text]}>{title || "Title"}</Text>
+        <Text style={[styles.text]}>{"title" || "Title"}</Text>
+
+
+        <Pressable onPress={()=>Alert.alert("Info Pressed")}>
+        <Ionicons
+          name="information-circle-outline"
+          size={15}
+          color="lightgray"
+          style={[styles.icon , {marginLeft:5}]}
+        />
+        </Pressable>
       </View>
       {showRight && (
         <Pressable
