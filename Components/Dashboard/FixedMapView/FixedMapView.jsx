@@ -79,10 +79,10 @@ const MapWithFixedMarker = ({ navigation }) => {
           {/* Marker at a fixed position on the screen (slightly below the center) */}
           <View style={styles.fixedMarker}>
             <View style={styles.marker}>
-              <Image
+              {/* <Image
                 style={styles.marker}
                 source={require("../../../assets/images/locationIcons/pin locator 4.png")}
-              />
+              /> */}
               <Text style={styles.markerText}>📍</Text>
             </View>
           </View>

@@ -234,7 +234,7 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="FixMapPreview"
         component={MapWithCurrentLocation}
-        options={({ navigation }) => getCommonOptions(navigation, "Map")}
+        options={{ headerShown: false }}
       />
 
       <Stack.Screen
