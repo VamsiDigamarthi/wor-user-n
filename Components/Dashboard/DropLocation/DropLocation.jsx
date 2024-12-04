@@ -68,7 +68,15 @@ const DropLocation = ({
             color="#E02E88"
           />
           <View style={styles.inputTypeCard}>
-            <Text>Destination Location</Text>
+            <Text
+              style={{
+                fontWeight: "800",
+                fontSize: 15,
+                color: "gray",
+              }}
+            >
+              Enter Destination Location
+            </Text>
           </View>
         </Pressable>
         <Pressable

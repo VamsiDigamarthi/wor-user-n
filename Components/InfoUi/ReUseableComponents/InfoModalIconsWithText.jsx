@@ -5,7 +5,7 @@ import { COLORS } from "../../../Constants/colors";
 const InfoModalIconsWithText = ({ headerText, suHeading }) => {
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 20, fontWeight: "600", color: COLORS.heading }}>
+      <Text style={{ fontSize: 16, fontWeight: "600", color: COLORS.heading }}>
         {headerText}
       </Text>
     </View>
