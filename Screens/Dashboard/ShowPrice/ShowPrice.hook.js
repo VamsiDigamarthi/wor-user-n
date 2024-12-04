@@ -218,6 +218,7 @@ export const useShowPriceHook = () => {
 
   const onHandleTimeValueHandler = (date) => {
     const formattedIndiaTime = formatToIndiaISO(date);
+    console.log(formattedIndiaTime);
     setIsDateTimeData(formattedIndiaTime);
     setNormalDateFormat(date?.toLocaleString());
     onTimeModalOpenCloseHandler();
