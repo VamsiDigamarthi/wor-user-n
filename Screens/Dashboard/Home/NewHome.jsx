@@ -26,6 +26,7 @@ import ModalUI from "../../../Utils/Modal/Modal";
 import { infoModalStyles } from "../../../Components/InfoUi/Styles/InfoModalStyles";
 import OtpInfoUi from "../../../Components/InfoUi/OtpInfoUi";
 import AllowNotification from "../../../Utils/AllowNotification/AllowNotification";
+import FutureOrderBox from "../../../Components/FutureOrderBox/FutureOrderBox";
 
 const screenHeight = Dimensions.get("window").height;
 const androidHeight = [screenHeight * 0.35, screenHeight * 0.5]; // Adjust snap points
@@ -132,6 +133,12 @@ const NewHome = () => {
           </BottomSheetScrollView>
         </BottomSheet>
       </View>
+
+
+       <View style={{position:"absolute" , bottom:0, width:"100%"}}>
+            <FutureOrderBox/>
+       </View>
+
       <ModalUI
         openCloseState={isInfoModalOpen}
         closeModalFun={onHandleOpenInfoModal}
@@ -150,6 +157,11 @@ const NewHome = () => {
 };
 
 export default NewHome;
+
+
+
+
+
 
 const styles = StyleSheet.create({
   container: {
