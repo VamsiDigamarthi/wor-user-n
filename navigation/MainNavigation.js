@@ -25,62 +25,72 @@ const MainNavigation = () => {
     new Set()
   );
 
-  // Fetch token on app launch
+
+
+
   useEffect(() => {
-    const checkToken = async () => {
+    const checkTokenAndNavigate = async () => {
       try {
         const storedToken = await AsyncStorage.getItem("token");
+  
         if (storedToken) {
-          // let previousOrders = await API.get("/user/all-orders", {
-          //   headers: {
-          //     Authorization: `Bearer ${JSON.parse(storedToken)}`,
-          //     "Content-Type": "application/json",
-          //   },
-          // });
+          const previousOrders = await API.get("/user/all-orders", {
+            headers: {
+              Authorization: `Bearer ${JSON.parse(storedToken)}`,
+              "Content-Type": "application/json",
+            },
+          });
 
-          // previousOrders?.data?.forEach((singleOrder) => {
-          //   console.log("single order", singleOrder);
-          //   if (singleOrder.status === "pending") {
-          //     let newObj = {
-          //       vehicleType: singleOrder.vehicleType,
-          //       price: singleOrder.price,
-          //       placeName: singleOrder.pickupAddress,
-          //       dropAddress: {
-          //         location: {
-          //           lat: singleOrder?.drop?.coordinates[1],
-          //           lng: singleOrder?.drop?.coordinates[0],
-          //         },
-          //         name: singleOrder?.dropAddress,
-          //         vicinity: singleOrder?.dropVicinity,
-          //       },
-          //       pickUpCoordinated: {
-          //         lat: singleOrder?.pickup?.coordinates[1],
-          //         lng: singleOrder?.pickup?.coordinates[0],
-          //       },
-          //       orderId: singleOrder._id,
-          //     };
-          //     console.log("new OBJ", newObj);
-          //   }
-          //   navigationRef.current.navigate("lookingforride", {
-          //     // ...newObj,
-          //   });
-          // });
 
-          // dispatch(setOrders(previousOrders?.data));
 
-          // console.log("previous", previousOrders?.data);
+          const checkReady = setInterval(() => {
+            if (navigationRef.current?.isReady() && previousOrders?.data?.length) {
 
+
+              previousOrders?.data?.forEach((singleOrder) => {
+                if (singleOrder.status === "pending") {
+                   navigationRef.current?.navigate("lookingforride", { 
+                    vehicleType: singleOrder.vehicleType,
+                    price: singleOrder.price,
+                    placeName: singleOrder.pickupAddress,
+                    dropAddress: {
+                      location: {
+                        lat: singleOrder?.drop?.coordinates[1],
+                        lng: singleOrder?.drop?.coordinates[0],
+                      },
+                      name: singleOrder?.dropAddress,
+                      vicinity: singleOrder?.dropVicinity,
+                    },
+                    pickUpCoordinated: {
+                      lat: singleOrder?.pickup?.coordinates[1],
+                      lng: singleOrder?.pickup?.coordinates[0],
+                    },
+                    orderId: singleOrder._id, });
+                }
+              });
+
+              clearInterval(checkReady);
+            }
+          }, 100);
+          dispatch(setOrders(previousOrders?.data));
           dispatch(setToken(JSON.parse(storedToken)));
         } else {
           dispatch(noToken(false));
         }
+  
+      
+  
+        return () => clearInterval(checkReady);
       } catch (error) {
-        console.error("Error reading token", error);
+        console.error("Error reading token or initializing navigation:", error);
       }
     };
-
-    checkToken();
+  
+    checkTokenAndNavigate();
   }, [dispatch]);
+  
+  
+  
 
   // Handle notifications
   const handleNotification = useCallback(
@@ -178,11 +188,16 @@ const MainNavigation = () => {
     }
   };
 
+
+
+
+  
+
   if (loading) {
     return (
       <View style={styles.loadingCard}>
         <Image
-          style={styles.loadingImage}
+          style={styles.loadingImage} 
           source={require("../assets/images/logo.png")}
         />
       </View>

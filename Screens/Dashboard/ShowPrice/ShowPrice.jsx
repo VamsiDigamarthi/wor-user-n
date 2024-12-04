@@ -11,7 +11,6 @@ import {
   Alert,
 } from "react-native";
 
-import React, { useEffect, useState } from "react";
 
 
 import BottomSheet, {
@@ -19,7 +18,7 @@ import BottomSheet, {
   BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
 
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useEffect ,useCallback, useMemo, useRef, useState } from "react";
 
 import ShowPickDropCard from "../../../Components/Dashboard/ShowPrices/ShowPickDropCard/ShowPickDropCard";
 import ShowVehicle from "../../../Components/Dashboard/ShowPrices/ShowVehicle/ShowVehicle";
@@ -214,14 +213,7 @@ const ShowPrice = () => {
               onPress={() => handleVehiclePress("car")}
               vehicleType="Car 1"
             /> */}
-//             {<ShowVehicle
-//               image={require("../../../assets/images/auto.png")}
-//               personCount={3}
-//               price={pricesInKM?.auto}
-//               isSelected={selectedVehicle === "auto"}
-//               onPress={() => handleVehiclePress("auto")}
-//               vehicleType="Car 2"
-//             />}
+            
 
             {!isDateTimeData && (
               <ShowVehicle
