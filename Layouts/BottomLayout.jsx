@@ -5,6 +5,7 @@ import {
   View,
   Dimensions,
   Linking,
+  ImageBackground,
 } from "react-native";
 import React from "react";
 import BottomSheetTitle from "../Utils/BottomSheet/Components/BottomSheetTitle/BottomSheetTitle";
@@ -31,6 +32,16 @@ const BottomLayout = ({
   };
 
   return (
+    // <ImageBackground
+    //   style={{
+    //     width: "100%",
+    //     height: "fit-content",
+    //     borderTopLeftRadius: 24,
+    //     borderTopRightRadius: 24,
+    //     overflow: "hidden",
+    //   }}
+    //   source={require("../assets/images/bgImages/bgImage2.png")}
+    // >
     <View style={styles.container}>
       <BottomSheetTitle
         title={title}
@@ -74,6 +85,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
     backgroundColor: "#fff5f9",
+
     paddingBottom: 60,
     paddingTop: 20,
     // position: "relative",

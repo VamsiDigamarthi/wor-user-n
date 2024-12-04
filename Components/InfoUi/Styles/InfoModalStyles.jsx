@@ -23,7 +23,7 @@ export const infoModalStyles = StyleSheet.create({
     borderColor: COLORS.borderColor,
   },
   btnTextStyle: {
-    fontSize: 18,
+    fontSize: 15,
   },
   insideModalCard: {
     width: "100%",

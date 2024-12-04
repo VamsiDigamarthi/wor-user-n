@@ -6,6 +6,7 @@ import {
   View,
   Button,
   ActivityIndicator,
+  ImageBackground,
 } from "react-native";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -90,12 +91,9 @@ const NewHome = () => {
             </View>
           ) : (
             <HomeMap location={location} />
-          )}          
+          )}
         </View>
 
-
-          {/* <DateTimePicker /> */}
-        {/* Bottom Sheet */}
         <BottomSheet
           ref={bottomSheetRef}
           index={1} // Initial snap point
@@ -106,38 +104,48 @@ const NewHome = () => {
           backgroundStyle={styles.backgroundStyle} // Set pink background
           handleIndicatorStyle={styles.handleIndicator}
         >
-          <BottomSheetScrollView contentContainerStyle={styles.sheetContent}>
-            <View style={styles.bottomSheet}>
-              <Text style={styles.text}></Text>
-              <DropLocation
-                nearByRandomItems={nearByRandomItems} // this is display 3 items
-                placeName={placeName} // this prop is store current location text
-                nearbyPlaces={nearbyPlaces} // this prop store nearby places from user current location to 1 km radius famous location [place this data into "select drop location screen to display initial locations"]
-                location={location} // this is location used for pass this data into price screen
-                // activeOrder={activeOrder} // check if active order have any pending status this will prevent  create another another
-                favoritePlaces={favoritePlaces}
-                previousOrders={previousOrders}
-              />
-              <AllServices
-                placeName={placeName}
-                nearbyPlaces={nearbyPlaces}
-                location={location}
-                favoritePlaces={favoritePlaces}
-                previousOrders={previousOrders}
-              />
-              <View style={{ height: 10 }} />
-              <SliderComponent />
-              <BackgroundImage />
-              <Button title="notification" onPress={onHandleOpenInfoModal} />
-            </View>
-          </BottomSheetScrollView>
+          <ImageBackground
+            style={{
+              width: "100%",
+              height: "fit-content",
+              borderTopLeftRadius: 24,
+              borderTopRightRadius: 24,
+              overflow: "hidden",
+            }}
+            source={require("../../../assets/images/bgImages/bgImage2.png")}
+          >
+            <BottomSheetScrollView contentContainerStyle={styles.sheetContent}>
+              <View style={styles.bottomSheet}>
+                <Text style={styles.text}></Text>
+                <DropLocation
+                  nearByRandomItems={nearByRandomItems} // this is display 3 items
+                  placeName={placeName} // this prop is store current location text
+                  nearbyPlaces={nearbyPlaces} // this prop store nearby places from user current location to 1 km radius famous location [place this data into "select drop location screen to display initial locations"]
+                  location={location} // this is location used for pass this data into price screen
+                  // activeOrder={activeOrder} // check if active order have any pending status this will prevent  create another another
+                  favoritePlaces={favoritePlaces}
+                  previousOrders={previousOrders}
+                />
+                <AllServices
+                  placeName={placeName}
+                  nearbyPlaces={nearbyPlaces}
+                  location={location}
+                  favoritePlaces={favoritePlaces}
+                  previousOrders={previousOrders}
+                />
+                <View style={{ height: 10 }} />
+                <SliderComponent />
+                <BackgroundImage />
+                <Button title="notification" onPress={onHandleOpenInfoModal} />
+              </View>
+            </BottomSheetScrollView>
+          </ImageBackground>
         </BottomSheet>
       </View>
 
-
-       <View style={{position:"absolute" , bottom:0, width:"100%"}}>
-            <FutureOrderBox/>
-       </View>
+      <View style={{ position: "absolute", bottom: 0, width: "100%" }}>
+        <FutureOrderBox />
+      </View>
 
       <ModalUI
         openCloseState={isInfoModalOpen}
@@ -158,11 +166,6 @@ const NewHome = () => {
 
 export default NewHome;
 
-
-
-
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -182,7 +185,7 @@ const styles = StyleSheet.create({
   sheetContent: {
     // padding: 20,
     paddingHorizontal: 10,
-    backgroundColor: COLORS.bottomSheetBg,
+    // backgroundColor: COLORS.bottomSheetBg,
   },
   contentText: {
     fontSize: 16,
@@ -194,7 +197,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20, // Top-right corner radius
   },
   backgroundStyle: {
-    backgroundColor: COLORS.bottomSheetBg,
+    // backgroundColor: COLORS.bottomSheetBg,
     gap: 5, // Pink background color for BottomSheet
   },
   handleIndicator: {
@@ -203,6 +206,4 @@ const styles = StyleSheet.create({
     height: 4,
     borderRadius: 2,
   },
-
-  
 });

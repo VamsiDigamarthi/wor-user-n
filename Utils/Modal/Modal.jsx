@@ -71,15 +71,15 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: "center",
     justifyContent: "center",
-    gap: 10,
+    // gap: 5,
   },
   cancelBtnCard: {
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    marginTop: 10,
+    marginTop: 0,
     width: "100%",
-    marginTop: 10,
+    // marginTop: 10,
   },
   closeModalBtn: {
     backgroundColor: "lightgray",

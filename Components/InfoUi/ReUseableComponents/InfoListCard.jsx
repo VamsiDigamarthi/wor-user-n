@@ -7,8 +7,8 @@ const InfoListCard = ({ text }) => {
     <View style={styles.container}>
       <Text
         style={{
-          height: 7,
-          width: 7,
+          height: 5,
+          width: 5,
           backgroundColor: "#e02e88",
           borderRadius: 5,
           marginTop: 7,
@@ -16,10 +16,10 @@ const InfoListCard = ({ text }) => {
       ></Text>
       <Text
         style={{
-          fontSize: 16,
+          fontSize: 10,
           fontWeight: "600",
           color: COLORS.subHeading,
-          lineHeight: 22,
+          // lineHeight: 22,
         }}
       >
         {text}
