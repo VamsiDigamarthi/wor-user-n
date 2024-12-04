@@ -7,81 +7,99 @@ import {
   Modal,
   FlatList,
   Dimensions,
+  Image,
 } from "react-native";
+import { useSelector } from "react-redux";
+import { COLORS } from "../../Constants/colors";
 
 const { height } = Dimensions.get("window");
 
 export default function FutureOrderBox() {
-  const [futureOrders] = useState([
-    { id: 1, name: "FutureOrderBox 1" },
-    { id: 2, name: "FutureOrderBox 2" },
-    { id: 3, name: "FutureOrderBox 3" },
-    { id: 4, name: "FutureOrderBox 4" },
-    { id: 5, name: "FutureOrderBox 5" },
-    { id: 6, name: "FutureOrderBox 6" },
-  ]);
+  const { previousOrders } = useSelector((state) => state.previewOrders);
 
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <>
-      {/* Main Box for Future Orders */}
-      <View
-        style={[
-          styles.boxContainer,
-        ]}
-      >
-        {/* Single Box Display */}
-        
+      {previousOrders?.length > 0 && (
+        <>
+          <View style={[styles.boxContainer]}>
+            {previousOrders.length > 1 && (
+              <TouchableOpacity
+                style={styles.popCircle}
+                onPress={() => setModalVisible(true)}
+              >
+                <Text>+ {previousOrders.length - 1} More ^</Text>
+              </TouchableOpacity>
+            )}
 
-        {/* Show Modal Button */}
-        {futureOrders.length > 1 && (
-          <TouchableOpacity
-            style={styles.popCircle}
-            onPress={() => setModalVisible(true)}
-          >
-            <Text>+ {futureOrders.length - 1} More ^</Text>
-          </TouchableOpacity>
-        )}
-
-        <View style={styles.box}>
-          <Text>{futureOrders[0].name}</Text>
-        </View>
-
-      </View>
-
-      {/* Modal for Remaining Orders */}
-      <Modal
-        visible={modalVisible}
-        animationType="slide"
-        transparent={true}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalHeader}>Future Orders</Text>
-            <FlatList
-              data={futureOrders}
-              keyExtractor={(item) => item.id.toString()}
-              renderItem={({ item }) => (
-                <View style={styles.box}>
-                  <Text>{item.name}</Text>
-                </View>
-              )}
-              showsVerticalScrollIndicator={false}
-            />
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={() => setModalVisible(false)}
-            >
-              <Text style={styles.closeButtonText}>Close</Text>
-            </TouchableOpacity>
+            <SingleCard prevOrder={previousOrders[0]} />
           </View>
-        </View>
-      </Modal>
+
+          <Modal
+            visible={modalVisible}
+            animationType="slide"
+            transparent={true}
+            onRequestClose={() => setModalVisible(false)}
+          >
+            <View style={styles.modalOverlay}>
+              <View style={styles.modalContent}>
+                <Text style={styles.modalHeader}>Future Orders</Text>
+                <FlatList
+                  data={previousOrders}
+                  keyExtractor={(item) => item._id.toString()}
+                  renderItem={({ item }) => <SingleCard prevOrder={item} />}
+                  showsVerticalScrollIndicator={false}
+                />
+                <TouchableOpacity
+                  style={styles.closeButton}
+                  onPress={() => setModalVisible(false)}
+                >
+                  <Text style={styles.closeButtonText}>Close</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
+        </>
+      )}
     </>
   );
 }
+
+const SingleCard = ({ prevOrder }) => {
+  return (
+    <View style={styles.box}>
+      <View style={styles.imageCard}>
+        <Image
+          style={{ width: "90%", height: 40, objectFit: "contain" }}
+          source={require("../../assets/images/car.png")}
+        />
+      </View>
+      <View style={styles.pickDropLocaCard}>
+        <Text
+          numberOfLines={1}
+          style={{
+            fontSize: 15,
+            fontWeight: "600",
+            color: COLORS.heading,
+          }}
+        >
+          {prevOrder.pickupAddress}
+        </Text>
+        <Text
+          numberOfLines={1}
+          style={{ fontSize: 12, color: COLORS.subHeading }}
+        >
+          {prevOrder.dropAddress}
+        </Text>
+      </View>
+      <View style={styles.dataShow}>
+        <Text>{prevOrder.time?.split("T")?.[0]}</Text>
+        <Text>{prevOrder.time?.split("T")?.[1]}</Text>
+      </View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   boxContainer: {
@@ -90,27 +108,57 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     // padding: 10,
   },
-  
-  
+
   box: {
     height: 80,
-    backgroundColor: "red",
-    width: "95%",
-    left: "2.5%",
+    backgroundColor: COLORS.cardBackground,
+    width: "97%",
+    left: "6%",
     padding: 12,
     borderRadius: 10,
     marginBottom: 10,
-    justifyContent: "center",
+    justifyContent: "space-between",
+    elevation: 3,
+    flexDirection: "row",
+    gap: 5,
+    shadowColor: "red",
+    alignItems: "center",
   },
+
+  imageCard: {
+    width: 60,
+    height: "100%",
+    // backgroundColor: "red",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 30,
+    elevation: 1,
+    shadowColor: "red",
+    backgroundColor: "#fff",
+  },
+  pickDropLocaCard: {
+    width: "50%",
+    // backgroundColor: "blue",
+  },
+  dataShow: {
+    width: 80,
+    // backgroundColor: "yellow",
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+  },
+
   popCircle: {
-    backgroundColor: "yellow",
-    borderRadius: 10,
-    padding: 10,
+    backgroundColor: COLORS.cardBackground,
+
+    borderRadius: 20,
+    padding: 5,
     alignSelf: "center",
     marginBottom: 5,
-    position:"absolute",
-    zIndex:1,
-    top:-14
+    position: "absolute",
+    zIndex: 1,
+    top: -14,
+    elevation: 5,
+    shadowColor: "red",
   },
   modalOverlay: {
     flex: 1,
