@@ -21,6 +21,8 @@ import ShowPollyLine from "../../../Components/Dashboard/ShowPrices/ShowPollyLin
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { COLORS } from "../../../Constants/colors";
 
+import { Chase } from "react-native-animated-spinkit";
+
 const screenHeight = Dimensions.get("window").height;
 const androidHeight = [screenHeight * 0.1, screenHeight * 0.5]; // Adjust snap points
 const iosHeight = [screenHeight * 0.15, screenHeight * 0.6];
@@ -40,6 +42,7 @@ const LookingForRide = () => {
     calncelModalInfoOpenClose,
     onOpenCancelOrderInfoHandle,
     onConfirmCancelRide,
+    futureTime,
   } = useLookingForRideHook();
 
   const bottomSheetRef = useRef(null);
@@ -80,7 +83,20 @@ const LookingForRide = () => {
         <BottomSheetScrollView contentContainerStyle={styles.sheetContent}>
           <View style={styles.bottomSheet}>
             <Text style={styles.text}></Text>
-            <ProgressBar progressWidth={progressWidth} />
+            {futureTime ? (
+              <View
+                style={{
+                  width: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: 60,
+                }}
+              >
+                <Chase size={60} color="#e02e88" />
+              </View>
+            ) : (
+              <ProgressBar progressWidth={progressWidth} />
+            )}
             <View style={styles.cancelBtnWithImage}>
               <Image
                 style={styles.images}

@@ -16,6 +16,7 @@ export const useLookingForRideHook = () => {
     pickUpCoordinated,
     orderId,
     orderPlaceTime, // orderPlaceTime in IST
+    futureTime, // future order is IST
   } = route.params;
 
   const navigation = useNavigation();
@@ -34,6 +35,17 @@ export const useLookingForRideHook = () => {
   console.log("orderPlaceTime", orderPlaceTime);
 
   useEffect(() => {
+    if (futureTime) {
+      const futureDate = new Date(futureTime);
+      const currentDate = new Date();
+
+      // If futureTime is in the future, stop here and avoid animation
+      if (futureDate > currentDate) {
+        startApiPolling();
+        return;
+      }
+    }
+
     startAnimation();
     return () => {
       if (intervalRef.current) {
@@ -42,6 +54,20 @@ export const useLookingForRideHook = () => {
       progress.stopAnimation();
     };
   }, [isAccepted]);
+
+  const startApiPolling = () => {
+    intervalRef.current = setInterval(() => {
+      const currentTime = new Date();
+      const futureDate = new Date(futureTime);
+
+      if (futureDate > currentTime) {
+        callApiEvery5Seconds();
+      } else {
+        clearInterval(intervalRef.current);
+        // startAnimation(); // Start animation once futureTime has passed
+      }
+    }, 30000); // Poll every 30 seconds
+  };
 
   const startAnimation = () => {
     progress.setValue(0);
@@ -211,6 +237,8 @@ export const useLookingForRideHook = () => {
     const orderDetails = {
       orderPlaceDate: formattedDate,
       orderPlaceTime: timePart,
+      time: null,
+      futureTime: null,
     };
 
     try {
@@ -255,5 +283,6 @@ export const useLookingForRideHook = () => {
     onOpenCancelOrderInfoHandle,
     onConfirmCancelRide,
     onNewCancelHandle,
+    futureTime,
   };
 };
