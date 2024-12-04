@@ -13,6 +13,7 @@ const ModalUI = ({
   btnStyles,
   btnText = "Close",
   btnTextStyle,
+  closebtn = true,
 }) => {
   return (
     <Modal
@@ -24,24 +25,26 @@ const ModalUI = ({
       <View style={[styles.modalContainer, style]}>
         <View style={[styles.modalContent, insideCardStyle]}>
           {children}
-          <View
-            style={[
-              styles.cancelBtnCard,
-              btnStyles && { paddingHorizontal: 20 },
-            ]}
-          >
-            <Pressable
-              onPress={closeModalFun}
-              style={[styles.closeModalBtn, btnStyles]}
+          {closebtn && (
+            <View
+              style={[
+                styles.cancelBtnCard,
+                btnStyles && { paddingHorizontal: 20 },
+              ]}
             >
-              <Text style={[styles.closeText, btnTextStyle]}>{btnText}</Text>
-            </Pressable>
-            {rightBtnText && (
-              <Pressable onPress={rightBtnFun} style={styles.closeModalBtn}>
-                <Text style={styles.closeText}>{rightBtnText}</Text>
+              <Pressable
+                onPress={closeModalFun}
+                style={[styles.closeModalBtn, btnStyles]}
+              >
+                <Text style={[styles.closeText, btnTextStyle]}>{btnText}</Text>
               </Pressable>
-            )}
-          </View>
+              {rightBtnText && (
+                <Pressable onPress={rightBtnFun} style={styles.closeModalBtn}>
+                  <Text style={styles.closeText}>{rightBtnText}</Text>
+                </Pressable>
+              )}
+            </View>
+          )}
         </View>
       </View>
     </Modal>

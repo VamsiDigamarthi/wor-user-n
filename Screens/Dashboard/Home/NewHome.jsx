@@ -21,6 +21,10 @@ import SliderComponent from "../../../Utils/SliderComponent/SliderComponent";
 import BackgroundImage from "../../../Utils/BackgroundImage/BackgroundImage";
 import { COLORS } from "../../../Constants/colors";
 import DateTimePicker from "../../../Utils/DateTimePicker/DateTimePicker";
+import ModalUI from "../../../Utils/Modal/Modal";
+import { infoModalStyles } from "../../../Components/InfoUi/Styles/InfoModalStyles";
+import OtpInfoUi from "../../../Components/InfoUi/OtpInfoUi";
+import AllowNotification from "../../../Utils/AllowNotification/AllowNotification";
 
 const screenHeight = Dimensions.get("window").height;
 const androidHeight = [screenHeight * 0.35, screenHeight * 0.5]; // Adjust snap points
@@ -66,6 +70,13 @@ const NewHome = () => {
     previousOrders, // this is previous order show in home screen
   } = useHomeHook();
 
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
+
+  const onHandleOpenInfoModal = () => {
+    console.log("press");
+    setIsInfoModalOpen(!isInfoModalOpen);
+  };
+
   return (
     <BottomSheetModalProvider>
       <View style={styles.container}>
@@ -108,11 +119,24 @@ const NewHome = () => {
               <View style={{ height: 10 }} />
               <SliderComponent />
               <BackgroundImage />
-              <Button title="Go Back" onPress={onBackLogin} />
+              <Button title="notification" onPress={onHandleOpenInfoModal} />
             </View>
           </BottomSheetScrollView>
         </BottomSheet>
       </View>
+      <ModalUI
+        openCloseState={isInfoModalOpen}
+        closeModalFun={onHandleOpenInfoModal}
+        modalStyle="slide"
+        style={infoModalStyles.aadharModalStyles}
+        insideCardStyle={infoModalStyles.insideCardStyle}
+        btnText="Okay, Got It"
+        btnStyles={infoModalStyles.modalCloseBtn}
+        btnTextStyle={infoModalStyles.btnTextStyle}
+        closebtn={false}
+      >
+        <AllowNotification onModalClose={onHandleOpenInfoModal} />
+      </ModalUI>
     </BottomSheetModalProvider>
   );
 };
