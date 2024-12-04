@@ -11,15 +11,18 @@ import {
   Alert,
 } from "react-native";
 
-import React, { useEffect, useState } from "react";
-
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+  useMemo,
+  useRef,
+} from "react";
 
 import BottomSheet, {
   BottomSheetModalProvider,
   BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
-
-import React, { useCallback, useMemo, useRef, useState } from "react";
 
 import ShowPickDropCard from "../../../Components/Dashboard/ShowPrices/ShowPickDropCard/ShowPickDropCard";
 import ShowVehicle from "../../../Components/Dashboard/ShowPrices/ShowVehicle/ShowVehicle";
@@ -32,13 +35,11 @@ import { COLORS } from "../../../Constants/colors.js";
 
 import DatePicker from "react-native-date-picker";
 
-
 import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar.jsx";
 
 const screenHeight = Dimensions.get("window").height;
 const androidHeight = [screenHeight * 0.4, screenHeight * 0.8]; // Adjust snap points
 const iosHeight = [screenHeight * 0.15, screenHeight * 0.6];
-
 
 const ShowPrice = () => {
   const {
@@ -77,10 +78,6 @@ const ShowPrice = () => {
   const maxDate = new Date();
   maxDate.setDate(currentDate.getDate() + 7);
 
-  // bottomsheet
-
-  console.log(isDateTimeData);
-
   const bottomSheetRef = useRef(null);
   const [mapHeight, setMapHeight] = useState(androidHeight[0]); // Initial map height
   const snapPoints = useMemo(
@@ -99,9 +96,11 @@ const ShowPrice = () => {
 
   // console.log(profile);
 
-  const [open, setOpen] = useState(false);
   const [date, setDate] = useState(new Date());
   const [minimumDate, setMinimumDate] = useState(new Date());
+
+  const maximumDate = new Date(minimumDate);
+  maximumDate.setDate(minimumDate.getDate() + 6);
 
   const calculateNextInterval = () => {
     const now = date; // Use the selected date from state
@@ -131,10 +130,10 @@ const ShowPrice = () => {
     setMinimumDate(nextTime); // Set the minimum date based on calculated time
   };
   useEffect(() => {
-    if (open) {
+    if (isTimeModalOpenClose) {
       calculateNextInterval(); // Recalculate when modal is opened
     }
-  }, [open]); // Runs only when modal is toggled open
+  }, [isTimeModalOpenClose]); // Runs only when modal is toggled open
 
   // Trigger recalculation of minimumDate whenever the user picks a new time
   useEffect(() => {
@@ -197,31 +196,7 @@ const ShowPrice = () => {
               vehicleType="Car"
             />
 
-            <Button onPress={() => setOpen(!open)} title="open" />
-            <ShowVehicle
-              image={require("../../../assets/images/auto.png")}
-              personCount={3}
-              price={pricesInKM?.auto}
-              isSelected={selectedVehicle === "auto"}
-              onPress={() => handleVehiclePress("auto")}
-              vehicleType="Auto"
-            />
-            {/* <ShowVehicle
-              image={require("../../../assets/images/car.png")}
-              personCount={4}
-              price={pricesInKM?.car}
-              isSelected={selectedVehicle === "car"}
-              onPress={() => handleVehiclePress("car")}
-              vehicleType="Car 1"
-            /> */}
-//             {<ShowVehicle
-//               image={require("../../../assets/images/auto.png")}
-//               personCount={3}
-//               price={pricesInKM?.auto}
-//               isSelected={selectedVehicle === "auto"}
-//               onPress={() => handleVehiclePress("auto")}
-//               vehicleType="Car 2"
-//             />}
+            {/* <Button onPress={() => setOpen(!open)} title="open" /> */}
 
             {!isDateTimeData && (
               <ShowVehicle
@@ -233,7 +208,6 @@ const ShowPrice = () => {
                 vehicleType="Auto"
               />
             )}
-
           </View>
         </BottomSheetScrollView>
       </BottomSheet>
@@ -265,29 +239,6 @@ const ShowPrice = () => {
           disabled={true}
           borderColor="#e02e88"
           borderWidth={1}
-        />
-
-        <DatePicker
-          modal
-          open={open}
-          date={date}
-          theme="light"
-          title="Select Future Time"
-          cancelText="Cancel"
-          confirmText="Confirm"
-          minimumDate={minimumDate} // Dynamically set to the next valid time
-          maximumDate={new Date("2024-12-06")}
-          minuteInterval={15} // Enforce 15-minute intervals
-          onConfirm={(selectedDate) => {
-            if (selectedDate.getTime() >= new Date().getTime()) {
-              setDate(selectedDate);
-            } else {
-              Alert.alert("You selected a past time");
-            }
-            setOpen(false);
-          }}
-          onCancel={() => setOpen(false)}
-          style={styles.datePicker}
         />
       </View>
       <ModalUI
@@ -329,6 +280,28 @@ const ShowPrice = () => {
           </View>
         </View>
       </ModalUI>
+      <DatePicker
+        modal
+        open={isTimeModalOpenClose}
+        date={date}
+        theme="light"
+        title="Select Future Time"
+        cancelText="Cancel"
+        confirmText="Confirm"
+        minimumDate={minimumDate} // Dynamically set to the next valid time
+        maximumDate={maximumDate}
+        minuteInterval={15} // Enforce 15-minute intervals
+        onConfirm={(selectedDate) => {
+          if (selectedDate.getTime() >= new Date().getTime()) {
+            onHandleTimeValueHandler(selectedDate);
+          } else {
+            Alert.alert("You selected a past time");
+          }
+          // setOpen(false);
+        }}
+        onCancel={onTimeModalOpenCloseHandler}
+        style={styles.datePicker}
+      />
     </View>
   );
 };
