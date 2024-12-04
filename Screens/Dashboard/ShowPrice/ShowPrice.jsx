@@ -19,10 +19,13 @@ import React, {
   useRef,
 } from "react";
 
+
 import BottomSheet, {
   BottomSheetModalProvider,
   BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
+
+
 
 import ShowPickDropCard from "../../../Components/Dashboard/ShowPrices/ShowPickDropCard/ShowPickDropCard";
 import ShowVehicle from "../../../Components/Dashboard/ShowPrices/ShowVehicle/ShowVehicle";
@@ -196,7 +199,8 @@ const ShowPrice = () => {
               vehicleType="Car"
             />
 
-            {/* <Button onPress={() => setOpen(!open)} title="open" /> */}
+
+
 
             {!isDateTimeData && (
               <ShowVehicle
