@@ -25,14 +25,11 @@ const MainNavigation = () => {
     new Set()
   );
 
-
-
-
   useEffect(() => {
     const checkTokenAndNavigate = async () => {
       try {
         const storedToken = await AsyncStorage.getItem("token");
-  
+
         if (storedToken) {
           const previousOrders = await API.get("/user/all-orders", {
             headers: {
@@ -41,15 +38,15 @@ const MainNavigation = () => {
             },
           });
 
-
-
           const checkReady = setInterval(() => {
-            if (navigationRef.current?.isReady() && previousOrders?.data?.length) {
-
-
+            if (
+              navigationRef.current?.isReady() &&
+              previousOrders?.data?.length
+            ) {
               previousOrders?.data?.forEach((singleOrder) => {
+                // console.log(singleOrder);
                 if (singleOrder.status === "pending") {
-                   navigationRef.current?.navigate("lookingforride", { 
+                  navigationRef.current?.navigate("lookingforride", {
                     vehicleType: singleOrder.vehicleType,
                     price: singleOrder.price,
                     placeName: singleOrder.pickupAddress,
@@ -65,32 +62,35 @@ const MainNavigation = () => {
                       lat: singleOrder?.pickup?.coordinates[1],
                       lng: singleOrder?.pickup?.coordinates[0],
                     },
-                    orderId: singleOrder._id, });
+                    orderId: singleOrder._id,
+                    orderPlaceTime: singleOrder.orderPlaceTime,
+                  });
+                } else if (singleOrder.status === "accept") {
+                  navigationRef.current?.navigate("captaineacceptride", {
+                    orderDetails: singleOrder,
+                  });
+                } else if (singleOrder.status === "waiting") {
                 }
               });
 
               clearInterval(checkReady);
             }
           }, 100);
+          // console.log("previous", previousOrders?.data);
           dispatch(setOrders(previousOrders?.data));
           dispatch(setToken(JSON.parse(storedToken)));
         } else {
           dispatch(noToken(false));
         }
-  
-      
-  
+
         return () => clearInterval(checkReady);
       } catch (error) {
         console.error("Error reading token or initializing navigation:", error);
       }
     };
-  
+
     checkTokenAndNavigate();
   }, [dispatch]);
-  
-  
-  
 
   // Handle notifications
   const handleNotification = useCallback(
@@ -188,16 +188,11 @@ const MainNavigation = () => {
     }
   };
 
-
-
-
-  
-
   if (loading) {
     return (
       <View style={styles.loadingCard}>
         <Image
-          style={styles.loadingImage} 
+          style={styles.loadingImage}
           source={require("../assets/images/logo.png")}
         />
       </View>

@@ -15,6 +15,7 @@ export const useLookingForRideHook = () => {
     dropAddress,
     pickUpCoordinated,
     orderId,
+    orderPlaceTime, // orderPlaceTime in IST
   } = route.params;
 
   const navigation = useNavigation();
@@ -30,6 +31,8 @@ export const useLookingForRideHook = () => {
     setCancelModalInfoOpenClose(!calncelModalInfoOpenClose);
   };
 
+  console.log("orderPlaceTime", orderPlaceTime);
+
   useEffect(() => {
     startAnimation();
     return () => {
@@ -43,19 +46,75 @@ export const useLookingForRideHook = () => {
   const startAnimation = () => {
     progress.setValue(0);
 
-    Animated.timing(progress, {
-      toValue: 100,
-      // duration: 210000, // 3 minutes 30 seconds
-      duration: 180000, // 60 seconds duration
-      useNativeDriver: false,
-    }).start(({ finished }) => {
-      if (!isAccepted && finished) {
-        console.log("Ride not accepted, calling final API...");
-        setShowCancelWithReOrderBtn(false);
-        clearInterval(intervalRef.current);
-        // callFinalApi();
+    // If orderPlaceTime exists, calculate the elapsed time
+    if (orderPlaceTime) {
+      // Normalize the time to uppercase AM/PM
+      const normalizedOrderTime = orderPlaceTime.toUpperCase(); // Converts 'am' to 'AM' and 'pm' to 'PM'
+      console.log("normalizedOrderTime", normalizedOrderTime);
+      // Create the full datetime string with the current date
+      const currentDate = new Date().toISOString().split("T")[0]; // YYYY-MM-DD format
+      console.log("currentDate", currentDate);
+
+      // Separate hours, minutes, and AM/PM
+      const [time, ampm] = normalizedOrderTime.split(" "); // "12:00:57" and "PM"
+      const [hours, minutes, seconds] = time.split(":"); // "12", "00", "57"
+
+      // Adjust hours for 12-hour clock
+      let adjustedHours = parseInt(hours, 10);
+      if (ampm === "PM" && adjustedHours !== 12) {
+        adjustedHours += 12; // Convert PM hours to 24-hour format
+      } else if (ampm === "AM" && adjustedHours === 12) {
+        adjustedHours = 0; // Midnight case (12 AM is 00:00)
       }
-    });
+
+      // Construct the full date-time string in ISO format
+      const fullDateString = `${currentDate}T${String(adjustedHours).padStart(
+        2,
+        "0"
+      )}:${minutes}:${seconds}.000+05:30`;
+      console.log("fullDateString", fullDateString);
+      // Parse the full date string into a valid Date object
+      const orderTime = new Date(fullDateString); // Now this will create a valid Date object
+
+      console.log("orderTime", orderTime); // Log to check if it's correctly parsed
+
+      const currentTime = new Date(); // Get current time
+      const elapsedTime = currentTime - orderTime; // Time difference in milliseconds
+      console.log("elapsedTime:", elapsedTime); // Log to check elapsed time
+
+      // Calculate remaining time (total 3 minutes - elapsed time)
+      const remainingTime = Math.max(0, 180000 - elapsedTime);
+      console.log("remainingTime:", remainingTime); // Log to check remaining time
+
+      // Update progress bar
+      progress.setValue((elapsedTime / 180000) * 100); // Update progress bar based on elapsed time
+
+      // Run the animation from the remaining time
+      Animated.timing(progress, {
+        toValue: 100,
+        duration: remainingTime,
+        useNativeDriver: false,
+      }).start(({ finished }) => {
+        if (!isAccepted && finished) {
+          console.log("Ride not accepted, calling final API...");
+          setShowCancelWithReOrderBtn(false);
+          clearInterval(intervalRef.current);
+        }
+      });
+    } else {
+      // If no orderPlaceTime, start the animation from 0
+      Animated.timing(progress, {
+        toValue: 100,
+        duration: 180000, // 3 minutes duration
+        useNativeDriver: false,
+      }).start(({ finished }) => {
+        if (!isAccepted && finished) {
+          console.log("Ride not accepted, calling final API...");
+          setShowCancelWithReOrderBtn(false);
+          clearInterval(intervalRef.current);
+        }
+      });
+    }
 
     intervalRef.current = setInterval(() => {
       if (!isAccepted) {
