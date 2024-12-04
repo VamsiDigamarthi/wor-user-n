@@ -70,6 +70,25 @@ const MainNavigation = () => {
                     orderDetails: singleOrder,
                   });
                 } else if (singleOrder.status === "waiting") {
+                  navigationRef.current?.navigate("lookingforride", {
+                    vehicleType: singleOrder.vehicleType,
+                    price: singleOrder.price,
+                    placeName: singleOrder.pickupAddress,
+                    dropAddress: {
+                      location: {
+                        lat: singleOrder?.drop?.coordinates[1],
+                        lng: singleOrder?.drop?.coordinates[0],
+                      },
+                      name: singleOrder?.dropAddress,
+                      vicinity: singleOrder?.dropVicinity,
+                    },
+                    pickUpCoordinated: {
+                      lat: singleOrder?.pickup?.coordinates[1],
+                      lng: singleOrder?.pickup?.coordinates[0],
+                    },
+                    orderId: singleOrder._id,
+                    futureTime: singleOrder.futureTime,
+                  });
                 }
               });
 

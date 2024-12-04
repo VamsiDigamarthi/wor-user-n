@@ -19,13 +19,10 @@ import React, {
   useRef,
 } from "react";
 
-
 import BottomSheet, {
   BottomSheetModalProvider,
   BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
-
-
 
 import ShowPickDropCard from "../../../Components/Dashboard/ShowPrices/ShowPickDropCard/ShowPickDropCard";
 import ShowVehicle from "../../../Components/Dashboard/ShowPrices/ShowVehicle/ShowVehicle";
@@ -199,9 +196,6 @@ const ShowPrice = () => {
               vehicleType="Car"
             />
 
-
-
-
             {!isDateTimeData && (
               <ShowVehicle
                 image={require("../../../assets/images/auto.png")}
@@ -306,6 +300,14 @@ const ShowPrice = () => {
         onCancel={onTimeModalOpenCloseHandler}
         style={styles.datePicker}
       />
+      {/* <DateTimePickerModal
+        isVisible={isTimeModalOpenClose}
+        mode="datetime"
+        onConfirm={onHandleTimeValueHandler}
+        onCancel={onTimeModalOpenCloseHandler}
+        minimumDate={currentDate}
+        maximumDate={maxDate}
+      /> */}
     </View>
   );
 };
