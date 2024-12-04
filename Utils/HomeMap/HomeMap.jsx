@@ -29,13 +29,13 @@ const HomeMap = ({ location }) => {
     console.log(location);
   }, [location]);
 
-  if (!location) {
-    return (
-      <View style={styles.loadingContainer}>
-        <Text>No location data available</Text>
-      </View>
-    );
-  }
+  // if (!location || location==null) {
+  //   return (
+  //     <View style={styles.loadingContainer}>
+  //       <Text>No location data available</Text>
+  //     </View>
+  //   );
+  // }
 
   return (
     <View style={styles.mapContainer}>
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   mapContainer: {
     width: "100%",
     height: "100%",
-    backgroundColor: "red",
+    // backgroundColor: "red",
     // resizeMode: "contain",
     flex: 1,
   },

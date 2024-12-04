@@ -5,6 +5,7 @@ import {
   Text,
   View,
   Button,
+  ActivityIndicator,
 } from "react-native";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -82,10 +83,17 @@ const NewHome = () => {
       <View style={styles.container}>
         {/* Map Container */}
         <View style={[styles.mapContainer, { height: mapHeight }]}>
-          <HomeMap location={location} />
-          {/* <DateTimePicker /> */}
+          {!location || location == null || location == undefined ? (
+            <View style={styles.loadingWrapper}>
+              <ActivityIndicator color="#e02e88" size={30} />
+            </View>
+          ) : (
+            <HomeMap location={location} />
+          )}          
         </View>
 
+
+          {/* <DateTimePicker /> */}
         {/* Bottom Sheet */}
         <BottomSheet
           ref={bottomSheetRef}
@@ -151,6 +159,8 @@ const styles = StyleSheet.create({
   mapContainer: {
     justifyContent: "center",
     alignItems: "center",
+    // flex:1,
+    // width: "100%",
   },
   mapText: {
     color: "white",
@@ -181,4 +191,6 @@ const styles = StyleSheet.create({
     height: 4,
     borderRadius: 2,
   },
+
+  
 });
