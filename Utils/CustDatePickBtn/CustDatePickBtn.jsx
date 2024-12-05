@@ -9,7 +9,7 @@ const CustDatePickBtn = ({ title = "2000-12-05", onPress, isValid = true }) => {
     >
       <View style={styles.container}>
         <Text style={[styles.label, !isValid && styles.invalidLabel]}>
-          CustDatePickBtn
+          Date Of Birth
         </Text>
         <View style={[styles.inputCard]}>
           <Ionicons name="calendar-clear-outline" size={20} />

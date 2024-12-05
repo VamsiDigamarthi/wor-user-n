@@ -64,6 +64,8 @@ import NewHome from "../Screens/Dashboard/Home/NewHome";
 import { useEffect, useState } from "react";
 import * as Notifications from "expo-notifications";
 import { AppState } from "react-native";
+import FaqHome from "../Screens/Faqs/FaqHome";
+import FaqAnswer from "../Screens/Faqs/FaqAnswer";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -395,9 +397,10 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="Preference"
         component={Preference}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Preference", "#f5f2f2")
-        }
+        options={{ headerShown: false }}
+        // options={({ navigation }) =>
+        //   getCommonOptions(navigation, "Preference", "#f5f2f2")
+        // }
       />
 
       <Stack.Screen
@@ -412,9 +415,10 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="About"
         component={About}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "About", "#f5f2f2", true, "Help", "Help")
-        }
+        options={{ headerShown: false }}
+        // options={({ navigation }) =>
+        //   getCommonOptions(navigation, "About", "#f5f2f2", true, "Help", "Help")
+        // }
       />
 
       <Stack.Screen
@@ -460,9 +464,10 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="Rating"
         component={Rating}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Rating", "#f5f2f2")
-        }
+        options={{headerShown:false}}
+        // options={({ navigation }) =>
+        //   getCommonOptions(navigation, "Rating", "#f5f2f2")
+        // }
       />
 
       <Stack.Screen
@@ -545,6 +550,21 @@ const AuthenticatedStack = () => {
           getCommonOptions(navigation, "Your Coins", "#fff")
         }
       />
+
+      <Stack.Screen
+        name="FaqHome"
+        component={FaqHome}
+        // options={({ navigation }) =>
+        //   getCommonOptions(navigation, "Support Our Mission", "#f5f2f2")
+        // }
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="FaqAnswer"
+        component={FaqAnswer}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 };
@@ -578,7 +598,7 @@ const CustomHeader = ({
           style={[styles.icon]}
         />
 
-        <Text style={[styles.text]}>{"title" || "Title"}</Text>
+        <Text style={[styles.text]}>{title}</Text>
 
         <Pressable onPress={() => Alert.alert("Info Pressed")}>
           <Ionicons

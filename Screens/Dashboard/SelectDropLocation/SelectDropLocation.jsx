@@ -40,7 +40,7 @@ const SelectDropLocation = () => {
   return (
     <View style={styles.container}>
       {/* <StatusBar barStyle="dark-content" backgroundColor="#f5f2f2" /> */}
-      <CustomeAppbar title="Designation" onBack={() => navigation.goBack()} />
+      <CustomeAppbar title="Destination" onBack={() => navigation.goBack()} />
       <View style={{ height: 80 }} />
       <View style={styles.pickDropBtnCard}>
         {/* this show pick drop card use show home screens also */}

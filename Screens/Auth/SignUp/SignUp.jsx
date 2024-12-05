@@ -18,7 +18,10 @@ const SignUp = () => {
   return (
     <AuthScreenLayout>
       <View style={styles.container}>
+
         <View style={styles.logoContainer}>
+        <View style={{height:100}}></View>
+
           <Logo />
           {/* <TouchableOpacity
             style={styles.imgeContainer}

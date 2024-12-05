@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { imageUrl } from "../../Constants/url";
 import defaultImg from "../../assets/images/profile/Services.png";
 
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 const CustomDrawerContent = (props) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(true); // Track drawer open/close
   const [selectedItem, setSelectedItem] = useState("");
@@ -98,20 +99,26 @@ const CustomDrawerContent = (props) => {
           position: "absolute",
           height: 40,
           width: 40,
-          top: 40,
-          right: isDrawerOpen ? 0 : -40, // Adjust placement based on drawer state
+          top: 40,         
+          right: isDrawerOpen ? -15 : -40, // Adjust placement based on drawer state
           zIndex: 5,
-          justifyContent: "center",
+          justifyContent: "start",
           alignItems: "center",
           backgroundColor: "#e02e88",
-          borderTopLeftRadius: 16,
-          borderBottomLeftRadius: 16,
+          borderTopLeftRadius: 22,
+          borderBottomLeftRadius: 22,
+          // borderRadius:20,
           elevation: 5,
 
           flexDirection: "row",
         }}
+        
       >
-        <Ionicons
+
+        
+
+<MaterialCommunityIcons style={{paddingLeft:4}} name="code-tags" size={22} color="white" />
+        {/* <Ionicons
           // name={isDrawerOpen ? "chevron-back" : "chevron-forward"}
           name="chevron-back"
           size={20}
@@ -122,7 +129,7 @@ const CustomDrawerContent = (props) => {
           // name={isDrawerOpen ? "chevron-back" : "chevron-forward"}
           size={20}
           color="#fff"
-        />
+        /> */}
       </Pressable>
 
       {/* Fixed Pink View with Border Radius */}
@@ -151,6 +158,7 @@ const CustomDrawerContent = (props) => {
       >
         {/* Profile Header */}
         <View style={[styles.headerContainer, { borderTopRightRadius: 20 }]}>
+
           <Image source={imageSrc} style={styles.profilePic} />
           <Text style={styles.profileName}>{profile?.name}</Text>
 
@@ -276,20 +284,9 @@ const CustomDrawerContent = (props) => {
             style={getItemStyle("Settings")}
           />
 
-          <DrawerItem
-            label="VoiceTest"
-            icon={() => <Ionicons name="gift-outline" size={22} color="gray" />}
-            onPress={() => handleItemPress("VoiceTest")}
-            labelStyle={styles.labelStyle}
-            style={getItemStyle("VoiceTest")}
-          />
-          <DrawerItem
-            label="BgTest"
-            icon={() => <Ionicons name="gift-outline" size={22} color="gray" />}
-            onPress={() => handleItemPress("BgTest")}
-            labelStyle={styles.labelStyle}
-            style={getItemStyle("BgTest")}
-          />
+        
+
+
         </View>
 
         {/* Logout Button at the End */}

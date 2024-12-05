@@ -6,7 +6,7 @@ const SettingProfileCard = () => {
   return (
     <View style={styles.container}>
       <SettingprofileCardLeft />
-      <SettingprofileCardRight />
+      {/* <SettingprofileCardRight /> */}
     </View>
   );
 };

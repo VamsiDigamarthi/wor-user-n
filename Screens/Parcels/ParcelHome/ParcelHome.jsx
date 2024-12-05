@@ -17,7 +17,7 @@ import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
 
 const screenWidth = Dimensions.get("window").width;
 
-const ParcelHome = () => {
+const ParcelHome = ({navigation}) => {
   const {
     onHandleNavigateLocationScreen,
     selectedCard,
