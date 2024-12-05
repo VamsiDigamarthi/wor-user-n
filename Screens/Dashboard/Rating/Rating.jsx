@@ -5,15 +5,21 @@ import RatingFirstCard from "../../../Components/Dashboard/RatingCom/RatingFirst
 import RatingSecondCard from "../../../Components/Dashboard/RatingCom/RatingSecondCard";
 import TextWithCard from "../../../Utils/TextWithCard/TextWithCard";
 import RatingSliderCard from "../../../Components/Dashboard/RatingCom/RatingSliderCard";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
 
 const Rating = () => {
   const route = useRoute();
+  const navigation = useNavigation();
 
   const { avgRating } = route.params;
 
   return (
     <View style={styles.container}>
+      <CustomeAppbar title="Ratings" onBack={() => navigation.goBack()} />
+
+      <View style={{ height: 100 }} />
+
       <StatusBar
         barStyle="dark-content"
         backgroundColor={COLORS.bottomSheetBg}

@@ -53,13 +53,13 @@ const ProfileScreen = () => {
           label="Emergency Contact Number"
           screenName="EmergencyContactNumber"
         />
-        <Settingsitem
+        {/* <Settingsitem
           iconName="logout"
           iconType="MaterialIcons"
           label="Logout"
           onPress={onLogOutHandler}
           // screenName="PersonalInfoPreview"
-        />
+        /> */}
       </ScrollView>
     </View>
   );

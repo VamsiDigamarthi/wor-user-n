@@ -5,10 +5,12 @@ import SettingProfileCard from "../../../Components/Dashboard/settingscom/Settin
 import SettingsItemsList from "../../../Components/Dashboard/settingscom/SettingsItem/SettingsItemsList";
 import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SettingsScreen = () => {
   // Create a reference for the bottom sheet
   const modalizeRef = useRef(null);
+ 
 
   // Function to open the modal after ensuring it's rendered
   const onOpenModal = () => {
@@ -16,6 +18,9 @@ const SettingsScreen = () => {
       modalizeRef?.current?.open();
     }
   };
+
+
+
 
   const navigation = useNavigation();
 
@@ -51,6 +56,7 @@ const SettingsScreen = () => {
             >
               <Text style={styles.deleteButtonText}>Delete</Text>
             </TouchableOpacity>
+            
           </View>
         </View>
       </Modalize>

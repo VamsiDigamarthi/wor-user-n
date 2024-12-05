@@ -1,7 +1,22 @@
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
+
 
 const HelpBottomCard = () => {
+
+  const navigation = useNavigation()
+
+  function handleNavigation(title){    
+    navigation.navigate("FaqHome" , {title:title} ) 
+  }
   return (
     <View style={styles.container}>
       <ScrollView
@@ -14,49 +29,54 @@ const HelpBottomCard = () => {
       >
         <View style={styles.cardContainer}>
           {/* First Row */}
-          <View style={styles.singleCard}>
+          <TouchableOpacity style={styles.singleCard} activeOpacity={0.8}
+          
+          onPress={()=>handleNavigation("Safety & Security")}
+          >
             <Image
               style={styles.singleCardImage}
               source={require("../../../../assets/images/profile/Helmet.png")}
             />
             <Text style={styles.text}>Safety & Security</Text>
-          </View>
-          <View style={styles.singleCard}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.singleCard} activeOpacity={0.8}
+            onPress={()=>handleNavigation("Ride & Billing")}
+          >
             <Image
               style={styles.singleCardImage}
               source={require("../../../../assets/images/profile/Billing.png")}
             />
             <Text style={styles.text}>Ride & Billing</Text>
-          </View>
+          </TouchableOpacity>
           {/* Second Row */}
-          <View style={styles.singleCard}>
+          <TouchableOpacity style={styles.singleCard} activeOpacity={0.8} onPress={()=>handleNavigation("Services")}>
             <Image
               style={styles.singleCardImage}
               source={require("../../../../assets/images/profile/Services.png")}
             />
             <Text style={styles.text}>Services</Text>
-          </View>
-          <View style={styles.singleCard}>
+          </TouchableOpacity >
+          <TouchableOpacity style={styles.singleCard} activeOpacity={0.8} onPress={()=>handleNavigation("Account & App")}>
             <Image
               style={styles.singleCardImage}
               source={require("../../../../assets/images/profile/app perferences.png")}
             />
             <Text style={styles.text}>Account & App</Text>
-          </View>
-          <View style={styles.singleCard}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.singleCard} activeOpacity={0.8} onPress={()=>handleNavigation("Referrals")}>
             <Image
               style={styles.singleCardImage}
               source={require("../../../../assets/images/profile/refer .png")}
             />
-            <Text style={styles.text}>Refereals</Text>
-          </View>
-          <View style={styles.singleCard}>
+            <Text style={styles.text}>Referrals</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.singleCard} activeOpacity={0.8} onPress={()=>handleNavigation("Payment & Wallets")}>
             <Image
               style={styles.singleCardImage}
               source={require("../../../../assets/images/profile/payment wallet.png")}
             />
             <Text style={styles.text}>Payments & Wallets</Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>

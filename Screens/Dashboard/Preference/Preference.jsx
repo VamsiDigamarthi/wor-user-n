@@ -1,8 +1,9 @@
 import { StyleSheet, View, ScrollView } from "react-native";
 import React from "react";
 import PreferenceItem from "../../../Components/Dashboard/PreferenceCom/PreferenceItem/PreferenceItem";
+import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
 
-const Preference = () => {
+const Preference = ({navigation}) => {
   const data = [
     {
       name: "Email",
@@ -43,11 +44,20 @@ const Preference = () => {
   ];
 
   return (
+
+<>
+  
+
+      
+<CustomeAppbar title="Preference" onBack={() => navigation.goBack()} />
+      <View  style={{height:100}}/>
     <ScrollView style={styles.container}>
       {data.map((item, index) => (
         <PreferenceItem key={index} name={item.name} values={item.values} />
       ))}
     </ScrollView>
+      </>
+  
   );
 };
 
