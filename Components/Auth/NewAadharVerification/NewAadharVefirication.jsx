@@ -48,6 +48,7 @@ const NewAadharVefirication = ({ isPriceScreen }) => {
           aadharVerified={aadharVerified}
           isEditable={!aadharVerified}
           aadharLoader={aadharLoader}
+          
         />
 
         <NewAadharOtpCard
@@ -56,6 +57,7 @@ const NewAadharVefirication = ({ isPriceScreen }) => {
           isEditable={aadharVerified && !otpVerified ? true : false}
           otpLoader={otpLoader}
           onPress={onOtpVefirified}
+          placeholder={"Enter Otp"}
         />
         <Text style={styles.uploadFrontBackImageCard}>
           Upload Aadhar Front/Back Images

@@ -81,7 +81,8 @@ const LoginRelatedInput = () => {
   return (
     <BottomLayout
       title="Enter Your Mobile Number"
-      subTitle="By entering your mobile number, you agree it will be used for verification and updates."
+      // subTitle="By entering your mobile number, you agree it will be used for verification process ."
+      subTitle="By entering your mobile number, you agree that it will be used for verification purposes and to receive updates."
       onHandleOpenInfoModal={onHandleOpenInfoModal}
     >
       <View style={styles.container}>

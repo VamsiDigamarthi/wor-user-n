@@ -3,6 +3,8 @@ import React from "react";
 import Settingsitem from "./Settingsitem";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import { CommonActions } from '@react-navigation/native';
+
 
 const SettingsItemsList = () => {
 

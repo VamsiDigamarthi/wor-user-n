@@ -137,14 +137,16 @@ const MPinRelatedUi = ({ isPriceScreen }) => {
 
   return (
     <BottomLayout
-      title="Enter Your Mobile Number"
-      subTitle="By entering your mobile number, you agree it will be used for verification and updates."
+      title="Set Your New MPIN"
+      // subTitle="By entering your mobile number, you agree it will be used for verification and updates."
+      subTitle="By entering your MPIN, you agree it will be used for verification and updates."
       onHandleOpenInfoModal={onHandleOpenInfoModal}
     >
       <View style={styles.container}>
         <Text style={styles.mpin}>Enter M-PIN</Text>
         <Text style={styles.mpinsub}>
-          Set your 4 digit M-PIN number for security.
+          {/* Set your 4 digit M-PIN number for security. */}
+          Set Your 4 Digit M-PIN to securely Access Your Account
         </Text>
         {error && <Text style={styles.error}>{error}</Text>}
         {renderInputBoxes(mPin, setMPin, inputRefs)}

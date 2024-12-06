@@ -12,8 +12,8 @@ const Notification = () => {
       <CustomeAppbar
         title="Notification"
         onBack={() => navigation.goBack()}
-        showRight
-        rightText="Filter"
+        // showRight
+        // rightText="Filter"
       />
       <View style={{ height: 80 }} />
       {!notification?.length > 0 ? (

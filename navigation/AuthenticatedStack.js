@@ -505,16 +505,18 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="ParcelPickLocation"
         component={PickLocation}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Pickup Location", "#fff")
-        }
+        options={{headerShown:false}}
+        // options={({ navigation }) =>
+        //   getCommonOptions(navigation, "Pickup Location", "#fff")
+        // }
       />
       <Stack.Screen
         name="ParcelMapWithBottomSheet"
         component={ParcelMapWithBottomSheet}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Parcel Details", "#fff")
-        }
+        options={{headerShown:false}}
+        // options={({ navigation }) =>
+        //   getCommonOptions(navigation, "Parcel Details", "#fff")
+        // }
       />
 
       <Stack.Screen

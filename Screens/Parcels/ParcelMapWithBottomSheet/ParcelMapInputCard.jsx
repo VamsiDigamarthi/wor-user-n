@@ -5,10 +5,10 @@ import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
 import InputBox from "../../../Utils/InputCard/InputCard";
 import { useNavigation } from "@react-navigation/native";
 
-const ParcelMapInputCard = ({pickUpLocationCoorWithName,typeOfLocation}) => {
+const ParcelMapInputCard = ({ pickUpLocationCoorWithName, typeOfLocation }) => {
   // State to manage all input values
 
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   const [formData, setFormData] = useState({
     address: "",
@@ -27,7 +27,6 @@ const ParcelMapInputCard = ({pickUpLocationCoorWithName,typeOfLocation}) => {
     mobileNumber: false,
     address: false,
   });
-  
 
   const handleInputChange = (field, value) => {
     setFormData((prevData) => ({
@@ -49,13 +48,16 @@ const ParcelMapInputCard = ({pickUpLocationCoorWithName,typeOfLocation}) => {
     if (!formData.fullName.trim()) {
       newErrors.fullName = "Full Name is required.";
     }
+    const containsNumber = /\d/;
+
+    if (containsNumber.test(formData.fullName)) {
+      newErrors.fullName = "Enter a Valid Name";
+    }
     if (!formData.mobileNumber.trim()) {
       newErrors.mobileNumber = "Mobile Number is required.";
     } else if (!/^\d{10}$/.test(formData.mobileNumber.trim())) {
       newErrors.mobileNumber = "Enter a valid 10-digit mobile number.";
     }
-
-  
 
     // Return true if no errors
     return Object.keys(newErrors)?.length > 0 ? newErrors : {};
@@ -68,30 +70,25 @@ const ParcelMapInputCard = ({pickUpLocationCoorWithName,typeOfLocation}) => {
       return;
     }
 
-    if(typeOfLocation ==="Pick Up"){
-
-      navigation.navigate("ParcelHome",{
-        pickUpLocationCoorWithName:{
+    if (typeOfLocation === "Pick Up") {
+      navigation.navigate("ParcelHome", {
+        pickUpLocationCoorWithName: {
           ...pickUpLocationCoorWithName,
-          ...formData
-        }
-      })
+          ...formData,
+        },
+      });
+    } else {
+      navigation.navigate("ParcelHome", {
+        dropLocationCoorWithName: {
+          ...pickUpLocationCoorWithName,
+          ...formData,
+        },
+      });
     }
-  else{
-    navigation.navigate("ParcelHome",{
-      dropLocationCoorWithName:{
-        ...pickUpLocationCoorWithName,
-        ...formData
-      }
-    })
-}
-
-    
-
-  }
+  };
 
   useEffect(() => {
-    if(formData?.address && formData.address?.length >=3){
+    if (formData?.address && formData.address?.length >= 3) {
       setErrors((prevState) => ({
         ...prevState,
         address: "",
@@ -102,15 +99,15 @@ const ParcelMapInputCard = ({pickUpLocationCoorWithName,typeOfLocation}) => {
       }));
     }
 
-    if(!formData.address?.trim() && validationCheck.address){
+    if (!formData.address?.trim() && validationCheck.address) {
       setErrors((prev) => ({
         ...prev,
         address: "Address is required.",
       }));
     }
 
-    if(formData.mobileNumber?.trim() && formData.mobileNumber?.length === 10){
-      console.log("enter moile")
+    if (formData.mobileNumber?.trim() && formData.mobileNumber?.length === 10) {
+      console.log("enter moile");
       setErrors((prevState) => ({
         ...prevState,
         mobileNumber: "",
@@ -121,21 +118,24 @@ const ParcelMapInputCard = ({pickUpLocationCoorWithName,typeOfLocation}) => {
       }));
     }
 
-    if(!formData.mobileNumber?.trim() && validationCheck.mobileNumber){
+    if (!formData.mobileNumber?.trim() && validationCheck.mobileNumber) {
       setErrors((prevState) => ({
         ...prevState,
         mobileNumber: "Mobile Number is required!",
       }));
     }
 
-     if (!/^\d{10}$/.test(formData.mobileNumber?.trim()) && validationCheck.mobileNumber) {
+    if (
+      !/^\d{10}$/.test(formData.mobileNumber?.trim()) &&
+      validationCheck.mobileNumber
+    ) {
       setErrors((prevState) => ({
         ...prevState,
         mobileNumber: "Enter a valid 10-digit mobile number.",
       }));
     }
 
-    if(formData?.fullName && formData.fullName?.length >=3){
+    if (formData?.fullName && formData.fullName?.length >= 3) {
       setErrors((prevState) => ({
         ...prevState,
         fullName: "",
@@ -146,15 +146,13 @@ const ParcelMapInputCard = ({pickUpLocationCoorWithName,typeOfLocation}) => {
       }));
     }
 
-    if(!formData.fullName?.trim() && validationCheck.fullName){
+    if (!formData.fullName?.trim() && validationCheck.fullName) {
       setErrors((prev) => ({
         ...prev,
         fullName: "Address is required.",
       }));
     }
-
-
-  }, [formData])
+  }, [formData]);
 
   return (
     <View style={styles.container}>
@@ -165,7 +163,7 @@ const ParcelMapInputCard = ({pickUpLocationCoorWithName,typeOfLocation}) => {
         icon="address"
         value={formData.address} // Controlled input value
         onChangeText={(value) => handleInputChange("address", value)}
-        isValid={errors?.address?.length > 0 ?false : true}
+        isValid={errors?.address?.length > 0 ? false : true}
       />
       <InputBox
         iconType="FontAwesome5"
@@ -182,20 +180,18 @@ const ParcelMapInputCard = ({pickUpLocationCoorWithName,typeOfLocation}) => {
         placeholder="Enter Full Name"
         value={formData.fullName}
         onChangeText={(value) => handleInputChange("fullName", value)}
-        isValid={errors?.fullName?.length > 0 ?false : true}
+        isValid={errors?.fullName?.length > 0 ? false : true}
       />
       <InputBox
         iconType="Feather"
         icon="phone"
-        label={errors?.mobileNumber ? errors?.mobileNumber  :"Mobile Number"}
+        label={errors?.mobileNumber ? errors?.mobileNumber : "Mobile Number"}
         placeholder="Enter Mobile Number"
         value={formData.mobileNumber}
         keyboardType="phone-pad"
         onChangeText={(value) => handleInputChange("mobileNumber", value)}
-        isValid={errors?.mobileNumber?.length > 0 ?false : true}
+        isValid={errors?.mobileNumber?.length > 0 ? false : true}
         maxLength={10}
-
-        
       />
       <View style={styles.btnWithCheckCard}>
         <CustomCheckbox
