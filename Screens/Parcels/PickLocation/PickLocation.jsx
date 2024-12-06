@@ -11,6 +11,8 @@ import { FontAwesome6, Ionicons } from "@expo/vector-icons";
 import IconButton from "../../../Utils/IconButton/IconButton";
 import { usePickLocationHook } from "./PickLocation.hook";
 import DropLocationItem from "../../../Components/Dashboard/DropLocation/Components/DropLocationItem/DropLocationItem";
+import { useNavigation } from "@react-navigation/native";
+import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
 
 const PickLocation = () => {
   const {
@@ -25,9 +27,18 @@ const PickLocation = () => {
     onNavigateToFavoriteScreen,
   } = usePickLocationHook();
 
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+
+      <CustomeAppbar
+        title="Send or Receive Parcel"
+        onBack={() => navigation.goBack()}
+      />
+
+      <View style={{ height: 100 }} />
       <View style={styles.innerCard}>
         <View style={styles.pickDropBtnCard}>
           <FontAwesome6 name="location-dot" size={20} color="#31ff10" />

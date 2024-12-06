@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Button, Pressable, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState, useCallback } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
@@ -58,6 +58,9 @@ const DocumentRelatedCheck = () => {
       subTitle="Identity Check with Aadhaar and Face Scan for Safe Ride Bookings"
       onHandleOpenInfoModal={onHandleOpenInfoModal}
     >
+
+
+      <Button title="skip" onPress={()=>{navigation.navigate("AuthenticatedStack")}}/>
       <View style={styles.container}>
         <OnAddharVerification
           onPress={handlePress}
@@ -68,7 +71,8 @@ const DocumentRelatedCheck = () => {
         <OnAddharVerification
           onPress={onFaceAuthentication}
           idTitle="M-PIN"
-          title="Face scan is required to complete your registration. It will be used to verify your identity when booking rides."
+          // title="Face scan is required to complete your registration. It will be used to verify your identity when booking rides."
+          title="Set an M-PIN to complete your registration; it will be used to secure your account"
           isBackground={profile?.mpin}
         />
       </View>

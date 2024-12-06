@@ -18,18 +18,19 @@ const NewAadharOtpCard = ({
   aadharVerified,
   otpLoader,
   onPress,
+  placeholder
 }) => {
   return (
     <View style={styles.mainCard}>
       <Text style={styles.enterOtpText}>
-        Enter OTP From your Aadhar link Number
+        Enter OTP Sent to your Aadhar Linked Mobile Number
       </Text>
       <View style={styles.container}>
         <View style={[styles.firstCard]}>
           {!isInput ? (
             <TextInput
               onChangeText={onTextChange}
-              placeholder="Enter your aadhar number"
+              placeholder={placeholder}
               value={value}
               keyboardType="numeric"
               editable={isEditable}

@@ -4,13 +4,27 @@ import { useParcelMapWithBottomSheetHook } from "./ParcelMapWithBottomSheet.hook
 import { coordinationMap } from "../../../Constants/displaylocationmap";
 import ParcelMap from "./ParcelMap";
 import ParcelMapInputCard from "./ParcelMapInputCard";
+import { useNavigation } from "@react-navigation/native";
+import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
 
 const ParcelMapWithBottomSheet = () => {
+
+  const navigation = useNavigation()
   const { pickUpLocationCoorWithName, typeOfLocation } =
     useParcelMapWithBottomSheetHook();
   console.log(pickUpLocationCoorWithName);
   return (
     <View style={styles.container}>
+
+
+<CustomeAppbar
+        title="Send or Receive Parcel"
+        onBack={() => navigation.goBack()}
+      />
+
+      <View style={{ height: 100 }} />
+
+
       <ParcelMap pickUpLocationCoorWithName={pickUpLocationCoorWithName} />
       <ScrollView
         contentContainerStyle={styles.scrollContainer}

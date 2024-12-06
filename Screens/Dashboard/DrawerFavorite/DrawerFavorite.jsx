@@ -42,18 +42,22 @@ const TabBtns = ({
   isFavoriteOrParcelAddress,
   onChangeToParcelAddress,
 }) => (
+
+
+
+  
   <View style={styles.tabBtns}>
     <CustomBtn
       title="Rides"
-      btnBg={!isFavoriteOrParcelAddress ? "#e02e88" : "#fff"}
-      btnColor={!isFavoriteOrParcelAddress ? "#fff" : "#e02e88"}
+      btnBg={!isFavoriteOrParcelAddress ? "#E02E88" : "#fff"}
+      btnColor={!isFavoriteOrParcelAddress ? "#fff" : "#E02E88"}
       width="40%"
       onPress={onChangeFavoriteToParcelAddress}
     />
     <CustomBtn
       title="Parcel Address"
-      btnBg={isFavoriteOrParcelAddress ? "#e02e88" : "#fff"}
-      btnColor={isFavoriteOrParcelAddress ? "#fff" : "#e02e88"}
+      btnBg={isFavoriteOrParcelAddress ? "#E02E88" : "#fff"}
+      btnColor={isFavoriteOrParcelAddress ? "#fff" : "#E02E88"}
       width="40%"
       onPress={onChangeToParcelAddress}
     />
