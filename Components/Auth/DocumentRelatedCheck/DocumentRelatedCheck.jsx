@@ -58,9 +58,12 @@ const DocumentRelatedCheck = () => {
       subTitle="Identity Check with Aadhaar and Face Scan for Safe Ride Bookings"
       onHandleOpenInfoModal={onHandleOpenInfoModal}
     >
-
-
-      <Button title="skip" onPress={()=>{navigation.navigate("AuthenticatedStack")}}/>
+      <Button
+        title="skip"
+        onPress={() => {
+          navigation.navigate("AuthenticatedStack");
+        }}
+      />
       <View style={styles.container}>
         <OnAddharVerification
           onPress={handlePress}
