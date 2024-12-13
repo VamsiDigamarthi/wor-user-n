@@ -28,6 +28,7 @@ import { infoModalStyles } from "../../../Components/InfoUi/Styles/InfoModalStyl
 import OtpInfoUi from "../../../Components/InfoUi/OtpInfoUi";
 import AllowNotification from "../../../Utils/AllowNotification/AllowNotification";
 import FutureOrderBox from "../../../Components/FutureOrderBox/FutureOrderBox";
+import { StatusBar } from "expo-status-bar";
 
 const screenHeight = Dimensions.get("window").height;
 const androidHeight = [screenHeight * 0.35, screenHeight * 0.5]; // Adjust snap points
@@ -71,6 +72,7 @@ const NewHome = () => {
     activeOrder,
     favoritePlaces, // this is favorite places from show one place in home screen
     previousOrders, // this is previous order show in home screen
+    captainMarkers,
   } = useHomeHook();
 
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
@@ -82,6 +84,7 @@ const NewHome = () => {
 
   return (
     <BottomSheetModalProvider>
+      <StatusBar style="dark" />
       <View style={styles.container}>
         {/* Map Container */}
         <View style={[styles.mapContainer, { height: mapHeight }]}>
@@ -90,7 +93,7 @@ const NewHome = () => {
               <ActivityIndicator color="#e02e88" size={30} />
             </View>
           ) : (
-            <HomeMap location={location} />
+            <HomeMap captainMarkers={captainMarkers} location={location} />
           )}
         </View>
 

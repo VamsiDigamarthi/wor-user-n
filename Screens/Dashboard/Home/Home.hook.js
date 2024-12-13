@@ -11,6 +11,7 @@ import Toast from "react-native-toast-message";
 
 import messaging from "@react-native-firebase/messaging";
 import * as Notifications from "expo-notifications";
+import { generateRandomMarkers } from "../../../Constants/generateMarkers";
 
 export const useHomeHook = () => {
   const navigation = useNavigation();
@@ -20,6 +21,7 @@ export const useHomeHook = () => {
   const [errorMsg, setErrorMsg] = useState(null);
   const [nearbyPlaces, setNearbyPlaces] = useState([]);
   const [fbToken, setFbToken] = useState("");
+  const [captainMarkers, setCaptainMarkers] = useState([]);
   // const [nearByRandomItems, setNearByRandomItems] = useState([]);
 
   // console.log("home screen", token);
@@ -197,6 +199,14 @@ export const useHomeHook = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (location) {
+      const markers = generateRandomMarkers(location);
+      setCaptainMarkers(markers);
+      // console.log("markers: ", markers);
+    }
+  }, [location]);
+
   return {
     location,
     nearByRandomItems,
@@ -205,5 +215,6 @@ export const useHomeHook = () => {
     activeOrder,
     favoritePlaces,
     previousOrders,
+    captainMarkers,
   };
 };

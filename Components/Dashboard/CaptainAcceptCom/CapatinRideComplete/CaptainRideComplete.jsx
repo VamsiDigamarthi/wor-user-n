@@ -32,12 +32,22 @@ const CaptainRideComplete = () => {
   const onNavigateRatingScreen = () => {
     console.log(ratingData);
     try {
-      API.patch(`/user/review-order/${orderDetails?._id}`, ratingData, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+      API.post(
+        "/rating",
+        {
+          ...ratingData,
+          ratingText: ratingData?.reviewTest,
+          rating: ratingData?.reviewRating,
+          orderId: orderDetails?._id,
+          userId: orderDetails?.head?._id,
         },
-      });
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       Toast.show({
         text1: "review added successfully",
         type: "success",

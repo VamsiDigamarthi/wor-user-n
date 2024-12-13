@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 import { imageUrl } from "../../Constants/url";
 import defaultImg from "../../assets/images/profile/Services.png";
 
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 const CustomDrawerContent = (props) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(true); // Track drawer open/close
   const [selectedItem, setSelectedItem] = useState("");
@@ -52,43 +52,26 @@ const CustomDrawerContent = (props) => {
     }); // Navigate to the RatingScreen
   };
 
-  const calculateAverageRating = (orders) => {
-    if (orders?.length === 0) return 0; // Avoid division by zero
+  const calculateAverageRating = (reviews) => {
+    if (reviews?.length === 0) return 0; // Avoid division by zero
 
-    const totalRating = orders?.reduce(
-      (sum, order) => sum + order.reviewRating,
-      0
-    );
-    return totalRating / orders?.length;
+    const totalRating = reviews?.reduce((sum, order) => sum + order.rating, 0);
+    return totalRating / reviews?.length;
   };
 
   useEffect(() => {
     if (profile) {
-      setAvgRating(calculateAverageRating(profile?.orders)?.toFixed(1));
+      // console.log(profile);
+      setAvgRating(calculateAverageRating(profile?.reviews)?.toFixed(1));
     }
   }, [profile]);
 
-  // useEffect(() => {
-  //   if (profile && profile.profilePic) {
-  //     const image = new Image();
-  //     const serverImage = `${imageUrl}/${profile.profilePic}`;
-
-  //     image.src = serverImage;
-
-  //     // If the image loads successfully, update the source
-  //     image.onload = () => setImageSrc(serverImage);
-
-  //     // If there's an error, keep the placeholder
-  //     image.onerror = () => setImageSrc("https://via.placeholder.com/80");
-  //   }
-  // }, [profile, imageUrl]);
-
-  const openLink = () => {
-    const url = "https://nuhvin.com"; // Replace with your desired URL
-    Linking.openURL(url).catch((err) =>
-      console.error("Failed to open URL:", err)
-    );
-  };
+  // const openLink = () => {
+  //   const url = "https://nuhvin.com"; // Replace with your desired URL
+  //   Linking.openURL(url).catch((err) =>
+  //     console.error("Failed to open URL:", err)
+  //   );
+  // };
 
   return (
     <View style={{ flex: 1 }}>
@@ -99,7 +82,7 @@ const CustomDrawerContent = (props) => {
           position: "absolute",
           height: 40,
           width: 40,
-          top: 40,         
+          top: 40,
           right: isDrawerOpen ? -15 : -40, // Adjust placement based on drawer state
           zIndex: 5,
           justifyContent: "start",
@@ -112,12 +95,13 @@ const CustomDrawerContent = (props) => {
 
           flexDirection: "row",
         }}
-        
       >
-
-        
-
-<MaterialCommunityIcons style={{paddingLeft:4}} name="code-tags" size={22} color="white" />
+        <MaterialCommunityIcons
+          style={{ paddingLeft: 4 }}
+          name="code-tags"
+          size={22}
+          color="white"
+        />
         {/* <Ionicons
           // name={isDrawerOpen ? "chevron-back" : "chevron-forward"}
           name="chevron-back"
@@ -158,7 +142,6 @@ const CustomDrawerContent = (props) => {
       >
         {/* Profile Header */}
         <View style={[styles.headerContainer, { borderTopRightRadius: 20 }]}>
-
           <Image source={imageSrc} style={styles.profilePic} />
           <Text style={styles.profileName}>{profile?.name}</Text>
 
@@ -283,10 +266,6 @@ const CustomDrawerContent = (props) => {
             labelStyle={styles.labelStyle}
             style={getItemStyle("Settings")}
           />
-
-        
-
-
         </View>
 
         {/* Logout Button at the End */}
