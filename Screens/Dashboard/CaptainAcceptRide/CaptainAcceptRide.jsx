@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Image,
   Pressable,
   ScrollView,
@@ -56,12 +57,20 @@ const CaptainAcceptRide = () => {
   return (
     <View style={styles.container}>
       <View style={styles.mapContainer}>
-        {/* <ShowPollyLine
-          origin={otpVerified ? pickCoor : orderDetails?.captainCoor}
-          destination={otpVerified ? drop : pickCoor}
-          height={460}
-          liveCoordinates={liveCoordinates}
-        /> */}
+        {orderDetails?.captainCoor ? (
+          <ShowPollyLine
+            origin={otpVerified ? pickCoor : orderDetails?.captainCoor}
+            destination={otpVerified ? drop : pickCoor}
+            height={460}
+            liveCoordinates={liveCoordinates}
+          />
+        ) : (
+          <View
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
+            <ActivityIndicator size={30} color={"#e02e88"} />
+          </View>
+        )}
       </View>
       <View style={styles.mapFullCardIocn}>
         <Pressable onPress={onShowFullMap}>

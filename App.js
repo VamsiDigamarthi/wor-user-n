@@ -6,10 +6,11 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Provider } from "react-redux";
 import Toast from "react-native-toast-message";
 import store from "./redux/store";
-
 import messaging from "@react-native-firebase/messaging";
 import * as Notifications from "expo-notifications";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import NetInfo from "@react-native-community/netinfo";
+import NoInternet from "./Components/unavailable/NoInternet";
 
 // Configure foreground notifications for Expo
 Notifications.setNotificationHandler({
@@ -60,10 +61,10 @@ messaging().onMessage(async (remoteMessage) => {
       content: {
         title: remoteMessage.notification.title,
         body: remoteMessage.notification.body,
-        data:{...remoteMessage.data}  
+        data: { ...remoteMessage.data },
       },
       trigger: null,
-      mydata:remoteMessage.data        
+      mydata: remoteMessage.data,
     });
   }
 });
@@ -78,10 +79,10 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
       content: {
         title: remoteMessage.notification.title,
         body: remoteMessage.notification.body,
-        data:{...remoteMessage.data}
+        data: { ...remoteMessage.data },
       },
       trigger: null,
-      mydata:remoteMessage.data ,
+      mydata: remoteMessage.data,
     });
   }
 });
@@ -93,10 +94,26 @@ async function initializeNotifications() {
 initializeNotifications();
 
 export default function App() {
+  const [isConnected, setIsConnected] = useState(true);
 
-  
-  
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(state.isConnected);
+    });
+    return () => unsubscribe();
+  }, []);
 
+  if (!isConnected) {
+    return (
+      <NoInternet
+        onclick={() => {
+          NetInfo.fetch().then((state) => {
+            setIsConnected(state.isConnected);
+          });
+        }}
+      />
+    );
+  }
 
   return (
     <Provider store={store}>
