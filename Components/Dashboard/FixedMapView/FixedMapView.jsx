@@ -119,11 +119,7 @@ const MapWithFixedMarker = ({ navigation }) => {
               </Text>
             </View>
           </View>
-          {/* <Text style={styles.coordinatesText}>
-            {finalSelecetLocationNameWithCoordinates?.name
-              ? finalSelecetLocationNameWithCoordinates.name
-              : placeName}
-          </Text> */}
+
           <CustomBtn
             title="Save"
             btnBg="#e02e88"
