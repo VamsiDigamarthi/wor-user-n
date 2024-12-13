@@ -72,10 +72,10 @@ const HomeMap = ({ location, captainMarkers }) => {
                 style={{ width: 30, height: 30, resizeMode: "contain" }}
                 source={
                   marker.type === "bike"
-                    ? require("../../assets/images/markers/bike-marker-2.png")
+                    ? require("../../assets/images/markers/BIKE-removebg-preview.png")
                     : marker.type === "auto"
-                    ? require("../../assets/images/markers/auto-marker-2.png")
-                    : require("../../assets/images/markers/car-marker-2.png")
+                    ? require("../../assets/images/markers/auto__1_-removebg-preview.png")
+                    : require("../../assets/images/markers/CAR__1_-removebg-preview.png")
                 }
               />
             </View>
