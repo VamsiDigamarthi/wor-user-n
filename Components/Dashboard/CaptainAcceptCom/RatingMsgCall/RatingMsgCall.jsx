@@ -1,8 +1,17 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React from "react";
 import { Ionicons, MaterialIcons, FontAwesome } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const RatingMsgCall = ({ otpVerified }) => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <View style={styles.ratingCard}>
@@ -11,7 +20,14 @@ const RatingMsgCall = ({ otpVerified }) => {
       </View>
       {!otpVerified && (
         <View style={styles.messageCard}>
-          <TextInput placeholder="Message Dharani" />
+          {/* <TextInput placeholder="Message Dharani" /> */}
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("ChatWithCaptain");
+            }}
+          >
+            <Text style={styles.ratingText}>Message Dharani</Text>
+          </TouchableOpacity>
         </View>
       )}
       {!otpVerified && (
