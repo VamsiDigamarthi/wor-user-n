@@ -66,6 +66,7 @@ import * as Notifications from "expo-notifications";
 import { AppState } from "react-native";
 import FaqHome from "../Screens/Faqs/FaqHome";
 import FaqAnswer from "../Screens/Faqs/FaqAnswer";
+import ChatWithCaptain from "../Components/ChatUi/ChatWithCaptain";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -464,7 +465,7 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="Rating"
         component={Rating}
-        options={{headerShown:false}}
+        options={{ headerShown: false }}
         // options={({ navigation }) =>
         //   getCommonOptions(navigation, "Rating", "#f5f2f2")
         // }
@@ -505,7 +506,7 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="ParcelPickLocation"
         component={PickLocation}
-        options={{headerShown:false}}
+        options={{ headerShown: false }}
         // options={({ navigation }) =>
         //   getCommonOptions(navigation, "Pickup Location", "#fff")
         // }
@@ -513,7 +514,7 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="ParcelMapWithBottomSheet"
         component={ParcelMapWithBottomSheet}
-        options={{headerShown:false}}
+        options={{ headerShown: false }}
         // options={({ navigation }) =>
         //   getCommonOptions(navigation, "Parcel Details", "#fff")
         // }
@@ -565,6 +566,12 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="FaqAnswer"
         component={FaqAnswer}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="ChatWithCaptain"
+        component={ChatWithCaptain}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
