@@ -66,6 +66,7 @@ import * as Notifications from "expo-notifications";
 import { AppState } from "react-native";
 import FaqHome from "../Screens/Faqs/FaqHome";
 import FaqAnswer from "../Screens/Faqs/FaqAnswer";
+import ChatWithCaptain from "../Components/ChatUi/ChatWithCaptain";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -561,6 +562,12 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="FaqAnswer"
         component={FaqAnswer}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="ChatWithCaptain"
+        component={ChatWithCaptain}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

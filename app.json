@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "wor-user",
-    "slug": "wor-user",
+    "name": "Women User",
+    "slug": "Women User",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -29,18 +29,16 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      
-        "@react-native-firebase/app",
+      "@react-native-firebase/app",
 
-        [
-          "expo-notifications",
-          {
-            "icon": "./assets/images/logo.png",
-            "color": "#ffffff"
-          }
-        ],
-  
-      
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/logo.png",
+          "color": "#ffffff"
+        }
+      ],
+
       [
         "react-native-permissions",
         {
