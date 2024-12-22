@@ -2,9 +2,9 @@ import { StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
 import RideHistoryItem from "../RideHistory/RideHistoryItem";
-import ParcelAddres from "../../../Utils/ParcelAddress/ParcelAddres";
 import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
 import { useNavigation } from "@react-navigation/native";
+import ParcelAddres from "../../Parcels/ParcelSavePlaces/Components/ParcelAddres";
 
 const DrawerFavorite = () => {
   const navigation = useNavigation();
@@ -42,10 +42,6 @@ const TabBtns = ({
   isFavoriteOrParcelAddress,
   onChangeToParcelAddress,
 }) => (
-
-
-
-  
   <View style={styles.tabBtns}>
     <CustomBtn
       title="Rides"

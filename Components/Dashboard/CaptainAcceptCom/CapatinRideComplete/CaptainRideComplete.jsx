@@ -88,6 +88,9 @@ const CaptainRideComplete = () => {
 
   return (
     <View style={styles.conatiner}>
+      {/* <CustomeAppbar title="Ratings" onBack={() => navigation.goBack()} /> */}
+
+      <View style={{ height: 10 }} />
       <ScrollView
         contentContainerStyle={{
           //   paddingBottom: 20, // Ensure padding at the bottom for scroll

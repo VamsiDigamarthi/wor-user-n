@@ -6,20 +6,29 @@ import {
   getCoordinatesFromPlaceId,
   nearPlacesByText,
 } from "../../../Constants/displaylocationmap";
-
+import Voice from "@react-native-voice/voice";
 export const usePickLocationHook = () => {
   const route = useRoute();
   const navigation = useNavigation();
-  const { typeOfLocation } = route.params;
+  const { typeOfLocation, isMicClick = false } = route.params;
   const [location, setLocation] = useState(null);
   const [nearbyPlaces, setNearbyPlaces] = useState([]);
   const [placeName, setPlaceName] = useState(null);
+  const [loadings, setLoadings] = useState(false);
 
   const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
+  const [isMicModalOpenClose, setIsMicModalOpenClose] = useState(
+    isMicClick ?? false
+  );
+
+  const [micVoiceText, setMicVoiceText] = useState("");
+  const [isListening, setIsListening] = useState(false);
+
   useEffect(() => {
     (async () => {
+      setLoadings(true);
       try {
         let { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== "granted") {
@@ -39,7 +48,7 @@ export const usePickLocationHook = () => {
         );
         // console.log(nearbyPlaces); near place have coordinates
         setNearbyPlaces(nearbyPlaces);
-
+        setLoadings(false);
         let [place] = await Location.reverseGeocodeAsync({
           latitude: currentLocation.coords.latitude,
           longitude: currentLocation.coords.longitude,
@@ -56,13 +65,16 @@ export const usePickLocationHook = () => {
         }
       } catch (error) {
         console.log(error.message || "Something went wrong");
+        setLoadings(false);
       }
     })();
   }, []);
 
   // user enter text to fetch places but this type of location have not coordinates
   const fetchPlaceSuggestions = async (input) => {
+    setLoadings(true);
     let nearPlaces = await nearPlacesByText(input);
+    setLoadings(false);
     setSuggestions(nearPlaces);
   };
 
@@ -75,6 +87,7 @@ export const usePickLocationHook = () => {
     }
   };
 
+  // this function call when you click the suggestion places
   const onUserSelectDropLocationByEnterInput = async (place) => {
     let location = await getCoordinatesFromPlaceId(place?.placeId);
     let pickUpLocationCoorWithName = {
@@ -87,6 +100,7 @@ export const usePickLocationHook = () => {
     });
   };
 
+  // this function call when user select nearby location places
   const onUserSelectPickLocationNearPlaces = (place) => {
     navigation.navigate("ParcelMapWithBottomSheet", {
       pickUpLocationCoorWithName: place,
@@ -95,7 +109,10 @@ export const usePickLocationHook = () => {
   };
 
   const onNavigateToFavoriteScreen = () => {
-    navigation.navigate("ParcelSavePlaces");
+    navigation.navigate("Favorite", {
+      isParcelScreen: true,
+      typeOfLocation,
+    });
   };
 
   const onYourLocationClick = () => {
@@ -109,6 +126,7 @@ export const usePickLocationHook = () => {
     });
   };
 
+  // user click to 'SELCET ON MAP" button this function called
   const onNavigateToMapPreviewScreen = () => {
     // console.log(placeName, location);
     navigation.navigate("FixMapPreview", {
@@ -117,6 +135,62 @@ export const usePickLocationHook = () => {
       isParcelScreen: true,
       typeOfLocation,
     });
+  };
+
+  // Mic related Functions
+  useEffect(() => {
+    Voice.onSpeechStart = onSpeechStart;
+    Voice.onSpeechResults = onSpeechResults;
+    Voice.onSpeechError = onSpeechError;
+
+    return () => {
+      Voice.destroy().then(Voice.removeAllListeners);
+    };
+  }, []);
+
+  const onSpeechStart = () => {
+    setIsListening(true);
+  };
+
+  const onSpeechResults = (e) => {
+    if (e.value && e.value.length > 0) {
+      setMicVoiceText(e.value[0]);
+      setIsMicModalOpenClose(false);
+      fetchPlaceSuggestions(e.value[0]);
+    }
+    setIsListening(false);
+  };
+
+  const onSpeechError = (e) => {
+    console.error(e);
+    Alert.alert("Error", "Speech recognition error");
+    setIsListening(false);
+  };
+
+  const startListening = async () => {
+    try {
+      setIsListening(true);
+      await Voice.start("en-US");
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const stopListening = async () => {
+    try {
+      setIsListening(false);
+      await Voice.stop();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleMicPress = () => {
+    if (isListening) {
+      stopListening();
+    } else {
+      startListening();
+    }
   };
 
   return {
@@ -129,5 +203,12 @@ export const usePickLocationHook = () => {
     onYourLocationClick,
     onNavigateToMapPreviewScreen,
     onNavigateToFavoriteScreen,
+    loadings,
+    // Mic
+    isMicModalOpenClose,
+    setIsMicModalOpenClose,
+    isListening,
+    handleMicPress,
+    micVoiceText,
   };
 };

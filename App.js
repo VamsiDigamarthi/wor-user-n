@@ -60,10 +60,10 @@ messaging().onMessage(async (remoteMessage) => {
       content: {
         title: remoteMessage.notification.title,
         body: remoteMessage.notification.body,
-        data:{...remoteMessage.data}  
+        data: { ...remoteMessage.data },
       },
       trigger: null,
-      mydata:remoteMessage.data        
+      mydata: remoteMessage.data,
     });
   }
 });
@@ -78,10 +78,10 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
       content: {
         title: remoteMessage.notification.title,
         body: remoteMessage.notification.body,
-        data:{...remoteMessage.data}
+        data: { ...remoteMessage.data },
       },
       trigger: null,
-      mydata:remoteMessage.data ,
+      mydata: remoteMessage.data,
     });
   }
 });
@@ -93,11 +93,6 @@ async function initializeNotifications() {
 initializeNotifications();
 
 export default function App() {
-
-  
-  
-
-
   return (
     <Provider store={store}>
       <GestureHandlerRootView style={{ flex: 1 }}>

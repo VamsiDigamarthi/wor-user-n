@@ -242,7 +242,7 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="Favorite"
         component={FavoritePlace}
-        options={({ navigation }) => getCommonOptions(navigation, "Favorite")}
+        options={{ headerShown: false }}
       />
 
       {/* CaptainAcceptRide screen */}
@@ -255,9 +255,7 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="captaineacceptrideusershowridedetails"
         component={RideDetails}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Ride Details", "#f5f2f2")
-        }
+        options={{ headerShown: false }}
       />
 
       <Stack.Screen
@@ -464,7 +462,7 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="Rating"
         component={Rating}
-        options={{headerShown:false}}
+        options={{ headerShown: false }}
         // options={({ navigation }) =>
         //   getCommonOptions(navigation, "Rating", "#f5f2f2")
         // }
@@ -505,7 +503,7 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="ParcelPickLocation"
         component={PickLocation}
-        options={{headerShown:false}}
+        options={{ headerShown: false }}
         // options={({ navigation }) =>
         //   getCommonOptions(navigation, "Pickup Location", "#fff")
         // }
@@ -513,7 +511,7 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="ParcelMapWithBottomSheet"
         component={ParcelMapWithBottomSheet}
-        options={{headerShown:false}}
+        options={{ headerShown: false }}
         // options={({ navigation }) =>
         //   getCommonOptions(navigation, "Parcel Details", "#fff")
         // }
@@ -522,9 +520,7 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="ParcelSavePlaces"
         component={ParcelSavePlaces}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Parcel Details", "#fff")
-        }
+        options={{ headerShown: false }}
       />
 
       {/* Voice and Bg */}

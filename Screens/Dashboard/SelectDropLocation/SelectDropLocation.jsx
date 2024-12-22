@@ -103,34 +103,42 @@ const SelectDropLocation = () => {
         visible={isMicModalOpenClose} // Control the visibility of the modal
         onRequestClose={() => setIsMicModalOpenClose(false)} // Required for Android back button
       >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <TouchableOpacity onPress={handleMicPress} style={styles.micButton}>
-              <View style={styles.micCard}>
-                <Icon
-                  name={isListening ? "mic" : "mic-none"}
-                  size={24}
-                  color="red"
-                />
-              </View>
-            </TouchableOpacity>
-            <Text style={styles.infoText}>
-              {isListening ? "Listening..." : "Tap the mic to start speaking"}
-            </Text>
-            <Pressable
-              onPress={() => setIsMicModalOpenClose(false)}
-              style={styles.closeModalBtn}
-            >
-              <Text style={styles.closeText}>Close</Text>
-            </Pressable>
-          </View>
-        </View>
+        <MicComponent
+          handleMicPress={handleMicPress}
+          isListening={isListening}
+          setIsMicModalOpenClose={setIsMicModalOpenClose}
+        />
       </Modal>
     </View>
   );
 };
 
 export default SelectDropLocation;
+
+export const MicComponent = ({
+  handleMicPress,
+  isListening,
+  setIsMicModalOpenClose,
+}) => (
+  <View style={styles.modalContainer}>
+    <View style={styles.modalContent}>
+      <TouchableOpacity onPress={handleMicPress} style={styles.micButton}>
+        <View style={styles.micCard}>
+          <Icon name={isListening ? "mic" : "mic-none"} size={24} color="red" />
+        </View>
+      </TouchableOpacity>
+      <Text style={styles.infoText}>
+        {isListening ? "Listening..." : "Tap the mic to start speaking"}
+      </Text>
+      <Pressable
+        onPress={() => setIsMicModalOpenClose(false)}
+        style={styles.closeModalBtn}
+      >
+        <Text style={styles.closeText}>Close</Text>
+      </Pressable>
+    </View>
+  </View>
+);
 
 const styles = StyleSheet.create({
   container: {

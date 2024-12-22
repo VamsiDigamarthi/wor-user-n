@@ -1,5 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { FontAwesome5, FontAwesome6 } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const SendAndReceiveParcelPicDropCardItem = ({
   title,
@@ -10,9 +11,17 @@ const SendAndReceiveParcelPicDropCardItem = ({
   onPress,
   dataFromPickLocation,
 }) => {
+  const navigation = useNavigation();
+  const onHandlePressMicBtn = () => {
+    navigation.navigate("ParcelPickLocation", {
+      typeOfLocation: title === "Collect From:" ? "Pick Up" : "Drop",
+      isMicClick: true,
+    });
+  };
+
   return (
-    <Pressable onPress={onPress}>
-      <View style={[styles.container, bottomBorder]}>
+    <View style={[styles.container, bottomBorder]}>
+      <Pressable onPress={onPress}>
         <View style={styles.innerCard}>
           <FontAwesome6 name={iconName} size={25} color={iconColor} />
 
@@ -35,6 +44,8 @@ const SendAndReceiveParcelPicDropCardItem = ({
             </Text>
           </View>
         </View>
+      </Pressable>
+      <Pressable onPress={onHandlePressMicBtn}>
         <View
           style={{
             flexDirection: "row",
@@ -43,13 +54,9 @@ const SendAndReceiveParcelPicDropCardItem = ({
           }}
         >
           <FontAwesome5 name="microphone" size={25} color="#e02e88" />
-
-          {/* <View style={styles.secondCard}>
-            <FontAwesome5 name="plus" size={15} color="#fff" />
-          </View> */}
         </View>
-      </View>
-    </Pressable>
+      </Pressable>
+    </View>
   );
 };
 

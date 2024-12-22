@@ -29,75 +29,81 @@ const MainNavigation = () => {
     const checkTokenAndNavigate = async () => {
       try {
         const storedToken = await AsyncStorage.getItem("token");
-
+        // console.log("storedToken", storedToken);
         if (storedToken) {
-          const previousOrders = await API.get("/user/all-orders", {
-            headers: {
-              Authorization: `Bearer ${JSON.parse(storedToken)}`,
-              "Content-Type": "application/json",
-            },
-          });
+          try {
+            const previousOrders = await API.get("/user/all-orders", {
+              headers: {
+                Authorization: `Bearer ${JSON.parse(storedToken)}`,
+                "Content-Type": "application/json",
+              },
+            });
 
-          const checkReady = setInterval(() => {
-            if (
-              navigationRef.current?.isReady() &&
-              previousOrders?.data?.length
-            ) {
-              previousOrders?.data?.forEach((singleOrder) => {
-                // console.log(singleOrder);
-                if (singleOrder.status === "pending") {
-                  navigationRef.current?.navigate("lookingforride", {
-                    vehicleType: singleOrder.vehicleType,
-                    price: singleOrder.price,
-                    placeName: singleOrder.pickupAddress,
-                    dropAddress: {
-                      location: {
-                        lat: singleOrder?.drop?.coordinates[1],
-                        lng: singleOrder?.drop?.coordinates[0],
-                      },
-                      name: singleOrder?.dropAddress,
-                      vicinity: singleOrder?.dropVicinity,
-                    },
-                    pickUpCoordinated: {
-                      lat: singleOrder?.pickup?.coordinates[1],
-                      lng: singleOrder?.pickup?.coordinates[0],
-                    },
-                    orderId: singleOrder._id,
-                    orderPlaceTime: singleOrder.orderPlaceTime,
-                  });
-                } else if (singleOrder.status === "accept") {
-                  navigationRef.current?.navigate("captaineacceptride", {
-                    orderDetails: singleOrder,
-                  });
-                } else if (singleOrder.status === "waiting") {
-                  navigationRef.current?.navigate("lookingforride", {
-                    vehicleType: singleOrder.vehicleType,
-                    price: singleOrder.price,
-                    placeName: singleOrder.pickupAddress,
-                    dropAddress: {
-                      location: {
-                        lat: singleOrder?.drop?.coordinates[1],
-                        lng: singleOrder?.drop?.coordinates[0],
-                      },
-                      name: singleOrder?.dropAddress,
-                      vicinity: singleOrder?.dropVicinity,
-                    },
-                    pickUpCoordinated: {
-                      lat: singleOrder?.pickup?.coordinates[1],
-                      lng: singleOrder?.pickup?.coordinates[0],
-                    },
-                    orderId: singleOrder._id,
-                    futureTime: singleOrder.futureTime,
-                  });
-                }
-              });
+            // console.log("previousOrders", previousOrders?.data);
 
-              clearInterval(checkReady);
-            }
-          }, 100);
-          // console.log("previous", previousOrders?.data);
-          dispatch(setOrders(previousOrders?.data));
-          dispatch(setToken(JSON.parse(storedToken)));
+            const checkReady = setInterval(() => {
+              if (
+                navigationRef.current?.isReady() &&
+                previousOrders?.data?.length
+              ) {
+                previousOrders?.data?.forEach((singleOrder) => {
+                  // console.log(singleOrder);
+                  if (singleOrder.status === "pending") {
+                    navigationRef.current?.navigate("lookingforride", {
+                      vehicleType: singleOrder.vehicleType,
+                      price: singleOrder.price,
+                      placeName: singleOrder.pickupAddress,
+                      dropAddress: {
+                        location: {
+                          lat: singleOrder?.drop?.coordinates[1],
+                          lng: singleOrder?.drop?.coordinates[0],
+                        },
+                        name: singleOrder?.dropAddress,
+                        vicinity: singleOrder?.dropVicinity,
+                      },
+                      pickUpCoordinated: {
+                        lat: singleOrder?.pickup?.coordinates[1],
+                        lng: singleOrder?.pickup?.coordinates[0],
+                      },
+                      orderId: singleOrder._id,
+                      orderPlaceTime: singleOrder.orderPlaceTime,
+                    });
+                  } else if (singleOrder.status === "accept") {
+                    navigationRef.current?.navigate("captaineacceptride", {
+                      orderDetails: singleOrder,
+                    });
+                  } else if (singleOrder.status === "waiting") {
+                    navigationRef.current?.navigate("lookingforride", {
+                      vehicleType: singleOrder.vehicleType,
+                      price: singleOrder.price,
+                      placeName: singleOrder.pickupAddress,
+                      dropAddress: {
+                        location: {
+                          lat: singleOrder?.drop?.coordinates[1],
+                          lng: singleOrder?.drop?.coordinates[0],
+                        },
+                        name: singleOrder?.dropAddress,
+                        vicinity: singleOrder?.dropVicinity,
+                      },
+                      pickUpCoordinated: {
+                        lat: singleOrder?.pickup?.coordinates[1],
+                        lng: singleOrder?.pickup?.coordinates[0],
+                      },
+                      orderId: singleOrder._id,
+                      futureTime: singleOrder.futureTime,
+                    });
+                  }
+                });
+
+                clearInterval(checkReady);
+              }
+            }, 100);
+            // console.log("previous", previousOrders?.data);
+            dispatch(setOrders(previousOrders?.data));
+            dispatch(setToken(JSON.parse(storedToken)));
+          } catch (error) {
+            console.log("all order fetch failed in main navogation stack");
+          }
         } else {
           dispatch(noToken(false));
         }
