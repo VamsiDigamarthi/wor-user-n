@@ -14,16 +14,21 @@ import ParcelSpecification from "../../../Components/Parcels/SendAndReceiveParce
 import { useParcelHomeHook } from "./ParcelHome.hook";
 import ParcelOrderSummary from "../ParcelOrderSummary/ParcelOrderSummary";
 import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
+import ParcelApplyCouponCode from "./Components/ParcelApplyCouponCode";
 
 const screenWidth = Dimensions.get("window").width;
 
-const ParcelHome = ({navigation}) => {
+const ParcelHome = ({ navigation }) => {
   const {
     onHandleNavigateLocationScreen,
     selectedCard,
     handleCardClick,
     pickUpLocation,
     dropLocation,
+    setSelectParcelType,
+    selecteParcelType,
+    price,
+    apiError,
   } = useParcelHomeHook();
 
   return (
@@ -51,9 +56,18 @@ const ParcelHome = ({navigation}) => {
               pickUpLocationCoorWithName={pickUpLocation}
               dropLocationCoorWithName={dropLocation}
             />
-            {/* <SelectParcelType /> */}
-            {/* <ParcelSpecification /> */}
-            <ParcelOrderSummary />
+            {pickUpLocation && dropLocation && <ParcelApplyCouponCode />}
+            <SelectParcelType setSelectParcelType={setSelectParcelType} />
+            {pickUpLocation && dropLocation && selecteParcelType ? (
+              <ParcelOrderSummary
+                senderName={pickUpLocation?.personName}
+                recevierName={dropLocation?.personName}
+                selecteParcelType={selecteParcelType}
+                price={price}
+              />
+            ) : (
+              <ParcelSpecification />
+            )}
           </>
         ) : (
           <Image
@@ -64,13 +78,29 @@ const ParcelHome = ({navigation}) => {
       </ScrollView>
 
       <View style={styles.positionCard}>
+        {apiError && (
+          <Text style={{ fontSize: 10, color: "red" }}>{apiError}</Text>
+        )}
         <CustomBtn
           title="Continue"
-          btnBg={selectedCard ? "#e02e88" : "#fff"}
-          btnColor={selectedCard ? "#fff" : "#e02e88"}
+          btnBg={
+            pickUpLocation && dropLocation && selecteParcelType
+              ? "#e02e88"
+              : "#fff"
+          }
+          btnColor={
+            pickUpLocation && dropLocation && selecteParcelType
+              ? "#fff"
+              : "#e02e88"
+          }
           borderColor="#e02e88"
           borderWidth={1}
-          onPress={selectedCard && onHandleNavigateLocationScreen}
+          onPress={
+            pickUpLocation &&
+            dropLocation &&
+            selecteParcelType &&
+            onHandleNavigateLocationScreen
+          }
         />
       </View>
     </View>
@@ -94,6 +124,7 @@ const styles = StyleSheet.create({
     left: 0,
     padding: 20,
     backgroundColor: "transparent", // Ensures no background over the content
+    gap: 5,
   },
   image: {
     width: "100%",

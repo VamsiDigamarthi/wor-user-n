@@ -1,11 +1,21 @@
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 export const useParcelMapWithBottomSheetHook = () => {
   const route = useRoute();
-  const { pickUpLocationCoorWithName,typeOfLocation } = route.params || {};
+  const navigation = useNavigation();
+  const { pickUpLocationCoorWithName, typeOfLocation } = route.params || {};
+
+  const onNavigateSavedAddressScreen = () => {
+    navigation.navigate("ParcelSavePlaces", {
+      pickUpLocationCoorWithName,
+      typeOfLocation,
+    });
+  };
 
   return {
     pickUpLocationCoorWithName,
-    typeOfLocation
+    typeOfLocation,
+    onNavigateSavedAddressScreen,
+    navigation,
   };
 };

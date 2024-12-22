@@ -1,84 +1,109 @@
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { useParcelMapWithBottomSheetHook } from "./ParcelMapWithBottomSheet.hook";
-import { coordinationMap } from "../../../Constants/displaylocationmap";
 import ParcelMap from "./ParcelMap";
-import ParcelMapInputCard from "./ParcelMapInputCard";
-import { useNavigation } from "@react-navigation/native";
+import { Entypo } from "@expo/vector-icons";
 import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
+import { StatusBar } from "expo-status-bar";
+import { COLORS } from "../../../Constants/colors";
+import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
 
 const ParcelMapWithBottomSheet = () => {
-
-  const navigation = useNavigation()
-  const { pickUpLocationCoorWithName, typeOfLocation } =
-    useParcelMapWithBottomSheetHook();
-  console.log(pickUpLocationCoorWithName);
+  const {
+    pickUpLocationCoorWithName,
+    onNavigateSavedAddressScreen,
+    navigation,
+  } = useParcelMapWithBottomSheetHook();
   return (
     <View style={styles.container}>
-
-
-<CustomeAppbar
-        title="Send or Receive Parcel"
+      <StatusBar style="dark" />
+      <CustomeAppbar
+        title="Confirm Location"
         onBack={() => navigation.goBack()}
       />
-
-      <View style={{ height: 100 }} />
-
-
+      <View style={{ height: 110 }} />
+      <DisplayLocationName locationName={pickUpLocationCoorWithName?.name} />
       <ParcelMap pickUpLocationCoorWithName={pickUpLocationCoorWithName} />
-      <ScrollView
-        contentContainerStyle={styles.scrollContainer}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={styles.bottomSheet}>
-          <View style={styles.firstCard}>
-            <Text style={styles.enterText}>
-              Enter {typeOfLocation === "Pick Up" ? "Sender" : "Receiver"}{" "}
-              Details
-            </Text>
-            <Text style={styles.locatedAddress}>Located Address In Map</Text>
-          </View>
-          <ParcelMapInputCard
-            pickUpLocationCoorWithName={pickUpLocationCoorWithName}
-            typeOfLocation={typeOfLocation}
-          />
-        </View>
-      </ScrollView>
+      <FixedBtn onPress={onNavigateSavedAddressScreen} />
     </View>
   );
 };
 
 export default ParcelMapWithBottomSheet;
 
+const DisplayLocationName = ({ locationName }) => (
+  <View style={styles.locationNameCard}>
+    <View style={styles.locationNameInnerCard}>
+      <View
+        style={{
+          width: 40,
+          height: 40,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Entypo size={25} color="#e02e88" name="location-pin" />
+      </View>
+      <Text
+        style={{
+          flex: 1,
+          fontSize: 15,
+          fontWeight: "600",
+          color: COLORS.heading,
+        }}
+        numberOfLines={1}
+        ellipsizeMode="tail"
+      >
+        {locationName}
+      </Text>
+    </View>
+  </View>
+);
+
+const FixedBtn = ({ onPress }) => (
+  <View style={styles.fiexBtnCard}>
+    <CustomBtn
+      onPress={onPress}
+      title="Confirm Location"
+      btnBg="#e02e88"
+      btnColor="#fff"
+    />
+    <Text style={{ fontSize: 13, color: "#000", fontWeight: "600" }}>
+      Go back if you want to change your location
+    </Text>
+  </View>
+);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    position: "relative",
   },
-
-  scrollContainer: {
-    paddingTop: 230,
-    flexGrow: 1,
-  },
-  bottomSheet: {
+  locationNameCard: {
     width: "100%",
-    paddingHorizontal: 26,
-    paddingVertical: 20,
-    backgroundColor: "#fff5f9",
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
-    zIndex: 1,
-    gap: 20,
-    height: "100%",
+    paddingHorizontal: 10,
+    // backgroundColor: "red",
   },
-  firstCard: {
-    gap: 0,
+  locationNameInnerCard: {
+    width: "100%",
+    flexDirection: "row",
+    gap: 10,
+    // backgroundColor: "blue",
+    padding: 5,
+    elevation: 1,
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    alignItems: "center",
   },
-  enterText: {
-    fontSize: 16,
-    fontWeight: "600",
-  },
-  locatedAddress: {
-    fontSize: 13,
-    color: "#808080",
+  fiexBtnCard: {
+    position: "absolute",
+    bottom: 20,
+    left: 0,
+    right: 0,
+    padding: 20,
+    // backgroundColor: "red",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 10,
   },
 });

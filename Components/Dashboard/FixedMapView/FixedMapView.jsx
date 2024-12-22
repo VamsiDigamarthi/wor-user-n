@@ -79,10 +79,6 @@ const MapWithFixedMarker = ({ navigation }) => {
           {/* Marker at a fixed position on the screen (slightly below the center) */}
           <View style={styles.fixedMarker}>
             <View style={styles.marker}>
-              {/* <Image
-                style={styles.marker}
-                source={require("../../../assets/images/locationIcons/pin locator 4.png")}
-              /> */}
               <Text style={styles.markerText}>📍</Text>
             </View>
           </View>
@@ -149,13 +145,15 @@ const styles = StyleSheet.create({
     top: height / 2 + 30 - 200, // Position the marker slightly below the center of the screen
     left: width / 2 - 15, // Horizontally center the marker
     zIndex: 1000,
+    // backgroundColor: "red",
   },
   marker: {
     height: 30,
     width: 30,
-    backgroundColor: "transparent",
+    // backgroundColor: "transparent",
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "red",
   },
   markerText: {
     fontSize: 24, // Emoji size for the marker

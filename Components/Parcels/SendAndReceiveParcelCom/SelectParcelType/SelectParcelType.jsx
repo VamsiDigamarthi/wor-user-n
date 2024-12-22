@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { COLORS } from "../../../../Constants/colors";
 
-const SelectParcelType = () => {
+const SelectParcelType = ({ setSelectParcelType }) => {
   const [selectedItem, setSelectedItem] = useState(null); // State to track selected item
-
+  const [isOtherOpenTextField, setIsOtherOpenTextField] = useState(false);
   const data = [
     "Food",
     "Clothes",
@@ -15,14 +16,25 @@ const SelectParcelType = () => {
   ];
 
   const handlePress = (item) => {
+    if (item === "Others") {
+      setIsOtherOpenTextField(true);
+    }
+    setSelectParcelType(item);
     setSelectedItem(item); // Set the selected item when pressed
+  };
+
+  const onTextChange = async (text) => {
+    if (text?.length === 0) {
+      await setSelectParcelType(selectedItem);
+    }
+    setSelectParcelType(text);
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.innerCard}>
         <Text style={styles.text}>Select Parcel Type</Text>
-        <Text style={{ color: "gray" }}>(optional)</Text>
+        {/* <Text style={{ color: "gray" }}>(optional)</Text> */}
       </View>
       <View style={styles.itemsContainer}>
         {data?.map((eachItem, index) => (
@@ -45,6 +57,15 @@ const SelectParcelType = () => {
           </Pressable>
         ))}
       </View>
+      {isOtherOpenTextField && (
+        <View style={{ width: "100%" }}>
+          <TextInput
+            placeholder="Write Item Category (optional)"
+            style={styles.input}
+            onChangeText={onTextChange}
+          />
+        </View>
+      )}
     </View>
   );
 };
@@ -93,5 +114,13 @@ const styles = StyleSheet.create({
   },
   typeTextText: {
     color: "#000",
+  },
+  input: {
+    width: "100%",
+    height: 40,
+    borderWidth: 1,
+    borderColor: COLORS.borderColor,
+    borderRadius: 10,
+    paddingHorizontal: 10,
   },
 });
