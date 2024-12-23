@@ -258,13 +258,22 @@ const CustomDrawerContent = (props) => {
             style={getItemStyle("Refer to Earn")}
           />
           <DrawerItem
-            label="Settings"
+            label="About"
             icon={() => (
               <Ionicons name="settings-outline" size={22} color="gray" />
             )}
             onPress={() => handleItemPress("Settings")}
             labelStyle={styles.labelStyle}
             style={getItemStyle("Settings")}
+          />
+          <DrawerItem
+            label="Suggestions"
+            icon={() => (
+              <Ionicons name="settings-outline" size={22} color="gray" />
+            )}
+            onPress={() => handleItemPress("Suggestions")}
+            labelStyle={styles.labelStyle}
+            style={getItemStyle("Suggestions")}
           />
         </View>
 

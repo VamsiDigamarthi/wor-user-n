@@ -29,19 +29,21 @@ const PersonalInfo = () => {
           onChangeText={(text) => handleInputChange("email", text)}
           keyboardType="email-address"
         />
-        <InputBox
+        {/* <InputBox
           label="Date of Birth"
           icon="calendar-outline"
           value={userData.dateOfBirth}
           onChangeText={(text) => handleInputChange("dateOfBirth", text)}
-        />
+        /> */}
         <InputBox
           label="Address"
           icon="book-outline"
           value={userData.address}
           onChangeText={(text) => handleInputChange("address", text)}
         />
-        <View>
+        <View
+          style={{ position: "absolute", bottom: 10, width: "100%", left: 5 }}
+        >
           <CustomBtn
             title="Update"
             btnBg="#e02e88"

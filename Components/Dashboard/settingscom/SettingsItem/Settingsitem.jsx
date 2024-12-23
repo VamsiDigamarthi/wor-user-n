@@ -49,11 +49,11 @@ const Settingsitem = ({
     <Pressable onPress={handlePress}>
       <View style={styles.container}>
         <View style={styles.left}>
-          {displayIcon && ( // this condition using  about screen
+          {/* {displayIcon && ( // this condition using  about screen
             <View style={styles.circle}>
               <Icon name={iconName} size={24} color="#e02e88" />
             </View>
-          )}
+          )} */}
           <Text style={styles.text}>{label}</Text>
         </View>
         <MaterialIcons name="arrow-forward-ios" size={20} color="#e02e88" />
@@ -71,9 +71,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    borderBottomWidth: 1,
-    borderBlockColor: "#ffe2e6",
+    // borderBottomWidth: 1,
+    // borderBlockColor: "#ffe2e6",
     marginBottom: 10,
+    padding: 10,
+    backgroundColor: "#fff",
   },
   left: {
     width: "85%",
@@ -82,15 +84,15 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   circle: {
-    width: 45,
-    height: 45,
+    width: 40,
+    height: 40,
     backgroundColor: "#fff",
     borderRadius: 25,
     justifyContent: "center",
     alignItems: "center",
   },
   text: {
-    fontSize: 17,
+    fontSize: 14,
     fontWeight: "600",
     color: "#000000",
   },

@@ -111,10 +111,10 @@ const styles = StyleSheet.create({
   arrowContainer: {
     width: 30,
     height: 30,
-    backgroundColor: "#f2f2f0",
+    // backgroundColor: "#f2f2f0",
     borderRadius: 5,
-    borderWidth: 1,
-    borderColor: "#d1d1cb",
+    // borderWidth: 1,
+    // borderColor: "#d1d1cb",
     justifyContent: "center",
     alignItems: "center",
   },
