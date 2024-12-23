@@ -1,38 +1,35 @@
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import ReferAndEarnCard from "../../../Components/Dashboard/ReferAndEarnCom/ReferAndEarnCard/ReferAndEarnCard";
-import InviteCard from "../../../Components/Dashboard/ReferAndEarnCom/InviteCard/InviteCard";
-import HowItsWork from "../../../Components/Dashboard/ReferAndEarnCom/HowItsWork/HowItsWork";
-import ReferFindFriend from "../../../Components/Dashboard/ReferAndEarnCom/ReferFindFriend/ReferFindFriend";
-import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
 import { useNavigation } from "@react-navigation/native";
-
+import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
+import MainCard from "../../../Components/Dashboard/ReferandEarn/MainCard";
+import InviteCard from "../../../Components/Dashboard/ReferandEarn/InviteCard";
 const ReferAndEarn = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <CustomeAppbar
-        title="Refer and Earn"
-        onBack={() => navigation.goBack()}
-      />
-      <View style={{ height: 70 }} />
-      <ReferAndEarnCard />
+      <CustomeAppbar title="Refer To Earn" onBack={() => navigation.goBack()} />
+      <View style={{ height: 80 }} />
+
+      <MainCard />
       <InviteCard />
-      <Text style={styles.howIts}>How Its Work?</Text>
+      {/* <HowItWorks /> */}
 
-      {/* Directly wrapping HowItsWork in ScrollView */}
-      <ScrollView
-        style={styles.allHowItsWork}
-        showsVerticalScrollIndicator={false} // Hides vertical scrollbar
-        showsHorizontalScrollIndicator={false}
-      >
-        <HowItsWork />
-        <HowItsWork />
-        <HowItsWork />
-        <HowItsWork />
-      </ScrollView>
-
-      <ReferFindFriend />
+      {/* <View style={styles.buttonContainer}>
+        <CustomBtn
+          btnColor="#fff"
+          title="Find Friends to Refer"
+          borderWidth={1}
+          btnBg="#E02e88"
+          borderColor="#e02e88"
+        />
+        <CustomBtn
+          title="Refer Now"
+          borderWidth={1}
+          btnBg="#fff"
+          borderColor="#e02e88"
+        />
+      </View> */}
     </View>
   );
 };
@@ -42,17 +39,16 @@ export default ReferAndEarn;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    gap: 20,
     paddingHorizontal: 10,
     paddingVertical: 12,
-    position: "relative",
+    gap: 15,
+    backgroundColor: "#fff5f9",
   },
-  howIts: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  allHowItsWork: {
-    height: 300,
-    marginBottom: 60,
+  buttonContainer: {
+    position: "absolute",
+    bottom: 20,
+    left: 10,
+    right: 10,
+    gap: 10,
   },
 });

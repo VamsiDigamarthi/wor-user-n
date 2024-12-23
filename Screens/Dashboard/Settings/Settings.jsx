@@ -10,7 +10,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const SettingsScreen = () => {
   // Create a reference for the bottom sheet
   const modalizeRef = useRef(null);
- 
 
   // Function to open the modal after ensuring it's rendered
   const onOpenModal = () => {
@@ -19,16 +18,13 @@ const SettingsScreen = () => {
     }
   };
 
-
-
-
   const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
-      <CustomeAppbar title="Settings" onBack={() => navigation.goBack()} />
+      <CustomeAppbar title="About" onBack={() => navigation.goBack()} />
       <View style={{ height: 80 }} />
-      <SettingProfileCard />
+      {/* <SettingProfileCard /> */}
       <SettingsItemsList onOpenDeleteModal={onOpenModal} />
 
       {/* Modalize Bottom Sheet */}
@@ -56,7 +52,6 @@ const SettingsScreen = () => {
             >
               <Text style={styles.deleteButtonText}>Delete</Text>
             </TouchableOpacity>
-            
           </View>
         </View>
       </Modalize>

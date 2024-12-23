@@ -4,13 +4,13 @@ import RideHistoryItem from "./RideHistoryItem";
 import { useRideHistoryHook } from "./RideHistory.hook";
 import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
 
-const RideHistory = () => {
+const RideHistory = ({ navigation }) => {
   const { rideHistory } = useRideHistoryHook();
   // console.log("RideHistory", rideHistory);
   return (
     <View style={styles.container}>
       <CustomeAppbar title="Ride History" onBack={() => navigation.goBack()} />
-      <View style={{ height: 60 }} />
+      <View style={{ height: 80 }} />
 
       <FlatList
         data={rideHistory}

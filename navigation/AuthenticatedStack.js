@@ -67,6 +67,7 @@ import { AppState } from "react-native";
 import FaqHome from "../Screens/Faqs/FaqHome";
 import FaqAnswer from "../Screens/Faqs/FaqAnswer";
 import ChatWithCaptain from "../Components/ChatUi/ChatWithCaptain";
+import Suggestions from "../Screens/Dashboard/Suggestions/Suggestions";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -277,9 +278,10 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="RideHistoryDetailView"
         component={RideHistoryDetailView}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Ride Details")
-        }
+        options={{ headerShown: false }}
+        // options={({ navigation }) =>
+        //   getCommonOptions(navigation, "Ride Details")
+        // }
       />
 
       <Stack.Screen
@@ -568,6 +570,12 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="ChatWithCaptain"
         component={ChatWithCaptain}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="Suggestions"
+        component={Suggestions}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

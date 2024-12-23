@@ -16,7 +16,7 @@ const DrawerFavorite = () => {
   const onChangeToParcelAddress = () => {
     setIsFavoriteOrParcelAddress(true);
   };
-  console.log(isFavoriteOrParcelAddress);
+  // console.log(isFavoriteOrParcelAddress);
   return (
     <View style={styles.container}>
       <CustomeAppbar title="Favorite" onBack={() => navigation.goBack()} />
@@ -29,7 +29,10 @@ const DrawerFavorite = () => {
       {isFavoriteOrParcelAddress ? (
         <ParcelAddres />
       ) : (
-        <RideHistoryItem isFavoriteOrRideHistory={false} />
+        <>
+          <RideHistoryItem isFavoriteOrRideHistory={false} />
+          <RideHistoryItem isFavoriteOrRideHistory={false} />
+        </>
       )}
     </View>
   );

@@ -25,26 +25,33 @@ const ProfileScreen = () => {
     <View style={styles.container}>
       <CustomeAppbar title="Profile" onBack={() => navigation.goBack()} />
       <View style={{ height: 60 }} />
-      <ProfileCard />
-      <ProfileRatingRideCountCard />
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          // justifyContent: "space-between",
-          alignItems: "center",
-        }}
-        showsVerticalScrollIndicator={false}
+
+      <View style={styles.topContainer}>
+        <ProfileCard />
+        <ProfileRatingRideCountCard />
+      </View>
+
+      <View
+        // contentContainerStyle={
+        //   {
+        //     // flexGrow: 1,
+        //     // // justifyContent: "space-between",
+        //     // alignItems: "center",
+        //   }
+        // }
+        // showsVerticalScrollIndicator={false}
+        style={styles.bottomContainer}
       >
         <Settingsitem
           iconName="person-outline"
           iconType="Ionicons"
-          label="Personal Info"
+          label="Personal Information"
           screenName="PersonalInfoPreview"
         />
         <Settingsitem
           iconName="document-text-outline"
           iconType="Ionicons"
-          label="Document"
+          label="Government Id"
           screenName="ProfileDocumentScreen"
         />
         <Settingsitem
@@ -60,7 +67,7 @@ const ProfileScreen = () => {
           onPress={onLogOutHandler}
           // screenName="PersonalInfoPreview"
         /> */}
-      </ScrollView>
+      </View>
     </View>
   );
 };
@@ -70,9 +77,27 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 26,
+    paddingHorizontal: 15,
     paddingVertical: 12,
     gap: 15,
     // backgroundColor: "red",
+  },
+
+  topContainer: {
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-between",
+    marginTop: 20,
+    alignItems: "center",
+    backgroundColor: "#fff",
+    padding: 15,
+    borderRadius: 20,
+  },
+
+  bottomContainer: {
+    backgroundColor: "#fff",
+    padding: 15,
+    borderRadius: 20,
+    // height: 100,
   },
 });

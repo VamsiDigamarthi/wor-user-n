@@ -3,14 +3,11 @@ import React from "react";
 import Settingsitem from "./Settingsitem";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-import { CommonActions } from '@react-navigation/native';
-
+import { CommonActions } from "@react-navigation/native";
 
 const SettingsItemsList = () => {
+  const navigation = useNavigation();
 
-  const navigation = useNavigation()
-
-  
   const onLogOutHandler = async () => {
     await AsyncStorage.removeItem("token");
     navigation.dispatch(
@@ -20,7 +17,6 @@ const SettingsItemsList = () => {
       })
     );
   };
-
 
   return (
     <ScrollView style={styles.container}>
@@ -44,29 +40,32 @@ const SettingsItemsList = () => {
       <Settingsitem
         iconName="settings-ethernet"
         iconType="MaterialIcons"
-        label="Preference"
+        label="App Settings"
         screenName="Preference"
       />
       <Settingsitem
         iconName="settings-ethernet"
         iconType="MaterialIcons"
-        label="About"
-        screenName="About"
+        label="Terms and Conditions"
+        screenName="Termsandconditions"
       />
       <Settingsitem
         iconName="language"
         iconType="FontAwesome"
-        label="Language"
+        label="Privacy Policy"
       />
+      <Settingsitem
+        iconName="language"
+        iconType="FontAwesome"
+        label="Software Licenses"
+      />
+      <Settingsitem iconName="language" iconType="FontAwesome" label="Blogs" />
       <Settingsitem
         iconName="logout"
         iconType="AntDesign"
         label="Logout"
         onPress={onLogOutHandler}
       />
-
-
-
     </ScrollView>
   );
 };

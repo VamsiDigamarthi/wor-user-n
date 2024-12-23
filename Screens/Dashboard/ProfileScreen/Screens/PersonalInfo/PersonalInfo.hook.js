@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { API } from "../../../../../Constants/url";
 import Toast from "react-native-toast-message";
 import { onProfileSection } from "../../../../../redux/Features/Auth/ProfileSlice";
+import { useNavigation } from "@react-navigation/native";
 
 export const usePersonalInfoHook = () => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.token);
   const { profile } = useSelector((state) => state.profileSlice);
@@ -37,6 +39,7 @@ export const usePersonalInfoHook = () => {
       });
 
       dispatch(onProfileSection({ token }));
+      navigation.goBack();
     } catch (error) {
       console.log(error.message);
       Toast.show({
