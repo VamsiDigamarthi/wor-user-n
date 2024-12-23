@@ -11,6 +11,7 @@ const ShowPollyLine = ({
   destination,
   height = 400,
   liveCoordinates,
+  handleOpenSafetySheet, // this is open for bottom sheet
 }) => {
   const [routeCoordinates, setRouteCoordinates] = useState([]);
   const [currentPosition, setCurrentPosition] = useState({
@@ -164,7 +165,7 @@ const ShowPollyLine = ({
       </MapView>
       <Map3Btn
         height={height}
-        handleOpenSafetyModal={handleOpenSafetyModal}
+        handleOpenSafetyModal={handleOpenSafetySheet}
         lowerBound="25%"
         upperBound="40%"
       />
