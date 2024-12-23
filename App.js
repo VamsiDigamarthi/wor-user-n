@@ -11,6 +11,7 @@ import * as Notifications from "expo-notifications";
 import { useEffect, useState } from "react";
 import NetInfo from "@react-native-community/netinfo";
 import NoInternet from "./Components/unavailable/NoInternet";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 // Configure foreground notifications for Expo
 Notifications.setNotificationHandler({
@@ -94,7 +95,6 @@ async function initializeNotifications() {
 initializeNotifications();
 
 export default function App() {
-
   const [isConnected, setIsConnected] = useState(true);
 
   useEffect(() => {
@@ -121,7 +121,9 @@ export default function App() {
       <GestureHandlerRootView style={{ flex: 1 }}>
         {/* <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}> */}
         <StatusBar style="auto" />
-        <MainNavigation />
+        <BottomSheetModalProvider>
+          <MainNavigation />
+        </BottomSheetModalProvider>
         <Toast />
         {/* </SafeAreaView> */}
       </GestureHandlerRootView>

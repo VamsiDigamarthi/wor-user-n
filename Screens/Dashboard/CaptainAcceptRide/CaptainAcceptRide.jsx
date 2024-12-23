@@ -105,7 +105,11 @@ const CaptainAcceptRide = () => {
           </View>
           <View style={styles.userCalCard}>
             <CaptainDetails captainDetails={orderDetails?.acceptCaptain} />
-            <RatingMsgCall otpVerified={otpVerified} />
+            <RatingMsgCall
+              otpVerified={otpVerified}
+              orderId={orderDetails?._id} // this id join chat room
+              captainDetails={orderDetails?.acceptCaptain} // this prop display user profile in chat header
+            />
           </View>
           {!otpVerified && (
             <CaptainAcceptRideDetails
