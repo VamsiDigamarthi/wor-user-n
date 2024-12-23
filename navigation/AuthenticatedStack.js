@@ -67,6 +67,7 @@ import { AppState } from "react-native";
 import FaqHome from "../Screens/Faqs/FaqHome";
 import FaqAnswer from "../Screens/Faqs/FaqAnswer";
 import ChatWithCaptain from "../Components/ChatUi/ChatWithCaptain";
+import PoliceStationMapCard from "../Screens/Dashboard/Home/BottosheetScreens/components/PoliceStationMapCard/PoliceStationMapCard";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -568,6 +569,12 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="ChatWithCaptain"
         component={ChatWithCaptain}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="PoliceStationMapCard"
+        component={PoliceStationMapCard}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

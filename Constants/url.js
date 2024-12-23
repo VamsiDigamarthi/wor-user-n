@@ -4,4 +4,6 @@ export const API = axios.create({
    baseURL: "https://womenrapido.nuhvin.com",
 });
 
- export const imageUrl = "https://womenrapido.nuhvin.com";
+
+export const imageUrl = "http://192.168.31.87:5051";
+

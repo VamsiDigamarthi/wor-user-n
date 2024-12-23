@@ -4,6 +4,7 @@ import MapView, { Marker, Polyline } from "react-native-maps";
 import axios from "axios";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { customMapStyle } from "../../../../Constants/mapData";
+import Map3Btn from "../../../../Utils/HomeMap/Map3Btn";
 
 const ShowPollyLine = ({
   origin,
@@ -105,6 +106,7 @@ const ShowPollyLine = ({
     latitude: destination.lat,
     longitude: destination.lng,
   };
+  const handleOpenSafetyModal = () => {};
 
   return (
     <View style={[styles.container, { height }]}>
@@ -160,6 +162,12 @@ const ShowPollyLine = ({
           />
         )}
       </MapView>
+      <Map3Btn
+        height={height}
+        handleOpenSafetyModal={handleOpenSafetyModal}
+        lowerBound="25%"
+        upperBound="40%"
+      />
     </View>
   );
 };
@@ -169,6 +177,7 @@ export default ShowPollyLine;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    position: "relative",
   },
   map: {
     ...StyleSheet.absoluteFillObject,

@@ -147,11 +147,13 @@ const ShowPrice = () => {
       <CustomeAppbar
         title="Book Your Ride"
         onBack={() => navigation.goBack()}
+        rightText="Support"
       />
       <View style={[styles.mapContainer, { height: mapHeight }]}>
         <ShowPollyLine
           origin={pickUpCoordinated}
           destination={dropDetails?.location}
+          height={mapHeight}
         />
       </View>
       <BottomSheet

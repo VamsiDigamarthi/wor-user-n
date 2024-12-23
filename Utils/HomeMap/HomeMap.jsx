@@ -3,8 +3,14 @@ import React, { useEffect, useState } from "react";
 import MapView, { Marker } from "react-native-maps";
 import { FontAwesome } from "@expo/vector-icons";
 import { customMapStyle } from "../../Constants/mapData";
+import Map3Btn from "./Map3Btn";
 
-const HomeMap = ({ location, captainMarkers }) => {
+const HomeMap = ({
+  location,
+  captainMarkers,
+  height,
+  handleOpenSafetyModal,
+}) => {
   const [newLocation, setNewLocation] = useState({
     lat: 17.4587331,
     lng: 78.3705363,
@@ -55,7 +61,6 @@ const HomeMap = ({ location, captainMarkers }) => {
           <FontAwesome name="map-pin" size={20} color="#e02e88" />
         </Marker>
 
-        {/* Uncomment the below code to display captain markers */}
         {captainMarkers?.map((marker, index) => (
           <Marker
             zIndex={index + 1}
@@ -82,6 +87,7 @@ const HomeMap = ({ location, captainMarkers }) => {
           </Marker>
         ))}
       </MapView>
+      <Map3Btn height={height} handleOpenSafetyModal={handleOpenSafetyModal} />
     </View>
   );
 };
@@ -93,6 +99,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     flex: 1,
+    position: "relative",
   },
   loadingContainer: {
     flex: 1,
