@@ -1,7 +1,7 @@
 import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import { TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import Infopressicons from "../BottomSheet/Components/Infopressicons";
 import ModalUI from "../Modal/Modal";
@@ -13,11 +13,12 @@ import {
   donationScren,
   walletData,
 } from "../../Components/InfoUi/data/infoData";
+import { COLORS } from "../../Constants/colors";
 const screenWidth = Dimensions.get("window").width;
 const CustomeAppbar = ({
   onBack,
-  navigationText,
   title,
+  navigationText,
   rightText,
   showRight,
   top = 45,
@@ -57,22 +58,24 @@ const CustomeAppbar = ({
 
       <View style={[styles.textContainer]}>
         <View style={styles.textinnerCard}>
-          {/* <Ionicons
-            name="location-sharp"
-            size={20}
-            color="lightgray"
-            style={[styles.icon]}
-          /> */}
-
           <Text style={[styles.text]}>{title || "Title"}</Text>
           <Infopressicons onHandleOpenInfoModal={onHandleOpenInfoModal} />
         </View>
-        {showRight && (
+        {rightText && (
           <Pressable
             onPress={() => navigation.navigate(navigationText)}
             style={styles.rightIconCard}
           >
-            <Text>{rightText}</Text>
+            <MaterialIcons name="support-agent" size={15} color="#e02e88" />
+            <Text
+              style={{
+                fontSize: 12,
+                fontWeight: "500",
+                color: COLORS.subHeading,
+              }}
+            >
+              {rightText}
+            </Text>
           </Pressable>
         )}
       </View>
@@ -150,7 +153,7 @@ const styles = StyleSheet.create({
   textinnerCard: {
     flexDirection: "row",
     gap: 10,
-    width: "75%",
+    width: "67%",
     marginLeft: 5,
     alignItems: "center",
     paddingLeft: 10,
@@ -167,13 +170,17 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   rightIconCard: {
-    width: "25%",
+    // width: "35%",
     height: "60%",
     borderWidth: 1,
     borderColor: "#ffe2e6",
     borderRadius: 30,
     justifyContent: "center",
     alignItems: "center",
+    flexDirection: "row",
+    gap: 5,
+    paddingHorizontal: 7,
+    // marginRight: 5,
     // backgroundColor: "red",
   },
 });

@@ -180,3 +180,86 @@ export const getTravelDetails = async (
     console.error("Error fetching travel details:", error);
   }
 };
+
+export const fetchNearbyPoliceStations = async (latitude, longitude) => {
+  const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=7000&type=police&key=${YOUR_API_KEY}`;
+
+  try {
+    const response = await axios.get(url);
+    if (response.data.status === "OK") {
+      // Fetch police stations and additional details using the place_id
+      const policeStationsWithDetails = await Promise.all(
+        response.data.results.map(async (station) => {
+          const details = await fetchPlaceDetails(station.place_id); // Fetch additional details using the place_id
+          return {
+            ...station,
+            policeStationNumber: details?.result?.place_id, // Add your custom police station number or identifier here
+            // You can extract other useful information here as well
+            address: details?.result?.formatted_address,
+            phone: details?.result?.formatted_phone_number,
+          };
+        })
+      );
+      // Calculate distances and return the full list with details
+      const stationsWithDistances = await calculateDistances(
+        policeStationsWithDetails,
+        {
+          lat: latitude,
+          lng: longitude,
+        }
+      );
+      return stationsWithDistances;
+    } else {
+      Alert.alert("Error", "No police stations found nearby");
+    }
+  } catch (error) {
+    console.error("Error fetching police stations:", error);
+    Alert.alert("Error", "Failed to fetch nearby police stations");
+  }
+};
+
+// Function to fetch more details about a police station using place_id
+const fetchPlaceDetails = async (placeId) => {
+  const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&key=${YOUR_API_KEY}`;
+
+  try {
+    const response = await axios.get(url);
+    if (response.data.status === "OK") {
+      return response.data.result; // Return the detailed result which includes address, phone, etc.
+    } else {
+      console.error("Error fetching place details");
+    }
+  } catch (error) {
+    console.error("Error fetching place details:", error);
+  }
+};
+
+// Function to calculate distances using Google Distance Matrix API
+const calculateDistances = async (policeStations, location) => {
+  const origins = `${location.lat},${location.lng}`;
+  const destinations = policeStations
+    .map(
+      (station) =>
+        `${station.geometry.location.lat},${station.geometry.location.lng}`
+    )
+    .join("|");
+
+  const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origins}&destinations=${destinations}&key=${YOUR_API_KEY}`;
+
+  try {
+    const response = await axios.get(url);
+    const { rows } = response.data;
+    if (rows.length > 0) {
+      const distances = rows[0].elements;
+
+      // Attach distance and duration to each police station
+      return policeStations.map((station, index) => ({
+        ...station,
+        distance: distances[index]?.distance?.text || "N/A",
+        duration: distances[index]?.duration?.text || "N/A",
+      }));
+    }
+  } catch (error) {
+    console.error("Error fetching distance matrix:", error);
+  }
+};

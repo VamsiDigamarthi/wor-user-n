@@ -29,6 +29,12 @@ import OtpInfoUi from "../../../Components/InfoUi/OtpInfoUi";
 import AllowNotification from "../../../Utils/AllowNotification/AllowNotification";
 import FutureOrderBox from "../../../Components/FutureOrderBox/FutureOrderBox";
 import { StatusBar } from "expo-status-bar";
+import MainSelectingScreens from "./BottosheetScreens/MainSelectingScreens";
+import CustomBottomSheet from "../../../Utils/BottomSheetForMap/BottomSheet";
+import LiveLocation from "./BottosheetScreens/LiveLocation";
+import SpamCallSheet from "./BottosheetScreens/SpamCallSheet";
+import PoliceStatons from "./BottosheetScreens/PoliceStatons";
+import ChatWithCaptain from "./BottosheetScreens/components/ChatUi/ChatWithCaptain";
 
 const screenHeight = Dimensions.get("window").height;
 const androidHeight = [screenHeight * 0.35, screenHeight * 0.5]; // Adjust snap points
@@ -36,6 +42,8 @@ const iosHeight = [screenHeight * 0.15, screenHeight * 0.6];
 
 const NewHome = () => {
   const bottomSheetRef = useRef(null);
+  const bottomSheetRefSOS = useRef(null);
+
   const [mapHeight, setMapHeight] = useState(androidHeight[0]); // Initial map height
   const snapPoints = useMemo(
     () => (Platform.OS === "ios" ? iosHeight : androidHeight),
@@ -63,6 +71,14 @@ const NewHome = () => {
   };
 
   const navigation = useNavigation();
+  const handleOpenSafetySheet = useCallback(() => {
+    bottomSheetRefSOS.current?.present();
+  }, []);
+
+  const [screen, setScreen] = useState("main");
+  const changeScreen = (screen) => {
+    setScreen(screen);
+  };
 
   const {
     location,
@@ -93,7 +109,12 @@ const NewHome = () => {
               <ActivityIndicator color="#e02e88" size={30} />
             </View>
           ) : (
-            <HomeMap captainMarkers={captainMarkers} location={location} />
+            <HomeMap
+              captainMarkers={captainMarkers}
+              location={location}
+              height={mapHeight}
+              handleOpenSafetyModal={handleOpenSafetySheet}
+            />
           )}
         </View>
 
@@ -141,6 +162,27 @@ const NewHome = () => {
                 <BackgroundImage />
                 <Button title="notification" onPress={onHandleOpenInfoModal} />
               </View>
+
+              <CustomBottomSheet
+                bottomSheetRef={bottomSheetRefSOS}
+                bgcolor="#fff5f9"
+                snapPoints={["50%", "70%"]}
+                manualCloseSheet={() => setScreen("main")}
+              >
+                {screen === "main" && (
+                  <MainSelectingScreens onPress={changeScreen} />
+                )}
+                {screen === "liveloc" && (
+                  <LiveLocation onPress={changeScreen} />
+                )}
+                {screen === "spam" && <SpamCallSheet onPress={changeScreen} />}
+                {screen === "police" && (
+                  <PoliceStatons onPress={changeScreen} />
+                )}
+                {screen === "chat" && (
+                  <ChatWithCaptain onPress={changeScreen} />
+                )}
+              </CustomBottomSheet>
             </BottomSheetScrollView>
           </ImageBackground>
         </BottomSheet>
