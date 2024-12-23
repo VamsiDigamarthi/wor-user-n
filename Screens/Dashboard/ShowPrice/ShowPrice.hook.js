@@ -66,15 +66,12 @@ export const useShowPriceHook = () => {
       },
     })
       .then((res) => {
-        console.log("success");
-        console.log(res.data?.message);
-        console.log(res.data?.scheduledTime);
-        console.log(res.data?.notifiedTime);
         onOpenIsEnterConfirmPinModal();
         if (isDateTimeData) {
           console.log("scheduled order placed successfully");
           return;
         }
+
         navigation.navigate("lookingforride", {
           price: beforeOrder.price,
           vehicleType: selectedVehicle,

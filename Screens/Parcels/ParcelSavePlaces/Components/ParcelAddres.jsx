@@ -1,35 +1,48 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { AntDesign, EvilIcons, Ionicons } from "@expo/vector-icons";
-import { COLORS } from "../../Constants/colors";
-import CustomBtn from "../CustomBtn/CustomBtn";
+import { COLORS } from "../../../../Constants/colors";
+import CustomBtn from "../../../../Utils/CustomBtn/CustomBtn";
 
-const ParcelAddres = () => {
+const ParcelAddres = ({ item, onHandlerClickSaveAddress }) => {
   return (
     <View style={styles.conntainer}>
-      <SingleParcelAddres
-        title="Name"
-        value="Dharani"
-        iconName="person-outline"
-      />
-      <SingleParcelAddres
-        title="Mobile Number"
-        value="987654345678"
-        iconName="call-outline"
-      />
-      <SingleParcelAddres
-        title="Land Mark"
-        value="Google Office"
-        iconType="AntDesign"
-        iconName="pushpino"
-      />
-      <SingleParcelAddres
-        title="Land Mark"
-        value="Address Line 1"
-        iconType="EvilIcons"
-        iconName="location"
-        thirdLine="Address Line 2"
-      />
-      <BtnCard />
+      <Pressable
+        style={{ gap: 5 }}
+        onPress={() => onHandlerClickSaveAddress(item)}
+      >
+        <SingleParcelAddres
+          title="Name"
+          value={item?.name}
+          iconName="person-outline"
+        />
+        <SingleParcelAddres
+          title="Mobile Number"
+          value={item?.mobile}
+          iconName="call-outline"
+        />
+        <SingleParcelAddres
+          title="Land Mark"
+          value={item?.landMark}
+          iconType="AntDesign"
+          iconName="pushpino"
+        />
+        <SingleParcelAddres
+          title="Land Mark"
+          value={item?.address}
+          iconType="EvilIcons"
+          iconName="location"
+          // thirdLine="Address Line 2"
+        />
+      </Pressable>
+      {/* <BtnCard /> */}
+      {/* <View style={{ height: 10 }} />
+      <CustomBtn
+        title="Delete"
+        btnBg="#fff"
+        btnColor="#e02e88"
+        borderColor="#e02e88"
+        borderWidth={1}
+      /> */}
     </View>
   );
 };
@@ -71,7 +84,7 @@ const SingleParcelAddres = ({
       >
         <Icon name={iconName} size={25} color="#e02e88" />
       </View>
-      <View>
+      <View style={{ width: "85%" }}>
         <Text style={{ fontSize: 11, color: COLORS.subHeading }}>{title}</Text>
         <Text
           style={{ fontSize: 14, color: COLORS.heading }}
@@ -82,7 +95,7 @@ const SingleParcelAddres = ({
         </Text>
         {thirdLine && (
           <Text
-            style={{ fontSize: 14, color: COLORS.heading }}
+            style={{ fontSize: 14, color: COLORS.heading, flex: 1 }}
             numberOfLines={1}
             ellipsizeMode="tail"
           >

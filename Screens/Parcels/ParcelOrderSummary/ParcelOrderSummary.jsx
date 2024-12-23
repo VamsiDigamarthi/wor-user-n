@@ -1,18 +1,23 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import React from "react";
 
-export default function ParcelOrderSummary() {
+export default function ParcelOrderSummary({
+  senderName,
+  recevierName,
+  selecteParcelType,
+  price,
+}) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Order Summary</Text>
 
       <View style={styles.descriptionCont}>
         <Text style={styles.description}>Sender Details</Text>
-        <Text style={styles.description}>Chinna</Text>
+        <Text style={styles.description}>{senderName}</Text>
       </View>
       <View style={styles.descriptionCont}>
         <Text style={styles.description}>Recipient Details</Text>
-        <Text style={styles.description}>Dharani</Text>
+        <Text style={styles.description}>{recevierName}</Text>
       </View>
       <View
         style={[
@@ -21,12 +26,12 @@ export default function ParcelOrderSummary() {
         ]}
       >
         <Text style={styles.description}>Item Type</Text>
-        <Text style={styles.description}>24 Liter Chai Cup</Text>
+        <Text style={styles.description}>{selecteParcelType}</Text>
       </View>
 
       <View style={[styles.descriptionCont]}>
         <Text style={styles.description}>Delivery Charge</Text>
-        <Text style={styles.description}>₹ 35</Text>
+        <Text style={styles.description}>₹ {Math.ceil(+price)}</Text>
       </View>
       <View
         style={[
@@ -37,7 +42,7 @@ export default function ParcelOrderSummary() {
         <Text style={[styles.description, { fontWeight: "bold" }]}>
           Total Bill (With Convenience Fees)
         </Text>
-        <Text style={[styles.description]}>₹ 35</Text>
+        <Text style={[styles.description]}>₹ {Math.ceil(+price + 5)}</Text>
       </View>
 
       <View style={{ gap: 12 }}>

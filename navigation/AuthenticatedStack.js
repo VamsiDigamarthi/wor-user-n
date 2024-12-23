@@ -243,7 +243,7 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="Favorite"
         component={FavoritePlace}
-        options={({ navigation }) => getCommonOptions(navigation, "Favorite")}
+        options={{ headerShown: false }}
       />
 
       {/* CaptainAcceptRide screen */}
@@ -256,9 +256,7 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="captaineacceptrideusershowridedetails"
         component={RideDetails}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Ride Details", "#f5f2f2")
-        }
+        options={{ headerShown: false }}
       />
 
       <Stack.Screen
@@ -523,9 +521,7 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="ParcelSavePlaces"
         component={ParcelSavePlaces}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Parcel Details", "#fff")
-        }
+        options={{ headerShown: false }}
       />
 
       {/* Voice and Bg */}

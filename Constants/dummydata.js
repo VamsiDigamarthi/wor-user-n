@@ -66,3 +66,97 @@ let profile = {
   vehicleNumberPlate: null,
   vehicleRightImage: null,
 };
+
+const pickupCoorWithName = {
+  id: "ChIJ67HzTu7PNzoRUBiYZFxw0Ms",
+  location: { lat: 16.5721673, lng: 81.6783738 },
+  name: "Srikanth Center",
+  photo:
+    "AWYs27xWfoYr8plJvy2LB4heEO_R6GeCQCtSxouC383-0EaX2pG8OFSxlwJWxorHzIIZQGbTsUUH4DzEPKFAiw8nZ2gRaarD5Pv0UtqLMAIR-CBrd-C62-oKxyKOuJF6oTAgGmESOqV9HkknR9a-2UwkZ0Iq-NKVMuZtlzpClPNnY3_djonL",
+  vicinity: "HMCH+V89",
+};
+
+const favoritePlace = {
+  __v: 0,
+  _id: "67615160f4e55474592db8b0",
+  head: "6747788b11be4e1f4c9dd973",
+  location: { coordinates: [81.67804559999999, 16.5724856], type: "Point" },
+  name: "Uday's home",
+  vicinity: "HMCH+X6V, Palakollu",
+};
+
+const savedAddressFromApi = {
+  __v: 0,
+  _id: "6767bb2dc1f13dafb8cbf175",
+  address: "Aratlakatta",
+  createdAt: "2024-12-22T07:09:33.802Z",
+  landMark: "Hfhghh",
+  mobile: 6868885888,
+  name: "Vamsi",
+  updatedAt: "2024-12-22T07:09:33.802Z",
+  user: "6747788b11be4e1f4c9dd973",
+};
+
+const pickeUp = {
+  address: "Aratlalatya",
+  id: "ChIJ67HzTu7PNzoRUBiYZFxw0Ms",
+  landMark: "Land mark",
+  location: { lat: 16.5721673, lng: 81.6783738 },
+  mobile: 6898888888,
+  name: "Srikanth Center",
+  personName: "Vamsi",
+  photo:
+    "AWYs27zoctFIyyDpWx-rMeAu8XTbeZz0rCxm5MR_MxykgLneN6yNZ_em4oweDSatQ9W6P5o83bmOxfQdqbjetxFH0dXz7I6UKjwPUUYqMamJkzl4QdBoZx1wnD_obxUaxy2SRdaccuoQyspsRv7hCnGNcZ-KNSVDKoAifXhkqmTUUOt1h1Zj",
+  vicinity: "HMCH+V89",
+};
+
+const drop = {
+  address: "Hgf",
+  id: "ChIJdbjWWWfFNzoRvWURWcGZed4",
+  landMark: "Gfc",
+  location: { lat: 16.5781525, lng: 81.6938933 },
+  mobile: 6808888888,
+  name: "Kommuchikkala",
+  personName: "Hvhhv",
+  photo:
+    "AWYs27yMQD8CrOLNMXC-XfAjgv34_KEU9nVbc7uRNYR33DIM9VJyN2a8nrjInetg3rQHCTmadylCzF_UST6tPBW-H_GRa8sqqWHkjAhV8MaAU6m6uvyyrNZsTv-Uz_Wpu1RLPRfLbP9keVsWEBd7OMDEd6JHxOKm3UdfRmpMgzBjqHDF87mS",
+  vicinity: "Kommuchikkala",
+};
+
+let dropDetails = {
+  id: "ChIJdbjWWWfFNzoRvWURWcGZed4",
+  location: { lat: 16.5781525, lng: 81.6938933 },
+  name: "Kommuchikkala",
+  photo:
+    "AWYs27yqFkqcIsh8Fed_b2kOQGKsoZh9Ta-UU-ewO6Ph6u5cNgum2Vi3SZCpsAVaNNuP8M-oCpfP-ynlk0qV2CFRTLRpNpgb6jVNVI5Bc3W4Pab1wH3r-x5uGPdg9z0tJqNNXFYAMua-srTE8eYo3OBibWg4AkpAnKU_7Marq6HFTNkNn9eU",
+  vicinity: "Kommuchikkala",
+};
+let selectedVehicle = "scooty";
+let pickUpCoordinated = { lat: 16.5730969, lng: 81.6786084 };
+let placeName = "HMCH+V89, Andhra Pradesh 534338, India";
+
+let sender = {
+  address: "Aratlalatya",
+  id: "ChIJdWZ4Uu7PNzoRAWHmTt_edB0",
+  landMark: "Land mark",
+  location: { lat: 16.5718492, lng: 81.6781361 },
+  mobile: 6898888888,
+  name: "Settibalija Ramalayam Aratlakatta",
+  personName: "Vamsi",
+  photo:
+    "AWYs27zJFIWm1ufX9TbicjBYX8fAIg0QJ8w48WzF29vL7ppFFyPTCW8gfe9yE2ge2EaxbjmZFlSPW8_1N8GhylIxpoWoMLCBXFUkDvFlUjZuhL6n3gETFEHp_1fyVDDUBPSVNdVnloDnqeDt6fS2AvyuPKESMBivGLanV5OhRmEI1_Mwk6Av",
+  vicinity: "HMCH+P7J, Aratlakatta, mandal, Palakollu",
+};
+
+let receiver = {
+  address: "Hgf",
+  id: "ChIJdbjWWWfFNzoRvWURWcGZed4",
+  landMark: "Gfc",
+  location: { lat: 16.5781525, lng: 81.6938933 },
+  mobile: 6808888888,
+  name: "Kommuchikkala",
+  personName: "Hvhhv",
+  photo:
+    "AWYs27zWZWd5ktn54ASGumnpyzjVeP6zHQ4r-sz5G_Cz0KSZX7kYltMDb5yA8MaBIofOxOdvINS8d_iBSoNCWrMTlnA0C1HFZqu8woz0QMQ-_4WS-elnjjT8fjS5LyNgPDecAvw8ayWc__tQkD8NmQn_UgLKdcteheGqgptFU2cYAkUqdxqV",
+  vicinity: "Kommuchikkala",
+};

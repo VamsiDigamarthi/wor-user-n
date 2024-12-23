@@ -94,6 +94,7 @@ async function initializeNotifications() {
 initializeNotifications();
 
 export default function App() {
+
   const [isConnected, setIsConnected] = useState(true);
 
   useEffect(() => {

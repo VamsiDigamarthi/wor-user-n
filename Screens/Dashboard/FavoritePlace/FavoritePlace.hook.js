@@ -7,7 +7,12 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 export const useFavoritePlaceHook = () => {
   const route = useRoute();
   const navigation = useNavigation();
-  const { pickUpCoordinated, placeName } = route.params;
+  const {
+    pickUpCoordinated,
+    placeName,
+    isParcelScreen = false,
+    typeOfLocation,
+  } = route.params;
   const { token } = useSelector((state) => state.token);
   const [favoritePlace, setFavoritePlace] = useState(null);
 
@@ -30,21 +35,37 @@ export const useFavoritePlaceHook = () => {
   };
 
   const onNavigateToDirectPriceScreen = (place) => {
-    const { name, vicinity, location } = place;
+    if (isParcelScreen) {
+      const newPlace = {
+        id: place._id,
+        name: place.name,
+        vicinity: place.vicinity,
+        location: {
+          lat: place.location.coordinates[1],
+          lng: place.location.coordinates[0],
+        },
+      };
 
-    const transformedData = {
-      name: name,
-      vicinity: vicinity,
-      location: {
-        lat: location.coordinates[1],
-        lng: location.coordinates[0],
-      },
-    };
-    navigation.navigate("ShowPrice", {
-      placeName,
-      pickUpCoordinated,
-      dropDetails: transformedData,
-    });
+      navigation.navigate("ParcelMapWithBottomSheet", {
+        pickUpLocationCoorWithName: newPlace,
+        typeOfLocation,
+      });
+    } else {
+      const { name, vicinity, location } = place;
+      const transformedData = {
+        name: name,
+        vicinity: vicinity,
+        location: {
+          lat: location.coordinates[1],
+          lng: location.coordinates[0],
+        },
+      };
+      navigation.navigate("ShowPrice", {
+        placeName,
+        pickUpCoordinated,
+        dropDetails: transformedData,
+      });
+    }
   };
 
   useEffect(() => {

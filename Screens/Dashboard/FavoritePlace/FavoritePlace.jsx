@@ -2,14 +2,25 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { useFavoritePlaceHook } from "./FavoritePlace.hook";
 import DropLocationItem from "../../../Components/Dashboard/DropLocation/Components/DropLocationItem/DropLocationItem";
-
+import { StatusBar } from "expo-status-bar";
+import { useNavigation } from "@react-navigation/native";
+import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
 const FavoritePlace = () => {
   const { favoritePlace, onNavigateToDirectPriceScreen } =
     useFavoritePlaceHook();
-  console.log(favoritePlace);
+
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+
+      <CustomeAppbar
+        title="Favorite Places"
+        onBack={() => navigation.goBack()}
+      />
+
+      <View style={{ height: 80 }} />
       {favoritePlace?.length > 0 ? (
         <FlatList
           data={favoritePlace}
@@ -45,7 +56,7 @@ const styles = StyleSheet.create({
     gap: 20,
     paddingTop: 12,
     backgroundColor: "#fff5f9",
-    padding: 20,
+    padding: 10,
   },
   noFavorite: {
     width: "100%",
