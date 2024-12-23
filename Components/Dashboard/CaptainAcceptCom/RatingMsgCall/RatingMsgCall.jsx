@@ -9,8 +9,9 @@ import React from "react";
 import { Ionicons, MaterialIcons, FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-const RatingMsgCall = ({ otpVerified }) => {
+const RatingMsgCall = ({ otpVerified, orderId, captainDetails }) => {
   const navigation = useNavigation();
+  // console.log(captainDetails);
 
   return (
     <View style={styles.container}>
@@ -23,10 +24,12 @@ const RatingMsgCall = ({ otpVerified }) => {
           {/* <TextInput placeholder="Message Dharani" /> */}
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("ChatWithCaptain");
+              navigation.navigate("Chat", { orderId, captainDetails });
             }}
           >
-            <Text style={styles.ratingText}>Message Dharani</Text>
+            <Text style={styles.ratingText}>
+              Message {captainDetails?.name}
+            </Text>
           </TouchableOpacity>
         </View>
       )}

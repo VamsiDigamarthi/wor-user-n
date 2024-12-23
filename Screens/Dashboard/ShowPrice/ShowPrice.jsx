@@ -36,6 +36,12 @@ import { COLORS } from "../../../Constants/colors.js";
 import DatePicker from "react-native-date-picker";
 
 import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar.jsx";
+import CustomBottomSheet from "../../../Utils/BottomSheetForMap/BottomSheet.jsx";
+import MainSelectingScreens from "../Home/BottosheetScreens/MainSelectingScreens.jsx";
+import LiveLocation from "../Home/BottosheetScreens/LiveLocation.jsx";
+import SpamCallSheet from "../Home/BottosheetScreens/SpamCallSheet.jsx";
+import PoliceStatons from "../Home/BottosheetScreens/PoliceStatons.jsx";
+import ChatWithCaptain from "../Home/BottosheetScreens/components/ChatUi/ChatWithCaptain.jsx";
 
 const screenHeight = Dimensions.get("window").height;
 const androidHeight = [screenHeight * 0.4, screenHeight * 0.8]; // Adjust snap points
@@ -142,16 +148,30 @@ const ShowPrice = () => {
     }
   }, [date]); // Runs whenever date state changes
 
+  // 3 btn related stuf
+  const bottomSheetRefSOS = useRef(null);
+  const handleOpenSafetySheet = useCallback(() => {
+    bottomSheetRefSOS.current?.present();
+  }, []);
+
+  const [screen, setScreen] = useState("main");
+  const changeScreen = (screen) => {
+    setScreen(screen);
+  };
+
   return (
     <View style={styles.container}>
       <CustomeAppbar
         title="Book Your Ride"
         onBack={() => navigation.goBack()}
+        rightText="Support"
       />
       <View style={[styles.mapContainer, { height: mapHeight }]}>
         <ShowPollyLine
           origin={pickUpCoordinated}
           destination={dropDetails?.location}
+          height={mapHeight}
+          handleOpenSafetySheet={handleOpenSafetySheet} // this function open safety bottomsheet
         />
       </View>
       <BottomSheet
@@ -208,6 +228,18 @@ const ShowPrice = () => {
             )}
           </View>
         </BottomSheetScrollView>
+        {/* <CustomBottomSheet
+          bottomSheetRef={bottomSheetRefSOS}
+          bgcolor="#fff5f9"
+          snapPoints={["50%", "70%"]}
+          manualCloseSheet={() => setScreen("main")}
+        >
+          {screen === "main" && <MainSelectingScreens onPress={changeScreen} />}
+          {screen === "liveloc" && <LiveLocation onPress={changeScreen} />}
+          {screen === "spam" && <SpamCallSheet onPress={changeScreen} />}
+          {screen === "police" && <PoliceStatons onPress={changeScreen} />}
+          {screen === "chat" && <ChatWithCaptain onPress={changeScreen} />}
+        </CustomBottomSheet> */}
       </BottomSheet>
       <View style={styles.coupneWithBtn}>
         <View style={styles.couponTextCard}>
@@ -300,14 +332,6 @@ const ShowPrice = () => {
         onCancel={onTimeModalOpenCloseHandler}
         style={styles.datePicker}
       />
-      {/* <DateTimePickerModal
-        isVisible={isTimeModalOpenClose}
-        mode="datetime"
-        onConfirm={onHandleTimeValueHandler}
-        onCancel={onTimeModalOpenCloseHandler}
-        minimumDate={currentDate}
-        maximumDate={maxDate}
-      /> */}
     </View>
   );
 };

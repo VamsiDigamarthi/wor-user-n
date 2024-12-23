@@ -67,7 +67,12 @@ import { AppState } from "react-native";
 import FaqHome from "../Screens/Faqs/FaqHome";
 import FaqAnswer from "../Screens/Faqs/FaqAnswer";
 import ChatWithCaptain from "../Components/ChatUi/ChatWithCaptain";
+
 import Suggestions from "../Screens/Dashboard/Suggestions/Suggestions";
+
+import PoliceStationMapCard from "../Screens/Dashboard/Home/BottosheetScreens/components/PoliceStationMapCard/PoliceStationMapCard";
+import Chat from "../Components/Dashboard/CaptainAcceptCom/RatingMsgCall/Chat/Chat";
+
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -573,9 +578,21 @@ const AuthenticatedStack = () => {
         options={{ headerShown: false }}
       />
 
+
       <Stack.Screen
         name="Suggestions"
         component={Suggestions}
+
+      <Stack.Screen
+        name="Chat"
+        component={Chat}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="PoliceStationMapCard"
+        component={PoliceStationMapCard}
+
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

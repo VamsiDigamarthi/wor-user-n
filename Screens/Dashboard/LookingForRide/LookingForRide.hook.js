@@ -136,7 +136,8 @@ export const useLookingForRideHook = () => {
       }).start(({ finished }) => {
         if (!isAccepted && finished) {
           console.log("Ride not accepted, calling final API...");
-          setShowCancelWithReOrderBtn(false);
+          // setShowCancelWithReOrderBtn(false);
+          callApiEvery5Seconds();
           clearInterval(intervalRef.current);
         }
       });
