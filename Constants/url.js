@@ -5,3 +5,9 @@ export const API = axios.create({
 });
 
 export const imageUrl = "http://192.168.31.87:5051";
+
+// export const API = axios.create({
+//   baseURL: "https://womenrapido.nuhvin.com",
+// });
+
+// export const imageUrl = "https://ws.nuhvin.com";
