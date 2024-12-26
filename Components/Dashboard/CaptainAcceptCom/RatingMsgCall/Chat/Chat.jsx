@@ -11,35 +11,39 @@ import { useRoute } from "@react-navigation/native";
 const Chat = () => {
   const route = useRoute();
   const { token } = useSelector((state) => state.token);
+  const { profile } = useSelector((state) => state.profileSlice);
   const socketRef = useRef(null);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const { orderId, captainDetails } = route.params || {};
 
+  const fetchPreviousMessage = async () => {
+    //   console.log(orderId);
+    try {
+      const response = await API.get(`/support-chat/ride-chat/${orderId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setMessages(response?.data);
+    } catch (error) {
+      console.log(error);
+      console.log("fetch previous messages failed");
+    }
+  };
+
   useEffect(() => {
     socketRef.current = io(`${imageUrl}/ride-chat`);
-
-    const fetchPreviousMessage = async () => {
-      //   console.log(orderId);
-      try {
-        const response = await API.get(`/support-chat/ride-chat/${orderId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setMessages(response?.data);
-      } catch (error) {
-        console.log(error);
-        console.log("fetch previous messages failed");
-      }
-    };
 
     fetchPreviousMessage();
 
     if (orderId) {
-      socketRef.current.emit("join", { orderId: orderId });
+      socketRef.current.emit("ride-chat-connected", {
+        orderId: orderId,
+        userId: profile?._id,
+      });
     }
-
+    socketRef.current.off("newMessage");
     socketRef.current.on("newMessage", (message) => {
       console.log("Received message:", message);
       // Append the new message to the messages array
@@ -58,6 +62,7 @@ const Chat = () => {
       orderId: orderId,
       text: message,
       sender: "user",
+      userId: profile._id,
     };
 
     socketRef.current.emit("message", newMessage);
