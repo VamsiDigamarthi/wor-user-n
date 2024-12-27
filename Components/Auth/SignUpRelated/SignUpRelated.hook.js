@@ -25,6 +25,9 @@ export const useSignUpRelatedHook = ({
     emergencyContact: "",
     role: "user",
     referalCode: "",
+    mobile: mobile,
+    longitude: "76.978987",
+    latitude: "17.8765678",
   });
 
   const [validationCheck, setValidationCheck] = useState({
@@ -98,7 +101,7 @@ export const useSignUpRelatedHook = ({
     formDataToSend.append("email", formData.email);
     formDataToSend.append("dateOfBirth", formData.dob);
     formDataToSend.append("address", formData.address);
-    formDataToSend.append("mobile", mobile);
+    formDataToSend.append("mobile", formData.mobile);
     formDataToSend.append("emergencyContact", formData?.emergencyContact);
     formDataToSend.append("referalCode", formData?.referalCode);
 
@@ -116,9 +119,9 @@ export const useSignUpRelatedHook = ({
     }
 
     try {
-      const response = await API.post("/auth/new-register", formDataToSend, {
+      const response = await API.post("/auth/new-register", formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json",
         },
       });
 
