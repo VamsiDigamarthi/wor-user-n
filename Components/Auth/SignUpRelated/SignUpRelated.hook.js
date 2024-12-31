@@ -6,12 +6,7 @@ import { getMimeType } from "../../../Constants/imageAccepts";
 import { signUpValidation } from "../../../Validations/SignUoValidation";
 import { nearPlacesByText } from "../../../Constants/displaylocationmap";
 
-export const useSignUpRelatedHook = ({
-  selectedImage,
-  mobile,
-  onImageError,
-  imageBorder,
-}) => {
+export const useSignUpRelatedHook = ({ mobile }) => {
   const navigate = useNavigation();
   const [apiError, setApiError] = useState("");
   const [errors, setErrors] = useState({
@@ -22,10 +17,13 @@ export const useSignUpRelatedHook = ({
     dob: "",
     email: "",
     address: "",
-    emergencyContact: "",
     role: "user",
     referalCode: "",
+    mobile,
+    longitude: "76.978987",
+    latitude: "17.8765678",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const [validationCheck, setValidationCheck] = useState({
     name: false,
@@ -85,46 +83,26 @@ export const useSignUpRelatedHook = ({
   };
 
   const handleNavigateToOTP = async () => {
-    const errors = signUpValidation(onImageError, selectedImage, formData);
+    const errors = signUpValidation(formData);
     console.log(errors);
     setErrors(errors);
 
     if (Object.keys(errors).length > 0) {
       return;
     }
-
-    const formDataToSend = new FormData();
-    formDataToSend.append("name", formData.name);
-    formDataToSend.append("email", formData.email);
-    formDataToSend.append("dateOfBirth", formData.dob);
-    formDataToSend.append("address", formData.address);
-    formDataToSend.append("mobile", mobile);
-    formDataToSend.append("emergencyContact", formData?.emergencyContact);
-    formDataToSend.append("referalCode", formData?.referalCode);
-
-    formDataToSend.append("role", "user");
-    formDataToSend.append("longitude", "76.978987");
-    formDataToSend.append("latitude", "17.8765678");
-
-    if (selectedImage) {
-      const mimeType = getMimeType(selectedImage);
-      formDataToSend.append("profilePic", {
-        uri: selectedImage,
-        type: mimeType,
-        name: `profilePic.${mimeType.split("/")[1]}`,
-      });
-    }
-
+    setIsLoading(true);
     try {
-      const response = await API.post("/auth/new-register", formDataToSend, {
+      const response = await API.post("/auth/new-register", formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json",
         },
       });
-
       await AsyncStorage.setItem("token", JSON.stringify(response.data.token));
+      setIsLoading(false);
+      navigate.navigate("documentCheck");
     } catch (error) {
       console.log(error?.response?.data?.message);
+      setIsLoading(false);
       setApiError(error?.response?.data?.message);
       if (error?.response?.data?.message === "User Already Exist ....!") {
         navigate.navigate("documentCheck");
@@ -234,5 +212,6 @@ export const useSignUpRelatedHook = ({
     storeNearLocation,
     onAddressSelect,
     validationCheck,
+    isLoading,
   };
 };

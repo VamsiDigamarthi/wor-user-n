@@ -38,7 +38,6 @@ const DocumentRelatedCheck = () => {
   // console.log("Profile Data:", profile);
 
   const handlePress = () => {
-    console.log("Press");
     navigation.navigate("aadharverification");
   };
 
@@ -58,12 +57,12 @@ const DocumentRelatedCheck = () => {
       subTitle="Identity Check with Aadhaar and Face Scan for Safe Ride Bookings"
       onHandleOpenInfoModal={onHandleOpenInfoModal}
     >
-      <Button
+      {/* <Button
         title="skip"
         onPress={() => {
           navigation.navigate("AuthenticatedStack");
         }}
-      />
+      /> */}
       <View style={styles.container}>
         <OnAddharVerification
           onPress={handlePress}

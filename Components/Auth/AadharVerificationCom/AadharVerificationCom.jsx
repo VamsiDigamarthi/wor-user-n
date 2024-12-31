@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import AadharFaceNavigator from "../../../Utils/AadharFaceNagivetor/AadharFaceNagivetor";
 
 import AadharFrontBackImageCard from "../../../Utils/AadharFrontBackImageCard/AadharFrontBackImageCard";
@@ -8,7 +8,7 @@ import AddharOtpUi from "./OtpUi/OtpUi";
 import { useAadharVerificationComHook } from "./AadharVerificationCom.hook";
 import BottomLayout from "../../../Layouts/BottomLayout";
 
-const AadharVerificationCom = () => {
+const AadharVerificationCom = ({ isPriceScreen }) => {
   const {
     handleInputChange,
     aadharNumber,
@@ -27,10 +27,17 @@ const AadharVerificationCom = () => {
     changeGetOtpToVerified,
   } = useAadharVerificationComHook();
 
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
+
+  const onHandleOpenInfoModal = () => {
+    setIsInfoModalOpen(!isInfoModalOpen);
+  };
+
   return (
     <BottomLayout
-      title="User Verification"
+      title="Aadhar Verification"
       subTitle="Identity Check with Aadhaar and Face Scan for Safe Ride Bookings"
+      onHandleOpenInfoModal={onHandleOpenInfoModal}
     >
       <View style={styles.container}>
         <Text>AadharVerificationCom</Text>
@@ -84,7 +91,7 @@ const AadharVerificationCom = () => {
               Update Your Aadhar Front & Back Photos
             </Text>
 
-            <AadharFrontBackImageCard />
+            <AadharFrontBackImageCard isPriceScreen={isPriceScreen} />
           </>
         )}
       </View>

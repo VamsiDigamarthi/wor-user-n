@@ -57,17 +57,19 @@ export default function PoliceStatons({ onPress }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, // Ensures the component takes up available space for scrolling
     backgroundColor: "white",
-    padding: 10,
+    padding: 20,
     marginTop: 10,
     borderRadius: 5,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
+    // elevation: 2,
     gap: 8,
-    marginBottom: 10,
+    // marginBottom: 10,
+    width: "100%",
+    height: 500,
   },
   backButton: {
     flexDirection: "row",

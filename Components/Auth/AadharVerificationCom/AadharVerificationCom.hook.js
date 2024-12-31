@@ -59,20 +59,42 @@ export const useAadharVerificationComHook = () => {
       return;
     }
 
+    // var data = JSON.stringify({
+    //   id_number: aadharNumber,
+    // });
+
+    // var config = {
+    //   method: "post",
+    //   maxBodyLength: Infinity,
+    //   url: "https://kyc-api.surepass.io/api/v1/aadhaar-v2/generate-otp",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   data: data,
+    // };
+
+    // axios(config)
+    //   .then(function (response) {
+    //     console.log(JSON.stringify(response.data));
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error?.response?.message);
+    //   });
     try {
       const response = await axios.post(
-        "https://uat-hub.perfios.com/api/kyc/v3/aadhaar-xml/otp",
+        "https://kyc-api.surepass.io/api/v1/aadhaar-v2/generate-otp",
         {
-          aadhaarNo: aadharNumber,
-          consent: "Y",
+          id_number: aadharNumber,
         },
         {
           headers: {
             "Content-Type": "application/json",
-            "x-auth-key": "q4Ewu5OELeimuoiS",
+            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczNTI3NzcxNiwianRpIjoiZGNkMzVlNTctNTk5YS00MmRmLTgwYjEtYmQ1OTg1YWYwZGE0IiwidHlwZSI6ImFjY2VzcyIsImlkZW50aXR5IjoiZGV2Lm51aHZpbjAyQHN1cmVwYXNzLmlvIiwibmJmIjoxNzM1Mjc3NzE2LCJleHAiOjE3Mzc4Njk3MTYsImVtYWlsIjoibnVodmluMDJAc3VyZXBhc3MuaW8iLCJ0ZW5hbnRfaWQiOiJtYWluIiwidXNlcl9jbGFpbXMiOnsic2NvcGVzIjpbInVzZXIiXX19.2cl9ZdqVRvn8QkgcSKD2Qp1cE99MolEhTG5gP0kE_dQ`, // Passing the token in the Authorization header
           },
+          maxBodyLength: Infinity, // Keep this if necessary
         }
       );
+
       setError("");
       setDisplayOtpBox(true);
       console.log(response.data);

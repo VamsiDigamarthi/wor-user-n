@@ -32,6 +32,7 @@ const MainNavigation = () => {
         // console.log("storedToken", storedToken);
         if (storedToken) {
           try {
+            // console.log("kjhg");
             const previousOrders = await API.get("/user/all-orders", {
               headers: {
                 Authorization: `Bearer ${JSON.parse(storedToken)}`,
@@ -39,7 +40,7 @@ const MainNavigation = () => {
               },
             });
 
-            // console.log("previousOrders", previousOrders?.data);
+            console.log("previousOrders");
 
             const checkReady = setInterval(() => {
               if (
@@ -102,7 +103,10 @@ const MainNavigation = () => {
             dispatch(setOrders(previousOrders?.data));
             dispatch(setToken(JSON.parse(storedToken)));
           } catch (error) {
+            dispatch(setToken(JSON.parse(storedToken)));
+
             console.log("all order fetch failed in main navogation stack");
+            console.log(error);
           }
         } else {
           dispatch(noToken(false));

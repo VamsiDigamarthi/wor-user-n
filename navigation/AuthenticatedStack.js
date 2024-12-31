@@ -73,7 +73,6 @@ import Suggestions from "../Screens/Dashboard/Suggestions/Suggestions";
 import PoliceStationMapCard from "../Screens/Dashboard/Home/BottosheetScreens/components/PoliceStationMapCard/PoliceStationMapCard";
 import Chat from "../Components/Dashboard/CaptainAcceptCom/RatingMsgCall/Chat/Chat";
 
-
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -578,11 +577,13 @@ const AuthenticatedStack = () => {
         options={{ headerShown: false }}
       />
 
+      {/* <Stack.Screen
+        name="ProfileEmergencyContact"
+        component={ProfileEmergencyContact}
+        options={{ headerShown: false }}
+      /> */}
 
-      <Stack.Screen
-        name="Suggestions"
-        component={Suggestions}
-
+      <Stack.Screen name="Suggestions" component={Suggestions} />
       <Stack.Screen
         name="Chat"
         component={Chat}
@@ -592,7 +593,6 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="PoliceStationMapCard"
         component={PoliceStationMapCard}
-
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

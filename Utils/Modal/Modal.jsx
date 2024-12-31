@@ -1,4 +1,11 @@
-import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Modal,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import React from "react";
 
 const ModalUI = ({
@@ -22,31 +29,40 @@ const ModalUI = ({
       visible={openCloseState}
       onRequestClose={closeModalFun}
     >
-      <View style={[styles.modalContainer, style]}>
-        <View style={[styles.modalContent, insideCardStyle]}>
-          {children}
-          {closebtn && (
-            <View
-              style={[
-                styles.cancelBtnCard,
-                btnStyles && { paddingHorizontal: 20 },
-              ]}
-            >
-              <Pressable
-                onPress={closeModalFun}
-                style={[styles.closeModalBtn, btnStyles]}
-              >
-                <Text style={[styles.closeText, btnTextStyle]}>{btnText}</Text>
-              </Pressable>
-              {rightBtnText && (
-                <Pressable onPress={rightBtnFun} style={styles.closeModalBtn}>
-                  <Text style={styles.closeText}>{rightBtnText}</Text>
-                </Pressable>
+      <TouchableWithoutFeedback onPress={closeModalFun}>
+        <View style={[styles.modalContainer, style]}>
+          <TouchableWithoutFeedback>
+            <View style={[styles.modalContent, insideCardStyle]}>
+              {children}
+              {closebtn && (
+                <View
+                  style={[
+                    styles.cancelBtnCard,
+                    btnStyles && { paddingHorizontal: 20 },
+                  ]}
+                >
+                  <Pressable
+                    onPress={closeModalFun}
+                    style={[styles.closeModalBtn, btnStyles]}
+                  >
+                    <Text style={[styles.closeText, btnTextStyle]}>
+                      {btnText}
+                    </Text>
+                  </Pressable>
+                  {rightBtnText && (
+                    <Pressable
+                      onPress={rightBtnFun}
+                      style={styles.closeModalBtn}
+                    >
+                      <Text style={styles.closeText}>{rightBtnText}</Text>
+                    </Pressable>
+                  )}
+                </View>
               )}
             </View>
-          )}
+          </TouchableWithoutFeedback>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </Modal>
   );
 };

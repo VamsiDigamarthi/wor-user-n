@@ -28,6 +28,7 @@ const OtpRelatedInput = ({ btnShow = true }) => {
   const { mobile, termsAndCondition, message } = route.params;
 
   const [otpError, setOtpError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (otp[5]?.length >= 0) {
@@ -41,12 +42,15 @@ const OtpRelatedInput = ({ btnShow = true }) => {
       setOtpError("Please enter OTP");
       return;
     }
+    setIsLoading(true);
     try {
       const response = await API.post("/auth/verify-otp", {
         mobile,
         otp: otp.join(""),
         termsAndCondition: termsAndCondition,
+        isUserApp: true,
       });
+      setIsLoading(false);
 
       if (response.data.token) {
         console.log(response.data.token);
@@ -64,14 +68,16 @@ const OtpRelatedInput = ({ btnShow = true }) => {
         );
       }
     } catch (error) {
-      console.log(error);
-
+      console.log(error?.response?.data?.message);
+      setIsLoading(false);
       if (error.response?.data?.message === "Invalid OTP") {
         setOtpError("Invalid Otp");
       } else if (error.response?.data?.message === "User does not exist") {
         console.log("navigating");
 
         navigation.navigate("signup", { mobile });
+      } else {
+        setOtpError(error?.response?.data?.message);
       }
     }
   };
@@ -138,6 +144,7 @@ const OtpRelatedInput = ({ btnShow = true }) => {
             btnColor={otp[5]?.length <= 0 ? "#e02e88" : "#fff"}
             onPress={justLog}
             width="100%"
+            isLoding={isLoading}
           />
         )}
       </View>

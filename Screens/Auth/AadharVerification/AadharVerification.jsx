@@ -18,8 +18,8 @@ const AadharVerification = ({ isPriceScreen }) => {
             resizeMode="contain"
           />
         </View>
-        {/* <AadharVerificationCom /> */}
-        <NewAadharVefirication isPriceScreen={isPriceScreen} />
+        <AadharVerificationCom isPriceScreen={isPriceScreen} />
+        {/* <NewAadharVefirication isPriceScreen={isPriceScreen} /> */}
       </View>
     </AuthScreenLayout>
   );

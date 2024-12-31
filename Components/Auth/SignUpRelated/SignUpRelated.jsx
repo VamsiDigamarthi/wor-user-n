@@ -13,12 +13,7 @@ import { infoModalStyles } from "../../InfoUi/Styles/InfoModalStyles";
 import OtpInfoUi from "../../InfoUi/OtpInfoUi";
 import { signUpData } from "../../InfoUi/data/infoData";
 
-const SignUpRelated = ({
-  selectedImage,
-  mobile,
-  onImageError,
-  imageBorder,
-}) => {
+const SignUpRelated = ({ mobile }) => {
   const {
     formData,
     handleInputChange,
@@ -33,11 +28,9 @@ const SignUpRelated = ({
     storeNearLocation,
     onAddressSelect,
     validationCheck,
+    isLoading,
   } = useSignUpRelatedHook({
-    selectedImage,
     mobile,
-    onImageError,
-    imageBorder,
   });
 
   // console.log(validationCheck?.name);
@@ -110,7 +103,7 @@ const SignUpRelated = ({
             </View>
           )}
         </View>
-        <InputBox
+        {/* <InputBox
           label="Emergency Contact Number (optional)"
           icon="contract"
           placeholder="Enter your emergency contact"
@@ -118,7 +111,7 @@ const SignUpRelated = ({
           onChangeText={(value) => handleInputChange("emergencyContact", value)}
           maxLength={10}
           keyboardType="numeric"
-        />
+        /> */}
         <InputBox
           label="Referal Code (optional)"
           icon="contract"
@@ -154,6 +147,7 @@ const SignUpRelated = ({
           }
           onPress={handleNavigateToOTP}
           width="100%"
+          isLoding={isLoading}
         />
       </View>
       <ModalUI
