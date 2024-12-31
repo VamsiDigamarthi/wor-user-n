@@ -85,7 +85,7 @@ export default function ChatWithCaptain({ onPress }) {
   }, [message, profile?._id]);
 
   return (
-    <>
+    <View style={styles.mainCard}>
       {/* Chat Header */}
       <View style={styles.chatHeader}>
         <TouchableOpacity onPress={() => onPress("main")}>
@@ -129,11 +129,26 @@ export default function ChatWithCaptain({ onPress }) {
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  mainCard: {
+    backgroundColor: "white",
+    padding: 20,
+    marginTop: 10,
+    borderRadius: 5,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 2,
+    gap: 8,
+    // marginBottom: 10,
+    width: "100%",
+    height: 500,
+  },
   container: {
     flex: 1,
     paddingTop: 12,

@@ -72,7 +72,7 @@ export default function SpamCallSheet({ onPress }) {
 const styles = StyleSheet.create({
   mainCard: {
     backgroundColor: "white",
-    padding: 10,
+    padding: 20,
     marginTop: 10,
     borderRadius: 5,
     shadowColor: "#000",

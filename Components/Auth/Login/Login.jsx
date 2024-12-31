@@ -15,6 +15,7 @@ import { infoModalStyles } from "../../InfoUi/Styles/InfoModalStyles";
 const LoginRelatedInput = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [mobile, setMobile] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState("");
   const [errorState, setErrorState] = useState({
     mobile: "",
@@ -37,9 +38,11 @@ const LoginRelatedInput = () => {
     if (Object.keys(errors).length > 0) {
       return;
     }
+    setIsLoading(true);
 
     try {
       const response = await API.post("/auth/send-otp", { mobile: mobile });
+      setIsLoading(false);
       navigation.navigate("otp", {
         mobile: mobile,
         termsAndCondition: isChecked,
@@ -50,6 +53,7 @@ const LoginRelatedInput = () => {
       });
     } catch (error) {
       console.log(error?.response);
+      setIsLoading(false);
       setApiError(error?.response?.data?.message);
     }
   };
@@ -115,6 +119,7 @@ const LoginRelatedInput = () => {
           btnColor={Object.keys(errorState)?.length > 0 ? "#E02E88" : "#fff"}
           onPress={handleLogin}
           width="100%"
+          isLoding={isLoading}
         />
       </View>
       <ModalUI

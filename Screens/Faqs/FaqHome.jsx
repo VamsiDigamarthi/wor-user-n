@@ -6,7 +6,7 @@ import FaqAnswerCard from "../../Components/Faqs/FaqAnswerCard";
 import FaqRatingCard from "../../Components/Faqs/FaqRatingCard";
 import Data from "../../Constants/FaqData.json";
 export default function FaqHome({ navigation, route }) {
-  const { title } = route.params;
+  const { title } = route.params || {};
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -28,8 +28,8 @@ export default function FaqHome({ navigation, route }) {
   //     // console.log(data);
   // }, [])
 
-  function SetAns(question , answer){      
-      navigation.navigate("FaqAnswer" , {data:{question , answer, title}})
+  function SetAns(question, answer) {
+    navigation.navigate("FaqAnswer", { data: { question, answer, title } });
   }
 
   return (
@@ -37,12 +37,18 @@ export default function FaqHome({ navigation, route }) {
       <CustomeAppbar title="FAQs" onBack={() => navigation.goBack()} />
       <View style={{ height: 100 }} />
 
-      <Text style={{fontWeight:"bold"}}>{title}</Text>
+      <Text style={{ fontWeight: "bold" }}>{title}</Text>
 
       {data?.map((e, index) => {
         const key = Object.keys(e)[0];
         const value = e[key];
-        return <FaqBtnCard key={index} title={key} onclick={()=>SetAns(key , value)} />
+        return (
+          <FaqBtnCard
+            key={index}
+            title={key}
+            onclick={() => SetAns(key, value)}
+          />
+        );
       })}
 
       {/* <FaqAnswerCard

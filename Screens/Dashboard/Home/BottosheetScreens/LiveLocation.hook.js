@@ -18,9 +18,9 @@ export const useLiveLocationHook = () => {
 
   // adde emergency contact
   const handlerNavigateEmergencyConcatScreen = () => {
-    // navigation.navigate("ProfileEmergencyContact", {
-    //   isHomeSafetyScreen: true,
-    // });
+    navigation.navigate("EmergencyContactNumber", {
+      isHomeSafetyScreen: true,
+    });
   };
 
   useEffect(() => {
