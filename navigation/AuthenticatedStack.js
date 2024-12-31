@@ -577,13 +577,10 @@ const AuthenticatedStack = () => {
         options={{ headerShown: false }}
       />
 
-      {/* <Stack.Screen
-        name="ProfileEmergencyContact"
-        component={ProfileEmergencyContact}
-        options={{ headerShown: false }}
-      /> */}
 
       <Stack.Screen name="Suggestions" component={Suggestions} />
+
+
       <Stack.Screen
         name="Chat"
         component={Chat}

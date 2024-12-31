@@ -90,7 +90,9 @@ export const useSignUpRelatedHook = ({ mobile }) => {
     if (Object.keys(errors).length > 0) {
       return;
     }
+
     setIsLoading(true);
+
     try {
       const response = await API.post("/auth/new-register", formData, {
         headers: {
