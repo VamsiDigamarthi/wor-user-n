@@ -35,13 +35,14 @@ const DocumentRelatedCheck = () => {
     }, [])
   );
 
-  // console.log("Profile Data:", profile);
+  // console.log("Profile Data:", profile?.aadharCarVerificaation);
 
   const handlePress = () => {
     navigation.navigate("aadharverification");
   };
 
   const onFaceAuthentication = () => {
+    console.log("onFaceAuthentication");
     navigation.navigate("MPin");
   };
 
@@ -57,12 +58,6 @@ const DocumentRelatedCheck = () => {
       subTitle="Identity Check with Aadhaar and Face Scan for Safe Ride Bookings"
       onHandleOpenInfoModal={onHandleOpenInfoModal}
     >
-      {/* <Button
-        title="skip"
-        onPress={() => {
-          navigation.navigate("AuthenticatedStack");
-        }}
-      /> */}
       <View style={styles.container}>
         <OnAddharVerification
           onPress={handlePress}
@@ -71,7 +66,11 @@ const DocumentRelatedCheck = () => {
           isBackground={profile?.adhar}
         />
         <OnAddharVerification
-          onPress={onFaceAuthentication}
+          onPress={() => {
+            if (profile?.aadharCarVerificaation) {
+              onFaceAuthentication(); // Call the function here
+            }
+          }}
           idTitle="M-PIN"
           // title="Face scan is required to complete your registration. It will be used to verify your identity when booking rides."
           title="Set an M-PIN to complete your registration; it will be used to secure your account"

@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  ActivityIndicator,
+  Pressable,
+} from "react-native";
 import React, { useState } from "react";
 import AadharFaceNavigator from "../../../Utils/AadharFaceNagivetor/AadharFaceNagivetor";
 
@@ -19,12 +26,13 @@ const AadharVerificationCom = ({ isPriceScreen }) => {
     aadharUploadImageDisplay,
     otpVerificationFailed,
     // otp related
-    inputs,
-    handleKeyPress,
-    handleChange,
+    otpVerified,
     otp,
     otpInputEditable,
     changeGetOtpToVerified,
+    isAddharLoading,
+    otpLoading,
+    handleOTPChange,
   } = useAadharVerificationComHook();
 
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
@@ -33,6 +41,8 @@ const AadharVerificationCom = ({ isPriceScreen }) => {
     setIsInfoModalOpen(!isInfoModalOpen);
   };
 
+  // console.log(displayOtpBox);
+
   return (
     <BottomLayout
       title="Aadhar Verification"
@@ -40,7 +50,7 @@ const AadharVerificationCom = ({ isPriceScreen }) => {
       onHandleOpenInfoModal={onHandleOpenInfoModal}
     >
       <View style={styles.container}>
-        <Text>AadharVerificationCom</Text>
+        {/* <Text>Aadhar Verification </Text> */}
         <AadharFaceNavigator
           isInput={true}
           isText={true}
@@ -52,6 +62,7 @@ const AadharVerificationCom = ({ isPriceScreen }) => {
           isEditable={otpInputEditable}
           pressBtnOrText={changeGetOtpToVerified}
           displayOtpBox={displayOtpBox}
+          loading={isAddharLoading}
         />
         {error && (
           <View style={styles.errorCard}>
@@ -65,7 +76,7 @@ const AadharVerificationCom = ({ isPriceScreen }) => {
               your aadhar linked number
             </Text>
 
-            <AddharOtpUi
+            {/* <AddharOtpUi
               handleChange={handleChange}
               handleKeyPress={handleKeyPress}
               inputs={inputs}
@@ -76,6 +87,12 @@ const AadharVerificationCom = ({ isPriceScreen }) => {
               btnBg="#fff"
               btnColor="#E02E88"
               onPress={onVerifyAddharOtp}
+            /> */}
+            <OTPFiled
+              onVerifyAddharOtp={onVerifyAddharOtp}
+              otpLoading={otpLoading}
+              handleOTPChange={handleOTPChange}
+              value={otp}
             />
             {otpVerificationFailed && (
               <View style={styles.errorCard}>
@@ -91,7 +108,10 @@ const AadharVerificationCom = ({ isPriceScreen }) => {
               Update Your Aadhar Front & Back Photos
             </Text>
 
-            <AadharFrontBackImageCard isPriceScreen={isPriceScreen} />
+            <AadharFrontBackImageCard
+              otpVerified={otpVerified}
+              isPriceScreen={isPriceScreen}
+            />
           </>
         )}
       </View>
@@ -100,6 +120,42 @@ const AadharVerificationCom = ({ isPriceScreen }) => {
 };
 
 export default AadharVerificationCom;
+
+const OTPFiled = ({
+  onVerifyAddharOtp,
+  otpLoading,
+  handleOTPChange,
+  value,
+}) => (
+  <View style={styles.containers}>
+    <View style={[styles.firstCard]}>
+      <TextInput
+        onChangeText={handleOTPChange}
+        placeholder="Enter your OTP number"
+        value={value}
+        keyboardType="numeric"
+      />
+    </View>
+    <View style={[styles.secondCard]}>
+      {otpLoading ? (
+        <ActivityIndicator size={20} />
+      ) : (
+        <Pressable
+          android_ripple={{ color: "#ccc" }}
+          onPress={onVerifyAddharOtp}
+          style={{
+            width: "100%",
+            height: "auto",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text style={styles.otpTextColor}>Verify OTP</Text>
+        </Pressable>
+      )}
+    </View>
+  </View>
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -123,5 +179,36 @@ const styles = StyleSheet.create({
   errorMsg: {
     color: "red",
     fontSize: 14,
+  },
+  containers: {
+    width: "100%",
+    height: 55,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#EDEDED",
+    backgroundColor: "#F7F7F7",
+    overflow: "hidden",
+  },
+  firstCard: {
+    width: "70%",
+    height: "100%",
+    backgroundColor: "#fff",
+    justifyContent: "center",
+    alignItems: "flex-start",
+    paddingLeft: 10,
+  },
+  secondCard: {
+    width: "30%",
+    height: "100%",
+    backgroundColor: "#E02E88",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  otpTextColor: {
+    color: "#fff",
+    fontWeight: "600",
   },
 });
