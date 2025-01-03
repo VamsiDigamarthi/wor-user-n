@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, Pressable, TextInput } from "react-native"; // Import Pressable
+import {
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  TextInput,
+  ActivityIndicator,
+} from "react-native"; // Import Pressable
 import { Ionicons } from "@expo/vector-icons";
 
 const AadharFaceNavigator = ({
@@ -13,6 +20,7 @@ const AadharFaceNavigator = ({
   isEditable = true,
   pressBtnOrText = true,
   displayOtpBox,
+  loading,
 }) => {
   return (
     <View style={styles.container}>
@@ -44,13 +52,32 @@ const AadharFaceNavigator = ({
         ]}
       >
         {pressBtnOrText ? (
-          <Pressable android_ripple={{ color: "#ccc" }} onPress={onPress}>
-            {isText ? (
-              <Text style={styles.otpTextColor}>Get OTP</Text>
+          <>
+            {loading ? (
+              <ActivityIndicator size={20} />
             ) : (
-              <Ionicons name="arrow-forward-outline" size={25} color="#fff" />
+              <Pressable
+                android_ripple={{ color: "#ccc" }}
+                onPress={onPress}
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                {isText ? (
+                  <Text style={styles.otpTextColor}>Get OTP</Text>
+                ) : (
+                  <Ionicons
+                    name="arrow-forward-outline"
+                    size={25}
+                    color="#fff"
+                  />
+                )}
+              </Pressable>
             )}
-          </Pressable>
+          </>
         ) : (
           <Text style={styles.verifiedText}>Verified</Text>
         )}

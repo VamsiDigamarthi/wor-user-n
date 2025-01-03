@@ -9,6 +9,7 @@ const AadharFrontBackImageCard = ({ otpVerified, isPriceScreen }) => {
     handleImagePick,
     handleSubmit,
     showErrorMessage,
+    isLoading,
   } = useAadharFrontBackImageCardHook({ isPriceScreen });
 
   return (
@@ -49,6 +50,7 @@ const AadharFrontBackImageCard = ({ otpVerified, isPriceScreen }) => {
         btnBg={frontImage && backImage ? "#e02e88" : "#fff"}
         btnColor={frontImage && backImage ? "#fff" : "#e02e88"}
         onPress={handleSubmit}
+        isLoding={isLoading}
       />
     </View>
   );
