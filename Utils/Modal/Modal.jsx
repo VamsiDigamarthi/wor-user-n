@@ -22,8 +22,14 @@ const ModalUI = ({
       visible={openCloseState}
       onRequestClose={closeModalFun}
     >
-      <View style={[styles.modalContainer, style]}>
-        <View style={[styles.modalContent, insideCardStyle]}>
+      <Pressable
+        style={[styles.modalContainer, style]}
+        onPress={closeModalFun} // Close the modal when tapping outside
+      >
+        <Pressable
+          style={[styles.modalContent, insideCardStyle]}
+          onPress={(e) => e.stopPropagation()} // Prevent modal content taps from closing
+        >
           {children}
           {closebtn && (
             <View
@@ -45,8 +51,8 @@ const ModalUI = ({
               )}
             </View>
           )}
-        </View>
-      </View>
+        </Pressable>
+      </Pressable>
     </Modal>
   );
 };

@@ -1,7 +1,9 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../../../redux/Features/Auth/LoginSlice";
+import Toast from "react-native-toast-message";
+import { API } from "../../../Constants/url";
 
 export const useOtpComHook = () => {
   const { error } = useSelector((state) => state.token);
@@ -12,6 +14,25 @@ export const useOtpComHook = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [otpError, setOtpError] = useState("");
   const navigation = useNavigation();
+
+  const [openResendBtn, setOpenResendBtn] = useState(false);
+
+  useEffect(() => {
+    startTimer();
+  }, []);
+
+  const startTimer = () => {
+    console.log("Timer started"); // Debugging log
+    const timer = setTimeout(() => {
+      console.log("Resend button is now visible"); // Debugging log
+      setOpenResendBtn(true);
+    }, 10000); // 1000ms delay
+
+    return () => {
+      clearTimeout(timer);
+      console.log("Timer cleared");
+    };
+  };
 
   const handleChange = (text, index) => {
     const newOtp = [...otp];
@@ -71,6 +92,28 @@ export const useOtpComHook = () => {
     }
   };
 
+  const resendOtp = async () => {
+    try {
+      const response = await API.post("/auth/send-otp", { mobile: mobile });
+
+      setOpenResendBtn(false);
+
+      if (response.data.message == "OTP sent successfully!") {
+        Toast.show({
+          text1: "Otp Resend Success",
+          type: "success",
+          position: "bottom",
+        });
+      }
+    } catch (error) {
+      setOpenResendBtn(true);
+      console.log(error?.response);
+      setOtpError(error?.response?.data?.message);
+    } finally {
+      startTimer();
+    }
+  };
+
   return {
     otp,
     handleChange,
@@ -79,5 +122,7 @@ export const useOtpComHook = () => {
     inputs,
     otpError,
     mobile,
+    resendOtp,
+    openResendBtn,
   };
 };

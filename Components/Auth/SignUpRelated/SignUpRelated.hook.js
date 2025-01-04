@@ -22,7 +22,7 @@ export const useSignUpRelatedHook = ({
     dob: "",
     email: "",
     address: "",
-    emergencyContact: "",
+    emergencyContact: "100",
     role: "user",
     referalCode: "",
     mobile: mobile,

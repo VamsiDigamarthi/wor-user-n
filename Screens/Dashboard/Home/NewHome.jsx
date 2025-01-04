@@ -37,7 +37,7 @@ import PoliceStatons from "./BottosheetScreens/PoliceStatons";
 import ChatWithCaptain from "./BottosheetScreens/components/ChatUi/ChatWithCaptain";
 
 const screenHeight = Dimensions.get("window").height;
-const androidHeight = [screenHeight * 0.35, screenHeight * 0.5]; // Adjust snap points
+const androidHeight = [screenHeight * 0.37, screenHeight * 0.37]; // Adjust snap points
 const iosHeight = [screenHeight * 0.15, screenHeight * 0.6];
 
 const NewHome = () => {

@@ -72,6 +72,7 @@ import Suggestions from "../Screens/Dashboard/Suggestions/Suggestions";
 
 import PoliceStationMapCard from "../Screens/Dashboard/Home/BottosheetScreens/components/PoliceStationMapCard/PoliceStationMapCard";
 import Chat from "../Components/Dashboard/CaptainAcceptCom/RatingMsgCall/Chat/Chat";
+import FakeCall from "../Utils/FakeCall/FakeCall";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -376,6 +377,12 @@ const AuthenticatedStack = () => {
       />
 
       <Stack.Screen
+        name="FakeCall"
+        component={FakeCall}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
         name="PersonalInfoPreview"
         component={PersonalInfoPreview}
         options={{ headerShown: false }}
@@ -577,7 +584,11 @@ const AuthenticatedStack = () => {
         options={{ headerShown: false }}
       />
 
-      <Stack.Screen name="Suggestions" component={Suggestions} />
+      <Stack.Screen
+        name="Suggestions"
+        component={Suggestions}
+        options={{ headerShown: false }}
+      />
 
       <Stack.Screen
         name="Chat"

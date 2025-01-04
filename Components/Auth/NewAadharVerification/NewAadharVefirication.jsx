@@ -48,24 +48,29 @@ const NewAadharVefirication = ({ isPriceScreen }) => {
           aadharVerified={aadharVerified}
           isEditable={!aadharVerified}
           aadharLoader={aadharLoader}
-          
         />
 
-        <NewAadharOtpCard
-          onTextChange={onOtpChangehandle}
-          aadharVerified={aadharVerified}
-          isEditable={aadharVerified && !otpVerified ? true : false}
-          otpLoader={otpLoader}
-          onPress={onOtpVefirified}
-          placeholder={"Enter Otp"}
-        />
-        <Text style={styles.uploadFrontBackImageCard}>
-          Upload Aadhar Front/Back Images
-        </Text>
-        <AadharFrontBackImageCard
-          otpVerified={otpVerified}
-          isPriceScreen={isPriceScreen}
-        />
+        {aadharVerified && (
+          <NewAadharOtpCard
+            onTextChange={onOtpChangehandle}
+            aadharVerified={aadharVerified}
+            isEditable={aadharVerified && !otpVerified ? true : false}
+            otpLoader={otpLoader}
+            onPress={onOtpVefirified}
+            placeholder={"Enter Otp"}
+          />
+        )}
+        {otpVerified && (
+          <>
+            <Text style={styles.uploadFrontBackImageCard}>
+              Upload Aadhar Front/Back Images
+            </Text>
+            <AadharFrontBackImageCard
+              otpVerified={otpVerified}
+              isPriceScreen={isPriceScreen}
+            />
+          </>
+        )}
       </View>
       <ModalUI
         openCloseState={isInfoModalOpen}

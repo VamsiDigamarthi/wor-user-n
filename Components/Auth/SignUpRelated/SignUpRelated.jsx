@@ -110,7 +110,7 @@ const SignUpRelated = ({
             </View>
           )}
         </View>
-        <InputBox
+        {/* <InputBox
           label="Emergency Contact Number (optional)"
           icon="contract"
           placeholder="Enter your emergency contact"
@@ -118,7 +118,7 @@ const SignUpRelated = ({
           onChangeText={(value) => handleInputChange("emergencyContact", value)}
           maxLength={10}
           keyboardType="numeric"
-        />
+        /> */}
         <InputBox
           label="Referal Code (optional)"
           icon="contract"
