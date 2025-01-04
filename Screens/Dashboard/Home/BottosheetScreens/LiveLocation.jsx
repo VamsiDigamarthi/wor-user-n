@@ -113,7 +113,7 @@ export default function LiveLocation({ onPress }) {
         </View>
       </View>
 
-      <View style={{ marginTop: 10, gap: 20 }}>
+      <View style={{ marginTop: 10, gap: 20, width: "100%", padding: 20 }}>
         <Text style={{ textAlign: "center" }}>Live Location Duration</Text>
         <View
           style={{
@@ -163,5 +163,7 @@ const styles = StyleSheet.create({
     elevation: 2,
     gap: 8,
     position: "relative",
+    width: "100%",
+    padding: 20,
   },
 });

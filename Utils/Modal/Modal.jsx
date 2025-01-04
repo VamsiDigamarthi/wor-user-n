@@ -1,4 +1,11 @@
-import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Modal,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import React from "react";
 
 const ModalUI = ({
@@ -22,6 +29,7 @@ const ModalUI = ({
       visible={openCloseState}
       onRequestClose={closeModalFun}
     >
+
       <Pressable
         style={[styles.modalContainer, style]}
         onPress={closeModalFun} // Close the modal when tapping outside

@@ -10,6 +10,7 @@ export const useAadharFrontBackImageCardHook = ({ isPriceScreen }) => {
   const [backImage, setBackImage] = useState(null);
   const [showErrorMessage, setShowErrorMessage] = useState("");
   const navigation = useNavigation();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleImagePick = async (side) => {
     const permissionResult =
@@ -64,6 +65,7 @@ export const useAadharFrontBackImageCardHook = ({ isPriceScreen }) => {
         name: `aadhar.${mimeType.split("/")[1]}`,
       });
     }
+    setIsLoading(true);
 
     // console.log(formData);
 
@@ -83,6 +85,7 @@ export const useAadharFrontBackImageCardHook = ({ isPriceScreen }) => {
         type: "success",
         position: "bottom",
       });
+      setIsLoading(false);
       if (isPriceScreen) {
         navigation.goBack();
       } else {
@@ -90,6 +93,7 @@ export const useAadharFrontBackImageCardHook = ({ isPriceScreen }) => {
       }
     } catch (error) {
       console.log(error?.response);
+      setIsLoading(false);
       Toast.show({
         text1: "Failed to Upload Aadhar ",
         type: "error",
@@ -104,5 +108,6 @@ export const useAadharFrontBackImageCardHook = ({ isPriceScreen }) => {
     handleImagePick,
     handleSubmit,
     showErrorMessage,
+    isLoading,
   };
 };

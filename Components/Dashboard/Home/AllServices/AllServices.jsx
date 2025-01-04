@@ -104,12 +104,15 @@ const AllServices = ({
           <Infopressicons onHandleOpenInfoModal={onHandleOpenInfoModal} />
         </View>
         <View style={styles.viewAllContainer}>
-          <Pressable onPress={toggleViewAll}>
+          <Pressable
+            style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
+            onPress={toggleViewAll}
+          >
             <Text style={styles.viewAllText}>
               {viewAll ? "Remove All" : "View All"}
             </Text>
+            <Ionicons name="arrow-forward" size={20} color="#E02E88" />
           </Pressable>
-          <Ionicons name="arrow-forward" size={20} color="#E02E88" />
         </View>
       </View>
 

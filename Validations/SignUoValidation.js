@@ -1,4 +1,4 @@
-export const signUpValidation = (onImageError, selectedImage, formData) => {
+export const signUpValidation = (formData) => {
   const newErrors = {};
 
   if (!formData.name) {

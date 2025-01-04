@@ -5,24 +5,17 @@ import FaqBtnCard from "../../Components/Faqs/FaqBtnCard";
 import FaqAnswerCard from "../../Components/Faqs/FaqAnswerCard";
 import FaqRatingCard from "../../Components/Faqs/FaqRatingCard";
 
-export default function FaqAnswer({route, navigation}) {
+export default function FaqAnswer({ route, navigation }) {
+  const { data } = route.params;
 
-    const {data} = route.params;
-
-    
-
-
-return (
+  return (
     <View style={styles.conatiner}>
       <CustomeAppbar title="FAQs" onBack={() => navigation.goBack()} />
       <View style={{ height: 100 }} />
 
-      <Text style={{fontWeight:"bold"}}>{data.title}</Text>    
+      <Text style={{ fontWeight: "bold" }}>{data.title}</Text>
 
-      <FaqAnswerCard
-        question={data.question}
-        answer={data.answer}
-      />
+      <FaqAnswerCard question={data.question} answer={data.answer} />
 
       <FaqRatingCard />
     </View>

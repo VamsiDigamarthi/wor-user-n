@@ -37,7 +37,11 @@ import PoliceStatons from "./BottosheetScreens/PoliceStatons";
 import ChatWithCaptain from "./BottosheetScreens/components/ChatUi/ChatWithCaptain";
 
 const screenHeight = Dimensions.get("window").height;
+// <<<<<<< changes-from-last-4-days
 const androidHeight = [screenHeight * 0.37, screenHeight * 0.37]; // Adjust snap points
+// =======
+// const androidHeight = [screenHeight * 0.4, screenHeight * 0.4]; // Adjust snap points
+// >>>>>>> master
 const iosHeight = [screenHeight * 0.15, screenHeight * 0.6];
 
 const NewHome = () => {
@@ -98,6 +102,9 @@ const NewHome = () => {
     setIsInfoModalOpen(!isInfoModalOpen);
   };
 
+  const [isOpenCloseSOS, setIsOpenCloseSOS] = useState(false);
+  const toggleCloseSOS = () => setIsOpenCloseSOS(!isOpenCloseSOS);
+
   return (
     <BottomSheetModalProvider>
       <StatusBar style="dark" />
@@ -113,7 +120,7 @@ const NewHome = () => {
               captainMarkers={captainMarkers}
               location={location}
               height={mapHeight}
-              handleOpenSafetyModal={handleOpenSafetySheet}
+              handleOpenSafetyModal={toggleCloseSOS}
             />
           )}
         </View>
@@ -163,11 +170,19 @@ const NewHome = () => {
                 <Button title="notification" onPress={onHandleOpenInfoModal} />
               </View>
 
-              <CustomBottomSheet
-                bottomSheetRef={bottomSheetRefSOS}
-                bgcolor="#fff5f9"
-                snapPoints={["50%", "70%"]}
-                manualCloseSheet={() => setScreen("main")}
+              <ModalUI
+                openCloseState={isOpenCloseSOS}
+                closeModalFun={toggleCloseSOS}
+                modalStyle="slide"
+                style={[infoModalStyles.aadharModalStyles]}
+                insideCardStyle={[
+                  infoModalStyles.insideCardStyle,
+                  { justifyContent: "space-between" },
+                ]}
+                // btnText="Okay, Got It"
+                btnStyles={infoModalStyles.modalCloseBtn}
+                btnTextStyle={infoModalStyles.btnTextStyle}
+                closebtn={false}
               >
                 {screen === "main" && (
                   <MainSelectingScreens onPress={changeScreen} />
@@ -182,7 +197,7 @@ const NewHome = () => {
                 {screen === "chat" && (
                   <ChatWithCaptain onPress={changeScreen} />
                 )}
-              </CustomBottomSheet>
+              </ModalUI>
             </BottomSheetScrollView>
           </ImageBackground>
         </BottomSheet>

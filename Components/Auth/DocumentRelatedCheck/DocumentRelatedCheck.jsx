@@ -35,14 +35,14 @@ const DocumentRelatedCheck = () => {
     }, [])
   );
 
-  // console.log("Profile Data:", profile);
+  // console.log("Profile Data:", profile?.aadharCarVerificaation);
 
   const handlePress = () => {
-    console.log("Press");
     navigation.navigate("aadharverification");
   };
 
   const onFaceAuthentication = () => {
+    console.log("onFaceAuthentication");
     navigation.navigate("MPin");
   };
 
@@ -58,12 +58,6 @@ const DocumentRelatedCheck = () => {
       subTitle="Identity Check with Aadhaar and Face Scan for Safe Ride Bookings"
       onHandleOpenInfoModal={onHandleOpenInfoModal}
     >
-      <Button
-        title="skip"
-        onPress={() => {
-          navigation.navigate("AuthenticatedStack");
-        }}
-      />
       <View style={styles.container}>
         <OnAddharVerification
           onPress={handlePress}
@@ -71,6 +65,7 @@ const DocumentRelatedCheck = () => {
           title="Aadhaar information will be used to verify and create your account."
           isBackground={profile?.adhar}
         />
+
         {profile?.aadharCarVerificaation && (
           <OnAddharVerification
             onPress={onFaceAuthentication}
@@ -80,6 +75,7 @@ const DocumentRelatedCheck = () => {
             isBackground={profile?.mpin}
           />
         )}
+
       </View>
       <ModalUI
         openCloseState={isInfoModalOpen}

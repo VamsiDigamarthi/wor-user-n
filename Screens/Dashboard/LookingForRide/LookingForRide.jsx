@@ -24,7 +24,7 @@ import { COLORS } from "../../../Constants/colors";
 import { Chase } from "react-native-animated-spinkit";
 
 const screenHeight = Dimensions.get("window").height;
-const androidHeight = [screenHeight * 0.1, screenHeight * 0.5]; // Adjust snap points
+const androidHeight = [screenHeight * 0.1, screenHeight * 0.44]; // Adjust snap points
 const iosHeight = [screenHeight * 0.15, screenHeight * 0.6];
 
 const LookingForRide = () => {

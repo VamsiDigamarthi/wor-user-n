@@ -134,31 +134,31 @@ const CustomDrawerContent = (props) => {
       )}
 
       {/* Scrollable Drawer Content */}
+
+      {/* Profile Header */}
+      <View style={[styles.headerContainer, { borderTopRightRadius: 20 }]}>
+        <Image source={imageSrc} style={styles.profilePic} />
+        <Text style={styles.profileName}>{profile?.name}</Text>
+
+        <Pressable
+          style={{
+            flexDirection: "row",
+            gap: 5,
+            paddingTop: 5,
+            alignItems: "center",
+          }}
+          onPress={onNavigateRatingScreen}
+        >
+          <FontAwesome name="star" size={20} color="gold" />
+          <Text style={styles.profileEmail}>{avgRating}</Text>
+        </Pressable>
+      </View>
       <DrawerContentScrollView
         {...props}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.drawerContent}
         style={styles.drawer}
       >
-        {/* Profile Header */}
-        <View style={[styles.headerContainer, { borderTopRightRadius: 20 }]}>
-          <Image source={imageSrc} style={styles.profilePic} />
-          <Text style={styles.profileName}>{profile?.name}</Text>
-
-          <Pressable
-            style={{
-              flexDirection: "row",
-              gap: 5,
-              paddingTop: 5,
-              alignItems: "center",
-            }}
-            onPress={onNavigateRatingScreen}
-          >
-            <FontAwesome name="star" size={20} color="gold" />
-            <Text style={styles.profileEmail}>{avgRating}</Text>
-          </Pressable>
-        </View>
-
         {/* Drawer Items */}
         <View style={[styles.drawerItemsContainer]}>
           <DrawerItem
@@ -317,7 +317,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#e0e0e0",
     width: "100%",
-    paddingTop: 20,
+    paddingTop: 50,
   },
   profilePic: {
     width: 80,

@@ -584,11 +584,14 @@ const AuthenticatedStack = () => {
         options={{ headerShown: false }}
       />
 
+
       <Stack.Screen
         name="Suggestions"
         component={Suggestions}
         options={{ headerShown: false }}
       />
+
+
 
       <Stack.Screen
         name="Chat"

@@ -13,12 +13,7 @@ import { infoModalStyles } from "../../InfoUi/Styles/InfoModalStyles";
 import OtpInfoUi from "../../InfoUi/OtpInfoUi";
 import { signUpData } from "../../InfoUi/data/infoData";
 
-const SignUpRelated = ({
-  selectedImage,
-  mobile,
-  onImageError,
-  imageBorder,
-}) => {
+const SignUpRelated = ({ mobile }) => {
   const {
     formData,
     handleInputChange,
@@ -33,11 +28,9 @@ const SignUpRelated = ({
     storeNearLocation,
     onAddressSelect,
     validationCheck,
+    isLoading,
   } = useSignUpRelatedHook({
-    selectedImage,
     mobile,
-    onImageError,
-    imageBorder,
   });
 
   // console.log(validationCheck?.name);
@@ -154,6 +147,7 @@ const SignUpRelated = ({
           }
           onPress={handleNavigateToOTP}
           width="100%"
+          isLoding={isLoading}
         />
       </View>
       <ModalUI

@@ -164,7 +164,10 @@ const ShowPrice = () => {
       <CustomeAppbar
         title="Book Your Ride"
         onBack={() => navigation.goBack()}
-        // rightText="Support"
+
+        rightText="Support"
+        navigationText="FaqHome"
+
       />
       <View style={[styles.mapContainer, { height: mapHeight }]}>
         <ShowPollyLine

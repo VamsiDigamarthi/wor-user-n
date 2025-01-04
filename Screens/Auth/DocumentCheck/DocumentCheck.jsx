@@ -1,9 +1,10 @@
 import React from "react";
-import { Image, View, StyleSheet } from "react-native";
+import { Image, View, StyleSheet, Text, Pressable } from "react-native";
 import Logo from "../../../Utils/Logo/Logo";
 import AuthScreenLayout from "../../../Layouts/AuthScreenLayout";
 import BottomSheet from "../../../Utils/BottomSheet/BottomSheet";
 import DocumentRelatedCheck from "../../../Components/Auth/DocumentRelatedCheck/DocumentRelatedCheck";
+import { TouchableOpacity } from "react-native-web";
 
 const DocumentCheck = () => {
   return (
@@ -11,6 +12,21 @@ const DocumentCheck = () => {
       <View style={styles.container}>
         <View style={styles.logoContainer}>
           <Logo />
+          <View
+            style={{
+              width: "100%",
+              justifyContent: "flex-end",
+              alignItems: "flex-end",
+            }}
+          >
+            <Pressable
+              onPress={() => {
+                navigation.navigate("AuthenticatedStack");
+              }}
+            >
+              <Text style={{ fontSize: 14, fontWeight: "600" }}>Skip</Text>
+            </Pressable>
+          </View>
           <Image
             source={require("../../../assets/images/Screenshot 2024-10-07 at 4.58.25 PM 3.png")}
             style={styles.image}
