@@ -47,6 +47,37 @@ const MPinRelatedUi = ({ isPriceScreen }) => {
 
   // Check if the PIN is valid: unique digits, no consecutive ascending/descending order
   const isValidMPin = (pinArray) => {
+// <<<<<<< changes-from-last-4-days
+//     // Check if all fields are filled
+//     if (pinArray.includes("")) return false;
+
+//     // Check if all digits are unique
+//     const uniqueDigits = new Set(pinArray);
+//     if (uniqueDigits.size !== pinArray.length) return false;
+
+//     // Check for no three identical numbers
+//     for (let i = 0; i < pinArray.length - 2; i++) {
+//       if (
+//         pinArray[i] === pinArray[i + 1] &&
+//         pinArray[i + 1] === pinArray[i + 2]
+//       ) {
+//         return false;
+//       }
+//     }
+
+//     // Check for no sequential numbers (ascending or descending)
+//     const pinNumbers = pinArray.map(Number);
+//     const isAscending = pinNumbers.every(
+//       (val, idx, arr) => idx === 0 || val === arr[idx - 1] + 1
+//     );
+//     const isDescending = pinNumbers.every(
+//       (val, idx, arr) => idx === 0 || val === arr[idx - 1] - 1
+//     );
+
+//     if (isAscending || isDescending) return false;
+
+//     return true;
+// =======
     const uniqueDigits = new Set(pinArray);
     const isUnique =
       uniqueDigits.size === pinArray.length && !pinArray.includes("");
@@ -61,6 +92,7 @@ const MPinRelatedUi = ({ isPriceScreen }) => {
 
     // PIN is invalid if digits are not unique, or if they are in ascending/descending order
     return isUnique && !isConsecutiveAsc && !isConsecutiveDesc;
+// >>>>>>> master
   };
 
   const handleSubmit = async () => {

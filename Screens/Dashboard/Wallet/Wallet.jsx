@@ -16,7 +16,9 @@ const Wallet = () => {
     <View style={styles.container}>
       <CustomeAppbar title="Wallet" onBack={() => navigation.goBack()} />
       <View style={{ height: 100 }} />
+
       <WalletFirstCard />
+
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
         showsVerticalScrollIndicator={false}

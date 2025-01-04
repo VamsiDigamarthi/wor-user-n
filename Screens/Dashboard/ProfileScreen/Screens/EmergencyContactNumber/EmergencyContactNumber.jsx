@@ -1,30 +1,38 @@
 import React, { useState, useEffect } from "react";
 import {
-  Pressable,
+  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
+
+  FlatList,
+  Pressable,
   Alert,
 } from "react-native";
-import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
-import { useSelector } from "react-redux";
-import { FlatList, Image } from "react-native";
-import { pickContact } from "react-native-contact-pick"; // Imported the contact picker
 import { showMessage } from "react-native-flash-message";
-import { API } from "../../../../../Constants/url";
+import React, { useEffect, useState } from "react";
 import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
-import ModalUI from "../../../../../Utils/Modal/Modal";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import * as Permissions from "react-native-permissions"; // Import permissions
-
 import topimg from "../../../../../assets/images/emergency-scooty.png";
+import women from "../../../../../assets/images/women.jpg";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
-const EmergencyContactNumber = () => {
+import Contacts from "react-native-contacts";
+import { PermissionsAndroid, Platform } from "react-native";
+import { check, request, PERMISSIONS, RESULTS } from "react-native-permissions";
+import { pickContact } from "react-native-contact-pick"; // Imported the contact picker
+import { API } from "../../../../../Constants/url";
+import { useSelector } from "react-redux";
+
+const ProfileEmergencyContact = () => {
+  const navigation = useNavigation();
   const routes = useRoute();
-
   const { isHomeSafetyScreen } = routes.params || {};
-  const [isAddContactOpen, setIsAddContactOpen] = useState(false);
+  const { token } = useSelector((state) => state.token);
+  const [contacts, setContacts] = useState([]);
+
   const [userBackendContactNumber, setUserBackendContactNumber] =
     useState(null);
   const { token } = useSelector((state) => state.token);
@@ -33,6 +41,7 @@ const EmergencyContactNumber = () => {
   useEffect(() => {
     handlerFetchEmergencyConcats();
   }, []);
+
 
   // Function to check and request permission to access contacts
   const requestContactsPermission = async () => {
@@ -72,6 +81,7 @@ const EmergencyContactNumber = () => {
     }
   };
 
+
   const handlerFetchEmergencyConcats = async () => {
     try {
       const response = await API.get("/captain/emergency-contact", {
@@ -84,12 +94,86 @@ const EmergencyContactNumber = () => {
     } catch (error) {
       showMessage({
         message:
+
+
           error?.response?.data?.message || "Failed to fetch contact numbers",
+
         type: "danger",
         icon: "auto",
       });
     }
   };
+
+  useEffect(() => {
+    handlerFetchEmergencyConcats();
+  }, []);
+
+  // Request and check permissions before opening the contact picker
+  const handlerOpenContactNumber = async () => {
+    if (Platform.OS === "android") {
+      const permissionStatus = await check(PERMISSIONS.ANDROID.READ_CONTACTS);
+      if (permissionStatus === RESULTS.GRANTED) {
+        openContactPicker();
+      } else {
+        const requestStatus = await request(PERMISSIONS.ANDROID.READ_CONTACTS);
+        if (requestStatus === RESULTS.GRANTED) {
+          openContactPicker();
+        } else {
+          Alert.alert(
+            "Permission Denied",
+            "We need contact access to continue."
+          );
+        }
+      }
+    } else {
+      // For iOS, request permission if needed
+      const permissionStatus = await check(PERMISSIONS.IOS.CONTACTS);
+      if (permissionStatus === RESULTS.GRANTED) {
+        openContactPicker();
+      } else {
+        const requestStatus = await request(PERMISSIONS.IOS.CONTACTS);
+        if (requestStatus === RESULTS.GRANTED) {
+          openContactPicker();
+        } else {
+          Alert.alert(
+            "Permission Denied",
+            "We need contact access to continue."
+          );
+        }
+      }
+    }
+  };
+
+  // Function to open the contact picker and handle contact selection
+  const openContactPicker = async () => {
+    try {
+      const contact = await pickContact();
+      if (contact) {
+        // Check if the contact is already in the emergency contacts
+        const existingContact = userBackendContactNumber.find(
+          (e) => e.mobile === contact.phoneNumbers[0].number
+        );
+
+        if (existingContact) {
+          Alert.alert(
+            "This Contact is already Added to your Emergency Contacts"
+          );
+          return; // Return early to prevent further actions
+        }
+
+        // Save new contact if it's not already in the list
+        handlerSaveContactNumberToBackend(contact);
+      }
+    } catch (error) {
+      console.error("Error picking contact:", error);
+      showMessage({
+        message: "Failed to pick contact.",
+        type: "danger",
+        icon: "auto",
+      });
+    }
+  };
+
 
   const handlerSaveContactNumberToBackend = async (contact) => {
     try {
@@ -125,6 +209,7 @@ const EmergencyContactNumber = () => {
     }
   };
 
+  // Delete emergency contact
   const handlerDeleteContactNumber = async (contactNumber) => {
     try {
       const response = await API.patch(
@@ -139,32 +224,55 @@ const EmergencyContactNumber = () => {
       );
       handlerFetchEmergencyConcats();
       showMessage({
-        message: response?.data?.message || "Successfully Deleted..! ",
+        message: response?.data?.message || "Successfully Deleted!",
         type: "success",
         icon: "auto",
       });
     } catch (error) {
       showMessage({
         message:
-          error?.response?.data?.message || "failed to delete contact number",
+          error?.response?.data?.message || "Failed to delete contact number",
         type: "danger",
         icon: "auto",
       });
     }
   };
 
-  const renderContact = ({ item }) => (
-    <View style={styles.numberCard}>
-      <Pressable onPress={() => handlerSaveContactNumberToBackend(item)}>
-        <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
-          <View style={styles.contactImage}></View>
-          <View>
-            <Text style={{ fontWeight: "bold", fontSize: 14 }}>
-              {item.name}
-            </Text>
-            {item.mobile && (
-              <Text style={styles.mobileText}>{item.mobile}</Text>
-            )}
+  const renderContact = ({ item }) => {
+    return (
+      <View style={styles.numberCard}>
+        <Pressable onPress={() => handlerSaveContactNumberToBackend(item)}>
+          <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
+            <View
+              style={{
+                backgroundColor: "#fff",
+                height: 60,
+                width: 60,
+                borderRadius: 60,
+                backgroundColor: "#d9dadb",
+              }}
+            ></View>
+
+            <View>
+              {item?.name && (
+                <Text style={{ fontWeight: "bold", fontSize: 14 }}>
+                  {item?.name}
+                </Text>
+              )}
+              {item?.mobile && (
+                <Text
+                  style={{
+                    color: "#757575",
+                    fontWeight: "bold",
+                    fontSize: 14,
+                  }}
+                >
+                  {item?.mobile}
+                </Text>
+              )}
+            </View>
+
+
           </View>
         </View>
       </Pressable>
@@ -179,18 +287,28 @@ const EmergencyContactNumber = () => {
   return (
     <View style={styles.container}>
       <CustomeAppbar
-        title="Emergency Contact Number"
+        title="Emergency Contact"
         onBack={() => navigation.goBack()}
       />
       <View style={{ height: 90 }} />
       <AddTrusted />
       <View style={styles.bottomCard}>
-        {!userBackendContactNumber && <Text>No Contact, you can add</Text>}
-        <FlatList
-          data={userBackendContactNumber}
-          keyExtractor={(item) => item._id}
-          renderItem={renderContact}
-        />
+
+        <Text style={{ fontWeight: "bold", fontSize: 14 }}>
+          You Can Add Up To 5 Numbers
+        </Text>
+        <View style={{ backgroundColor: "#e02e88", height: 2, marginTop: 2 }} />
+        {!userBackendContactNumber && <Text>No Contact You can add</Text>}
+        <View style={{ marginTop: 20 }}>
+          {userBackendContactNumber?.length && (
+            <FlatList
+              data={userBackendContactNumber}
+              keyExtractor={(item) => item._id}
+              renderItem={renderContact}
+            />
+          )}
+        </View>
+
       </View>
       {userBackendContactNumber?.length !== 5 && (
         <TouchableOpacity onPress={handlerOpenContactNumber}>
@@ -205,8 +323,6 @@ const EmergencyContactNumber = () => {
     </View>
   );
 };
-
-export default EmergencyContactNumber;
 
 const styles = StyleSheet.create({
   container: {
@@ -263,3 +379,5 @@ const AddTrusted = () => (
     </View>
   </View>
 );
+
+export default ProfileEmergencyContact;

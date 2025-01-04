@@ -17,6 +17,10 @@ export const useSignUpRelatedHook = ({ mobile }) => {
     dob: "",
     email: "",
     address: "",
+// <<<<<<< changes-from-last-4-days
+//     emergencyContact: "100",
+// =======
+// >>>>>>> master
     role: "user",
     referalCode: "",
     mobile,

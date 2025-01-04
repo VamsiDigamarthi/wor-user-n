@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -19,14 +19,20 @@ import OtpInfoUi from "../../InfoUi/OtpInfoUi";
 import { otpInfo } from "../../InfoUi/data/infoData";
 
 const OtpRelatedInput = ({ btnShow = true }) => {
-  const { otp, handleChange, handleKeyPress, inputs } = useOtpComHook();
+  const {
+    otp,
+    handleChange,
+    handleKeyPress,
+    inputs,
+    resendOtp,
+    openResendBtn,
+  } = useOtpComHook();
 
   const route = useRoute();
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const { mobile, termsAndCondition, message } = route.params;
-
   const [otpError, setOtpError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -129,9 +135,11 @@ const OtpRelatedInput = ({ btnShow = true }) => {
             />
           ))}
         </View>
-        <View style={styles.resentOtpCard}>
-          <Text style={{ color: "#E02E88", fontSize: 13 }}>Resend Otp</Text>
-        </View>
+        {openResendBtn && (
+          <Pressable onPress={() => resendOtp()} style={styles.resentOtpCard}>
+            <Text style={{ color: "#E02E88", fontSize: 13 }}>Resend Otp</Text>
+          </Pressable>
+        )}
         {otpError && (
           <View style={styles.errorCard}>
             <Text style={styles.errorMsg}>{otpError}</Text>
