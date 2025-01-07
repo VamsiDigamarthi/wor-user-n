@@ -1,27 +1,27 @@
 import {
   ActivityIndicator,
-  Image,
-  Pressable,
+  Dimensions,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
   View,
 } from "react-native";
-import React from "react";
 import CaptainTime from "../../../Components/Dashboard/CaptainAcceptCom/CaptainTime/CaptainTime";
 import CaptainRideOpt from "../../../Components/Dashboard/CaptainAcceptCom/CaptainRideOtp/CaptainRideOpt";
 import CaptainDetails from "../../../Components/Dashboard/CaptainAcceptCom/CaptainDetails/CaptainDetails";
 import RatingMsgCall from "../../../Components/Dashboard/CaptainAcceptCom/RatingMsgCall/RatingMsgCall";
 import ReferAndEarn from "../../../Components/Dashboard/CaptainAcceptCom/ReferAndEarn/ReferAndEarn";
-import RatingCard from "../../../Components/Dashboard/CaptainAcceptCom/RatingCard/RatingCard";
 import { useCaptainAcceptRideHook } from "./CaptainAcceptRide.hook";
-import { coordinationMap } from "../../../Constants/displaylocationmap";
 import CaptainAcceptRideDetails from "../../../Components/Dashboard/CaptainAcceptCom/CaptainAcceptRideDetails/CaptainAcceptRideDetails";
 import RideDetailAmount from "../../../Components/Dashboard/CaptainAcceptCom/RideDetails/RideDetailAmount";
 import CaptainRideCompletePriceCard from "../../../Components/Dashboard/CaptainAcceptCom/CapatinRideComplete/CaptainRideCompletePriceCard";
 import ShowPollyLine from "../../../Components/Dashboard/ShowPrices/ShowPollyLine/ShowPollyLine";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
+
 import { useNavigation } from "@react-navigation/native";
+import { useCallback, useMemo, useRef, useState } from "react";
+import { COLORS } from "../../../Constants/colors";
 const CaptainAcceptRide = () => {
   const {
     orderDetails,
@@ -54,6 +54,26 @@ const CaptainAcceptRide = () => {
     });
   };
 
+  const screenHeight = Dimensions.get("window").height;
+  const androidHeight = [screenHeight * 0.57, screenHeight * 0.37]; // Adjust snap points
+  const iosHeight = [screenHeight * 0.15, screenHeight * 0.6];
+
+  const bottomSheetRef = useRef(null);
+  const [mapHeight, setMapHeight] = useState(androidHeight[0]); // Initial map height
+  const snapPoints = useMemo(
+    () => (Platform.OS === "ios" ? iosHeight : androidHeight),
+    []
+  );
+
+  const handleSheetChange = useCallback((index) => {
+    let height = screenHeight * 0.95; // Default map height
+    // console.log(index);
+    if (index === 1) {
+      height = screenHeight * 0.6; // Map height at middle snap point
+    }
+    setMapHeight(height);
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.mapContainer}>
@@ -61,7 +81,7 @@ const CaptainAcceptRide = () => {
           <ShowPollyLine
             origin={otpVerified ? pickCoor : orderDetails?.captainCoor}
             destination={otpVerified ? drop : pickCoor}
-            height={460}
+            height={mapHeight}
             liveCoordinates={liveCoordinates}
           />
         ) : (
@@ -72,7 +92,7 @@ const CaptainAcceptRide = () => {
           </View>
         )}
       </View>
-      <View style={styles.mapFullCardIocn}>
+      {/* <View style={styles.mapFullCardIocn}>
         <Pressable onPress={onShowFullMap}>
           <MaterialCommunityIcons
             name="checkbox-blank-outline"
@@ -80,13 +100,20 @@ const CaptainAcceptRide = () => {
             size={30}
           />
         </Pressable>
-      </View>
-      <ScrollView
-        contentContainerStyle={styles.scrollContainer}
-        showsVerticalScrollIndicator={false}
+      </View> */}
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={1} // Initial snap point
+        snapPoints={snapPoints}
+        onChange={handleSheetChange}
+        enablePanDownToClose={false} // Prevent closing
+        style={styles.bottomSheet} // Apply custom styles
+        backgroundStyle={styles.backgroundStyle} // Set pink background
+        handleIndicatorStyle={styles.handleIndicator}
       >
-        <View style={styles.bottomSheet}>
-          <Text style={styles.text}></Text>
+        <BottomSheetScrollView contentContainerStyle={styles.sheetContent}>
+          {/* <View style={styles.bottomSheet}> */}
+          {/* <Text style={styles.text}></Text> */}
           <View
             style={{
               width: "100%",
@@ -130,10 +157,11 @@ const CaptainAcceptRide = () => {
               travellingTimeAndDistnace={travellingTimeAndDistnace}
             />
           )}
-          <ReferAndEarn />
+          {/* <ReferAndEarn /> */}
           {/* <RatingCard /> */}
-        </View>
-      </ScrollView>
+          {/* </View> */}
+        </BottomSheetScrollView>
+      </BottomSheet>
     </View>
   );
 };
@@ -159,12 +187,23 @@ const styles = StyleSheet.create({
   },
   mapContainer: {
     width: "100%",
-    height: 460,
+    height: "100%",
     position: "absolute",
     top: 0,
     left: 0,
     right: 0,
     backgroundColor: "red",
+  },
+  sheetContent: {
+    // padding: 20,
+    paddingHorizontal: 10,
+    backgroundColor: COLORS.bottomSheetBg,
+    gap: 10,
+  },
+  contentText: {
+    fontSize: 16,
+    // lineHeight: 24,
+    marginBottom: 10,
   },
   scrollContainer: {
     paddingTop: 430,
@@ -178,31 +217,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   bottomSheet: {
-    width: "100%",
-    height: "fit-content",
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 8,
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
-    paddingBottom: 28,
-    backgroundColor: "#fff5f9",
-    paddingBottom: 50,
+    borderTopLeftRadius: 20, // Top-left corner radius
+    borderTopRightRadius: 20, // Top-right corner radius
   },
-  text: {
-    width: 80,
-    height: 3,
-    backgroundColor: "grey",
-    borderRadius: 100,
-  },
-  mapFullCardIocn: {
-    position: "absolute",
-    top: 30,
-    right: 30,
-    backgroundColor: "#fff",
-    zIndex: 99,
-    padding: 0,
+  backgroundStyle: {
+    backgroundColor: COLORS.bottomSheetBg,
+    gap: 5, // Pink background color for BottomSheet
   },
 });

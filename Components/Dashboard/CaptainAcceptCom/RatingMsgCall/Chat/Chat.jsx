@@ -18,7 +18,7 @@ const Chat = () => {
   const { orderId, captainDetails } = route.params || {};
 
   const fetchPreviousMessage = async () => {
-    //   console.log(orderId);
+    console.log(orderId);
     try {
       const response = await API.get(`/support-chat/ride-chat/${orderId}`, {
         headers: {
@@ -76,18 +76,19 @@ const Chat = () => {
     setMessage("");
   }, [message, orderId]);
 
-  //   console.log(message);
+  // console.log(messages);
 
   return (
     <View style={styles.container}>
       <ChatHead captainDetails={captainDetails} />
-      <View style={{ padding: 10 }}>
+      <View style={{ padding: 10, marginBottom: 170 }}>
         <FlatList
           data={messages}
           keyExtractor={(item, index) => item.timestamp + index} // Ensure uniqueness by appending index
           renderItem={({ item }) => (
             <ChatMessage text={item.text} type={item.sender} />
           )}
+          showsVerticalScrollIndicator={false}
         />
       </View>
       <ChatInput

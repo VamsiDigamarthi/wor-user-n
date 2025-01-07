@@ -4,8 +4,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
+  FlatList,
 } from "react-native";
-import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { usePoliceStatonsHook } from "./PoliceStatons.hook";
 import UnorderList from "./components/UnorderList";
@@ -35,7 +35,7 @@ export default function PoliceStatons({ onPress }) {
       <UnorderList instructions={instructions} />
 
       {policeStation?.length > 0 ? (
-        <BottomSheetFlatList
+        <FlatList
           data={policeStation}
           keyExtractor={(item) => item?.place_id}
           renderItem={({ item }) => (
@@ -58,8 +58,8 @@ export default function PoliceStatons({ onPress }) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
-    padding: 20,
-    marginTop: 10,
+    padding: 10,
+    // marginTop: 10,
     borderRadius: 5,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },

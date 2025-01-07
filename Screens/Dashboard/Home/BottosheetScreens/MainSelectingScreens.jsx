@@ -35,19 +35,19 @@ export default function MainSelectingScreens({ onPress }) {
       <CustomImageComp
         image1={spamimage}
         image2={spamimage}
-        text1="Security Spam Calls"
+        text1="Fake Calls"
         text2="WoR Support"
         click1={() => onPress("spam")}
         click2={() => onPress("chat")}
       />
-      <CustomImageComp
+      {/* <CustomImageComp
         image1={callimage}
         image2={policestation}
         text1="Women Helpline 1092"
         text2="Nearby Police Station"
         click1={() => onPress("main")}
         click2={() => onPress("police")}
-      />
+      /> */}
     </>
   );
 }
@@ -57,11 +57,15 @@ function CustomImageComp({ image1, image2, text1, text2, click1, click2 }) {
     <View style={styles.imageRow}>
       <TouchableOpacity onPress={click1} style={{ alignItems: "center" }}>
         <Image source={image1} style={styles.iconImage} />
-        <Text style={{ width: "80%", textAlign: "center" }}>{text1}</Text>
+        <Text style={{ width: "100%", fontSize: 10, textAlign: "center" }}>
+          {text1}
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={click2} style={{ alignItems: "center" }}>
         <Image source={image2} style={styles.iconImage} />
-        <Text style={{ width: "80%", textAlign: "center" }}>{text2}</Text>
+        <Text style={{ width: "100%", fontSize: 10, textAlign: "center" }}>
+          {text2}
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -71,13 +75,13 @@ const styles = StyleSheet.create({
   imageRow: {
     flexDirection: "row",
     justifyContent: "space-around",
-    marginVertical: 10,
+    marginVertical: 5,
     width: "100%",
   },
 
   iconImage: {
-    height: 100,
-    width: 100,
+    height: 60,
+    width: 60,
     resizeMode: "contain",
   },
 });

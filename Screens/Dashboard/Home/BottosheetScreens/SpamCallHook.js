@@ -32,7 +32,7 @@ export const useFakeCallHook = () => {
   };
 
   const handlerNavigateEmergencyConcatScreen = () => {
-    navigation.navigate("ProfileEmergencyContact", {
+    navigation.navigate("EmergencyContactNumber", {
       isHomeSafetyScreen: true,
     });
   };

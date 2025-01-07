@@ -64,8 +64,9 @@ const LookingForRide = () => {
 
   return (
     <View style={styles.container}>
-      <View style={[styles.mapContainer, { height: mapHeight }]}>
+      <View style={[styles.mapContainer]}>
         <ShowPollyLine
+          height={mapHeight}
           origin={pickUpCoordinated}
           destination={dropAddress?.location}
         />
