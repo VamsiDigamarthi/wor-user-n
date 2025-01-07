@@ -154,22 +154,20 @@ const ShowPrice = () => {
     bottomSheetRefSOS.current?.present();
   }, []);
 
-  const [screen, setScreen] = useState("main");
-  const changeScreen = (screen) => {
-    setScreen(screen);
-  };
-
   return (
     <View style={styles.container}>
       <CustomeAppbar
         title="Book Your Ride"
         onBack={() => navigation.goBack()}
-
         rightText="Support"
         navigationText="FaqHome"
-
       />
-      <View style={[styles.mapContainer, { height: mapHeight }]}>
+      <View
+        style={[
+          styles.mapContainer,
+          // { height: mapHeight }
+        ]}
+      >
         <ShowPollyLine
           origin={pickUpCoordinated}
           destination={dropDetails?.location}
@@ -231,18 +229,6 @@ const ShowPrice = () => {
             )}
           </View>
         </BottomSheetScrollView>
-        {/* <CustomBottomSheet
-          bottomSheetRef={bottomSheetRefSOS}
-          bgcolor="#fff5f9"
-          snapPoints={["50%", "70%"]}
-          manualCloseSheet={() => setScreen("main")}
-        >
-          {screen === "main" && <MainSelectingScreens onPress={changeScreen} />}
-          {screen === "liveloc" && <LiveLocation onPress={changeScreen} />}
-          {screen === "spam" && <SpamCallSheet onPress={changeScreen} />}
-          {screen === "police" && <PoliceStatons onPress={changeScreen} />}
-          {screen === "chat" && <ChatWithCaptain onPress={changeScreen} />}
-        </CustomBottomSheet> */}
       </BottomSheet>
       <View style={styles.coupneWithBtn}>
         <View style={styles.couponTextCard}>
@@ -347,6 +333,7 @@ const styles = StyleSheet.create({
   },
   mapContainer: {
     width: "100%",
+    height: "100%",
   },
   mapImage: {
     width: "100%",
@@ -394,9 +381,9 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "#fff",
     paddingHorizontal: 25,
-    paddingVertical: 20,
+    paddingVertical: 10,
     gap: 20,
-    height: 180,
+    // height: 180,
     alignItems: "center",
     position: "absolute",
     bottom: 0,

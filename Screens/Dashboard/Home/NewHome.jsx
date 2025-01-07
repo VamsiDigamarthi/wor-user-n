@@ -29,12 +29,6 @@ import OtpInfoUi from "../../../Components/InfoUi/OtpInfoUi";
 import AllowNotification from "../../../Utils/AllowNotification/AllowNotification";
 import FutureOrderBox from "../../../Components/FutureOrderBox/FutureOrderBox";
 import { StatusBar } from "expo-status-bar";
-import MainSelectingScreens from "./BottosheetScreens/MainSelectingScreens";
-import CustomBottomSheet from "../../../Utils/BottomSheetForMap/BottomSheet";
-import LiveLocation from "./BottosheetScreens/LiveLocation";
-import SpamCallSheet from "./BottosheetScreens/SpamCallSheet";
-import PoliceStatons from "./BottosheetScreens/PoliceStatons";
-import ChatWithCaptain from "./BottosheetScreens/components/ChatUi/ChatWithCaptain";
 
 const screenHeight = Dimensions.get("window").height;
 // <<<<<<< changes-from-last-4-days
@@ -46,7 +40,6 @@ const iosHeight = [screenHeight * 0.15, screenHeight * 0.6];
 
 const NewHome = () => {
   const bottomSheetRef = useRef(null);
-  const bottomSheetRefSOS = useRef(null);
 
   const [mapHeight, setMapHeight] = useState(androidHeight[0]); // Initial map height
   const snapPoints = useMemo(
@@ -75,14 +68,6 @@ const NewHome = () => {
   };
 
   const navigation = useNavigation();
-  const handleOpenSafetySheet = useCallback(() => {
-    bottomSheetRefSOS.current?.present();
-  }, []);
-
-  const [screen, setScreen] = useState("main");
-  const changeScreen = (screen) => {
-    setScreen(screen);
-  };
 
   const {
     location,
@@ -110,7 +95,13 @@ const NewHome = () => {
       <StatusBar style="dark" />
       <View style={styles.container}>
         {/* Map Container */}
-        <View style={[styles.mapContainer, { height: mapHeight }]}>
+        <View
+          style={[
+            styles.mapContainer,
+
+            // { height: mapHeight }
+          ]}
+        >
           {!location || location == null || location == undefined ? (
             <View style={styles.loadingWrapper}>
               <ActivityIndicator color="#e02e88" size={30} />
@@ -119,7 +110,7 @@ const NewHome = () => {
             <HomeMap
               captainMarkers={captainMarkers}
               location={location}
-              height={mapHeight}
+              // height={mapHeight}
               handleOpenSafetyModal={toggleCloseSOS}
             />
           )}
@@ -167,37 +158,8 @@ const NewHome = () => {
                 <View style={{ height: 10 }} />
                 <SliderComponent />
                 <BackgroundImage />
-                <Button title="notification" onPress={onHandleOpenInfoModal} />
+                {/* <Button title="notification" onPress={onHandleOpenInfoModal} /> */}
               </View>
-
-              <ModalUI
-                openCloseState={isOpenCloseSOS}
-                closeModalFun={toggleCloseSOS}
-                modalStyle="slide"
-                style={[infoModalStyles.aadharModalStyles]}
-                insideCardStyle={[
-                  infoModalStyles.insideCardStyle,
-                  { justifyContent: "space-between" },
-                ]}
-                // btnText="Okay, Got It"
-                btnStyles={infoModalStyles.modalCloseBtn}
-                btnTextStyle={infoModalStyles.btnTextStyle}
-                closebtn={false}
-              >
-                {screen === "main" && (
-                  <MainSelectingScreens onPress={changeScreen} />
-                )}
-                {screen === "liveloc" && (
-                  <LiveLocation onPress={changeScreen} />
-                )}
-                {screen === "spam" && <SpamCallSheet onPress={changeScreen} />}
-                {screen === "police" && (
-                  <PoliceStatons onPress={changeScreen} />
-                )}
-                {screen === "chat" && (
-                  <ChatWithCaptain onPress={changeScreen} />
-                )}
-              </ModalUI>
             </BottomSheetScrollView>
           </ImageBackground>
         </BottomSheet>
