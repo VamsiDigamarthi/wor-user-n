@@ -4,7 +4,6 @@ import { View, Animated, StyleSheet, Text } from "react-native";
 const ProgressBar = ({ progressWidth }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Waiting for captain to accept the ride...</Text>
       <View style={styles.progressBarContainer}>
         <View style={styles.grayBar} />
         <Animated.View style={[styles.pinkBar, { width: progressWidth }]} />

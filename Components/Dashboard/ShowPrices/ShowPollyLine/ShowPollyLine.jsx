@@ -222,5 +222,6 @@ const styles = StyleSheet.create({
   },
   map: {
     ...StyleSheet.absoluteFillObject,
+    bottom: 200,
   },
 });

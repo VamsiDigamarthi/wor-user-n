@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 import CaptainTime from "../../../Components/Dashboard/CaptainAcceptCom/CaptainTime/CaptainTime";
@@ -20,11 +21,12 @@ import ShowPollyLine from "../../../Components/Dashboard/ShowPrices/ShowPollyLin
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 
 import { useNavigation } from "@react-navigation/native";
-
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
 
 import { useCallback, useMemo, useRef, useState } from "react";
 import { COLORS } from "../../../Constants/colors";
+import RideDetailsItem from "../../../Components/Dashboard/CaptainAcceptCom/RideDetails/RideDetailsItem";
 
 const CaptainAcceptRide = () => {
   const {
@@ -122,7 +124,6 @@ const CaptainAcceptRide = () => {
         style={styles.bottomSheet} // Apply custom styles
         backgroundStyle={styles.backgroundStyle} // Set pink background
         handleIndicatorStyle={styles.handleIndicator}
-
       >
         <BottomSheetScrollView contentContainerStyle={styles.sheetContent}>
           {/* <View style={styles.bottomSheet}> */}
@@ -130,15 +131,18 @@ const CaptainAcceptRide = () => {
           <View
             style={{
               width: "100%",
-              elevation: 1,
-              borderRadius: 10,
+              // elevation: 1,
+              borderBottomWidth: otpVerified ? 0 : 1,
+              borderStyle: "dashed",
+              paddingBottom: otpVerified ? 0 : 5,
+              // borderRadius: 10,
               overflow: "hidden",
             }}
           >
-            <CaptainTime
+            {/* <CaptainTime
               title={otpVerified ? "Total Ride Time" : "Rider on the way"}
               time={travellingTimeAndDistnace?.durationInMinutes ?? "03:59"}
-            />
+            /> */}
             {!otpVerified && (
               <CaptainRideOpt orderOtp={orderDetails?.orderOtp} />
             )}
@@ -151,18 +155,26 @@ const CaptainAcceptRide = () => {
               captainDetails={orderDetails?.acceptCaptain} // this prop display user profile in chat header
             />
           </View>
-          {!otpVerified && (
+          {/* {!otpVerified && (
             <CaptainAcceptRideDetails
               travellingTimeAndDistnace={travellingTimeAndDistnace}
               orderDetails={orderDetails}
             />
-          )}
+          )} */}
+
           {otpVerified && (
-            <CaptainRideCompletePriceCard
+            <RideDetailsItem
               travellingTimeAndDistnace={travellingTimeAndDistnace}
               orderDetails={orderDetails}
             />
           )}
+
+          {/* {otpVerified && (
+            <CaptainRideCompletePriceCard
+              travellingTimeAndDistnace={travellingTimeAndDistnace}
+              orderDetails={orderDetails}
+            />
+          )} */}
           {otpVerified && (
             <RideDetailAmount
               payButton={true}
@@ -170,6 +182,8 @@ const CaptainAcceptRide = () => {
               travellingTimeAndDistnace={travellingTimeAndDistnace}
             />
           )}
+
+          {!otpVerified && <HomeCopyBox />}
           {/* <ReferAndEarn /> */}
           {/* <RatingCard /> */}
           {/* </View> */}
@@ -180,6 +194,18 @@ const CaptainAcceptRide = () => {
 };
 
 export default CaptainAcceptRide;
+
+function HomeCopyBox() {
+  return (
+    <View style={styles.copyBox}>
+      <Text>Invite Your Friends to women rider</Text>
+      <TouchableOpacity style={styles.copyBtn}>
+        <Text style={{ fontWeight: "bold" }}>Code : GOWOR</Text>
+        <MaterialCommunityIcons name="content-copy" size={24} color="black" />
+      </TouchableOpacity>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -195,8 +221,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 10,
     // borderWidth: 1,
-    elevation: 1,
-    borderColor: "#ffe2e6",
+    // elevation: 1,
+    // borderColor: "#ffe2e6",
   },
   mapContainer: {
     width: "100%",
@@ -230,11 +256,32 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   bottomSheet: {
-    borderTopLeftRadius: 20, // Top-left corner radius
-    borderTopRightRadius: 20, // Top-right corner radius
+    overflow: "hidden",
+    borderTopLeftRadius: 35, // Top-left corner radius
+    borderTopRightRadius: 35, // Top-right corner radius
   },
   backgroundStyle: {
     backgroundColor: COLORS.bottomSheetBg,
     gap: 5, // Pink background color for BottomSheet
+  },
+
+  copyBox: {
+    marginTop: 10,
+    padding: 10,
+    height: 120,
+    borderRadius: 20,
+    gap: 10,
+    // alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#F2F0F5",
+  },
+  copyBtn: {
+    flexDirection: "row",
+    gap: 10,
+    padding: 8,
+    borderRadius: 10,
+    borderWidth: 1,
+    width: 160,
+    borderStyle: "dashed",
   },
 });

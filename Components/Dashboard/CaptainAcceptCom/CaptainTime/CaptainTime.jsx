@@ -22,8 +22,8 @@ const styles = StyleSheet.create({
     padding: 15,
     // borderRadius: 10,
     // borderWidth: 1,
-    borderColor: "#ffe2e6",
-    elevation: 1,
+    // borderColor: "#ffe2e6",
+    // elevation: 1,
     // shadowColor: "red",
   },
   pinkText: {

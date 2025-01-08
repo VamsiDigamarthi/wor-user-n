@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { Octicons } from "@expo/vector-icons";
 import {
   StyleSheet,
@@ -98,8 +99,9 @@ const MapWithFixedMarker = ({ navigation }) => {
               </Pressable>
             </View>
           </View> */}
+
           <View style={styles.coordinateAddressCard}>
-            <Octicons name="dot" size={30} color="#e02e88" />
+            <Ionicons name="location-sharp" size={24} color="green" />
             <View style={styles.coorlocationCard}>
               <Text style={{ fontSize: 18, fontWeight: "600" }}>
                 {finalSelecetLocationNameWithCoordinates?.name?.split(",")?.[0]}
@@ -118,6 +120,7 @@ const MapWithFixedMarker = ({ navigation }) => {
 
           <CustomBtn
             title="Save"
+            // borderRadius={10}
             btnBg="#e02e88"
             btnColor="#fff"
             onPress={onNavigateShowPriceScreen}
@@ -159,9 +162,11 @@ const styles = StyleSheet.create({
     fontSize: 24, // Emoji size for the marker
   },
   coordinatesContainer: {
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
     position: "absolute",
-    bottom: 20,
-    backgroundColor: "rgba(255, 255, 255, 0.8)",
+    bottom: 0,
+    backgroundColor: "#fff",
     // padding: 10,
     borderRadius: 8,
     gap: 10,
@@ -198,7 +203,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   coordinateAddressCard: {
-    backgroundColor: "#fcfbf7",
+    backgroundColor: "#F7F7F7",
     borderWidth: 1,
     borderColor: "#e8e8e8",
     flexDirection: "row",

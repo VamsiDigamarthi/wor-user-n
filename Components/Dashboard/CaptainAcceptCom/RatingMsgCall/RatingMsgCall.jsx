@@ -15,14 +15,15 @@ const RatingMsgCall = ({ otpVerified, orderId, captainDetails }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.ratingCard}>
+      {/* <View style={styles.ratingCard}>
         <Text style={styles.ratingText}>4.3</Text>
         <Ionicons name="star" size={20} color="#e02e88" />
-      </View>
+      </View> */}
       {!otpVerified && (
         <View style={styles.messageCard}>
           {/* <TextInput placeholder="Message Dharani" /> */}
           <TouchableOpacity
+            style={{ justifyContent: "center" }}
             onPress={() => {
               navigation.navigate("Chat", { orderId, captainDetails });
             }}
@@ -38,7 +39,7 @@ const RatingMsgCall = ({ otpVerified, orderId, captainDetails }) => {
           <Ionicons name="call" size={20} color="#e02e88" />
         </View>
       )}
-      {otpVerified && (
+      {/* {otpVerified && (
         <View style={styles.supportCard}>
           <View style={styles.supportSingleCard}>
             <MaterialIcons name="support-agent" size={20} color="#e02e88" />
@@ -51,7 +52,7 @@ const RatingMsgCall = ({ otpVerified, orderId, captainDetails }) => {
             </Text>
           </View>
         </View>
-      )}
+      )} */}
     </View>
   );
 };
@@ -80,26 +81,29 @@ const styles = StyleSheet.create({
     height: 38,
   },
   ratingText: {
-    color: "#e02e88",
+    color: "#808080",
     fontWeight: "700",
   },
   messageCard: {
-    width: "60%",
-    borderRadius: 20,
+    width: "85%",
+    borderRadius: 10,
     borderWidth: 1,
     borderColor: "#e02e88",
-    padding: 4,
+    // padding: 4,
+
     paddingHorizontal: 10,
-    height: 38,
+    height: 50,
+    justifyContent: "center",
   },
   callCard: {
-    borderRadius: 20,
+    borderRadius: 10,
     borderWidth: 1,
     borderColor: "#e02e88",
     paddingHorizontal: 7,
     justifyContent: "center",
     alignItems: "center",
-    height: 38,
+    height: 50,
+    width: "15%",
   },
   supportCard: {
     width: "70%",

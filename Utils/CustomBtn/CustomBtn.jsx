@@ -143,6 +143,7 @@ import {
 const CustomBtn = ({
   title,
   onPress,
+  borderRadius = 25,
   btnColor,
   btnBg,
   width = "100%",
@@ -152,7 +153,12 @@ const CustomBtn = ({
   borderColor,
 }) => {
   return (
-    <View style={[styles.container, { width: width, height: height }]}>
+    <View
+      style={[
+        styles.container,
+        { width: width, height: height, borderRadius: borderRadius },
+      ]}
+    >
       <Pressable
         android_ripple={{
           color: "#E02E88", // Set ripple color
@@ -164,6 +170,7 @@ const CustomBtn = ({
             backgroundColor: pressed ? "#f2f2f2" : btnBg, // Optional background change when pressed
             borderWidth: borderWidth, // Apply border width dynamically
             borderColor: borderColor, // Apply border color dynamically
+            borderRadius: borderRadius,
           },
         ]}
         onPress={onPress}
@@ -187,7 +194,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 50,
     overflow: "hidden",
-    borderRadius: 25,
   },
   pressable: {
     flexDirection: "row",
@@ -196,7 +202,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     width: "100%",
     height: "100%",
-    borderRadius: 25, // Ensure the button has rounded corners
   },
   buttonText: {
     fontSize: 16,

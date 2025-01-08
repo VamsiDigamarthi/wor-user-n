@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
   inputCard: {
-    width: "100%",
+    // width: "100%",
     height: 55,
     // elevation: 1,
     borderRadius: 5,
@@ -176,6 +176,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 3,
     borderRadius: 30,
+    width: "97%",
+    marginHorizontal: "auto",
     // position: "absolute",
     zIndex: 3,
     backgroundColor: COLORS.desBackground,
