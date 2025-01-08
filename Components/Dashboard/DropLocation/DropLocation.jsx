@@ -3,6 +3,8 @@ import DropLocationItem from "./Components/DropLocationItem/DropLocationItem";
 import { useDropLocationHook } from "./DropLocation.hook";
 import { FontAwesome } from "@expo/vector-icons";
 import { COLORS } from "../../../Constants/colors";
+import Fontisto from "@expo/vector-icons/Fontisto";
+import Ionicons from "@expo/vector-icons/Ionicons";
 const DropLocation = ({
   nearByRandomItems,
   placeName,
@@ -49,25 +51,22 @@ const DropLocation = ({
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.inputCard}>
+    <View style={[styles.container]}>
+      <View style={[styles.inputCard]}>
         <Pressable
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            gap: 10,
-            width: "80%",
-            // backgroundColor: "red",
-          }}
+          style={[
+            {
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 10,
+              width: "80%",
+              // backgroundColor: "red",
+            },
+          ]}
           onPress={handleNavigate.bind(this, false)}
         >
-          <FontAwesome
-            name="location-arrow"
-            style={{ marginRight: 5 }}
-            size={27}
-            color="#E02E88"
-          />
-          <View style={styles.inputTypeCard}>
+          <Fontisto name="search" size={22} color="black" />
+          <View style={[styles.inputTypeCard]}>
             <Text
               style={{
                 fontWeight: "800",
@@ -75,18 +74,18 @@ const DropLocation = ({
                 color: "gray",
               }}
             >
-              Enter Destination Location
+              Search Destination
             </Text>
           </View>
         </Pressable>
         <Pressable
           onPress={handleNavigate.bind(this, true)}
-          style={styles.miceIconcard}
+          style={[styles.miceIconcard]}
         >
-          <FontAwesome size={26} color="#e02e88" name="microphone" />
+          <FontAwesome size={22} color="#e02e88" name="microphone" />
         </Pressable>
       </View>
-      <View style={styles.innerCard}>
+      <View style={[styles.innerCard]}>
         {randomFavoritePlace?.length > 0 &&
           randomFavoritePlace?.map((eachPlace, key) => (
             <DropLocationItem
@@ -136,14 +135,12 @@ const DropLocation = ({
 export default DropLocation;
 
 const styles = StyleSheet.create({
+  allborder: { borderWidth: 1, borderColor: "red" },
   container: {
     width: "100%",
     position: "relative",
     height: 240,
     marginBottom: 8,
-    // elevation: 1,
-    // backgroundColor: "red",
-    // gap: 10,
   },
   innerCard: {
     backgroundColor: "#fdfdfd",
@@ -157,8 +154,8 @@ const styles = StyleSheet.create({
     left: 0,
     width: "100%",
     zIndex: 2,
-    borderBottomRightRadius: 10,
-    borderBottomLeftRadius: 10,
+    // borderBottomRightRadius: 10,
+    // borderBottomLeftRadius: 10,
     // borderWidth: 1,
     borderColor: "#ffe2e6",
     gap: 10,
@@ -169,23 +166,17 @@ const styles = StyleSheet.create({
   },
   inputCard: {
     width: "100%",
-    height: 56,
-    elevation: 1,
-    shadowColor: "red",
-    borderColor: "#ffe2e6",
+    height: 55,
+    // elevation: 1,
     borderRadius: 5,
     paddingHorizontal: 20,
-    elevation: 2,
-    backgroundColor: "white",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
+    // elevation: 2,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     gap: 3,
     borderRadius: 30,
-    position: "absolute",
+    // position: "absolute",
     zIndex: 3,
     backgroundColor: COLORS.desBackground,
   },
@@ -196,11 +187,12 @@ const styles = StyleSheet.create({
     // justifyContent: "center",
   },
   miceIconcard: {
-    width: 40,
-    height: 40,
-    // backgroundColor: "red",
+    width: 45,
+    height: 45,
+    backgroundColor: "#fff",
+    borderRadius: 40,
     position: "absolute",
-    top: 6,
+    top: 5,
     right: 10,
     justifyContent: "center",
     alignItems: "center",

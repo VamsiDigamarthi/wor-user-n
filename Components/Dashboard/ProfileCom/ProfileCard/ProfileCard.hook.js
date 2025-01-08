@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import * as ImagePicker from "expo-image-picker";
+import ImagePicker from "react-native-image-crop-picker";
 import { API, imageUrl } from "../../../../Constants/url";
 import Toast from "react-native-toast-message";
 import { getMimeType } from "../../../../Constants/imageAccepts";
@@ -16,26 +16,27 @@ export const useProfileCardHook = () => {
 
   // Function to open the gallery
   const pickImage = async () => {
-    // Request permission to access the media library (gallery)
-    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    try {
+      // Open the image library with cropping enabled
+      const selectedImage = await ImagePicker.openPicker({
+        width: 300, // Crop width
+        height: 300, // Crop height
+        cropping: true, // Enable cropping
+        mediaType: "photo", // Allow only photos
+      });
 
-    if (status !== "granted") {
-      Alert.alert("Permission to access the gallery is required!");
-      return;
-    }
-
-    // Open the image library (gallery) to select an image
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      const selectedImage = result.assets[0];
-      setImageSource({ uri: selectedImage.uri });
-      onProfilePicChange(selectedImage.uri); // Send the image URI for upload
+      // Update the image source
+      setImageSource({ uri: selectedImage.path });
+      onProfilePicChange(selectedImage.path); // Send the image path for upload
+    } catch (error) {
+      if (error.code !== "E_PICKER_CANCELLED") {
+        console.log("Image selection error:", error);
+        Toast.show({
+          text1: "Image selection failed, please try again",
+          type: "error",
+          position: "bottom",
+        });
+      }
     }
   };
 

@@ -9,19 +9,22 @@ const SliderComponent = ({ bottom = 2 }) => {
       id: 1,
       image:
         "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
-      title: "Welcome to Our Service",
+      title: "Scooty",
+      desc: "Scooty Prices have been dropped",
     },
     {
       id: 2,
       image:
         "https://t3.ftcdn.net/jpg/06/15/49/68/360_F_615496890_W34yB8VDE6n5pehb5QCt1ek5oEvRo9qA.jpg",
-      title: "Fast and Reliable",
+      title: "Cab",
+      desc: "Affordable 4 Seaters",
     },
     {
       id: 3,
       image:
         "https://t3.ftcdn.net/jpg/06/15/49/68/360_F_615496890_W34yB8VDE6n5pehb5QCt1ek5oEvRo9qA.jpg",
-      title: "Book a Ride Easily",
+      title: "Auto",
+      desc: "Travel to Local places easily",
     },
   ];
 
@@ -37,8 +40,9 @@ const SliderComponent = ({ bottom = 2 }) => {
     >
       {slides.map((slide) => (
         <View style={styles.slide} key={slide.id}>
-          <Image source={{ uri: slide.image }} style={styles.image} />
+          {/* <Image source={{ uri: slide.image }} style={styles.image} /> */}
           <Text style={styles.title}>{slide.title}</Text>
+          <Text style={styles.desc}>{slide.desc}</Text>
         </View>
       ))}
     </Swiper>
@@ -52,9 +56,11 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   slide: {
+    backgroundColor: "#e02e88",
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
+    // alignItems: "center",
+    padding: 10,
     borderRadius: 10, // Border radius for the container of the image
     overflow: "hidden", // Clip content inside the View to enforce border radius
   },
@@ -65,12 +71,19 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
   title: {
-    position: "absolute",
+    // position: "absolute",
+    // color: "",
     color: "#fff",
     fontSize: 24,
+    textAlign: "left",
     fontWeight: "bold",
-    bottom: 20,
+    // bottom: 20,
   },
+
+  desc: {
+    color: "#fff",
+  },
+
   pagination: {
     bottom: 2, // Position the dots slightly above the bottom
   },

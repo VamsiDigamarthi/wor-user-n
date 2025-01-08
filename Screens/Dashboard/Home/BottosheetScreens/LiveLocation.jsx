@@ -11,22 +11,23 @@ import personIcon from "../../../../assets/images/sosimages/personIcon.png";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import CustomRadioBtn from "../../../../Utils/CustomRadioBtn/CustomRadioBtn";
-import CustomBtn from "../../../../Utils/CustomBtn/CustomBtn";
+import CustomBtn from "../.././../../Utils/CustomBtn/CustomBtn";
+// import PersonIconWithName from "../../../../Components/Dashboard/HomeComponents/BottomSheetComponents/PersonIconWithName";
+import PersonIconWithName from "../../../../Screens/Dashboard/Home/BottosheetScreens/components/PersonIconWithName";
 import { useLiveLocationHook } from "./LiveLocation.hook";
-import PersonIconWithName from "./components/PersonIconWithName";
 
 const radioData = [
   {
     name: "thisRide",
-    actuvalName: "This Ride",
-  },
-  {
-    name: "oneHour",
     actuvalName: "1 Hour",
   },
   {
+    name: "oneHour",
+    actuvalName: "4 Hours",
+  },
+  {
     name: "twoHours",
-    actuvalName: "2 Hours",
+    actuvalName: "Until I Stop",
   },
 ];
 
@@ -36,10 +37,9 @@ export default function LiveLocation({ onPress }) {
     handlerNavigateEmergencyConcatScreen,
     activeRadioBtn,
     handlerChangeActiveRadioBtn,
-    sendToWhatsApp,
+    sendToOtherApps,
+    shareLocation,
   } = useLiveLocationHook();
-
-  // console.log(activeRadioBtn);
 
   return (
     <>
@@ -63,35 +63,54 @@ export default function LiveLocation({ onPress }) {
           <Text style={{ fontSize: 18, fontWeight: "bold" }}>
             Share your ride to your trusted ones for your safety
           </Text>
-          <Text>You can share upto 5 members</Text>
+          <Text>You can share up to 5 members via whatsapp</Text>
         </View>
 
-        <View style={{ flexDirection: "row", gap: 30, flexWrap: "wrap" }}>
+        <View
+          style={{
+            flexDirection: "row",
+            gap: 30,
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            padding: 10,
+          }}
+        >
           {profile?.emergencyContact?.map((each, index) => (
             <PersonIconWithName
               key={index}
               name={each?.name}
               mobile={each?.mobile}
+              onClick={() => shareLocation(each?.mobile)}
             />
           ))}
-        </View>
-        {profile?.emergencyContact?.length < 5 && (
-          <View style={{ position: "absolute", right: 10, bottom: 10 }}>
-            <TouchableOpacity
-              onPress={handlerNavigateEmergencyConcatScreen}
+
+          {/* Conditionally render the 'Add' button based on the number of contacts */}
+          {profile?.emergencyContact?.length < 5 && (
+            <View
               style={{
-                height: 60,
-                width: 60,
-                backgroundColor: "#ff5f39",
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: 20,
+                position: "absolute",
+                right: 10,
+                bottom: 10,
+                display:
+                  profile?.emergencyContact?.length < 5 ? "flex" : "none", // Make sure it's hidden after 5 contacts
               }}
             >
-              <Ionicons name="add-circle-outline" size={30} color="black" />
-            </TouchableOpacity>
-          </View>
-        )}
+              <TouchableOpacity
+                onPress={handlerNavigateEmergencyConcatScreen}
+                style={{
+                  height: 60,
+                  width: 60,
+                  backgroundColor: "#e02e88",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 20,
+                }}
+              >
+                <Ionicons name="add-circle-outline" size={30} color="white" />
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
       </View>
 
       <View style={{ marginTop: 10, gap: 20, width: "100%", padding: 20 }}>
@@ -121,8 +140,8 @@ export default function LiveLocation({ onPress }) {
         </View>
 
         <CustomBtn
-          onPress={sendToWhatsApp}
-          title="Share"
+          onPress={sendToOtherApps}
+          title="Share with other apps"
           btnBg="#e02e88"
           btnColor="#fff"
         />

@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
 import axios from "axios";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { customMapStyle } from "../../../../Constants/mapData";
-import Map3Btn from "../../../../Utils/HomeMap/Map3Btn";
+import Map3Btns from "../../../../Utils/HomeMap/Map3Btn"; // Corrected import
+import MapModalUi from "../../../../Utils/MapModalUi/MapModalUi";
 
 const ShowPollyLine = ({
   origin,
   destination,
-  height = 400,
+  height,
   liveCoordinates,
-  handleOpenSafetySheet, // this is open for bottom sheet
+  handleOpenSafetySheet, // This is open for bottom sheet
 }) => {
   const [routeCoordinates, setRouteCoordinates] = useState([]);
   const [currentPosition, setCurrentPosition] = useState({
@@ -20,7 +21,28 @@ const ShowPollyLine = ({
   });
   const [error, setError] = useState(null);
 
+  const mapRef = useRef(null); // Added mapRef for programmatic control
+  const [toggle, setToggle] = useState(false);
+
   const GOOGLE_MAPS_APIKEY = "AIzaSyAvJUZ3vsynRkQhXSdZL-BIFo26bXH-Al8"; // Replace with your Google Maps API Key
+
+  // Adjust the origin and destination to match MapView expectations
+  const adjustedOrigin = {
+    latitude: origin.lat,
+    longitude: origin.lng,
+  };
+
+  const adjustedDestination = {
+    latitude: destination.lat,
+    longitude: destination.lng,
+  };
+
+  const initialRegion = {
+    latitude: adjustedOrigin.latitude,
+    longitude: adjustedOrigin.longitude,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  }; // Define the initial region
 
   // Fetch the route when the component mounts or when the origin/destination changes
   useEffect(() => {
@@ -39,6 +61,13 @@ const ShowPollyLine = ({
             longitude: point[1],
           }));
           setRouteCoordinates(coordinates);
+
+          if (mapRef.current) {
+            mapRef.current.fitToCoordinates(coordinates, {
+              edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
+              animated: true,
+            });
+          }
         } else {
           setError("No routes found between the selected locations");
         }
@@ -53,7 +82,6 @@ const ShowPollyLine = ({
 
   // Update the marker's position based on live coordinates received from the server
   useEffect(() => {
-    // console.log("live coordinates", liveCoordinates);
     if (liveCoordinates) {
       const { latitude, longitude } = liveCoordinates;
       setCurrentPosition({
@@ -97,29 +125,39 @@ const ShowPollyLine = ({
     return points;
   };
 
-  // Adjust the origin and destination to match MapView expectations
-  const adjustedOrigin = {
-    latitude: origin.lat,
-    longitude: origin.lng,
-  };
+  // Handle zoom to fit the route coordinates
+  const handleResetZoom = useCallback(() => {
+    if (mapRef.current && routeCoordinates.length > 0) {
+      mapRef.current.fitToCoordinates(routeCoordinates, {
+        edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
+        animated: true,
+      });
+    }
+  }, [routeCoordinates]);
 
-  const adjustedDestination = {
-    latitude: destination.lat,
-    longitude: destination.lng,
-  };
-  const handleOpenSafetyModal = () => {};
+  useEffect(() => {
+    // Adjust zoom based on height
+    if (mapRef.current) {
+      const zoomLevel = height > 600 ? 0.01 : 0.05; // Example zoom adjustment
+      mapRef.current.animateToRegion(
+        {
+          latitude: currentPosition.latitude,
+          longitude: currentPosition.longitude,
+          latitudeDelta: zoomLevel,
+          longitudeDelta: zoomLevel,
+        },
+        1000
+      );
+    }
+  }, [height]);
 
   return (
-    <View style={[styles.container, { height }]}>
+    <View style={[styles.container]}>
       <MapView
+        ref={mapRef} // Attach ref to MapView
         style={styles.map}
         poiClickEnabled={false}
-        initialRegion={{
-          latitude: adjustedOrigin.latitude,
-          longitude: adjustedOrigin.longitude,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
+        initialRegion={initialRegion}
         customMapStyle={customMapStyle}
         showsMyLocationButton={false}
         showsCompass={false}
@@ -154,21 +192,23 @@ const ShowPollyLine = ({
             />
           </Marker>
         )}
+
         {/* Polyline for route */}
         {routeCoordinates.length > 0 && (
           <Polyline
             coordinates={routeCoordinates}
-            strokeColor="#e02e88" // Black polyline
+            strokeColor="#e02e88" // Pink polyline
             strokeWidth={2}
           />
         )}
       </MapView>
-      <Map3Btn
-        height={height}
-        handleOpenSafetyModal={handleOpenSafetySheet}
-        lowerBound="25%"
-        upperBound="40%"
+
+      <Map3Btns
+        handleOpenSafetyModal={() => setToggle((prev) => !prev)}
+        handleZoomToggle={handleResetZoom}
       />
+
+      {toggle && <MapModalUi toggle={toggle} setToggle={setToggle} />}
     </View>
   );
 };
@@ -177,8 +217,8 @@ export default ShowPollyLine;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    position: "relative",
+    height: "100%",
+    width: "100%",
   },
   map: {
     ...StyleSheet.absoluteFillObject,

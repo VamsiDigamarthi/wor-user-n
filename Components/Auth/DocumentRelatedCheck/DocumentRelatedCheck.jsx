@@ -65,17 +65,17 @@ const DocumentRelatedCheck = () => {
           title="Aadhaar information will be used to verify and create your account."
           isBackground={profile?.adhar}
         />
-        <OnAddharVerification
-          onPress={() => {
-            if (profile?.aadharCarVerificaation) {
-              onFaceAuthentication(); // Call the function here
-            }
-          }}
-          idTitle="M-PIN"
-          // title="Face scan is required to complete your registration. It will be used to verify your identity when booking rides."
-          title="Set an M-PIN to complete your registration; it will be used to secure your account"
-          isBackground={profile?.mpin}
-        />
+
+        {profile?.aadharCarVerificaation && (
+          <OnAddharVerification
+            onPress={onFaceAuthentication}
+            idTitle="M-PIN"
+            // title="Face scan is required to complete your registration. It will be used to verify your identity when booking rides."
+            title="Set an M-PIN to complete your registration; it will be used to secure your account"
+            isBackground={profile?.mpin}
+          />
+        )}
+
       </View>
       <ModalUI
         openCloseState={isInfoModalOpen}

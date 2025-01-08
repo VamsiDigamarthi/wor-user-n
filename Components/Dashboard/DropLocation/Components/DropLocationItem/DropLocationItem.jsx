@@ -31,10 +31,11 @@ const DropLocationItem = ({
       >
         <View style={styles.first}>
           {/* <FontAwesome name="location-arrow" size={25} color="#fff" /> */}
-          <Image
+          <Ionicons name="location-sharp" size={25} color="#e02e88" />
+          {/* <Image
             style={styles.firstImage}
             source={require("../../../../../assets/images/locationIcons/pin locator 2.png")}
-          />
+          /> */}
         </View>
         <View style={styles.second}>
           <Text style={styles.locText} numberOfLines={1}>
@@ -44,7 +45,7 @@ const DropLocationItem = ({
             {subPlace}
           </Text>
         </View>
-        {favoriteIconDisplay && (
+        {/* {favoriteIconDisplay && (
           <View style={styles.third}>
             <Pressable>
               <Ionicons
@@ -61,7 +62,7 @@ const DropLocationItem = ({
               />
             </Pressable>
           </View>
-        )}
+        )} */}
       </Pressable>
     </View>
   );

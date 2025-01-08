@@ -29,20 +29,18 @@ import OtpInfoUi from "../../../Components/InfoUi/OtpInfoUi";
 import AllowNotification from "../../../Utils/AllowNotification/AllowNotification";
 import FutureOrderBox from "../../../Components/FutureOrderBox/FutureOrderBox";
 import { StatusBar } from "expo-status-bar";
-import MainSelectingScreens from "./BottosheetScreens/MainSelectingScreens";
-import CustomBottomSheet from "../../../Utils/BottomSheetForMap/BottomSheet";
-import LiveLocation from "./BottosheetScreens/LiveLocation";
-import SpamCallSheet from "./BottosheetScreens/SpamCallSheet";
-import PoliceStatons from "./BottosheetScreens/PoliceStatons";
-import ChatWithCaptain from "./BottosheetScreens/components/ChatUi/ChatWithCaptain";
-
+import { TouchableOpacity } from "react-native-gesture-handler";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 const screenHeight = Dimensions.get("window").height;
-const androidHeight = [screenHeight * 0.4, screenHeight * 0.4]; // Adjust snap points
+// <<<<<<< changes-from-last-4-days
+const androidHeight = [screenHeight * 0.54]; // Adjust snap points
+// =======
+// const androidHeight = [screenHeight * 0.4, screenHeight * 0.4]; // Adjust snap points
+// >>>>>>> master
 const iosHeight = [screenHeight * 0.15, screenHeight * 0.6];
 
 const NewHome = () => {
   const bottomSheetRef = useRef(null);
-  const bottomSheetRefSOS = useRef(null);
 
   const [mapHeight, setMapHeight] = useState(androidHeight[0]); // Initial map height
   const snapPoints = useMemo(
@@ -71,14 +69,6 @@ const NewHome = () => {
   };
 
   const navigation = useNavigation();
-  const handleOpenSafetySheet = useCallback(() => {
-    bottomSheetRefSOS.current?.present();
-  }, []);
-
-  const [screen, setScreen] = useState("main");
-  const changeScreen = (screen) => {
-    setScreen(screen);
-  };
 
   const {
     location,
@@ -106,7 +96,13 @@ const NewHome = () => {
       <StatusBar style="dark" />
       <View style={styles.container}>
         {/* Map Container */}
-        <View style={[styles.mapContainer, { height: mapHeight }]}>
+        <View
+          style={[
+            styles.mapContainer,
+
+            // { height: mapHeight }
+          ]}
+        >
           {!location || location == null || location == undefined ? (
             <View style={styles.loadingWrapper}>
               <ActivityIndicator color="#e02e88" size={30} />
@@ -115,7 +111,7 @@ const NewHome = () => {
             <HomeMap
               captainMarkers={captainMarkers}
               location={location}
-              height={mapHeight}
+              // height={mapHeight}
               handleOpenSafetyModal={toggleCloseSOS}
             />
           )}
@@ -127,81 +123,42 @@ const NewHome = () => {
           snapPoints={snapPoints}
           onChange={handleSheetChange}
           enablePanDownToClose={false} // Prevent closing
-          style={styles.bottomSheet} // Apply custom styles
+          style={[styles.bottomSheet, { elevation: 1 }]} // Apply custom styles
           backgroundStyle={styles.backgroundStyle} // Set pink background
           handleIndicatorStyle={styles.handleIndicator}
         >
-          <ImageBackground
-            style={{
-              width: "100%",
-              height: "fit-content",
-              borderTopLeftRadius: 24,
-              borderTopRightRadius: 24,
-              overflow: "hidden",
-            }}
-            source={require("../../../assets/images/bgImages/bgImage2.png")}
-          >
-            <BottomSheetScrollView contentContainerStyle={styles.sheetContent}>
-              <View style={styles.bottomSheet}>
-                <Text style={styles.text}></Text>
-                <DropLocation
-                  nearByRandomItems={nearByRandomItems} // this is display 3 items
-                  placeName={placeName} // this prop is store current location text
-                  nearbyPlaces={nearbyPlaces} // this prop store nearby places from user current location to 1 km radius famous location [place this data into "select drop location screen to display initial locations"]
-                  location={location} // this is location used for pass this data into price screen
-                  // activeOrder={activeOrder} // check if active order have any pending status this will prevent  create another another
-                  favoritePlaces={favoritePlaces}
-                  previousOrders={previousOrders}
-                />
-                <AllServices
-                  placeName={placeName}
-                  nearbyPlaces={nearbyPlaces}
-                  location={location}
-                  favoritePlaces={favoritePlaces}
-                  previousOrders={previousOrders}
-                />
-                <View style={{ height: 10 }} />
-                <SliderComponent />
-                <BackgroundImage />
-                <Button title="notification" onPress={onHandleOpenInfoModal} />
-              </View>
-
-              <ModalUI
-                openCloseState={isOpenCloseSOS}
-                closeModalFun={toggleCloseSOS}
-                modalStyle="slide"
-                style={[infoModalStyles.aadharModalStyles]}
-                insideCardStyle={[
-                  infoModalStyles.insideCardStyle,
-                  { justifyContent: "space-between" },
-                ]}
-                // btnText="Okay, Got It"
-                btnStyles={infoModalStyles.modalCloseBtn}
-                btnTextStyle={infoModalStyles.btnTextStyle}
-                closebtn={false}
-              >
-                {screen === "main" && (
-                  <MainSelectingScreens onPress={changeScreen} />
-                )}
-                {screen === "liveloc" && (
-                  <LiveLocation onPress={changeScreen} />
-                )}
-                {screen === "spam" && <SpamCallSheet onPress={changeScreen} />}
-                {screen === "police" && (
-                  <PoliceStatons onPress={changeScreen} />
-                )}
-                {screen === "chat" && (
-                  <ChatWithCaptain onPress={changeScreen} />
-                )}
-              </ModalUI>
-            </BottomSheetScrollView>
-          </ImageBackground>
+          <BottomSheetScrollView contentContainerStyle={styles.sheetContent}>
+            <View style={styles.bottomSheet}>
+              {/* <Text style={styles.text}></Text> */}
+              <DropLocation
+                nearByRandomItems={nearByRandomItems} // this is display 3 items
+                placeName={placeName} // this prop is store current location text
+                nearbyPlaces={nearbyPlaces} // this prop store nearby places from user current location to 1 km radius famous location [place this data into "select drop location screen to display initial locations"]
+                location={location} // this is location used for pass this data into price screen
+                // activeOrder={activeOrder} // check if active order have any pending status this will prevent  create another another
+                favoritePlaces={favoritePlaces}
+                previousOrders={previousOrders}
+              />
+              <AllServices
+                placeName={placeName}
+                nearbyPlaces={nearbyPlaces}
+                location={location}
+                favoritePlaces={favoritePlaces}
+                previousOrders={previousOrders}
+              />
+              <View style={{ height: 10 }} />
+              <SliderComponent />
+              <HomeCopyBox />
+              <BackgroundImage />
+              {/* <Button title="notification" onPress={onHandleOpenInfoModal} /> */}
+            </View>
+          </BottomSheetScrollView>
         </BottomSheet>
       </View>
 
-      <View style={{ position: "absolute", bottom: 0, width: "100%" }}>
+      {/* <View style={{ position: "absolute", bottom: 0, width: "100%" }}>
         <FutureOrderBox />
-      </View>
+      </View> */}
 
       <ModalUI
         openCloseState={isInfoModalOpen}
@@ -222,6 +179,18 @@ const NewHome = () => {
 
 export default NewHome;
 
+function HomeCopyBox() {
+  return (
+    <View style={styles.copyBox}>
+      <Text>Invite Your Friends to women rider</Text>
+      <TouchableOpacity style={styles.copyBtn}>
+        <Text style={{ fontWeight: "bold" }}>Code : GOWOR</Text>
+        <MaterialCommunityIcons name="content-copy" size={24} color="black" />
+      </TouchableOpacity>
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -239,8 +208,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   sheetContent: {
+    backgroundColor: "#fff",
     // padding: 20,
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
     // backgroundColor: COLORS.bottomSheetBg,
   },
   contentText: {
@@ -249,12 +219,16 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   bottomSheet: {
-    borderTopLeftRadius: 20, // Top-left corner radius
-    borderTopRightRadius: 20, // Top-right corner radius
+    // padding: 10,
+
+    overflow: "hidden",
+    borderTopLeftRadius: 35, // Top-left corner radius
+    borderTopRightRadius: 35, // Top-right corner radius
+    // elevation: 1,ele
   },
   backgroundStyle: {
     // backgroundColor: COLORS.bottomSheetBg,
-    gap: 5, // Pink background color for BottomSheet
+    // gap: 5, // Pink background color for BottomSheet
   },
   handleIndicator: {
     backgroundColor: "gray",
@@ -262,4 +236,25 @@ const styles = StyleSheet.create({
     height: 4,
     borderRadius: 2,
   },
+
+  copyBox: {
+    marginTop: 10,
+    padding: 10,
+    height: 120,
+    borderRadius: 20,
+    gap: 10,
+    // alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#F2F0F5",
+  },
+  copyBtn: {
+    flexDirection: "row",
+    gap: 10,
+    padding: 8,
+    borderRadius: 10,
+    borderWidth: 1,
+    width: 160,
+    borderStyle: "dashed",
+  },
 });
+//

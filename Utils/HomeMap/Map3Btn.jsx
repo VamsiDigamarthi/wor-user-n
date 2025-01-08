@@ -1,7 +1,6 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FontAwesome, AntDesign, MaterialIcons } from "@expo/vector-icons";
 import { Linking } from "react-native";
-import { FontAwesome, AntDesign } from "@expo/vector-icons";
 
 const openDialer = (phoneNumber) => {
   const url = `tel:${phoneNumber}`;
@@ -16,69 +15,75 @@ const openDialer = (phoneNumber) => {
     .catch((err) => console.error("An error occurred", err));
 };
 
-const Map3Btn = ({
-  isZoomedIn,
-  height,
-  handleOpenSafetyModal,
-  lowerBound = "20%",
-  upperBound = "32%",
-}) => {
+const Map3Btns = ({ handleZoomToggle, handleOpenSafetyModal }) => {
   return (
-    <View
-      style={[
-        styles.container,
-        { bottom: height <= 500 ? lowerBound : upperBound },
-      ]}
-    >
-      <View style={styles.singleIconsCard}>
+    <View style={styles.mainCont}>
+      {/* <View style={styles.singleIconsCard}>
         <TouchableOpacity
           onPress={() => openDialer("100")}
-          style={styles.zoomButton}
+          style={[
+            styles.zoomButton,
+            { backgroundColor: "#EC1C24", padding: 5, borderRadius: 5 },
+          ]}
         >
-          <Text>SOS</Text>
+          <Text style={{ color: "#fff", fontSize: 14, fontWeight: "600" }}>
+            SOS
+          </Text>
         </TouchableOpacity>
-      </View>
-      <View style={styles.singleIconsCard}>
+      </View> */}
+
+      {/* <View style={styles.singleIconsCard}>
         <TouchableOpacity
           onPress={handleOpenSafetyModal}
           style={styles.zoomButton}
         >
           <AntDesign name="Safety" size={20} color="#e02e88" />
+          
         </TouchableOpacity>
-      </View>
-      <View style={styles.singleIconsCard}>
-        <TouchableOpacity
-          // onPress={handleZoomToggle}
-          style={styles.zoomButton}
-        >
-          <FontAwesome
-            name={isZoomedIn ? "search-minus" : "search-plus"}
-            size={20}
-            color="#e02e88"
-          />
+      </View> */}
+
+      <View style={[styles.singleIconsCard, styles.zoomContainer]}>
+        <TouchableOpacity onPress={handleZoomToggle} style={styles.zoomButton}>
+          <MaterialIcons name="my-location" size={25} color="#fff" />
         </TouchableOpacity>
       </View>
     </View>
   );
 };
 
-export default Map3Btn;
+export default Map3Btns;
 
 const styles = StyleSheet.create({
-  container: {
+  zoomControl: {
     position: "absolute",
+
+    right: 20,
     padding: 15,
     right: 20,
     gap: 10,
-    bottom: "32%",
+  },
+  zoomContainer: {
+    backgroundColor: "#22222266",
+    borderRadius: 50,
+  },
+  zoomButton: {
+    alignItems: "center",
+    justifyContent: "center",
   },
   singleIconsCard: {
     width: 45,
     height: 45,
-    elevation: 1,
+    // elevation: 1,
     backgroundColor: "#fff",
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
+  },
+
+  mainCont: {
+    gap: 10,
+    position: "absolute",
+    top: 350,
+    right: 20,
   },
 });

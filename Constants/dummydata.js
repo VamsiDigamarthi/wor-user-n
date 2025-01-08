@@ -160,3 +160,30 @@ let receiver = {
     "AWYs27zWZWd5ktn54ASGumnpyzjVeP6zHQ4r-sz5G_Cz0KSZX7kYltMDb5yA8MaBIofOxOdvINS8d_iBSoNCWrMTlnA0C1HFZqu8woz0QMQ-_4WS-elnjjT8fjS5LyNgPDecAvw8ayWc__tQkD8NmQn_UgLKdcteheGqgptFU2cYAkUqdxqV",
   vicinity: "Kommuchikkala",
 };
+
+let message = [
+  {
+    _id: "6779123875e3cf014286dca3",
+    sender: "user",
+    text: "Hello",
+    timestamp: "2025-01-04T10:49:28.405Z",
+  },
+  {
+    _id: "6779126075e3cf014286dcbf",
+    sender: "user",
+    text: "Hi",
+    timestamp: "2025-01-04T10:50:08.323Z",
+  },
+  {
+    _id: "677912be75e3cf014286dd01",
+    sender: "captain",
+    text: "Hi",
+    timestamp: "2025-01-04T10:51:42.596Z",
+  },
+  {
+    _id: "677912db75e3cf014286dd18",
+    sender: "user",
+    text: "Ffff",
+    timestamp: "2025-01-04T10:52:11.812Z",
+  },
+];

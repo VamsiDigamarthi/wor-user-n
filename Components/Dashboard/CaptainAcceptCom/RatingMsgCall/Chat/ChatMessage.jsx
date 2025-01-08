@@ -1,10 +1,25 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const ChatMessage = ({ text }) => {
+const ChatMessage = ({ text, type }) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>{text}</Text>
+    <View
+      style={[
+        styles.container,
+        { justifyContent: type === "user" ? "flex-end" : "flex-start" },
+      ]}
+    >
+      <Text
+        style={[
+          styles.text,
+          {
+            backgroundColor: type === "user" ? "#e02e88" : "#fff",
+            color: type === "user" ? "#fff" : "#e02e88",
+          },
+        ]}
+      >
+        {text}
+      </Text>
     </View>
   );
 };

@@ -5,12 +5,16 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import CustomBtn from "../../../../Utils/CustomBtn/CustomBtn";
 import PersonIconWithName from "./components/PersonIconWithName";
 import UnorderList from "./components/UnorderList";
+import { useFakeCallHook } from "./SpamCallHook";
 const instructions = [
-  "You can try spam calls to your trusted numbers.",
-  "Inform your saved numbers that it's just a spam call drill alert.",
-  "After selecting, they will get a call within 10 seconds.",
+  "You can try Fake incoming calls from your trusted numbers.",
+  // "Inform your saved numbers that it's just a spam call drill alert.",
+  // "After selecting, they will get a call within 10 seconds.",
 ];
 export default function SpamCallSheet({ onPress }) {
+  const { profile, navigateToFakeCall, handlerNavigateEmergencyConcatScreen } =
+    useFakeCallHook();
+
   return (
     <>
       <View style={styles.mainCard}>
@@ -37,34 +41,53 @@ export default function SpamCallSheet({ onPress }) {
           <UnorderList instructions={instructions} />
         </View>
 
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <PersonIconWithName name="Narasimha" />
-          <PersonIconWithName name="Narasimha" />
-          <PersonIconWithName name="Narasimha" />
-        </View>
         <View
           style={{
             flexDirection: "row",
+            gap: 30,
+            flexWrap: "wrap",
             justifyContent: "space-between",
-            alignItems: "center",
+            padding: 10,
           }}
         >
-          <PersonIconWithName name="Narasimha" />
-          <TouchableOpacity
-            style={{
-              height: 60,
-              width: 60,
-              backgroundColor: "#ff5f39",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 20,
-            }}
-          >
-            <Ionicons name="add-circle-outline" size={30} color="black" />
-          </TouchableOpacity>
+          {profile?.emergencyContact?.map((each, index) => (
+            <PersonIconWithName
+              key={index}
+              name={each?.name}
+              mobile={each?.mobile}
+              onClick={() => navigateToFakeCall(each?.mobile, each?.name)}
+            />
+          ))}
+
+          {/* Conditionally render the 'Add' button based on the number of contacts */}
+          {profile?.emergencyContact?.length < 5 && (
+            <View
+              style={{
+                position: "absolute",
+                right: 10,
+                bottom: 10,
+                display:
+                  profile?.emergencyContact?.length < 5 ? "flex" : "none", // Make sure it's hidden after 5 contacts
+              }}
+            >
+              <TouchableOpacity
+                onPress={handlerNavigateEmergencyConcatScreen}
+                style={{
+                  height: 60,
+                  width: 60,
+                  backgroundColor: "#e02e88",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 20,
+                }}
+              >
+                <Ionicons name="add-circle-outline" size={30} color="white" />
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
       </View>
-      <CustomBtn title="Continue" btnBg="#e02e88" btnColor="#fff" />
+      {/* <CustomBtn title="Continue" btnBg="#e02e88" btnColor="#fff" /> */}
     </>
   );
 }
@@ -72,14 +95,14 @@ export default function SpamCallSheet({ onPress }) {
 const styles = StyleSheet.create({
   mainCard: {
     backgroundColor: "white",
-    padding: 20,
+    padding: 10,
     marginTop: 10,
     borderRadius: 5,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 2,
+    // shadowColor: "#000",
+    // shadowOffset: { width: 0, height: 2 },
+    // shadowOpacity: 0.8,
+    // shadowRadius: 2,
+    // elevation: 2,
     gap: 8,
     marginBottom: 10,
   },
