@@ -144,7 +144,7 @@ export const useShowPriceHook = () => {
 
   const [isTimeModalOpenClose, setIsTimeModalOpenClose] = useState(false);
   const [isDateTimeData, setIsDateTimeData] = useState("");
-  const [normalDateFormat, setNormalDateFormat] = useState("");
+  const [normalDateFormat, setNormalDateFormat] = useState(null);
   const onTimeModalOpenCloseHandler = () => {
     setIsTimeModalOpenClose(!isTimeModalOpenClose);
   };
@@ -162,7 +162,7 @@ export const useShowPriceHook = () => {
   });
 
   const [selectedVehicle, setSelectedVehicle] = useState(
-    selectedVehicleType ?? null
+    selectedVehicleType ?? "scooty"
   );
   const [apiError, setApisError] = useState("");
 
@@ -215,9 +215,18 @@ export const useShowPriceHook = () => {
 
   const onHandleTimeValueHandler = (date) => {
     const formattedIndiaTime = formatToIndiaISO(date);
-    console.log(formattedIndiaTime);
+
+    const options = {
+      hour: "2-digit",
+      minute: "2-digit",
+      day: "2-digit",
+      month: "short",
+      weekday: "short",
+    };
+    const formattedDate = date.toLocaleDateString("en-GB", options);
     setIsDateTimeData(formattedIndiaTime);
-    setNormalDateFormat(date?.toLocaleString());
+    // console.log("slice", formattedDate);
+    setNormalDateFormat(formattedDate);
     onTimeModalOpenCloseHandler();
   };
 
@@ -238,6 +247,53 @@ export const useShowPriceHook = () => {
       isPriceScreen: true,
     });
   };
+
+  // console.log("dropDetails", dropDetails);
+  const vehicles = [
+    {
+      image: require("../../../assets/images/HomeServiceImages/scooty.png"),
+      personCount: 1,
+      price: pricesInKM?.scooty,
+      vehicleType: "Scooty",
+      isDisplayFastTag: true,
+      isDisplayBeatTheTraffic: true,
+      isDisplayUsericon: true,
+      isSelected: selectedVehicle === "scooty",
+      onPress: () => handleVehiclePress("scooty"),
+      shouldDisplay: !isDateTimeData, // Conditionally display based on `isDateTimeData`
+    },
+    {
+      image: require("../../../assets/images/HomeServiceImages/cab.png"),
+      personCount: 4,
+      price: pricesInKM?.car,
+      vehicleType: "Car",
+      isSelected: selectedVehicle === "car",
+      onPress: () => handleVehiclePress("car"),
+      shouldDisplay: true, // Always display the car
+    },
+    {
+      image: require("../../../assets/images/HomeServiceImages/auto.png"),
+      personCount: 3,
+      price: pricesInKM?.auto,
+      vehicleType: "Auto",
+      isSelected: selectedVehicle === "auto",
+      onPress: () => handleVehiclePress("auto"),
+      shouldDisplay: !isDateTimeData, // Conditionally display based on `isDateTimeData`
+    },
+  ];
+
+  const filteredVehicles = vehicles.filter((vehicle) => vehicle.shouldDisplay);
+  // Sort vehicles to place the selected one at the top
+  const sortedVehicles = filteredVehicles.sort((a, b) =>
+    a.isSelected === b.isSelected ? 0 : a.isSelected ? -1 : 1
+  );
+
+  useEffect(() => {
+    const onChangeSelectVehicle = () => {
+      setSelectedVehicle(sortedVehicles[0]?.vehicleType);
+    };
+    normalDateFormat && onChangeSelectVehicle();
+  }, [normalDateFormat]);
 
   return {
     placeName,
@@ -267,5 +323,7 @@ export const useShowPriceHook = () => {
     mPin,
     mPinError,
     navigation,
+    vehicles,
+    sortedVehicles,
   };
 };

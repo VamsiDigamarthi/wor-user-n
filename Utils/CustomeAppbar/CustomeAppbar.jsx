@@ -20,8 +20,11 @@ const CustomeAppbar = ({
   title,
   navigationText,
   rightText,
-  showRight,
-  // top = 45,
+  isTimer = false,
+  appTitCenStyles,
+  appTitCenWidth,
+  vicinity,
+  timerFunction,
 }) => {
   const navigation = useNavigation();
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
@@ -58,41 +61,87 @@ const CustomeAppbar = ({
         </View>
 
         <View style={[styles.textContainer]}>
-          <View style={styles.textinnerCard}>
-            <Text style={[styles.text]}>{title || "Title"}</Text>
-            <Infopressicons onHandleOpenInfoModal={onHandleOpenInfoModal} />
-          </View>
-          {rightText && (
-            <Pressable
-              onPress={() => navigation.navigate(navigationText)}
-              style={styles.rightIconCard}
+          <View style={[styles.textinnerCard, appTitCenStyles]}>
+            <View
+              style={[
+                { flexDirection: "row", gap: 5, alignItems: "center" },
+                appTitCenWidth,
+              ]}
             >
-              <MaterialIcons name="support-agent" size={15} color="#e02e88" />
               <Text
+                numberOfLines={2}
+                style={[
+                  styles.text,
+                  vicinity && { fontSize: 13, fontWeight: "600" },
+                ]}
+              >
+                {title || "Title"}
+              </Text>
+              {vicinity ? (
+                <Text
+                  numberOfLines={1}
+                  style={{ fontSize: 10 }}
+                  ellipsizeMode="tail"
+                >
+                  {vicinity}
+                </Text>
+              ) : (
+                <Infopressicons onHandleOpenInfoModal={onHandleOpenInfoModal} />
+              )}
+            </View>
+          </View>
+          {isTimer ? (
+            <Pressable onPress={timerFunction}>
+              <View
                 style={{
-                  fontSize: 12,
-                  fontWeight: "500",
-                  color: COLORS.subHeading,
+                  width: 50,
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
-                {rightText}
-              </Text>
+                <Ionicons size={24} name="timer" color="#f98600" />
+                <Text style={{ fontSize: 12, color: "gray" }}>Now</Text>
+              </View>
             </Pressable>
+          ) : (
+            <>
+              {rightText && (
+                <Pressable
+                  onPress={() => navigation.navigate(navigationText)}
+                  style={styles.rightIconCard}
+                >
+                  <MaterialIcons
+                    name="support-agent"
+                    size={15}
+                    color="#e02e88"
+                  />
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "500",
+                      color: COLORS.subHeading,
+                    }}
+                  >
+                    {rightText}
+                  </Text>
+                </Pressable>
+              )}
+            </>
           )}
         </View>
-        <ModalUI
-          openCloseState={isInfoModalOpen}
-          closeModalFun={onHandleOpenInfoModal}
-          modalStyle="slide"
-          style={infoModalStyles.aadharModalStyles}
-          insideCardStyle={infoModalStyles.insideCardStyle}
-          btnText="Okay, Got It"
-          btnStyles={infoModalStyles.modalCloseBtn}
-          btnTextStyle={infoModalStyles.btnTextStyle}
-        >
-          <OtpInfoUi mainTitle="Book Your Ride" data={infoData} />
-        </ModalUI>
       </View>
+      <ModalUI
+        openCloseState={isInfoModalOpen}
+        closeModalFun={onHandleOpenInfoModal}
+        modalStyle="slide"
+        style={infoModalStyles.aadharModalStyles}
+        insideCardStyle={infoModalStyles.insideCardStyle}
+        btnText="Okay, Got It"
+        btnStyles={infoModalStyles.modalCloseBtn}
+        btnTextStyle={infoModalStyles.btnTextStyle}
+      >
+        <OtpInfoUi mainTitle="Book Your Ride" data={infoData} />
+      </ModalUI>
     </View>
   );
 };
@@ -159,7 +208,7 @@ const styles = StyleSheet.create({
   textinnerCard: {
     flexDirection: "row",
     gap: 10,
-    width: "67%",
+    width: "70%",
     marginLeft: 5,
     alignItems: "center",
     paddingLeft: 10,
