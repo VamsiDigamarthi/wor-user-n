@@ -25,7 +25,7 @@ import { Chase } from "react-native-animated-spinkit";
 import { infoModalStyles } from "../../../Components/InfoUi/Styles/InfoModalStyles";
 
 const screenHeight = Dimensions.get("window").height;
-const androidHeight = [screenHeight * 0.1, screenHeight * 0.44]; // Adjust snap points
+const androidHeight = [screenHeight * 0.2, screenHeight * 0.44]; // Adjust snap points
 const iosHeight = [screenHeight * 0.15, screenHeight * 0.6];
 
 const LookingForRide = () => {
@@ -54,7 +54,7 @@ const LookingForRide = () => {
     let height = screenHeight * 0.95; // Default map height
     // console.log(index);
     if (index === 2) {
-      height = screenHeight * 0.6; // Map height at middle snap point
+      height = screenHeight * 0.5; // Map height at middle snap point
     }
     setMapHeight(height);
   }, []);
@@ -99,17 +99,16 @@ const LookingForRide = () => {
             <View style={styles.cancelBtnWithImage}>
               <Image
                 style={styles.images}
-                source={{
-                  uri: "https://s3-alpha-sig.figma.com/img/7911/de63/52b2a75265856d69f141a38e4434558f?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=RAocZw5Rc3jB8VsL64WqRmTcZsABcJV4rNDw4rdVJ3gZKC8iLxUAiPZul0RJnCgirjIrvjJT1FBxkNXOYwoJW0UvlmRhI9BtAmQUzZGPg15wqw1Uz~E6EEbDAKAofy7aCQ2ZGsg-A48C~9n0ozfB1b2gTGC8wsuHz05K3Z9q4zwvfbJy3tJbiEnWNFDaEGvo2MAst9ckOtdE~W6YjEH41GSjdlx1UtPSVuqH4HODgwRnxUGgqYayCpkkiLiHQB1w5lesRCndmYVgGQG3m2v1Q9TSI09LwJxAk5066FcD9mt2SrVTwBNeTMK8rZYluvhUnGYX-fDOgCFjsdSN7Yj5SA__",
-                }}
+                source={require("../../../assets/images/loadingbg.png")}
               />
               <View style={styles.cancelBtn}>
                 <CustomBtn
                   title={`${
                     showCancelWithReOrderBtn ? "Cancel" : "Re-Place"
                   } Ride`}
-                  btnBg="#fff"
-                  btnColor="#001"
+                  btnBg="#F7F7F7"
+                  btnColor="#e02e88"
+                  borderRadius={10}
                   width="100%"
                   onPress={
                     showCancelWithReOrderBtn ? onCancelRide : onRePlaceOrder
@@ -216,8 +215,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   bottomSheet: {
-    borderTopLeftRadius: 20, // Top-left corner radius
-    borderTopRightRadius: 20, // Top-right corner radius
+    borderTopLeftRadius: 35, // Top-left corner radius
+    borderTopRightRadius: 35, // Top-right corner radius
+    overflow: "hidden",
   },
   backgroundStyle: {
     backgroundColor: COLORS.bottomSheetBg,
@@ -226,9 +226,9 @@ const styles = StyleSheet.create({
 
   cancelBtnWithImage: {
     width: "100%",
-    height: 200,
+    height: 250,
     position: "relative",
-    marginTop: 50,
+    // marginTop: 50,
   },
 
   images: {

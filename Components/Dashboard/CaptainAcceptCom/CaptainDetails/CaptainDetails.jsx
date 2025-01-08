@@ -1,6 +1,8 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { imageUrl } from "../../../../Constants/url";
+import dummyImage from "../../../../assets/images/profile/Services.png";
+import Entypo from "@expo/vector-icons/Entypo";
 
 const CaptainDetails = ({ captainDetails }) => {
   const captainImageUrl = `${imageUrl}/${captainDetails?.profilePic}`;
@@ -9,21 +11,39 @@ const CaptainDetails = ({ captainDetails }) => {
     <View>
       <View style={styles.imageVehilcCard}>
         <View style={styles.captaineImageCard}>
-          <Image
-            style={styles.captainImage}
-            source={{
-              uri: captainImageUrl,
-            }}
-          />
-          <View style={styles.vehiclTypeImageCard}></View>
+          {captainDetails?.profilePic ? (
+            <Image
+              style={styles.captainImage}
+              source={{
+                uri: captainImageUrl,
+              }}
+            />
+          ) : (
+            <Image style={styles.captainImage} source={dummyImage} />
+          )}
+          <View style={styles.vehiclTypeImageCard}>
+            <Image
+              source={require("../../../../assets/images/scooty.png")}
+              style={styles.smallLogo}
+            />
+          </View>
         </View>
         <View style={styles.vehicleDetails}>
-          <Text style={styles.captainName}>{captainDetails?.name}</Text>
+          <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
+            <Text style={styles.captainName}>
+              {captainDetails?.name || "Samantha"}
+            </Text>
+            <Text>4.3</Text>
+            <Entypo name="star" size={24} color="black" />
+          </View>
           <Text style={styles.vehicleNumber}>
             {captainDetails?.vehicleNumber ?? "No Number"}
           </Text>
           <Text style={styles.captainName}>
             {captainDetails?.captainVehicleType ?? "Not Availeble"}
+          </Text>
+          <Text style={[styles.captainName, { fontSize: 10 }]}>
+            Speaks in Telugu, Hindi, English
           </Text>
         </View>
       </View>
@@ -48,10 +68,17 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: -10,
     bottom: -5,
-    padding: 20,
+    padding: 10,
     backgroundColor: "#fff",
-    borderRadius: 20,
+    borderRadius: 25,
   },
+
+  smallLogo: {
+    height: 25,
+    width: 25,
+    resizeMode: "contain",
+  },
+
   captaineImageCard: {
     position: "relative",
   },
@@ -59,8 +86,10 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
+    resizeMode: "contain",
     borderColor: "#e02e88",
     borderWidth: 2,
+    padding: 10,
   },
 
   vehicleDetails: {

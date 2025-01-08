@@ -3,6 +3,6 @@ export const COLORS = {
   subHeading: "#595959",
   cardBackground: "#fdfdfd",
   desBackground: "#F2F0F5",
-  bottomSheetBg: "#fff5f9",
+  bottomSheetBg: "#fff",
   borderColor: "#ffe2e6",
 };

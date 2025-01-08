@@ -73,7 +73,7 @@ const HomeMap = ({
     <View style={styles.mapContainer}>
       <MapView
         ref={mapRef}
-        style={StyleSheet.absoluteFillObject}
+        style={[StyleSheet.absoluteFillObject, { bottom: 300 }]}
         region={region}
         customMapStyle={customMapStyle}
         showsMyLocationButton={false}
