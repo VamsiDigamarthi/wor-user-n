@@ -22,6 +22,7 @@ import CaptainRideCompletePriceCard from "../../../Components/Dashboard/CaptainA
 import ShowPollyLine from "../../../Components/Dashboard/ShowPrices/ShowPollyLine/ShowPollyLine";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
 const CaptainAcceptRide = () => {
   const {
     orderDetails,
@@ -56,6 +57,13 @@ const CaptainAcceptRide = () => {
 
   return (
     <View style={styles.container}>
+      <CustomeAppbar
+        title="Rider On the Way"
+        onBack={() => {
+          navigation.goBack();
+        }}
+      />
+
       <View style={styles.mapContainer}>
         {orderDetails?.captainCoor ? (
           <ShowPollyLine
@@ -72,7 +80,7 @@ const CaptainAcceptRide = () => {
           </View>
         )}
       </View>
-      <View style={styles.mapFullCardIocn}>
+      {/* <View style={styles.mapFullCardIocn}>
         <Pressable onPress={onShowFullMap}>
           <MaterialCommunityIcons
             name="checkbox-blank-outline"
@@ -80,7 +88,7 @@ const CaptainAcceptRide = () => {
             size={30}
           />
         </Pressable>
-      </View>
+      </View> */}
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
         showsVerticalScrollIndicator={false}

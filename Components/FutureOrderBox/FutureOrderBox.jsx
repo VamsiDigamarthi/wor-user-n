@@ -18,6 +18,7 @@ export default function FutureOrderBox() {
   const { previousOrders } = useSelector((state) => state.previewOrders);
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [fullDataModal, setFullDataModal] = useState(false);
 
   return (
     <>
@@ -58,6 +59,17 @@ export default function FutureOrderBox() {
                   <Text style={styles.closeButtonText}>Close</Text>
                 </TouchableOpacity>
               </View>
+            </View>
+          </Modal>
+
+          <Modal
+            visible={fullDataModal}
+            animationType="slide"
+            transparent={true}
+            onRequestClose={() => setFullDataModal(false)}
+          >
+            <View>
+              <Text>Hi</Text>
             </View>
           </Modal>
         </>

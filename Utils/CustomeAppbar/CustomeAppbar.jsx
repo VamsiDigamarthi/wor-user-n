@@ -21,7 +21,7 @@ const CustomeAppbar = ({
   navigationText,
   rightText,
   showRight,
-  top = 45,
+  // top = 45,
 }) => {
   const navigation = useNavigation();
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
@@ -49,48 +49,50 @@ const CustomeAppbar = ({
   }
 
   return (
-    <View style={[styles.mainContainer, { top }]}>
-      <View style={[styles.btnContainer]}>
-        <TouchableOpacity style={[styles.btn]} onPress={onBack}>
-          <Ionicons name="chevron-back" size={30} color="#E02E88" />
-        </TouchableOpacity>
-      </View>
-
-      <View style={[styles.textContainer]}>
-        <View style={styles.textinnerCard}>
-          <Text style={[styles.text]}>{title || "Title"}</Text>
-          <Infopressicons onHandleOpenInfoModal={onHandleOpenInfoModal} />
+    <View style={styles.superContainer}>
+      <View style={[styles.mainContainer]}>
+        <View style={[styles.btnContainer]}>
+          <TouchableOpacity style={[styles.btn]} onPress={onBack}>
+            <Ionicons name="chevron-back" size={30} color="#000" />
+          </TouchableOpacity>
         </View>
-        {rightText && (
-          <Pressable
-            onPress={() => navigation.navigate(navigationText)}
-            style={styles.rightIconCard}
-          >
-            <MaterialIcons name="support-agent" size={15} color="#e02e88" />
-            <Text
-              style={{
-                fontSize: 12,
-                fontWeight: "500",
-                color: COLORS.subHeading,
-              }}
+
+        <View style={[styles.textContainer]}>
+          <View style={styles.textinnerCard}>
+            <Text style={[styles.text]}>{title || "Title"}</Text>
+            <Infopressicons onHandleOpenInfoModal={onHandleOpenInfoModal} />
+          </View>
+          {rightText && (
+            <Pressable
+              onPress={() => navigation.navigate(navigationText)}
+              style={styles.rightIconCard}
             >
-              {rightText}
-            </Text>
-          </Pressable>
-        )}
+              <MaterialIcons name="support-agent" size={15} color="#e02e88" />
+              <Text
+                style={{
+                  fontSize: 12,
+                  fontWeight: "500",
+                  color: COLORS.subHeading,
+                }}
+              >
+                {rightText}
+              </Text>
+            </Pressable>
+          )}
+        </View>
+        <ModalUI
+          openCloseState={isInfoModalOpen}
+          closeModalFun={onHandleOpenInfoModal}
+          modalStyle="slide"
+          style={infoModalStyles.aadharModalStyles}
+          insideCardStyle={infoModalStyles.insideCardStyle}
+          btnText="Okay, Got It"
+          btnStyles={infoModalStyles.modalCloseBtn}
+          btnTextStyle={infoModalStyles.btnTextStyle}
+        >
+          <OtpInfoUi mainTitle="Book Your Ride" data={infoData} />
+        </ModalUI>
       </View>
-      <ModalUI
-        openCloseState={isInfoModalOpen}
-        closeModalFun={onHandleOpenInfoModal}
-        modalStyle="slide"
-        style={infoModalStyles.aadharModalStyles}
-        insideCardStyle={infoModalStyles.insideCardStyle}
-        btnText="Okay, Got It"
-        btnStyles={infoModalStyles.modalCloseBtn}
-        btnTextStyle={infoModalStyles.btnTextStyle}
-      >
-        <OtpInfoUi mainTitle="Book Your Ride" data={infoData} />
-      </ModalUI>
     </View>
   );
 };
@@ -98,24 +100,28 @@ const CustomeAppbar = ({
 export default CustomeAppbar;
 
 const styles = StyleSheet.create({
+  superContainer: {
+    height: 100,
+    backgroundColor: "#fff",
+    width: "100%",
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    overflow: "hidden",
+    elevation: 4,
+  },
   mainContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 10,
     borderColor: "#FFE2E6",
-    elevation: 1,
+    // elevation: 1,
     borderRadius: 6,
     height: 50,
-    borderTopRightRadius: 30,
-    borderBottomRightRadius: 30,
-    paddingLeft: 10,
     zIndex: 30,
     backgroundColor: "#fff",
-    position: "absolute",
-    left: 10,
-    width: screenWidth - 20,
-    top: 45,
+    width: "100%",
   },
 
   btnContainer: {
@@ -136,15 +142,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     // borderWidth: 1,
     borderColor: "#FFE2E6",
-    width: "88.6%",
+    width: "85%",
     height: "100%",
     alignItems: "center",
     justifyContent: "space-between",
     gap: 8,
-    borderRadius: 30,
+    // borderRadius: 30,
     paddingRight: 20,
     position: "relative",
-    elevation: 1,
+    // elevation: 1,
     backgroundColor: "#fff",
     // backgroundColor: "red",
     // borderWidth: 1,
@@ -160,9 +166,9 @@ const styles = StyleSheet.create({
     // backgroundColor: "blue",
   },
   text: {
-    color: "#302f2f",
-    fontSize: 13,
-    fontWeight: "600",
+    color: "#000",
+    fontSize: 18,
+    fontWeight: "bold",
     textAlign: "center",
     // width: "100%",
   },
@@ -172,7 +178,7 @@ const styles = StyleSheet.create({
   rightIconCard: {
     // width: "35%",
     height: "60%",
-    borderWidth: 1,
+    // borderWidth: 1,
     borderColor: "#ffe2e6",
     borderRadius: 30,
     justifyContent: "center",

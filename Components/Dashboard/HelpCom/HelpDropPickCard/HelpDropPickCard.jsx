@@ -1,18 +1,26 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import RideHistoryFirst from "../../../../Screens/Dashboard/RideHistory/RideHistoryFirst";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
-const HelpDropPickCard = () => {
+const HelpDropPickCard = ({ lastOrder }) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.mainContainer}>
-      <RideHistoryFirst />
+      <RideHistoryFirst ride={lastOrder} />
       <View style={styles.fullRideHistory}>
         <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
           <Ionicons name="contract" size={25} color="black" />
           <Text>Full Ride History</Text>
         </View>
-        <Ionicons name="arrow-forward" size={20} color="#e02e88" />
+        <Pressable
+          onPress={() =>
+            navigation.navigate("RideHistoryDetailView", { ride: lastOrder })
+          }
+        >
+          <Ionicons name="arrow-forward" size={20} color="#e02e88" />
+        </Pressable>
       </View>
     </View>
   );
@@ -22,7 +30,7 @@ export default HelpDropPickCard;
 
 const styles = StyleSheet.create({
   mainContainer: {
-    borderWidth: 1,
+    // borderWidth: 1,
     borderColor: "#ffe2e6",
     borderRadius: 10,
     backgroundColor: "#fff",

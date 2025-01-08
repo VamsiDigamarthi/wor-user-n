@@ -165,7 +165,7 @@ const ShowPrice = () => {
         title="Book Your Ride"
         onBack={() => navigation.goBack()}
         rightText="Support"
-        navigationText="FaqHome"
+        navigationText="Help"
       />
       <View style={[styles.mapContainer, { height: mapHeight }]}>
         <ShowPollyLine

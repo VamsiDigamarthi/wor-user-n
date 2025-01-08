@@ -6,6 +6,8 @@ import {
   Modal,
   Text,
   Pressable,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import ShowPickDropCard from "../../../Components/Dashboard/ShowPrices/ShowPickDropCard/ShowPickDropCard";
@@ -17,6 +19,8 @@ import { COLORS } from "../../../Constants/colors";
 import { Button } from "react-native";
 import { TouchableOpacity } from "react-native";
 import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
+import MapBtn from "./Components/MapBtn";
+import HomeLocationCard from "./Components/HomeLocationCard";
 const SelectDropLocation = () => {
   const {
     inputValue,
@@ -38,65 +42,95 @@ const SelectDropLocation = () => {
   // console.log("jugfghjn", nearByFavPrevPlace);
 
   return (
-    <View style={styles.container}>
-      {/* <StatusBar barStyle="dark-content" backgroundColor="#f5f2f2" /> */}
-      <CustomeAppbar title="Destination" onBack={() => navigation.goBack()} />
-      <View style={{ height: 80 }} />
-      <View style={styles.pickDropBtnCard}>
-        {/* this show pick drop card use show home screens also */}
-        <ShowPickDropCard
-          inputValue={inputValue}
-          handleInputChange={handleInputChange}
-          placeName={placeName}
-          micVoiceText={micVoiceText}
-          setIsMicModalOpenClose={setIsMicModalOpenClose}
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
+    >
+      <View style={styles.container}>
+        <CustomeAppbar
+          title="Select Destination"
+          onBack={() => navigation.goBack()}
         />
-        <View style={styles.mapFavoriteCard}>
-          <IconButton
-            onPress={onNavigateToMapPreviewScreen}
-            icons="location"
-            title="Select on Map"
-            iconsName="Ionicons"
-          />
-          <IconButton
-            icons="favorite"
-            title="Favorite Places"
-            iconsName="MaterialIcons"
-            onPress={onNavigateToFavoriteScreen}
-          />
+        <View style={styles.newInnerCard}>
+          <View style={styles.whereToGoCard}>
+            <View style={styles.pickDropBtnCard}>
+              <Text style={{ fontSize: 22, fontWeight: "bold" }}>
+                Where to go?
+              </Text>
+              <ShowPickDropCard
+                inputValue={inputValue}
+                handleInputChange={handleInputChange}
+                placeName={placeName}
+                micVoiceText={micVoiceText}
+                setIsMicModalOpenClose={setIsMicModalOpenClose}
+                isDisplayPickLoc={false}
+              />
+              <View style={styles.mapFavoriteCard}>
+                <Text style={{ fontSize: 15, fontWeight: "600" }}>
+                  Suggested Destination
+                </Text>
+                <IconButton
+                  icons="favorite"
+                  title="Favorite Places"
+                  iconsName="MaterialIcons"
+                  onPress={onNavigateToFavoriteScreen}
+                />
+              </View>
+            </View>
+            <FlatList
+              data={
+                suggestions && suggestions.length > 0
+                  ? suggestions
+                  : nearByFavPrevPlace
+              }
+              keyExtractor={(item) =>
+                suggestions && suggestions.length > 0 ? item.placeId : item.name
+              }
+              renderItem={({ item }) =>
+                suggestions && suggestions.length > 0 ? (
+                  <DropLocationItem
+                    mainPlace={item?.name}
+                    subPlace={item?.vicinity}
+                    eachPlace={item}
+                    onPress={onUserSelectDropLocationByEnterInput.bind(
+                      this,
+                      item
+                    )}
+                  />
+                ) : (
+                  <DropLocationItem
+                    mainPlace={item?.name}
+                    subPlace={item?.vicinity}
+                    eachPlace={item}
+                    onPress={onUserSelectDropLocationByNeardPlace.bind(
+                      this,
+                      item
+                    )}
+                  />
+                )
+              }
+              ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
+              showsVerticalScrollIndicator={false}
+            />
+          </View>
+          <View style={styles.homeWorLocationCard}>
+            <HomeLocationCard
+              location="Home"
+              vicinity="okiuy7t i9u8y7t7 ;oiu9 oiJQ98SD OIJASIDJ OQJD90 OJIJD
+          IJQ98DUQW8E9DJQWEID IJQ9DHJWQI"
+            />
+            <HomeLocationCard
+              location="Work"
+              vicinity="okiuy7t i9u8y7t7 ;oiu9 oiJQ98SD OIJASIDJ OQJD90 OJIJD
+          IJQ98DUQW8E9DJQWEID IJQ9DHJWQI"
+              iconType="AntDesign"
+              iconName="star"
+            />
+          </View>
         </View>
+        <MapBtn onNavigateToMapPreviewScreen={onNavigateToMapPreviewScreen} />
       </View>
-
-      <FlatList
-        data={
-          suggestions && suggestions.length > 0
-            ? suggestions
-            : nearByFavPrevPlace
-        }
-        keyExtractor={(item) =>
-          suggestions && suggestions.length > 0 ? item.placeId : item.name
-        }
-        renderItem={({ item }) =>
-          suggestions && suggestions.length > 0 ? (
-            <DropLocationItem
-              mainPlace={item?.name}
-              subPlace={item?.vicinity}
-              eachPlace={item}
-              onPress={onUserSelectDropLocationByEnterInput.bind(this, item)}
-            />
-          ) : (
-            <DropLocationItem
-              mainPlace={item?.name}
-              subPlace={item?.vicinity}
-              eachPlace={item}
-              onPress={onUserSelectDropLocationByNeardPlace.bind(this, item)}
-            />
-          )
-        }
-        ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
-        showsVerticalScrollIndicator={false}
-      />
-
       <Modal
         animationType="fade" // You can also use 'fade' or 'none'
         transparent={true} // Whether the modal should have a transparent background
@@ -109,7 +143,7 @@ const SelectDropLocation = () => {
           setIsMicModalOpenClose={setIsMicModalOpenClose}
         />
       </Modal>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -143,11 +177,40 @@ export const MicComponent = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff5f9",
+    backgroundColor: "#fff",
+    gap: 10,
+    position: "relative",
+  },
+
+  newInnerCard: {
     paddingHorizontal: 10,
     paddingVertical: 12,
-    gap: 20,
+    width: "100%",
+    height: "77%",
+    // backgroundColor: "red",
+    gap: 10,
   },
+
+  whereToGoCard: {
+    padding: 15,
+    backgroundColor: "#fff",
+    width: "100%",
+    height: "75%",
+    borderRadius: 20,
+    elevation: 4,
+    gap: 10,
+  },
+
+  homeWorLocationCard: {
+    backgroundColor: "#fff",
+    width: "100%",
+    height: "25%",
+    // backgroundColor: COLORS.cardBackground,
+    justifyContent: "space-between",
+    alignItems: "center",
+    // elevation: 2,
+  },
+
   images: {
     width: "100%",
     height: 200,
@@ -157,22 +220,18 @@ const styles = StyleSheet.create({
   },
 
   pickDropBtnCard: {
-    // borderWidth: 1,
-    borderColor: "#ffe2e6",
-    borderRadius: 8,
-    backgroundColor: "#fff",
-    elevation: 2,
-    backgroundColor: COLORS.cardBackground,
+    gap: 10,
   },
 
   mapFavoriteCard: {
     width: "100%",
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     alignItems: "center",
-    paddingVertical: 15,
+    // paddingVertical: 15,
     gap: 15,
+    // backgroundColor: "red",
   },
 
   modalContainer: {

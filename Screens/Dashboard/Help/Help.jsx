@@ -5,15 +5,17 @@ import HelpDropPickCard from "../../../Components/Dashboard/HelpCom/HelpDropPick
 import HelpBottomCard from "../../../Components/Dashboard/HelpCom/HelpBottomCard/HelpBottomCard";
 import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
 import { useNavigation } from "@react-navigation/native";
+import { useHelpHook } from "./Help.hook";
 
 const Help = () => {
   const navigation = useNavigation();
+  const { lastOrder } = useHelpHook();
   return (
     <View style={styles.conatiner}>
       <CustomeAppbar title="Help" onBack={() => navigation.goBack()} />
       <View style={{ height: 80 }} />
       <HelpSearchCard />
-      <HelpDropPickCard />
+      <HelpDropPickCard lastOrder={lastOrder} />
       <HelpBottomCard />
     </View>
   );

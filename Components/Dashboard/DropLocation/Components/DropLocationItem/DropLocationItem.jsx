@@ -74,7 +74,8 @@ const styles = StyleSheet.create({
     width: "90%",
     // borderBottomWidth: 1,
     // backgroundColor: "red",
-    borderBottomColor: "#ffe2e6",
+    borderBottomColor: "lightgrey",
+    // paddingHorizontal: 10,
   },
 
   pressableCard: {

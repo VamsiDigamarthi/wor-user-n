@@ -22,6 +22,7 @@ import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { COLORS } from "../../../Constants/colors";
 
 import { Chase } from "react-native-animated-spinkit";
+import { infoModalStyles } from "../../../Components/InfoUi/Styles/InfoModalStyles";
 
 const screenHeight = Dimensions.get("window").height;
 const androidHeight = [screenHeight * 0.1, screenHeight * 0.44]; // Adjust snap points
@@ -47,10 +48,7 @@ const LookingForRide = () => {
 
   const bottomSheetRef = useRef(null);
   const [mapHeight, setMapHeight] = useState(androidHeight[0]); // Initial map height
-  const snapPoints = useMemo(
-    () => (Platform.OS === "ios" ? iosHeight : androidHeight),
-    []
-  );
+  const snapPoints = ["38%", "50%"];
 
   const handleSheetChange = useCallback((index) => {
     let height = screenHeight * 0.95; // Default map height
@@ -138,12 +136,19 @@ const LookingForRide = () => {
       </BottomSheet>
       <ModalUI
         openCloseState={calncelModalInfoOpenClose}
-        rightBtnText="Cancel"
         closeModalFun={onOpenCancelOrderInfoHandle}
         rightBtnFun={onConfirmCancelRide}
+        modalStyle="slide"
+        closebtn={false}
+        style={infoModalStyles.aadharModalStyles}
+        insideCardStyle={infoModalStyles.insideCardStyle}
+        showBtns={false}
       >
         <View>
-          <Text>Do You Want to Cancel The ride</Text>
+          <CancelRideModalScreen
+            onConfirmCancelRide={onConfirmCancelRide}
+            onOpenCancelOrderInfoHandle={onOpenCancelOrderInfoHandle}
+          />
         </View>
       </ModalUI>
     </View>
@@ -151,6 +156,38 @@ const LookingForRide = () => {
 };
 
 export default LookingForRide;
+
+const CancelRideModalScreen = ({
+  onConfirmCancelRide,
+  onOpenCancelOrderInfoHandle,
+}) => {
+  return (
+    <View style={{ padding: 10, gap: 15 }}>
+      <Text style={{ fontWeight: "bold", fontSize: 24 }}>
+        Are You Sure Want to Cancel the Ride ?
+      </Text>
+      <Text style={{ fontSize: 16 }}>
+        Pickup location can be changed upto 100m even after captain is assigned.
+      </Text>
+
+      <CustomBtn
+        onPress={onConfirmCancelRide}
+        title="Cancel my ride"
+        btnColor="#fff"
+        btnBg="#e02e88"
+      />
+
+      <CustomBtn
+        onPress={onOpenCancelOrderInfoHandle}
+        title="Keep Searching"
+        btnColor="#e02e88"
+        btnBg="#fff"
+        borderWidth={1}
+        borderColor={"#e02e88"}
+      />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
