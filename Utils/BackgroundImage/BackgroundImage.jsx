@@ -35,11 +35,13 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: "#f5f2f2a9",
     justifyContent: "center",
-    alignItems: "center",
+    // alignItems: "center",
+    padding: 10,
   },
   goTitle: {
     color: "#e02e88",
     fontSize: 30,
+    fontWeight: "bold",
   },
   madeText: {
     color: "gray",

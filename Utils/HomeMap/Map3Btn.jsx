@@ -18,7 +18,7 @@ const openDialer = (phoneNumber) => {
 const Map3Btns = ({ handleZoomToggle, handleOpenSafetyModal }) => {
   return (
     <View style={styles.mainCont}>
-      <View style={styles.singleIconsCard}>
+      {/* <View style={styles.singleIconsCard}>
         <TouchableOpacity
           onPress={() => openDialer("100")}
           style={[
@@ -30,31 +30,21 @@ const Map3Btns = ({ handleZoomToggle, handleOpenSafetyModal }) => {
             SOS
           </Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
 
-      <View style={styles.singleIconsCard}>
+      {/* <View style={styles.singleIconsCard}>
         <TouchableOpacity
           onPress={handleOpenSafetyModal}
           style={styles.zoomButton}
         >
           <AntDesign name="Safety" size={20} color="#e02e88" />
-          {/* <Image
-            style={{ width: 25, height: 28, resizeMode: "center" }}
-            source={Imagepath.check}
-          /> */}
-
-          {/* <Text>Check</Text> */}
+          
         </TouchableOpacity>
-      </View>
+      </View> */}
 
-      <View style={styles.singleIconsCard}>
+      <View style={[styles.singleIconsCard, styles.zoomContainer]}>
         <TouchableOpacity onPress={handleZoomToggle} style={styles.zoomButton}>
-          {/* <Image
-            style={{ width: 25, height: 28, resizeMode: "center" }}
-            source={Imagepath.zoom}
-          /> */}
-
-          <MaterialIcons name="my-location" size={24} color="#e02e88" />
+          <MaterialIcons name="my-location" size={25} color="#fff" />
         </TouchableOpacity>
       </View>
     </View>
@@ -72,6 +62,10 @@ const styles = StyleSheet.create({
     right: 20,
     gap: 10,
   },
+  zoomContainer: {
+    backgroundColor: "#22222266",
+    borderRadius: 50,
+  },
   zoomButton: {
     alignItems: "center",
     justifyContent: "center",
@@ -79,7 +73,7 @@ const styles = StyleSheet.create({
   singleIconsCard: {
     width: 45,
     height: 45,
-    elevation: 1,
+    // elevation: 1,
     backgroundColor: "#fff",
     borderRadius: 10,
     justifyContent: "center",
@@ -89,7 +83,7 @@ const styles = StyleSheet.create({
   mainCont: {
     gap: 10,
     position: "absolute",
-    top: 250,
+    top: 350,
     right: 20,
   },
 });

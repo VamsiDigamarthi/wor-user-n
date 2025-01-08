@@ -17,10 +17,25 @@ import { dashBoard } from "../../../InfoUi/data/infoData";
 // A reusable service card component
 const ServiceCard = ({ imageSource, label, onPress }) => {
   return (
-    <Pressable onPress={onPress} style={styles.singleItem}>
-      <Image source={imageSource} style={styles.image} />
-      <Text>{label}</Text>
-    </Pressable>
+    <View
+      style={{
+        alignItems: "center",
+        marginBottom: 8,
+      }}
+    >
+      <Pressable
+        onPress={onPress}
+        style={{
+          backgroundColor: "#F2F0F5",
+          paddingHorizontal: 15,
+          paddingVertical: 10,
+          borderRadius: 15,
+        }}
+      >
+        <Image source={imageSource} style={styles.image} />
+      </Pressable>
+      <Text style={{ fontWeight: "bold", color: "#757575" }}>{label}</Text>
+    </View>
   );
 };
 
@@ -55,22 +70,34 @@ const AllServices = ({
     const services = [
       {
         label: "Scooty",
-        image: require("../../../../assets/images/scooty.png"),
+        image: require("../../../../assets/images/HomeServiceImages/scooty.png"),
         vehicle: "scooty",
       },
       {
         label: "Car",
-        image: require("../../../../assets/images/car.png"),
+        image: require("../../../../assets/images/HomeServiceImages/cab.png"),
         vehicle: "car",
       },
       {
         label: "Auto",
-        image: require("../../../../assets/images/auto.png"),
+        image: require("../../../../assets/images/HomeServiceImages/auto.png"),
         vehicle: "auto",
       },
       {
         label: "Parcel",
-        image: require("../../../../assets/images/image.png"),
+        image: require("../../../../assets/images/HomeServiceImages/gift.png"),
+        vehicle: null,
+        isParcel: true,
+      },
+      {
+        label: "Parcel",
+        image: require("../../../../assets/images/HomeServiceImages/gift.png"),
+        vehicle: null,
+        isParcel: true,
+      },
+      {
+        label: "Parcel",
+        image: require("../../../../assets/images/HomeServiceImages/scooty.png"),
         vehicle: null,
         isParcel: true,
       },
@@ -100,11 +127,11 @@ const AllServices = ({
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-          <Text style={styles.headerText}>Services Now</Text>
-          <Infopressicons onHandleOpenInfoModal={onHandleOpenInfoModal} />
+          <Text style={styles.headerText}>Services</Text>
+          {/* <Infopressicons onHandleOpenInfoModal={onHandleOpenInfoModal} /> */}
         </View>
         <View style={styles.viewAllContainer}>
-          <Pressable
+          {/* <Pressable
             style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
             onPress={toggleViewAll}
           >
@@ -112,21 +139,11 @@ const AllServices = ({
               {viewAll ? "Remove All" : "View All"}
             </Text>
             <Ionicons name="arrow-forward" size={20} color="#E02E88" />
-          </Pressable>
+          </Pressable> */}
         </View>
       </View>
 
-      {viewAll ? (
-        <View style={styles.serviceGrid}>{renderServices()}</View>
-      ) : (
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={styles.scrollView}
-        >
-          {renderServices()}
-        </ScrollView>
-      )}
+      <View style={styles.serviceGrid}>{renderServices()}</View>
 
       <ModalUI
         openCloseState={isInfoModalOpen}
@@ -152,9 +169,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fdfdfd",
     padding: 10,
     borderRadius: 10,
-    // borderWidth: 1,
-    borderColor: "#ffe2e6",
-    elevation: 1,
+
+    // elevation: 1,
   },
   header: {
     flexDirection: "row",
@@ -177,7 +193,8 @@ const styles = StyleSheet.create({
   serviceGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
-    // justifyContent: "space-between",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   singleItem: {
     alignItems: "center",
@@ -191,9 +208,9 @@ const styles = StyleSheet.create({
     marginRight: 10, // Space between cards in horizontal scroll
   },
   image: {
-    width: 60,
-    height: 60,
-    marginBottom: 5,
+    width: 70,
+    height: 70,
+    // marginBottom: 5,
     resizeMode: "contain",
   },
   scrollView: {
