@@ -165,8 +165,14 @@ export const useLookingForRideHook = () => {
       if (response?.data?.status === "accept") {
         setIsAccepted(true);
         clearInterval(intervalRef.current);
-        navigation.navigate("captaineacceptride", {
-          orderDetails: response.data,
+        navigation.reset({
+          index: 0,
+          routes: [
+            {
+              name: "captaineacceptride", // The screen you're navigating to
+              params: { orderDetails: response.data }, // The parameters you're passing
+            },
+          ],
         });
       } else if (response?.data?.status === "cancelled") {
         setShowCancelWithReOrderBtn(false);
@@ -209,13 +215,14 @@ export const useLookingForRideHook = () => {
           },
         }
       );
+      navigation?.goBack();
+
       Toast.show({
         text1: response?.data?.message,
         type: "success",
         position: "bottom",
       });
       console.log("Manually canceled order");
-      navigation.goBack();
     } catch (error) {
       console.log(error);
       Toast.show({

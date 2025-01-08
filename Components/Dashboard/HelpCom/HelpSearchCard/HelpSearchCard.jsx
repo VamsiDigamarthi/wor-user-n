@@ -16,8 +16,8 @@ export default HelpSearchCard;
 const styles = StyleSheet.create({
   container: {
     // width: "100%",
-    borderRadius: 20,
-    borderWidth: 1,
+    borderRadius: 10,
+    // borderWidth: 1,
     borderColor: "#e02e88",
     height: 50,
     justifyContent: "space-between",
@@ -25,6 +25,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     paddingHorizontal: 20,
     marginHorizontal: 10,
+    backgroundColor: "#fff",
+    elevation: 1,
   },
   inputCard: {
     width: "88%",

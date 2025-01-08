@@ -20,8 +20,12 @@ import ShowPollyLine from "../../../Components/Dashboard/ShowPrices/ShowPollyLin
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 
 import { useNavigation } from "@react-navigation/native";
+
+import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
+
 import { useCallback, useMemo, useRef, useState } from "react";
 import { COLORS } from "../../../Constants/colors";
+
 const CaptainAcceptRide = () => {
   const {
     orderDetails,
@@ -76,6 +80,13 @@ const CaptainAcceptRide = () => {
 
   return (
     <View style={styles.container}>
+      <CustomeAppbar
+        title="Rider On the Way"
+        onBack={() => {
+          navigation.goBack();
+        }}
+      />
+
       <View style={styles.mapContainer}>
         {orderDetails?.captainCoor ? (
           <ShowPollyLine
@@ -101,6 +112,7 @@ const CaptainAcceptRide = () => {
           />
         </Pressable>
       </View> */}
+
       <BottomSheet
         ref={bottomSheetRef}
         index={1} // Initial snap point
@@ -110,6 +122,7 @@ const CaptainAcceptRide = () => {
         style={styles.bottomSheet} // Apply custom styles
         backgroundStyle={styles.backgroundStyle} // Set pink background
         handleIndicatorStyle={styles.handleIndicator}
+
       >
         <BottomSheetScrollView contentContainerStyle={styles.sheetContent}>
           {/* <View style={styles.bottomSheet}> */}

@@ -59,8 +59,7 @@ const RideHistoryDetailsViewFirst = ({ ride }) => {
       <View style={{ height: 3 }} />
       <RideTimeKmPriceCard ride={ride} />
       <View style={{ height: 3 }} />
-
-      <RideHistoryCaptainProfileCard />
+      {!ride?.status === "cancelled" && <RideHistoryCaptainProfileCard />}
     </View>
   );
 };
@@ -185,6 +184,9 @@ const styles = StyleSheet.create({
   innerParentCard: {
     elevation: 2,
     borderRadius: 10,
+    marginVertical: 3,
+    padding: 5,
+    backgroundColor: "#fff",
   },
   innerCard: {
     backgroundColor: "#fff",

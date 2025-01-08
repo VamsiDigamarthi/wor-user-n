@@ -1,28 +1,55 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, AntDesign } from "@expo/vector-icons";
+import { useState } from "react";
 
 const RideHistoryFirst = ({ ride }) => {
+  // console.log(ride);
+  const [isDisplayRideDetails, setIsDisplayRideDetails] = useState(true);
+  const toggleRideDetails = () => {
+    setIsDisplayRideDetails(!isDisplayRideDetails);
+  };
   return (
     <View style={styles.conatiner}>
-      <View style={styles.firstCard}>
+      <View
+        style={[
+          styles.firstCard,
+          !isDisplayRideDetails && { marginBottom: 10 },
+        ]}
+      >
         <Text style={styles.rideDetails}>Ride Details</Text>
         <Text style={styles.status}>{ride?.status}</Text>
       </View>
-      <View style={styles.iconWithLocationCard}>
-        <Ionicons name="locate-outline" size={18} color="#E02E88" />
-        <Text numberOfLines={1} ellipsizeMode="tail">
-          {ride?.pickupAddress}
-        </Text>
-      </View>
-      <View style={styles.iconWithLocationCardSeond}>
-        <Ionicons name="lock-closed" size={18} color="#E02E88" />
-        <Text numberOfLines={1} ellipsizeMode="tail">
-          {ride?.dropAddress}
-        </Text>
-      </View>
+      {isDisplayRideDetails && (
+        <>
+          <View style={styles.iconWithLocationCard}>
+            <Ionicons name="locate-outline" size={18} color="#E02E88" />
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              style={{ width: "90%" }}
+            >
+              {ride?.pickupAddress}
+            </Text>
+          </View>
+          <View style={styles.iconWithLocationCardSeond}>
+            <Ionicons name="lock-closed" size={18} color="#E02E88" />
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              style={{ width: "90%" }}
+            >
+              {ride?.dropAddress}
+            </Text>
+          </View>
+        </>
+      )}
       <View style={styles.iconsCard}>
-        <Pressable>
-          <Ionicons name="arrow-down" size={20} color="#e02e88" />
+        <Pressable onPress={toggleRideDetails}>
+          {isDisplayRideDetails ? (
+            <AntDesign name="arrowup" size={20} color="#e02e88" />
+          ) : (
+            <Ionicons name="arrow-down" size={20} color="#e02e88" />
+          )}
         </Pressable>
       </View>
     </View>

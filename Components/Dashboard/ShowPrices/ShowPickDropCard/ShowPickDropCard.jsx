@@ -14,21 +14,24 @@ const ShowPickDropCard = ({
   micVoiceText, // only use when mic text present
   setIsMicModalOpenClose, // this is open for mic modal
   onTimeModalOpenCloseHandler, // this is open for time modal
+  isDisplayPickLoc = true, // this prop used for select destination screen
 }) => {
   return (
     <View style={styles.container}>
-      <ShowPickDropItem
-        topIcon="Ionicons"
-        icons="location"
-        location={placeName}
-        border={styles.borderBo}
-        IconsType="MaterialIcons"
-        iconsName="favorite"
-        showRightIcon={shoRightIcons}
-        timeShow={timeShow}
-        onTimeModalOpenCloseHandler={onTimeModalOpenCloseHandler}
-        // time
-      />
+      {isDisplayPickLoc && (
+        <ShowPickDropItem
+          topIcon="Ionicons"
+          icons="location"
+          location={placeName}
+          border={styles.borderBo}
+          IconsType="MaterialIcons"
+          iconsName="favorite"
+          showRightIcon={shoRightIcons}
+          timeShow={timeShow}
+          onTimeModalOpenCloseHandler={onTimeModalOpenCloseHandler}
+          // time
+        />
+      )}
       <ShowPickDropItem
         topIcon="FontAwesome"
         icons="location-arrow"

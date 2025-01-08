@@ -104,6 +104,9 @@ const styles = StyleSheet.create({
     gap: 10,
     flexDirection: "row",
     position: "relative",
+    // borderWidth: 1,
+    // borderColor: "black",
+    // borderRadius: 10,
   },
   locationText: {
     // flex: 1,
