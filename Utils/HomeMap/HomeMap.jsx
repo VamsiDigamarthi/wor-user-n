@@ -110,11 +110,11 @@ const HomeMap = ({
         ))}
       </MapView>
 
-      {/* <Map3Btns
+      <Map3Btns
         handleOpenSafetyModal={() => setToggle((prev) => !prev)}
         handleZoomToggle={handleResetZoom}
         bottom={mapIconsBottom}
-      /> */}
+      />
 
       {toggle && <MapModalUi toggle={toggle} setToggle={setToggle} />}
     </View>
