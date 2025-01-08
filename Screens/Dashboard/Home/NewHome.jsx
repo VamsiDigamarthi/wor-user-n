@@ -33,7 +33,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 const screenHeight = Dimensions.get("window").height;
 // <<<<<<< changes-from-last-4-days
-const androidHeight = [screenHeight * 0.54]; // Adjust snap points
+const androidHeight = [screenHeight * 0.54, screenHeight * 0.6]; // Adjust snap points
 // =======
 // const androidHeight = [screenHeight * 0.4, screenHeight * 0.4]; // Adjust snap points
 // >>>>>>> master

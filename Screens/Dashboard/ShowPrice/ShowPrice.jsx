@@ -2,13 +2,12 @@ import {
   Dimensions,
   Platform,
   Pressable,
-  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   View,
-  Button,
   Alert,
+  Image,
 } from "react-native";
 
 import React, {
@@ -42,9 +41,11 @@ import LiveLocation from "../Home/BottosheetScreens/LiveLocation.jsx";
 import SpamCallSheet from "../Home/BottosheetScreens/SpamCallSheet.jsx";
 import PoliceStatons from "../Home/BottosheetScreens/PoliceStatons.jsx";
 import ChatWithCaptain from "../Home/BottosheetScreens/components/ChatUi/ChatWithCaptain.jsx";
+import { MaterialIcons } from "@expo/vector-icons";
+import { infoModalStyles } from "../../../Components/InfoUi/Styles/InfoModalStyles.jsx";
 
 const screenHeight = Dimensions.get("window").height;
-const androidHeight = [screenHeight * 0.4, screenHeight * 0.8]; // Adjust snap points
+const androidHeight = [screenHeight * 0.55, screenHeight * 0.55]; // Adjust snap points
 const iosHeight = [screenHeight * 0.15, screenHeight * 0.6];
 
 const ShowPrice = () => {
@@ -74,6 +75,8 @@ const ShowPrice = () => {
     mPinError,
     navigation,
     isDateTimeData,
+
+    sortedVehicles,
   } = useShowPriceHook();
 
   let shoRightIcons = false;
@@ -155,110 +158,136 @@ const ShowPrice = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <CustomeAppbar
-        title="Book Your Ride"
-        onBack={() => navigation.goBack()}
-        rightText="Support"
-        navigationText="Help"
-      />
-      <View
-        style={[
-          styles.mapContainer,
-          // { height: mapHeight }
-        ]}
-      >
-        <ShowPollyLine
-          origin={pickUpCoordinated}
-          destination={dropDetails?.location}
-          height={mapHeight}
-          handleOpenSafetySheet={handleOpenSafetySheet} // this function open safety bottomsheet
+    <>
+      <View style={styles.container}>
+        <CustomeAppbar
+          title={dropDetails?.name}
+          vicinity={dropDetails?.vicinity}
+          onBack={() => navigation.goBack()}
+          appTitCenStyles={styles.appTitCenStyles}
+          appTitCenWidth={{
+            width: "auto",
+            elevation: 2,
+            backgroundColor: "#fff",
+            borderRadius: 20,
+            padding: 10,
+            flexDirection: "column",
+          }}
+          isTimer={true}
+          timerFunction={onTimeModalOpenCloseHandler}
         />
-      </View>
-      <BottomSheet
-        ref={bottomSheetRef}
-        index={1} // Initial snap point
-        snapPoints={snapPoints}
-        onChange={handleSheetChange}
-        enablePanDownToClose={false} // Prevent closing
-        style={styles.bottomSheet} // Apply custom styles
-        backgroundStyle={styles.backgroundStyle} // Set pink background
-        handleIndicatorStyle={styles.handleIndicator}
-      >
-        <BottomSheetScrollView contentContainerStyle={styles.sheetContent}>
-          <View style={styles.bottomSheetInner}>
-            {/* this show pick drop card use show price screens also */}
-            <ShowPickDropCard
-              placeName={placeName}
-              isInputShow={false}
-              dropLocation={dropDetails?.name}
-              shoRightIcons={shoRightIcons}
-              timeShow={timeShow}
-              onTimeModalOpenCloseHandler={onTimeModalOpenCloseHandler}
-            />
-            <View style={{ height: 10 }} />
-            {!isDateTimeData && (
-              <ShowVehicle
-                image={require("../../../assets/images/scooty.png")}
-                personCount={1}
-                price={pricesInKM?.scooty}
-                isSelected={selectedVehicle === "scooty"}
-                onPress={() => handleVehiclePress("scooty")}
-                vehicleType="Scooty"
-              />
-            )}
-
-            <ShowVehicle
-              image={require("../../../assets/images/car.png")}
-              personCount={4}
-              price={pricesInKM?.car}
-              isSelected={selectedVehicle === "car"}
-              onPress={() => handleVehiclePress("car")}
-              vehicleType="Car"
-            />
-
-            {!isDateTimeData && (
-              <ShowVehicle
-                image={require("../../../assets/images/auto.png")}
-                personCount={3}
-                price={pricesInKM?.auto}
-                isSelected={selectedVehicle === "auto"}
-                onPress={() => handleVehiclePress("auto")}
-                vehicleType="Auto"
-              />
-            )}
-          </View>
-        </BottomSheetScrollView>
-      </BottomSheet>
-      <View style={styles.coupneWithBtn}>
-        <View style={styles.couponTextCard}>
-          <Text style={styles.coupnText}>Coupons</Text>
-          <Text style={styles.textLine}></Text>
-          <Text style={styles.coupnText}>
-            <Text>Cash</Text>
-          </Text>
+        <View
+          style={[
+            styles.mapContainer,
+            // { height: mapHeight }
+          ]}
+        >
+          <ShowPollyLine
+            origin={pickUpCoordinated}
+            destination={dropDetails?.location}
+            height={mapHeight}
+            handleOpenSafetySheet={handleOpenSafetySheet} // this function open safety bottomsheet
+          />
         </View>
-        {apiError && (
-          <View style={styles.errorCard}>
-            <Text style={styles.errorMsg}>{apiError}</Text>
+        <BottomSheet
+          ref={bottomSheetRef}
+          index={1} // Initial snap point
+          snapPoints={snapPoints}
+          onChange={handleSheetChange}
+          enablePanDownToClose={false} // Prevent closing
+          style={styles.bottomSheet} // Apply custom styles
+          backgroundStyle={styles.backgroundStyle} // Set pink background
+          handleIndicatorStyle={styles.handleIndicator}
+        >
+          <BottomSheetScrollView contentContainerStyle={styles.sheetContent}>
+            <View style={styles.bottomSheetInner}>
+              {sortedVehicles.map((vehicle, index) => (
+                <ShowVehicle
+                  key={index}
+                  image={vehicle.image}
+                  personCount={vehicle.personCount}
+                  price={vehicle.price}
+                  isSelected={vehicle.isSelected}
+                  onPress={vehicle.onPress}
+                  vehicleType={vehicle.vehicleType}
+                  isDisplayFastTag={vehicle.isDisplayFastTag}
+                  isDisplayBeatTheTraffic={vehicle.isDisplayBeatTheTraffic}
+                  isDisplayUsericon={vehicle.isDisplayUsericon}
+                />
+              ))}
+            </View>
+          </BottomSheetScrollView>
+        </BottomSheet>
+        <View style={styles.coupneWithBtn}>
+          <View style={styles.couponTextCard}>
+            <View style={styles.offersCard}>
+              <View
+                style={{ flexDirection: "row", gap: 9, alignItems: "center" }}
+              >
+                <Image
+                  source={require("../../../assets/offers.png")}
+                  style={{ width: 20, height: 20 }}
+                />
+                <Text style={styles.couponText}>Offers</Text>
+              </View>
+              <MaterialIcons
+                name="arrow-forward-ios"
+                size={20}
+                color="#f98600"
+              />
+            </View>
+
+            <Text style={styles.textLine}></Text>
+            <View style={styles.offersCard}>
+              <View
+                style={{ flexDirection: "row", gap: 9, alignItems: "center" }}
+              >
+                <Image
+                  source={require("../../../assets/images/profile/payment wallet.png")}
+                  style={{ width: 20, height: 20 }}
+                />
+                <View style={{ flexDirection: "column" }}>
+                  <Text
+                    style={[
+                      styles.couponText,
+                      { color: "#e02e88", fontSize: 14 },
+                    ]}
+                  >
+                    Wor Wallet
+                  </Text>
+                  <Text style={{ fontSize: 10, color: "gray" }}>
+                    Available Rs. 120/-
+                  </Text>
+                </View>
+              </View>
+              <MaterialIcons
+                name="arrow-forward-ios"
+                size={20}
+                color="#e02e88"
+              />
+            </View>
           </View>
-        )}
-        <CustomBtn
-          width="100%"
-          btnBg={selectedVehicle ? "#e02e88" : "#fff"}
-          btnColor={selectedVehicle ? "#fff" : "#e02e88"}
-          title={
-            selectedVehicle
-              ? `Book ${selectedVehicle} ${
-                  normalDateFormat && `@ ${normalDateFormat}`
-                }`
-              : `Book Ride ${normalDateFormat}`
-          }
-          onPress={onPlaceTheOrder}
-          disabled={true}
-          borderColor="#e02e88"
-          borderWidth={1}
-        />
+          {apiError && (
+            <View style={styles.errorCard}>
+              <Text style={styles.errorMsg}>{apiError}</Text>
+            </View>
+          )}
+          {normalDateFormat && <Text>Your pickup on {normalDateFormat}</Text>}
+          <CustomBtn
+            width="100%"
+            btnBg={selectedVehicle ? "#e02e88" : "#fff"}
+            btnColor={selectedVehicle ? "#fff" : "#e02e88"}
+            title={
+              selectedVehicle
+                ? `Book ${selectedVehicle} `
+                : `Book Ride ${normalDateFormat}`
+            }
+            onPress={onPlaceTheOrder}
+            disabled={true}
+            borderColor="#e02e88"
+            borderWidth={1}
+          />
+        </View>
       </View>
       <ModalUI
         openCloseState={rideBookBeforeCheckMPinAddhar}
@@ -321,7 +350,20 @@ const ShowPrice = () => {
         onCancel={onTimeModalOpenCloseHandler}
         style={styles.datePicker}
       />
-    </View>
+      {/* timer modal open */}
+      {/* <ModalUI
+        openCloseState={isTimeModalOpenClose}
+        closeModalFun={onTimeModalOpenCloseHandler}
+        modalStyle="slide"
+        style={infoModalStyles.aadharModalStyles}
+        insideCardStyle={infoModalStyles.insideCardStyle}
+        btnText="Okay, Got It"
+        btnStyles={infoModalStyles.modalCloseBtn}
+        btnTextStyle={infoModalStyles.btnTextStyle}
+      >
+        <Text>kjhgf</Text>
+      </ModalUI> */}
+    </>
   );
 };
 
@@ -343,7 +385,7 @@ const styles = StyleSheet.create({
   },
 
   scrollContainer: {
-    paddingTop: 250,
+    // paddingTop: 250,
     // backgroundColor: "red",
   },
 
@@ -353,11 +395,13 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     justifyContent: "center",
     alignItems: "center",
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
+    overflow: "hidden",
     gap: 5,
     backgroundColor: "#fff5f9",
-    marginBottom: 150,
+    marginBottom: 100,
+    elevation: 5,
   },
 
   bottomSheetInner: {
@@ -366,7 +410,7 @@ const styles = StyleSheet.create({
     borderColor: "#ffe3e6",
     elevation: 1,
     shadowColor: "red",
-    gap: 0,
+    gap: 10,
     borderRadius: 10,
   },
   text: {
@@ -388,24 +432,32 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     left: 0,
+    // padding: 30,
+    paddingBottom: 30,
+    elevation: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    backgroundColor: "#fff",
   },
   couponTextCard: {
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    paddingVertical: 7,
+  },
+  couponText: {
+    fontWeight: "600",
+    color: "#f98600",
+    fontSize: 18,
   },
   textLine: {
     width: 1,
-    height: 25,
+    height: 35,
     backgroundColor: "#e02e87",
     // marginHorizontal: 8,
   },
-  coupnText: {
-    width: 67,
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
-  },
+
   errorCard: {
     width: "100%",
   },
@@ -439,5 +491,23 @@ const styles = StyleSheet.create({
     borderRadius: 10, // Add rounded corners
     width: 300, // Adjust width of the date picker modal
     padding: 10, // Add padding inside the modal
+  },
+
+  // offers styles
+  offersCard: {
+    width: "45%",
+    // backgroundColor: "red",
+    height: 30,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+
+  appTitCenStyles: {
+    justifyContent: "center",
+    alignItems: "center",
+    // backgroundColor: "red",
+    width: "80%",
+    marginBottom: 12,
   },
 });
