@@ -10,15 +10,15 @@ const RideHistory = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <CustomeAppbar title="Ride History" onBack={() => navigation.goBack()} />
-      <View style={{ height: 80 }} />
-
-      <FlatList
-        data={rideHistory}
-        keyExtractor={(item) => item._id}
-        renderItem={({ item }) => <RideHistoryItem ride={item} />}
-        ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
-        showsVerticalScrollIndicator={false}
-      />
+      <View style={{ paddingHorizontal: 10 }}>
+        <FlatList
+          data={rideHistory}
+          keyExtractor={(item) => item._id}
+          renderItem={({ item }) => <RideHistoryItem ride={item} />}
+          ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
     </View>
   );
 };
@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff5f9",
-    paddingHorizontal: 10,
-    paddingVertical: 12,
+    // paddingHorizontal: 10,
+    // paddingVertical: 12,
     gap: 20,
   },
 });

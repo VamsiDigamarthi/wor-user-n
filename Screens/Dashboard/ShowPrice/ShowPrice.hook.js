@@ -59,6 +59,8 @@ export const useShowPriceHook = () => {
       time: isDateTimeData ?? null,
     };
 
+    console.log(orderDetails);
+
     API.post("/user/placed-order", orderDetails, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -206,6 +208,11 @@ export const useShowPriceHook = () => {
       setApisError("Please select a vehicle");
       return;
     }
+
+    setBeforeOrder({
+      vehicleType: selectedVehicle,
+      price: pricesInKM[selectedVehicle]?.toFixed(0),
+    });
 
     if (!isOpenEnterConfirmMPinModal) {
       onOpenIsEnterConfirmPinModal();

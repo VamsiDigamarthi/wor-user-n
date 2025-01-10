@@ -24,49 +24,39 @@ const ProfileScreen = () => {
   return (
     <View style={styles.container}>
       <CustomeAppbar title="Profile" onBack={() => navigation.goBack()} />
-      <View style={{ height: 60 }} />
+      <View style={{ height: 60 }}>
+        <View style={styles.topContainer}>
+          <ProfileCard />
+          <ProfileRatingRideCountCard />
+        </View>
 
-      <View style={styles.topContainer}>
-        <ProfileCard />
-        <ProfileRatingRideCountCard />
-      </View>
-
-      <View
-        // contentContainerStyle={
-        //   {
-        //     // flexGrow: 1,
-        //     // // justifyContent: "space-between",
-        //     // alignItems: "center",
-        //   }
-        // }
-        // showsVerticalScrollIndicator={false}
-        style={styles.bottomContainer}
-      >
-        <Settingsitem
-          iconName="person-outline"
-          iconType="Ionicons"
-          label="Personal Information"
-          screenName="PersonalInfoPreview"
-        />
-        <Settingsitem
-          iconName="document-text-outline"
-          iconType="Ionicons"
-          label="Government Id"
-          screenName="ProfileDocumentScreen"
-        />
-        <Settingsitem
-          iconName="contacts"
-          iconType="AntDesign"
-          label="Emergency Contact Number"
-          screenName="EmergencyContactNumber"
-        />
-        {/* <Settingsitem
+        <View style={styles.bottomContainer}>
+          <Settingsitem
+            iconName="person-outline"
+            iconType="Ionicons"
+            label="Personal Information"
+            screenName="PersonalInfoPreview"
+          />
+          <Settingsitem
+            iconName="document-text-outline"
+            iconType="Ionicons"
+            label="Government Id"
+            screenName="ProfileDocumentScreen"
+          />
+          <Settingsitem
+            iconName="contacts"
+            iconType="AntDesign"
+            label="Emergency Contact Number"
+            screenName="EmergencyContactNumber"
+          />
+          {/* <Settingsitem
           iconName="logout"
           iconType="MaterialIcons"
           label="Logout"
           onPress={onLogOutHandler}
           // screenName="PersonalInfoPreview"
         /> */}
+        </View>
       </View>
     </View>
   );
@@ -77,8 +67,8 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 15,
-    paddingVertical: 12,
+    // paddingHorizontal: 15,
+    // paddingVertical: 12,
     gap: 15,
     // backgroundColor: "red",
   },
@@ -87,7 +77,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     justifyContent: "space-between",
-    marginTop: 20,
+    // marginTop: 20,
     alignItems: "center",
     backgroundColor: "#fff",
     padding: 15,

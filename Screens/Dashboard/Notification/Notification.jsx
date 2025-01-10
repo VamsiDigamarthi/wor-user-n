@@ -8,27 +8,28 @@ const Notification = () => {
   const navigation = useNavigation();
   const [notification, setNotification] = useState([]);
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1 }}>
       <CustomeAppbar
         title="Notification"
         onBack={() => navigation.goBack()}
         // showRight
         // rightText="Filter"
       />
-      <View style={{ height: 80 }} />
-      {!notification?.length > 0 ? (
-        <NotificationItem />
-      ) : (
-        <View style={styles.noNotification}>
-          <Image
-            style={styles.notificationImage}
-            source={require("../../../assets/images/profile/Notification.png")}
-          />
-          <Text style={styles.noNotificationText}>
-            You have no new notifications
-          </Text>
-        </View>
-      )}
+      <View style={styles.container}>
+        {!notification?.length > 0 ? (
+          <NotificationItem />
+        ) : (
+          <View style={styles.noNotification}>
+            <Image
+              style={styles.notificationImage}
+              source={require("../../../assets/images/profile/Notification.png")}
+            />
+            <Text style={styles.noNotificationText}>
+              You have no new notifications
+            </Text>
+          </View>
+        )}
+      </View>
     </View>
   );
 };

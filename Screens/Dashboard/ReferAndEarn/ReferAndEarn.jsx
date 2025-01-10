@@ -7,15 +7,14 @@ import InviteCard from "../../../Components/Dashboard/ReferandEarn/InviteCard";
 const ReferAndEarn = () => {
   const navigation = useNavigation();
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1 }}>
       <CustomeAppbar title="Refer To Earn" onBack={() => navigation.goBack()} />
-      <View style={{ height: 80 }} />
+      <View style={styles.container}>
+        <MainCard />
+        <InviteCard />
+        {/* <HowItWorks /> */}
 
-      <MainCard />
-      <InviteCard />
-      {/* <HowItWorks /> */}
-
-      {/* <View style={styles.buttonContainer}>
+        {/* <View style={styles.buttonContainer}>
         <CustomBtn
           btnColor="#fff"
           title="Find Friends to Refer"
@@ -30,6 +29,7 @@ const ReferAndEarn = () => {
           borderColor="#e02e88"
         />
       </View> */}
+      </View>
     </View>
   );
 };
@@ -39,7 +39,7 @@ export default ReferAndEarn;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 10,
+    // paddingHorizontal: 10,
     paddingVertical: 12,
     gap: 15,
     backgroundColor: "#fff5f9",

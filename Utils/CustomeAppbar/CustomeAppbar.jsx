@@ -86,7 +86,8 @@ const CustomeAppbar = ({
                   {vicinity}
                 </Text>
               ) : (
-                <Infopressicons onHandleOpenInfoModal={onHandleOpenInfoModal} />
+                <></>
+                // <Infopressicons onHandleOpenInfoModal={onHandleOpenInfoModal} />
               )}
             </View>
           </View>
@@ -191,13 +192,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     // borderWidth: 1,
     borderColor: "#FFE2E6",
-    width: "85%",
+    width: "100%",
     height: "100%",
     alignItems: "center",
     justifyContent: "space-between",
     gap: 8,
     // borderRadius: 30,
-    paddingRight: 20,
+    // paddingRight: 20,
     position: "relative",
     // elevation: 1,
     backgroundColor: "#fff",
@@ -211,7 +212,7 @@ const styles = StyleSheet.create({
     width: "70%",
     marginLeft: 5,
     alignItems: "center",
-    paddingLeft: 10,
+    // paddingLeft: 10,
     // backgroundColor: "blue",
   },
   text: {
@@ -226,7 +227,11 @@ const styles = StyleSheet.create({
   },
   rightIconCard: {
     // width: "35%",
+    borderWidth: 1,
+    borderColor: "red",
     height: "60%",
+    position: "relative",
+    right: 85,
     // borderWidth: 1,
     borderColor: "#ffe2e6",
     borderRadius: 30,
@@ -234,7 +239,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     gap: 5,
-    paddingHorizontal: 7,
+    // paddingHorizontal: 7,
     // marginRight: 5,
     // backgroundColor: "red",
   },

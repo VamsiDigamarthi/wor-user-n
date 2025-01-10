@@ -21,40 +21,41 @@ const SettingsScreen = () => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1 }}>
       <CustomeAppbar title="About" onBack={() => navigation.goBack()} />
-      <View style={{ height: 80 }} />
-      {/* <SettingProfileCard /> */}
-      <SettingsItemsList onOpenDeleteModal={onOpenModal} />
+      <View style={styles.container}>
+        {/* <SettingProfileCard /> */}
+        <SettingsItemsList onOpenDeleteModal={onOpenModal} />
 
-      {/* Modalize Bottom Sheet */}
-      <Modalize ref={modalizeRef} snapPoint={250}>
-        <View style={styles.bottomSheetContent}>
-          <Text style={styles.bottomSheetTitle}>Delete Account</Text>
-          <Text style={styles.bottomSheetText}>
-            Are you sure you want to delete your account? This action cannot be
-            undone.
-          </Text>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              style={styles.cancelButton}
-              onPress={() => modalizeRef?.current?.close()}
-            >
-              <Text style={styles.cancelButtonText}>Cancel</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.deleteButton}
-              onPress={(event) => {
-                event.persist();
-                console.log("Delete pressed");
-                // Any async actions can be done here
-              }}
-            >
-              <Text style={styles.deleteButtonText}>Delete</Text>
-            </TouchableOpacity>
+        {/* Modalize Bottom Sheet */}
+        <Modalize ref={modalizeRef} snapPoint={250}>
+          <View style={styles.bottomSheetContent}>
+            <Text style={styles.bottomSheetTitle}>Delete Account</Text>
+            <Text style={styles.bottomSheetText}>
+              Are you sure you want to delete your account? This action cannot
+              be undone.
+            </Text>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                style={styles.cancelButton}
+                onPress={() => modalizeRef?.current?.close()}
+              >
+                <Text style={styles.cancelButtonText}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.deleteButton}
+                onPress={(event) => {
+                  event.persist();
+                  console.log("Delete pressed");
+                  // Any async actions can be done here
+                }}
+              >
+                <Text style={styles.deleteButtonText}>Delete</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      </Modalize>
+        </Modalize>
+      </View>
     </View>
   );
 };
@@ -64,12 +65,12 @@ export default SettingsScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 10,
-    paddingVertical: 12,
+    // paddingHorizontal: 10,
+    // paddingVertical: 12,
     gap: 15,
   },
   bottomSheetContent: {
-    padding: 20,
+    // padding: 20,
   },
   bottomSheetTitle: {
     fontSize: 18,

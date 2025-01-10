@@ -1,4 +1,4 @@
-package com.narasimha_62.woruser
+package com.nuhvin.womenrider
 
 import android.app.Application
 import android.content.res.Configuration
