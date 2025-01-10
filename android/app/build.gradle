@@ -111,9 +111,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace 'com.narasimha_62.woruser'
+    namespace 'com.nuhvin.womenrider'
     defaultConfig {
-        applicationId 'com.narasimha_62.woruser'
+        applicationId 'com.nuhvin.womenrider'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

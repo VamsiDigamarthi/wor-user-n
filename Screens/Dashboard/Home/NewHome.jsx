@@ -31,6 +31,8 @@ import FutureOrderBox from "../../../Components/FutureOrderBox/FutureOrderBox";
 import { StatusBar } from "expo-status-bar";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import ContentLoader, { Rect } from "react-content-loader/native";
+
 const screenHeight = Dimensions.get("window").height;
 // <<<<<<< changes-from-last-4-days
 const androidHeight = [screenHeight * 0.54, screenHeight * 0.6]; // Adjust snap points
@@ -91,6 +93,8 @@ const NewHome = () => {
   const [isOpenCloseSOS, setIsOpenCloseSOS] = useState(false);
   const toggleCloseSOS = () => setIsOpenCloseSOS(!isOpenCloseSOS);
 
+  console.log(favoritePlaces, nearByRandomItems);
+
   return (
     <BottomSheetModalProvider>
       <StatusBar style="dark" />
@@ -130,15 +134,30 @@ const NewHome = () => {
           <BottomSheetScrollView contentContainerStyle={styles.sheetContent}>
             <View style={styles.bottomSheet}>
               {/* <Text style={styles.text}></Text> */}
-              <DropLocation
-                nearByRandomItems={nearByRandomItems} // this is display 3 items
-                placeName={placeName} // this prop is store current location text
-                nearbyPlaces={nearbyPlaces} // this prop store nearby places from user current location to 1 km radius famous location [place this data into "select drop location screen to display initial locations"]
-                location={location} // this is location used for pass this data into price screen
-                // activeOrder={activeOrder} // check if active order have any pending status this will prevent  create another another
-                favoritePlaces={favoritePlaces}
-                previousOrders={previousOrders}
-              />
+              {!favoritePlaces?.length && !nearByRandomItems?.length ? (
+                <View
+                  style={{
+                    width: "100%",
+                    gap: 20,
+                    // borderWidth: 1,
+                    // borderColor: "red",
+                  }}
+                >
+                  <SkeletonLoader />
+                  <SkeletonLoader />
+                  <SkeletonLoader />
+                </View>
+              ) : (
+                <DropLocation
+                  nearByRandomItems={nearByRandomItems} // this is display 3 items
+                  placeName={placeName} // this prop is store current location text
+                  nearbyPlaces={nearbyPlaces} // this prop store nearby places from user current location to 1 km radius famous location [place this data into "select drop location screen to display initial locations"]
+                  location={location} // this is location used for pass this data into price screen
+                  // activeOrder={activeOrder} // check if active order have any pending status this will prevent  create another another
+                  favoritePlaces={favoritePlaces}
+                  previousOrders={previousOrders}
+                />
+              )}
               <AllServices
                 placeName={placeName}
                 nearbyPlaces={nearbyPlaces}
@@ -156,9 +175,9 @@ const NewHome = () => {
         </BottomSheet>
       </View>
 
-      {/* <View style={{ position: "absolute", bottom: 0, width: "100%" }}>
+      <View style={{ position: "absolute", bottom: 0, width: "100%" }}>
         <FutureOrderBox />
-      </View> */}
+      </View>
 
       <ModalUI
         openCloseState={isInfoModalOpen}
@@ -190,6 +209,22 @@ function HomeCopyBox() {
     </View>
   );
 }
+
+const SkeletonLoader = () => {
+  return (
+    <View style={styles.SkeletonLoader}>
+      <ContentLoader
+        speed={2}
+        width="98%" // Bar width (adjust as needed)
+        height={20} // Bar height
+        backgroundColor="#e0e0e0"
+        foregroundColor="#f5f5f5"
+      >
+        <Rect x="0" y="0" rx="8" ry="8" width="100%" height="20" />
+      </ContentLoader>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -255,6 +290,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: 160,
     borderStyle: "dashed",
+  },
+
+  SkeletonLoader: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 20,
+    marginHorizontal: 20,
   },
 });
 //

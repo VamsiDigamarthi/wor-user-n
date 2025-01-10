@@ -18,22 +18,23 @@ const DrawerFavorite = () => {
   };
   // console.log(isFavoriteOrParcelAddress);
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1 }}>
       <CustomeAppbar title="Favorite" onBack={() => navigation.goBack()} />
-      <View style={{ height: 90 }} />
-      <TabBtns
-        onChangeFavoriteToParcelAddress={onChangeFavoriteToParcelAddress}
-        isFavoriteOrParcelAddress={isFavoriteOrParcelAddress}
-        onChangeToParcelAddress={onChangeToParcelAddress}
-      />
-      {isFavoriteOrParcelAddress ? (
-        <ParcelAddres />
-      ) : (
-        <>
-          <RideHistoryItem isFavoriteOrRideHistory={false} />
-          <RideHistoryItem isFavoriteOrRideHistory={false} />
-        </>
-      )}
+      <View style={styles.container}>
+        <TabBtns
+          onChangeFavoriteToParcelAddress={onChangeFavoriteToParcelAddress}
+          isFavoriteOrParcelAddress={isFavoriteOrParcelAddress}
+          onChangeToParcelAddress={onChangeToParcelAddress}
+        />
+        {isFavoriteOrParcelAddress ? (
+          <ParcelAddres />
+        ) : (
+          <>
+            <RideHistoryItem isFavoriteOrRideHistory={false} />
+            <RideHistoryItem isFavoriteOrRideHistory={false} />
+          </>
+        )}
+      </View>
     </View>
   );
 };
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 10,
-    paddingVertical: 10,
+    paddingVertical: 15,
     gap: 10,
   },
 

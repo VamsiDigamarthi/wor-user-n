@@ -16,33 +16,33 @@ export default function Suggestions() {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1 }}>
       <CustomeAppbar title="Suggestions" onBack={() => navigation.goBack()} />
-      <View style={{ height: 80 }} />
+      <View style={styles.container}>
+        <Text style={styles.mainText}>Suggest To Wor</Text>
 
-      <Text style={styles.mainText}>Suggest To Wor</Text>
-
-      <TextInput
-        style={styles.textInput}
-        placeholder="Write your Suggestions"
-        placeholderTextColor="#a9a9a9"
-        value={text}
-        onChangeText={setText}
-        multiline
-        textAlignVertical="top" // Ensures the text starts at the top
-      />
-
-      <View style={styles.sendButton}>
-        <CustomBtn
-          title="send"
-          onPress={() => {
-            SendData();
-          }}
-          btnColor={text ? "#fff" : "#e02e88"}
-          btnBg={text ? "#e02e88" : "#fff"}
-          borderColor={!text && "#e02e88"}
-          borderWidth={1}
+        <TextInput
+          style={styles.textInput}
+          placeholder="Write your Suggestions"
+          placeholderTextColor="#a9a9a9"
+          value={text}
+          onChangeText={setText}
+          multiline
+          textAlignVertical="top" // Ensures the text starts at the top
         />
+
+        <View style={styles.sendButton}>
+          <CustomBtn
+            title="send"
+            onPress={() => {
+              SendData();
+            }}
+            btnColor={text ? "#fff" : "#e02e88"}
+            btnBg={text ? "#e02e88" : "#fff"}
+            borderColor={!text && "#e02e88"}
+            borderWidth={1}
+          />
+        </View>
       </View>
     </View>
   );

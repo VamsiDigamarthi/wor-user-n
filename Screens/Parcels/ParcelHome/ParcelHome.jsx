@@ -37,71 +37,72 @@ const ParcelHome = ({ navigation }) => {
         title="Send or Receive Parcel"
         onBack={() => navigation.goBack()}
       />
-      <View style={{ height: 80 }} />
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          gap: 15,
-          paddingBottom: 100,
-        }}
-        showsVerticalScrollIndicator={false}
-      >
-        <ParcelSendReceivesCard
-          handleCardClick={handleCardClick}
-          selectedCard={selectedCard}
-        />
-        {selectedCard ? (
-          <>
-            <SendAndReceiveParcelPicDropCard
-              pickUpLocationCoorWithName={pickUpLocation}
-              dropLocationCoorWithName={dropLocation}
-            />
-            {pickUpLocation && dropLocation && <ParcelApplyCouponCode />}
-            <SelectParcelType setSelectParcelType={setSelectParcelType} />
-            {pickUpLocation && dropLocation && selecteParcelType ? (
-              <ParcelOrderSummary
-                senderName={pickUpLocation?.personName}
-                recevierName={dropLocation?.personName}
-                selecteParcelType={selecteParcelType}
-                price={price}
-              />
-            ) : (
-              <ParcelSpecification />
-            )}
-          </>
-        ) : (
-          <Image
-            style={styles.image}
-            source={require("../../../assets/images/parcels/parcel 1.png")}
+      <View style={{ paddingHorizontal: 16, flex: 1 }}>
+        <ScrollView
+          contentContainerStyle={{
+            flexGrow: 1,
+            gap: 15,
+            paddingBottom: 100,
+          }}
+          showsVerticalScrollIndicator={false}
+        >
+          <ParcelSendReceivesCard
+            handleCardClick={handleCardClick}
+            selectedCard={selectedCard}
           />
-        )}
-      </ScrollView>
+          {selectedCard ? (
+            <>
+              <SendAndReceiveParcelPicDropCard
+                pickUpLocationCoorWithName={pickUpLocation}
+                dropLocationCoorWithName={dropLocation}
+              />
+              {pickUpLocation && dropLocation && <ParcelApplyCouponCode />}
+              <SelectParcelType setSelectParcelType={setSelectParcelType} />
+              {pickUpLocation && dropLocation && selecteParcelType ? (
+                <ParcelOrderSummary
+                  senderName={pickUpLocation?.personName}
+                  recevierName={dropLocation?.personName}
+                  selecteParcelType={selecteParcelType}
+                  price={price}
+                />
+              ) : (
+                <ParcelSpecification />
+              )}
+            </>
+          ) : (
+            <Image
+              style={styles.image}
+              source={require("../../../assets/images/parcels/parcel 1.png")}
+            />
+          )}
+        </ScrollView>
 
-      <View style={styles.positionCard}>
-        {apiError && (
-          <Text style={{ fontSize: 10, color: "red" }}>{apiError}</Text>
-        )}
-        <CustomBtn
-          title="Continue"
-          btnBg={
-            pickUpLocation && dropLocation && selecteParcelType
-              ? "#e02e88"
-              : "#fff"
-          }
-          btnColor={
-            pickUpLocation && dropLocation && selecteParcelType
-              ? "#fff"
-              : "#e02e88"
-          }
-          borderColor="#e02e88"
-          borderWidth={1}
-          onPress={
-            pickUpLocation &&
-            dropLocation &&
-            selecteParcelType &&
-            onHandleNavigateLocationScreen
-          }
-        />
+        <View style={styles.positionCard}>
+          {apiError && (
+            <Text style={{ fontSize: 10, color: "red" }}>{apiError}</Text>
+          )}
+          <CustomBtn
+            title="Continue"
+            btnBg={
+              pickUpLocation && dropLocation && selecteParcelType
+                ? "#e02e88"
+                : "#fff"
+            }
+            btnColor={
+              pickUpLocation && dropLocation && selecteParcelType
+                ? "#fff"
+                : "#e02e88"
+            }
+            borderColor="#e02e88"
+            borderWidth={1}
+            onPress={
+              pickUpLocation &&
+              dropLocation &&
+              selecteParcelType &&
+              onHandleNavigateLocationScreen
+            }
+          />
+        </View>
       </View>
     </View>
   );
@@ -112,8 +113,8 @@ export default ParcelHome;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 10,
-    paddingVertical: 12,
+    // paddingHorizontal: 10,
+    // paddingVertical: 12,
     gap: 15,
     position: "relative",
   },

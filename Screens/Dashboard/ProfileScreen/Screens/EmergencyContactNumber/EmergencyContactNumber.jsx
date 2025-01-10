@@ -187,34 +187,35 @@ const ProfileEmergencyContact = () => {
   );
 
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1 }}>
       <CustomeAppbar
         title="Emergency Contacts"
         onBack={() => navigation.goBack()}
       />
-      <View style={styles.topSpacer} />
-      <AddTrusted />
-      <View style={styles.bottomCard}>
-        <Text style={styles.sectionTitle}>
-          You can add up to 5 emergency contacts.
-        </Text>
-        <View style={styles.separator} />
-        <FlatList
-          data={userBackendContactNumber}
-          keyExtractor={(item) => item._id || item.mobile}
-          renderItem={renderContact}
-        />
-      </View>
-      {userBackendContactNumber?.length < 5 && (
-        <View style={styles.addContactContainer}>
-          <Ionicons name="add-circle-outline" size={30} color="black" />
-          <TouchableOpacity onPress={handlerOpenContactNumber}>
-            <Text style={styles.addContactText}>
-              Add {5 - userBackendContactNumber?.length} more contacts
-            </Text>
-          </TouchableOpacity>
+      <View style={styles.container}>
+        <AddTrusted />
+        <View style={styles.bottomCard}>
+          <Text style={styles.sectionTitle}>
+            You can add up to 5 emergency contacts.
+          </Text>
+          <View style={styles.separator} />
+          <FlatList
+            data={userBackendContactNumber}
+            keyExtractor={(item) => item._id || item.mobile}
+            renderItem={renderContact}
+          />
         </View>
-      )}
+        {userBackendContactNumber?.length < 5 && (
+          <View style={styles.addContactContainer}>
+            <Ionicons name="add-circle-outline" size={30} color="black" />
+            <TouchableOpacity onPress={handlerOpenContactNumber}>
+              <Text style={styles.addContactText}>
+                Add {5 - userBackendContactNumber?.length} more contacts
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      </View>
     </View>
   );
 };
@@ -234,8 +235,13 @@ const AddTrusted = () => (
 );
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 12, backgroundColor: "#fff5f9" },
-  topSpacer: { height: 80 },
+  container: {
+    flex: 1,
+    paddingHorizontal: 12,
+    paddingVertical: 15,
+    backgroundColor: "#fff5f9",
+  },
+
   bottomCard: { marginTop: 20 },
   numberCard: {
     flexDirection: "row",
@@ -255,7 +261,7 @@ const styles = StyleSheet.create({
   addContactContainer: { flexDirection: "row", alignItems: "center", gap: 10 },
   addContactText: { fontSize: 14, fontWeight: "bold", color: "#757575" },
   separator: { backgroundColor: "#e02e88", height: 2, marginTop: 2 },
-  topCard: { flexDirection: "row", padding: 12, height: 200 },
+  topCard: { flexDirection: "row", padding: 12, marginTop: 10, height: 200 },
   topImg: { height: 120, width: 150, resizeMode: "contain" },
   sectionTitle: { fontWeight: "bold", fontSize: 14 },
 });

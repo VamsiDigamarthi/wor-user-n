@@ -11,7 +11,13 @@ import * as Notifications from "expo-notifications";
 import { useEffect, useState } from "react";
 import NetInfo from "@react-native-community/netinfo";
 import NoInternet from "./Components/unavailable/NoInternet";
+import { LogBox } from "react-native";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+
+LogBox.ignoreLogs([
+  "`new NativeEventEmitter()` was called with a non-null argument without the required `addListener` method",
+  "`new NativeEventEmitter()` was called with a non-null argument without the required `removeListeners` method",
+]);
 
 // Configure foreground notifications for Expo
 Notifications.setNotificationHandler({
