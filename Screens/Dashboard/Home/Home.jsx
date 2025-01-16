@@ -1,7 +1,7 @@
 import { Button, ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import DropLocation from "../../../Components/Dashboard/DropLocation/DropLocation";
-import AllServices from "../../../Components/Dashboard/Home/AllServices/AllServices";
+// import AllServices from "../../../Components/Dashboard/Home/AllServices/AllServices";
 import SliderComponent from "../../../Utils/SliderComponent/SliderComponent";
 import { useHomeHook } from "./Home.hook";
 import BackgroundImage from "../../../Utils/BackgroundImage/BackgroundImage";
@@ -55,13 +55,13 @@ const Home = () => {
             favoritePlaces={favoritePlaces}
             previousOrders={previousOrders}
           />
-          <AllServices
+          {/* <AllServices
             placeName={placeName}
             nearbyPlaces={nearbyPlaces}
             location={location}
             favoritePlaces={favoritePlaces}
             previousOrders={previousOrders}
-          />
+          /> */}
           <SliderComponent />
           <BackgroundImage />
           <Button title="Go Back" onPress={onBackLogin} />

@@ -9,11 +9,11 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import Infopressicons from "../../../../Utils/BottomSheet/Components/Infopressicons";
-import ModalUI from "../../../../Utils/Modal/Modal";
-import { infoModalStyles } from "../../../InfoUi/Styles/InfoModalStyles";
-import OtpInfoUi from "../../../InfoUi/OtpInfoUi";
-import { dashBoard } from "../../../InfoUi/data/infoData";
+import Infopressicons from "../../../../../../../Utils/BottomSheet/Components/Infopressicons";
+import ModalUI from "../../../../../../../Utils/Modal/Modal";
+import { infoModalStyles } from "../../../../../../../Components/InfoUi/Styles/InfoModalStyles";
+import OtpInfoUi from "../../../../../../../Components/InfoUi/OtpInfoUi";
+import { dashBoard } from "../../../../../../../Components/InfoUi/data/infoData";
 // A reusable service card component
 const ServiceCard = ({ imageSource, label, onPress }) => {
   return (
@@ -39,13 +39,7 @@ const ServiceCard = ({ imageSource, label, onPress }) => {
   );
 };
 
-const AllServices = ({
-  placeName,
-  location,
-  nearbyPlaces,
-  favoritePlaces,
-  previousOrders,
-}) => {
+const AllServices = ({ placeName, location, nearbyPlaces }) => {
   const navigation = useNavigation();
   const [viewAll, setViewAll] = useState(false);
 
@@ -61,8 +55,6 @@ const AllServices = ({
       pickUpCoordinated: location, // user coordinates to calculate the price
       nearbyPlaces, // nearby places for the "select drop location" screen
       selectedVehicleType: vehicle,
-      favoritePlaces,
-      previousOrders,
     });
   };
 
@@ -70,34 +62,34 @@ const AllServices = ({
     const services = [
       {
         label: "Scooty",
-        image: require("../../../../assets/images/HomeServiceImages/scooty.png"),
+        image: require("../../../../../../../assets/images/HomeServiceImages/scooty.png"),
         vehicle: "scooty",
       },
       {
         label: "Car",
-        image: require("../../../../assets/images/HomeServiceImages/cab.png"),
+        image: require("../../../../../../../assets/images/HomeServiceImages/cab.png"),
         vehicle: "car",
       },
       {
         label: "Auto",
-        image: require("../../../../assets/images/HomeServiceImages/auto.png"),
+        image: require("../../../../../../../assets/images/HomeServiceImages/auto.png"),
         vehicle: "auto",
       },
       {
         label: "Parcel",
-        image: require("../../../../assets/images/HomeServiceImages/gift.png"),
+        image: require("../../../../../../../assets/images/HomeServiceImages/gift.png"),
         vehicle: null,
         isParcel: true,
       },
       {
         label: "Parcel",
-        image: require("../../../../assets/images/HomeServiceImages/gift.png"),
+        image: require("../../../../../../../assets/images/HomeServiceImages/gift.png"),
         vehicle: null,
         isParcel: true,
       },
       {
         label: "Parcel",
-        image: require("../../../../assets/images/HomeServiceImages/scooty.png"),
+        image: require("../../../../../../../assets/images/HomeServiceImages/scooty.png"),
         vehicle: null,
         isParcel: true,
       },

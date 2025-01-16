@@ -12,4 +12,10 @@ const DonationImage = () => {
 
 export default DonationImage;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  image: {
+    width: "100%",
+    height: 300,
+    resizeMode: "contain", // or 'stretch'
+  },
+});

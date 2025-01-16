@@ -15,9 +15,8 @@ export const useSelectDropLocationHook = () => {
     nearbyPlaces,
     pickUpCoordinated,
     selectedVehicleType,
-    favoritePlaces,
-    previousOrders,
     isMic,
+    isFromParcelScreen,
   } = route.params;
 
   const [isMicModalOpenClose, setIsMicModalOpenClose] = useState(
@@ -84,16 +83,11 @@ export const useSelectDropLocationHook = () => {
   const [inputValue, setInputValue] = useState("");
 
   const [suggestions, setSuggestions] = useState([]);
-  const [nearByFavPrevPlace, setNearByFavPrevPlace] = useState([]);
 
   const fetchPlaceSuggestions = async (input) => {
     let nearPlaces = await nearPlacesByText(input);
     setSuggestions(nearPlaces);
   };
-
-  // useEffect(() => {
-  //   micVoiceText?.length >=3 && fetchPlaceSuggestions()
-  // },[micVoiceText])
 
   // Handle text input changes
   const handleInputChange = (text) => {
@@ -108,6 +102,10 @@ export const useSelectDropLocationHook = () => {
   // user click the drop location near places list
 
   const onUserSelectDropLocationByNeardPlace = (place) => {
+    if (isFromParcelScreen) {
+      navigation.navigate("ChangeLoc100mViaMap", { place });
+      return; // if from parcel screen then exit function
+    }
     navigation.navigate("ShowPrice", {
       placeName, // this prop is store current location text
       pickUpCoordinated, // this prop store currect location coodinates
@@ -128,6 +126,11 @@ export const useSelectDropLocationHook = () => {
       location,
     };
 
+    if (isFromParcelScreen) {
+      navigation.navigate("ChangeLoc100mViaMap", { place: newDropLocation });
+      return; // if from parcel screen then exit function
+    }
+
     navigation.navigate("ShowPrice", {
       placeName, // this prop is store current location text
       pickUpCoordinated, // this prop store currect location coodinates
@@ -146,23 +149,11 @@ export const useSelectDropLocationHook = () => {
   };
 
   const onNavigateToFavoriteScreen = () => {
-    navigation.navigate("Favorite", {
-      placeName, // this prop is store current location text
-      pickUpCoordinated, // this prop store currect location coodinates
-    });
+    // navigation.navigate("Favorite", {
+    //   placeName, // this prop is store current location text
+    //   pickUpCoordinated, // this prop store currect location coodinates
+    // });
   };
-
-  useEffect(() => {
-    const uniqueLocations = [
-      ...nearbyPlaces,
-      ...favoritePlaces,
-      ...previousOrders,
-    ].filter(
-      (value, index, self) =>
-        index === self.findIndex((t) => t.name === value.name)
-    );
-    setNearByFavPrevPlace(uniqueLocations);
-  }, [nearbyPlaces, favoritePlaces, previousOrders]);
 
   return {
     inputValue,
@@ -175,9 +166,6 @@ export const useSelectDropLocationHook = () => {
     onUserSelectDropLocationByEnterInput,
     onNavigateToMapPreviewScreen,
     onNavigateToFavoriteScreen,
-    favoritePlaces,
-    previousOrders,
-    nearByFavPrevPlace,
     isMicModalOpenClose,
     setIsMicModalOpenClose,
     handleMicPress,

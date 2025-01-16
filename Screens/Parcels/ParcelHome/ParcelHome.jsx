@@ -34,48 +34,49 @@ const ParcelHome = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <CustomeAppbar
-        title="Send or Receive Parcel"
+        title="Send/Receive Parcel"
         onBack={() => navigation.goBack()}
       />
-      <View style={{ height: 80 }} />
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          gap: 15,
-          paddingBottom: 100,
-        }}
-        showsVerticalScrollIndicator={false}
-      >
-        <ParcelSendReceivesCard
-          handleCardClick={handleCardClick}
-          selectedCard={selectedCard}
-        />
-        {selectedCard ? (
-          <>
-            <SendAndReceiveParcelPicDropCard
-              pickUpLocationCoorWithName={pickUpLocation}
-              dropLocationCoorWithName={dropLocation}
-            />
-            {pickUpLocation && dropLocation && <ParcelApplyCouponCode />}
-            <SelectParcelType setSelectParcelType={setSelectParcelType} />
-            {pickUpLocation && dropLocation && selecteParcelType ? (
-              <ParcelOrderSummary
-                senderName={pickUpLocation?.personName}
-                recevierName={dropLocation?.personName}
-                selecteParcelType={selecteParcelType}
-                price={price}
-              />
-            ) : (
-              <ParcelSpecification />
-            )}
-          </>
-        ) : (
-          <Image
-            style={styles.image}
-            source={require("../../../assets/images/parcels/parcel 1.png")}
+      <View style={styles.innerContainer}>
+        <ScrollView
+          contentContainerStyle={{
+            flexGrow: 1,
+            gap: 15,
+            paddingBottom: 100,
+          }}
+          showsVerticalScrollIndicator={false}
+        >
+          <ParcelSendReceivesCard
+            handleCardClick={handleCardClick}
+            selectedCard={selectedCard}
           />
-        )}
-      </ScrollView>
+          {selectedCard ? (
+            <>
+              <SendAndReceiveParcelPicDropCard
+                pickUpLocationCoorWithName={pickUpLocation}
+                dropLocationCoorWithName={dropLocation}
+              />
+              {pickUpLocation && dropLocation && <ParcelApplyCouponCode />}
+              <SelectParcelType setSelectParcelType={setSelectParcelType} />
+              {pickUpLocation && dropLocation && selecteParcelType ? (
+                <ParcelOrderSummary
+                  senderName={pickUpLocation?.personName}
+                  recevierName={dropLocation?.personName}
+                  selecteParcelType={selecteParcelType}
+                  price={price}
+                />
+              ) : (
+                <ParcelSpecification />
+              )}
+            </>
+          ) : (
+            <Image
+              style={styles.image}
+              source={require("../../../assets/images/parcels/parcel 1.png")}
+            />
+          )}
+        </ScrollView>
+      </View>
 
       <View style={styles.positionCard}>
         {apiError && (
@@ -112,10 +113,12 @@ export default ParcelHome;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 10,
-    paddingVertical: 12,
-    gap: 15,
     position: "relative",
+    gap: 10,
+  },
+  innerContainer: {
+    paddingHorizontal: 5,
+    gap: 15,
   },
   positionCard: {
     width: screenWidth,

@@ -55,12 +55,14 @@ const PaymentMethods = () => {
   return (
     <View style={styles.container}>
       <CustomeAppbar title="Payment" onBack={() => navigation.goBack()} />
-      <View style={{ height: 80 }} />
+      {/* <View style={styles.innerContainer}> */}
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
           gap: 15,
           paddingBottom: 80,
+          paddingHorizontal: 5,
+          gap: 15,
         }}
         showsVerticalScrollIndicator={false}
       >
@@ -120,15 +122,17 @@ const PaymentMethods = () => {
             isOpenIconOrCheckBox={false}
           />
           <PaymnetItems
-            title="HDFC **** **** **** 8767"
+          title="HDFC **** **** **** 8767"
             imageSource={require("../../../assets/images/Payments/visa.png")}
             isChecked={checkedItems.selectedCard === "hdfcCard"}
             onToggle={() => handleToggle("hdfcCard")}
             isOpenIconOrCheckBox={false}
-          />
-          <AddPaymnetCard title="Add New Card" />
-        </PaymentMethodCard> */}
+            />
+            <AddPaymnetCard title="Add New Card" />
+            </PaymentMethodCard> */}
       </ScrollView>
+      {/* </View> */}
+
       {/* <View style={styles.positionCard}>
         <CustomBtn title="Pay Now" btnBg="#e02e88" btnColor="#fff" />
       </View> */}
@@ -141,11 +145,15 @@ export default PaymentMethods;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 10,
-    paddingVertical: 12,
+    // paddingHorizontal: 10,
+    // paddingVertical: 12,
     gap: 15,
-    position: "relative",
-    backgroundColor: COLORS.bottomSheetBg,
+    // position: "relative",
+    // backgroundColor: COLORS.bottomSheetBg,
+  },
+  innerContainer: {
+    paddingHorizontal: 5,
+    gap: 15,
   },
   positionCard: {
     width: screenWidth,

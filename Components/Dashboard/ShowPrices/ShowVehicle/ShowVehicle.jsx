@@ -71,7 +71,7 @@ const FastCard = () => (
       style={{ marginTop: 2 }}
       size={17}
       color="#000"
-      name="solar-power"
+      name="lightning-bolt-outline"
     />
     <Text style={{ fontSize: 15, fontWeight: "500" }}>Faster</Text>
   </View>

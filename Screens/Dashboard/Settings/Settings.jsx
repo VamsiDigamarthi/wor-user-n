@@ -23,7 +23,7 @@ const SettingsScreen = () => {
   return (
     <View style={styles.container}>
       <CustomeAppbar title="About" onBack={() => navigation.goBack()} />
-      <View style={{ height: 80 }} />
+      {/* <View style={{ height: 80 }} /> */}
       {/* <SettingProfileCard /> */}
       <SettingsItemsList onOpenDeleteModal={onOpenModal} />
 
@@ -64,8 +64,8 @@ export default SettingsScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 10,
-    paddingVertical: 12,
+    // paddingHorizontal: 10,
+    // paddingVertical: 12,
     gap: 15,
   },
   bottomSheetContent: {

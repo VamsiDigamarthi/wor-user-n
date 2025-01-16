@@ -15,9 +15,9 @@ const openDialer = (phoneNumber) => {
     .catch((err) => console.error("An error occurred", err));
 };
 
-const Map3Btns = ({ handleZoomToggle, handleOpenSafetyModal }) => {
+const Map3Btns = ({ handleZoomToggle, handleOpenSafetyModal, height }) => {
   return (
-    <View style={styles.mainCont}>
+    <View style={[styles.mainCont, { top: height < "500" ? 200 : 350 }]}>
       {/* <View style={styles.singleIconsCard}>
         <TouchableOpacity
           onPress={() => openDialer("100")}

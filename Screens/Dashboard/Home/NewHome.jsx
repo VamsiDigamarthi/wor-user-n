@@ -18,7 +18,7 @@ import { useHomeHook } from "./Home.hook";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 import HomeMap from "../../../Utils/HomeMap/HomeMap";
 import DropLocation from "../../../Components/Dashboard/DropLocation/DropLocation";
-import AllServices from "../../../Components/Dashboard/Home/AllServices/AllServices";
+import AllServices from "../../../app/wor/features/ridebooking/home/components/AllServices/AllServices";
 import SliderComponent from "../../../Utils/SliderComponent/SliderComponent";
 import BackgroundImage from "../../../Utils/BackgroundImage/BackgroundImage";
 import { COLORS } from "../../../Constants/colors";
@@ -76,8 +76,6 @@ const NewHome = () => {
     placeName,
     nearbyPlaces,
     activeOrder,
-    favoritePlaces, // this is favorite places from show one place in home screen
-    previousOrders, // this is previous order show in home screen
     captainMarkers,
   } = useHomeHook();
 
@@ -135,16 +133,11 @@ const NewHome = () => {
                 placeName={placeName} // this prop is store current location text
                 nearbyPlaces={nearbyPlaces} // this prop store nearby places from user current location to 1 km radius famous location [place this data into "select drop location screen to display initial locations"]
                 location={location} // this is location used for pass this data into price screen
-                // activeOrder={activeOrder} // check if active order have any pending status this will prevent  create another another
-                favoritePlaces={favoritePlaces}
-                previousOrders={previousOrders}
               />
               <AllServices
                 placeName={placeName}
                 nearbyPlaces={nearbyPlaces}
                 location={location}
-                favoritePlaces={favoritePlaces}
-                previousOrders={previousOrders}
               />
               <View style={{ height: 10 }} />
               <SliderComponent />

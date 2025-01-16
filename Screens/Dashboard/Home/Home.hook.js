@@ -12,6 +12,8 @@ import Toast from "react-native-toast-message";
 import messaging from "@react-native-firebase/messaging";
 import * as Notifications from "expo-notifications";
 import { generateRandomMarkers } from "../../../Constants/generateMarkers";
+import { setNearPlaces } from "../../../app/wor/features/ridebooking/home/redux/nearPlaceSlice";
+import { fetchLocation } from "../../../redux/Features/Location/LocationSlice";
 
 export const useHomeHook = () => {
   const navigation = useNavigation();
@@ -30,9 +32,6 @@ export const useHomeHook = () => {
 
   const [activeOrder, setActiveOrder] = useState({});
 
-  const [favoritePlaces, setFavoritePlace] = useState([]);
-  const [previousOrders, setPreviousOrders] = useState([]);
-
   const onFetchActiveOrder = async () => {
     try {
       const response = await API.get("/user/active-ride", {
@@ -44,42 +43,6 @@ export const useHomeHook = () => {
       setActiveOrder(response.data);
     } catch (error) {
       console.log(error.response.data.message);
-    }
-  };
-
-  const onFetchFavoritePlaces = async () => {
-    try {
-      const response = await API.get("/user/favorites-places", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-      setFavoritePlace(response.data);
-    } catch (error) {
-      Toast.show({
-        text1: "Failed to fetch favorite places",
-        type: "error",
-        position: "bottom",
-      });
-    }
-  };
-
-  const onFetchPreviousOrders = async () => {
-    try {
-      const response = await API.get("/user/all-order", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-      setPreviousOrders(response.data);
-    } catch (error) {
-      Toast.show({
-        text1: "Failed to fetch previous orders",
-        type: "error",
-        position: "bottom",
-      });
     }
   };
 
@@ -123,8 +86,6 @@ export const useHomeHook = () => {
   useEffect(() => {
     async function allMix() {
       onFetchActiveOrder();
-      onFetchFavoritePlaces();
-      onFetchPreviousOrders();
       await getToken();
     }
     allMix();
@@ -152,10 +113,13 @@ export const useHomeHook = () => {
           lng: currentLocation.coords.longitude,
         }); // Update state with the location
 
+        dispatch(fetchLocation());
+
         let nearbyPlaces = await fetchNearbyPlaces(
           currentLocation.coords.latitude,
           currentLocation.coords.longitude
         );
+        dispatch(setNearPlaces(nearbyPlaces));
         setNearbyPlaces(nearbyPlaces);
 
         let [place] = await Location.reverseGeocodeAsync({
@@ -203,7 +167,6 @@ export const useHomeHook = () => {
     if (location) {
       const markers = generateRandomMarkers(location);
       setCaptainMarkers(markers);
-      // console.log("markers: ", markers);
     }
   }, [location]);
 
@@ -213,8 +176,6 @@ export const useHomeHook = () => {
     placeName, // based on coordinates to get own location
     nearbyPlaces, // based on coordinates to get near places
     activeOrder,
-    favoritePlaces,
-    previousOrders,
     captainMarkers,
   };
 };

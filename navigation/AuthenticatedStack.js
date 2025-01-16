@@ -73,6 +73,10 @@ import Suggestions from "../Screens/Dashboard/Suggestions/Suggestions";
 import PoliceStationMapCard from "../Screens/Dashboard/Home/BottosheetScreens/components/PoliceStationMapCard/PoliceStationMapCard";
 import Chat from "../Components/Dashboard/CaptainAcceptCom/RatingMsgCall/Chat/Chat";
 import FakeCall from "../Utils/FakeCall/FakeCall";
+import ChangePickLocation from "../Screens/Dashboard/ChangePickLocation/ChangePickLocation";
+import HomeScreen from "../app/wor/features/ridebooking/home/screens/HomeScreen";
+import ParcelHomeScreen from "../app/wor/features/Parcels/screens/ParcelHomeScreen";
+import ChangeLoc100mViaMap from "../app/wor/utiles/ChangeLoc100mViaMap";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -101,23 +105,16 @@ const getCommonOptions = (
 };
 
 const DrawerNavigator = ({ route }) => {
-  const placeName = route?.params?.placeName || "";
-
   const screenBackgroundColors = {
     Rating: COLORS.bottomSheetBg,
   };
-  console.log("routename", route.name);
 
   return (
     <>
-      {/* <StatusBar backgroundColor="#f5f2f2" barStyle="dark-content" /> */}
-
       <Drawer.Navigator
         drawerContent={(props) => <CustomDrawerContent {...props} />} // Use custom drawer
         screenOptions={{
-          header: ({ navigation }) => (
-            <CustomAppBar navigation={navigation} placeName={placeName} />
-          ),
+          header: ({ navigation }) => <CustomAppBar navigation={navigation} />,
           headerStyle: {
             backgroundColor: "red", // Apply background color to the header
           },
@@ -130,11 +127,6 @@ const DrawerNavigator = ({ route }) => {
             borderTopRightRadius: 20,
             borderBottomRightRadius: 20,
             overflow: "hidden",
-
-            // backgroundColor: "#fff", // Background color of the drawer
-            // borderRightWidth: 8, // Thickness of the right border
-            // borderColor: "#e02e88", // Pink border color
-
             borderBottomRightRadius: 20,
             borderTopRightRadius: 20,
             borderRightWidth: 8,
@@ -142,9 +134,7 @@ const DrawerNavigator = ({ route }) => {
           },
         }}
       >
-        {/* Home Screen as default */}
         <Drawer.Screen name="Home" component={NewHome} />
-        {/* <Drawer.Screen name="Home" component={Home} /> */}
       </Drawer.Navigator>
     </>
   );
@@ -247,6 +237,12 @@ const AuthenticatedStack = () => {
       />
 
       <Stack.Screen
+        name="ChangePickLocation"
+        component={ChangePickLocation}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
         name="Favorite"
         component={FavoritePlace}
         options={{ headerShown: false }}
@@ -275,35 +271,23 @@ const AuthenticatedStack = () => {
         name="RideHistory"
         component={RideHistory}
         options={{ headerShown: false }}
-        // options={({ navigation }) =>
-        //   getCommonOptions(navigation, "Ride History")
-        // }
       />
 
       <Stack.Screen
         name="RideHistoryDetailView"
         component={RideHistoryDetailView}
         options={{ headerShown: false }}
-        // options={({ navigation }) =>
-        //   getCommonOptions(navigation, "Ride Details")
-        // }
       />
 
       <Stack.Screen
         name="Safety"
         component={SafetyHome}
         options={{ headerShown: false }}
-        // options={({ navigation }) =>
-        //   getCommonOptions(navigation, "Safety & Privacy", "#fff")
-        // }
       />
 
       <Stack.Screen
         name="EmergencyContactNumber"
         component={EmergencyContactNumber}
-        // options={({ navigation }) =>
-        //   getCommonOptions(navigation, "Emergency Contact Number", "#fff")
-        // }
         options={{ headerShown: false }}
       />
 
@@ -327,53 +311,26 @@ const AuthenticatedStack = () => {
         name="ReferAndEarn"
         component={ReferAndEarn}
         options={{ headerShown: false }}
-        // options={({ navigation }) =>
-        //   getCommonOptions(
-        //     navigation,
-        //     "Refer and Earn",
-        //     "#f5f2f2",
-        //     true,
-        //     "FAQs"
-        //   )
-        // }
       />
       <Stack.Screen
         name="Notifications"
         component={Notification}
         options={{ headerShown: false }}
-        // options={({ navigation }) =>
-        //   getCommonOptions(
-        //     navigation,
-        //     "Notifications",
-        //     "#f5f2f2",
-        //     true,
-        //     "Filter"
-        //   )
-        // }
       />
       <Stack.Screen
         name="Help"
         component={Help}
         options={{ headerShown: false }}
-        // options={({ navigation }) =>
-        //   getCommonOptions(navigation, "Help", "#f5f2f2")
-        // }
       />
       <Stack.Screen
         name="Profile"
         component={ProfileScreen}
-        // options={({ navigation }) =>
-        //   getCommonOptions(navigation, "Profile", "#f5f2f2")
-        // }
         options={{ headerShown: false }}
       />
       <Stack.Screen
         name="PersonalInfo"
         component={PersonalInfo}
         options={{ headerShown: false }}
-        // options={({ navigation }) =>
-        //   getCommonOptions(navigation, "Personal Info", "#f5f2f2")
-        // }
       />
 
       <Stack.Screen
@@ -386,41 +343,22 @@ const AuthenticatedStack = () => {
         name="PersonalInfoPreview"
         component={PersonalInfoPreview}
         options={{ headerShown: false }}
-        // options={({ navigation }) =>
-        //   getCommonOptions(
-        //     navigation,
-        //     "Personal Info",
-        //     "#f5f2f2",
-        //     true,
-        //     "Edit",
-        //     "PersonalInfo"
-        //   )
-        // }
       />
 
       <Stack.Screen
         name="Settings"
         component={SettingsScreen}
         options={{ headerShown: false }}
-        // options={({ navigation }) =>
-        //   getCommonOptions(navigation, "Settings", "#f5f2f2")
-        // }
       />
       <Stack.Screen
         name="Preference"
         component={Preference}
         options={{ headerShown: false }}
-        // options={({ navigation }) =>
-        //   getCommonOptions(navigation, "Preference", "#f5f2f2")
-        // }
       />
 
       <Stack.Screen
         name="Donation"
         component={Donation}
-        // options={({ navigation }) =>
-        //   getCommonOptions(navigation, "Support Our Mission", "#f5f2f2")
-        // }
         options={{ headerShown: false }}
       />
 
@@ -428,18 +366,12 @@ const AuthenticatedStack = () => {
         name="About"
         component={About}
         options={{ headerShown: false }}
-        // options={({ navigation }) =>
-        //   getCommonOptions(navigation, "About", "#f5f2f2", true, "Help", "Help")
-        // }
       />
 
       <Stack.Screen
         name="PaymentMethod"
         component={PaymentMethods}
         options={{ headerShown: false }}
-        // options={({ navigation }) =>
-        //   getCommonOptions(navigation, "Payment", "#f5f2f2")
-        // }
       />
 
       <Stack.Screen
@@ -465,10 +397,6 @@ const AuthenticatedStack = () => {
         name="ProfileDocumentScreen"
         component={ProfileDocumentScreen}
         options={{ headerShown: false }}
-        // options={({ navigation }) =>
-
-        //   getCommonOptions(navigation, "Documentation", "#f5f2f2")
-        // }
       />
 
       {/* side bar screens */}
@@ -477,9 +405,6 @@ const AuthenticatedStack = () => {
         name="Rating"
         component={Rating}
         options={{ headerShown: false }}
-        // options={({ navigation }) =>
-        //   getCommonOptions(navigation, "Rating", "#f5f2f2")
-        // }
       />
 
       <Stack.Screen
@@ -491,51 +416,9 @@ const AuthenticatedStack = () => {
         name="DrawerFavorite"
         component={DrawerFavorite}
         options={{ headerShown: false }}
-        // options={({ navigation }) =>
-        //   getCommonOptions(navigation, "Favorite", "#f5f2f2")
-        // }
       />
 
       {/* side bar screens */}
-
-      {/* parcel screens */}
-      <Stack.Screen
-        name="ParcelHome"
-        component={ParcelHome}
-        options={{ headerShown: false }}
-        // options={({ navigation }) =>
-        //   getCommonOptions(navigation, "Send or Receive Parcel", "#f5f2f2")
-        // }
-      />
-      {/* <Stack.Screen
-        name="SendReceiveParcel"
-        component={SendAndReceiveParcel}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Send or Receive Parcel", "#f5f2f2")
-        }
-      /> */}
-      <Stack.Screen
-        name="ParcelPickLocation"
-        component={PickLocation}
-        options={{ headerShown: false }}
-        // options={({ navigation }) =>
-        //   getCommonOptions(navigation, "Pickup Location", "#fff")
-        // }
-      />
-      <Stack.Screen
-        name="ParcelMapWithBottomSheet"
-        component={ParcelMapWithBottomSheet}
-        options={{ headerShown: false }}
-        // options={({ navigation }) =>
-        //   getCommonOptions(navigation, "Parcel Details", "#fff")
-        // }
-      />
-
-      <Stack.Screen
-        name="ParcelSavePlaces"
-        component={ParcelSavePlaces}
-        options={{ headerShown: false }}
-      />
 
       {/* Voice and Bg */}
 
@@ -566,9 +449,6 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="FaqHome"
         component={FaqHome}
-        // options={({ navigation }) =>
-        //   getCommonOptions(navigation, "Support Our Mission", "#f5f2f2")
-        // }
         options={{ headerShown: false }}
       />
 
@@ -601,6 +481,39 @@ const AuthenticatedStack = () => {
         component={PoliceStationMapCard}
         options={{ headerShown: false }}
       />
+      {/* parcel screens */}
+      <Stack.Screen
+        name="ParcelHome"
+        // component={ParcelHome}
+        component={ParcelHomeScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ChangeLoc100mViaMap"
+        component={ChangeLoc100mViaMap}
+        options={{ headerShown: false }}
+      />
+
+      {/* <Stack.Screen
+        name="ParcelPickLocation"
+        component={PickLocation}
+        options={{ headerShown: false }}
+      /> */}
+      {/* <Stack.Screen
+        name="ParcelMapWithBottomSheet"
+        component={ParcelMapWithBottomSheet}
+        options={{ headerShown: false }}
+        // options={({ navigation }) =>
+        //   getCommonOptions(navigation, "Parcel Details", "#fff")
+        // }
+      /> */}
+
+      {/* <Stack.Screen
+        name="ParcelSavePlaces"
+        component={ParcelSavePlaces}
+        options={{ headerShown: false }}
+      /> */}
+      {/* parcel screens */}
     </Stack.Navigator>
   );
 };

@@ -13,7 +13,7 @@ const Help = () => {
   return (
     <View style={styles.conatiner}>
       <CustomeAppbar title="Help" onBack={() => navigation.goBack()} />
-      <View style={{ height: 80 }} />
+      {/* <View style={{ height: 80 }} /> */}
       <HelpSearchCard />
       <HelpDropPickCard lastOrder={lastOrder} />
       <HelpBottomCard />

@@ -20,20 +20,21 @@ const DrawerFavorite = () => {
   return (
     <View style={styles.container}>
       <CustomeAppbar title="Favorite" onBack={() => navigation.goBack()} />
-      <View style={{ height: 90 }} />
-      <TabBtns
-        onChangeFavoriteToParcelAddress={onChangeFavoriteToParcelAddress}
-        isFavoriteOrParcelAddress={isFavoriteOrParcelAddress}
-        onChangeToParcelAddress={onChangeToParcelAddress}
-      />
-      {isFavoriteOrParcelAddress ? (
-        <ParcelAddres />
-      ) : (
-        <>
-          <RideHistoryItem isFavoriteOrRideHistory={false} />
-          <RideHistoryItem isFavoriteOrRideHistory={false} />
-        </>
-      )}
+      <View style={styles.innerContainer}>
+        <TabBtns
+          onChangeFavoriteToParcelAddress={onChangeFavoriteToParcelAddress}
+          isFavoriteOrParcelAddress={isFavoriteOrParcelAddress}
+          onChangeToParcelAddress={onChangeToParcelAddress}
+        />
+        {isFavoriteOrParcelAddress ? (
+          <ParcelAddres />
+        ) : (
+          <View>
+            <RideHistoryItem isFavoriteOrRideHistory={false} />
+            <RideHistoryItem isFavoriteOrRideHistory={false} />
+          </View>
+        )}
+      </View>
     </View>
   );
 };
@@ -66,9 +67,14 @@ const TabBtns = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
+    // paddingHorizontal: 10,
+    // paddingVertical: 10,
     gap: 10,
+  },
+
+  innerContainer: {
+    paddingHorizontal: 5,
+    gap: 15,
   },
 
   tabBtns: {

@@ -32,12 +32,15 @@ const Donation = () => {
   return (
     <View style={styles.conatiner}>
       <CustomeAppbar title="Donation" onBack={() => navigation.goBack()} />
-      <View style={{ height: 100 }} />
+
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
           gap: 15,
           paddingBottom: 80,
+          paddingHorizontal: 15,
+          // backgroundColor: "#fff",
+          gap: 15,
         }}
         showsVerticalScrollIndicator={false}
       >
@@ -95,8 +98,8 @@ export default Donation;
 const styles = StyleSheet.create({
   conatiner: {
     flex: 1,
-    paddingVertical: 10,
-    paddingHorizontal: 26,
+    // paddingVertical: 10,
+    // paddingHorizontal: 26,
     gap: 20,
     position: "relative",
   },
