@@ -22,7 +22,6 @@ const RideDetails = () => {
     <View style={styles.container}>
       <CustomeAppbar title="Ride Details" onBack={() => navigation.goBack()} />
 
-      <View style={{ height: 80 }} />
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
         showsVerticalScrollIndicator={false}
@@ -53,8 +52,13 @@ export default RideDetails;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // paddingHorizontal: 10,
+    // paddingVertical: 10,
+    gap: 20,
+  },
+
+  scrollContainer: {
     paddingHorizontal: 10,
     paddingVertical: 10,
-    gap: 20,
   },
 });

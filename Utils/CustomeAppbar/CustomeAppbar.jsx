@@ -40,7 +40,7 @@ const CustomeAppbar = ({
                 numberOfLines={2}
                 style={[
                   styles.text,
-                  vicinity && { fontSize: 13, fontWeight: "600" },
+                  vicinity && { fontSize: 10, fontWeight: "500" },
                 ]}
               >
                 {title || "Title"}
@@ -147,12 +147,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     // borderWidth: 1,
     borderColor: "#FFE2E6",
-    width: "89%",
+
+    width: "100%",
+
     height: "100%",
     alignItems: "center",
     justifyContent: "space-between",
     gap: 8,
+
     paddingRight: 20,
+
     position: "relative",
     backgroundColor: "#fff",
   },
@@ -162,6 +166,7 @@ const styles = StyleSheet.create({
     width: "70%",
     marginLeft: 5,
     alignItems: "center",
+
     paddingLeft: 10,
   },
   text: {

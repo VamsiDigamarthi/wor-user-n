@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import ShowPickDropItem from "../../ShowPrices/ShowPickDropCard/Component/ShowPickDropItem/ShowPickDropItem";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 const ShowPickDropPriceCard = ({
   vehicleType,
   price,
@@ -10,12 +10,39 @@ const ShowPickDropPriceCard = ({
 }) => {
   return (
     <View style={styles.showPickDropPriceCard}>
-      <ShowPickDropItem icons="location" location={placeName} />
-      <ShowPickDropItem icons="locate-sharp" location={dropAddress} />
-      <View style={styles.donwArraowCard}>
-        <Ionicons name="arrow-down" size={25} color="#E02E88" />
+      {/* <ShowPickDropItem icons="location" location={placeName} /> */}
+      {/* <ShowPickDropItem icons="locate-sharp" location={dropAddress} /> */}
+
+      <View style={styles.dropCard}>
+        <View style={{ flexDirection: "row", gap: 10 }}>
+          <Ionicons name="location-sharp" size={24} color="green" />
+          <View>
+            <Text style={{ fontWeight: "bold" }}>{dropAddress}</Text>
+            <Text>{placeName?.slice(0, 35)}..</Text>
+          </View>
+        </View>
+
+        <View
+          style={{
+            marginTop: 10,
+            justifyContent: "center",
+            flexDirection: "row",
+            gap: 10,
+          }}
+        >
+          <MaterialCommunityIcons
+            name="alert-circle-outline"
+            size={24}
+            color="#F98600"
+          />
+          <Text style={{ fontWeight: "bold" }}>Your Total pay {price}</Text>
+        </View>
       </View>
-      <View style={styles.priceShowCard}>
+
+      {/* <View style={styles.donwArraowCard}>
+        <Ionicons name="arrow-down" size={25} color="#E02E88" />
+      </View> */}
+      {/* <View style={styles.priceShowCard}>
         <Text style={styles.priceText}>
           Fare Charge:
           <Text style={styles.price}> ₹{price}</Text>
@@ -23,7 +50,7 @@ const ShowPickDropPriceCard = ({
         <Text style={styles.priceText}>
           Ride Type:<Text style={styles.price}> {vehicleType}</Text>
         </Text>
-      </View>
+      </View> */}
     </View>
   );
 };
@@ -34,7 +61,7 @@ const styles = StyleSheet.create({
   showPickDropPriceCard: {
     width: "100%",
     // padding: 15,
-    backgroundColor: "#fff",
+    backgroundColor: "#F7F7F7",
     borderRadius: 10,
     position: "relative",
   },
@@ -61,5 +88,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "600",
     color: "#000",
+  },
+
+  dropCard: {
+    backgroundColor: "#F7F7F7",
+    gap: 10,
+    padding: 10,
+    borderRadius: 20,
   },
 });

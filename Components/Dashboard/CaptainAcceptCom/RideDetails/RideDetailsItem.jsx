@@ -1,33 +1,46 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-import { FontAwesome6, FontAwesome5 } from "@expo/vector-icons";
+import {
+  FontAwesome6,
+  FontAwesome5,
+  Ionicons,
+  FontAwesome,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 
 const RideDetailsItem = ({ orderDetails, travellingTimeAndDistnace }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Ride Details</Text>
       <View style={styles.mainCard}>
-        <View style={styles.rowCard}>
-          <View style={{ width: 30, marginTop: 5 }}>
-            <FontAwesome6 name="location-dot" size={25} color="#31ff10" />
-          </View>
-          <View style={{ width: "70%" }}>
-            <Text style={styles.pickLoc}>Pick Location</Text>
-            <Text style={styles.mainLoc}>{orderDetails?.pickupAddress}</Text>
-          </View>
+        <View style={styles.iconsCard}>
+          <Ionicons name="location-sharp" size={25} color="green" />
+          <View style={styles.line} />
+          <FontAwesome name="location-arrow" size={25} color="#e02e88" />
         </View>
-        <View style={styles.rowCard}>
-          <View style={{ width: 30, marginTop: 5 }}>
-            <FontAwesome6 name="location-arrow" size={25} color="#e02e88" />
+
+        <View style={styles.contentCard}>
+          <View>
+            <Text style={styles.orderText}>
+              {orderDetails?.pickupAddress?.slice(0, 35)}...
+            </Text>
+            <View style={{ flexDirection: "row", gap: 20 }}>
+              <Text>{travellingTimeAndDistnace?.distance ?? "2.8 KMs"}</Text>
+              <View style={{ flexDirection: "row", gap: 5 }}>
+                <MaterialCommunityIcons
+                  name="clock-time-eight-outline"
+                  size={24}
+                  color="black"
+                />
+                <Text>{travellingTimeAndDistnace?.durationInMinutes} M</Text>
+              </View>
+            </View>
           </View>
-          <View style={{ width: "70%" }}>
-            <Text style={styles.pickLoc}>Pick Location</Text>
-            <Text style={styles.mainLoc}>{orderDetails?.dropAddress}</Text>
-          </View>
+          <Text style={styles.orderText}>{orderDetails?.dropAddress}</Text>
         </View>
       </View>
-      <Single
+      {/* <Single
         firstText="Ride type:"
         firstHead={orderDetails.vehicleType ?? "Scooty"}
         secondText="Ride Arrived in:"
@@ -40,7 +53,7 @@ const RideDetailsItem = ({ orderDetails, travellingTimeAndDistnace }) => {
         secondHead={
           `${travellingTimeAndDistnace?.durationInMinutes} M` ?? "23 M"
         }
-      />
+      /> */}
     </View>
   );
 };
@@ -71,11 +84,15 @@ const Single = ({ firstText, firstHead, secondText, secondHead }) => {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    backgroundColor: "#fff",
-    padding: 15,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "#ffe2e6",
+    // backgroundColor: "#fff",
+    borderBottomWidth: 1,
+    borderColor: "#000",
+    borderStyle: "dashed",
+    paddingBottom: 15,
+    paddingHorizontal: 15,
+    // borderRadius: 10,
+    // borderWidth: 1,
+    // borderColor: "#ffe2e6",
     gap: 10,
   },
   text: {
@@ -84,11 +101,8 @@ const styles = StyleSheet.create({
   },
   mainCard: {
     position: "relative",
+    flexDirection: "row",
     gap: 10,
-    overflow: "hidden",
-    borderBottomColor: "#ffe2e6",
-    borderBottomWidth: 1,
-    paddingBottom: 10,
   },
   rowCard: {
     flexDirection: "row",
@@ -100,5 +114,31 @@ const styles = StyleSheet.create({
   },
   mainLoc: {
     fontSize: 11,
+  },
+
+  iconsCard: {
+    height: 100,
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: 5,
+  },
+
+  line: {
+    borderWidth: 1,
+    borderStyle: "dashed",
+    borderColor: "#000",
+    width: 1,
+    height: "50%",
+  },
+
+  contentCard: {
+    height: 100,
+    width: "90%",
+    justifyContent: "space-between",
+    // alignItems: "center",
+  },
+
+  orderText: {
+    fontWeight: "bold",
   },
 });

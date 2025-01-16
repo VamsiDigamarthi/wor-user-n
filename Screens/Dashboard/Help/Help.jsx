@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React from "react";
 import HelpSearchCard from "../../../Components/Dashboard/HelpCom/HelpSearchCard/HelpSearchCard";
 import HelpDropPickCard from "../../../Components/Dashboard/HelpCom/HelpDropPickCard/HelpDropPickCard";
@@ -11,7 +11,7 @@ const Help = () => {
   const navigation = useNavigation();
   const { lastOrder } = useHelpHook();
   return (
-    <View style={styles.conatiner}>
+    <View style={{ flex: 1 }}>
       <CustomeAppbar title="Help" onBack={() => navigation.goBack()} />
       {/* <View style={{ height: 80 }} /> */}
       <HelpSearchCard />

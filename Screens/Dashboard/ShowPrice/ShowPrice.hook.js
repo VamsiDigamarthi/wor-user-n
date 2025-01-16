@@ -210,6 +210,11 @@ export const useShowPriceHook = () => {
       return;
     }
 
+    setBeforeOrder({
+      vehicleType: selectedVehicle,
+      price: pricesInKM[selectedVehicle]?.toFixed(0),
+    });
+
     if (!isOpenEnterConfirmMPinModal) {
       onOpenIsEnterConfirmPinModal();
       return;

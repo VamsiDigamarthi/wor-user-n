@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "56216151764",
-    "project_id": "woruser-123",
-    "storage_bucket": "woruser-123.firebasestorage.app"
+    "project_number": "59117681775",
+    "project_id": "womenrider-b8f1c",
+    "storage_bucket": "womenrider-b8f1c.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:56216151764:android:29e450659b73fc6e7c7d41",
+        "mobilesdk_app_id": "1:59117681775:android:2f86752866d733a90a219a",
         "android_client_info": {
-          "package_name": "com.narasimha_62.woruser"
+          "package_name": "com.nuhvin.womenrider"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA6JrSVi902Mk2rmX3Pfl_mMB4PTE2lh0Y"
+          "current_key": "AIzaSyB8_BHbM17PRWEvbarjHmXAa_OQ9wsImCs"
         }
       ],
       "services": {

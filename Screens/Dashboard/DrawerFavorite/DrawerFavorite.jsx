@@ -18,7 +18,7 @@ const DrawerFavorite = () => {
   };
   // console.log(isFavoriteOrParcelAddress);
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1 }}>
       <CustomeAppbar title="Favorite" onBack={() => navigation.goBack()} />
       <View style={styles.innerContainer}>
         <TabBtns

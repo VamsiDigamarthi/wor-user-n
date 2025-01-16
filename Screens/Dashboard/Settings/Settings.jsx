@@ -21,7 +21,7 @@ const SettingsScreen = () => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1 }}>
       <CustomeAppbar title="About" onBack={() => navigation.goBack()} />
       {/* <View style={{ height: 80 }} /> */}
       {/* <SettingProfileCard /> */}
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     gap: 15,
   },
   bottomSheetContent: {
-    padding: 20,
+    // padding: 20,
   },
   bottomSheetTitle: {
     fontSize: 18,

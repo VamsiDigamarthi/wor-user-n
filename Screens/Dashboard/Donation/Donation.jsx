@@ -30,7 +30,7 @@ const Donation = () => {
   };
 
   return (
-    <View style={styles.conatiner}>
+    <View style={{ flex: 1 }}>
       <CustomeAppbar title="Donation" onBack={() => navigation.goBack()} />
 
       <ScrollView
@@ -87,7 +87,53 @@ const Donation = () => {
           onPress={() => {
             navigation.navigate("Coins");
           }}
+          showsVerticalScrollIndicator={false}
         />
+        <DonationImage />
+        <Text style={styles.mainText}>Enter Donation Amount</Text>
+        <Text style={styles.womenRiderText}>
+          Make sure this is Monthly Donation for the Empower Women Rider
+        </Text>
+        <InputBox
+          label="Donation Amount"
+          keyboardType="number"
+          placeholder="Enter Donation Amount"
+          iconType="FontAwesome"
+          icon="money"
+          value={donationAmount}
+          onChangeText={(value) => setDonationAmount(value)}
+        />
+        <View style={{ flexDirection: "row", gap: 10 }}>
+          <View style={styles.ruppesCard}>
+            <Pressable onPress={() => onChangeDonationAmount(10)}>
+              <Text style={{ fontWeight: "bold" }}>10 Rs</Text>
+            </Pressable>
+          </View>
+          <View style={styles.ruppesCard}>
+            <Pressable onPress={() => onChangeDonationAmount(20)}>
+              <Text style={{ fontWeight: "bold" }}>20 Rs</Text>
+            </Pressable>
+          </View>
+        </View>
+        <Text style={styles.mainText}>Empower Women Rider</Text>
+        <Text style={styles.subText}>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the
+        </Text>
+        <DonationSelectBox />
+        <DonationSuccessStories />
+
+        <View style={styles.positionCard}>
+          <CustomBtn
+            title="Donate Now"
+            btnBg="#e02e88"
+            btnColor="#fff"
+            onPress={() => {
+              navigation.navigate("Coins");
+            }}
+          />
+        </View>
       </View>
     </View>
   );

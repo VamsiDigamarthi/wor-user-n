@@ -5,7 +5,7 @@ import ChatInput from "./ChatInput";
 import ChatMessage from "./ChatMessage";
 import { useSelector } from "react-redux";
 import { API, imageUrl } from "../../../../../Constants/url";
-
+import { StatusBar } from "expo-status-bar";
 import io from "socket.io-client";
 import { useRoute } from "@react-navigation/native";
 const Chat = () => {
@@ -16,6 +16,8 @@ const Chat = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const { orderId, captainDetails } = route.params || {};
+
+  const mref = useRef(null);
 
   const fetchPreviousMessage = async () => {
     console.log(orderId);
@@ -78,11 +80,17 @@ const Chat = () => {
 
   // console.log(messages);
 
+  useEffect(() => {
+    mref.current.scrollToEnd({ animated: true });
+  }, [messages]);
+
   return (
     <View style={styles.container}>
+      <StatusBar style="dark" />
       <ChatHead captainDetails={captainDetails} />
       <View style={{ padding: 10, marginBottom: 170 }}>
         <FlatList
+          ref={mref}
           data={messages}
           keyExtractor={(item, index) => item.timestamp + index} // Ensure uniqueness by appending index
           renderItem={({ item }) => (

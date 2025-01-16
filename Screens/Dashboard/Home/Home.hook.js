@@ -24,6 +24,7 @@ export const useHomeHook = () => {
   const [nearbyPlaces, setNearbyPlaces] = useState([]);
   const [fbToken, setFbToken] = useState("");
   const [captainMarkers, setCaptainMarkers] = useState([]);
+
   // const [nearByRandomItems, setNearByRandomItems] = useState([]);
 
   // console.log("home screen", token);

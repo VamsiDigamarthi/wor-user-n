@@ -109,7 +109,6 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   inputCard: {
-    width: "98%",
     height: 55,
     borderRadius: 5,
     paddingHorizontal: 20,
@@ -118,7 +117,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 3,
     borderRadius: 30,
+
     marginHorizontal: "auto",
+
+    width: "97%",
+    marginHorizontal: "auto",
+    // position: "absolute",
+
     zIndex: 3,
     backgroundColor: "#ebebeb",
   },

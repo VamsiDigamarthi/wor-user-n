@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     borderColor: "#ffe2e6",
     backgroundColor: "#fff",
-    elevation: 1,
+    // elevation: 1,
   },
   pinText: {
     color: "black",
@@ -52,10 +52,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
-    elevation: 2,
-    backgroundColor: "#fff",
+    // elevation: 2,
+    backgroundColor: "#f5f5f5",
   },
   otp: {
     color: "#e02e88",
+    fontWeight: "bold",
   },
 });

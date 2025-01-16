@@ -18,45 +18,46 @@ const ProfileDocumentScreen = () => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1 }}>
       <CustomeAppbar title="Documentation" onBack={() => navigation.goBack()} />
-      <View style={{ height: 90 }} />
-      <Text style={{ fontSize: 12, color: COLORS.subHeading }}>ID Prof</Text>
-      <SingleAadharCardNumberDetail />
-      <Text style={{ fontSize: 12, color: COLORS.subHeading }}>
-        Aadhar Images
-      </Text>
-      <AadharImageDetail profile={profile} />
-      <View style={{ height: 40 }} />
+      <View style={styles.container}>
+        <Text style={{ fontSize: 12, color: COLORS.subHeading }}>ID Prof</Text>
+        <SingleAadharCardNumberDetail />
+        <Text style={{ fontSize: 12, color: COLORS.subHeading }}>
+          Aadhar Images
+        </Text>
+        <AadharImageDetail profile={profile} />
+        <View style={{ height: 40 }} />
 
-      <CustomBtn
-        onPress={onOpenModalHandler}
-        title={
-          profile?.adhar === null && profile?.adharBack === null
-            ? "Upload Addhar Card"
-            : "Re-Upload Aadhar Card"
-        }
-        btnBg={
-          profile?.adhar === null && profile?.adharBack === null
-            ? "#fff"
-            : "#e02e88"
-        }
-        btnColor={
-          profile?.adhar === null && profile?.adharBack === null
-            ? "#e02e88"
-            : "#fff"
-        }
-      />
+        <CustomBtn
+          onPress={onOpenModalHandler}
+          title={
+            profile?.adhar === null && profile?.adharBack === null
+              ? "Upload Addhar Card"
+              : "Re-Upload Aadhar Card"
+          }
+          btnBg={
+            profile?.adhar === null && profile?.adharBack === null
+              ? "#fff"
+              : "#e02e88"
+          }
+          btnColor={
+            profile?.adhar === null && profile?.adharBack === null
+              ? "#e02e88"
+              : "#fff"
+          }
+        />
 
-      <ModalUI
-        openCloseState={uploadAddharModalOpen}
-        closeModalFun={onOpenModalHandler}
-        modalStyle="slide"
-        style={styles.aadharModalStyles}
-        insideCardStyle={styles.insideCardStyle}
-      >
-        <NewAadharVefirication isPriceScreen={true} />
-      </ModalUI>
+        <ModalUI
+          openCloseState={uploadAddharModalOpen}
+          closeModalFun={onOpenModalHandler}
+          modalStyle="slide"
+          style={styles.aadharModalStyles}
+          insideCardStyle={styles.insideCardStyle}
+        >
+          <NewAadharVefirication isPriceScreen={true} />
+        </ModalUI>
+      </View>
     </View>
   );
 };

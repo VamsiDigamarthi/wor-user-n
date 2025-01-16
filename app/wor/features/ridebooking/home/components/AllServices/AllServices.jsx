@@ -75,6 +75,7 @@ const AllServices = ({ placeName, location, nearbyPlaces }) => {
         image: require("../../../../../../../assets/images/HomeServiceImages/auto.png"),
         vehicle: "auto",
       },
+
       {
         label: "Parcel",
         image: require("../../../../../../../assets/images/HomeServiceImages/gift.png"),

@@ -2,7 +2,9 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import CustomBtn from "../../../../Utils/CustomBtn/CustomBtn";
 import { useNavigation } from "@react-navigation/native";
-
+import { TouchableOpacity } from "react-native-gesture-handler";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import Entypo from "@expo/vector-icons/Entypo";
 const RideDetailAmount = ({
   orderDetails,
   travellingTimeAndDistnace,
@@ -24,15 +26,10 @@ const RideDetailAmount = ({
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
-          borderBottomWidth: 1,
-          borderBottomColor: "#ffe2e6",
-          paddingVertical: 5,
         }}
       >
-        <Text style={{ fontSize: 12, color: "#808080" }}>Total Fare:</Text>
-        <Text style={{ fontSize: 17, fontWeight: "600" }}>
-          ₹ {orderDetails?.price}
-        </Text>
+        <Text style={styles.fareText}>Total Fare :</Text>
+        <Text style={styles.rightText}>₹ {orderDetails?.price}</Text>
       </View>
       <View
         style={{
@@ -41,14 +38,27 @@ const RideDetailAmount = ({
           alignItems: "center",
         }}
       >
-        <Text style={{ fontSize: 12, color: "#808080" }}>
-          Paymnet Mode:{"   "}
-          <Text style={{ fontSize: 14, color: "#000", marginLeft: 10 }}>
-            Cash
-          </Text>
-        </Text>
+        <Text style={styles.fareText}>Payment Mode : cash</Text>
+
         <Text style={{ color: "#e02e88", fontWeight: "600" }}>Change</Text>
       </View>
+
+      {/* <View style={styles.btnContainer}>
+        <TouchableOpacity
+          style={[
+            styles.btn,
+            { backgroundColor: "#fff", borderWidth: 1, borderColor: "#e02e88" },
+          ]}
+        >
+          <Entypo name="cross" size={24} color="#e02e88" />
+          <Text style={{ fontWeight: "bold" }}>Cancel</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.btn}>
+          <AntDesign name="customerservice" size={24} color="#fff" />
+          <Text style={{ color: "#fff", fontWeight: "bold" }}>Support</Text>
+        </TouchableOpacity>
+      </View> */}
+
       {payButton && (
         <View>
           <CustomBtn
@@ -68,14 +78,39 @@ export default RideDetailAmount;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    backgroundColor: "#fff",
     padding: 15,
+    marginTop: -15,
     borderRadius: 10,
-    // borderWidth: 1,
-    borderColor: "#ffe2e6",
     gap: 10,
-    elevation: 1,
-    borderColor: "#ffe2e6",
     marginBottom: 7,
+  },
+
+  fareText: {
+    fontWeight: "500",
+    fontSize: 16,
+  },
+
+  rightText: {
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+
+  btnContainer: {
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-between",
+    height: 50,
+  },
+
+  btn: {
+    flexDirection: "row",
+    // justifyContent: "",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 5,
+    backgroundColor: "#e02388",
+    width: 150,
+    borderRadius: 10,
+    height: "100%",
   },
 });

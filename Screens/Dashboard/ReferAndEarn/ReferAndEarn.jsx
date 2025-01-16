@@ -7,7 +7,7 @@ import InviteCard from "../../../Components/Dashboard/ReferandEarn/InviteCard";
 const ReferAndEarn = () => {
   const navigation = useNavigation();
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1 }}>
       <CustomeAppbar title="Refer To Earn" onBack={() => navigation.goBack()} />
       <View style={styles.innerContainer}>
         <MainCard />

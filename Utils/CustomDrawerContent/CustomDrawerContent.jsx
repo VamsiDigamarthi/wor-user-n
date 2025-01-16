@@ -161,7 +161,7 @@ const CustomDrawerContent = (props) => {
       >
         {/* Drawer Items */}
         <View style={[styles.drawerItemsContainer]}>
-          <DrawerItem
+          {/* <DrawerItem
             label="Wallet"
             icon={() => (
               <Ionicons name="wallet-outline" size={22} color="gray" />
@@ -169,7 +169,7 @@ const CustomDrawerContent = (props) => {
             onPress={() => handleItemPress("Wallet")}
             labelStyle={styles.labelStyle}
             style={getItemStyle("Wallet")}
-          />
+          /> */}
           <DrawerItem
             label="Profile"
             icon={() => (
@@ -179,7 +179,7 @@ const CustomDrawerContent = (props) => {
             labelStyle={styles.labelStyle}
             style={getItemStyle("Profile")}
           />
-          <DrawerItem
+          {/* <DrawerItem
             label="Notifications"
             icon={() => (
               <Ionicons name="notifications-outline" size={22} color="gray" />
@@ -187,7 +187,7 @@ const CustomDrawerContent = (props) => {
             onPress={() => handleItemPress("Notifications")}
             labelStyle={styles.labelStyle}
             style={getItemStyle("Notifications")}
-          />
+          /> */}
           <DrawerItem
             label="Parcel"
             icon={() => <Ionicons name="cube-outline" size={22} color="gray" />}
@@ -209,7 +209,7 @@ const CustomDrawerContent = (props) => {
             labelStyle={styles.labelStyle}
             style={getItemStyle("Payment Method")}
           />
-          <DrawerItem
+          {/* <DrawerItem
             label="Favorites"
             icon={() => (
               <MaterialIcons name="favorite-border" size={22} color="gray" />
@@ -217,7 +217,7 @@ const CustomDrawerContent = (props) => {
             onPress={() => handleItemPress("DrawerFavorite")}
             labelStyle={styles.labelStyle}
             style={getItemStyle("Favorites")}
-          />
+          /> */}
           <DrawerItem
             label="Safety"
             icon={() => (
@@ -240,7 +240,7 @@ const CustomDrawerContent = (props) => {
             labelStyle={styles.labelStyle}
             style={getItemStyle("Help")}
           />
-          <DrawerItem
+          {/* <DrawerItem
             label="Donation"
             icon={() => (
               <Ionicons name="heart-outline" size={22} color="gray" />
@@ -248,7 +248,7 @@ const CustomDrawerContent = (props) => {
             onPress={() => handleItemPress("Donation")}
             labelStyle={styles.labelStyle}
             style={getItemStyle("Donation")}
-          />
+          /> */}
 
           <DrawerItem
             label="Refer to Earn"

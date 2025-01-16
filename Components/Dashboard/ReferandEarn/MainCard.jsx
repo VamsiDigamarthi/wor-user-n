@@ -9,8 +9,8 @@ import {
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import LinearGradient from "react-native-linear-gradient";
 
-import mainImg from "../../../assets/images/referalwomen.png";
 import * as Clipboard from "expo-clipboard";
+import mainImg from "../../../assets/images/referalwomen.png";
 import { useState } from "react";
 export default function MainCard() {
   const [text, setText] = useState("GOWOR");

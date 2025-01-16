@@ -53,7 +53,7 @@ const PaymentMethods = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1 }}>
       <CustomeAppbar title="Payment" onBack={() => navigation.goBack()} />
       {/* <View style={styles.innerContainer}> */}
       <ScrollView
@@ -104,7 +104,7 @@ const PaymentMethods = () => {
             iconName="bank-transfer"
             isChecked={checkedItems.netBanking}
             onToggle={() => handleToggle("netBanking")}
-          /> */}
+            /> */}
           <PaymnetItems
             title="Pay at Drop"
             iconsText="MaterialCommunityIcons"
@@ -115,11 +115,11 @@ const PaymentMethods = () => {
         </PaymentMethodCard>
         {/* <PaymentMethodCard titles="Credit & Debit Cards">
           <PaymnetItems
-            title="Axis **** **** **** 9877"
-            imageSource={require("../../../assets/images/Payments/matercard.png")}
-            isChecked={checkedItems.selectedCard === "axisCard"}
-            onToggle={() => handleToggle("axisCard")}
-            isOpenIconOrCheckBox={false}
+          title="Axis **** **** **** 9877"
+          imageSource={require("../../../assets/images/Payments/matercard.png")}
+          isChecked={checkedItems.selectedCard === "axisCard"}
+          onToggle={() => handleToggle("axisCard")}
+          isOpenIconOrCheckBox={false}
           />
           <PaymnetItems
           title="HDFC **** **** **** 8767"

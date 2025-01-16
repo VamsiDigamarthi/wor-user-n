@@ -15,7 +15,7 @@ const Wallet = () => {
   return (
     <View style={styles.container}>
       <CustomeAppbar title="Wallet" onBack={() => navigation.goBack()} />
-      <View style={{ height: 100 }} />
+      {/* <View style={{ height: 100 }} /> */}
 
       <WalletFirstCard />
 
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     width: "100%",
-    paddingHorizontal: 10,
+    // paddingHorizontal: 10,
     paddingVertical: 10,
     marginTop: 20,
     gap: 15,
