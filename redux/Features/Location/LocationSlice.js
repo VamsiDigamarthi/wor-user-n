@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as Location from "expo-location";
+import { fetchNameAndVicinity } from "../../../Constants/displaylocationmap";
 
 export const fetchLocation = createAsyncThunk(
   "location/fetchLocation",
@@ -10,17 +11,25 @@ export const fetchLocation = createAsyncThunk(
     }
 
     let currentLocation = await Location.getCurrentPositionAsync({});
-    const [place] = await Location.reverseGeocodeAsync({
-      latitude: currentLocation.coords.latitude,
-      longitude: currentLocation.coords.longitude,
-    });
+
+    const data = await fetchNameAndVicinity(
+      currentLocation.coords.latitude,
+      currentLocation.coords.longitude
+    );
+
+    // const [place] = await Location.reverseGeocodeAsync({
+    //   latitude: currentLocation.coords.latitude,
+    //   longitude: currentLocation.coords.longitude,
+    // });
+    // console.log(data, "data");
 
     return {
       location: {
         lat: currentLocation.coords.latitude,
         lng: currentLocation.coords.longitude,
       },
-      placeName: place ? place.formattedAddress : "Location not found",
+      placeVicinity: data ? data.vicinity : "Location not found",
+      placeName: data ? data.name : "Main Location not found",
     };
   }
 );
@@ -30,6 +39,7 @@ const locationSlice = createSlice({
   initialState: {
     location: null,
     placeName: null,
+    placeVicinity: null,
     errorMsg: null,
     loading: false,
   },
@@ -44,6 +54,7 @@ const locationSlice = createSlice({
         state.loading = false;
         state.location = action.payload.location;
         state.placeName = action.payload.placeName;
+        state.placeVicinity = action.payload.placeVicinity;
       })
       .addCase(fetchLocation.rejected, (state, action) => {
         state.loading = false;

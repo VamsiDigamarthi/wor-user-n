@@ -9,10 +9,19 @@ import SelectParcelType from "../Components/SelectParcelType";
 import ParcelSpecification from "../Components/ParcelSpecification";
 import ParcelBtnCard from "../Components/ParcelBtnCard";
 import CustomBtn from "../../../utiles/CustomBtn";
+import ParSendRecDetailsDisplayCard from "../Components/ParSendRecDetailsDisplayCard";
+import ParProtectDelivery from "../Components/ParProtectDelivery";
 
 const ParcelHomeScreen = () => {
-  const { selectedCard, setSelectedCard, setSelectParcelType } =
-    useParcelHomeScreenHook();
+  const {
+    selectedCard,
+    setSelectedCard,
+    setSelectParcelType,
+    parcelDetails,
+    handleProtectedParcel,
+    isProtectedParcel,
+    onNavigateParcelPickUpLocationScreen,
+  } = useParcelHomeScreenHook();
 
   return (
     <View style={styles.container}>
@@ -25,12 +34,30 @@ const ParcelHomeScreen = () => {
         <View style={styles.tripDetailsCard}>
           <Text style={styles.tripDetailsText}>Trip Details: 1234567890</Text>
         </View>
-        <ParcSendReceInputCard sendOrReceiveTextDisplay={selectedCard} />
+        {parcelDetails ? (
+          <>
+            <ParSendRecDetailsDisplayCard
+              selectedCard={selectedCard}
+              parcelDetails={parcelDetails}
+            />
+            <ParProtectDelivery
+              handleProtectedParcel={handleProtectedParcel}
+              isChecked={isProtectedParcel}
+            />
+          </>
+        ) : (
+          <ParcSendReceInputCard sendOrReceiveTextDisplay={selectedCard} />
+        )}
         <SelectParcelType setSelectParcelType={setSelectParcelType} />
         <ParcelSpecification />
       </ScrollView>
       <ParcelBtnCard>
-        <CustomBtn title="Continue" btnBg="#f7f7f7" />
+        <CustomBtn
+          title="Continue"
+          borderColor={parcelDetails ? "#fff" : "rgba(255,255,255"}
+          btnBg={parcelDetails ? "#e02e88" : "#f7f7f7"}
+          onPress={onNavigateParcelPickUpLocationScreen}
+        />
       </ParcelBtnCard>
     </View>
   );

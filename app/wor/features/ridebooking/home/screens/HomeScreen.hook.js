@@ -5,6 +5,8 @@ import { onProfileSection } from "../redux/profileSlice";
 import messaging from "@react-native-firebase/messaging";
 import { fetchNearbyPlaces } from "../../../../../../Constants/displaylocationmap";
 import * as Location from "expo-location";
+import { fetchLocation } from "../../../../../../redux/Features/Location/LocationSlice";
+import { setNearPlaces } from "../redux/nearPlaceSlice";
 export const useHomeScreenHook = () => {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.token);
@@ -73,16 +75,20 @@ export const useHomeScreenHook = () => {
 
         // Get the current location
         let currentLocation = await Location.getCurrentPositionAsync({});
+
         setLocation({
           lat: currentLocation.coords.latitude,
           lng: currentLocation.coords.longitude,
         }); // Update state with the location
+
+        dispatch(fetchLocation());
 
         let nearbyPlaces = await fetchNearbyPlaces(
           currentLocation.coords.latitude,
           currentLocation.coords.longitude
         );
         setNearbyPlaces(nearbyPlaces);
+        dispatch(setNearPlaces(nearbyPlaces));
 
         let [place] = await Location.reverseGeocodeAsync({
           latitude: currentLocation.coords.latitude,

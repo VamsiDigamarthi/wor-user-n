@@ -49,7 +49,13 @@ import DrawerFavorite from "../Screens/Dashboard/DrawerFavorite/DrawerFavorite";
 // import ParcelSavePlaces from "../Screens/Parcels/ParcelSavePlaces/ParcelSavePlaces";
 import DashBoardAadharCard from "../Screens/Dashboard/ShowPrice/Screens/DashBoardAadharCard";
 import DashBoardMPinCard from "../Screens/Dashboard/ShowPrice/Screens/DashBoardMPinCard";
+
+import EmergencyContactNumber from "../Screens/Dashboard/ProfileScreen/Screens/EmergencyContactNumber/EmergencyContactNumber";
+
+// import NewHome from "../Screens/Dashboard/Home/NewHome";
+
 import NewHome from "../Screens/Dashboard/Home/NewHome";
+
 
 import { useEffect, useState } from "react";
 import * as Notifications from "expo-notifications";
@@ -67,6 +73,7 @@ import ChangePickLocation from "../Screens/Dashboard/ChangePickLocation/ChangePi
 import HomeScreen from "../app/wor/features/ridebooking/home/screens/HomeScreen";
 import ParcelHomeScreen from "../app/wor/features/Parcels/screens/ParcelHomeScreen";
 import ChangeLoc100mViaMap from "../app/wor/utiles/ChangeLoc100mViaMap";
+import ParSavedUsers from "../app/wor/features/Parcels/screens/ParSavedUsers";
 
 /* Drawer Screens */
 
@@ -147,7 +154,7 @@ const DrawerNavigator = ({ route }) => {
           },
         }}
       >
-        <Drawer.Screen name="Home" component={NewHome} />
+        <Drawer.Screen name="Home" component={HomeScreen} />
       </Drawer.Navigator>
     </>
   );
@@ -508,6 +515,11 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="ChangeLoc100mViaMap"
         component={ChangeLoc100mViaMap}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ParSavedUsers"
+        component={ParSavedUsers}
         options={{ headerShown: false }}
       />
 

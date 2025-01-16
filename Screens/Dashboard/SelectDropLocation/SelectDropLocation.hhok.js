@@ -102,6 +102,7 @@ export const useSelectDropLocationHook = () => {
   // user click the drop location near places list
 
   const onUserSelectDropLocationByNeardPlace = (place) => {
+    console.log(place);
     if (isFromParcelScreen) {
       navigation.navigate("ChangeLoc100mViaMap", { place });
       return; // if from parcel screen then exit function
