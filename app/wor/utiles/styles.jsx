@@ -2,7 +2,6 @@ import { StyleSheet } from "react-native";
 
 export const appbarStyles = StyleSheet.create({
   appTitCenStyles: {
-    // backgroundColor: "red",
     width: "80%",
     marginBottom: 12,
   },

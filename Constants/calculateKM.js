@@ -1,4 +1,5 @@
 export const haversineDistance = (coords1, coords2) => {
+  // console.log(coords2);
   const toRadians = (degrees) => (degrees * Math.PI) / 180;
   const lat1 = toRadians(coords1.lat);
   const lon1 = toRadians(coords1.lng);

@@ -263,3 +263,23 @@ const calculateDistances = async (policeStations, location) => {
     console.error("Error fetching distance matrix:", error);
   }
 };
+
+export const fetchNameAndVicinity = async (lat, lng) => {
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${YOUR_API_KEY}`;
+
+  try {
+    const response = await axios.get(url);
+    const location = response.data.results[0]; // The first result is usually the most relevant
+
+    // Extract formatted address
+    const nameAndVicinity = {
+      name: location.address_components[0].long_name, // Example of a specific name
+      vicinity: location.formatted_address, // The full address of the location
+    };
+
+    // console.log(nameAndVicinity); // Display the extracted data
+    return nameAndVicinity; // Return the result if needed elsewhere
+  } catch (error) {
+    console.log(error, "Location name and vicinity fetching failed");
+  }
+};
