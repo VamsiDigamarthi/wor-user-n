@@ -2,8 +2,6 @@ import { View, Text, StyleSheet, Pressable } from "react-native";
 import React, { useEffect, useState } from "react";
 import CustomeAppbar from "../../Utils/CustomeAppbar/CustomeAppbar";
 import FaqBtnCard from "../../Components/Faqs/FaqBtnCard";
-import FaqAnswerCard from "../../Components/Faqs/FaqAnswerCard";
-import FaqRatingCard from "../../Components/Faqs/FaqRatingCard";
 import Data from "../../Constants/FaqData.json";
 export default function FaqHome({ navigation, route }) {
   const { title } = route.params || {};
@@ -35,28 +33,28 @@ export default function FaqHome({ navigation, route }) {
   return (
     <View style={styles.conatiner}>
       <CustomeAppbar title="FAQs" onBack={() => navigation.goBack()} />
-      <View style={{ height: 100 }} />
+      <View style={styles.innerContainer}>
+        <Text style={{ fontWeight: "bold" }}>{title}</Text>
 
-      <Text style={{ fontWeight: "bold" }}>{title}</Text>
+        {data?.map((e, index) => {
+          const key = Object.keys(e)[0];
+          const value = e[key];
+          return (
+            <FaqBtnCard
+              key={index}
+              title={key}
+              onclick={() => SetAns(key, value)}
+            />
+          );
+        })}
 
-      {data?.map((e, index) => {
-        const key = Object.keys(e)[0];
-        const value = e[key];
-        return (
-          <FaqBtnCard
-            key={index}
-            title={key}
-            onclick={() => SetAns(key, value)}
-          />
-        );
-      })}
-
-      {/* <FaqAnswerCard
+        {/* <FaqAnswerCard
         question="Hey man its Bullshit ?"
         answer="Yeah Man  its all Bullshit"
       />
 
       <FaqRatingCard /> */}
+      </View>
     </View>
   );
 }
@@ -65,8 +63,13 @@ const styles = StyleSheet.create({
   conatiner: {
     flex: 1,
     paddingVertical: 10,
-    paddingHorizontal: 26,
+    // paddingHorizontal: 26,
     gap: 20,
     position: "relative",
+  },
+  innerContainer: {
+    flex: 1,
+    paddingHorizontal: 10,
+    gap: 10,
   },
 });

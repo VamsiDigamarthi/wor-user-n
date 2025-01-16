@@ -1,6 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import Profile from "../Screens/Dashboard/Profile/Profile";
 import Home from "../Screens/Dashboard/Home/Home";
 import RideBook from "../Screens/Dashboard/RideBook/RideBook";
 import CustomAppBar from "../Utils/CustomAppBar/CustomAppBar";
@@ -8,8 +7,6 @@ import SelectDropLocation from "../Screens/Dashboard/SelectDropLocation/SelectDr
 import {
   Alert,
   Pressable,
-  Settings,
-  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -22,43 +19,36 @@ import CaptainAcceptRide from "../Screens/Dashboard/CaptainAcceptRide/CaptainAcc
 import { useNavigation } from "@react-navigation/native";
 import MapPreview from "../Screens/Dashboard/MapPreview/MapPreview";
 import FavoritePlace from "../Screens/Dashboard/FavoritePlace/FavoritePlace";
-import RideHistory from "../Screens/Dashboard/RideHistory/RideHistory";
 import CustomDrawerContent from "../Utils/CustomDrawerContent/CustomDrawerContent";
-import ReferAndEarn from "../Screens/Dashboard/ReferAndEarn/ReferAndEarn";
+// import ReferAndEarn from "../Screens/Dashboard/ReferAndEarn/ReferAndEarn";
 import Notification from "../Screens/Dashboard/Notification/Notification";
-import Help from "../Screens/Dashboard/Help/Help";
-import ProfileScreen from "../Screens/Dashboard/ProfileScreen/ProfileScreen";
-import PersonalInfo from "../Screens/Dashboard/ProfileScreen/Screens/PersonalInfo/PersonalInfo";
-import SafetyHome from "../Screens/Dashboard/Safety/SafetyHome";
+// import Help from "../Screens/Dashboard/Help/Help";
+// import ProfileScreen from "../Screens/Dashboard/ProfileScreen/ProfileScreen";
+import PersonalInfo from "../app/wor/features/DrawerScreens/Profile/Screens/PersonalInfo/PersonalInfo";
+// import SafetyHome from "../Screens/Dashboard/Safety/SafetyHome";
 import EmailVerification from "../Screens/Dashboard/Safety/EmailVerification";
 import MobileVerification from "../Screens/Dashboard/Safety/MobileVerification";
-import SettingsScreen from "../Screens/Dashboard/Settings/Settings";
+// import SettingsScreen from "../Screens/Dashboard/Settings/Settings";
 import Preference from "../Screens/Dashboard/Preference/Preference";
-import About from "../Screens/Dashboard/About/About";
-import ParcelHome from "../Screens/Parcels/ParcelHome/ParcelHome";
-import PersonalInfoPreview from "../Screens/Dashboard/ProfileScreen/Screens/PersonalInfoPreview/PersonalInfoPreview";
-import Donation from "../Screens/Dashboard/Donation/Donation";
+// import About from "../Screens/Dashboard/About/About";
+// import ParcelHome from "../Screens/Parcels/ParcelHome/ParcelHome";
+// import Donation from "../Screens/Dashboard/Donation/Donation";
 import PaymentMethods from "../Screens/Dashboard/PaymnetMethods/PaymentMethods";
-import PickLocation from "../Screens/Parcels/PickLocation/PickLocation";
+// import PickLocation from "../Screens/Parcels/PickLocation/PickLocation";
 import RideDetails from "../Components/Dashboard/CaptainAcceptCom/RideDetails/RideDetails";
 import CaptainRideComplete from "../Components/Dashboard/CaptainAcceptCom/CapatinRideComplete/CaptainRideComplete";
 import MapWithCurrentLocation from "../Components/Dashboard/FixedMapView/FixedMapView";
-import ParcelMapWithBottomSheet from "../Screens/Parcels/ParcelMapWithBottomSheet/ParcelMapWithBottomSheet";
+// import ParcelMapWithBottomSheet from "../Screens/Parcels/ParcelMapWithBottomSheet/ParcelMapWithBottomSheet";
 import VoiceTest from "../Components/BgVoice/VoiceTest";
 import BgTest from "../Components/BgVoice/BgTest";
 import FullMapPreview from "../Utils/FullMapPreview/FullMapPreview";
-import Rating from "../Screens/Dashboard/Rating/Rating";
 import Wallet from "../Screens/Dashboard/Wallet/Wallet";
 import { COLORS } from "../Constants/colors";
-import ProfileDocumentScreen from "../Screens/Dashboard/ProfileScreen/Screens/ProfileDocumentScreen";
-import RideHistoryDetailView from "../Screens/Dashboard/RideHistory/RideHistoryDetailView/RideHistoryDetailView";
 import Coins from "../Screens/Dashboard/Donation/Coins";
 import DrawerFavorite from "../Screens/Dashboard/DrawerFavorite/DrawerFavorite";
-import ParcelSavePlaces from "../Screens/Parcels/ParcelSavePlaces/ParcelSavePlaces";
+// import ParcelSavePlaces from "../Screens/Parcels/ParcelSavePlaces/ParcelSavePlaces";
 import DashBoardAadharCard from "../Screens/Dashboard/ShowPrice/Screens/DashBoardAadharCard";
 import DashBoardMPinCard from "../Screens/Dashboard/ShowPrice/Screens/DashBoardMPinCard";
-import EmergencyContactNumber from "../Screens/Dashboard/ProfileScreen/Screens/EmergencyContactNumber/EmergencyContactNumber";
-
 import NewHome from "../Screens/Dashboard/Home/NewHome";
 
 import { useEffect, useState } from "react";
@@ -68,7 +58,7 @@ import FaqHome from "../Screens/Faqs/FaqHome";
 import FaqAnswer from "../Screens/Faqs/FaqAnswer";
 import ChatWithCaptain from "../Components/ChatUi/ChatWithCaptain";
 
-import Suggestions from "../Screens/Dashboard/Suggestions/Suggestions";
+import Suggestions from "../app/wor/features/DrawerScreens/Suggestions/Suggestions";
 
 import PoliceStationMapCard from "../Screens/Dashboard/Home/BottosheetScreens/components/PoliceStationMapCard/PoliceStationMapCard";
 import Chat from "../Components/Dashboard/CaptainAcceptCom/RatingMsgCall/Chat/Chat";
@@ -77,6 +67,29 @@ import ChangePickLocation from "../Screens/Dashboard/ChangePickLocation/ChangePi
 import HomeScreen from "../app/wor/features/ridebooking/home/screens/HomeScreen";
 import ParcelHomeScreen from "../app/wor/features/Parcels/screens/ParcelHomeScreen";
 import ChangeLoc100mViaMap from "../app/wor/utiles/ChangeLoc100mViaMap";
+
+/* Drawer Screens */
+
+import PersonalInfoPreview from "../app/wor/features/DrawerScreens/Profile/Screens/PersonalInfoPreview/PersonalInfoPreview";
+import ProfileDocumentScreen from "../app/wor/features/DrawerScreens/Profile/Screens/ProfileDocumentScreen";
+import EmergencyContactNumber from "../app/wor/features/DrawerScreens/Profile/Screens/EmergencyContactNumber/EmergencyContactNumber";
+
+import RideHistory from "../app/wor/features/DrawerScreens/RideHistory/RideHistory";
+import RideHistoryDetailView from "../app/wor/features/DrawerScreens/RideHistory/Screens/RideHistoryDetailView";
+
+import AboutScreen from "../app/wor/features/DrawerScreens//About/About";
+
+import Donation from "../app/wor/features/DrawerScreens/Donation/Donation";
+
+import Help from "../app/wor/features/DrawerScreens/Help/Help";
+
+import Rating from "../app/wor/features/DrawerScreens/Rating/Rating";
+
+import RefertoEarn from "../app/wor/features/DrawerScreens/ReferAndEarn/RefertoEarn";
+
+import Profile from "../app/wor/features/DrawerScreens/Profile/Profile";
+import Safety from "../app/wor/features/DrawerScreens/Safety/Safety";
+/* Drawer Screens */
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -281,7 +294,8 @@ const AuthenticatedStack = () => {
 
       <Stack.Screen
         name="Safety"
-        component={SafetyHome}
+        // component={SafetyHome}
+        component={Safety}
         options={{ headerShown: false }}
       />
 
@@ -309,7 +323,8 @@ const AuthenticatedStack = () => {
 
       <Stack.Screen
         name="ReferAndEarn"
-        component={ReferAndEarn}
+        // component={ReferAndEarn}
+        component={RefertoEarn}
         options={{ headerShown: false }}
       />
       <Stack.Screen
@@ -319,12 +334,14 @@ const AuthenticatedStack = () => {
       />
       <Stack.Screen
         name="Help"
+        // component={Help}
         component={Help}
         options={{ headerShown: false }}
       />
       <Stack.Screen
         name="Profile"
-        component={ProfileScreen}
+        // component={ProfileScreen}
+        component={Profile}
         options={{ headerShown: false }}
       />
       <Stack.Screen
@@ -346,8 +363,8 @@ const AuthenticatedStack = () => {
       />
 
       <Stack.Screen
-        name="Settings"
-        component={SettingsScreen}
+        name="About"
+        component={AboutScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
@@ -362,11 +379,11 @@ const AuthenticatedStack = () => {
         options={{ headerShown: false }}
       />
 
-      <Stack.Screen
+      {/* <Stack.Screen
         name="About"
         component={About}
         options={{ headerShown: false }}
-      />
+      /> */}
 
       <Stack.Screen
         name="PaymentMethod"
