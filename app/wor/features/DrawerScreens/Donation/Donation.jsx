@@ -1,4 +1,5 @@
 import {
+  Alert,
   Dimensions,
   Pressable,
   ScrollView,
@@ -6,16 +7,15 @@ import {
   Text,
   View,
 } from "react-native";
-import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
+import CustomBtn from "../../../utiles/CustomBtn";
 
-import DonationImage from "../../../Components/Dashboard/DonationCom/DonationImage/DonationImage";
-import DonationSelectBox from "../../../Components/Dashboard/DonationCom/DonationSelectBox/DonationSelectBox";
-import DonationSuccessStories from "../../../Components/Dashboard/DonationCom/DonationSuccesStories/DonationSuccessStories";
+import DonationImage from "./Components/DonationImage/DonationImage";
+import DonationSelectBox from "./Components/DonationSelectBox/DonationSelectBox";
+import DonationSuccessStories from "./Components/DonationSuccesStories/DonationSuccessStories";
 import { useNavigation } from "@react-navigation/native";
-import { TextInput } from "react-native-gesture-handler";
-import InputBox from "../../../Utils/InputCard/InputCard";
+import InputBox from "../../../utiles/InputCard/InputCard";
 import { useState } from "react";
-import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
+import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -86,7 +86,8 @@ const Donation = () => {
           btnBg="#e02e88"
           btnColor="#fff"
           onPress={() => {
-            navigation.navigate("Coins");
+            // navigation.navigate("Coins");
+            Alert.alert("ThankYou");
           }}
         />
       </View>
