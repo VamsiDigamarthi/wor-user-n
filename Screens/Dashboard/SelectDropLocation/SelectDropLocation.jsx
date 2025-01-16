@@ -24,6 +24,7 @@ import MapBtn from "./Components/MapBtn";
 import HomeLocationCard from "./Components/HomeLocationCard";
 const SelectDropLocation = () => {
   const {
+    nearbyPlaces,
     inputValue,
     suggestions,
     handleInputChange,
@@ -68,9 +69,7 @@ const SelectDropLocation = () => {
                 isDisplayPickLoc={false}
               />
               <View style={styles.mapFavoriteCard}>
-                <Text style={{ fontSize: 15, fontWeight: "600" }}>
-                  Suggested Destination
-                </Text>
+                <Text style={{ fontSize: 12 }}>Suggested Destination</Text>
                 <IconButton
                   icons="favorite"
                   title="Favorite Places"
@@ -83,7 +82,7 @@ const SelectDropLocation = () => {
               data={
                 suggestions && suggestions.length > 0
                   ? suggestions
-                  : nearByFavPrevPlace
+                  : nearbyPlaces
               }
               keyExtractor={(item) =>
                 suggestions && suggestions.length > 0 ? item.placeId : item.name
@@ -118,13 +117,11 @@ const SelectDropLocation = () => {
           <View style={styles.homeWorLocationCard}>
             <HomeLocationCard
               location="Home"
-              vicinity="okiuy7t i9u8y7t7 ;oiu9 oiJQ98SD OIJASIDJ OQJD90 OJIJD
-          IJQ98DUQW8E9DJQWEID IJQ9DHJWQI"
+              vicinity="Vijay Sai Kiran Residency, Jpn Nagar, Miyapur"
             />
             <HomeLocationCard
               location="Work"
-              vicinity="okiuy7t i9u8y7t7 ;oiu9 oiJQ98SD OIJASIDJ OQJD90 OJIJD
-          IJQ98DUQW8E9DJQWEID IJQ9DHJWQI"
+              vicinity="Jayabheri Silicon Towers, Kothaguda - Hitechcity Road, Hyderabad"
               iconType="AntDesign"
               iconName="star"
             />
@@ -198,7 +195,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "75%",
     borderRadius: 20,
-    elevation: 4,
+    elevation: 1,
     gap: 10,
   },
 

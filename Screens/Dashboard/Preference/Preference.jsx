@@ -83,7 +83,7 @@ const Preference = ({ navigation }) => {
           title="App Settings"
           onBack={() => navigation.goBack()}
         />
-        <View style={{ height: 100 }} />
+        {/* <View style={{ height: 100 }} /> */}
         <ScrollView style={styles.container}>
           {data.map((item, index) => (
             <PreferenceItem key={index} name={item.name} values={item.values} />
@@ -144,7 +144,7 @@ export default Preference;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 26,
+    paddingHorizontal: 6,
     paddingVertical: 12,
     gap: 25,
   },

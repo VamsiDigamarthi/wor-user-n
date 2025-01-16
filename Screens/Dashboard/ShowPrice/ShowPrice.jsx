@@ -166,12 +166,14 @@ const ShowPrice = () => {
           onBack={() => navigation.goBack()}
           appTitCenStyles={styles.appTitCenStyles}
           appTitCenWidth={{
-            width: "auto",
-            elevation: 2,
+            width: "100%",
+            // elevation: 2,
             backgroundColor: "#fff",
-            borderRadius: 20,
-            padding: 10,
+            // borderRadius: 20,
+            // padding: 10,
             flexDirection: "column",
+            alignItems: "flex-start",
+            gap: 2,
           }}
           isTimer={true}
           timerFunction={onTimeModalOpenCloseHandler}
@@ -504,8 +506,6 @@ const styles = StyleSheet.create({
   },
 
   appTitCenStyles: {
-    justifyContent: "center",
-    alignItems: "center",
     // backgroundColor: "red",
     width: "80%",
     marginBottom: 12,

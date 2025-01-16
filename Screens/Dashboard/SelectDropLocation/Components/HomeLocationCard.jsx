@@ -56,7 +56,7 @@ const HomeLocationCard = ({
           style={{
             fontSize: 14,
             fontWeight: "400",
-            color: "lightgray",
+            color: "#808080",
             flex: 1,
           }}
         >

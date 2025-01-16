@@ -10,45 +10,10 @@ const DropLocation = ({
   placeName,
   nearbyPlaces,
   location,
-  favoritePlaces,
-  previousOrders,
 }) => {
   const { handleNavigate, onNavigateToDirectPriceScreen } = useDropLocationHook(
-    { placeName, nearbyPlaces, location, favoritePlaces, previousOrders }
+    { placeName, nearbyPlaces, location }
   );
-
-  function getRandomElement(arr) {
-    const randomIndex = Math.floor(Math.random() * arr.length);
-    return [arr[randomIndex]];
-  }
-
-  let randomFavoritePlace =
-    favoritePlaces?.length > 0 ? getRandomElement(favoritePlaces) : [];
-
-  function getRandomItems(arr, numItems) {
-    if (numItems >= arr.length) {
-      return arr;
-    } else if (numItems === 1) {
-      const randomIndex = Math.floor(Math.random() * arr.length);
-      return [arr[randomIndex]];
-    } else if (numItems > 1) {
-      const randomIndex = Math.floor(
-        Math.random() * (arr.length - numItems + 1)
-      );
-      return arr.slice(randomIndex, randomIndex + numItems);
-    }
-  }
-
-  let randomTwoPreviousOrders =
-    previousOrders?.length > 0 ? getRandomItems(previousOrders, 3) : [];
-
-  let remainingPlaces = 3;
-  if (randomFavoritePlace?.length) {
-    remainingPlaces -= 1;
-  }
-  if (randomTwoPreviousOrders?.length) {
-    remainingPlaces -= randomTwoPreviousOrders?.length;
-  }
 
   return (
     <View style={[styles.container]}>
@@ -86,47 +51,36 @@ const DropLocation = ({
         </Pressable>
       </View>
       <View style={[styles.innerCard]}>
-        {randomFavoritePlace?.length > 0 &&
-          randomFavoritePlace?.map((eachPlace, key) => (
-            <DropLocationItem
-              mainPlace={eachPlace?.name}
-              subPlace={eachPlace?.vicinity}
-              eachPlace={eachPlace}
-              key={key}
-              onPress={onNavigateToDirectPriceScreen.bind(
-                this,
-                eachPlace,
-                "favorite"
-              )}
-            />
-          ))}
-        {randomTwoPreviousOrders?.map((eachPlace, key) => (
-          <DropLocationItem
-            mainPlace={eachPlace?.dropAddress}
-            subPlace={eachPlace?.dropVicinity}
-            eachPlace={eachPlace}
-            key={key}
-            isPreviousOrder={true}
-            onPress={onNavigateToDirectPriceScreen.bind(
-              this,
-              eachPlace,
-              "previous"
-            )}
-          />
-        ))}
-        {nearByRandomItems.slice(0, remainingPlaces)?.map((eachPlace, key) => (
-          <DropLocationItem
-            mainPlace={eachPlace?.name}
-            subPlace={eachPlace?.vicinity}
-            eachPlace={eachPlace}
-            key={key}
-            onPress={onNavigateToDirectPriceScreen.bind(
-              this,
-              eachPlace,
-              "nearby"
-            )}
-          />
-        ))}
+        <DropLocationItem
+          mainPlace={nearByRandomItems?.[0]?.name}
+          subPlace={nearByRandomItems?.[0]?.vicinity}
+          eachPlace={nearByRandomItems?.[0]}
+          onPress={onNavigateToDirectPriceScreen.bind(
+            this,
+            nearByRandomItems?.[0],
+            "nearby"
+          )}
+        />
+        <DropLocationItem
+          mainPlace={nearbyPlaces?.[0]?.name}
+          subPlace={nearbyPlaces?.[0]?.vicinity}
+          eachPlace={nearbyPlaces?.[0]}
+          onPress={onNavigateToDirectPriceScreen.bind(
+            this,
+            nearbyPlaces?.[0],
+            "nearby"
+          )}
+        />
+        <DropLocationItem
+          mainPlace={nearbyPlaces?.[0]?.name}
+          subPlace={nearbyPlaces?.[0]?.vicinity}
+          eachPlace={nearbyPlaces?.[0]}
+          onPress={onNavigateToDirectPriceScreen.bind(
+            this,
+            nearbyPlaces?.[0],
+            "nearby"
+          )}
+        />
       </View>
     </View>
   );
@@ -138,49 +92,40 @@ const styles = StyleSheet.create({
   allborder: { borderWidth: 1, borderColor: "red" },
   container: {
     width: "100%",
-    position: "relative",
-    height: 240,
-    marginBottom: 8,
   },
   innerCard: {
-    backgroundColor: "#fdfdfd",
+    backgroundColor: "#fff",
     padding: 10,
     overflow: "hidden",
-    height: 230,
     justifyContent: "flex-end",
     alignItems: "flex-start",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
     width: "100%",
     zIndex: 2,
-    // borderBottomRightRadius: 10,
-    // borderBottomLeftRadius: 10,
-    // borderWidth: 1,
-    borderColor: "#ffe2e6",
     gap: 10,
-    // backgroundColor: "blue",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     elevation: 1,
+    borderBottomColor: "gray",
+    overflow: "hidden",
   },
   inputCard: {
-    // width: "100%",
     height: 55,
-    // elevation: 1,
     borderRadius: 5,
     paddingHorizontal: 20,
-    // elevation: 2,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     gap: 3,
     borderRadius: 30,
+
+    marginHorizontal: "auto",
+
     width: "97%",
     marginHorizontal: "auto",
     // position: "absolute",
+
     zIndex: 3,
-    backgroundColor: COLORS.desBackground,
+    backgroundColor: "#ebebeb",
   },
   inputTypeCard: {
     width: "80%",

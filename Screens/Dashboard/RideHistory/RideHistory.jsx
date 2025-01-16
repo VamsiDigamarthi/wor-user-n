@@ -10,7 +10,7 @@ const RideHistory = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <CustomeAppbar title="Ride History" onBack={() => navigation.goBack()} />
-      <View style={{ paddingHorizontal: 10 }}>
+      <View style={styles.innerContainer}>
         <FlatList
           data={rideHistory}
           keyExtractor={(item) => item._id}
@@ -28,9 +28,13 @@ export default RideHistory;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff5f9",
+    // backgroundColor: "#fff5f9",
     // paddingHorizontal: 10,
     // paddingVertical: 12,
-    gap: 20,
+    // gap: 20,
+  },
+  innerContainer: {
+    paddingHorizontal: 5,
+    gap: 15,
   },
 });

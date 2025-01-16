@@ -8,14 +8,9 @@ const Notification = () => {
   const navigation = useNavigation();
   const [notification, setNotification] = useState([]);
   return (
-    <View style={{ flex: 1 }}>
-      <CustomeAppbar
-        title="Notification"
-        onBack={() => navigation.goBack()}
-        // showRight
-        // rightText="Filter"
-      />
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <CustomeAppbar title="Notification" onBack={() => navigation.goBack()} />
+      <View style={styles.innerContainer}>
         {!notification?.length > 0 ? (
           <NotificationItem />
         ) : (
@@ -40,8 +35,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     gap: 20,
-    paddingHorizontal: 10,
-    paddingVertical: 12,
+    // paddingHorizontal: 10,
+    // paddingVertical: 12,
+  },
+  innerContainer: {
+    paddingHorizontal: 5,
+    gap: 15,
   },
   noNotification: {
     width: "100%",

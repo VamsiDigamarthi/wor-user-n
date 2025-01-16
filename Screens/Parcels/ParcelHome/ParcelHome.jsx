@@ -34,10 +34,10 @@ const ParcelHome = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <CustomeAppbar
-        title="Send or Receive Parcel"
+        title="Send/Receive Parcel"
         onBack={() => navigation.goBack()}
       />
-      <View style={{ paddingHorizontal: 16, flex: 1 }}>
+      <View style={styles.innerContainer}>
         <ScrollView
           contentContainerStyle={{
             flexGrow: 1,
@@ -76,33 +76,33 @@ const ParcelHome = ({ navigation }) => {
             />
           )}
         </ScrollView>
+      </View>
 
-        <View style={styles.positionCard}>
-          {apiError && (
-            <Text style={{ fontSize: 10, color: "red" }}>{apiError}</Text>
-          )}
-          <CustomBtn
-            title="Continue"
-            btnBg={
-              pickUpLocation && dropLocation && selecteParcelType
-                ? "#e02e88"
-                : "#fff"
-            }
-            btnColor={
-              pickUpLocation && dropLocation && selecteParcelType
-                ? "#fff"
-                : "#e02e88"
-            }
-            borderColor="#e02e88"
-            borderWidth={1}
-            onPress={
-              pickUpLocation &&
-              dropLocation &&
-              selecteParcelType &&
-              onHandleNavigateLocationScreen
-            }
-          />
-        </View>
+      <View style={styles.positionCard}>
+        {apiError && (
+          <Text style={{ fontSize: 10, color: "red" }}>{apiError}</Text>
+        )}
+        <CustomBtn
+          title="Continue"
+          btnBg={
+            pickUpLocation && dropLocation && selecteParcelType
+              ? "#e02e88"
+              : "#fff"
+          }
+          btnColor={
+            pickUpLocation && dropLocation && selecteParcelType
+              ? "#fff"
+              : "#e02e88"
+          }
+          borderColor="#e02e88"
+          borderWidth={1}
+          onPress={
+            pickUpLocation &&
+            dropLocation &&
+            selecteParcelType &&
+            onHandleNavigateLocationScreen
+          }
+        />
       </View>
     </View>
   );
@@ -113,10 +113,12 @@ export default ParcelHome;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // paddingHorizontal: 10,
-    // paddingVertical: 12,
-    gap: 15,
     position: "relative",
+    gap: 10,
+  },
+  innerContainer: {
+    paddingHorizontal: 5,
+    gap: 15,
   },
   positionCard: {
     width: screenWidth,

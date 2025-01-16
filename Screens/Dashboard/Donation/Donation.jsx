@@ -32,50 +32,98 @@ const Donation = () => {
   return (
     <View style={{ flex: 1 }}>
       <CustomeAppbar title="Donation" onBack={() => navigation.goBack()} />
-      <View style={styles.conatiner}>
-        <ScrollView
-          contentContainerStyle={{
-            flexGrow: 1,
-            gap: 15,
-            paddingBottom: 80,
+
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+          gap: 15,
+          paddingBottom: 80,
+          paddingHorizontal: 15,
+          // backgroundColor: "#fff",
+          gap: 15,
+        }}
+        showsVerticalScrollIndicator={false}
+      >
+        <DonationImage />
+        <Text style={styles.mainText}>Enter Donation Amount</Text>
+        <Text style={styles.womenRiderText}>
+          Make sure this is Monthly Donation for the Empower Women Rider
+        </Text>
+        <InputBox
+          label="Donation Amount"
+          keyboardType="number"
+          placeholder="Enter Donation Amount"
+          iconType="FontAwesome"
+          icon="money"
+          value={donationAmount}
+          onChangeText={(value) => setDonationAmount(value)}
+        />
+        <View style={{ flexDirection: "row", gap: 10 }}>
+          <View style={styles.ruppesCard}>
+            <Pressable onPress={() => onChangeDonationAmount(10)}>
+              <Text style={{ fontWeight: "bold" }}>10 Rs</Text>
+            </Pressable>
+          </View>
+          <View style={styles.ruppesCard}>
+            <Pressable onPress={() => onChangeDonationAmount(20)}>
+              <Text style={{ fontWeight: "bold" }}>20 Rs</Text>
+            </Pressable>
+          </View>
+        </View>
+        <Text style={styles.mainText}>Empower Women Rider</Text>
+        <Text style={styles.subText}>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the
+        </Text>
+        <DonationSelectBox />
+        <DonationSuccessStories />
+      </ScrollView>
+      <View style={styles.positionCard}>
+        <CustomBtn
+          title="Donate Now"
+          btnBg="#e02e88"
+          btnColor="#fff"
+          onPress={() => {
+            navigation.navigate("Coins");
           }}
           showsVerticalScrollIndicator={false}
-        >
-          <DonationImage />
-          <Text style={styles.mainText}>Enter Donation Amount</Text>
-          <Text style={styles.womenRiderText}>
-            Make sure this is Monthly Donation for the Empower Women Rider
-          </Text>
-          <InputBox
-            label="Donation Amount"
-            keyboardType="number"
-            placeholder="Enter Donation Amount"
-            iconType="FontAwesome"
-            icon="money"
-            value={donationAmount}
-            onChangeText={(value) => setDonationAmount(value)}
-          />
-          <View style={{ flexDirection: "row", gap: 10 }}>
-            <View style={styles.ruppesCard}>
-              <Pressable onPress={() => onChangeDonationAmount(10)}>
-                <Text style={{ fontWeight: "bold" }}>10 Rs</Text>
-              </Pressable>
-            </View>
-            <View style={styles.ruppesCard}>
-              <Pressable onPress={() => onChangeDonationAmount(20)}>
-                <Text style={{ fontWeight: "bold" }}>20 Rs</Text>
-              </Pressable>
-            </View>
+        />
+        <DonationImage />
+        <Text style={styles.mainText}>Enter Donation Amount</Text>
+        <Text style={styles.womenRiderText}>
+          Make sure this is Monthly Donation for the Empower Women Rider
+        </Text>
+        <InputBox
+          label="Donation Amount"
+          keyboardType="number"
+          placeholder="Enter Donation Amount"
+          iconType="FontAwesome"
+          icon="money"
+          value={donationAmount}
+          onChangeText={(value) => setDonationAmount(value)}
+        />
+        <View style={{ flexDirection: "row", gap: 10 }}>
+          <View style={styles.ruppesCard}>
+            <Pressable onPress={() => onChangeDonationAmount(10)}>
+              <Text style={{ fontWeight: "bold" }}>10 Rs</Text>
+            </Pressable>
           </View>
-          <Text style={styles.mainText}>Empower Women Rider</Text>
-          <Text style={styles.subText}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the
-          </Text>
-          <DonationSelectBox />
-          <DonationSuccessStories />
-        </ScrollView>
+          <View style={styles.ruppesCard}>
+            <Pressable onPress={() => onChangeDonationAmount(20)}>
+              <Text style={{ fontWeight: "bold" }}>20 Rs</Text>
+            </Pressable>
+          </View>
+        </View>
+        <Text style={styles.mainText}>Empower Women Rider</Text>
+        <Text style={styles.subText}>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the
+        </Text>
+        <DonationSelectBox />
+        <DonationSuccessStories />
+
         <View style={styles.positionCard}>
           <CustomBtn
             title="Donate Now"
@@ -96,8 +144,8 @@ export default Donation;
 const styles = StyleSheet.create({
   conatiner: {
     flex: 1,
-    paddingVertical: 10,
-    paddingHorizontal: 26,
+    // paddingVertical: 10,
+    // paddingHorizontal: 26,
     gap: 20,
     position: "relative",
   },

@@ -24,7 +24,7 @@ const ProfileScreen = () => {
   return (
     <View style={styles.container}>
       <CustomeAppbar title="Profile" onBack={() => navigation.goBack()} />
-      <View style={{ height: 60 }}>
+      <View style={styles.innerContainer}>
         <View style={styles.topContainer}>
           <ProfileCard />
           <ProfileRatingRideCountCard />
@@ -49,13 +49,6 @@ const ProfileScreen = () => {
             label="Emergency Contact Number"
             screenName="EmergencyContactNumber"
           />
-          {/* <Settingsitem
-          iconName="logout"
-          iconType="MaterialIcons"
-          label="Logout"
-          onPress={onLogOutHandler}
-          // screenName="PersonalInfoPreview"
-        /> */}
         </View>
       </View>
     </View>
@@ -67,12 +60,14 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // paddingHorizontal: 15,
     // paddingVertical: 12,
-    gap: 15,
     // backgroundColor: "red",
   },
 
+  innerContainer: {
+    paddingHorizontal: 5,
+    gap: 15,
+  },
   topContainer: {
     flexDirection: "row",
     width: "100%",

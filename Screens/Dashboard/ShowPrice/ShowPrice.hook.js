@@ -32,7 +32,9 @@ export const useShowPriceHook = () => {
   const [mPinError, setMPinError] = useState("");
 
   const onFinalPlaceOrder = () => {
-    console.log("onFinalPlaceOrder");
+    // navigation.navigate("ChangePickLocation", {
+    //   pickUpCoordinated,
+    // });
     const indiaDateTime = new Date().toLocaleString("en-IN", {
       timeZone: "Asia/Kolkata",
     });
@@ -40,10 +42,8 @@ export const useShowPriceHook = () => {
     const [day, month, year] = datePart.split("/");
     const formattedDate = `${day}-${month}-${year}`;
     const timePart = indiaDateTime.split(",")[1].trim();
-
     const formattedTime = timePart;
     // console.log(timePart);
-
     const orderDetails = {
       vehicleType: selectedVehicle,
       price: beforeOrder.price,
@@ -58,9 +58,6 @@ export const useShowPriceHook = () => {
       dropVicinity: dropDetails?.vicinity,
       time: isDateTimeData ?? null,
     };
-
-    console.log(orderDetails);
-
     API.post("/user/placed-order", orderDetails, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -73,7 +70,6 @@ export const useShowPriceHook = () => {
           console.log("scheduled order placed successfully");
           return;
         }
-
         navigation.navigate("lookingforride", {
           price: beforeOrder.price,
           vehicleType: selectedVehicle,
@@ -195,8 +191,13 @@ export const useShowPriceHook = () => {
         car: carPrice,
         auto: authPrice,
       });
+      setBeforeOrder({
+        vehicleType: "scooty",
+        price: scootyPrice,
+      });
     }
   }, [pickUpCoordinated, dropDetails]);
+  // my default ini
 
   const onPlaceTheOrder = () => {
     if (profile?.mpin === null || profile?.adhar === null) {

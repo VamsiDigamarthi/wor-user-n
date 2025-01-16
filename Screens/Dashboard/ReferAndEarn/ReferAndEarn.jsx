@@ -9,7 +9,7 @@ const ReferAndEarn = () => {
   return (
     <View style={{ flex: 1 }}>
       <CustomeAppbar title="Refer To Earn" onBack={() => navigation.goBack()} />
-      <View style={styles.container}>
+      <View style={styles.innerContainer}>
         <MainCard />
         <InviteCard />
         {/* <HowItWorks /> */}
@@ -23,8 +23,8 @@ const ReferAndEarn = () => {
           borderColor="#e02e88"
         />
         <CustomBtn
-          title="Refer Now"
-          borderWidth={1}
+        title="Refer Now"
+        borderWidth={1}
           btnBg="#fff"
           borderColor="#e02e88"
         />
@@ -40,9 +40,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // paddingHorizontal: 10,
-    paddingVertical: 12,
+    // paddingVertical: 12,
     gap: 15,
     backgroundColor: "#fff5f9",
+  },
+  innerContainer: {
+    paddingHorizontal: 5,
+    gap: 15,
   },
   buttonContainer: {
     position: "absolute",

@@ -151,6 +151,8 @@ const ShowPollyLine = ({
     }
   }, [height]);
 
+  console.log(height);
+
   return (
     <View style={[styles.container]}>
       <MapView
@@ -206,6 +208,7 @@ const ShowPollyLine = ({
       <Map3Btns
         handleOpenSafetyModal={() => setToggle((prev) => !prev)}
         handleZoomToggle={handleResetZoom}
+        height={height}
       />
 
       {toggle && <MapModalUi toggle={toggle} setToggle={setToggle} />}

@@ -91,15 +91,6 @@ const MapWithFixedMarker = ({ navigation }) => {
       {/* Display center coordinates when map is moved */}
       {placeName && (
         <View style={styles.coordinatesContainer}>
-          {/* <View style={styles.coordinateFirstCard}>
-            <Text style={styles.selectedText}>Select your location</Text>
-            <View style={styles.changeTextBtnCard}>
-              <Pressable>
-                <Text style={{ fontSize: 18, fontWeight: "600" }}>Change</Text>
-              </Pressable>
-            </View>
-          </View> */}
-
           <View style={styles.coordinateAddressCard}>
             <Ionicons name="location-sharp" size={24} color="green" />
             <View style={styles.coorlocationCard}>
@@ -173,6 +164,9 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingHorizontal: 10,
     paddingVertical: 30,
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
+    elevation: 5,
   },
   coordinatesText: {
     fontSize: 16,
