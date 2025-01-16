@@ -240,7 +240,7 @@ const CustomDrawerContent = (props) => {
             labelStyle={styles.labelStyle}
             style={getItemStyle("Help")}
           />
-          {/* <DrawerItem
+          <DrawerItem
             label="Donation"
             icon={() => (
               <Ionicons name="heart-outline" size={22} color="gray" />
@@ -248,7 +248,7 @@ const CustomDrawerContent = (props) => {
             onPress={() => handleItemPress("Donation")}
             labelStyle={styles.labelStyle}
             style={getItemStyle("Donation")}
-          /> */}
+          />
 
           <DrawerItem
             label="Refer to Earn"
@@ -262,9 +262,9 @@ const CustomDrawerContent = (props) => {
             icon={() => (
               <Ionicons name="settings-outline" size={22} color="gray" />
             )}
-            onPress={() => handleItemPress("Settings")}
+            onPress={() => handleItemPress("About")}
             labelStyle={styles.labelStyle}
-            style={getItemStyle("Settings")}
+            style={getItemStyle("About")}
           />
           <DrawerItem
             label="Suggestions"
@@ -276,26 +276,6 @@ const CustomDrawerContent = (props) => {
             style={getItemStyle("Suggestions")}
           />
         </View>
-
-        {/* Logout Button at the End */}
-        {/* <View style={styles.logoutContainer}>
-        <DrawerItem
-          label="Logout"
-          icon={() => <Ionicons name="exit-outline" size={22} color="red" />}
-          onPress={() => {
-            // Add your logout functionality here
-            console.log("Logged out");
-          }}
-          labelStyle={styles.logoutLabel}
-        />
-      </View> */}
-
-        {/* <View style={styles.loginBottomCard}>
-          <Text style={styles.loginBottomCardText}>A Product From</Text>
-          <Pressable onPress={openLink}>
-            <Text style={styles.companyName}>Nuhvin</Text>
-          </Pressable>
-        </View> */}
       </DrawerContentScrollView>
     </View>
   );

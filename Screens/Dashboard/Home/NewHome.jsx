@@ -92,7 +92,7 @@ const NewHome = () => {
   const [isOpenCloseSOS, setIsOpenCloseSOS] = useState(false);
   const toggleCloseSOS = () => setIsOpenCloseSOS(!isOpenCloseSOS);
 
-  console.log(favoritePlaces, nearByRandomItems);
+  // console.log(favoritePlaces, nearByRandomItems);
 
   return (
     <BottomSheetModalProvider>
