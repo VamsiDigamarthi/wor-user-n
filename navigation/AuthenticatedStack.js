@@ -50,12 +50,9 @@ import DrawerFavorite from "../Screens/Dashboard/DrawerFavorite/DrawerFavorite";
 import DashBoardAadharCard from "../Screens/Dashboard/ShowPrice/Screens/DashBoardAadharCard";
 import DashBoardMPinCard from "../Screens/Dashboard/ShowPrice/Screens/DashBoardMPinCard";
 
-import EmergencyContactNumber from "../Screens/Dashboard/ProfileScreen/Screens/EmergencyContactNumber/EmergencyContactNumber";
-
 // import NewHome from "../Screens/Dashboard/Home/NewHome";
 
 import NewHome from "../Screens/Dashboard/Home/NewHome";
-
 
 import { useEffect, useState } from "react";
 import * as Notifications from "expo-notifications";
