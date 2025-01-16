@@ -32,6 +32,7 @@ import { StatusBar } from "expo-status-bar";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import ContentLoader, { Rect } from "react-content-loader/native";
+import * as Clipboard from "expo-clipboard";
 
 const screenHeight = Dimensions.get("window").height;
 // <<<<<<< changes-from-last-4-days
@@ -199,10 +200,22 @@ const NewHome = () => {
 export default NewHome;
 
 function HomeCopyBox() {
+  const copyToClipboard = (text) => {
+    if (text) {
+      Clipboard.setStringAsync(text); // Copies text to clipboard
+      // Alert.alert("Copied to Clipboard", text);
+    } else {
+      Alert.alert("Error", "Something went wrong");
+    }
+  };
+
   return (
     <View style={styles.copyBox}>
       <Text>Invite Your Friends to women rider</Text>
-      <TouchableOpacity style={styles.copyBtn}>
+      <TouchableOpacity
+        style={styles.copyBtn}
+        onPress={() => copyToClipboard("GOWOR")}
+      >
         <Text style={{ fontWeight: "bold" }}>Code : GOWOR</Text>
         <MaterialCommunityIcons name="content-copy" size={24} color="black" />
       </TouchableOpacity>

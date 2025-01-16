@@ -43,7 +43,7 @@ const RideDetailAmount = ({
         <Text style={{ color: "#e02e88", fontWeight: "600" }}>Change</Text>
       </View>
 
-      <View style={styles.btnContainer}>
+      {/* <View style={styles.btnContainer}>
         <TouchableOpacity
           style={[
             styles.btn,
@@ -57,7 +57,7 @@ const RideDetailAmount = ({
           <AntDesign name="customerservice" size={24} color="#fff" />
           <Text style={{ color: "#fff", fontWeight: "bold" }}>Support</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
 
       {payButton && (
         <View>

@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   cancelBtnWithImage: { width: "100%", height: 250, position: "relative" },
   images: { width: "100%", height: "90%", marginBottom: 20, borderRadius: 10 },
   cancelBtn: { position: "absolute", bottom: 0, left: 0, width: "100%" },
-  modalContent: { padding: 10, gap: 15 },
+  modalContent: { padding: 10, gap: 15, width: "100%" },
   modalTitle: { fontWeight: "bold", fontSize: 24 },
   modalText: { fontSize: 16 },
 });

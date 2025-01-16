@@ -72,7 +72,7 @@ const CustomeAppbar = ({
                 numberOfLines={2}
                 style={[
                   styles.text,
-                  vicinity && { fontSize: 13, fontWeight: "600" },
+                  vicinity && { fontSize: 10, fontWeight: "500" },
                 ]}
               >
                 {title || "Title"}

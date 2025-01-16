@@ -1,4 +1,4 @@
-import { StyleSheet, ScrollView } from "react-native";
+import { StyleSheet, ScrollView, Linking } from "react-native";
 import React from "react";
 import Settingsitem from "./Settingsitem";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -15,6 +15,20 @@ const SettingsItemsList = () => {
         index: 0, // Ensures the specified route is the only route in the stack
         routes: [{ name: "AuthStack" }], // Replace 'Home' with your target screen name
       })
+    );
+  };
+
+  const terms = () => {
+    const url = "https://womenrider.nuhvin.com/termsandconditions";
+    Linking.openURL(url).catch((err) =>
+      console.error("Failed to open URL:", err)
+    );
+  };
+
+  const privacy = () => {
+    const url = "https://womenrider.nuhvin.com/privacypolicy";
+    Linking.openURL(url).catch((err) =>
+      console.error("Failed to open URL:", err)
     );
   };
 
@@ -37,29 +51,31 @@ const SettingsItemsList = () => {
         iconType="Ionicons"
         label="Document Settings"
       /> */}
-      <Settingsitem
+      {/* <Settingsitem
         iconName="settings-ethernet"
         iconType="MaterialIcons"
         label="App Settings"
         screenName="Preference"
-      />
+      /> */}
       <Settingsitem
         iconName="settings-ethernet"
         iconType="MaterialIcons"
         label="Terms and Conditions"
         screenName="Termsandconditions"
+        onPress={terms}
       />
       <Settingsitem
         iconName="language"
         iconType="FontAwesome"
         label="Privacy Policy"
+        onPress={privacy}
       />
-      <Settingsitem
+      {/* <Settingsitem
         iconName="language"
         iconType="FontAwesome"
         label="Software Licenses"
-      />
-      <Settingsitem iconName="language" iconType="FontAwesome" label="Blogs" />
+      /> */}
+      {/* <Settingsitem iconName="language" iconType="FontAwesome" label="Blogs" /> */}
       <Settingsitem
         iconName="logout"
         iconType="AntDesign"

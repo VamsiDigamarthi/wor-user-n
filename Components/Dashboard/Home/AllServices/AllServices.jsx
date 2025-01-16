@@ -83,24 +83,24 @@ const AllServices = ({
         image: require("../../../../assets/images/HomeServiceImages/auto.png"),
         vehicle: "auto",
       },
-      {
-        label: "Parcel",
-        image: require("../../../../assets/images/HomeServiceImages/gift.png"),
-        vehicle: null,
-        isParcel: true,
-      },
-      {
-        label: "Parcel",
-        image: require("../../../../assets/images/HomeServiceImages/gift.png"),
-        vehicle: null,
-        isParcel: true,
-      },
-      {
-        label: "Parcel",
-        image: require("../../../../assets/images/HomeServiceImages/scooty.png"),
-        vehicle: null,
-        isParcel: true,
-      },
+      // {
+      //   label: "Parcel",
+      //   image: require("../../../../assets/images/HomeServiceImages/gift.png"),
+      //   vehicle: null,
+      //   isParcel: true,
+      // },
+      // {
+      //   label: "Parcel",
+      //   image: require("../../../../assets/images/HomeServiceImages/gift.png"),
+      //   vehicle: null,
+      //   isParcel: true,
+      // },
+      // {
+      //   label: "Parcel",
+      //   image: require("../../../../assets/images/HomeServiceImages/scooty.png"),
+      //   vehicle: null,
+      //   isParcel: true,
+      // },
     ];
 
     return services.map((service, index) => (

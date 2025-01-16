@@ -65,11 +65,11 @@ const PaymentMethods = () => {
           showsVerticalScrollIndicator={false}
         >
           <WalletFirstCard />
-          <WalletMoneyCard
+          {/* <WalletMoneyCard
             isHeightChange={35}
             isOpenAddMoney={true}
             isCheckBox={true}
-          />
+          /> */}
 
           <PaymentMethodCard titles="UPI">
             <PaymnetItems
