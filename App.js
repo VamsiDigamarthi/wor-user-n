@@ -1,6 +1,5 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import MainNavigation from "./navigation/MainNavigation";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Provider } from "react-redux";
@@ -13,6 +12,7 @@ import NetInfo from "@react-native-community/netinfo";
 import NoInternet from "./Components/unavailable/NoInternet";
 import { LogBox } from "react-native";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import "react-native-reanimated";
 
 LogBox.ignoreLogs([
   "`new NativeEventEmitter()` was called with a non-null argument without the required `addListener` method",

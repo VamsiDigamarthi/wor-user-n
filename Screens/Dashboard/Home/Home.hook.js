@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { onProfileSection } from "../../../redux/Features/Auth/ProfileSlice";
 import { API } from "../../../Constants/url";
 import Toast from "react-native-toast-message";
-
 import messaging from "@react-native-firebase/messaging";
 import * as Notifications from "expo-notifications";
 import { generateRandomMarkers } from "../../../Constants/generateMarkers";

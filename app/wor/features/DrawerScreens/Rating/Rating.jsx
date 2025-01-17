@@ -1,12 +1,10 @@
 import { ScrollView, StatusBar, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { COLORS } from "../../../../../Constants/colors";
-import RatingFirstCard from "./Components/RatingFirstCard/RatingFirstCard";
-import RatingSecondCard from "./Components/RatingSecondCard";
-import TextWithCard from "../../../utiles/TextWithCard";
-import RatingSliderCard from "./Components/RatingSliderCard";
 import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
+import MainCard from "./Components/MainCard";
+import RatingImageCard from "./Components/RatingImageCard";
+import Data from "../../../../../Constants/RatingData.json";
 
 const Rating = () => {
   const route = useRoute();
@@ -16,15 +14,26 @@ const Rating = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <CustomeAppbar title="Ratings" onBack={() => navigation.goBack()} />
+      <View style={{ zIndex: 50 }}>
+        <CustomeAppbar title="Ratings" onBack={() => navigation.goBack()} />
+      </View>
 
       <View style={styles.container}>
-        <StatusBar
-          barStyle="dark-content"
-          backgroundColor={COLORS.bottomSheetBg}
-        />
-        <RatingFirstCard />
+        <MainCard avgRating={avgRating} />
+
         <ScrollView
+          contentContainerStyle={{
+            paddingHorizontal: 5,
+            gap: 20,
+            paddingVertical: 5,
+          }}
+        >
+          {Data.map((e, index) => (
+            <RatingImageCard key={index} title={e.title} text={e.subTitle} />
+          ))}
+        </ScrollView>
+
+        {/* <ScrollView
           contentContainerStyle={styles.scrollContainer}
           showsVerticalScrollIndicator={false}
         >
@@ -85,7 +94,7 @@ const Rating = () => {
               );
             })}
           </ScrollView>
-        </ScrollView>
+        </ScrollView> */}
       </View>
     </View>
   );
@@ -96,8 +105,9 @@ export default Rating;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.bottomSheetBg,
-    marginTop: 10,
+    backgroundColor: "#f7f7f7",
+    // gap: 10,
+    position: "relative",
   },
   scrollContainer: {
     width: "100%",

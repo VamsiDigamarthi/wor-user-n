@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import Home from "../Screens/Dashboard/Home/Home";
+// import Home from "../Screens/Dashboard/Home/Home";
 import RideBook from "../Screens/Dashboard/RideBook/RideBook";
 import CustomAppBar from "../Utils/CustomAppBar/CustomAppBar";
 import SelectDropLocation from "../Screens/Dashboard/SelectDropLocation/SelectDropLocation";
@@ -21,7 +21,8 @@ import MapPreview from "../Screens/Dashboard/MapPreview/MapPreview";
 import FavoritePlace from "../Screens/Dashboard/FavoritePlace/FavoritePlace";
 import CustomDrawerContent from "../Utils/CustomDrawerContent/CustomDrawerContent";
 // import ReferAndEarn from "../Screens/Dashboard/ReferAndEarn/ReferAndEarn";
-import Notification from "../Screens/Dashboard/Notification/Notification";
+// import Notification from "../Screens/Dashboard/Notification/Notification";
+import Notification from "../app/wor/features/DrawerScreens/Notification/Notification";
 // import Help from "../Screens/Dashboard/Help/Help";
 // import ProfileScreen from "../Screens/Dashboard/ProfileScreen/ProfileScreen";
 import PersonalInfo from "../app/wor/features/DrawerScreens/Profile/Screens/PersonalInfo/PersonalInfo";
@@ -34,7 +35,7 @@ import Preference from "../Screens/Dashboard/Preference/Preference";
 // import ParcelHome from "../Screens/Parcels/ParcelHome/ParcelHome";
 // import Donation from "../Screens/Dashboard/Donation/Donation";
 import PaymentMethods from "../Screens/Dashboard/PaymnetMethods/PaymentMethods";
-// import PickLocation from "../Screens/Parcels/PickLocation/PickLocation";
+
 import RideDetails from "../Components/Dashboard/CaptainAcceptCom/RideDetails/RideDetails";
 import CaptainRideComplete from "../Components/Dashboard/CaptainAcceptCom/CapatinRideComplete/CaptainRideComplete";
 import MapWithCurrentLocation from "../Components/Dashboard/FixedMapView/FixedMapView";
@@ -53,10 +54,11 @@ import DashBoardMPinCard from "../Screens/Dashboard/ShowPrice/Screens/DashBoardM
 // import NewHome from "../Screens/Dashboard/Home/NewHome";
 
 import NewHome from "../Screens/Dashboard/Home/NewHome";
+import WalletLoad from "../app/wor/features/DrawerScreens/Wallet/Wallet";
 
-import { useEffect, useState } from "react";
-import * as Notifications from "expo-notifications";
-import { AppState } from "react-native";
+// import { useEffect, useState } from "react";
+// import * as Notifications from "expo-notifications";
+// import { AppState } from "react-native";
 import FaqHome from "../Screens/Faqs/FaqHome";
 import FaqAnswer from "../Screens/Faqs/FaqAnswer";
 import ChatWithCaptain from "../Components/ChatUi/ChatWithCaptain";
@@ -83,7 +85,8 @@ import RideHistoryDetailView from "../app/wor/features/DrawerScreens/RideHistory
 
 import AboutScreen from "../app/wor/features/DrawerScreens//About/About";
 
-import Donation from "../app/wor/features/DrawerScreens/Donation/Donation";
+// import Donation from "../app/wor/features/DrawerScreens/Donation/Donation";
+import Donation from "../app/wor/features/DrawerScreens/Donation/DonationNew";
 
 import Help from "../app/wor/features/DrawerScreens/Help/Help";
 
@@ -93,6 +96,9 @@ import RefertoEarn from "../app/wor/features/DrawerScreens/ReferAndEarn/RefertoE
 
 import Profile from "../app/wor/features/DrawerScreens/Profile/Profile";
 import Safety from "../app/wor/features/DrawerScreens/Safety/Safety";
+import HelpAndSupport from "../app/wor/features/DrawerScreens/HelpAndSupport/HelpAndSupport";
+import DrivingSchools from "../app/wor/features/DrawerScreens/DrivingSchools/DrivingSchools";
+import DrivingSchoolsDetailView from "../app/wor/features/DrawerScreens/DrivingSchools/Screens/DrivingSchoolDetailVIew";
 /* Drawer Screens */
 
 const Drawer = createDrawerNavigator();
@@ -140,18 +146,18 @@ const DrawerNavigator = ({ route }) => {
             backgroundColor: screenBackgroundColors[route.name] || null, // Fallback to white if no color found
           },
           drawerStyle: {
-            width: 250,
-            borderTopRightRadius: 20,
-            borderBottomRightRadius: 20,
-            overflow: "hidden",
-            borderBottomRightRadius: 20,
-            borderTopRightRadius: 20,
-            borderRightWidth: 8,
-            borderColor: "#e02e88",
+            width: "80%",
+            // borderTopRightRadius: 20,
+            // borderBottomRightRadius: 20,
+            // overflow: "hidden",
+            // borderBottomRightRadius: 20,
+            // borderTopRightRadius: 20,
+            // borderRightWidth: 8,
+            // borderColor: "#e02e88",
           },
         }}
       >
-        <Drawer.Screen name="Home" component={HomeScreen} />
+        <Drawer.Screen name="Home" component={NewHome} />
       </Drawer.Navigator>
     </>
   );
@@ -517,6 +523,26 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="ParSavedUsers"
         component={ParSavedUsers}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="WalletLoad"
+        component={WalletLoad}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="HelpAndSupport"
+        component={HelpAndSupport}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="DrivingSchools"
+        component={DrivingSchools}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="DrivingSchoolsDetailView"
+        component={DrivingSchoolsDetailView}
         options={{ headerShown: false }}
       />
 

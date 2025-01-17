@@ -1,0 +1,71 @@
+import { View, Text, StyleSheet, Image } from "react-native";
+import LinearGradient from "react-native-linear-gradient";
+import { FontAwesome } from "@expo/vector-icons";
+export default function MainCard({}) {
+  return (
+    <LinearGradient
+      colors={["#EA4C89", "#f7f7f7"]} // Gradient colors
+      start={{ x: 0, y: 0 }} // Gradient start point (top-left)
+      end={{ x: 0, y: 1 }} // Gradient end point (bottom-right)
+      style={styles.card} // Apply styles
+    >
+      <View>
+        <Text style={styles.heading}>Safety All The Way</Text>
+        <Text style={[styles.subText, { fontSize: 14 }]}>
+          At women rider, your safety comes first. Here are some measures and
+          provisions to ensure your safety, every time
+        </Text>
+      </View>
+    </LinearGradient>
+  );
+}
+
+const styles = StyleSheet.create({
+  card: {
+    padding: 10,
+    // flexDirection: "row",
+    // justifyContent: "space-between",
+    position: "relative",
+    top: -15,
+    zIndex: -1,
+    height: 220,
+    paddingTop: 35,
+  },
+
+  heading: {
+    fontWeight: "bold",
+    fontSize: 20,
+    color: "#fff",
+  },
+
+  subText: {
+    color: "#000",
+  },
+
+  secondCard: {
+    // marginTop: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+
+  img: {
+    height: 150,
+    width: 150,
+    resizeMode: "contain",
+  },
+  starCard: {
+    flexDirection: "row",
+    padding: 2,
+    width: 80,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 10,
+    borderWidth: 1,
+    borderColor: "#000",
+    borderStyle: "dashed",
+    borderRadius: 10,
+    marginTop: 10,
+  },
+});

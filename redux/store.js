@@ -16,6 +16,11 @@ const store = configureStore({
     location,
     nearPlaces,
   },
+
+  // middleware: (getDefaultMiddleware) =>
+  //   getDefaultMiddleware({
+  //     immutableCheck: false,
+  //   }),
 });
 
 export default store;
