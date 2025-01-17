@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TextInput, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import {
   Entypo,
   EvilIcons,
@@ -66,8 +66,17 @@ const InputBox = ({
       Icon = Ionicons;
   }
 
+  const [isFocused, setIsFocused] = useState(false);
+  console.log(isFocused);
+
   return (
-    <View style={[styles.container, !isValid && styles.invalidInputCard]}>
+    <View
+      style={[
+        styles.container,
+        // !isValid && styles.invalidInputCard,
+        isFocused && { borderColor: "#e02e88" },
+      ]}
+    >
       <Text style={[styles.label, !isValid && styles.invalidLabel]}>
         {label}
       </Text>
@@ -81,6 +90,8 @@ const InputBox = ({
           secureTextEntry={secureTextEntry}
           value={value}
           maxLength={maxLength}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
         />
       </View>
     </View>
@@ -97,14 +108,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 7,
     borderRadius: 12,
-    elevation: 1,
-    shadowColor: "red",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    borderWidth: 1,
+    borderColor: "#b0b0b0",
   },
   label: {
-    fontSize: 8,
+    fontSize: 12,
     color: "#000",
   },
   invalidLabel: {
@@ -113,7 +121,7 @@ const styles = StyleSheet.create({
   inputCard: {
     backgroundColor: "#FFFFFF",
 
-    // height: 50,
+    height: 40,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",

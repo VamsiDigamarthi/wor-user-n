@@ -6,6 +6,9 @@ import Otp from "../Screens/Auth/Otp/Otp";
 import AadharVerification from "../Screens/Auth/AadharVerification/AadharVerification";
 import DocumentCheck from "../Screens/Auth/DocumentCheck/DocumentCheck";
 import MPin from "../Screens/Auth/MPin/MPin";
+import LoginScreen from "../app/wor/features/auth/Screens/LoginScreen";
+import OtpScreen from "../app/wor/features/auth/Screens/OtpScreen";
+import SignupScreen from "../app/wor/features/auth/Screens/SignupScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -14,17 +17,20 @@ const AuthStack = ({ initialRouteName = "login" }) => {
     <Stack.Navigator initialRouteName={initialRouteName}>
       <Stack.Screen
         name="login"
-        component={Login}
+        // component={Login}
+        component={LoginScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
         name="otp"
-        component={Otp}
+        // component={Otp}
+        component={OtpScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
         name="signup"
-        component={SignUp}
+        // component={SignUp}
+        component={SignupScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
