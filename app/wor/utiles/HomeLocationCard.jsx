@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import {
   FontAwesome,
   AntDesign,
@@ -12,7 +12,6 @@ const HomeLocationCard = ({
   vicinity,
   iconType,
   iconName = "home",
-  onPress,
 }) => {
   let Icon;
   switch (iconType) {
@@ -36,7 +35,7 @@ const HomeLocationCard = ({
   }
 
   return (
-    <Pressable style={styles.container} onPress={onPress}>
+    <View style={styles.container}>
       <View
         style={{
           //   width: 40,
@@ -64,7 +63,7 @@ const HomeLocationCard = ({
           {vicinity}
         </Text>
       </View>
-    </Pressable>
+    </View>
   );
 };
 
@@ -73,7 +72,7 @@ export default HomeLocationCard;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: 60,
+    height: 70,
     padding: 10,
     elevation: 1,
     backgroundColor: "#fff",

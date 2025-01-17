@@ -18,7 +18,7 @@ import { useHomeHook } from "./Home.hook";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 import HomeMap from "../../../Utils/HomeMap/HomeMap";
 import DropLocation from "../../../Components/Dashboard/DropLocation/DropLocation";
-import AllServices from "../../../app/wor/features/ridebooking/home/components/AllServices/AllServices";
+import AllServices from "../../../app/wor/features/ridebooking/home/components/AllServices";
 import SliderComponent from "../../../Utils/SliderComponent/SliderComponent";
 import BackgroundImage from "../../../Utils/BackgroundImage/BackgroundImage";
 import { COLORS } from "../../../Constants/colors";
@@ -80,6 +80,8 @@ const NewHome = () => {
     nearbyPlaces,
     activeOrder,
     captainMarkers,
+    homeLocations,
+    workLocation,
   } = useHomeHook();
 
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
@@ -138,6 +140,8 @@ const NewHome = () => {
                 placeName={placeName} // this prop is store current location text
                 nearbyPlaces={nearbyPlaces} // this prop store nearby places from user current location to 1 km radius famous location [place this data into "select drop location screen to display initial locations"]
                 location={location} // this is location used for pass this data into price screen
+                homeLocations={homeLocations}
+                workLocation={workLocation}
               />
               <AllServices
                 placeName={placeName}

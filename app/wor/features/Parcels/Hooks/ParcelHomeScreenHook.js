@@ -19,19 +19,29 @@ export const useParcelHomeScreenHook = () => {
   };
 
   const onNavigateParcelPickUpLocationScreen = () => {
-    navigation.navigate("ChangeLoc100mViaMap", {
-      place: {
-        location,
-        name: placeName,
-        vicinity: placeVicinity,
-      },
+    // navigation.navigate("ChangeLoc100mViaMap", {
+    //   place: {
+    //     location,
+    //     name: placeName,
+    //     vicinity: placeVicinity,
+    //   },
+    //   isPickLocationFromParc: true,
+    //   parcelDetails: {
+    //     ...parcelDetails,
+    //     selecteParcelType,
+    //     isProtectedParcel,
+    //   },
+    //   selectedCard,
+    // });
+    console.log(parcelDetails);
+    navigation.navigate("ShowPrice", {
+      placeName: placeName,
+      placeVicinity: placeVicinity,
+      pickUpCoordinated: location,
       isPickLocationFromParc: true,
-      parcelDetails: {
-        ...parcelDetails,
-        selecteParcelType,
-        isProtectedParcel,
-      },
-      selectedCard,
+      parcelDetails: parcelDetails,
+      selectedCard: selectedCard,
+      dropDetails: null,
     });
   };
 

@@ -16,129 +16,20 @@ export const useShowPriceHook = () => {
   const navigation = useNavigation();
   const { profile } = useSelector((state) => state.profileSlice);
 
-  const [rideBookBeforeCheckMPinAddhar, setRideBookBeforeCheckPinAddhar] =
-    useState(false);
-  const onChangeRideBookBeforeCheckPinAddharHandler = () => {
-    setRideBookBeforeCheckPinAddhar(!rideBookBeforeCheckMPinAddhar);
-  };
-  const [isOpenEnterConfirmMPinModal, setIsOpenEnterConfirmMPinModal] =
-    useState(false);
-
-  const onOpenIsEnterConfirmPinModal = () => {
-    setIsOpenEnterConfirmMPinModal(!isOpenEnterConfirmMPinModal);
-  };
-  const [mPin, setMPin] = useState(["", "", "", ""]);
-  const inputRefs = useRef([]);
-  const [mPinError, setMPinError] = useState("");
-
-  const onFinalPlaceOrder = () => {
-    // navigation.navigate("ChangePickLocation", {
-    //   pickUpCoordinated,
-    // });
-    const indiaDateTime = new Date().toLocaleString("en-IN", {
-      timeZone: "Asia/Kolkata",
-    });
-    const datePart = indiaDateTime.split(",")[0];
-    const [day, month, year] = datePart.split("/");
-    const formattedDate = `${day}-${month}-${year}`;
-    const timePart = indiaDateTime.split(",")[1].trim();
-    const formattedTime = timePart;
-    // console.log(timePart);
-    const orderDetails = {
-      vehicleType: selectedVehicle,
-      price: beforeOrder.price,
-      orderPlaceDate: formattedDate,
-      orderPlaceTime: formattedTime,
-      pickupLangitude: pickUpCoordinated?.lat,
-      pickupLongitude: pickUpCoordinated?.lng,
-      dropLangitude: dropDetails?.location?.lat,
-      dropLongitude: dropDetails?.location?.lng,
-      pickupAddress: placeName,
-      dropAddress: dropDetails?.name,
-      dropVicinity: dropDetails?.vicinity,
-      time: isDateTimeData ?? null,
-    };
-    API.post("/user/placed-order", orderDetails, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        onOpenIsEnterConfirmPinModal();
-        if (isDateTimeData) {
-          console.log("scheduled order placed successfully");
-          return;
-        }
-        navigation.navigate("lookingforride", {
-          price: beforeOrder.price,
-          vehicleType: selectedVehicle,
-          placeName,
-          dropAddress: dropDetails,
-          pickUpCoordinated,
-          orderId: res?.data?.order?._id,
-        });
-      })
-      .catch((e) => {
-        console.log("failure");
-        console.log(e.response?.data?.message);
-        setApisError(e.response?.data?.message);
-      });
-  };
-
-  const onCheckMyPinCorrectOrWrong = async (newPin) => {
-    try {
-      await API.patch(
-        "/user/check-mpin",
-        {
-          mpin: newPin?.join(""),
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setMPin(["", "", "", ""]);
-      setMPinError("");
-      onFinalPlaceOrder();
-    } catch (error) {
-      console.log(error?.response?.data);
-      setMPinError(error?.response?.data?.message);
-    }
-  };
-
-  const handleChange = (value, index) => {
-    const newPin = [...mPin];
-
-    // If value is not empty, update and move forward
-    if (value) {
-      newPin[index] = value;
-      setMPin(newPin);
-      if (index < inputRefs.current.length - 1) {
-        inputRefs.current[index + 1].focus(); // Move to the next input
-      }
-
-      if (index === inputRefs.current.length - 1) {
-        onCheckMyPinCorrectOrWrong(newPin);
-      }
-    } else {
-      // If value is empty (backspace), move backward and clear the current input
-      newPin[index] = "";
-      setMPin(newPin);
-      if (index > 0) {
-        inputRefs.current[index - 1].focus(); // Move to the previous input
-      }
-    }
-  };
-
   const { token } = useSelector((state) => state.token);
   const route = useRoute();
 
   const dispatch = useDispatch();
-  const { placeName, pickUpCoordinated, dropDetails, selectedVehicleType } =
-    route.params;
+  const {
+    placeName,
+    pickUpCoordinated,
+    dropDetails,
+    selectedVehicleType,
+    // parcel props
+    isPickLocationFromParc,
+    parcelDetails,
+    selectedCard,
+  } = route.params;
 
   const [isTimeModalOpenClose, setIsTimeModalOpenClose] = useState(false);
   const [isDateTimeData, setIsDateTimeData] = useState("");
@@ -185,40 +76,59 @@ export const useShowPriceHook = () => {
       const scootyPrice = distance * scootyRate;
       const carPrice = distance * carRate;
       const authPrice = distance * authRate;
+      const worPreminum = distance * 12;
 
       setPricesInKm({
         scooty: scootyPrice,
         car: carPrice,
         auto: authPrice,
+        worPreminum,
       });
       setBeforeOrder({
         vehicleType: "scooty",
         price: scootyPrice,
       });
     }
-  }, [pickUpCoordinated, dropDetails]);
+    if (pickUpCoordinated && parcelDetails?.location) {
+      let distance = haversineDistance(
+        pickUpCoordinated,
+        parcelDetails?.location
+      );
+      const scootyRate = 7;
+      const carRate = 10;
+      const authRate = 8;
+      const scootyPrice = distance * scootyRate;
+      const carPrice = distance * carRate;
+      const authPrice = distance * authRate;
+      const worPreminum = distance * 12;
+
+      setPricesInKm({
+        scooty: scootyPrice,
+        car: carPrice,
+        auto: authPrice,
+        worPreminum,
+      });
+
+      setBeforeOrder({
+        vehicleType: "scooty",
+        price: scootyPrice,
+      });
+    }
+  }, [pickUpCoordinated, dropDetails, parcelDetails]);
   // my default ini
 
   const onPlaceTheOrder = () => {
-    if (profile?.mpin === null || profile?.adhar === null) {
-      onChangeRideBookBeforeCheckPinAddharHandler();
-      return;
-    }
-
-    if (!selectedVehicle) {
-      setApisError("Please select a vehicle");
-      return;
-    }
-
-    setBeforeOrder({
-      vehicleType: selectedVehicle,
-      price: pricesInKM[selectedVehicle]?.toFixed(0),
+    navigation.navigate("ChangeLoc100mViaMap", {
+      place: { name: placeName, location: pickUpCoordinated },
+      isRideBookingScreen: isPickLocationFromParc ? false : true,
+      rideDropDetails: dropDetails,
+      selectedVehicle,
+      ridePrice: beforeOrder.price,
+      time: isDateTimeData ?? null,
+      parcelDetails,
+      selectedCard,
+      isPickLocationFromParc: isPickLocationFromParc,
     });
-
-    if (!isOpenEnterConfirmMPinModal) {
-      onOpenIsEnterConfirmPinModal();
-      return;
-    }
   };
 
   const onHandleTimeValueHandler = (date) => {
@@ -244,18 +154,6 @@ export const useShowPriceHook = () => {
     }, [])
   );
 
-  const onNavigateAadharUploadUi = () => {
-    navigation.navigate("DashBoardAadharCard", {
-      isPriceScreen: true,
-    });
-  };
-
-  const onMpinScreen = () => {
-    navigation.navigate("DashBoardMPinCard", {
-      isPriceScreen: true,
-    });
-  };
-
   // console.log("dropDetails", dropDetails);
   const vehicles = [
     {
@@ -277,7 +175,16 @@ export const useShowPriceHook = () => {
       vehicleType: "Car",
       isSelected: selectedVehicle === "car",
       onPress: () => handleVehiclePress("car"),
-      shouldDisplay: true, // Always display the car
+      shouldDisplay: !isPickLocationFromParc, // Conditionally exclude when `isPickLocationFromParc` is true
+    },
+    {
+      image: require("../../../assets/images/HomeServiceImages/cab.png"),
+      personCount: 4,
+      price: pricesInKM?.worPreminum,
+      vehicleType: "wor-premium",
+      isSelected: selectedVehicle === "wor-premium",
+      onPress: () => handleVehiclePress("wor-premium"),
+      shouldDisplay: !isPickLocationFromParc, // Conditionally exclude when `isPickLocationFromParc` is true
     },
     {
       image: require("../../../assets/images/HomeServiceImages/auto.png"),
@@ -286,7 +193,7 @@ export const useShowPriceHook = () => {
       vehicleType: "Auto",
       isSelected: selectedVehicle === "auto",
       onPress: () => handleVehiclePress("auto"),
-      shouldDisplay: !isDateTimeData, // Conditionally display based on `isDateTimeData`
+      shouldDisplay: !isDateTimeData && !isPickLocationFromParc, // Conditionally exclude when `isPickLocationFromParc` is true
     },
   ];
 
@@ -318,20 +225,12 @@ export const useShowPriceHook = () => {
     onHandleTimeValueHandler,
     isDateTimeData,
     normalDateFormat,
-    rideBookBeforeCheckMPinAddhar,
-    onChangeRideBookBeforeCheckPinAddharHandler,
+
     profile,
-    onNavigateAadharUploadUi,
-    onMpinScreen,
-    // confirm mpin
-    isOpenEnterConfirmMPinModal,
-    onOpenIsEnterConfirmPinModal,
-    handleChange,
-    inputRefs,
-    mPin,
-    mPinError,
+
     navigation,
     vehicles,
     sortedVehicles,
+    parcelDetails,
   };
 };

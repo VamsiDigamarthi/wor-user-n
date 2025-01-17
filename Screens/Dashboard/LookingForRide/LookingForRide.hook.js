@@ -204,6 +204,7 @@ export const useLookingForRideHook = () => {
   };
 
   const onConfirmCancelRide = async () => {
+    // console.log(orderId);
     try {
       const response = await API.patch(
         `user/cancel-order/${orderId}`,

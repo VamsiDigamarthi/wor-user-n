@@ -43,3 +43,21 @@ let drop = {
   senderName: "Vamai",
   vicinity: "Block 1, DivyaSree Omega Survey No 13, Kothaguda",
 };
+
+let nearPlaces = {
+  id: "ChIJx9Lr6tqZyzsRwvu6koO3k64",
+  location: { lat: 17.406498, lng: 78.47724389999999 },
+  name: "Hyderabad",
+  photo:
+    "AWYs27yqs8P8GagZED9fqPK9UxSIGhnhOP1g6u1gpGV_5-Yr-hUQ6PN5mbglk6cZTzkG2O3FmA88_P8WUZ87pQ6T92B8h27QHiCY4pP8VNGq8HEu1HVia5QssjT5eN0G34yFhwWPZz81QLSgaS2JZkJWHA8IwmVlR2xlkvGCobv6QLlgLDFV",
+  vicinity: "Hyderabad",
+};
+
+let locationItme = {
+  id: "ChIJax1ZWYyRyzsRZVJVl2JOpjI",
+  location: { lat: 17.4535649, lng: 78.36523609999999 },
+  name: "Monday Hotels Hitec City",
+  photo:
+    "AWYs27ybK4qD0oPvmyrFesdwlmHLx5NAYe_HcNoCWg1vstqnImyFEunqhfYal-i_Re9InZDUzZPNsFkdc5ThZEQu64GcTFUxXxrBb3fjvjNigudfLQpxKcdJ0LYMUueUWx2_n56wbphkNNEywi3ilxGJ_Q_ZM6y4NsoBmMB7lNsfnhjkkAn6",
+  vicinity: "#2-91/14/8, White Fields, Kondapur, Hitech City, Kondapur",
+};
