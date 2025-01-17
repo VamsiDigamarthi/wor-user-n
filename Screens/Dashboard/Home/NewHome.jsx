@@ -109,6 +109,9 @@ const NewHome = () => {
             <HomeMap
               captainMarkers={captainMarkers}
               location={location}
+
+              height={mapHeight}
+
               handleOpenSafetyModal={toggleCloseSOS}
             />
           )}
@@ -126,7 +129,6 @@ const NewHome = () => {
         >
           <BottomSheetScrollView contentContainerStyle={styles.sheetContent}>
             <View style={styles.bottomSheet}>
-              {/* <Text style={styles.text}></Text> */}
               <DropLocation
                 nearByRandomItems={nearByRandomItems} // this is display 3 items
                 placeName={placeName} // this prop is store current location text
@@ -144,7 +146,6 @@ const NewHome = () => {
               <SliderComponent />
               <HomeCopyBox />
               <BackgroundImage />
-              {/* <Button title="notification" onPress={onHandleOpenInfoModal} /> */}
             </View>
           </BottomSheetScrollView>
         </BottomSheet>
