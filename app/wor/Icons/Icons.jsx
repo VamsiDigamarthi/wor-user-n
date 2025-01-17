@@ -44,3 +44,11 @@ export const ArrowUpIcons = ({ size, color }) => (
 export const FavoritesIcons = ({ size, color }) => (
   <MaterialIcons name="favorite-border" size={size} color={color} />
 );
+
+export const BackIcon = ({ size, color }) => (
+  <MaterialIcons name="arrow-back-ios-new" size={size} color={color} />
+);
+
+export const SupportIcons = ({ size, color }) => (
+  <MaterialIcons name="support-agent" size={size} color={color} />
+);
