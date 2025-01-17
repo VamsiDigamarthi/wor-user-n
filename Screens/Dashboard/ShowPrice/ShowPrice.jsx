@@ -45,7 +45,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { infoModalStyles } from "../../../Components/InfoUi/Styles/InfoModalStyles.jsx";
 
 const screenHeight = Dimensions.get("window").height;
-const androidHeight = [screenHeight * 0.55, screenHeight * 0.55]; // Adjust snap points
+const androidHeight = [screenHeight * 0.35, screenHeight * 0.65]; // Adjust snap points
 const iosHeight = [screenHeight * 0.15, screenHeight * 0.6];
 
 const ShowPrice = () => {
@@ -62,19 +62,12 @@ const ShowPrice = () => {
     isTimeModalOpenClose,
     onHandleTimeValueHandler,
     normalDateFormat,
-    rideBookBeforeCheckMPinAddhar,
-    onChangeRideBookBeforeCheckPinAddharHandler,
+
     profile,
-    onNavigateAadharUploadUi,
-    onMpinScreen,
-    isOpenEnterConfirmMPinModal,
-    onOpenIsEnterConfirmPinModal,
-    handleChange,
-    inputRefs,
-    mPin,
-    mPinError,
+
     navigation,
     isDateTimeData,
+    parcelDetails,
 
     sortedVehicles,
   } = useShowPriceHook();
@@ -161,16 +154,15 @@ const ShowPrice = () => {
     <>
       <View style={styles.container}>
         <CustomeAppbar
-          title={dropDetails?.name}
-          vicinity={dropDetails?.vicinity}
+          title={dropDetails ? dropDetails.name : parcelDetails?.name}
+          vicinity={
+            dropDetails ? dropDetails?.vicinity : parcelDetails?.vicinity
+          }
           onBack={() => navigation.goBack()}
           appTitCenStyles={styles.appTitCenStyles}
           appTitCenWidth={{
             width: "100%",
-            // elevation: 2,
             backgroundColor: "#fff",
-            // borderRadius: 20,
-            // padding: 10,
             flexDirection: "column",
             alignItems: "flex-start",
             gap: 2,
@@ -186,7 +178,9 @@ const ShowPrice = () => {
         >
           <ShowPollyLine
             origin={pickUpCoordinated}
-            destination={dropDetails?.location}
+            destination={
+              dropDetails ? dropDetails?.location : parcelDetails?.location
+            }
             height={mapHeight}
             handleOpenSafetySheet={handleOpenSafetySheet} // this function open safety bottomsheet
           />
@@ -197,7 +191,7 @@ const ShowPrice = () => {
           snapPoints={snapPoints}
           onChange={handleSheetChange}
           enablePanDownToClose={false} // Prevent closing
-          style={styles.bottomSheet} // Apply custom styles
+          style={[styles.bottomSheet]} // Apply custom styles
           backgroundStyle={styles.backgroundStyle} // Set pink background
           handleIndicatorStyle={styles.handleIndicator}
         >
@@ -291,45 +285,7 @@ const ShowPrice = () => {
           />
         </View>
       </View>
-      <ModalUI
-        openCloseState={rideBookBeforeCheckMPinAddhar}
-        closeModalFun={onChangeRideBookBeforeCheckPinAddharHandler}
-      >
-        {profile?.adhar === null && (
-          <Pressable onPress={onNavigateAadharUploadUi}>
-            <Text>
-              Your not set Aadhar please set Aadhar first to book ride
-            </Text>
-          </Pressable>
-        )}
-        {!profile?.mpin && (
-          <Pressable onPress={onMpinScreen}>
-            <Text>Your not set MPIN please set M-pin first to book ride </Text>
-          </Pressable>
-        )}
-      </ModalUI>
-      <ModalUI
-        openCloseState={isOpenEnterConfirmMPinModal}
-        closeModalFun={onOpenIsEnterConfirmPinModal}
-      >
-        <View style={{ gap: 10 }}>
-          <Text>Enter M-Pin</Text>
-          {mPinError && <Text style={styles.error}>{mPinError}</Text>}
-          <View style={styles.inputContainer}>
-            {mPin.map((digit, index) => (
-              <TextInput
-                key={index}
-                style={styles.inputBox}
-                maxLength={1}
-                keyboardType="numeric"
-                value={digit}
-                onChangeText={(value) => handleChange(value, index)}
-                ref={(el) => (inputRefs.current[index] = el)} // Assign refs to inputs
-              />
-            ))}
-          </View>
-        </View>
-      </ModalUI>
+
       <DatePicker
         modal
         open={isTimeModalOpenClose}

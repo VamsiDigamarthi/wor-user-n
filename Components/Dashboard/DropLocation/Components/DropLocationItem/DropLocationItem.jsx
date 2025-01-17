@@ -1,7 +1,12 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-import { Ionicons, FontAwesome } from "@expo/vector-icons";
+import {
+  Ionicons,
+  FontAwesome,
+  MaterialIcons,
+  Entypo,
+} from "@expo/vector-icons";
 import { useDropLocationItemHook } from "./DropLocationItem.hook";
 
 const DropLocationItem = ({
@@ -11,6 +16,8 @@ const DropLocationItem = ({
   eachPlace,
   favoriteIconDisplay = true,
   isPreviousOrder = false, // this prop tell if this previous order item chech name
+  iconType = "Ionicons",
+  iconName = "location-sharp",
 }) => {
   const { onAddPlaceToFavoriteHandler, favoritePlacesApi } =
     useDropLocationItemHook();
@@ -19,6 +26,22 @@ const DropLocationItem = ({
       place.name ===
       (isPreviousOrder ? eachPlace?.dropAddress : eachPlace?.name)
   );
+
+  let Icon;
+  switch (iconType) {
+    case "Ionicons":
+      Icon = Ionicons;
+      break;
+    case "MaterialIcons":
+      Icon = MaterialIcons;
+      break;
+    case "Entypo":
+      Icon = Entypo;
+      break;
+    default:
+      Icon = Ionicons;
+  }
+
   return (
     <View style={styles.container}>
       <Pressable
@@ -31,7 +54,7 @@ const DropLocationItem = ({
       >
         <View style={styles.first}>
           {/* <FontAwesome name="location-arrow" size={25} color="#fff" /> */}
-          <Ionicons name="location-sharp" size={25} color="#e02e88" />
+          <Icon name={iconName} size={25} color="#e02e88" />
           {/* <Image
             style={styles.firstImage}
             source={require("../../../../../assets/images/locationIcons/pin locator 2.png")}
