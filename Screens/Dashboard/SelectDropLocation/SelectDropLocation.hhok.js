@@ -7,8 +7,13 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 // Ensure you have react-native-vector-icons installed
 import Voice from "@react-native-voice/voice";
 import { Alert } from "react-native";
+import Toast from "react-native-toast-message";
+import { API } from "../../../Constants/url";
+import { useSelector } from "react-redux";
 export const useSelectDropLocationHook = () => {
   const route = useRoute();
+  const { token } = useSelector((state) => state.token);
+
   const navigation = useNavigation();
   const {
     placeName,
@@ -17,6 +22,8 @@ export const useSelectDropLocationHook = () => {
     selectedVehicleType,
     isMic,
     isFromParcelScreen,
+    homeLocations,
+    workLocation,
   } = route.params;
 
   const [isMicModalOpenClose, setIsMicModalOpenClose] = useState(
@@ -24,6 +31,12 @@ export const useSelectDropLocationHook = () => {
   );
   const [micVoiceText, setMicVoiceText] = useState("");
   const [isListening, setIsListening] = useState(false);
+
+  const [typeOfPlace, setTypeOfPlace] = useState(null);
+
+  const handleAddedHomePlace = async ({ type }) => {
+    setTypeOfPlace(type);
+  };
 
   useEffect(() => {
     Voice.onSpeechStart = onSpeechStart;
@@ -101,8 +114,49 @@ export const useSelectDropLocationHook = () => {
 
   // user click the drop location near places list
 
-  const onUserSelectDropLocationByNeardPlace = (place) => {
-    console.log(place);
+  const handelAddedHomePlace = async ({ name, vicinity, location, type }) => {
+    try {
+      await API.post(
+        "/auth/home-place",
+        {
+          name,
+          vicinity,
+          location,
+          type,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setTypeOfPlace(null);
+      Toast.show({
+        text1: "Home location added successfully",
+        type: "success",
+        position: "bottom",
+      });
+    } catch (error) {
+      console.log(error);
+      Toast.show({
+        text1: "Failed to add home location",
+        type: "error",
+        position: "bottom",
+      });
+    }
+  };
+
+  const onUserSelectDropLocationByNeardPlace = (place, type) => {
+    if (type) {
+      handelAddedHomePlace({
+        name: place.name,
+        vicinity: place.vicinity,
+        location: place.location,
+        type,
+      });
+      return;
+    }
     if (isFromParcelScreen) {
       navigation.navigate("ChangeLoc100mViaMap", { place });
       return; // if from parcel screen then exit function
@@ -119,25 +173,34 @@ export const useSelectDropLocationHook = () => {
     this function arguments data not give coodinates direcly to google api its give placeId
     using this placeId to fetch drop location coordinates
   */
-  const onUserSelectDropLocationByEnterInput = async (place) => {
+  const onUserSelectDropLocationByEnterInput = async (place, type) => {
     let location = await getCoordinatesFromPlaceId(place?.placeId);
-
     let newDropLocation = {
       ...place,
       location,
     };
+
+    if (type) {
+      handelAddedHomePlace({
+        name: newDropLocation.name,
+        vicinity: newDropLocation.vicinity,
+        location: newDropLocation.location,
+        type,
+      });
+      return;
+    }
 
     if (isFromParcelScreen) {
       navigation.navigate("ChangeLoc100mViaMap", { place: newDropLocation });
       return; // if from parcel screen then exit function
     }
 
-    navigation.navigate("ShowPrice", {
-      placeName, // this prop is store current location text
-      pickUpCoordinated, // this prop store currect location coodinates
-      dropDetails: newDropLocation, // this prop store drop location data (coodinates, name, secondaryText)
-      selectedVehicleType,
-    });
+    // navigation.navigate("ShowPrice", {
+    //   placeName, // this prop is store current location text
+    //   pickUpCoordinated, // this prop store currect location coodinates
+    //   dropDetails: newDropLocation, // this prop store drop location data (coodinates, name, secondaryText)
+    //   selectedVehicleType,
+    // });
   };
 
   // navigate to map preview screen
@@ -174,5 +237,9 @@ export const useSelectDropLocationHook = () => {
     micVoiceText,
     setIsMicModalOpenClose,
     navigation,
+    homeLocations,
+    workLocation,
+    typeOfPlace,
+    handleAddedHomePlace,
   };
 };

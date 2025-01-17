@@ -22,6 +22,10 @@ import { TouchableOpacity } from "react-native";
 import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
 import MapBtn from "./Components/MapBtn";
 import HomeLocationCard from "./Components/HomeLocationCard";
+import CustomBtn from "../../../Utils/CustomBtn/CustomBtn";
+import { useSelector } from "react-redux";
+import Toast from "react-native-toast-message";
+import { useState } from "react";
 const SelectDropLocation = () => {
   const {
     nearbyPlaces,
@@ -40,8 +44,11 @@ const SelectDropLocation = () => {
     isListening,
     micVoiceText,
     navigation,
+    homeLocations,
+    workLocation,
+    typeOfPlace,
+    handleAddedHomePlace,
   } = useSelectDropLocationHook();
-  // console.log("jugfghjn", nearByFavPrevPlace);
 
   return (
     <KeyboardAvoidingView
@@ -55,10 +62,12 @@ const SelectDropLocation = () => {
           onBack={() => navigation.goBack()}
         />
         <View style={styles.newInnerCard}>
-          <View style={styles.whereToGoCard}>
+          <View style={[styles.whereToGoCard, { minHeight: 370 }]}>
             <View style={styles.pickDropBtnCard}>
               <Text style={{ fontSize: 22, fontWeight: "bold" }}>
-                Where to go?
+                {typeOfPlace
+                  ? `${typeOfPlace?.toUpperCase()} Place`
+                  : "Where to go?"}
               </Text>
               <ShowPickDropCard
                 inputValue={inputValue}
@@ -95,7 +104,8 @@ const SelectDropLocation = () => {
                     eachPlace={item}
                     onPress={onUserSelectDropLocationByEnterInput.bind(
                       this,
-                      item
+                      item,
+                      typeOfPlace
                     )}
                   />
                 ) : (
@@ -105,7 +115,8 @@ const SelectDropLocation = () => {
                     eachPlace={item}
                     onPress={onUserSelectDropLocationByNeardPlace.bind(
                       this,
-                      item
+                      item,
+                      typeOfPlace
                     )}
                   />
                 )
@@ -115,16 +126,42 @@ const SelectDropLocation = () => {
             />
           </View>
           <View style={styles.homeWorLocationCard}>
-            <HomeLocationCard
-              location="Home"
-              vicinity="Vijay Sai Kiran Residency, Jpn Nagar, Miyapur"
-            />
-            <HomeLocationCard
-              location="Work"
-              vicinity="Jayabheri Silicon Towers, Kothaguda - Hitechcity Road, Hyderabad"
-              iconType="AntDesign"
-              iconName="star"
-            />
+            {homeLocations ? (
+              <HomeLocationCard
+                location="Home"
+                vicinity={homeLocations?.vicinity}
+                onPress={() =>
+                  onUserSelectDropLocationByNeardPlace(homeLocations)
+                }
+              />
+            ) : (
+              <CustomBtn
+                title="Add Home Place"
+                borderWidth={1}
+                borderColor="#e02e88"
+                btnColor="#e02e88"
+                onPress={() => handleAddedHomePlace({ type: "home" })}
+              />
+            )}
+            {workLocation ? (
+              <HomeLocationCard
+                location="Work"
+                vicinity={workLocation?.vicinity}
+                iconType="AntDesign"
+                iconName="star"
+                onPress={() =>
+                  onUserSelectDropLocationByNeardPlace(workLocation)
+                }
+              />
+            ) : (
+              <CustomBtn
+                title="Add Work Place"
+                borderWidth={1}
+                borderColor="#e02e88"
+                btnColor="#e02e88"
+                onPress={() => handleAddedHomePlace({ type: "work" })}
+              />
+            )}
           </View>
         </View>
         <MapBtn onNavigateToMapPreviewScreen={onNavigateToMapPreviewScreen} />
@@ -193,7 +230,7 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: "#fff",
     width: "100%",
-    height: "75%",
+    height: "80%",
     borderRadius: 20,
     elevation: 1,
     gap: 10,
@@ -202,7 +239,7 @@ const styles = StyleSheet.create({
   homeWorLocationCard: {
     backgroundColor: "#fff",
     width: "100%",
-    height: "25%",
+    height: "20%",
     // backgroundColor: COLORS.cardBackground,
     justifyContent: "space-between",
     alignItems: "center",

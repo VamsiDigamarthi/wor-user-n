@@ -7,8 +7,8 @@ import React, {
   useState,
 } from "react";
 import MapView, { Marker } from "react-native-maps";
-import { customMapStyle } from "../../../../../../../Constants/mapData";
 import { FontAwesome } from "@expo/vector-icons";
+import { customMapStyle } from "../../../../../../Constants/mapData";
 
 const HomeMapPreview = ({
   location,
@@ -92,16 +92,16 @@ const HomeMapPreview = ({
             }}
           >
             <View style={{ transform: [{ rotate: `${marker.rotation}deg` }] }}>
-              {/* <Image
-                  style={{ width: 30, height: 30, resizeMode: "contain" }}
-                  source={
-                    marker.type === "bike"
-                      ? require("../../assets/images/markers/BIKE-removebg-preview.png")
-                      : marker.type === "auto"
-                      ? require("../../assets/images/markers/auto__1_-removebg-preview.png")
-                      : require("../../assets/images/markers/CAR__1_-removebg-preview.png")
-                  }
-                /> */}
+              <Image
+                style={{ width: 30, height: 30, resizeMode: "contain" }}
+                source={
+                  marker.type === "bike"
+                    ? require("../../../../../../assets/images/markers/BIKE-removebg-preview.png")
+                    : marker.type === "auto"
+                    ? require("../../../../../../assets/images/markers/auto__1_-removebg-preview.png")
+                    : require("../../../../../../assets/images/markers/CAR__1_-removebg-preview.png")
+                }
+              />
             </View>
           </Marker>
         ))}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import HomeScreenServices from "../services/HomeScreenServices";
 import { onProfileSection } from "../redux/profileSlice";
@@ -10,12 +10,10 @@ import { setNearPlaces } from "../redux/nearPlaceSlice";
 export const useHomeScreenHook = () => {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.token);
-  const [location, setLocation] = useState(null);
-  const [placeName, setPlaceName] = useState(null);
-  const [nearbyPlaces, setNearbyPlaces] = useState([]);
+  const { location } = useSelector((state) => state.location);
+  const { nearPlaces } = useSelector((state) => state.nearPlaces);
   const [fbToken, setFbToken] = useState("");
   const [captainMarkers, setCaptainMarkers] = useState([]);
-  //   const [activeOrder, setActiveOrder] = useState({});
 
   const [favoritePlaces, setFavoritePlace] = useState([]);
   const [previousOrders, setPreviousOrders] = useState([]);
@@ -34,6 +32,7 @@ export const useHomeScreenHook = () => {
 
   // fetch profile data
   useEffect(() => {
+    dispatch(fetchLocation());
     dispatch(onProfileSection({ token }));
   }, [dispatch, token]);
 
@@ -57,63 +56,25 @@ export const useHomeScreenHook = () => {
   }, [fbToken]);
 
   useEffect(() => {
-    if (location) {
+    const onFetchNearPlaces = async () => {
       const markers = HomeScreenServices.generateRandomMarkers(location);
       setCaptainMarkers(markers);
-    }
+      let nearbyPlaces = await fetchNearbyPlaces(location.lat, location.lng);
+      dispatch(setNearPlaces(nearbyPlaces));
+    };
+
+    location && onFetchNearPlaces();
   }, [location]);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        // Request permission to access location
-        let { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== "granted") {
-          setErrorMsg("Permission to access location was denied");
-          return;
-        }
-
-        // Get the current location
-        let currentLocation = await Location.getCurrentPositionAsync({});
-
-        setLocation({
-          lat: currentLocation.coords.latitude,
-          lng: currentLocation.coords.longitude,
-        }); // Update state with the location
-
-        dispatch(fetchLocation());
-
-        let nearbyPlaces = await fetchNearbyPlaces(
-          currentLocation.coords.latitude,
-          currentLocation.coords.longitude
-        );
-        setNearbyPlaces(nearbyPlaces);
-        dispatch(setNearPlaces(nearbyPlaces));
-
-        let [place] = await Location.reverseGeocodeAsync({
-          latitude: currentLocation.coords.latitude,
-          longitude: currentLocation.coords.longitude,
-        });
-
-        // console.log("place", place);
-
-        if (place) {
-          setPlaceName(place.formattedAddress);
-        } else {
-          setPlaceName("Location not found");
-        }
-      } catch (error) {
-        setErrorMsg(error.message || "Something went wrong");
-      }
-    })();
-  }, []);
+  const nearByRandomItems = useMemo(() => {
+    if (nearPlaces.length === 0) return [];
+    return [...nearPlaces].sort(() => 0.5 - Math.random()).slice(0, 3);
+  }, [nearPlaces]);
 
   return {
-    location,
-    placeName,
-    nearbyPlaces,
     favoritePlaces,
     previousOrders,
     captainMarkers,
+    nearByRandomItems,
   };
 };

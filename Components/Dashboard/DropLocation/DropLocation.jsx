@@ -10,9 +10,11 @@ const DropLocation = ({
   placeName,
   nearbyPlaces,
   location,
+  homeLocations,
+  workLocation,
 }) => {
   const { handleNavigate, onNavigateToDirectPriceScreen } = useDropLocationHook(
-    { placeName, nearbyPlaces, location }
+    { placeName, nearbyPlaces, location, homeLocations, workLocation }
   );
 
   return (
@@ -51,53 +53,41 @@ const DropLocation = ({
         </Pressable>
       </View>
       <View style={[styles.innerCard]}>
-        {nearByRandomItems?.length ? (
-          <>
-            <DropLocationItem
-              mainPlace={nearByRandomItems?.[0]?.name}
-              subPlace={nearByRandomItems?.[0]?.vicinity}
-              eachPlace={nearByRandomItems?.[0]}
-              onPress={onNavigateToDirectPriceScreen.bind(
-                this,
-                nearByRandomItems?.[0],
-                "nearby"
-              )}
-            />
-            <DropLocationItem
-              mainPlace={nearbyPlaces?.[0]?.name}
-              subPlace={nearbyPlaces?.[0]?.vicinity}
-              eachPlace={nearbyPlaces?.[0]}
-              onPress={onNavigateToDirectPriceScreen.bind(
-                this,
-                nearbyPlaces?.[0],
-                "nearby"
-              )}
-            />
-            <DropLocationItem
-              mainPlace={nearbyPlaces?.[0]?.name}
-              subPlace={nearbyPlaces?.[0]?.vicinity}
-              eachPlace={nearbyPlaces?.[0]}
-              onPress={onNavigateToDirectPriceScreen.bind(
-                this,
-                nearbyPlaces?.[0],
-                "nearby"
-              )}
-            />
-          </>
-        ) : (
-          <View
-            style={{
-              flex: 1,
-              width: "100%",
-              alignItems: "center",
-              gap: 30,
-            }}
-          >
-            <SkeletonLoader />
-            <SkeletonLoader />
-            <SkeletonLoader />
-          </View>
-        )}
+
+        <DropLocationItem
+          mainPlace={nearByRandomItems?.[0]?.name}
+          subPlace={nearByRandomItems?.[0]?.vicinity}
+          eachPlace={nearByRandomItems?.[0]}
+          onPress={onNavigateToDirectPriceScreen.bind(
+            this,
+            nearByRandomItems?.[0]
+          )}
+        />
+        <DropLocationItem
+          mainPlace={
+            homeLocations ? homeLocations.name : nearbyPlaces?.[1]?.name
+          }
+          subPlace={
+            homeLocations ? homeLocations.vicinity : nearbyPlaces?.[1]?.vicinity
+          }
+          eachPlace={nearbyPlaces?.[1]}
+          onPress={onNavigateToDirectPriceScreen.bind(this, nearbyPlaces?.[1])}
+          iconType={homeLocations ? "Entypo" : "Ionicons"}
+          iconName={homeLocations ? "home" : "location-sharp"}
+        />
+        <DropLocationItem
+          mainPlace={
+            workLocation ? workLocation?.name : nearbyPlaces?.[2]?.name
+          }
+          subPlace={
+            workLocation ? workLocation?.vicinity : nearbyPlaces?.[2]?.vicinity
+          }
+          eachPlace={nearbyPlaces?.[2]}
+          onPress={onNavigateToDirectPriceScreen.bind(this, nearbyPlaces?.[2])}
+          iconType={workLocation ? "MaterialIcons" : "Ionicons"}
+          iconName={workLocation ? "work" : "location-sharp"}
+        />
+
       </View>
     </View>
   );

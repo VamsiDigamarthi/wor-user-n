@@ -17,12 +17,6 @@ export const fetchLocation = createAsyncThunk(
       currentLocation.coords.longitude
     );
 
-    // const [place] = await Location.reverseGeocodeAsync({
-    //   latitude: currentLocation.coords.latitude,
-    //   longitude: currentLocation.coords.longitude,
-    // });
-    // console.log(data, "data");
-
     return {
       location: {
         lat: currentLocation.coords.latitude,

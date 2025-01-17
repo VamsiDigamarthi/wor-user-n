@@ -1,19 +1,6 @@
 import React, { useState } from "react";
-import {
-  Image,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import Infopressicons from "../../../../../../../Utils/BottomSheet/Components/Infopressicons";
-import ModalUI from "../../../../../../../Utils/Modal/Modal";
-import { infoModalStyles } from "../../../../../../../Components/InfoUi/Styles/InfoModalStyles";
-import OtpInfoUi from "../../../../../../../Components/InfoUi/OtpInfoUi";
-import { dashBoard } from "../../../../../../../Components/InfoUi/data/infoData";
 // A reusable service card component
 const ServiceCard = ({ imageSource, label, onPress }) => {
   return (
@@ -51,9 +38,9 @@ const AllServices = ({ placeName, location, nearbyPlaces }) => {
 
   const navigateToPickLocationScreen = (vehicle) => {
     navigation.navigate("SelectDropLocation", {
-      placeName, // current location text
-      pickUpCoordinated: location, // user coordinates to calculate the price
-      nearbyPlaces, // nearby places for the "select drop location" screen
+      placeName,
+      pickUpCoordinated: location,
+      nearbyPlaces,
       selectedVehicleType: vehicle,
     });
   };
@@ -62,35 +49,35 @@ const AllServices = ({ placeName, location, nearbyPlaces }) => {
     const services = [
       {
         label: "Scooty",
-        image: require("../../../../../../../assets/images/HomeServiceImages/scooty.png"),
+        image: require("../../../../../../assets/images/HomeServiceImages/scooty.png"),
         vehicle: "scooty",
       },
       {
-        label: "Car",
-        image: require("../../../../../../../assets/images/HomeServiceImages/cab.png"),
+        label: "Wor Mini",
+        image: require("../../../../../../assets/images/HomeServiceImages/cab.png"),
         vehicle: "car",
       },
       {
         label: "Auto",
-        image: require("../../../../../../../assets/images/HomeServiceImages/auto.png"),
+        image: require("../../../../../../assets/images/HomeServiceImages/auto.png"),
         vehicle: "auto",
       },
 
       {
+        label: "Wor Premium",
+        image: require("../../../../../../assets/images/HomeServiceImages/cab.png"),
+        vehicle: "wor-premium",
+        // isParcel: true,
+      },
+      {
         label: "Parcel",
-        image: require("../../../../../../../assets/images/HomeServiceImages/gift.png"),
+        image: require("../../../../../../assets/images/HomeServiceImages/gift.png"),
         vehicle: null,
         isParcel: true,
       },
       {
         label: "Parcel",
-        image: require("../../../../../../../assets/images/HomeServiceImages/gift.png"),
-        vehicle: null,
-        isParcel: true,
-      },
-      {
-        label: "Parcel",
-        image: require("../../../../../../../assets/images/HomeServiceImages/scooty.png"),
+        image: require("../../../../../../assets/images/HomeServiceImages/scooty.png"),
         vehicle: null,
         isParcel: true,
       },
@@ -110,46 +97,15 @@ const AllServices = ({ placeName, location, nearbyPlaces }) => {
     ));
   };
 
-  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
-
-  const onHandleOpenInfoModal = () => {
-    setIsInfoModalOpen(!isInfoModalOpen);
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
           <Text style={styles.headerText}>Services</Text>
-          {/* <Infopressicons onHandleOpenInfoModal={onHandleOpenInfoModal} /> */}
         </View>
-        <View style={styles.viewAllContainer}>
-          {/* <Pressable
-            style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
-            onPress={toggleViewAll}
-          >
-            <Text style={styles.viewAllText}>
-              {viewAll ? "Remove All" : "View All"}
-            </Text>
-            <Ionicons name="arrow-forward" size={20} color="#E02E88" />
-          </Pressable> */}
-        </View>
+        <View style={styles.viewAllContainer}></View>
       </View>
-
       <View style={styles.serviceGrid}>{renderServices()}</View>
-
-      <ModalUI
-        openCloseState={isInfoModalOpen}
-        closeModalFun={onHandleOpenInfoModal}
-        modalStyle="slide"
-        style={infoModalStyles.aadharModalStyles}
-        insideCardStyle={infoModalStyles.insideCardStyle}
-        btnText="Okay, Got It"
-        btnStyles={infoModalStyles.modalCloseBtn}
-        btnTextStyle={infoModalStyles.btnTextStyle}
-      >
-        <OtpInfoUi mainTitle="Dash Board" data={dashBoard} />
-      </ModalUI>
     </View>
   );
 };

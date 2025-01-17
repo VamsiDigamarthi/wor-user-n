@@ -52,7 +52,7 @@ const LoginRelatedInput = () => {
             : response.data?.name,
       });
     } catch (error) {
-      console.log(error?.response);
+      console.log(error);
       setIsLoading(false);
       setApiError(error?.response?.data?.message);
     }

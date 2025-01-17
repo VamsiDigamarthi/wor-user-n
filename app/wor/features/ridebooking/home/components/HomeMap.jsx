@@ -1,8 +1,10 @@
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { useSelector } from "react-redux";
 import HomeMapPreview from "./HomeMapPreview";
 
-const HomeMap = ({ location, captainMarkers, toggleCloseSOS }) => {
+const HomeMap = ({ captainMarkers, toggleCloseSOS }) => {
+  const { location } = useSelector((state) => state.location);
   return (
     <View style={[styles.mapContainer]}>
       {!location || location == null || location == undefined ? (
@@ -13,7 +15,6 @@ const HomeMap = ({ location, captainMarkers, toggleCloseSOS }) => {
         <HomeMapPreview
           captainMarkers={captainMarkers}
           location={location}
-          // height={mapHeight}
           handleOpenSafetyModal={toggleCloseSOS}
         />
       )}

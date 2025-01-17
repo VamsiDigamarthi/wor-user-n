@@ -3,7 +3,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 // import Home from "../Screens/Dashboard/Home/Home";
 import RideBook from "../Screens/Dashboard/RideBook/RideBook";
 import CustomAppBar from "../Utils/CustomAppBar/CustomAppBar";
-import SelectDropLocation from "../Screens/Dashboard/SelectDropLocation/SelectDropLocation";
+// import SelectDropLocation from "../Screens/Dashboard/SelectDropLocation/SelectDropLocation";
 import {
   Alert,
   Pressable,
@@ -96,9 +96,16 @@ import RefertoEarn from "../app/wor/features/DrawerScreens/ReferAndEarn/RefertoE
 
 import Profile from "../app/wor/features/DrawerScreens/Profile/Profile";
 import Safety from "../app/wor/features/DrawerScreens/Safety/Safety";
+
 import HelpAndSupport from "../app/wor/features/DrawerScreens/HelpAndSupport/HelpAndSupport";
 import DrivingSchools from "../app/wor/features/DrawerScreens/DrivingSchools/DrivingSchools";
 import DrivingSchoolsDetailView from "../app/wor/features/DrawerScreens/DrivingSchools/Screens/DrivingSchoolDetailVIew";
+
+// import SelectDropLocation from "../app/wor/features/ridebooking/selectdroplocation/SelectDropLocation";
+import SelectLocationByMapScreen from "../app/wor/features/ridebooking/SelectLocationByMap/SelectLocationByMapScreen";
+import SelectDropLocation from "../Screens/Dashboard/SelectDropLocation/SelectDropLocation";
+import ChangeLoc100mViaMapScreen from "../app/wor/SharedScreens/ChangeLoc100mViaMapScreen/ChangeLoc100mViaMapScreen";
+
 /* Drawer Screens */
 
 const Drawer = createDrawerNavigator();
@@ -166,47 +173,6 @@ const DrawerNavigator = ({ route }) => {
 const AuthenticatedStack = () => {
   // My new code
 
-  const navigation = useNavigation();
-  // const [appState, setAppState] = useState(AppState.currentState);
-
-  // useEffect(() => {
-  //   const appStateListener = AppState.addEventListener("change", (nextAppState) => {
-  //     setAppState(nextAppState);
-  //   });
-
-  //   const foregroundNotificationListener = Notifications.addNotificationReceivedListener(
-  //     (notification) => {
-  //       // console.log("Foreground notification:", notification);
-  //       // console.log("In Authenticated Stack",  notification?.request?.content?.data);
-
-  //       if (appState === "active") {
-  //         // console.log("App is in the foreground, no automatic navigation");
-  //       } else {
-  //         handleNotification(navigation, notification);
-  //       }
-  //     }
-  //   );
-
-  //   const backgroundNotificationListener = Notifications.addNotificationResponseReceivedListener(
-  //     (response) => {
-  //       // console.log("Background notification responded in authenticated stack", response);
-  //       handleNotification(navigation, response.notification);
-  //     }
-  //   );
-
-  //   return () => {
-  //     appStateListener.remove();
-  //     foregroundNotificationListener.remove();
-  //     backgroundNotificationListener.remove();
-  //   };
-  // }, [appState, navigation]);
-
-  // const handleNotification = (navigation, notification) => {
-
-  //   console.log(notification.request.content.data.screen , "from authenticated stack");
-  //   navigation.navigate(notification?.request?.content?.data?.screen, { screen:notification?.request?.content?.data?.screen  });
-  // };
-
   return (
     <Stack.Navigator>
       {/* Drawer screens */}
@@ -223,9 +189,7 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="SelectDropLocation"
         component={SelectDropLocation}
-        // options={({ navigation }) =>
-        //   getCommonOptions(navigation, "Designation")
-        // }
+        // component={SelectDropLocation}
         options={{ headerShown: false }}
       />
 
@@ -234,9 +198,6 @@ const AuthenticatedStack = () => {
         name="ShowPrice"
         component={ShowPrice}
         options={{ headerShown: false }}
-        // options={({ navigation }) =>
-        //   getCommonOptions(navigation, "Book Your Ride", "#f5f2f2")
-        // }
       />
 
       {/* Looking for Ride screen */}
@@ -256,6 +217,7 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="FixMapPreview"
         component={MapWithCurrentLocation}
+        // component={SelectLocationByMapScreen}
         options={{ headerShown: false }}
       />
 
@@ -389,12 +351,6 @@ const AuthenticatedStack = () => {
         options={{ headerShown: false }}
       />
 
-      {/* <Stack.Screen
-        name="About"
-        component={About}
-        options={{ headerShown: false }}
-      /> */}
-
       <Stack.Screen
         name="PaymentMethod"
         component={PaymentMethods}
@@ -517,7 +473,8 @@ const AuthenticatedStack = () => {
       />
       <Stack.Screen
         name="ChangeLoc100mViaMap"
-        component={ChangeLoc100mViaMap}
+        // component={ChangeLoc100mViaMap}
+        component={ChangeLoc100mViaMapScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen

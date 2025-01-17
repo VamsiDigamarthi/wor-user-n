@@ -1,6 +1,13 @@
 import { useNavigation } from "@react-navigation/native";
 
-export const useDropLocationHook = ({ placeName, nearbyPlaces, location }) => {
+export const useDropLocationHook = ({
+  placeName,
+  nearbyPlaces,
+  location,
+
+  homeLocations,
+  workLocation,
+}) => {
   const navigation = useNavigation();
 
   const handleNavigate = (isMic = false) => {
@@ -9,6 +16,8 @@ export const useDropLocationHook = ({ placeName, nearbyPlaces, location }) => {
       pickUpCoordinated: location, // this prop store current location user coordinates to pass price screen to calculate the price
       nearbyPlaces, // this prop store nearby places from user current location to 1 km radius famous location [place this data into "select drop location screen to display initial locations"]
       isMic: isMic,
+      homeLocations,
+      workLocation,
     });
   };
 

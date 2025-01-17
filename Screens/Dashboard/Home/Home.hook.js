@@ -23,6 +23,8 @@ export const useHomeHook = () => {
   const [nearbyPlaces, setNearbyPlaces] = useState([]);
   const [fbToken, setFbToken] = useState("");
   const [captainMarkers, setCaptainMarkers] = useState([]);
+  const [homeLocations, setHomeLocations] = useState(null);
+  const [workLocation, setWorkLocation] = useState(null);
 
   // const [nearByRandomItems, setNearByRandomItems] = useState([]);
 
@@ -41,6 +43,21 @@ export const useHomeHook = () => {
         },
       });
       setActiveOrder(response.data);
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
+  };
+
+  const onFetchHomeLocations = async () => {
+    try {
+      const homeLocs = await API.get("/auth/home-place", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      // console.log("homeLocs.data?.home", homeLocs.data);
+      setHomeLocations(homeLocs.data?.home);
+      setWorkLocation(homeLocs.data?.work);
     } catch (error) {
       console.log(error.response.data.message);
     }
@@ -86,6 +103,7 @@ export const useHomeHook = () => {
   useEffect(() => {
     async function allMix() {
       onFetchActiveOrder();
+      onFetchHomeLocations();
       await getToken();
     }
     allMix();
@@ -170,6 +188,8 @@ export const useHomeHook = () => {
     }
   }, [location]);
 
+  // console.log("homeLocations", homeLocations);
+
   return {
     location,
     nearByRandomItems,
@@ -177,5 +197,7 @@ export const useHomeHook = () => {
     nearbyPlaces, // based on coordinates to get near places
     activeOrder,
     captainMarkers,
+    homeLocations,
+    workLocation,
   };
 };
