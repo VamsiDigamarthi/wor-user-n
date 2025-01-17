@@ -2,12 +2,7 @@ import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-import {
-  ScootyImg,
-  AutoImg,
-  CabImg,
-  GiftImg,
-} from "../../../../Images/Universal";
+import { ScootyImg, AutoImg, CabImg } from "../../../../Images/Universal";
 
 const RideHistoryItem = ({ ride, isFavoriteOrRideHistory = true }) => {
   const navigation = useNavigation();
@@ -72,7 +67,7 @@ const styles = StyleSheet.create({
   mainCont: {
     flexDirection: "row",
     borderBottomWidth: 1,
-    borderColor: "#757575",
+    borderColor: "#Ebebeb",
     alignItems: "center",
     justifyContent: "space-between",
     padding: 10,

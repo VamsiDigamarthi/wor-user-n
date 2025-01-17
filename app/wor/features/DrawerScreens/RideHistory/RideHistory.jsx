@@ -44,7 +44,7 @@ export default RideHistory;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: "#fff5f9",
+    backgroundColor: "#fff",
     // paddingHorizontal: 10,
     // paddingVertical: 12,
     // gap: 20,

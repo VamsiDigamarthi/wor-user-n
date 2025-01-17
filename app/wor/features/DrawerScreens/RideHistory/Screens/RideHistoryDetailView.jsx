@@ -1,10 +1,9 @@
-import { ScrollView, StatusBar, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import React from "react";
 import { useRoute } from "@react-navigation/native";
 import RideHistoryDetailsViewFirst from "../Components/RideHistoryDetailView/RideHistoryDetailsViewFirst";
-import RideBillCard from "../Components/RideHistoryDetailView/RideBillCard";
-
 import CustomeAppbar from "../../../../../../Utils/CustomeAppbar/CustomeAppbar";
+import FaqListCard from "../Components/FaqListCard";
 
 const RideHistoryDetailView = ({ navigation }) => {
   const route = useRoute();
@@ -18,7 +17,8 @@ const RideHistoryDetailView = ({ navigation }) => {
           showsVerticalScrollIndicator={false}
         >
           <RideHistoryDetailsViewFirst ride={ride} />
-          <RideBillCard ride={ride} />
+
+          <FaqListCard />
         </ScrollView>
       </View>
     </View>

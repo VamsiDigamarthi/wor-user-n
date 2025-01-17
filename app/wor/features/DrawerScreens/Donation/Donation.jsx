@@ -56,7 +56,7 @@ const Donation = () => {
           iconType="FontAwesome"
           icon="money"
           value={donationAmount}
-          onChangeText={(value) => setDonationAmount(value)}
+          onChangeText={setDonationAmount}
         />
         <View style={{ flexDirection: "row", gap: 10 }}>
           <View style={styles.ruppesCard}>

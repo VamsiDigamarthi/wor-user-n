@@ -1,118 +1,121 @@
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { ScrollView, StatusBar, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { useNavigation } from "@react-navigation/native";
-import SafetyFirst from "./Components/SafetyFirst";
-import { COLORS } from "../../../../../Constants/colors";
-import SafetyThird, { SingleCard } from "./Components/SafetyThird";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
-export default function Safety() {
+import MainCard from "./Components/MainCard";
+import RatingImageCard from "./Components/RatingImageCard";
+import Data from "../../../../../Constants/SafetyData.json";
+
+const Rating = () => {
+  const route = useRoute();
   const navigation = useNavigation();
+
   return (
     <View style={{ flex: 1 }}>
-      <CustomeAppbar title="Safety" onBack={() => navigation.goBack()} />
+      <View style={{ zIndex: 50 }}>
+        <CustomeAppbar title="Safety" onBack={() => navigation.goBack()} />
+      </View>
 
-      <ScrollView
-        contentContainerStyle={{}}
-        style={{ gap: 10, backgroundColor: COLORS.bottomSheetBg }}
-      >
-        <SafetyFirst />
-        <View
-          style={{
-            paddingHorizontal: 20,
-            paddingVertical: 10,
-            marginTop: 20,
-            backgroundColor: "#fff",
-            gap: 10,
+      <View style={styles.container}>
+        <MainCard />
+
+        <ScrollView
+          contentContainerStyle={{
+            paddingHorizontal: 5,
+            gap: 20,
+            paddingVertical: 5,
           }}
         >
-          <SecondText />
-          <SafetyThird />
-          <Text style={{ color: "#e02e88", fontWeight: "600", fontSize: 15 }}>
-            Please note, all these safety features only work in case of an
-            online ride through our app. Do not accept offline rides.
+          <Text style={{ fontWeight: "bold", fontSize: 20, paddingLeft: 10 }}>
+            What We Offer
           </Text>
-          <Text style={{ color: COLORS.heading, fontWeight: "600" }}>
-            THINGS YOU CAN DO
-          </Text>
-          <SingleCard
-            title="Helmet always"
-            text="While riding a Bike-Taxi, always ask for a helmet. In case you don't receive one, inform us via feedback."
-          />
-          <SingleCard
-            title="Live location sharing"
-            text="For friends & family to track the live status of your ride."
+
+          {Data.map((e, index) => (
+            <RatingImageCard key={index} title={e.title} text={e.text} />
+          ))}
+        </ScrollView>
+
+        {/* <ScrollView
+          contentContainerStyle={styles.scrollContainer}
+          showsVerticalScrollIndicator={false}
+        >
+          <RatingSecondCard avgRating={avgRating} />
+          <TextWithCard
+            title="How we calculate your rating"
+            subTitle="Your rating is calculated by averaging the anonymous ratings you receive from riders after each trip. These ratings are on a scale of 1 to 5 stars and are completely private, ensuring that neither you nor your rider can identify specific ratings. This system promotes a fair and unbiased evaluation of your service.
+"
           />
 
-          <SingleCard
-            title="Your ride. Your rules"
-            text="You have every right to ask the Captain to drive as per your comfort, within traffic rules."
+          <TextWithCard
+            title="Understanding Ratings"
+            subTitle="A 5-star customer is polite, respectful, and considerate, arriving on time and clearly sharing their destination. They are patient with delays and express gratitude for the rider’s efforts. Their appreciation for a safe, comfortable ride creates a positive, enjoyable experience, making the journey rewarding for the rider.
+"
           />
-          <SingleCard
-            title="Add trusted contacts"
-            text="Make sure to add contacts of your loved ones as trusted contacts. This will help you reach out to them easily."
-          />
-          <View>
-            <View
-              style={{ flexDirection: "row", gap: 10, alignItems: "center" }}
-            >
-              <View
-                style={{
-                  width: 40,
-                  height: 40,
-                  backgroundColor: "#f2f0f0",
-                  borderRadius: 20,
-                  borderWidth: 1,
-                  borderColor: COLORS.borderColor,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Ionicons
-                  name="chatbubbles-outline"
-                  size={20}
-                  color="#e02e88"
+
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={{ width: "100%", gap: 20 }}
+          >
+            {[
+              {
+                icon: "star",
+                title: "Know your Rider",
+                subTitle:
+                  "Understanding what contributes to a rider's happiness can make you a 5-star rider. By being aware of the factors that improve their experience, such as clear communication, respect, and attentiveness, you can enhance the journey and create a positive environment for both you and the rider.",
+              },
+
+              {
+                icon: "stopwatch",
+                title: "Timely",
+                subTitle:
+                  "To ensure a smooth and timely pickup, please double-check your designated pickup location. Arriving promptly at the specified spot not only helps the rider maintain their schedule but also contributes to a more efficient and stress-free journey for both of you.",
+              },
+
+              {
+                icon: "shield",
+                title: "Safety",
+                subTitle:
+                  "Put on your helmet and take it easy. Both riders and drivers should always adhere to traffic laws for everyone's safety.",
+              },
+
+              {
+                icon: "shield",
+                title: "Courtesy",
+                subTitle:
+                  "A simple smile or greeting can make a big difference! Treat your riders with the same kindness and respect you would want to receive.",
+              },
+            ].map((e, index) => {
+              return (
+                <RatingSliderCard
+                  key={index}
+                  title={e.title}
+                  subtitle={e.subTitle}
+                  icon={e.icon}
                 />
-              </View>
-              <Text
-                numberOfLines={1}
-                style={{
-                  fontSize: 16,
-                  fontWeight: "600",
-                  color: COLORS.heading,
-                }}
-              >
-                Don't share personal information
-              </Text>
-            </View>
-            <Text style={{ fontSize: 13, color: COLORS.subHeading }}>
-              •⁠ Do not share your contact details with the Captain.- Do not
-              share location via Whatsapp or any third party app.
-            </Text>
-            <Text style={{ fontSize: 13, color: COLORS.subHeading }}>
-              •⁠ ⁠Use communication methods available on the app only.
-            </Text>
-          </View>
-          <SingleCard
-            title="Always share feedback"
-            text="After every ride, help us know about your experiences so we can make our service safer and more pleasant."
-          />
-        </View>
-      </ScrollView>
+              );
+            })}
+          </ScrollView>
+        </ScrollView> */}
+      </View>
     </View>
   );
-}
+};
 
-const styles = StyleSheet.create({});
+export default Rating;
 
-const SecondText = () => (
-  <View style={{ gap: 5 }}>
-    <Text style={{ fontSize: 16, color: COLORS.heading, fontWeight: "600" }}>
-      Safety all the Way
-    </Text>
-    <Text style={{ fontSize: 11, color: COLORS.subHeading }}>
-      At Rapido, your safety comes first. Here are some measures and provisions
-      to ensure your safety, every time
-    </Text>
-  </View>
-);
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#f7f7f7",
+    // gap: 10,
+    position: "relative",
+  },
+  scrollContainer: {
+    width: "100%",
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    marginTop: 20,
+    gap: 15,
+  },
+});

@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
     // paddingHorizontal: 10,
     // paddingVertical: 12,
     gap: 15,
+    backgroundColor: "#fff",
   },
   bottomSheetContent: {
     // padding: 20,
