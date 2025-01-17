@@ -47,7 +47,6 @@ const androidHeight = [screenHeight * 0.54, screenHeight * 0.6];
 const iosHeight = [screenHeight * 0.15, screenHeight * 0.6];
 
 const NewHome = () => {
-  const navigation = useNavigation();
   const bottomSheetRef = useRef(null);
   const dispatch = useDispatch();
 
@@ -56,17 +55,6 @@ const NewHome = () => {
     () => (Platform.OS === "ios" ? iosHeight : androidHeight),
     []
   );
-
-  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
-  const [isOpenCloseSOS, setIsOpenCloseSOS] = useState(false);
-
-  const {
-    location,
-    nearByRandomItems,
-    placeName,
-    nearbyPlaces,
-    captainMarkers,
-  } = useHomeHook();
 
   const handleSheetChange = useCallback((index) => {
     const height = index === 1 ? screenHeight * 0.6 : screenHeight * 0.95;
@@ -82,9 +70,6 @@ const NewHome = () => {
       })
     );
   };
-
-
-  const onHandleOpenInfoModal = () => setIsInfoModalOpen(!isInfoModalOpen);
 
   const navigation = useNavigation();
 
@@ -140,7 +125,6 @@ const NewHome = () => {
           handleIndicatorStyle={styles.handleIndicator}
         >
           <BottomSheetScrollView contentContainerStyle={styles.sheetContent}>
-
             <View style={styles.bottomSheet}>
               {/* <Text style={styles.text}></Text> */}
               <DropLocation
@@ -162,7 +146,6 @@ const NewHome = () => {
               <BackgroundImage />
               {/* <Button title="notification" onPress={onHandleOpenInfoModal} /> */}
             </View>
-
           </BottomSheetScrollView>
         </BottomSheet>
       </View>
