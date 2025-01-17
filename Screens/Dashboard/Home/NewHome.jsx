@@ -1,62 +1,75 @@
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
+  ActivityIndicator,
   Dimensions,
   Platform,
   StyleSheet,
   Text,
   View,
-  Button,
-  ActivityIndicator,
-  ImageBackground,
+  TouchableOpacity,
 } from "react-native";
-import React, { useCallback, useMemo, useRef, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import BottomSheet, {
   BottomSheetModalProvider,
   BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigation, CommonActions } from "@react-navigation/native";
+import * as Location from "expo-location";
+import * as Clipboard from "expo-clipboard";
+import { StatusBar } from "expo-status-bar";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import Toast from "react-native-toast-message";
+import messaging from "@react-native-firebase/messaging";
+import * as Notifications from "expo-notifications";
+
 import { useHomeHook } from "./Home.hook";
-import { CommonActions, useNavigation } from "@react-navigation/native";
 import HomeMap from "../../../Utils/HomeMap/HomeMap";
 import DropLocation from "../../../Components/Dashboard/DropLocation/DropLocation";
 import AllServices from "../../../app/wor/features/ridebooking/home/components/AllServices";
 import SliderComponent from "../../../Utils/SliderComponent/SliderComponent";
 import BackgroundImage from "../../../Utils/BackgroundImage/BackgroundImage";
-import { COLORS } from "../../../Constants/colors";
-import DateTimePicker from "../../../Utils/DateTimePicker/DateTimePicker";
 import ModalUI from "../../../Utils/Modal/Modal";
 import { infoModalStyles } from "../../../Components/InfoUi/Styles/InfoModalStyles";
-import OtpInfoUi from "../../../Components/InfoUi/OtpInfoUi";
 import AllowNotification from "../../../Utils/AllowNotification/AllowNotification";
 import FutureOrderBox from "../../../Components/FutureOrderBox/FutureOrderBox";
-import { StatusBar } from "expo-status-bar";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { COLORS } from "../../../Constants/colors";
 import ContentLoader, { Rect } from "react-content-loader/native";
-import * as Clipboard from "expo-clipboard";
 
 const screenHeight = Dimensions.get("window").height;
-// <<<<<<< changes-from-last-4-days
-const androidHeight = [screenHeight * 0.54, screenHeight * 0.6]; // Adjust snap points
-// =======
-// const androidHeight = [screenHeight * 0.4, screenHeight * 0.4]; // Adjust snap points
-// >>>>>>> master
+const androidHeight = [screenHeight * 0.54, screenHeight * 0.6];
 const iosHeight = [screenHeight * 0.15, screenHeight * 0.6];
 
 const NewHome = () => {
+  const navigation = useNavigation();
   const bottomSheetRef = useRef(null);
+  const dispatch = useDispatch();
 
-  const [mapHeight, setMapHeight] = useState(androidHeight[0]); // Initial map height
+  const [mapHeight, setMapHeight] = useState(androidHeight[0]);
   const snapPoints = useMemo(
     () => (Platform.OS === "ios" ? iosHeight : androidHeight),
     []
   );
 
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
+  const [isOpenCloseSOS, setIsOpenCloseSOS] = useState(false);
+
+  const {
+    location,
+    nearByRandomItems,
+    placeName,
+    nearbyPlaces,
+    captainMarkers,
+  } = useHomeHook();
+
   const handleSheetChange = useCallback((index) => {
-    let height = screenHeight * 0.95; // Default map height
-    // console.log(index);
-    if (index === 1) {
-      height = screenHeight * 0.6; // Map height at middle snap point
-    }
+    const height = index === 1 ? screenHeight * 0.6 : screenHeight * 0.95;
     setMapHeight(height);
   }, []);
 
@@ -68,8 +81,10 @@ const NewHome = () => {
         routes: [{ name: "AuthStack" }],
       })
     );
-    // navigation.navigate("RideHistory"); // replace AuthStack with your stack name for login screen
   };
+
+
+  const onHandleOpenInfoModal = () => setIsInfoModalOpen(!isInfoModalOpen);
 
   const navigation = useNavigation();
 
@@ -92,23 +107,16 @@ const NewHome = () => {
   };
 
   const [isOpenCloseSOS, setIsOpenCloseSOS] = useState(false);
-  const toggleCloseSOS = () => setIsOpenCloseSOS(!isOpenCloseSOS);
 
-  // console.log(favoritePlaces, nearByRandomItems);
+  const toggleCloseSOS = () => setIsOpenCloseSOS(!isOpenCloseSOS);
 
   return (
     <BottomSheetModalProvider>
       <StatusBar style="dark" />
       <View style={styles.container}>
         {/* Map Container */}
-        <View
-          style={[
-            styles.mapContainer,
-
-            // { height: mapHeight }
-          ]}
-        >
-          {!location || location == null || location == undefined ? (
+        <View style={[styles.mapContainer]}>
+          {!location ? (
             <View style={styles.loadingWrapper}>
               <ActivityIndicator color="#e02e88" size={30} />
             </View>
@@ -116,7 +124,6 @@ const NewHome = () => {
             <HomeMap
               captainMarkers={captainMarkers}
               location={location}
-              // height={mapHeight}
               handleOpenSafetyModal={toggleCloseSOS}
             />
           )}
@@ -124,15 +131,16 @@ const NewHome = () => {
 
         <BottomSheet
           ref={bottomSheetRef}
-          index={1} // Initial snap point
+          index={1}
           snapPoints={snapPoints}
           onChange={handleSheetChange}
-          enablePanDownToClose={false} // Prevent closing
-          style={[styles.bottomSheet, { elevation: 1 }]} // Apply custom styles
-          backgroundStyle={styles.backgroundStyle} // Set pink background
+          enablePanDownToClose={false}
+          style={styles.bottomSheet}
+          backgroundStyle={styles.backgroundStyle}
           handleIndicatorStyle={styles.handleIndicator}
         >
           <BottomSheetScrollView contentContainerStyle={styles.sheetContent}>
+
             <View style={styles.bottomSheet}>
               {/* <Text style={styles.text}></Text> */}
               <DropLocation
@@ -154,6 +162,7 @@ const NewHome = () => {
               <BackgroundImage />
               {/* <Button title="notification" onPress={onHandleOpenInfoModal} /> */}
             </View>
+
           </BottomSheetScrollView>
         </BottomSheet>
       </View>
@@ -184,10 +193,10 @@ export default NewHome;
 function HomeCopyBox() {
   const copyToClipboard = (text) => {
     if (text) {
-      Clipboard.setStringAsync(text); // Copies text to clipboard
-      // Alert.alert("Copied to Clipboard", text);
+      Clipboard.setStringAsync(text);
+      Toast.show({ text1: "Copied to Clipboard", type: "success" });
     } else {
-      Alert.alert("Error", "Something went wrong");
+      Toast.show({ text1: "Error", type: "error" });
     }
   };
 
@@ -205,22 +214,6 @@ function HomeCopyBox() {
   );
 }
 
-const SkeletonLoader = () => {
-  return (
-    <View style={styles.SkeletonLoader}>
-      <ContentLoader
-        speed={2}
-        width="98%" // Bar width (adjust as needed)
-        height={20} // Bar height
-        backgroundColor="#e0e0e0"
-        foregroundColor="#f5f5f5"
-      >
-        <Rect x="0" y="0" rx="8" ry="8" width="100%" height="20" />
-      </ContentLoader>
-    </View>
-  );
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -229,51 +222,29 @@ const styles = StyleSheet.create({
   mapContainer: {
     justifyContent: "center",
     alignItems: "center",
-    // flex:1,
-    // width: "100%",
-  },
-  mapText: {
-    color: "white",
-    fontSize: 20,
-    fontWeight: "bold",
   },
   sheetContent: {
     backgroundColor: "#fff",
-    // padding: 20,
     paddingHorizontal: 5,
-    // backgroundColor: COLORS.bottomSheetBg,
-  },
-  contentText: {
-    fontSize: 16,
-    // lineHeight: 24,
-    marginBottom: 10,
   },
   bottomSheet: {
-    // padding: 10,
-
     overflow: "hidden",
-    borderTopLeftRadius: 35, // Top-left corner radius
-    borderTopRightRadius: 35, // Top-right corner radius
-    // elevation: 1,ele
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
   },
-  backgroundStyle: {
-    // backgroundColor: COLORS.bottomSheetBg,
-    // gap: 5, // Pink background color for BottomSheet
-  },
+  backgroundStyle: {},
   handleIndicator: {
     backgroundColor: "gray",
     width: 50,
     height: 4,
     borderRadius: 2,
   },
-
   copyBox: {
     marginTop: 10,
     padding: 10,
     height: 120,
     borderRadius: 20,
     gap: 10,
-    // alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#F2F0F5",
   },
@@ -286,13 +257,4 @@ const styles = StyleSheet.create({
     width: 160,
     borderStyle: "dashed",
   },
-
-  SkeletonLoader: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 20,
-    marginHorizontal: 20,
-  },
 });
-//

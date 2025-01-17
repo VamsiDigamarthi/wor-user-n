@@ -148,15 +148,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     // borderWidth: 1,
     borderColor: "#FFE2E6",
-
     width: "100%",
-
     height: "100%",
     alignItems: "center",
-    justifyContent: "space-between",
+    // justifyContent: "space-between",
     gap: 8,
 
-    paddingRight: 20,
+    paddingRight: 50,
 
     position: "relative",
     backgroundColor: "#fff",

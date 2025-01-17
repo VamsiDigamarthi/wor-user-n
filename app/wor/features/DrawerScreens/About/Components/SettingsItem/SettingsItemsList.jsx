@@ -4,6 +4,7 @@ import Settingsitem from "./Settingsitem";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { CommonActions } from "@react-navigation/native";
+import ProfileNavigationCard from "../ProfileNavigationCard";
 
 const SettingsItemsList = () => {
   const navigation = useNavigation();
@@ -57,31 +58,37 @@ const SettingsItemsList = () => {
         label="App Settings"
         screenName="Preference"
       /> */}
-      <Settingsitem
+      {/* <Settingsitem
         iconName="settings-ethernet"
         iconType="MaterialIcons"
         label="Terms and Conditions"
         screenName="Termsandconditions"
         onPress={terms}
+      /> */}
+
+      <ProfileNavigationCard
+        title="Terms and conditions"
+        navigateTo="Termsandconditions"
+        onClick={terms}
       />
-      <Settingsitem
-        iconName="language"
-        iconType="FontAwesome"
-        label="Privacy Policy"
-        onPress={privacy}
+      <ProfileNavigationCard
+        title="Privacy Policy"
+        navigateTo="Termsandconditions"
+        onClick={privacy}
       />
+
+      <ProfileNavigationCard
+        title="Logout"
+        navigateTo="Termsandconditions"
+        onClick={onLogOutHandler}
+      />
+
       {/* <Settingsitem
         iconName="language"
         iconType="FontAwesome"
         label="Software Licenses"
       /> */}
       {/* <Settingsitem iconName="language" iconType="FontAwesome" label="Blogs" /> */}
-      <Settingsitem
-        iconName="logout"
-        iconType="AntDesign"
-        label="Logout"
-        onPress={onLogOutHandler}
-      />
     </ScrollView>
   );
 };

@@ -66,31 +66,30 @@ const CustomDrawerContent = (props) => {
     }
   }, [profile]);
 
-  // const openLink = () => {
-  //   const url = "https://nuhvin.com"; // Replace with your desired URL
-  //   Linking.openURL(url).catch((err) =>
-  //     console.error("Failed to open URL:", err)
-  //   );
-  // };
+  const openLink = () => {
+    const url = "https://nuhvin.com"; // Replace with your desired URL
+    Linking.openURL(url).catch((err) =>
+      console.error("Failed to open URL:", err)
+    );
+  };
 
   return (
     <View style={{ flex: 1 }}>
       {/* Drawer Toggle Vector */}
-      <Pressable
-        // onPress={toggleDrawer}
+      {/* <Pressable
         style={{
           position: "absolute",
           height: 40,
           width: 40,
           top: 40,
-          right: isDrawerOpen ? -15 : -40, // Adjust placement based on drawer state
+          right: isDrawerOpen ? -15 : -40, 
           zIndex: 5,
           justifyContent: "start",
           alignItems: "center",
           backgroundColor: "#e02e88",
           borderTopLeftRadius: 22,
           borderBottomLeftRadius: 22,
-          // borderRadius:20,
+       
           elevation: 5,
 
           flexDirection: "row",
@@ -102,22 +101,11 @@ const CustomDrawerContent = (props) => {
           size={22}
           color="white"
         />
-        {/* <Ionicons
-          // name={isDrawerOpen ? "chevron-back" : "chevron-forward"}
-          name="chevron-back"
-          size={20}
-          color="#fff"
-        />
-        <Ionicons
-          name="chevron-forward"
-          // name={isDrawerOpen ? "chevron-back" : "chevron-forward"}
-          size={20}
-          color="#fff"
-        /> */}
-      </Pressable>
+       
+      </Pressable> */}
 
       {/* Fixed Pink View with Border Radius */}
-      {isDrawerOpen && (
+      {/* {isDrawerOpen && (
         <View
           style={{
             position: "absolute",
@@ -131,27 +119,35 @@ const CustomDrawerContent = (props) => {
             zIndex: 10,
           }}
         />
-      )}
+      )} */}
 
       {/* Scrollable Drawer Content */}
 
       {/* Profile Header */}
       <View style={[styles.headerContainer, { borderTopRightRadius: 20 }]}>
         <Image source={imageSrc} style={styles.profilePic} />
-        <Text style={styles.profileName}>{profile?.name}</Text>
+        <View style={{ gap: 10 }}>
+          <Pressable
+            onPress={() => handleItemPress("Profile")}
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 10,
+            }}
+          >
+            <Text style={styles.profileName}>
+              {profile?.name?.slice(0, 10)}
+            </Text>
 
-        <Pressable
-          style={{
-            flexDirection: "row",
-            gap: 5,
-            paddingTop: 5,
-            alignItems: "center",
-          }}
-          onPress={onNavigateRatingScreen}
-        >
-          <FontAwesome name="star" size={20} color="gold" />
-          <Text style={styles.profileEmail}>{avgRating}</Text>
-        </Pressable>
+            <FontAwesome name="chevron-right" size={15} color="#B0B0B0" />
+          </Pressable>
+
+          <Pressable style={styles.starRating} onPress={onNavigateRatingScreen}>
+            <FontAwesome name="star" size={20} color="gold" />
+            <Text style={styles.profileEmail}>{avgRating}</Text>
+          </Pressable>
+        </View>
       </View>
       <DrawerContentScrollView
         {...props}
@@ -161,33 +157,25 @@ const CustomDrawerContent = (props) => {
       >
         {/* Drawer Items */}
         <View style={[styles.drawerItemsContainer]}>
-          {/* <DrawerItem
-            label="Wallet"
+          <DrawerItem
+            label="Help & WoR Support"
             icon={() => (
               <Ionicons name="wallet-outline" size={22} color="gray" />
             )}
-            onPress={() => handleItemPress("Wallet")}
+            onPress={() => handleItemPress("HelpAndSupport")}
             labelStyle={styles.labelStyle}
-            style={getItemStyle("Wallet")}
-          /> */}
+            style={getItemStyle("HelpAndSupport")}
+          />
           <DrawerItem
-            label="Profile"
+            label="E-Wallet"
             icon={() => (
               <Ionicons name="person-outline" size={22} color="gray" />
             )}
-            onPress={() => handleItemPress("Profile")}
+            onPress={() => handleItemPress("WalletLoad")}
             labelStyle={styles.labelStyle}
-            style={getItemStyle("Profile")}
+            style={getItemStyle("WalletLoad")}
           />
-          {/* <DrawerItem
-            label="Notifications"
-            icon={() => (
-              <Ionicons name="notifications-outline" size={22} color="gray" />
-            )}
-            onPress={() => handleItemPress("Notifications")}
-            labelStyle={styles.labelStyle}
-            style={getItemStyle("Notifications")}
-          /> */}
+
           <DrawerItem
             label="Parcel"
             icon={() => <Ionicons name="cube-outline" size={22} color="gray" />}
@@ -195,29 +183,17 @@ const CustomDrawerContent = (props) => {
             labelStyle={styles.labelStyle}
             style={getItemStyle("Parcel Send")}
           />
-          <DrawerItem
-            label="Ride History"
-            icon={() => <Ionicons name="time-outline" size={22} color="gray" />}
-            onPress={() => handleItemPress("RideHistory")}
-            labelStyle={styles.labelStyle}
-            style={getItemStyle("Ride History")}
-          />
-          <DrawerItem
-            label="Payment Method"
-            icon={() => <Ionicons name="card-outline" size={22} color="gray" />}
-            onPress={() => handleItemPress("PaymentMethod")}
-            labelStyle={styles.labelStyle}
-            style={getItemStyle("Payment Method")}
-          />
+
           {/* <DrawerItem
-            label="Favorites"
+            label="Profile"
             icon={() => (
-              <MaterialIcons name="favorite-border" size={22} color="gray" />
+              <Ionicons name="person-outline" size={22} color="gray" />
             )}
-            onPress={() => handleItemPress("DrawerFavorite")}
+            onPress={() => handleItemPress("Profile")}
             labelStyle={styles.labelStyle}
-            style={getItemStyle("Favorites")}
+            style={getItemStyle("Profile")}
           /> */}
+
           <DrawerItem
             label="Safety"
             icon={() => (
@@ -231,15 +207,35 @@ const CustomDrawerContent = (props) => {
             labelStyle={styles.labelStyle}
             style={getItemStyle("Safety")}
           />
+
           <DrawerItem
-            label="Help"
-            icon={() => (
-              <Ionicons name="help-circle-outline" size={22} color="gray" />
-            )}
-            onPress={() => handleItemPress("Help")}
+            label="My Rides"
+            icon={() => <Ionicons name="time-outline" size={22} color="gray" />}
+            onPress={() => handleItemPress("RideHistory")}
             labelStyle={styles.labelStyle}
-            style={getItemStyle("Help")}
+            style={getItemStyle("Ride History")}
           />
+
+          {/* <DrawerItem
+            label="Favorites"
+            icon={() => (
+              <MaterialIcons name="favorite-border" size={22} color="gray" />
+            )}
+            onPress={() => handleItemPress("DrawerFavorite")}
+            labelStyle={styles.labelStyle}
+            style={getItemStyle("Favorites")}
+          /> */}
+
+          <DrawerItem
+            label="Notifications"
+            icon={() => (
+              <Ionicons name="notifications-outline" size={22} color="gray" />
+            )}
+            onPress={() => handleItemPress("Notifications")}
+            labelStyle={styles.labelStyle}
+            style={getItemStyle("Notifications")}
+          />
+
           <DrawerItem
             label="Donation"
             icon={() => (
@@ -257,17 +253,9 @@ const CustomDrawerContent = (props) => {
             labelStyle={styles.labelStyle}
             style={getItemStyle("Refer to Earn")}
           />
+
           <DrawerItem
-            label="About"
-            icon={() => (
-              <Ionicons name="settings-outline" size={22} color="gray" />
-            )}
-            onPress={() => handleItemPress("About")}
-            labelStyle={styles.labelStyle}
-            style={getItemStyle("About")}
-          />
-          <DrawerItem
-            label="Suggestions"
+            label="Suggest to Wor"
             icon={() => (
               <Ionicons name="settings-outline" size={22} color="gray" />
             )}
@@ -275,13 +263,94 @@ const CustomDrawerContent = (props) => {
             labelStyle={styles.labelStyle}
             style={getItemStyle("Suggestions")}
           />
+
+          {/* <DrawerItem
+            label="Payment Method"
+            icon={() => <Ionicons name="card-outline" size={22} color="gray" />}
+            onPress={() => handleItemPress("PaymentMethod")}
+            labelStyle={styles.labelStyle}
+            style={getItemStyle("Payment Method")}
+          /> */}
+
+          {/* <DrawerItem
+            label="Help"
+            icon={() => (
+              <Ionicons name="help-circle-outline" size={22} color="gray" />
+            )}
+            onPress={() => handleItemPress("Help")}
+            labelStyle={styles.labelStyle}
+            style={getItemStyle("Help")}
+          /> */}
+
+          <DrawerItem
+            label="Driving Schools"
+            icon={() => (
+              <Ionicons name="settings-outline" size={22} color="gray" />
+            )}
+            onPress={() => handleItemPress("DrivingSchools")}
+            labelStyle={styles.labelStyle}
+            style={getItemStyle("DrivingSchools")}
+          />
+          <DrawerItem
+            label="Settings"
+            icon={() => (
+              <Ionicons name="settings-outline" size={22} color="gray" />
+            )}
+            onPress={() => handleItemPress("About")}
+            labelStyle={styles.labelStyle}
+            style={getItemStyle("About")}
+          />
         </View>
       </DrawerContentScrollView>
+
+      <View
+        style={{
+          flexDirection: "row",
+          backgroundColor: "#F7F7F7",
+          width: "100%",
+          paddingBottom: 10,
+          justifyContent: "center",
+          gap: 10,
+          alignItems: "center",
+          padding: 10,
+        }}
+      >
+        <Text>A Product from</Text>
+        <Pressable style={{}} onPress={openLink}>
+          <Text
+            style={{
+              color: "#ff6600",
+            }}
+          >
+            Nuhvin
+          </Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
 
+function CustomDrawerItem({ title }) {
+  return (
+    <View style={styles.itemContainer}>
+      <Text style={styles.labelStyle}>Suggest to Wor</Text>
+      <Ionicons name="chevron-forward-outline" size={22} color="gray" />
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
+  itemContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+  },
+  labelStyle: {
+    fontSize: 16,
+    color: "black",
+  },
+
   drawer: {
     flex: 1,
     position: "relative",
@@ -293,11 +362,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingBottom: 30,
     alignItems: "center",
-    justifyContent: "center",
+    gap: 10,
+    justifyContent: "space-evenly",
     borderBottomWidth: 1,
+    borderStyle: "dashed",
     borderBottomColor: "#e0e0e0",
+    // padding: 20,
     width: "100%",
-    paddingTop: 50,
+    paddingTop: 80,
+    flexDirection: "row",
   },
   profilePic: {
     width: 80,
@@ -311,6 +384,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "#333",
+    lineHeight: 25,
+
+    // width: "80%",
+    // borderWidth: 1,
+    // borderColor: "red",
+    // alignItems: "center",
   },
   profileEmail: {
     fontSize: 14,
@@ -344,6 +423,18 @@ const styles = StyleSheet.create({
   loginBottomCardText: {
     color: "#2d2d2d",
     fontSize: 15,
+  },
+
+  starRating: {
+    flexDirection: "row",
+    gap: 5,
+    padding: 5,
+    alignItems: "center",
+    borderWidth: 1,
+    borderStyle: "dashed",
+    borderRadius: 10,
+    width: 80,
+    justifyContent: "center",
   },
 });
 

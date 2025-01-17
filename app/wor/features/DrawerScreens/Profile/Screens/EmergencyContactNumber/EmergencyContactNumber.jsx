@@ -192,11 +192,9 @@ const ProfileEmergencyContact = () => {
         onBack={() => navigation.goBack()}
       />
       <View style={styles.container}>
-        <AddTrusted />
+        {/* <AddTrusted /> */}
         <View style={styles.bottomCard}>
-          <Text style={styles.sectionTitle}>
-            You can add up to 5 emergency contacts.
-          </Text>
+          <Text style={styles.sectionTitle}>You can add up to 5 Numbers</Text>
           <View style={styles.separator} />
           <FlatList
             data={userBackendContactNumber}
@@ -238,7 +236,8 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 12,
     paddingVertical: 15,
-    backgroundColor: "#fff5f9",
+    backgroundColor: "#fff",
+    marginTop: 10,
   },
 
   bottomCard: { marginTop: 20 },
@@ -259,7 +258,7 @@ const styles = StyleSheet.create({
   mobileText: { color: "#757575", fontWeight: "bold", fontSize: 14 },
   addContactContainer: { flexDirection: "row", alignItems: "center", gap: 10 },
   addContactText: { fontSize: 14, fontWeight: "bold", color: "#757575" },
-  separator: { backgroundColor: "#e02e88", height: 2, marginTop: 2 },
+  separator: { backgroundColor: "#E0E0E0", height: 2, marginVertical: 8 },
   topCard: { flexDirection: "row", padding: 12, marginTop: 10, height: 200 },
   topImg: { height: 120, width: 150, resizeMode: "contain" },
   sectionTitle: { fontWeight: "bold", fontSize: 14 },

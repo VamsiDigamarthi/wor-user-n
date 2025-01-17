@@ -1,0 +1,25 @@
+[
+  {
+    "icon": "star",
+    "title": "Know your Rider",
+    "subTitle": "Understanding what contributes to a rider's happiness can make you a 5-star rider. By being aware of the factors that improve their experience, such as clear communication, respect, and attentiveness, you can enhance the journey and create a positive environment for both you and the rider."
+  },
+
+  {
+    "icon": "stopwatch",
+    "title": "Timely",
+    "subTitle": "To ensure a smooth and timely pickup, please double-check your designated pickup location. Arriving promptly at the specified spot not only helps the rider maintain their schedule but also contributes to a more efficient and stress-free journey for both of you."
+  },
+
+  {
+    "icon": "shield",
+    "title": "Safety",
+    "subTitle": "Put on your helmet and take it easy. Both riders and drivers should always adhere to traffic laws for everyone's safety."
+  },
+
+  {
+    "icon": "shield",
+    "title": "Courtesy",
+    "subTitle": "A simple smile or greeting can make a big difference! Treat your riders with the same kindness and respect you would want to receive."
+  }
+]
