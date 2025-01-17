@@ -17,7 +17,7 @@ const openDialer = (phoneNumber) => {
 
 const Map3Btns = ({ handleZoomToggle, handleOpenSafetyModal, height }) => {
   return (
-    <View style={[styles.mainCont, { top: height < "500" ? 200 : 350 }]}>
+    <View style={[styles.mainCont, { top: 200 }]}>
       {/* <View style={styles.singleIconsCard}>
         <TouchableOpacity
           onPress={() => openDialer("100")}

@@ -43,7 +43,10 @@ const HomeMap = ({
 
   const handleResetZoom = useCallback(() => {
     if (mapRef.current && initialRegion) {
-      mapRef.current.animateToRegion(initialRegion, 800);
+      mapRef.current.fitToCoordinates(initialRegion, {
+        edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
+        animated: true,
+      });
     }
   }, [initialRegion]);
 
@@ -61,6 +64,22 @@ const HomeMap = ({
     }
   }, [location]);
 
+  useEffect(() => {
+    // Adjust zoom based on height
+    if (mapRef.current) {
+      const zoomLevel = height > 600 ? 0.01 : 0.05; // Example zoom adjustment
+      mapRef.current.animateToRegion(
+        {
+          latitude: location.lat,
+          longitude: location.lng,
+          latitudeDelta: zoomLevel,
+          longitudeDelta: zoomLevel,
+        },
+        1000
+      );
+    }
+  }, [height]);
+
   if (!location || !newLocation) {
     return (
       <View style={styles.loadingContainer}>
@@ -69,8 +88,10 @@ const HomeMap = ({
     );
   }
 
+  // console.log(height);
+
   return (
-    <View style={styles.mapContainer}>
+    <View style={[styles.mapContainer]}>
       <MapView
         ref={mapRef}
         style={[StyleSheet.absoluteFillObject, { bottom: 300 }]}
@@ -114,6 +135,7 @@ const HomeMap = ({
         handleOpenSafetyModal={() => setToggle((prev) => !prev)}
         handleZoomToggle={handleResetZoom}
         bottom={mapIconsBottom}
+        height={height}
       />
 
       {toggle && <MapModalUi toggle={toggle} setToggle={setToggle} />}

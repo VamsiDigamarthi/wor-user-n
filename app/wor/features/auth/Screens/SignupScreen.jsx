@@ -49,8 +49,8 @@ const SignupScreen = () => {
     useState(false);
   const [validationCheck, setValidationCheck] = useState({
     name: false,
-    email: false,
-    address: false,
+    // email: false,
+    // address: false,
   });
 
   const [storeNearLocation, setStoreNearLocation] = useState([]);
@@ -92,12 +92,12 @@ const SignupScreen = () => {
       newErrors.name = "Name should be at least 3 characters long";
     }
 
-    if (!formData.email || !/^\S+@\S+\.\S+$/.test(formData.email)) {
-      newErrors.email = "Valid email is required";
-    }
-    if (!formData.address) {
-      newErrors.address = "Current Address is required";
-    }
+    // if (!formData.email || !/^\S+@\S+\.\S+$/.test(formData.email)) {
+    //   newErrors.email = "Valid email is required";
+    // }
+    // if (!formData.address) {
+    //   newErrors.address = "Current Address is required";
+    // }
 
     return Object.keys(newErrors)?.length > 0 ? newErrors : {};
   };
@@ -173,40 +173,40 @@ const SignupScreen = () => {
       delete errors?.name;
     }
 
-    if (/^\S+@\S+\.\S+$/.test(formData.email)) {
-      setErrors((prevState) => ({
-        ...prevState,
-        email: "",
-      }));
-      setValidationCheck((prev) => ({
-        ...prev,
-        email: true,
-      }));
-    }
-    if (!/^\S+@\S+\.\S+$/.test(formData.email) && validationCheck.email) {
-      setErrors((prev) => ({
-        ...prev,
-        email: "Invalid email address",
-      }));
-    }
+    // if (/^\S+@\S+\.\S+$/.test(formData.email)) {
+    //   setErrors((prevState) => ({
+    //     ...prevState,
+    //     email: "",
+    //   }));
+    //   setValidationCheck((prev) => ({
+    //     ...prev,
+    //     email: true,
+    //   }));
+    // }
+    // if (!/^\S+@\S+\.\S+$/.test(formData.email) && validationCheck.email) {
+    //   setErrors((prev) => ({
+    //     ...prev,
+    //     email: "Invalid email address",
+    //   }));
+    // }
 
-    if (formData.address) {
-      setErrors((prevState) => ({
-        ...prevState,
-        address: "",
-      }));
-      setValidationCheck((prev) => ({
-        ...prev,
-        address: true,
-      }));
-    }
+    // if (formData.address) {
+    //   setErrors((prevState) => ({
+    //     ...prevState,
+    //     address: "",
+    //   }));
+    //   setValidationCheck((prev) => ({
+    //     ...prev,
+    //     address: true,
+    //   }));
+    // }
 
-    if (!formData.address && validationCheck.address) {
-      setErrors((prev) => ({
-        ...prev,
-        address: "Current Address is required",
-      }));
-    }
+    // if (!formData.address && validationCheck.address) {
+    //   setErrors((prev) => ({
+    //     ...prev,
+    //     address: "Current Address is required",
+    //   }));
+    // }
   }, [formData]);
 
   return (
