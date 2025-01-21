@@ -16,6 +16,8 @@ import { useNavigation } from "@react-navigation/native";
 import InputBox from "../../../utiles/InputCard/InputCard";
 import { useState } from "react";
 import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
+import { usePayments } from "../../../Payments/useRazorpay";
+import { Provider, useSelector } from "react-redux";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -28,6 +30,12 @@ const Donation = () => {
     console.log("onChangeDonationAmount");
     setDonationAmount(amount);
   };
+
+  const { makeDonation } = usePayments();
+
+  const { profile } = useSelector((state) => state.profileSlice);
+
+  console.log(profile, "s");
 
   return (
     <View style={{ flex: 1 }}>
@@ -86,8 +94,7 @@ const Donation = () => {
           btnBg="#e02e88"
           btnColor="#fff"
           onPress={() => {
-            // navigation.navigate("Coins");
-            Alert.alert("ThankYou");
+            makeDonation();
           }}
         />
       </View>
