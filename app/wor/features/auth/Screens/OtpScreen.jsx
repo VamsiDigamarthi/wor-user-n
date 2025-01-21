@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     borderRadius: 20,
-    fontSize: 22,
+    fontSize: 16,
   },
   errorCard: {
     width: "100%",

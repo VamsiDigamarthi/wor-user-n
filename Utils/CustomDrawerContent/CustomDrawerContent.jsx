@@ -144,7 +144,7 @@ const CustomDrawerContent = (props) => {
           </Pressable>
 
           <Pressable style={styles.starRating} onPress={onNavigateRatingScreen}>
-            <FontAwesome name="star" size={20} color="gold" />
+            <FontAwesome name="star" size={14} color="gold" />
             <Text style={styles.profileEmail}>{avgRating}</Text>
           </Pressable>
         </View>
@@ -428,12 +428,12 @@ const styles = StyleSheet.create({
   starRating: {
     flexDirection: "row",
     gap: 5,
-    padding: 5,
+    padding: 2,
     alignItems: "center",
     borderWidth: 1,
     borderStyle: "dashed",
-    borderRadius: 10,
-    width: 80,
+    borderRadius: 8,
+    width: 50,
     justifyContent: "center",
   },
 });

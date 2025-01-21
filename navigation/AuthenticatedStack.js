@@ -76,6 +76,8 @@ import ParSavedUsers from "../app/wor/features/Parcels/screens/ParSavedUsers";
 
 /* Drawer Screens */
 
+import AadharNewScreen from "../app/wor/features/DrawerScreens/Profile/Screens/AadharNewScreen/AadharNewScreen";
+
 import PersonalInfoPreview from "../app/wor/features/DrawerScreens/Profile/Screens/PersonalInfoPreview/PersonalInfoPreview";
 import ProfileDocumentScreen from "../app/wor/features/DrawerScreens/Profile/Screens/ProfileDocumentScreen";
 import EmergencyContactNumber from "../app/wor/features/DrawerScreens/Profile/Screens/EmergencyContactNumber/EmergencyContactNumber";
@@ -105,7 +107,9 @@ import DrivingSchoolsDetailView from "../app/wor/features/DrawerScreens/DrivingS
 import SelectLocationByMapScreen from "../app/wor/features/ridebooking/SelectLocationByMap/SelectLocationByMapScreen";
 import SelectDropLocation from "../Screens/Dashboard/SelectDropLocation/SelectDropLocation";
 import ChangeLoc100mViaMapScreen from "../app/wor/SharedScreens/ChangeLoc100mViaMapScreen/ChangeLoc100mViaMapScreen";
-
+import SetNewMpin from "../app/wor/features/auth/Screens/MpinScreen";
+import PaymentHistory from "../app/wor/features/DrawerScreens/Wallet/Screens/PaymentHistory";
+import DelAccScreen from "../app/wor/features/DrawerScreens/About/Screens/DelAccount";
 /* Drawer Screens */
 
 const Drawer = createDrawerNavigator();
@@ -378,7 +382,7 @@ const AuthenticatedStack = () => {
 
       <Stack.Screen
         name="ProfileDocumentScreen"
-        component={ProfileDocumentScreen}
+        component={AadharNewScreen}
         options={{ headerShown: false }}
       />
 
@@ -500,6 +504,21 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="DrivingSchoolsDetailView"
         component={DrivingSchoolsDetailView}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SetNewMpin"
+        component={SetNewMpin}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="PaymentHistory"
+        component={PaymentHistory}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="DelAccScreen"
+        component={DelAccScreen}
         options={{ headerShown: false }}
       />
 

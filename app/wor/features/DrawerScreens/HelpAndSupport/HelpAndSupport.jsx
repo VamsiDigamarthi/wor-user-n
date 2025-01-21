@@ -28,8 +28,8 @@ export default function HelpAndSupport() {
         </View>
 
         <View style={{ marginTop: 10 }}>
-          <RideHistoryItem ride={rideHistory[0]} />
-          <RideHistoryItem ride={rideHistory[1]} />
+          {rideHistory[0] && <RideHistoryItem ride={rideHistory[0]} />}
+          {rideHistory[1] && <RideHistoryItem ride={rideHistory[1]} />}
         </View>
 
         <View style={{ marginTop: 10 }}>
