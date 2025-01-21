@@ -45,6 +45,7 @@ export default function FaqHome({ navigation, route }) {
               <FaqBtnCard
                 key={index}
                 title={key}
+                answer={value}
                 onclick={() => SetAns(key, value)}
               />
             );
