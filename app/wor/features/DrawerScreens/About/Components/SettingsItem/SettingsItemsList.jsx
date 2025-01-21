@@ -67,13 +67,23 @@ const SettingsItemsList = () => {
       /> */}
 
       <ProfileNavigationCard
+        title="App Settings"
+        navigateTo="DelAccScreen"
+        // onClick={terms}
+      />
+      <ProfileNavigationCard
         title="Terms and conditions"
-        navigateTo="Termsandconditions"
+        // navigateTo="Termsandconditions"
         onClick={terms}
       />
       <ProfileNavigationCard
         title="Privacy Policy"
-        navigateTo="Termsandconditions"
+        // navigateTo="Termsandconditions"
+        onClick={privacy}
+      />
+      <ProfileNavigationCard
+        title="Software Licenses"
+        // navigateTo="Termsandconditions"
         onClick={privacy}
       />
 

@@ -29,7 +29,6 @@ const ModalUI = ({
       visible={openCloseState}
       onRequestClose={closeModalFun}
     >
-
       <Pressable
         style={[styles.modalContainer, style]}
         onPress={closeModalFun} // Close the modal when tapping outside

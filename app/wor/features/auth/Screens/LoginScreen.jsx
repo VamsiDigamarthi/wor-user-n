@@ -129,15 +129,15 @@ const LoginScreen = () => {
           }}
         >
           <View style={{ flexDirection: "row" }}>
-            <Text style={{ fontSize: 13 }}>I agree to women rider's </Text>
+            <Text style={{ fontSize: 11 }}>I agree to women rider's </Text>
             <TouchableOpacity onPress={onNavigateTermsAndConditions}>
-              <Text style={{ fontSize: 13, color: "#e02e88" }}>
+              <Text style={{ fontSize: 11, color: "#e02e88" }}>
                 Terms of Services
               </Text>
             </TouchableOpacity>
-            <Text style={{ fontSize: 13 }}> and </Text>
+            <Text style={{ fontSize: 11 }}> and </Text>
             <TouchableOpacity onPress={handleCheck}>
-              <Text style={{ fontSize: 13, color: "#e02e88" }}>
+              <Text style={{ fontSize: 11, color: "#e02e88" }}>
                 privacy Policy
               </Text>
             </TouchableOpacity>

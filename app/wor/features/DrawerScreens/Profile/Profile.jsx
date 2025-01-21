@@ -25,6 +25,7 @@ const ProfileScreen = () => {
             navigateTo="ProfileDocumentScreen"
             title="Gender Identity (Aadhar)"
           />
+          <ProfileNavigationCard navigateTo="SetNewMpin" title="M-Pin" />
 
           <ProfileNavigationCard
             navigateTo="EmergencyContactNumber"
