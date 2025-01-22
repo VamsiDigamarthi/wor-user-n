@@ -31,29 +31,33 @@ export default function FaqHome({ navigation, route }) {
   }
 
   return (
-    <View style={styles.conatiner}>
+    <View style={{ flex: 1 }}>
       <CustomeAppbar title="FAQs" onBack={() => navigation.goBack()} />
-      <View style={styles.innerContainer}>
-        <Text style={{ fontWeight: "bold" }}>{title}</Text>
 
-        {data?.map((e, index) => {
-          const key = Object.keys(e)[0];
-          const value = e[key];
-          return (
-            <FaqBtnCard
-              key={index}
-              title={key}
-              onclick={() => SetAns(key, value)}
-            />
-          );
-        })}
+      <View style={styles.conatiner}>
+        <View style={styles.innerContainer}>
+          <Text style={{ fontWeight: "bold", paddingLeft: 8 }}>{title}</Text>
 
-        {/* <FaqAnswerCard
+          {data?.map((e, index) => {
+            const key = Object.keys(e)[0];
+            const value = e[key];
+            return (
+              <FaqBtnCard
+                key={index}
+                title={key}
+                answer={value}
+                onclick={() => SetAns(key, value)}
+              />
+            );
+          })}
+
+          {/* <FaqAnswerCard
         question="Hey man its Bullshit ?"
         answer="Yeah Man  its all Bullshit"
       />
 
       <FaqRatingCard /> */}
+        </View>
       </View>
     </View>
   );
@@ -63,13 +67,16 @@ const styles = StyleSheet.create({
   conatiner: {
     flex: 1,
     paddingVertical: 10,
+    marginTop: 10,
     // paddingHorizontal: 26,
     gap: 20,
     position: "relative",
+    backgroundColor: "#fff",
   },
   innerContainer: {
     flex: 1,
     paddingHorizontal: 10,
     gap: 10,
+    marginTop: 10,
   },
 });

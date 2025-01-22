@@ -5,8 +5,15 @@ import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
 import CustomSwitch from "../../../utiles/CustomSwitch";
 import { TextInput } from "react-native-gesture-handler";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { usePayments } from "../../../Payments/useRazorpay";
 
 export default function DonationNew() {
+  const { profile } = useSelector((state) => state.profileSlice);
+  const { makeDonation } = usePayments();
+  const { email, mobile, name } = profile;
+  console.log(email, mobile, name);
+
   const handleToggle = (isOn) => {
     if (isOn) {
       //   let added = parseInt(donationAmount) + 2;
@@ -88,6 +95,7 @@ export default function DonationNew() {
       >
         <CustomBtn
           title="Continue"
+          onPress={() => makeDonation(donationAmount, email, mobile)}
           btnColor={donationAmount ? "#f7f7f7" : "#ea4c89"}
           btnBg={donationAmount ? "#ea4c89" : "#f7f7f7"}
         />

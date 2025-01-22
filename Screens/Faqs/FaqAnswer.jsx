@@ -9,14 +9,17 @@ export default function FaqAnswer({ route, navigation }) {
   const { data } = route.params;
 
   return (
-    <View style={styles.conatiner}>
+    <View style={{ flex: 1 }}>
       <CustomeAppbar title="FAQs" onBack={() => navigation.goBack()} />
-      <View style={styles.innerContainer}>
-        <Text style={{ fontWeight: "bold" }}>{data.title}</Text>
 
-        <FaqAnswerCard question={data.question} answer={data.answer} />
+      <View style={styles.conatiner}>
+        <View style={styles.innerContainer}>
+          <Text style={{ fontWeight: "bold", paddingLeft: 10 }}>
+            {data.title}
+          </Text>
 
-        <FaqRatingCard />
+          <FaqAnswerCard question={data.question} answer={data.answer} />
+        </View>
       </View>
     </View>
   );
@@ -28,6 +31,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     gap: 20,
     position: "relative",
+    backgroundColor: "#fff",
+    marginTop: 10,
   },
   innerContainer: {
     paddingHorizontal: 16,

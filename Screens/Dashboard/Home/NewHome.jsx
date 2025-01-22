@@ -40,7 +40,11 @@ import AllowNotification from "../../../Utils/AllowNotification/AllowNotificatio
 import FutureOrderBox from "../../../Components/FutureOrderBox/FutureOrderBox";
 import { COLORS } from "../../../Constants/colors";
 import ContentLoader, { Rect } from "react-content-loader/native";
+// <<<<<<< 22-01-app-folder-added
 import AllServices from "../../../Utils/AllServices/AllServices";
+// =======
+import CopyBox from "../../../app/wor/utiles/CopyBox";
+// >>>>>>> master
 
 const screenHeight = Dimensions.get("window").height;
 const androidHeight = [screenHeight * 0.54, screenHeight * 0.6];
@@ -142,7 +146,7 @@ const NewHome = () => {
               />
               <View style={{ height: 10 }} />
               <SliderComponent />
-              <HomeCopyBox />
+              <CopyBox />
               <BackgroundImage />
             </View>
           </BottomSheetScrollView>
@@ -172,30 +176,6 @@ const NewHome = () => {
 
 export default NewHome;
 
-function HomeCopyBox() {
-  const copyToClipboard = (text) => {
-    if (text) {
-      Clipboard.setStringAsync(text);
-      Toast.show({ text1: "Copied to Clipboard", type: "success" });
-    } else {
-      Toast.show({ text1: "Error", type: "error" });
-    }
-  };
-
-  return (
-    <View style={styles.copyBox}>
-      <Text>Invite Your Friends to women rider</Text>
-      <TouchableOpacity
-        style={styles.copyBtn}
-        onPress={() => copyToClipboard("GOWOR")}
-      >
-        <Text style={{ fontWeight: "bold" }}>Code : GOWOR</Text>
-        <MaterialCommunityIcons name="content-copy" size={24} color="black" />
-      </TouchableOpacity>
-    </View>
-  );
-}
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -220,23 +200,5 @@ const styles = StyleSheet.create({
     width: 50,
     height: 4,
     borderRadius: 2,
-  },
-  copyBox: {
-    marginTop: 10,
-    padding: 10,
-    height: 120,
-    borderRadius: 20,
-    gap: 10,
-    justifyContent: "center",
-    backgroundColor: "#F2F0F5",
-  },
-  copyBtn: {
-    flexDirection: "row",
-    gap: 10,
-    padding: 8,
-    borderRadius: 10,
-    borderWidth: 1,
-    width: 160,
-    borderStyle: "dashed",
   },
 });

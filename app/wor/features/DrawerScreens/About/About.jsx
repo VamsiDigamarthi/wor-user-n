@@ -67,35 +67,4 @@ const styles = StyleSheet.create({
   bottomSheetContent: {
     // padding: 20,
   },
-  bottomSheetTitle: {
-    fontSize: 18,
-    fontWeight: "600",
-    marginBottom: 10,
-  },
-  bottomSheetText: {
-    fontSize: 14,
-    marginBottom: 20,
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  cancelButton: {
-    backgroundColor: "#f0f0f0",
-    padding: 12,
-    borderRadius: 8,
-  },
-  cancelButtonText: {
-    color: "#333",
-    fontWeight: "600",
-  },
-  deleteButton: {
-    backgroundColor: "#e02e88",
-    padding: 12,
-    borderRadius: 8,
-  },
-  deleteButtonText: {
-    color: "#fff",
-    fontWeight: "600",
-  },
 });
