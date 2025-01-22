@@ -32,7 +32,6 @@ import * as Notifications from "expo-notifications";
 import { useHomeHook } from "./Home.hook";
 import HomeMap from "../../../Utils/HomeMap/HomeMap";
 import DropLocation from "../../../Components/Dashboard/DropLocation/DropLocation";
-import AllServices from "../../../app/wor/features/ridebooking/home/components/AllServices";
 import SliderComponent from "../../../Utils/SliderComponent/SliderComponent";
 import BackgroundImage from "../../../Utils/BackgroundImage/BackgroundImage";
 import ModalUI from "../../../Utils/Modal/Modal";
@@ -41,7 +40,11 @@ import AllowNotification from "../../../Utils/AllowNotification/AllowNotificatio
 import FutureOrderBox from "../../../Components/FutureOrderBox/FutureOrderBox";
 import { COLORS } from "../../../Constants/colors";
 import ContentLoader, { Rect } from "react-content-loader/native";
+// <<<<<<< 22-01-app-folder-added
+import AllServices from "../../../Utils/AllServices/AllServices";
+// =======
 import CopyBox from "../../../app/wor/utiles/CopyBox";
+// >>>>>>> master
 
 const screenHeight = Dimensions.get("window").height;
 const androidHeight = [screenHeight * 0.54, screenHeight * 0.6];

@@ -2,16 +2,22 @@ import { StyleSheet, Text, View } from "react-native";
 
 import { useSelectLocationByMapScreenHook } from "./hooks/SelectLocationByMapScreen.hook";
 import MapWithFixedMarker from "./components/MapWithFixedMarker";
+import MapBottomDetails from "./components/MapBottomDetails";
 
 const SelectLocationByMapScreen = () => {
-  const { mapRegion } = useSelectLocationByMapScreenHook();
+  const { mapRegion, onRegionChangeComplete, dragLocation } =
+    useSelectLocationByMapScreenHook();
   return (
     <View style={styles.container}>
       {mapRegion ? (
-        <MapWithFixedMarker mapRegion={mapRegion} />
+        <MapWithFixedMarker
+          mapRegion={mapRegion}
+          onRegionChangeComplete={onRegionChangeComplete}
+        />
       ) : (
         <Text>Loading...</Text>
       )}
+      <MapBottomDetails dragLocation={dragLocation} />
     </View>
   );
 };

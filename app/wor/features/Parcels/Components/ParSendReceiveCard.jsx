@@ -6,14 +6,20 @@ import {
   TouchableOpacity,
   Animated,
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsSendOrReceiveParcel } from "../../ridebooking/sharedLogics/rideDetailsSlice";
 
-const ParSendReceiveCard = ({ selectedCard, setSelectedCard }) => {
-  const sendBackground = useRef(new Animated.Value(0)).current; // Animation for send card
-  const receiveBackground = useRef(new Animated.Value(1)).current; // Animation for receive card
+const ParSendReceiveCard = () => {
+  const dispatch = useDispatch();
+  const { isSendOrReceiveParcel } = useSelector(
+    (state) => state.allRideDetails
+  );
+  const sendBackground = useRef(new Animated.Value(0)).current;
+  const receiveBackground = useRef(new Animated.Value(1)).current;
 
   // Trigger animation based on the selected card
   useEffect(() => {
-    if (selectedCard === "send") {
+    if (isSendOrReceiveParcel === "send") {
       Animated.timing(sendBackground, {
         toValue: 0,
         duration: 300,
@@ -36,7 +42,7 @@ const ParSendReceiveCard = ({ selectedCard, setSelectedCard }) => {
         useNativeDriver: false,
       }).start();
     }
-  }, [selectedCard, sendBackground, receiveBackground]);
+  }, [isSendOrReceiveParcel, sendBackground, receiveBackground]);
 
   // Interpolate background and text color based on animation values
   const sendBackgroundColor = sendBackground.interpolate({
@@ -57,11 +63,15 @@ const ParSendReceiveCard = ({ selectedCard, setSelectedCard }) => {
     outputRange: ["white", "#757575"],
   });
 
+  const onSelectParcelType = (type) => {
+    dispatch(setIsSendOrReceiveParcel(type));
+  };
+
   return (
     <View style={styles.container}>
       {/* Send Card */}
       <TouchableOpacity
-        onPress={() => setSelectedCard("send")}
+        onPress={() => onSelectParcelType("send")}
         style={styles.touchableArea}
       >
         <Animated.View
@@ -75,7 +85,7 @@ const ParSendReceiveCard = ({ selectedCard, setSelectedCard }) => {
 
       {/* Receive Card */}
       <TouchableOpacity
-        onPress={() => setSelectedCard("receive")}
+        onPress={() => onSelectParcelType("receive")}
         style={styles.touchableArea}
       >
         <Animated.View

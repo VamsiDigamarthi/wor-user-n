@@ -1,6 +1,12 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-const IconButton = ({ iconsName, icons, title, onPress = () => {} }) => {
+import { Ionicons, MaterialIcons, Entypo } from "@expo/vector-icons";
+const IconButton = ({
+  iconsName,
+  icons,
+  title,
+  onPress = () => {},
+  isSelected = false,
+}) => {
   let Icons;
   switch (iconsName) {
     case "MaterialIcons":
@@ -9,11 +15,15 @@ const IconButton = ({ iconsName, icons, title, onPress = () => {} }) => {
     case "Ionicons":
       Icons = Ionicons;
       break;
+    case "Entypo":
+      Icons = Entypo;
+      break;
     default:
       Icons = Ionicons;
   }
+  // console.log(isSelected);
   return (
-    <View style={styles.container}>
+    <View style={[styles.container]}>
       <Pressable
         android_ripple={{
           color: "#E02E88", // Set ripple color
@@ -21,7 +31,7 @@ const IconButton = ({ iconsName, icons, title, onPress = () => {} }) => {
         }}
         style={({ pressed }) => [
           styles.pressable, // Keep the style for Pressable button here
-          { backgroundColor: pressed ? "#f2f2f2" : "white" }, // Optional background change when pressed
+          { backgroundColor: isSelected ? "pink" : "white" }, // Optional background change when pressed
         ]}
         onPress={onPress}
       >
@@ -36,7 +46,7 @@ export default IconButton;
 
 const styles = StyleSheet.create({
   pressable: {
-    borderRadius: 30,
+    borderRadius: 10,
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
@@ -49,7 +59,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderWidth: 1,
     borderColor: "#ffe2e6",
-    borderRadius: 30,
+    borderRadius: 10,
     overflow: "hidden",
   },
   text: {

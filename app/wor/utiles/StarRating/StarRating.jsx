@@ -1,28 +1,61 @@
 import { FontAwesome } from "@expo/vector-icons";
-import { View, StyleSheet } from "react-native";
+import { View, TouchableOpacity } from "react-native";
+import { useState } from "react";
 
-const StarRating = ({ rating, color = "#e02e88", width = "100%" }) => {
-  const fullStars = Math.floor(rating);
-  const halfStar = rating % 1 !== 0;
-  const emptyStars = 5 - Math.ceil(rating);
+const StarRating = ({
+  initialRating = 0,
+  color = "#e02e88",
+  width = "100%",
+  iconSize = 20,
+  gap = 2,
+  onRatingChange, // callback to pass the new rating
+}) => {
+  const [rating, setRating] = useState(initialRating);
+
+  // Function to handle star press with fractional rating support
+  const handleStarPress = (index, event) => {
+    const touchX = event.nativeEvent.locationX; // Get the X position of the touch
+    const starWidth = iconSize; // Each star's width
+    const fraction = touchX / starWidth; // Calculate the fraction of the star that was clicked
+    const newRating = index + fraction; // Create new rating with fraction included
+
+    setRating(newRating);
+    if (onRatingChange) onRatingChange(newRating);
+  };
 
   return (
-    <View style={{ width: width, flexDirection: "row", gap: 2 }}>
-      {Array(fullStars)
+    <View style={{ width: width, flexDirection: "row", gap: gap }}>
+      {Array(5)
         .fill()
-        .map((_, i) => (
-          <FontAwesome key={i} name="star" color={color} size={20} />
-        ))}
+        .map((_, i) => {
+          const isFullStar = i < Math.floor(rating); // Full star condition
+          const isPartialStar = i === Math.floor(rating); // Partial star condition
+          const fractionalValue = rating - Math.floor(rating); // Calculate fractional part
 
-      {halfStar && (
-        <FontAwesome name="star-half-full" size={20} color={color} />
-      )}
-
-      {Array(emptyStars)
-        .fill()
-        .map((_, i) => (
-          <FontAwesome key={i} name="star-o" size={20} color={color} />
-        ))}
+          return (
+            <TouchableOpacity
+              key={i}
+              activeOpacity={0.7}
+              onPress={(event) => handleStarPress(i, event)} // Pass index and event to calculate rating
+            >
+              {isFullStar ? (
+                <FontAwesome name="star" color={color} size={iconSize} />
+              ) : isPartialStar ? (
+                fractionalValue > 0 ? (
+                  <FontAwesome
+                    name="star-half-full"
+                    color={color}
+                    size={iconSize}
+                  />
+                ) : (
+                  <FontAwesome name="star-o" color={color} size={iconSize} />
+                )
+              ) : (
+                <FontAwesome name="star-o" color={color} size={iconSize} />
+              )}
+            </TouchableOpacity>
+          );
+        })}
     </View>
   );
 };

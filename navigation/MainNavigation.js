@@ -11,12 +11,22 @@ import { noToken, setToken } from "../redux/Features/Auth/LoginSlice";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { API } from "../Constants/url";
 import { setOrders } from "../redux/Features/Auth/PreviousOrders";
+import {
+  setCompleteRideDetails,
+  setDropDetails,
+  setIsSendOrReceiveParcel,
+  setPickUpDetails,
+} from "../app/wor/features/ridebooking/sharedLogics/rideDetailsSlice";
+import { useSocket } from "../SocketContext";
 
 const Stack = createNativeStackNavigator();
 
 const MainNavigation = () => {
   const dispatch = useDispatch();
   const { token, loading } = useSelector((state) => state.token);
+  const [initialScreen, setInitialScreen] = useState("DrawerNavigator");
+  const [params, setParams] = useState(null);
+  const { socket, isConnected } = useSocket();
 
   const navigationRef = useRef();
   const [appState, setAppState] = useState(AppState.currentState);
@@ -40,8 +50,6 @@ const MainNavigation = () => {
               },
             });
 
-            console.log("previousOrders");
-
             const checkReady = setInterval(() => {
               if (
                 navigationRef.current?.isReady() &&
@@ -49,50 +57,53 @@ const MainNavigation = () => {
               ) {
                 previousOrders?.data?.forEach((singleOrder) => {
                   // console.log(singleOrder);
+                  console.log("before sockets ---------------------------");
+                  if (isConnected) {
+                    console.log("connectd -----------------------------");
+                    socket.emit("ride-live-communication", {
+                      orderId: singleOrder?._id,
+                      userType: "user",
+                    });
+                  }
                   if (singleOrder.status === "pending") {
-                    navigationRef.current?.navigate("lookingforride", {
-                      vehicleType: singleOrder.vehicleType,
-                      price: singleOrder.price,
-                      placeName: singleOrder.pickupAddress,
-                      dropAddress: {
-                        location: {
-                          lat: singleOrder?.drop?.coordinates[1],
-                          lng: singleOrder?.drop?.coordinates[0],
-                        },
-                        name: singleOrder?.dropAddress,
-                        vicinity: singleOrder?.dropVicinity,
+                    let dropDetails = {
+                      location: {
+                        lat: singleOrder?.drop?.coordinates[1],
+                        lng: singleOrder?.drop?.coordinates[0],
                       },
-                      pickUpCoordinated: {
+                      name: singleOrder?.dropAddress,
+                      vicinity: singleOrder?.dropVicinity,
+                    };
+
+                    let pickupDetails = {
+                      location: {
                         lat: singleOrder?.pickup?.coordinates[1],
                         lng: singleOrder?.pickup?.coordinates[0],
                       },
-                      orderId: singleOrder._id,
+                      name: singleOrder?.pickupAddress,
+                      vicinity: singleOrder?.pickupVicinity,
+                    };
+                    dispatch(setPickUpDetails(pickupDetails));
+                    dispatch(setDropDetails(dropDetails));
+                    dispatch(
+                      setIsSendOrReceiveParcel(
+                        singleOrder?.isSendOrReceiveParcel
+                      )
+                    );
+
+                    navigationRef.current?.navigate("lookingforride", {
+                      orderId: singleOrder?._id,
                       orderPlaceTime: singleOrder.orderPlaceTime,
                     });
                   } else if (singleOrder.status === "accept") {
-                    navigationRef.current?.navigate("captaineacceptride", {
-                      orderDetails: singleOrder,
-                    });
+                    dispatch(setCompleteRideDetails(singleOrder));
+                    navigationRef.current?.navigate("captaineacceptride");
                   } else if (singleOrder.status === "waiting") {
-                    navigationRef.current?.navigate("lookingforride", {
-                      vehicleType: singleOrder.vehicleType,
-                      price: singleOrder.price,
-                      placeName: singleOrder.pickupAddress,
-                      dropAddress: {
-                        location: {
-                          lat: singleOrder?.drop?.coordinates[1],
-                          lng: singleOrder?.drop?.coordinates[0],
-                        },
-                        name: singleOrder?.dropAddress,
-                        vicinity: singleOrder?.dropVicinity,
-                      },
-                      pickUpCoordinated: {
-                        lat: singleOrder?.pickup?.coordinates[1],
-                        lng: singleOrder?.pickup?.coordinates[0],
-                      },
-                      orderId: singleOrder._id,
-                      futureTime: singleOrder.futureTime,
-                    });
+                    // navigationRef.current?.navigate("lookingforride", {
+                    //   orderId: singleOrder?._id,
+                    //   orderPlaceTime: singleOrder.orderPlaceTime,
+                    //   futureTime: singleOrder.futureTime,
+                    // });
                   }
                 });
 
@@ -119,7 +130,89 @@ const MainNavigation = () => {
     };
 
     checkTokenAndNavigate();
-  }, [dispatch]);
+  }, [dispatch, isConnected]);
+
+  // useEffect(() => {
+  //   const checkTokenAndNavigate = async () => {
+  //     try {
+  //       const storedToken = await AsyncStorage.getItem("token");
+  //       if (storedToken) {
+  //         const previousOrder = await fetchActiveOrder(JSON.parse(storedToken));
+  //         if (previousOrder?.length) {
+  //           previousOrder?.forEach((singleOrder) => {
+  //             if (singleOrder.status === "pending") {
+  //               onNavigateLookingForRideScreen({
+  //                 orderId: singleOrder._id,
+  //                 orderPlaceTime: singleOrder?.orderPlaceTime,
+  //                 singleOrder,
+  //                 token: JSON.parse(storedToken),
+  //               });
+  //             }
+  //           });
+  //         } else {
+  //           console.log("pre empty");
+  //           // dispatch(setToken(JSON.parse(storedToken)));
+  //         }
+  //       } else {
+  //         dispatch(noToken(false));
+  //       }
+
+  //       return () => clearInterval(checkReady);
+  //     } catch (error) {
+  //       console.error("Error reading token or initializing navigation:", error);
+  //     }
+  //   };
+
+  //   checkTokenAndNavigate();
+  // }, [dispatch]);
+
+  const fetchActiveOrder = async (token) => {
+    try {
+      const previousOrders = await API.get("/user/all-orders", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      return previousOrders?.data;
+    } catch (error) {
+      console.log(error);
+      console.log("fetch active orders failed");
+      return false;
+    }
+  };
+
+  const onNavigateLookingForRideScreen = ({
+    orderId,
+    orderPlaceTime,
+    singleOrder,
+    token,
+  }) => {
+    console.log("looking for ride screeen.............................!");
+    let dropDetails = {
+      location: {
+        lat: singleOrder?.drop?.coordinates[1],
+        lng: singleOrder?.drop?.coordinates[0],
+      },
+      name: singleOrder?.dropAddress,
+      vicinity: singleOrder?.dropVicinity,
+    };
+
+    let pickupDetails = {
+      location: {
+        lat: singleOrder?.pickup?.coordinates[1],
+        lng: singleOrder?.pickup?.coordinates[0],
+      },
+      name: singleOrder?.pickupAddress,
+      vicinity: singleOrder?.pickupVicinity,
+    };
+    setParams({ orderId, orderPlaceTime, isDirectNavigation: true });
+    dispatch(setPickUpDetails(pickupDetails));
+    dispatch(setDropDetails(dropDetails));
+    dispatch(setIsSendOrReceiveParcel(singleOrder?.isSendOrReceiveParcel));
+    setInitialScreen("lookingforride");
+    dispatch(setToken(token));
+  };
 
   // Handle notifications
   const handleNotification = useCallback(
@@ -234,11 +327,16 @@ const MainNavigation = () => {
         initialRouteName={token ? "AuthenticatedStack" : "AuthStack"}
         screenOptions={{ headerShown: false }}
       >
-        <Stack.Screen
-          name="AuthenticatedStack"
-          component={AuthenticatedStack}
-          initialRouteName="DrawerNavigator"
-        />
+        <Stack.Screen name="AuthenticatedStack">
+          {(props) => (
+            <AuthenticatedStack
+              {...props}
+              initialRoute={initialScreen}
+              params={params}
+            />
+          )}
+        </Stack.Screen>
+
         <Stack.Screen name="AuthStack" component={AuthStack} />
       </Stack.Navigator>
     </NavigationContainer>

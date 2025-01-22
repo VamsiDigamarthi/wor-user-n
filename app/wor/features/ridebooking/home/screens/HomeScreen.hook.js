@@ -4,10 +4,13 @@ import HomeScreenServices from "../services/HomeScreenServices";
 import { onProfileSection } from "../redux/profileSlice";
 import messaging from "@react-native-firebase/messaging";
 import { fetchNearbyPlaces } from "../../../../../../Constants/displaylocationmap";
-import * as Location from "expo-location";
 import { fetchLocation } from "../../../../../../redux/Features/Location/LocationSlice";
 import { setNearPlaces } from "../redux/nearPlaceSlice";
+import { homePlace } from "../redux/homePlace";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
+import { clearDropData } from "../../sharedLogics/rideDetailsSlice";
 export const useHomeScreenHook = () => {
+  const isFocused = useIsFocused();
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.token);
   const { location } = useSelector((state) => state.location);
@@ -15,31 +18,15 @@ export const useHomeScreenHook = () => {
   const [fbToken, setFbToken] = useState("");
   const [captainMarkers, setCaptainMarkers] = useState([]);
 
-  const [favoritePlaces, setFavoritePlace] = useState([]);
-  const [previousOrders, setPreviousOrders] = useState([]);
-
-  const handleFavoritePlaces = async () => {
-    const data = await HomeScreenServices.onFetchFavoritePlaces(token);
-    if (!data) return setFavoritePlace(null);
-    setFavoritePlace(data);
-  };
-
-  const handlePreviousOrders = async () => {
-    const data = await HomeScreenServices.fetchPreviousOrdersServ(token);
-    if (!data) return setPreviousOrders(null);
-    setPreviousOrders(data);
-  };
-
   // fetch profile data
   useEffect(() => {
     dispatch(fetchLocation());
     dispatch(onProfileSection({ token }));
+    dispatch(homePlace({ token }));
   }, [dispatch, token]);
 
   useEffect(() => {
     async function allMix() {
-      handleFavoritePlaces();
-      handlePreviousOrders();
       await getToken();
     }
     allMix();
@@ -71,9 +58,27 @@ export const useHomeScreenHook = () => {
     return [...nearPlaces].sort(() => 0.5 - Math.random()).slice(0, 3);
   }, [nearPlaces]);
 
+  // useEffect(() => {
+  //   const unsubscribe = navigation.addListener("state", (e) => {
+  //     const { routes } = e.data.state; // Get the current routes in the stack
+  //     console.log(routes);
+  //     const isScreenInStack = routes.some((route) => route.name === "Home");
+  //     if (isScreenInStack) {
+  //       dispatch(clearDropData());
+  //     }
+  //     setCleanReduxData(isScreenInStack);
+  //   });
+
+  //   return unsubscribe; // Cleanup on unmount
+  // }, [navigation]);
+
+  useEffect(() => {
+    if (isFocused) {
+      dispatch(clearDropData());
+    }
+  }, [isFocused]);
+
   return {
-    favoritePlaces,
-    previousOrders,
     captainMarkers,
     nearByRandomItems,
   };

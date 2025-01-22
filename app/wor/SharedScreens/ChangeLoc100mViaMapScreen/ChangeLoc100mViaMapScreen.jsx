@@ -1,4 +1,4 @@
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import ParcelBtnCard from "../../features/Parcels/Components/ParcelBtnCard";
 import { useChangeLoc100mViaMapScreenHook } from "./ChangeLoc100mViaMapScreen.hook";
 import ChangeLocMapView from "./ChangeLocMapView";
@@ -14,32 +14,19 @@ const ChangeLoc100mViaMapScreen = () => {
     onNavigateSavedAddressScreen,
     handleMarkerDragEnd,
     newMarker,
-    lat,
-    lng,
-    place,
     placeName,
-    selectedCard,
-    parcelDetails,
-    isPickLocationFromParc,
-    // ride booking states
-    isRideBookingScreen,
+    isBeforeBook,
+    time,
     rideBookBeforeCheckMPinAddhar,
     onChangeRideBookBeforeCheckPinAddharHandler,
     isOpenEnterConfirmMPinModal,
     onOpenIsEnterConfirmPinModal,
-    rideDropDetails,
-    selectedVehicle,
-    time,
-    ridePrice,
-    price,
-    howManyMans,
-    setHowManyMans,
   } = useChangeLoc100mViaMapScreenHook();
 
   return (
     <>
       <View style={styles.container}>
-        {!isPickLocationFromParc && (
+        {!isBeforeBook && (
           <CustomeAppbar
             onBack={() => navigation.goBack()}
             appTitCenStyles={appbarStyles.appTitCenStyles}
@@ -49,31 +36,13 @@ const ChangeLoc100mViaMapScreen = () => {
           />
         )}
         <View style={styles.mapContainer}>
-          {lat && lng ? (
-            <ChangeLocMapView
-              lat={lat}
-              lng={lng}
-              newMarker={newMarker}
-              place={place}
-              handleMarkerDragEnd={handleMarkerDragEnd}
-            />
-          ) : (
-            <View style={styles.mapContainer}>
-              <ActivityIndicator color="#e02e88" size={30} />
-            </View>
-          )}
+          <ChangeLocMapView
+            newMarker={newMarker}
+            handleMarkerDragEnd={handleMarkerDragEnd}
+          />
         </View>
         <ParcelBtnCard>
-          {(isPickLocationFromParc || isRideBookingScreen) && (
-            <ShowPickLocation
-              place={placeName}
-              selectedCard={selectedCard}
-              isRideBookingScreen={isRideBookingScreen}
-              selectedVehicle={selectedVehicle}
-              howManyMans={howManyMans}
-              setHowManyMans={setHowManyMans}
-            />
-          )}
+          {isBeforeBook && <ShowPickLocation place={placeName} />}
 
           <CustomBtn
             onPress={onNavigateSavedAddressScreen}
@@ -94,19 +63,9 @@ const ChangeLoc100mViaMapScreen = () => {
       <CheckMPinModal
         isOpenEnterConfirmMPinModal={isOpenEnterConfirmMPinModal}
         onOpenIsEnterConfirmPinModal={onOpenIsEnterConfirmPinModal}
-        dropDetails={rideDropDetails}
-        selectedVehicle={selectedVehicle} // this prop only in ride booking
-        time={time} // this prop only in ride booking
-        ridePrice={ridePrice} // this prop only in ride booking
-        // parcel pros
-        selectedCard={selectedCard} // store value 'SEDN' or 'RECEIVE'
-        parcelDetails={parcelDetails} // parcel all details stored
-        isPickLocationFromParc={isPickLocationFromParc}
-        isRideBookingScreen={isRideBookingScreen}
+        time={time}
         pickUpPlace={placeName}
         newMarker={{ lat: newMarker.latitude, lng: newMarker.longitude }}
-        parcelPrice={price}
-        howManyMans={howManyMans}
       />
     </>
   );

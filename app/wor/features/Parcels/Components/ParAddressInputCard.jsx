@@ -5,7 +5,7 @@ import CustomCheckbox from "../../../utiles/CustomCheckbox";
 import { useParcelSavedAddressHook } from "../Hooks/ParcelSaveAddreddHook";
 import CustomBtn from "../../../utiles/CustomBtn";
 
-const ParAddressInputCard = ({ parcelAddressDetails }) => {
+const ParAddressInputCard = () => {
   const {
     handleInputChange,
     formData,
@@ -13,7 +13,7 @@ const ParAddressInputCard = ({ parcelAddressDetails }) => {
     onHandlerSaveAddress,
     errors,
     onHandlerContinueNext,
-  } = useParcelSavedAddressHook({ parcelAddressDetails });
+  } = useParcelSavedAddressHook();
   // console.log(errors);
   return (
     <View style={styles.container}>

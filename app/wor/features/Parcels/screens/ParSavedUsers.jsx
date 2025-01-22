@@ -1,57 +1,29 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React from "react";
 import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
-import { appbarStyles } from "../../../utiles/styles";
 import ParAddressDisplayCard from "../Components/ParAddressDisplayCard";
 import ParAddressInputCard from "../Components/ParAddressInputCard";
-import ParShowAddressArrow from "../Components/ParShowAddressArrow";
-import { useParSavedUsersHook } from "../Hooks/ParSavedUsers";
-import SavedAddressItme from "../Components/SavedAddressItem";
+import { useSelector } from "react-redux";
+import SavedUserItemWithArrow from "../Components/SavedUserItemWithArrow";
 
 const ParSavedUsers = () => {
-  const {
-    showHideSavedAddress,
-    onShowHideSavedAddress,
-    savedAddressFromApi,
-    place,
-    onHandlerClickSaveAddress,
-  } = useParSavedUsersHook();
+  const { dropDetails } = useSelector((state) => state.allRideDetails);
   return (
     <View style={styles.container}>
       <CustomeAppbar title="Saved Details" />
-      <View style={{ padding: 10, gap: 10 }}>
+      <View
+        style={{
+          padding: 10,
+          gap: 10,
+          flex: 1,
+        }}
+      >
         <ParAddressDisplayCard
-          placeName={place?.name}
-          vicinity={place.vicinity}
+          placeName={dropDetails?.name}
+          vicinity={dropDetails.vicinity}
         />
-        <ParAddressInputCard parcelAddressDetails={place} />
-        <ParShowAddressArrow
-          onShowHideSavedAddress={onShowHideSavedAddress}
-          showHideSavedAddress={showHideSavedAddress}
-        />
-        <FlatList
-          data={savedAddressFromApi}
-          keyExtractor={(item) => item?.mobile}
-          renderItem={({ item }) => (
-            <SavedAddressItme
-              item={item}
-              onHandlerClickSaveAddress={onHandlerClickSaveAddress}
-            />
-          )}
-          ItemSeparatorComponent={() => <View style={{ height: 5 }} />}
-          ListEmptyComponent={
-            <View
-              style={{
-                width: "100%",
-                justifyContent: "center",
-                alignItems: "center",
-                height: 80,
-              }}
-            >
-              <Text>Saved Address Not Found</Text>
-            </View>
-          }
-        />
+        <ParAddressInputCard />
+        <SavedUserItemWithArrow />
       </View>
     </View>
   );

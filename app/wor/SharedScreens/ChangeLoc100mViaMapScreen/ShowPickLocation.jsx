@@ -1,41 +1,55 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { PickLocationIcon } from "../../Icons/Icons";
+import { setHowManyMens } from "../../features/ridebooking/sharedLogics/rideDetailsSlice";
 
-export default function ShowPickLocation({
-  place,
-  selectedCard,
-  isRideBookingScreen,
-  selectedVehicle,
-  howManyMans,
-  setHowManyMans,
-}) {
+export default function ShowPickLocation({ place }) {
+  const {
+    isParcScreen,
+    isSendOrReceiveParcel,
+    selectedVehicleType,
+    howManyMens,
+  } = useSelector((state) => state.allRideDetails);
+
   const { profile } = useSelector((state) => state.profileSlice);
+  const dispatch = useDispatch();
 
   const onIncrementMens = () => {
-    if (selectedVehicle === "auto") {
-      if (howManyMans === 2) return;
-    }
-    if (selectedVehicle === "car") {
-      if (howManyMans === 3) return;
-    }
-    setHowManyMans((pre) => pre + 1);
-  };
-  const onDecrementMens = () => {
-    if (howManyMans === 0) {
+    if (selectedVehicleType === "auto" && howManyMens >= 2) {
       return;
     }
-    setHowManyMans((pre) => pre - 1);
+    if (selectedVehicleType === "car" && howManyMens >= 3) {
+      return;
+    }
+    dispatch(setHowManyMens(howManyMens + 1));
+  };
+
+  const onDecrementMens = () => {
+    if (howManyMens === 0) {
+      return;
+    }
+    dispatch(setHowManyMens(howManyMens - 1));
   };
 
   return (
     <View style={pickLocStyles.container}>
       <Text style={pickLocStyles.title}>
-        Double Check {selectedCard === "send" ? "Pickup" : "Drop"} point
+        Double Check{" "}
+        {isParcScreen
+          ? isSendOrReceiveParcel === "send"
+            ? "Pickup"
+            : "Drop"
+          : "Pick Up "}
+        point
       </Text>
       <Text style={pickLocStyles.subTitle}>
-        You can change {selectedCard === "send" ? "Pickup " : "Drop "}
+        You can change{" "}
+        {isParcScreen
+          ? isSendOrReceiveParcel === "send"
+            ? "Pickup "
+            : "Drop "
+          : "Pick Up "}
         between 100 meters
       </Text>
       <View style={pickLocStyles.card}>
@@ -55,7 +69,7 @@ export default function ShowPickLocation({
           >
             {place?.placeVicinity}
           </Text>
-          {!isRideBookingScreen && (
+          {isParcScreen && (
             <>
               <View
                 style={{ flexDirection: "row", gap: 5, alignItems: "center" }}
@@ -69,7 +83,7 @@ export default function ShowPickLocation({
           )}
         </View>
       </View>
-      {selectedVehicle !== "scooty" && (
+      {selectedVehicleType !== "scooty" && (
         <View style={pickLocStyles.mensProblem}>
           <Text style={{ fontSize: 20, fontWeight: "600" }}>Mention mens</Text>
           <View style={pickLocStyles.meninnercard}>
@@ -88,7 +102,7 @@ export default function ShowPickLocation({
                 <Text style={{ fontSize: 22, fontWeight: "600" }}>-</Text>
               </Pressable>
               <Text style={{ fontSize: 18, fontWeight: "600" }}>
-                {howManyMans}
+                {howManyMens}
               </Text>
               <Pressable
                 style={{

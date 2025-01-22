@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import {
   FontAwesome,
   AntDesign,
@@ -12,6 +12,7 @@ const HomeLocationCard = ({
   vicinity,
   iconType,
   iconName = "home",
+  onPress = () => {},
 }) => {
   let Icon;
   switch (iconType) {
@@ -35,11 +36,9 @@ const HomeLocationCard = ({
   }
 
   return (
-    <View style={styles.container}>
+    <Pressable onPress={onPress} style={styles.container}>
       <View
         style={{
-          //   width: 40,
-          //   height: 40,
           justifyContent: "center",
           alignItems: "center",
         }}
@@ -47,7 +46,13 @@ const HomeLocationCard = ({
         <Icon size={25} color="#e02e99" name={iconName} />
       </View>
       <View style={styles.card}>
-        <Text style={{ fontSize: 18, fontWeight: "600", color: "#000" }}>
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: "600",
+            color: "#000",
+          }}
+        >
           {location}
         </Text>
         <Text
@@ -57,13 +62,12 @@ const HomeLocationCard = ({
             fontSize: 14,
             fontWeight: "400",
             color: "#808080",
-            flex: 1,
           }}
         >
           {vicinity}
         </Text>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
@@ -72,8 +76,8 @@ export default HomeLocationCard;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: 70,
-    padding: 10,
+    height: 60,
+    // padding: 10,
     elevation: 1,
     backgroundColor: "#fff",
     borderRadius: 10,
@@ -86,7 +90,10 @@ const styles = StyleSheet.create({
   },
   card: {
     width: "90%",
-    gap: 2,
+    // backgroundColor: "red",
+    justifyContent: "center",
+    height: "100%",
+    // gap: 2,
     // backgroundColor: "yellow",
   },
 });

@@ -26,35 +26,7 @@ export const onCheckMPin = async ({ token, mpin }) => {
   }
 };
 
-export const finallyBookRide = async ({
-  token,
-  formattedDate,
-  formattedTime,
-  dropDetails,
-  selectedVehicle,
-  time,
-  ridePrice,
-  pickUpPlace,
-  newMarker,
-  howManyMans,
-}) => {
-  const orderDetails = {
-    vehicleType: selectedVehicle,
-    price: ridePrice,
-    orderPlaceDate: formattedDate,
-    orderPlaceTime: formattedTime,
-    pickupLangitude: newMarker.lat,
-    pickupLongitude: newMarker?.lng,
-    dropLangitude: dropDetails?.location?.lat,
-    dropLongitude: dropDetails?.location?.lng,
-    pickupAddress: pickUpPlace?.placeName,
-    pickupVicinity: pickUpPlace?.placeVicinity,
-    dropAddress: dropDetails?.name,
-    dropVicinity: dropDetails?.vicinity,
-    time,
-    howManyMans,
-  };
-
+export const bookingRide = async ({ token, orderDetails }) => {
   try {
     const response = await API.post("/user/placed-order", orderDetails, {
       headers: {
@@ -62,12 +34,9 @@ export const finallyBookRide = async ({
         "Content-Type": "application/json",
       },
     });
-    if (time) {
-      return;
-    }
-    // console.log("response?.data?.order?._id", response?.data);
     return response?.data?.order?._id;
   } catch (error) {
+    console.log(error?.response?.data);
     Toast.show({
       text1: error?.response?.data?.message ?? "Failed to book ride",
       type: "error",
@@ -77,97 +46,102 @@ export const finallyBookRide = async ({
   }
 };
 
-export const onBookParcel = async ({
-  token,
-  parcelPrice,
-  formattedTime,
-  formattedDate,
-  parcelDetails,
-  selectedCard,
-  pickUpPlace,
-  newMarker,
+// Helper function for formatting date and time
+export const getFormattedDateTime = () => {
+  const indiaDateTime = new Date().toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+  });
+  const datePart = indiaDateTime.split(",")[0];
+  const [day, month, year] = datePart.split("/");
+  const formattedDate = `${day}-${month}-${year}`;
+  const formattedTime = indiaDateTime.split(",")[1].trim();
+
+  return { formattedDate, formattedTime };
+};
+
+// Utility function to create order details for both parcel and ride screens
+export const createOrderDetails = ({
+  isParcel,
+  pickUpDetails,
+  dropDetails,
   profile,
+  price,
+  selectedVehicleType,
+  parcelType,
+  formattedDate,
+  formattedTime,
+  howManyMens,
+  isSendOrReceiveParcel,
 }) => {
-  const orderDetails = {
-    vehicleType: "scooty",
-    price: +parcelPrice + 5,
-    orderPlaceDate: formattedDate,
-    orderPlaceTime: formattedTime,
-    pickupLangitude:
-      selectedCard === "send" ? newMarker?.lat : parcelDetails?.location?.lat,
-    pickupLongitude:
-      selectedCard === "send" ? newMarker.lng : parcelDetails?.location?.lng,
-
-    dropLangitude:
-      selectedCard === "send" ? parcelDetails?.location?.lat : newMarker.lat,
-    dropLongitude:
-      selectedCard === "send" ? parcelDetails?.location?.lng : newMarker.lng,
-    pickupAddress:
-      selectedCard === "send" ? pickUpPlace?.placeName : parcelDetails?.name,
-    pickupVicinity:
-      selectedCard === "send"
-        ? pickUpPlace?.placeVicinity
-        : parcelDetails?.vicinity,
-    dropAddress:
-      selectedCard === "send" ? parcelDetails?.name : pickUpPlace?.placeName,
-    dropVicinity:
-      selectedCard === "send"
-        ? parcelDetails?.vicinity
-        : pickUpPlace?.placeVicinity,
-
-    sendReceiverData:
-      selectedCard === "send"
-        ? [
-            {
-              personName: profile?.name,
-              mobile: profile?.mobile,
-              landMark: "",
-              address: profile?.address,
-              typeUser: "Sender",
-            },
-            {
-              personName: parcelDetails?.senderName,
-              mobile: parcelDetails?.mobile,
-              landMark: parcelDetails?.landMark,
-              address: parcelDetails?.address,
-              typeUser: "Receiver",
-            },
-          ]
-        : [
-            {
-              personName: profile?.name,
-              mobile: profile?.mobile,
-              landMark: "",
-              address: profile.address,
-              typeUser: "Receiver",
-            },
-            {
-              personName: parcelDetails?.senderName,
-              mobile: parcelDetails?.mobile,
-              landMark: parcelDetails?.landMark,
-              address: parcelDetails?.address,
-              typeUser: "Sender",
-            },
-          ],
-  };
-
-  try {
-    const response = await API.post("/user/placed-order", orderDetails, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
-
-    // console.log("response?.data?.order?._id", response?.data);
-    return response?.data?.order?._id;
-  } catch (error) {
-    console.error(error?.response);
-    Toast.show({
-      text1: error?.response?.data?.message ?? "Failed to book ride",
-      type: "error",
-      position: "bottom",
-    });
-    return false;
-  }
+  return isParcel
+    ? {
+        vehicleType: selectedVehicleType,
+        price,
+        parcelType,
+        orderPlaceDate: formattedDate,
+        orderPlaceTime: formattedTime,
+        pickupLangitude:
+          isSendOrReceiveParcel === "send"
+            ? pickUpDetails?.location?.lat
+            : dropDetails?.location?.lat,
+        pickupLongitude:
+          isSendOrReceiveParcel === "send"
+            ? pickUpDetails?.location?.lng
+            : dropDetails?.location?.lng,
+        dropLangitude:
+          isSendOrReceiveParcel === "send"
+            ? dropDetails?.location?.lat
+            : pickUpDetails?.location?.lat,
+        dropLongitude:
+          isSendOrReceiveParcel === "send"
+            ? dropDetails?.location?.lng
+            : pickUpDetails?.location?.lng,
+        pickupAddress:
+          isSendOrReceiveParcel === "send"
+            ? pickUpDetails?.name
+            : dropDetails?.name,
+        pickupVicinity:
+          isSendOrReceiveParcel === "send"
+            ? pickUpDetails?.vicinity
+            : dropDetails?.vicinity,
+        dropAddress:
+          isSendOrReceiveParcel === "send"
+            ? dropDetails?.name
+            : pickUpDetails?.name,
+        dropVicinity:
+          isSendOrReceiveParcel === "send"
+            ? dropDetails?.vicinity
+            : pickUpDetails?.vicinity,
+        isSendOrReceiveParcel,
+        sendReceiverData: [
+          {
+            personName: profile?.name,
+            mobile: profile?.mobile,
+            address: profile?.address,
+            typeUser: isSendOrReceiveParcel === "send" ? "Sender" : "Receiver",
+          },
+          {
+            personName: dropDetails?.senderName,
+            mobile: dropDetails?.mobile,
+            address: dropDetails?.address,
+            typeUser: isSendOrReceiveParcel === "send" ? "Receiver" : "Sender",
+          },
+        ],
+      }
+    : {
+        vehicleType: selectedVehicleType,
+        price,
+        orderPlaceDate: formattedDate,
+        orderPlaceTime: formattedTime,
+        pickupLangitude: pickUpDetails?.location?.lat,
+        pickupLongitude: pickUpDetails?.location?.lng,
+        dropLangitude: dropDetails?.location?.lat,
+        dropLongitude: dropDetails?.location?.lng,
+        pickupAddress: pickUpDetails?.name,
+        pickupVicinity: pickUpDetails?.vicinity,
+        dropAddress: dropDetails?.name,
+        dropVicinity: dropDetails?.vicinity,
+        howManyMens,
+        isSendOrReceiveParcel,
+      };
 };

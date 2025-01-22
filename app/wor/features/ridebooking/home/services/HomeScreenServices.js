@@ -83,6 +83,22 @@ const generateRandomMarkers = (location) => {
   return newMarkers;
 };
 
+export const onFetchActiveOrders = async ({ token }) => {
+  try {
+    const response = await API.get("/user/active-ride", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    return response?.data;
+  } catch (error) {
+    console.log("active order fetching failed");
+    console.log(error.response.data.message);
+    return null;
+  }
+};
+
 export default {
   onFetchFavoritePlaces,
   fetchPreviousOrdersServ,

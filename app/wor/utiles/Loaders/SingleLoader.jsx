@@ -8,14 +8,16 @@ const SkeletonLoader = () => {
       <ContentLoader
         speed={2}
         width="100%" // Adjusted to take the full width of the container
-        height={60} // Adjusted height
+        height={80} // Adjusted height
         viewBox="0 0 400 60"
         backgroundColor="#b1aaaa"
         foregroundColor="#ecebeb"
       >
-        <Rect x="20" y="10" rx="3" ry="3" width="90%" height="10" />
+        <Rect x="20" y="10" rx="3" ry="3" width="100%" height="15" />
         {/* Adjusted width */}
-        <Rect x="20" y="30" rx="3" ry="3" width="80%" height="10" />
+        <Rect x="20" y="30" rx="3" ry="3" width="100%" height="15" />
+        <Rect x="20" y="50" rx="3" ry="3" width="100%" height="15" />
+
         {/* Adjusted width */}
       </ContentLoader>
     </View>

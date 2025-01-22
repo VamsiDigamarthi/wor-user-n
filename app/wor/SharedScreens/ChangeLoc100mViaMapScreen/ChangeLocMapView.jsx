@@ -2,14 +2,20 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import MapView, { Circle, Marker, Polyline } from "react-native-maps";
 import { PinIcon } from "../../Icons/Icons";
+import { useSelector } from "react-redux";
 
-const ChangeLocMapView = ({
-  lat,
-  lng,
-  place,
-  newMarker,
-  handleMarkerDragEnd,
-}) => {
+const ChangeLocMapView = ({ newMarker, handleMarkerDragEnd }) => {
+  const { location, placeName, placeVicinity } = useSelector(
+    (state) => state.location
+  );
+  const { initialDropDetails, isBeforeBook } = useSelector(
+    (state) => state.allRideDetails
+  );
+
+  const { lat, lng } = isBeforeBook
+    ? location
+    : initialDropDetails?.location || {};
+
   return (
     <MapView
       style={styles.map}
@@ -23,8 +29,10 @@ const ChangeLocMapView = ({
     >
       <Marker
         coordinate={{ latitude: lat, longitude: lng }}
-        title={place?.name}
-        description={place?.vicinity}
+        title={isBeforeBook ? placeName : initialDropDetails?.name}
+        description={
+          isBeforeBook ? placeVicinity : initialDropDetails?.vicinity
+        }
       >
         <PinIcon name="map-pin" size={30} color="#e02e88" />
       </Marker>

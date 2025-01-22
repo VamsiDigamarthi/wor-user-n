@@ -29,11 +29,11 @@ const CustomeAppbar = ({
         </View>
 
         <View style={[styles.textContainer]}>
-          <View style={[styles.textinnerCard, appTitCenStyles]}>
+          <View style={[styles.textinnerCard, vicinity && appTitCenStyles]}>
             <View
               style={[
                 { flexDirection: "row", gap: 5, alignItems: "center" },
-                appTitCenWidth,
+                vicinity && appTitCenWidth,
               ]}
             >
               <Text
@@ -120,7 +120,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     borderColor: "#FFE2E6",
-    // elevation: 1,
     borderRadius: 6,
     height: 50,
     zIndex: 30,
@@ -134,7 +133,6 @@ const styles = StyleSheet.create({
     width: "12%",
     height: "100%",
     marginBottom: 5,
-    // backgroundColor: "blue",
   },
 
   btn: {
@@ -146,16 +144,12 @@ const styles = StyleSheet.create({
 
   textContainer: {
     flexDirection: "row",
-    // borderWidth: 1,
     borderColor: "#FFE2E6",
     width: "100%",
     height: "100%",
     alignItems: "center",
-    // justifyContent: "space-between",
     gap: 8,
-
     paddingRight: 50,
-
     position: "relative",
     backgroundColor: "#fff",
   },
@@ -165,7 +159,6 @@ const styles = StyleSheet.create({
     width: "70%",
     marginLeft: 5,
     alignItems: "center",
-
     paddingLeft: 10,
   },
   text: {
@@ -186,5 +179,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 5,
     paddingHorizontal: 7,
+  },
+
+  appTitCenStyles: {
+    // backgroundColor: "red",
+    width: "80%",
+    marginBottom: 12,
+  },
+  appTitCenWidth: {
+    width: "100%",
+    backgroundColor: "#fff",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    gap: 2,
   },
 });

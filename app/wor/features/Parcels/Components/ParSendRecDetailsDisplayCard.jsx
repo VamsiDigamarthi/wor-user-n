@@ -1,15 +1,19 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { EditIcons, FavoritesIcons, LocationIcon } from "../../../Icons/Icons";
+import { useSelector } from "react-redux";
 
-const ParSendRecDetailsDisplayCard = ({ parcelDetails, selectedCard }) => {
+const ParSendRecDetailsDisplayCard = ({ parcelDetails }) => {
   //   console.log(parcelDetails);
+  const { isSendOrReceiveParcel } = useSelector(
+    (state) => state.allRideDetails
+  );
   return (
     <View style={styles.container}>
       <View style={styles.firstCard}>
         <LocationIcon size={20} color="#e02e88" />
         <Text style={{ fontSize: 16, fontWeight: "600", flex: 1 }}>
-          Add {selectedCard} Details
+          Add {isSendOrReceiveParcel === "send" ? "Recevier" : "Sender"} Details
         </Text>
         <View style={styles.favoriteIconcard}>
           <FavoritesIcons size={24} color="grey" />

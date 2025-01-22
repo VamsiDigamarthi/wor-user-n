@@ -1,9 +1,13 @@
 import React, { useRef } from "react";
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
-import { StyleSheet, View } from "react-native";
-import { useBottomSheetConfig } from "./useBottomSheetConfig"; // Custom hook for bottom sheet
-
-const BottomSheetComponent = ({ snapPoints, handleSheetChange, children }) => {
+import { StyleSheet } from "react-native";
+const BottomSheetComponent = ({
+  snapPoints,
+  handleSheetChange,
+  children,
+  style,
+  backgroundColor = "#fff",
+}) => {
   const bottomSheetRef = useRef(null);
 
   return (
@@ -13,11 +17,13 @@ const BottomSheetComponent = ({ snapPoints, handleSheetChange, children }) => {
       snapPoints={snapPoints}
       onChange={handleSheetChange}
       enablePanDownToClose={false} // Prevent closing
-      style={[styles.bottomSheet, { elevation: 1 }]} // Apply custom styles
-      backgroundStyle={styles.backgroundStyle} // Customize background
+      style={[styles.bottomSheet, style, { elevation: 1 }]} // Apply custom styles
+      backgroundStyle={[styles.backgroundStyle, { backgroundColor }]} // Customize background
       handleIndicatorStyle={styles.handleIndicator} // Customize handle indicator
     >
-      <BottomSheetScrollView contentContainerStyle={styles.sheetContent}>
+      <BottomSheetScrollView
+        contentContainerStyle={[styles.sheetContent, { backgroundColor }]}
+      >
         {children}
       </BottomSheetScrollView>
     </BottomSheet>
@@ -34,6 +40,8 @@ const styles = StyleSheet.create({
   },
   backgroundStyle: {
     backgroundColor: "white",
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
   },
   handleIndicator: {
     backgroundColor: "gray",

@@ -1,11 +1,33 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
+import Appbar from "./AppBar";
 
-const AppBarLayout = ({ title, children }) => {
+const AppBarLayout = ({
+  title,
+  children,
+  vicinity,
+  isPositionAppbar,
+  isDrawerIcon,
+  isTimer,
+  // ride accept screen props
+  isArrived,
+  otpVerified,
+  rideTide,
+  ride3mTimes,
+}) => {
   return (
     <View style={styles.container}>
-      <CustomeAppbar title={title} />
+      <Appbar
+        isPositionAppbar={isPositionAppbar}
+        title={title}
+        vicinity={vicinity}
+        isTimer={isTimer}
+        isDrawerIcon={isDrawerIcon}
+        isArrived={isArrived}
+        otpVerified={otpVerified}
+        rideTide={rideTide}
+        ride3mTimes={ride3mTimes}
+      />
       {children}
     </View>
   );

@@ -1,22 +1,32 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { MicIcon, SearchIcons } from "../../../../Icons/Icons";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { setIsBeforeBook } from "../../sharedLogics/rideDetailsSlice";
 
 const HomeInput = () => {
   const navigation = useNavigation();
-  const navigateSelectDestinationScreen = () => {
-    navigation.navigate("SelectDropLocation");
+  const dispatch = useDispatch();
+  const navigateSelectDestinationScreen = ({ isMic }) => {
+    dispatch(setIsBeforeBook(true));
+    navigation.navigate("SelectDropLocation", { isMic: isMic });
   };
   return (
     <View style={styles.container}>
       <SearchIcons size={22} color="#222222" />
-      <Pressable style={{ flex: 1 }} onPress={navigateSelectDestinationScreen}>
+      <Pressable
+        style={{ flex: 1 }}
+        onPress={() => navigateSelectDestinationScreen({ isMic: false })}
+      >
         <Text style={{ fontSize: 18, fontWeight: "500", flex: 1 }}>
           Search Destination
         </Text>
       </Pressable>
-      <Pressable style={styles.micIcons}>
+      <Pressable
+        onPress={() => navigateSelectDestinationScreen({ isMic: true })}
+        style={styles.micIcons}
+      >
         <MicIcon size={22} color="#e02e88" />
       </Pressable>
     </View>

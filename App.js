@@ -13,6 +13,7 @@ import NoInternet from "./Components/unavailable/NoInternet";
 import { LogBox } from "react-native";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import "react-native-reanimated";
+import { SocketProvider } from "./SocketContext";
 
 LogBox.ignoreLogs([
   "`new NativeEventEmitter()` was called with a non-null argument without the required `addListener` method",
@@ -124,15 +125,15 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        {/* <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}> */}
-        <StatusBar style="auto" />
-        <BottomSheetModalProvider>
-          <MainNavigation />
-        </BottomSheetModalProvider>
-        <Toast />
-        {/* </SafeAreaView> */}
-      </GestureHandlerRootView>
+      <SocketProvider>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <StatusBar style="auto" />
+          <BottomSheetModalProvider>
+            <MainNavigation />
+          </BottomSheetModalProvider>
+          <Toast />
+        </GestureHandlerRootView>
+      </SocketProvider>
     </Provider>
   );
 }

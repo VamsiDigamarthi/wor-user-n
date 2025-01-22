@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { COLORS } from "../../../../../Constants/colors";
+import { useDispatch } from "react-redux";
+import { setParcelType } from "../../ridebooking/sharedLogics/rideDetailsSlice";
 
-const SelectParcelType = ({ setSelectParcelType }) => {
+const SelectParcelType = () => {
+  const dispatch = useDispatch();
   const [selectedItem, setSelectedItem] = useState(null); // State to track selected item
   const [isOtherOpenTextField, setIsOtherOpenTextField] = useState(false);
   const data = [
@@ -19,15 +22,16 @@ const SelectParcelType = ({ setSelectParcelType }) => {
     if (item === "Others") {
       setIsOtherOpenTextField(true);
     }
-    setSelectParcelType(item);
+    dispatch(setParcelType(item));
+
     setSelectedItem(item); // Set the selected item when pressed
   };
 
   const onTextChange = async (text) => {
     if (text?.length === 0) {
-      await setSelectParcelType(selectedItem);
+      dispatch(setParcelType(item));
     }
-    setSelectParcelType(text);
+    dispatch(setParcelType(item));
   };
 
   return (

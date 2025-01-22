@@ -195,12 +195,12 @@ export const useSelectDropLocationHook = () => {
       return; // if from parcel screen then exit function
     }
 
-    // navigation.navigate("ShowPrice", {
-    //   placeName, // this prop is store current location text
-    //   pickUpCoordinated, // this prop store currect location coodinates
-    //   dropDetails: newDropLocation, // this prop store drop location data (coodinates, name, secondaryText)
-    //   selectedVehicleType,
-    // });
+    navigation.navigate("ShowPrice", {
+      placeName, // this prop is store current location text
+      pickUpCoordinated, // this prop store currect location coodinates
+      dropDetails: newDropLocation, // this prop store drop location data (coodinates, name, secondaryText)
+      selectedVehicleType,
+    });
   };
 
   // navigate to map preview screen
