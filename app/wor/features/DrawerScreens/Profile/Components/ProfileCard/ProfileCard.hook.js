@@ -58,6 +58,8 @@ export const useProfileCardHook = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+
+      dispatch(onProfileSection({ token }));
       Toast.show({
         text1: response?.data?.message,
         type: "success",

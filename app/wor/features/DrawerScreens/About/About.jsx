@@ -19,7 +19,7 @@ const About = () => {
 
   return (
     <View style={styles.container}>
-      <CustomeAppbar title="About" onBack={() => navigation.goBack()} />
+      <CustomeAppbar title="Settings" onBack={() => navigation.goBack()} />
 
       <SettingsItemsList onOpenDeleteModal={onOpenModal} />
 
@@ -41,7 +41,7 @@ const About = () => {
               style={styles.deleteButton}
               onPress={(event) => {
                 event.persist();
-                console.log("Delete pressed");
+                // console.log("Delete pressed");
                 // Any async actions can be done here
               }}
             >

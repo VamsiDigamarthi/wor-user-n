@@ -40,11 +40,10 @@ import AllowNotification from "../../../Utils/AllowNotification/AllowNotificatio
 import FutureOrderBox from "../../../Components/FutureOrderBox/FutureOrderBox";
 import { COLORS } from "../../../Constants/colors";
 import ContentLoader, { Rect } from "react-content-loader/native";
-// <<<<<<< 22-01-app-folder-added
+
 import AllServices from "../../../Utils/AllServices/AllServices";
-// =======
+
 import CopyBox from "../../../app/wor/utiles/CopyBox";
-// >>>>>>> master
 
 const screenHeight = Dimensions.get("window").height;
 const androidHeight = [screenHeight * 0.54, screenHeight * 0.6];

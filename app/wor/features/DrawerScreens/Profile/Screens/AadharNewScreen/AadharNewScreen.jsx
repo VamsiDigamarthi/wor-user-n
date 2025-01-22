@@ -9,7 +9,7 @@ import {
 import React, { useState } from "react";
 import CustomeAppbar from "../../../../../../../Utils/CustomeAppbar/CustomeAppbar";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
-import Modal from "../../../../../utiles/Modal/Modal";
+// import Modal from "../../../../../utiles/Modal/Modal";
 import ModalUI from "../../../../../utiles/Modal/Modal";
 import { infoModalStyles } from "../../../../../../../Components/InfoUi/Styles/InfoModalStyles";
 import InputBox from "../../../../../utiles/InputCard/InputCard";

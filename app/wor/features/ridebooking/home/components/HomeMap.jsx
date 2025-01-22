@@ -13,11 +13,11 @@ const HomeMap = ({ captainMarkers, toggleCloseSOS }) => {
         </View>
       ) : (
         <>
-          {/* <HomeMapPreview
-          captainMarkers={captainMarkers}
-          location={location}
-          handleOpenSafetyModal={toggleCloseSOS}
-          /> */}
+          <HomeMapPreview
+            captainMarkers={captainMarkers}
+            location={location}
+            handleOpenSafetyModal={toggleCloseSOS}
+          />
         </>
       )}
     </View>
