@@ -1,37 +1,43 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { computeDestinationPoint } from "geolib";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { haversineDistance } from "../../../../Constants/calculateKM";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchNameAndVicinity } from "../../../../Constants/displaylocationmap";
+import {
+  setDropDetails,
+  setPickUpDetails,
+} from "../../features/ridebooking/sharedLogics/rideDetailsSlice";
 
 export const useChangeLoc100mViaMapScreenHook = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const {
-    place,
-    isPickLocationFromParc = false,
-    parcelDetails,
-    selectedCard,
-    // ride booking props
-    isRideBookingScreen = false,
-    rideDropDetails,
-    selectedVehicle,
-    time,
-    ridePrice,
-  } = useRoute().params || {};
+    location,
+    placeName: pick,
+    placeVicinity,
+  } = useSelector((state) => state.location);
+
+  const { initialDropDetails, isBeforeBook, isParcScreen } = useSelector(
+    (state) => state.allRideDetails
+  );
+
+  const { time } = useRoute().params || {};
 
   const { profile } = useSelector((state) => state.profileSlice);
   const { token } = useSelector((state) => state.token);
 
-  const { lat, lng } = place?.location || {};
-  const [price, setPrice] = useState(0);
-  const [howManyMans, setHowManyMans] = useState(0);
+  const { lat, lng } = isBeforeBook
+    ? location
+    : initialDropDetails?.location || {};
+
+  // const [howManyMans, setHowManyMans] = useState(0);
 
   const [newMarker, setNewMarker] = useState({ latitude: lat, longitude: lng });
+
   // if change location 100 meter new coordinates place name stored in this state
   const [placeName, setPlaceName] = useState({
-    placeName: place?.name,
-    placeVicinity: place?.vicinity,
+    placeName: isBeforeBook ? pick : initialDropDetails?.name,
+    placeVicinity: isBeforeBook ? placeVicinity : initialDropDetails?.vicinity,
   });
 
   // ride booking state
@@ -79,36 +85,32 @@ export const useChangeLoc100mViaMapScreenHook = () => {
         newMarker.latitude,
         newMarker.longitude
       );
+
+      dispatch(
+        setPickUpDetails({
+          location: { lat: newMarker.latitude, lng: newMarker.longitude },
+          name: data?.name,
+          vicinity: data?.vicinity,
+        })
+      );
       setPlaceName({ placeName: data?.name, placeVicinity: data?.vicinity });
     };
-    lat !== newMarker.latitude && fetchNewPlaceName();
+    // lat !== newMarker.latitude && fetchNewPlaceName();
+    fetchNewPlaceName();
   }, [newMarker]);
-
-  useEffect(() => {
-    if (parcelDetails) {
-      const distance = haversineDistance(
-        place?.location,
-        parcelDetails?.location
-      );
-      let fixedDis = (distance * 7).toFixed(0);
-      setPrice(fixedDis); // Assume price per 100 meters is $10
-    }
-  }, [parcelDetails]);
 
   const onNavigateSavedAddressScreen = () => {
     // places the order
-    if (isPickLocationFromParc || isRideBookingScreen) {
-      //   handleBookingParcelRide();
-      // } else if (isRideBookingScreen) {
+    if (isBeforeBook) {
       handleCheckMPinSetOrNot();
     } else {
-      navigation.navigate("ParSavedUsers", {
-        place: {
-          name: placeName?.placeName,
-          vicinity: placeName?.placeVicinity,
-          location: { lat: newMarker.latitude, lng: newMarker.longitude },
-        },
-      });
+      let place = {
+        name: placeName?.placeName,
+        vicinity: placeName?.placeVicinity,
+        location: { lat: newMarker.latitude, lng: newMarker.longitude },
+      };
+      dispatch(setDropDetails(place));
+      navigation.navigate("ParSavedUsers");
     }
   };
 
@@ -124,30 +126,19 @@ export const useChangeLoc100mViaMapScreenHook = () => {
     }
   };
 
+  // console.log("placeName", placeName);
+
   return {
     onNavigateSavedAddressScreen,
     handleMarkerDragEnd,
-    isPickLocationFromParc,
+    isBeforeBook,
     newMarker,
-    lat,
-    lng,
-    place,
     placeName,
-    selectedCard,
-    parcelDetails,
-    // ride booking states
-    isRideBookingScreen,
     rideBookBeforeCheckMPinAddhar,
     onChangeRideBookBeforeCheckPinAddharHandler,
     isOpenEnterConfirmMPinModal,
     onOpenIsEnterConfirmPinModal,
-    rideDropDetails,
-    selectedVehicle,
     time,
-    ridePrice,
-    price,
-    howManyMans,
-    setHowManyMans,
   };
 };
 

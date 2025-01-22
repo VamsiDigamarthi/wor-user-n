@@ -154,12 +154,10 @@ const ShowPrice = () => {
     <>
       <View style={styles.container}>
         <CustomeAppbar
-
           title={dropDetails ? dropDetails.name : parcelDetails?.name}
           vicinity={
             dropDetails ? dropDetails?.vicinity : parcelDetails?.vicinity
           }
-
           onBack={() => navigation.goBack()}
           appTitCenStyles={styles.appTitCenStyles}
           appTitCenWidth={{

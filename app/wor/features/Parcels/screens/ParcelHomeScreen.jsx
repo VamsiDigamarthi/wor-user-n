@@ -11,13 +11,11 @@ import ParcelBtnCard from "../Components/ParcelBtnCard";
 import CustomBtn from "../../../utiles/CustomBtn";
 import ParSendRecDetailsDisplayCard from "../Components/ParSendRecDetailsDisplayCard";
 import ParProtectDelivery from "../Components/ParProtectDelivery";
+import { useSelector } from "react-redux";
 
 const ParcelHomeScreen = () => {
   const {
-    selectedCard,
-    setSelectedCard,
-    setSelectParcelType,
-    parcelDetails,
+    dropDetails,
     handleProtectedParcel,
     isProtectedParcel,
     onNavigateParcelPickUpLocationScreen,
@@ -27,35 +25,29 @@ const ParcelHomeScreen = () => {
     <View style={styles.container}>
       <CustomeAppbar title="Parcel" />
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <ParSendReceiveCard
-          selectedCard={selectedCard}
-          setSelectedCard={setSelectedCard}
-        />
+        <ParSendReceiveCard />
         <View style={styles.tripDetailsCard}>
           <Text style={styles.tripDetailsText}>Trip Details: 1234567890</Text>
         </View>
-        {parcelDetails ? (
+        {dropDetails ? (
           <>
-            <ParSendRecDetailsDisplayCard
-              selectedCard={selectedCard}
-              parcelDetails={parcelDetails}
-            />
+            <ParSendRecDetailsDisplayCard parcelDetails={dropDetails} />
             <ParProtectDelivery
               handleProtectedParcel={handleProtectedParcel}
               isChecked={isProtectedParcel}
             />
           </>
         ) : (
-          <ParcSendReceInputCard sendOrReceiveTextDisplay={selectedCard} />
+          <ParcSendReceInputCard />
         )}
-        <SelectParcelType setSelectParcelType={setSelectParcelType} />
+        <SelectParcelType />
         <ParcelSpecification />
       </ScrollView>
       <ParcelBtnCard>
         <CustomBtn
           title="Continue"
-          borderColor={parcelDetails ? "#fff" : "rgba(255,255,255"}
-          btnBg={parcelDetails ? "#e02e88" : "#f7f7f7"}
+          borderColor={dropDetails ? "#fff" : "rgba(255,255,255"}
+          btnBg={dropDetails ? "#e02e88" : "#f7f7f7"}
           onPress={onNavigateParcelPickUpLocationScreen}
         />
       </ParcelBtnCard>

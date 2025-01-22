@@ -1,55 +1,72 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import LocationInput from "./LocationInput";
 import IconButton from "../../../../utiles/IconButton";
 import { useSelector } from "react-redux";
-import LocationItem from "../../../../utiles/LocationItem";
-import HomeLocationCard from "../../../../utiles/HomeLocationCard";
+import { useWhereToGoHook } from "../Hooks/WhereToGo";
+import HomeWorkPlaceCard from "./HomeWorkPlaceCard";
+import LocationList from "./LocationList";
 
-const WhereToGo = () => {
+const WhereToGo = ({
+  micVoiceText,
+  setMicVoiceText,
+  setIsMicModalOpenClose,
+}) => {
   const { nearPlaces } = useSelector((state) => state.nearPlaces);
+  const {
+    inputValue,
+    suggestions,
+    handleInputChange,
+    setAddedHowWorkPlaceType,
+    handleAddedHomePlace,
+    addedHomeWorkPlaceType,
+    // favorite place state
+    setIsSendOrReceiveParcel,
+    isSelectFavoritePlaces,
+    favoritePlaces,
+  } = useWhereToGoHook({ micVoiceText, setMicVoiceText });
 
   return (
     <>
       <View style={styles.container}>
         <View style={styles.pickDropBtnCard}>
-          <Text style={{ fontSize: 20, fontWeight: "bold" }}>Where to go?</Text>
-          <LocationInput />
+          <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+            {addedHomeWorkPlaceType
+              ? `${addedHomeWorkPlaceType?.toUpperCase()} Place`
+              : "Where to go?"}
+          </Text>
+          <LocationInput
+            inputValue={inputValue?.length > 0 ? inputValue : micVoiceText}
+            handleInputChange={handleInputChange}
+            setIsMicModalOpenClose={setIsMicModalOpenClose}
+          />
           <View style={styles.mapFavoriteCard}>
             <Text style={{ fontSize: 12 }}>Suggested Destination</Text>
             <IconButton
               icons="favorite"
               title="Favorite Places"
               iconsName="MaterialIcons"
+              isSelected={isSelectFavoritePlaces}
+              onPress={() => setIsSendOrReceiveParcel(!isSelectFavoritePlaces)}
             />
           </View>
         </View>
-        <FlatList
-          data={nearPlaces}
-          keyExtractor={(item) => item.name}
-          renderItem={({ item }) => (
-            <LocationItem
-              placeName={item?.name}
-              placeVicinity={item.vicinity}
-              entireLocation={item}
-              isFavoriteIconDisplay={true}
-            />
-          )}
-          showsVerticalScrollIndicator={false}
-        />
+        {isSelectFavoritePlaces ? (
+          <LocationList
+            data={favoritePlaces}
+            setAddedHowWorkPlaceType={setAddedHowWorkPlaceType}
+            isHomeWorkPlace={addedHomeWorkPlaceType}
+            isFavoritePlaces={true}
+          />
+        ) : (
+          <LocationList
+            data={suggestions ?? nearPlaces}
+            setAddedHowWorkPlaceType={setAddedHowWorkPlaceType}
+            isHomeWorkPlace={addedHomeWorkPlaceType}
+          />
+        )}
       </View>
-      <View style={styles.homeWorLocationCard}>
-        <HomeLocationCard
-          location="Home"
-          vicinity="Vijay Sai Kiran Residency, Jpn Nagar, Miyapur"
-        />
-        <HomeLocationCard
-          location="Work"
-          vicinity="Jayabheri Silicon Towers, Kothaguda - Hitechcity Road, Hyderabad"
-          iconType="AntDesign"
-          iconName="star"
-        />
-      </View>
+      <HomeWorkPlaceCard handleAddedHomePlace={handleAddedHomePlace} />
     </>
   );
 };
@@ -76,12 +93,5 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     gap: 15,
-  },
-  homeWorLocationCard: {
-    backgroundColor: "#fff",
-    width: "100%",
-    height: "25%",
-    justifyContent: "space-between",
-    alignItems: "center",
   },
 });

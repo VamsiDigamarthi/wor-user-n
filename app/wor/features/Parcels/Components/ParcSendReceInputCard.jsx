@@ -1,18 +1,21 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import React from "react";
 import { MicIcon, SearchIcons, UserIcons } from "../../../Icons/Icons";
 import { useNavigation } from "@react-navigation/native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-const ParcSendReceInputCard = ({ sendOrReceiveTextDisplay }) => {
+import { setIsParcScreen } from "../../ridebooking/sharedLogics/rideDetailsSlice";
+
+const ParcSendReceInputCard = () => {
   const navigation = useNavigation();
-  const { nearPlaces } = useSelector((state) => state.nearPlaces);
+  const dispatch = useDispatch();
+  const { isSendOrReceiveParcel } = useSelector(
+    (state) => state.allRideDetails
+  );
 
   const onNavigateToSelectDropLocationScreen = ({ isMic = false }) => {
+    dispatch(setIsParcScreen(true));
     navigation.navigate("SelectDropLocation", {
-      nearbyPlaces: nearPlaces,
       isMic,
-      isFromParcelScreen: true,
     });
   };
 
@@ -21,8 +24,7 @@ const ParcSendReceInputCard = ({ sendOrReceiveTextDisplay }) => {
       <View style={styles.addDetails}>
         <UserIcons size={22} color="#e02e88" />
         <Text style={{ fontSize: 16, fontWeight: "500" }}>
-          Add {sendOrReceiveTextDisplay === "send" ? "Recevier" : "Sender"}{" "}
-          Details
+          Add {isSendOrReceiveParcel === "send" ? "Recevier" : "Sender"} Details
         </Text>
       </View>
       <View style={styles.inputCard}>
@@ -32,7 +34,7 @@ const ParcSendReceInputCard = ({ sendOrReceiveTextDisplay }) => {
         >
           <SearchIcons size={25} color="gray" />
           <Text style={{ fontSize: 16, fontWeight: "500", color: "#222222" }}>
-            Search {sendOrReceiveTextDisplay === "send" ? "Recevier" : "Sender"}{" "}
+            Search {isSendOrReceiveParcel === "send" ? "Recevier" : "Sender"}{" "}
             Location
           </Text>
         </Pressable>

@@ -1,9 +1,9 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-const HomeCopyBox = () => {
+const HomeCopyBox = ({ backgroundColor = "#F2F0F5" }) => {
   return (
-    <View style={styles.copyBox}>
+    <View style={[styles.copyBox, { backgroundColor }]}>
       <Text>Invite Your Friends to women rider</Text>
       <TouchableOpacity style={styles.copyBtn}>
         <Text style={{ fontWeight: "bold" }}>Code : GOWOR</Text>
@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
     gap: 10,
     // alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#F2F0F5",
   },
   copyBtn: {
     flexDirection: "row",

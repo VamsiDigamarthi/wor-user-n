@@ -2,15 +2,24 @@ import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import React from "react";
 import { MicIcon, SearchIcons } from "../../../../Icons/Icons";
 
-const LocationInput = () => {
+const LocationInput = ({
+  inputValue,
+  handleInputChange,
+  setIsMicModalOpenClose,
+}) => {
   return (
     <View style={styles.container}>
       <SearchIcons size={20} color="#000" />
       <TextInput
         style={{ flex: 1, fontSize: 16 }}
         placeholder="Enter Destination"
+        value={inputValue}
+        onChangeText={handleInputChange}
       />
-      <Pressable style={styles.micIcons}>
+      <Pressable
+        onPress={() => setIsMicModalOpenClose(true)}
+        style={styles.micIcons}
+      >
         <MicIcon size={22} color="#e02e88" />
       </Pressable>
     </View>

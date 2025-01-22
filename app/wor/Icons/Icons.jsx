@@ -3,7 +3,14 @@ import {
   Ionicons,
   FontAwesome,
   MaterialIcons,
+  MaterialCommunityIcons,
+  AntDesign,
+  FontAwesome5,
 } from "@expo/vector-icons";
+
+export const HamborgIcon = ({ size, color }) => (
+  <FontAwesome5 name="hamburger" size={size} color={color} />
+);
 
 export const UserIcons = ({ size, color }) => (
   <Feather name="user" size={size} color={color} />
@@ -29,6 +36,10 @@ export const PickLocationIcon = ({ size, color }) => (
   <Ionicons name="location-sharp" size={size} color={color} />
 );
 
+export const CallIcon = ({ size, color }) => (
+  <Ionicons name="call" size={size} color={color} />
+);
+
 export const EditIcons = ({ size, color }) => (
   <Feather name="edit" size={size} color={color} />
 );
@@ -49,6 +60,26 @@ export const BackIcon = ({ size, color }) => (
   <MaterialIcons name="arrow-back-ios-new" size={size} color={color} />
 );
 
+export const ForwardArrowIcon = ({ size, color }) => (
+  <MaterialIcons name="arrow-forward-ios" size={size} color={color} />
+);
+
 export const SupportIcons = ({ size, color }) => (
   <MaterialIcons name="support-agent" size={size} color={color} />
+);
+
+export const ClockIcons = ({ size, color }) => (
+  <MaterialCommunityIcons
+    name="clock-time-eight-outline"
+    size={size}
+    color={color}
+  />
+);
+
+export const InfoIcons = ({ size, color }) => (
+  <AntDesign name="infocirlceo" size={size} color={color} />
+);
+
+export const PhoneIcon = ({ size, color }) => (
+  <FontAwesome name="phone" size={size} color={color} />
 );

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectVehicleType } from "../../sharedLogics/rideDetailsSlice";
 // A reusable service card component
 const ServiceCard = ({ imageSource, label, onPress }) => {
   return (
@@ -26,23 +28,17 @@ const ServiceCard = ({ imageSource, label, onPress }) => {
   );
 };
 
-const AllServices = ({ placeName, location, nearbyPlaces }) => {
+const AllServices = () => {
   const navigation = useNavigation();
-  const [viewAll, setViewAll] = useState(false);
-
-  const toggleViewAll = () => setViewAll((prev) => !prev);
+  const dispatch = useDispatch();
 
   const navigateToParcelScreen = () => {
     navigation.navigate("ParcelHome");
   };
 
   const navigateToPickLocationScreen = (vehicle) => {
-    navigation.navigate("SelectDropLocation", {
-      placeName,
-      pickUpCoordinated: location,
-      nearbyPlaces,
-      selectedVehicleType: vehicle,
-    });
+    dispatch(setSelectVehicleType(vehicle));
+    navigation.navigate("SelectDropLocation");
   };
 
   const renderServices = () => {

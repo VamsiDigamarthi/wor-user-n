@@ -71,7 +71,7 @@ import FakeCall from "../Utils/FakeCall/FakeCall";
 import ChangePickLocation from "../Screens/Dashboard/ChangePickLocation/ChangePickLocation";
 import HomeScreen from "../app/wor/features/ridebooking/home/screens/HomeScreen";
 import ParcelHomeScreen from "../app/wor/features/Parcels/screens/ParcelHomeScreen";
-import ChangeLoc100mViaMap from "../app/wor/utiles/ChangeLoc100mViaMap";
+// import ChangeLoc100mViaMap from "../app/wor/utiles/ChangeLoc100mViaMap";
 import ParSavedUsers from "../app/wor/features/Parcels/screens/ParSavedUsers";
 
 /* Drawer Screens */
@@ -101,10 +101,16 @@ import HelpAndSupport from "../app/wor/features/DrawerScreens/HelpAndSupport/Hel
 import DrivingSchools from "../app/wor/features/DrawerScreens/DrivingSchools/DrivingSchools";
 import DrivingSchoolsDetailView from "../app/wor/features/DrawerScreens/DrivingSchools/Screens/DrivingSchoolDetailVIew";
 
-// import SelectDropLocation from "../app/wor/features/ridebooking/selectdroplocation/SelectDropLocation";
+import SelectDropLocation from "../app/wor/features/ridebooking/selectdroplocation/SelectDropLocation";
 import SelectLocationByMapScreen from "../app/wor/features/ridebooking/SelectLocationByMap/SelectLocationByMapScreen";
-import SelectDropLocation from "../Screens/Dashboard/SelectDropLocation/SelectDropLocation";
+// import SelectDropLocation from "../Screens/Dashboard/SelectDropLocation/SelectDropLocation";
 import ChangeLoc100mViaMapScreen from "../app/wor/SharedScreens/ChangeLoc100mViaMapScreen/ChangeLoc100mViaMapScreen";
+import ShowPriceScreen from "../app/wor/features/ridebooking/showPrice/ShowPriceScreen";
+import LookingForRideScreen from "../app/wor/features/ridebooking/LookingforRide/LookingForRideScreen";
+import CaptainAcceptRideScreen from "../app/wor/features/ridebooking/CaptainAcceptRide/CaptainAcceptRideScreen";
+import FeedBackScreen from "../app/wor/features/ridebooking/FeedBack/FeedBackScreen";
+import ChatScreen from "../app/wor/features/ridebooking/Chat/ChatScreen";
+import { useEffect } from "react";
 
 /* Drawer Screens */
 
@@ -164,47 +170,59 @@ const DrawerNavigator = ({ route }) => {
           },
         }}
       >
-        <Drawer.Screen name="Home" component={NewHome} />
+        <Drawer.Screen name="Home" component={HomeScreen} />
       </Drawer.Navigator>
     </>
   );
 };
 
-const AuthenticatedStack = () => {
-  // My new code
-
+const AuthenticatedStack = ({ initialRoute, params }) => {
   return (
-    <Stack.Navigator>
-      {/* Drawer screens */}
+    <Stack.Navigator initialRouteName={initialRoute}>
       <Stack.Screen
         name="DrawerNavigator"
         component={DrawerNavigator}
         options={{ headerShown: false }}
       />
 
-      {/* RideBook screen */}
+      <Stack.Screen
+        name="Safety"
+        // component={SafetyHome}
+        component={Safety}
+        options={{ headerShown: false }}
+        initialParams={params}
+      />
+      <Stack.Screen
+        name="ReferAndEarn"
+        // component={ReferAndEarn}
+        component={RefertoEarn}
+        options={{ headerShown: false }}
+      />
+
       <Stack.Screen name="RideBook" component={RideBook} />
 
-      {/* SelectDropLocation screen using reusable function */}
       <Stack.Screen
         name="SelectDropLocation"
-        component={SelectDropLocation}
         // component={SelectDropLocation}
+        component={SelectDropLocation}
         options={{ headerShown: false }}
       />
 
       {/* ShowPrice screen using reusable function */}
       <Stack.Screen
         name="ShowPrice"
-        component={ShowPrice}
+        // component={ShowPrice}
+        component={ShowPriceScreen}
         options={{ headerShown: false }}
       />
 
       {/* Looking for Ride screen */}
       <Stack.Screen
         name="lookingforride"
-        component={LookingForRide}
+        // component={LookingForRide}
+        component={LookingForRideScreen}
         options={{ headerShown: false }}
+        initialParams={params}
       />
 
       {/* MapPreview screen using reusable function */}
@@ -216,8 +234,8 @@ const AuthenticatedStack = () => {
 
       <Stack.Screen
         name="FixMapPreview"
-        component={MapWithCurrentLocation}
-        // component={SelectLocationByMapScreen}
+        // component={MapWithCurrentLocation}
+        component={SelectLocationByMapScreen}
         options={{ headerShown: false }}
       />
 
@@ -236,7 +254,8 @@ const AuthenticatedStack = () => {
       {/* CaptainAcceptRide screen */}
       <Stack.Screen
         name="captaineacceptride"
-        component={CaptainAcceptRide}
+        // component={CaptainAcceptRide}
+        component={CaptainAcceptRideScreen}
         options={{ headerShown: false }}
       />
 
@@ -248,7 +267,8 @@ const AuthenticatedStack = () => {
 
       <Stack.Screen
         name="captainrideComplete"
-        component={CaptainRideComplete}
+        // component={CaptainRideComplete}
+        component={FeedBackScreen}
         options={{ headerShown: false }}
       />
 
@@ -261,13 +281,6 @@ const AuthenticatedStack = () => {
       <Stack.Screen
         name="RideHistoryDetailView"
         component={RideHistoryDetailView}
-        options={{ headerShown: false }}
-      />
-
-      <Stack.Screen
-        name="Safety"
-        // component={SafetyHome}
-        component={Safety}
         options={{ headerShown: false }}
       />
 
@@ -293,12 +306,6 @@ const AuthenticatedStack = () => {
         }
       />
 
-      <Stack.Screen
-        name="ReferAndEarn"
-        // component={ReferAndEarn}
-        component={RefertoEarn}
-        options={{ headerShown: false }}
-      />
       <Stack.Screen
         name="Notifications"
         component={Notification}
@@ -455,7 +462,8 @@ const AuthenticatedStack = () => {
 
       <Stack.Screen
         name="Chat"
-        component={Chat}
+        // component={Chat}
+        component={ChatScreen}
         options={{ headerShown: false }}
       />
 

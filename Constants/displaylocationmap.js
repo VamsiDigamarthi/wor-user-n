@@ -164,10 +164,6 @@ export const getTravelDetails = async (
 
       const durationInMinutes = Math.round(duration / 60); // Convert to minutes
 
-      console.log(
-        `Distance: ${distance}, Duration: ${durationInMinutes} minutes`
-      );
-
       return {
         distance,
         durationInMinutes,

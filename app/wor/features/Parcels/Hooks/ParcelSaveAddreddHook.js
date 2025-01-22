@@ -1,10 +1,12 @@
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { onSavedParcelAddress } from "../services/parSavedAddressServices";
+import { mergeDropDetails } from "../../ridebooking/sharedLogics/rideDetailsSlice";
 
-export const useParcelSavedAddressHook = ({ parcelAddressDetails }) => {
+export const useParcelSavedAddressHook = () => {
   const { token } = useSelector((state) => state.token);
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const [formData, setFormData] = useState({
     senderName: "",
@@ -149,12 +151,8 @@ export const useParcelSavedAddressHook = ({ parcelAddressDetails }) => {
       if (saveAddressChecked) {
         onSavedParcelAddress({ token, formData });
       }
-      navigation.navigate("ParcelHome", {
-        parcelDetails: {
-          ...parcelAddressDetails,
-          ...formData,
-        },
-      });
+      dispatch(mergeDropDetails(formData));
+      navigation.navigate("ParcelHome");
     }
   };
 

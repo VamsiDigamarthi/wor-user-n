@@ -7,8 +7,9 @@ import RatingImageCard from "./Components/RatingImageCard";
 import Data from "../../../../../Constants/SafetyData.json";
 
 const Rating = () => {
-  const route = useRoute();
+  const { hellow } = useRoute().params || {};
   const navigation = useNavigation();
+  console.log("hellow", hellow);
 
   return (
     <View style={{ flex: 1 }}>

@@ -12,11 +12,13 @@ const HomeMap = ({ captainMarkers, toggleCloseSOS }) => {
           <ActivityIndicator color="#e02e88" size={30} />
         </View>
       ) : (
-        <HomeMapPreview
+        <>
+          {/* <HomeMapPreview
           captainMarkers={captainMarkers}
           location={location}
           handleOpenSafetyModal={toggleCloseSOS}
-        />
+          /> */}
+        </>
       )}
     </View>
   );

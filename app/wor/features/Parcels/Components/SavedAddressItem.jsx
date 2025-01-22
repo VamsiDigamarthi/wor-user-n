@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 10,
     gap: 5,
-    margin: 1,
+    // margin: 1,
   },
   innerCard: {
     flexDirection: "row",

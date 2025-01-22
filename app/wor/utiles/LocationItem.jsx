@@ -1,16 +1,24 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Ionicons, Entypo, MaterialIcons } from "@expo/vector-icons";
 import { FavoritesIcons } from "../Icons/Icons";
+import { useLocationItemHook } from "./LocationItem.hook";
+import { useSelector } from "react-redux";
 
 const LocationItem = ({
   placeName,
   placeVicinity,
-  entireLocation,
+  eachPlace,
   iconType = Ionicons,
   iconName = "location-sharp",
   isFavoriteIconDisplay = false,
+  onPress = () => {},
 }) => {
-  const onPress = () => {};
+  const { favoritePlaces } = useSelector((state) => state.favoritePlaces);
+  const { addedFavoritePlace } = useLocationItemHook();
+
+  const isFavorite = favoritePlaces?.some(
+    (place) => place.name === eachPlace?.name
+  );
 
   let Icon;
   switch (iconType) {
@@ -54,8 +62,14 @@ const LocationItem = ({
         </View>
       </Pressable>
       {isFavoriteIconDisplay && (
-        <Pressable style={styles.favorite}>
-          <FavoritesIcons size={22} color="gray" />
+        <Pressable
+          style={styles.favorite}
+          onPress={() => addedFavoritePlace(eachPlace)}
+        >
+          <FavoritesIcons
+            size={22}
+            color={isFavorite ? "#e02e88" : "#808080"}
+          />
         </Pressable>
       )}
     </View>

@@ -7,6 +7,9 @@ import profileSlice from "../app/wor/features/ridebooking/home/redux/profileSlic
 import previewOrders from "./Features/Auth/PreviousOrders";
 import location from "./Features/Location/LocationSlice";
 import nearPlaces from "../app/wor/features/ridebooking/home/redux/nearPlaceSlice";
+import homePlaces from "../app/wor/features/ridebooking/home/redux/homePlace";
+import allRideDetails from "../app/wor/features/ridebooking/sharedLogics/rideDetailsSlice";
+import favoritePlaces from "../app/wor/features/ridebooking/selectdroplocation/redux/favoritePlaces.slice";
 
 const store = configureStore({
   reducer: {
@@ -15,12 +18,10 @@ const store = configureStore({
     previewOrders,
     location,
     nearPlaces,
+    homePlaces,
+    allRideDetails,
+    favoritePlaces,
   },
-
-  // middleware: (getDefaultMiddleware) =>
-  //   getDefaultMiddleware({
-  //     immutableCheck: false,
-  //   }),
 });
 
 export default store;

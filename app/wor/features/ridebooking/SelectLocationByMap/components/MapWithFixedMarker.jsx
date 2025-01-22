@@ -3,13 +3,13 @@ import React from "react";
 import MapView from "react-native-maps";
 const { width, height } = Dimensions.get("window");
 
-const MapWithFixedMarker = ({ mapRegion }) => {
+const MapWithFixedMarker = ({ mapRegion, onRegionChangeComplete }) => {
   return (
     <>
       <MapView
         style={styles.map}
         region={mapRegion}
-        // onRegionChangeComplete={onRegionChangeComplete}
+        onRegionChangeComplete={onRegionChangeComplete}
       />
 
       <View style={styles.fixedMarker}>

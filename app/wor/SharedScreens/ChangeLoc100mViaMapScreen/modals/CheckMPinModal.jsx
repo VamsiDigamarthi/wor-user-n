@@ -7,33 +7,15 @@ import { COLORS } from "../../../../../Constants/colors";
 const CheckMPinModal = ({
   isOpenEnterConfirmMPinModal,
   onOpenIsEnterConfirmPinModal,
-  dropDetails,
-  selectedVehicle,
   time,
-  ridePrice,
-  selectedCard,
-  parcelDetails,
-  isPickLocationFromParc,
-  isRideBookingScreen,
   pickUpPlace,
   newMarker,
-  parcelPrice,
-  howManyMans,
 }) => {
   const { mPin, inputRefs, handleChange } = useCheckMPinModalHook({
-    dropDetails,
-    selectedVehicle,
     time,
-    ridePrice,
-    selectedCard,
-    parcelDetails,
-    isPickLocationFromParc,
-    isRideBookingScreen,
     pickUpPlace,
     newMarker,
     onOpenIsEnterConfirmPinModal,
-    parcelPrice,
-    howManyMans,
   });
 
   return (
