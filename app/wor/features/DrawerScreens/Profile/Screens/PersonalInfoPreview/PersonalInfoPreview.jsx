@@ -17,17 +17,24 @@ import CustomBtn from "../../../../../utiles/CustomBtn";
 import { usePersonalInfoHook } from "./PersonalInfo.hook";
 
 const PersonalInfoPreview = () => {
+  const { onChangeProfile, handleInputChange, userData, profile } =
+    usePersonalInfoHook();
   const navigation = useNavigation();
-  const { profile } = useSelector((state) => state.profileSlice);
   const [open, setOpen] = useState(false);
   const [current, setCurrent] = useState("name");
 
   function openModalToEdit(type) {
-    setOpen(true);
+    setOpen(!open);
     setCurrent(type);
   }
 
-  function UpdateData() {}
+  function updateData() {
+    console.log("pressed");
+
+    onChangeProfile();
+    setOpen(!open);
+    setCurrent("name");
+  }
 
   return (
     <View style={{ flex: 1, backgroundColor: "#F7F7F7" }}>
@@ -75,8 +82,33 @@ const PersonalInfoPreview = () => {
             //   closeModalFun={() => setModalOpen(!modalOpen)}
           >
             <View style={styles.btContainer}>
-              <EditTextInp label="First Name" />
-              <EditTextInp label="Last Name" />
+              {current == "name" && (
+                <>
+                  <EditTextInp
+                    handleInputChange={handleInputChange}
+                    value={userData?.name}
+                    field={"name"}
+                    label="First Name"
+                  />
+                </>
+              )}
+
+              {current == "email" && (
+                <EditTextInp
+                  handleInputChange={handleInputChange}
+                  value={userData?.email}
+                  field={"email"}
+                  label="Email Id"
+                />
+              )}
+              {current == "address" && (
+                <EditTextInp
+                  value={userData?.address}
+                  handleInputChange={handleInputChange}
+                  field={"address"}
+                  label="Address"
+                />
+              )}
 
               <View
                 style={{
@@ -92,8 +124,7 @@ const PersonalInfoPreview = () => {
                   borderColor={"#757575"}
                   borderWidth={1}
                   onPress={() => {
-                    setOpen(!open);
-                    setCurrent("name");
+                    openModalToEdit("name");
                   }}
                 />
 
@@ -103,6 +134,7 @@ const PersonalInfoPreview = () => {
                   borderColor={"#e02e88"}
                   btnColor={"#e02e88"}
                   borderWidth={1}
+                  onPress={updateData}
                 />
               </View>
             </View>
@@ -141,11 +173,15 @@ function ProfileTextCard({ title, text, edit, onclick }) {
   );
 }
 
-function EditTextInp({ value, setValue, label }) {
+function EditTextInp({ value, field, label, handleInputChange }) {
   return (
     <View>
       <Text style={{ fontWeight: "bold" }}>{label}</Text>
-      <TextInput style={styles.input} />
+      <TextInput
+        value={value}
+        onChangeText={(text) => handleInputChange(field, text)}
+        style={styles.input}
+      />
     </View>
   );
 }

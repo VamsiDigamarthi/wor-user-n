@@ -6,7 +6,7 @@ import {
   TextInput,
   View,
 } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AuthAppBar from "./AuthAppBar";
 import CustomBtn from "../../../utiles/CustomBtn";
 import {
@@ -46,7 +46,7 @@ const OtpScreen = () => {
   const [isFocused, setIsFocused] = useState(false);
 
   const justLog = async () => {
-    console.log(otp);
+    // console.log(otp);
     if (otp[5]?.length <= 0) {
       setOtpError("Please enter OTP");
       return;
@@ -61,7 +61,7 @@ const OtpScreen = () => {
       setIsLoading(false);
 
       if (response.data.token) {
-        console.log(response.data.token);
+        // console.log(response.data.token);
         await AsyncStorage.setItem(
           "token",
           JSON.stringify(response.data.token)
@@ -76,12 +76,12 @@ const OtpScreen = () => {
         );
       }
     } catch (error) {
-      console.log(error?.response?.data?.message);
+      // console.log(error?.response?.data?.message);
       setIsLoading(false);
       if (error.response?.data?.message === "Invalid OTP") {
         setOtpError("Invalid Otp");
       } else if (error.response?.data?.message === "User does not exist") {
-        console.log("navigating");
+        // console.log("navigating");
 
         navigation.navigate("signup", { mobile });
       } else {
@@ -96,6 +96,10 @@ const OtpScreen = () => {
       console.error("Failed to open URL:", err)
     );
   };
+
+  // useEffect(()=>{
+
+  // },[])
 
   return (
     <View style={styles.container}>
@@ -112,8 +116,8 @@ const OtpScreen = () => {
             The Otp will send your mobile number
           </Text>
           <View style={{ flexDirection: "row", gap: 10 }}>
-            <Text style={{ color: "gray", fontSize: 13 }}>123456 .</Text>
-            <Pressable>
+            {/* <Text style={{ color: "gray", fontSize: 13 }}>123456 .</Text> */}
+            <Pressable onPress={() => navigation.goBack()}>
               <Text style={{ color: "blue", fontSize: 13 }}>Change Number</Text>
             </Pressable>
           </View>

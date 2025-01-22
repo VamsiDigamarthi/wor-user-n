@@ -6,41 +6,39 @@ import {
   StyleSheet,
   Pressable,
   Linking,
+  TouchableOpacity,
 } from "react-native";
-import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
+import { DrawerContentScrollView } from "@react-navigation/drawer";
 import { Ionicons, FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 import { imageUrl } from "../../Constants/url";
 import defaultImg from "../../assets/images/profile/Services.png";
-
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import DrawerData from "./DrawerData.js";
 const CustomDrawerContent = (props) => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(true); // Track drawer open/close
+  // const [isDrawerOpen, setIsDrawerOpen] = useState(true);
   const [selectedItem, setSelectedItem] = useState("");
   const { profile } = useSelector((state) => state.profileSlice);
   const [avgRating, setAvgRating] = useState("");
 
-  const [imageSrc, setImageSrc] = useState(
-    profile?.profilePic
-      ? { uri: `${imageUrl}/${profile.profilePic}` }
-      : defaultImg
-  );
+  const imageSrc = profile?.profilePic
+    ? { uri: `${imageUrl}/${profile.profilePic}` }
+    : defaultImg;
 
   // console.log(profile);
-  const toggleDrawer = () => {
-    setIsDrawerOpen(!isDrawerOpen); // Toggle drawer state
-  };
+  // const toggleDrawer = () => {
+  //   setIsDrawerOpen(!isDrawerOpen); // Toggle drawer state
+  // };
 
   const handleItemPress = (itemName) => {
     setSelectedItem(itemName); // Set selected item
     props.navigation.navigate(itemName); // Navigate to the corresponding screen
   };
 
-  const getItemStyle = (itemName) => {
-    return itemName === selectedItem
-      ? { backgroundColor: "#fff5f9" } // Highlight selected item
-      : {}; // Default style
-  };
+  // const getItemStyle = (itemName) => {
+  //   return itemName === selectedItem
+  //     ? { backgroundColor: "#fff5f9" } // Highlight selected item
+  //     : {}; // Default style
+  // };
 
   // let image = profile
   //   ? `${imageUrl}/${profile?.profilePic}`
@@ -75,69 +73,24 @@ const CustomDrawerContent = (props) => {
 
   return (
     <View style={{ flex: 1 }}>
-      {/* Drawer Toggle Vector */}
-      {/* <Pressable
-        style={{
-          position: "absolute",
-          height: 40,
-          width: 40,
-          top: 40,
-          right: isDrawerOpen ? -15 : -40, 
-          zIndex: 5,
-          justifyContent: "start",
-          alignItems: "center",
-          backgroundColor: "#e02e88",
-          borderTopLeftRadius: 22,
-          borderBottomLeftRadius: 22,
-       
-          elevation: 5,
-
-          flexDirection: "row",
-        }}
-      >
-        <MaterialCommunityIcons
-          style={{ paddingLeft: 4 }}
-          name="code-tags"
-          size={22}
-          color="white"
-        />
-       
-      </Pressable> */}
-
-      {/* Fixed Pink View with Border Radius */}
-      {/* {isDrawerOpen && (
-        <View
-          style={{
-            position: "absolute",
-            height: "100%",
-            backgroundColor: "#e02e88",
-            width: 1,
-            right: 0,
-            overflow: "hidden",
-            borderTopRightRadius: 16,
-            borderBottomRightRadius: 16,
-            zIndex: 10,
-          }}
-        />
-      )} */}
-
-      {/* Scrollable Drawer Content */}
-
       {/* Profile Header */}
-      <View style={[styles.headerContainer, { borderTopRightRadius: 20 }]}>
-        <Image source={imageSrc} style={styles.profilePic} />
-        <View style={{ gap: 10 }}>
+      <View style={[styles.headerContainer]}>
+        <View style={{ width: "50%" }}>
+          <Image source={imageSrc} style={styles.profilePic} />
+        </View>
+        <View style={{ gap: 10, width: "50%" }}>
           <Pressable
             onPress={() => handleItemPress("Profile")}
             style={{
               flexDirection: "row",
               alignItems: "center",
-              justifyContent: "center",
+              justifyContent: "start",
               gap: 10,
+              width: "100%",
             }}
           >
-            <Text style={styles.profileName}>
-              {profile?.name?.slice(0, 10)}
+            <Text style={[styles.profileName]} numberOfLines={2}>
+              {profile?.name}
             </Text>
 
             <FontAwesome name="chevron-right" size={15} color="#B0B0B0" />
@@ -156,33 +109,30 @@ const CustomDrawerContent = (props) => {
         style={styles.drawer}
       >
         {/* Drawer Items */}
-        <View style={[styles.drawerItemsContainer]}>
-          <DrawerItem
-            label="Help & WoR Support"
-            icon={() => (
-              <Ionicons name="wallet-outline" size={22} color="gray" />
-            )}
-            onPress={() => handleItemPress("HelpAndSupport")}
-            labelStyle={styles.labelStyle}
-            style={getItemStyle("HelpAndSupport")}
-          />
-          <DrawerItem
-            label="E-Wallet"
-            icon={() => (
-              <Ionicons name="person-outline" size={22} color="gray" />
-            )}
-            onPress={() => handleItemPress("WalletLoad")}
-            labelStyle={styles.labelStyle}
-            style={getItemStyle("WalletLoad")}
-          />
 
-          <DrawerItem
-            label="Parcel"
-            icon={() => <Ionicons name="cube-outline" size={22} color="gray" />}
-            onPress={() => handleItemPress("ParcelHome")}
-            labelStyle={styles.labelStyle}
-            style={getItemStyle("Parcel Send")}
-          />
+        <View style={[styles.drawerItemsContainer]}>
+          {DrawerData.map((e, index) => {
+            return (
+              <CustomDrawerItem
+                key={index}
+                label={e.label}
+                onPress={() => handleItemPress(e.screenName)}
+                icon={e.icon}
+              />
+            );
+          })}
+          {/* 
+          <FlatList
+            data={DrawerData}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => (
+              <CustomDrawerItem
+                label={item.label}
+                onPress={() => handleItemPress(item.screenName)}
+                icon={item.icon}
+              />
+            )}
+          /> */}
 
           {/* <DrawerItem
             label="Profile"
@@ -194,28 +144,6 @@ const CustomDrawerContent = (props) => {
             style={getItemStyle("Profile")}
           /> */}
 
-          <DrawerItem
-            label="Safety"
-            icon={() => (
-              <Ionicons
-                name="shield-checkmark-outline"
-                size={22}
-                color="gray"
-              />
-            )}
-            onPress={() => handleItemPress("Safety")}
-            labelStyle={styles.labelStyle}
-            style={getItemStyle("Safety")}
-          />
-
-          <DrawerItem
-            label="My Rides"
-            icon={() => <Ionicons name="time-outline" size={22} color="gray" />}
-            onPress={() => handleItemPress("RideHistory")}
-            labelStyle={styles.labelStyle}
-            style={getItemStyle("Ride History")}
-          />
-
           {/* <DrawerItem
             label="Favorites"
             icon={() => (
@@ -225,44 +153,6 @@ const CustomDrawerContent = (props) => {
             labelStyle={styles.labelStyle}
             style={getItemStyle("Favorites")}
           /> */}
-
-          <DrawerItem
-            label="Notifications"
-            icon={() => (
-              <Ionicons name="notifications-outline" size={22} color="gray" />
-            )}
-            onPress={() => handleItemPress("Notifications")}
-            labelStyle={styles.labelStyle}
-            style={getItemStyle("Notifications")}
-          />
-
-          <DrawerItem
-            label="Donation"
-            icon={() => (
-              <Ionicons name="heart-outline" size={22} color="gray" />
-            )}
-            onPress={() => handleItemPress("Donation")}
-            labelStyle={styles.labelStyle}
-            style={getItemStyle("Donation")}
-          />
-
-          <DrawerItem
-            label="Refer to Earn"
-            icon={() => <Ionicons name="gift-outline" size={22} color="gray" />}
-            onPress={() => handleItemPress("ReferAndEarn")}
-            labelStyle={styles.labelStyle}
-            style={getItemStyle("Refer to Earn")}
-          />
-
-          <DrawerItem
-            label="Suggest to Wor"
-            icon={() => (
-              <Ionicons name="settings-outline" size={22} color="gray" />
-            )}
-            onPress={() => handleItemPress("Suggestions")}
-            labelStyle={styles.labelStyle}
-            style={getItemStyle("Suggestions")}
-          />
 
           {/* <DrawerItem
             label="Payment Method"
@@ -281,25 +171,6 @@ const CustomDrawerContent = (props) => {
             labelStyle={styles.labelStyle}
             style={getItemStyle("Help")}
           /> */}
-
-          <DrawerItem
-            label="Driving Schools"
-            icon={() => (
-              <Ionicons name="settings-outline" size={22} color="gray" />
-            )}
-            onPress={() => handleItemPress("DrivingSchools")}
-            labelStyle={styles.labelStyle}
-            style={getItemStyle("DrivingSchools")}
-          />
-          <DrawerItem
-            label="Settings"
-            icon={() => (
-              <Ionicons name="settings-outline" size={22} color="gray" />
-            )}
-            onPress={() => handleItemPress("About")}
-            labelStyle={styles.labelStyle}
-            style={getItemStyle("About")}
-          />
         </View>
       </DrawerContentScrollView>
 
@@ -330,21 +201,33 @@ const CustomDrawerContent = (props) => {
   );
 };
 
-function CustomDrawerItem({ title }) {
+function CustomDrawerItem({ label, onPress, icon }) {
   return (
-    <View style={styles.itemContainer}>
-      <Text style={styles.labelStyle}>Suggest to Wor</Text>
+    <TouchableOpacity style={styles.itemContainer} onPress={onPress}>
+      <View style={{ flexDirection: "row", alignItems: "center", gap: 20 }}>
+        {icon}
+        <Text style={styles.labelStyle}>{label}</Text>
+      </View>
+
       <Ionicons name="chevron-forward-outline" size={22} color="gray" />
-    </View>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   itemContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    marginBottom: 5,
+    // backgroundColor: "red",
     width: "100%",
+    // borderColor: "red",
+    borderBottomWidth: 1,
+    borderBottomColor: "#EEEEEE",
   },
   labelStyle: {
     fontSize: 16,
@@ -360,31 +243,38 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     backgroundColor: "#fff",
-    paddingBottom: 30,
+    paddingHorizontal: 30,
+    paddingVertical: 15,
     alignItems: "center",
-    gap: 10,
-    justifyContent: "space-evenly",
+    // gap: 0,
+    // justifyContent: "space-evenly",
     borderBottomWidth: 1,
     borderStyle: "dashed",
     borderBottomColor: "#e0e0e0",
+    // height: 200,
+
     // padding: 20,
     width: "100%",
     paddingTop: 80,
     flexDirection: "row",
+    justifyContent: "center",
+    // borderWidth: 1,
   },
   profilePic: {
-    width: 80,
-    height: 80,
+    width: 60,
+    height: 60,
     borderRadius: 40,
-    marginBottom: 10,
+    padding: 10,
+    // marginBottom: 5,
     borderWidth: 1,
-    borderColor: "#e02e88",
+    borderColor: "#eac4f9",
   },
   profileName: {
     fontSize: 18,
     fontWeight: "bold",
     color: "#333",
     lineHeight: 25,
+    // width: "50%",
 
     // width: "80%",
     // borderWidth: 1,

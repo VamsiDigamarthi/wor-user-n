@@ -56,6 +56,13 @@ const HomeMapPreview = ({
       setInitialRegion(newRegion);
       setNewLocation(location);
     }
+
+    if (mapRef.current) {
+      mapRef.current.fitToCoordinates(initialRegion, {
+        edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
+        animated: true,
+      });
+    }
   }, [location]);
 
   if (!location || !newLocation) {
@@ -124,6 +131,8 @@ const styles = StyleSheet.create({
   mapContainer: {
     width: "100%",
     height: "100%",
+    position: "relative",
+    bottom: 200,
   },
   loadingContainer: {
     flex: 1,

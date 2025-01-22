@@ -6,11 +6,11 @@ import { allRideBookingScreen } from "../../sharedLogics/styles/ridebookingstyle
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import HomeMap from "../components/HomeMap";
 import SliderComponent from "../components/SliderComponent";
-import HomeCopyBox from "../components/HomeCopyBox";
 import HomeWorImage from "../components/HomeWorImage";
 import AllServices from "../components/AllServices";
 import HomeInput from "../components/HomeInput";
 import HomePlaceNearPlaceCard from "../components/HomePlaceNearPlaceCard";
+import CopyBox from "../../../../utiles/CopyBox";
 
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.54, 0.6].map((p) => screenHeight * p); // Example snap points for Android
@@ -37,7 +37,7 @@ const HomeScreen = () => {
             <HomePlaceNearPlaceCard nearByRandomItems={nearByRandomItems} />
             <AllServices />
             <SliderComponent />
-            <HomeCopyBox />
+            <CopyBox />
             <HomeWorImage />
           </View>
         </BottomSheetComponent>

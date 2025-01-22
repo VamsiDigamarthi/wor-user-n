@@ -54,5 +54,6 @@ export const usePersonalInfoHook = () => {
     userData,
     handleInputChange,
     onChangeProfile,
+    profile,
   };
 };

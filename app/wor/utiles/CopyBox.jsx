@@ -45,5 +45,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: 160,
     borderStyle: "dashed",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

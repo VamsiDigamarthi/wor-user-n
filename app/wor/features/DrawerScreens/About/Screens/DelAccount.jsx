@@ -5,23 +5,37 @@ import {
   View,
   TouchableOpacity,
 } from "react-native";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import ProfileNavigationCard from "../Components/ProfileNavigationCard";
 import CustomeAppbar from "../../../../../../Utils/CustomeAppbar/CustomeAppbar";
-
+import ModalUI from "../../../../utiles/Modal/Modal";
 import { Modalize } from "react-native-modalize";
 import { Text } from "react-native";
+import { infoModalStyles } from "../../../../../../Components/InfoUi/Styles/InfoModalStyles";
+import Toast from "react-native-toast-message";
 
 const DelAccScreen = () => {
   const navigation = useNavigation();
   const modalizeRef = useRef(null);
 
-  const onOpenModal = () => {
-    if (modalizeRef?.current) {
-      modalizeRef?.current?.open();
-    }
+  // const onOpenModal = () => {
+  //   if (modalizeRef?.current) {
+  //     modalizeRef?.current?.open();
+  //   }
+  // };
+
+  const pressDel = () => {
+    Toast.show({
+      text1: "We Have Recieved Your Deletion Request",
+      text2: "It will be processed Soon",
+      type: "info",
+      position: "top",
+    });
+    setOpen(!open);
   };
+
+  const [open, setOpen] = useState(false);
 
   return (
     <View style={{ flex: 1 }}>
@@ -30,37 +44,38 @@ const DelAccScreen = () => {
         <ProfileNavigationCard
           title="Delete Account"
           // navigateTo="Termsandconditions"
-          onClick={onOpenModal}
+          onClick={() => setOpen(!open)}
         />
       </ScrollView>
 
-      <Modalize ref={modalizeRef} snapPoint={250}>
-        <View style={styles.bottomSheetContent}>
-          <Text style={styles.bottomSheetTitle}>Delete Account</Text>
-          <Text style={styles.bottomSheetText}>
-            Are you sure you want to delete your account? This action cannot be
-            undone.
-          </Text>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              style={styles.cancelButton}
-              onPress={() => modalizeRef?.current?.close()}
-            >
-              <Text style={styles.cancelButtonText}>Cancel</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.deleteButton}
-              onPress={(event) => {
-                event.persist();
-                console.log("Delete pressed");
-                // Any async actions can be done here
-              }}
-            >
-              <Text style={styles.deleteButtonText}>Delete</Text>
-            </TouchableOpacity>
+      {open && (
+        <ModalUI
+          modalStyle="slide"
+          style={infoModalStyles.aadharModalStyles}
+          insideCardStyle={infoModalStyles.insideCardStyle}
+          closebtn={false}
+          closeModalFun={() => setOpen(!open)}
+        >
+          <View style={styles.bottomSheetContent}>
+            <Text style={styles.bottomSheetTitle}>Delete Account</Text>
+            <Text style={styles.bottomSheetText}>
+              Are you sure you want to delete your account? This action cannot
+              be undone.
+            </Text>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                style={styles.cancelButton}
+                onPress={() => modalizeRef?.current?.close()}
+              >
+                <Text style={styles.cancelButtonText}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.deleteButton} onPress={pressDel}>
+                <Text style={styles.deleteButtonText}>Delete</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      </Modalize>
+        </ModalUI>
+      )}
     </View>
   );
 };
