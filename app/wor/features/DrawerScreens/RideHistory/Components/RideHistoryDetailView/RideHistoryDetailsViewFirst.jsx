@@ -17,7 +17,7 @@ import RideHistoryNewItem from "../RideHistoryNewItem";
 import StarRating from "../../../../../utiles/StarRating/StarRating";
 
 const RideHistoryDetailsViewFirst = ({ ride }) => {
-  console.log(ride);
+  // console.log(ride);
 
   return (
     <>

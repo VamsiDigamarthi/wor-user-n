@@ -47,17 +47,38 @@ export const bookingRide = async ({ token, orderDetails }) => {
 };
 
 // Helper function for formatting date and time
-export const getFormattedDateTime = () => {
-  const indiaDateTime = new Date().toLocaleString("en-IN", {
-    timeZone: "Asia/Kolkata",
-  });
-  const datePart = indiaDateTime.split(",")[0];
-  const [day, month, year] = datePart.split("/");
-  const formattedDate = `${day}-${month}-${year}`;
-  const formattedTime = indiaDateTime.split(",")[1].trim();
+// export const getFormattedDateTime = () => {
+//   // const indiaDateTime = new Date().toLocaleString("en-IN", {
+//   //   timeZone: "Asia/Kolkata",
+//   // });
+//   const indiaDateTime = new Date().toLocaleString();
+//   const datePart = indiaDateTime.split(",")[0];
+//   const [day, month, year] = datePart.split("/");
+//   const formattedDate = `${day}-${month}-${year}`;
+//   const formattedTime = indiaDateTime.split(",")[1].trim();
 
+//   return { formattedDate, formattedTime, indiaDateTime };
+// };
+
+
+export const getFormattedDateTime = () => {
+  const now = new Date();
+  const offset = 5.5 * 60; // IST is UTC+5:30 in minutes
+  const localTime = new Date(now.getTime());
+
+  // Format the date and time
+  const day = String(localTime.getDate()).padStart(2, "0");
+  const month = String(localTime.getMonth() + 1).padStart(2, "0");
+  const year = localTime.getFullYear();
+  const hours = localTime.getHours() % 12 || 12; // Convert to 12-hour format
+  const minutes = String(localTime.getMinutes()).padStart(2, "0");
+  const ampm = localTime.getHours() >= 12 ? "pm" : "am";
+
+  const formattedDate = `${day}-${month}-${year}`;
+  const formattedTime = `${hours}:${minutes} ${ampm}`;
   return { formattedDate, formattedTime };
 };
+
 
 // Utility function to create order details for both parcel and ride screens
 export const createOrderDetails = ({

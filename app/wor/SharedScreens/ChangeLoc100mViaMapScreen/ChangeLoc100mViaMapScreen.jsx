@@ -24,6 +24,12 @@ const ChangeLoc100mViaMapScreen = () => {
     onOpenIsEnterConfirmPinModal,
   } = useChangeLoc100mViaMapScreenHook();
 
+
+
+
+
+  
+
   return (
     <AppBarLayout
       title={"Check Pick Up Location Again"}
@@ -82,6 +88,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     position: "relative",
+    bottom:10
   },
   mapContainer: {
     flex: 1,

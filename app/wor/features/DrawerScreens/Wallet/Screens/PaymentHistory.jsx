@@ -12,7 +12,9 @@ export default function PaymentHistory() {
       />
 
       <ScrollView style={styles.container}>
-        <PaymentHistoryCard />
+      {
+        [1,2,3,4,5,6,7,8,0].map((e)=>  <PaymentHistoryCard key={e} />)
+      }
       </ScrollView>
     </View>
   );
@@ -23,6 +25,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#f5f5f5",
     paddingHorizontal: 16,
+    marginTop:10
   },
   heading: {
     fontWeight: "bold",

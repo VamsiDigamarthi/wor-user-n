@@ -12,7 +12,7 @@ import CustomBtn from "../../../utiles/CustomBtn";
 const screenHeight = Dimensions.get("window").height;
 
 const androidSnapPoints = [0.35, 0.7].map((p) => screenHeight * p); // Example snap points for Android
-const iosSnapPoints = [0.15, 0.6].map((p) => screenHeight * p); // Example snap points for iOS
+const iosSnapPoints = [0.35, 0.6].map((p) => screenHeight * p); // Example snap points for iOS
 
 
 const ShowPriceScreen = () => {
@@ -48,8 +48,7 @@ const ShowPriceScreen = () => {
         snapPoints={snapPoints}
         handleSheetChange={handleSheetChange}
       >
-
-        {knowMoveDownOrUp === "moved down" ? (
+   {knowMoveDownOrUp === "moved down" ? (
           <View style={styles.singleFilterStyle}>
             {storedSelectedVehicle?.map((vehicle, index) => (
               <DisplayVehicle key={index} vehicle={vehicle} />
@@ -96,7 +95,7 @@ const styles = StyleSheet.create({
     gap: 20,
     alignItems: "center",
     position: "absolute",
-    bottom: 0,
+    bottom:0,
     left: 0,
     paddingBottom: 30,
     elevation: 20,

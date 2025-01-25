@@ -1,7 +1,9 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from "react-native";
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView, Platform } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
+// import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
+
 import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
 import CustomBtn from "../../../utiles/CustomBtn";
 
@@ -22,6 +24,11 @@ export default function Suggestions() {
   }
 
   return (
+     <KeyboardAvoidingView
+        style={{flex:1}}
+        behavior={Platform.OS === "ios" ? "padding" : "height"} // Adjust for iOS and Android
+        
+      >
     <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
     <View style={{ flex: 1 }}>
       <CustomeAppbar title="Suggestions" onBack={() => navigation.goBack()} />
@@ -53,15 +60,16 @@ export default function Suggestions() {
             onPress={() => {
               SendData();
             }}
-            btnColor={text ? "#fff" : "#e02e88"}
-            btnBg={text ? "#e02e88" : "#fff"}
-            borderColor={!text && "#e02e88"}
+            btnColor={text ? "#fff" : "#EA4C89"}
+            btnBg={text ? "#EA4C89" : "#fff"}
+            borderColor={!text && "#EA4C89"}
             borderWidth={1}
           />
         </View>
       </View>
     </View>
     </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 }
 

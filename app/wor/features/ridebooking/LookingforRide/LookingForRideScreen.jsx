@@ -10,7 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.48, 0.5].map((p) => screenHeight * p); // Example snap points for Android
-const iosSnapPoints = [0.15, 0.6].map((p) => screenHeight * p); // Example snap points for iOS
+const iosSnapPoints = [0.42, 0.42].map((p) => screenHeight * p); // Example snap points for iOS
 
 const LookingForRideScreen = () => {
   const {
@@ -77,7 +77,7 @@ const LookingForRideScreen = () => {
             onPress={
               showCancelWithReOrderBtn ? handleCancelRide : handleRplaceRide
             }
-            // onPress={() => navigation.navigate("captaineacceptride")}
+          // onPress={() => navigation.navigate("captaineacceptride")}
           />
           {!showCancelWithReOrderBtn && (
             <CustomBtn

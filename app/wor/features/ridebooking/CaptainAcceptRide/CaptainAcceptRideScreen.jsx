@@ -12,10 +12,11 @@ import { useSelector } from "react-redux";
 import { useCaptainAcceptRideScreenHook } from "./CaptainAcceptRideScreen.hook";
 import ShowPollyLine from "../../../utiles/ShowPollyLine";
 import AddTip from "./Components/AddTip";
+import CopyBox from "../../../utiles/CopyBox";
 
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.4, 0.6].map((p) => screenHeight * p); // Example snap points for Android
-const iosSnapPoints = [0.15, 0.6].map((p) => screenHeight * p); // Example snap points for iOS
+const iosSnapPoints = [0.35, 0.6].map((p) => screenHeight * p); // Example snap points for iOS
 
 const CaptainAcceptRideScreen = () => {
   const { mapHeight, snapPoints, handleSheetChange } = useBottomSheetConfig(
@@ -93,7 +94,7 @@ const CaptainAcceptRideScreen = () => {
           />
           <WorSupportCard />
           {otpVerified && <AddTip />}
-          <HomeCopyBox backgroundColor="#fff" />
+          <CopyBox backgroundColor="#fff" />
         </View>
       </BottomSheetComponent>
     </AppBarLayout>
