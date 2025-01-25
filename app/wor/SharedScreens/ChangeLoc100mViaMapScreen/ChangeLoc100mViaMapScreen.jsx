@@ -8,6 +8,7 @@ import { appbarStyles } from "../../utiles/styles";
 import ShowPickLocation from "./ShowPickLocation";
 import NavigateMPinScreenModal from "./modals/NavigateMPinScreenModal";
 import CheckMPinModal from "./modals/CheckMPinModal";
+import AppBarLayout from "../../features/ridebooking/sharedLogics/AppBarLayout";
 
 const ChangeLoc100mViaMapScreen = () => {
   const {
@@ -24,7 +25,11 @@ const ChangeLoc100mViaMapScreen = () => {
   } = useChangeLoc100mViaMapScreenHook();
 
   return (
-    <>
+    <AppBarLayout
+      title={"Check Pick Up Location Again"}
+      
+      isPositionAppbar={true}
+    >
       <View style={styles.container}>
         {!isBeforeBook && (
           <CustomeAppbar
@@ -67,7 +72,7 @@ const ChangeLoc100mViaMapScreen = () => {
         pickUpPlace={placeName}
         newMarker={{ lat: newMarker.latitude, lng: newMarker.longitude }}
       />
-    </>
+  </AppBarLayout>
   );
 };
 

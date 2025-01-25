@@ -1,4 +1,11 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from "react-native";
 import React, { useState } from "react";
 import {
   Entypo,
@@ -67,34 +74,34 @@ const InputBox = ({
   }
 
   const [isFocused, setIsFocused] = useState(false);
-  console.log(isFocused);
 
   return (
-    <View
-      style={[
-        styles.container,
-        // !isValid && styles.invalidInputCard,
-        isFocused && { borderColor: "#e02e88" },
-      ]}
-    >
-      <Text style={[styles.label, !isValid && styles.invalidLabel]}>
-        {label}
-      </Text>
-      <View style={[styles.inputCard]}>
-        {isIconsNotText ? <Icon name={icon} size={20} /> : <Text>+91</Text>}
-        <TextInput
-          style={styles.textInput}
-          keyboardType={keyboardType}
-          placeholder={placeholder}
-          onChangeText={onChangeText}
-          secureTextEntry={secureTextEntry}
-          value={value}
-          maxLength={maxLength}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-        />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View
+        style={[
+          styles.container,
+          isFocused && { borderColor: "#e02e88" },
+        ]}
+      >
+        <Text style={[styles.label, !isValid && styles.invalidLabel]}>
+          {label}
+        </Text>
+        <View style={[styles.inputCard]}>
+          {isIconsNotText ? <Icon name={icon} size={20} /> : <Text>+91</Text>}
+          <TextInput
+            style={styles.textInput}
+            keyboardType={keyboardType}
+            placeholder={placeholder}
+            onChangeText={onChangeText}
+            secureTextEntry={secureTextEntry}
+            value={value}
+            maxLength={maxLength}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+          />
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -120,7 +127,6 @@ const styles = StyleSheet.create({
   },
   inputCard: {
     backgroundColor: "#FFFFFF",
-
     height: 40,
     flexDirection: "row",
     justifyContent: "space-between",

@@ -11,7 +11,7 @@ import CustomBtn from "../../../utiles/CustomBtn";
 
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.58, 0.7].map((p) => screenHeight * p); // Example snap points for Android
-const iosSnapPoints = [0.15, 0.6].map((p) => screenHeight * p); // Example snap points for iOS
+const iosSnapPoints = [0.34, 0.6].map((p) => screenHeight * p); // Example snap points for iOS
 
 const ShowPriceScreen = () => {
   const {

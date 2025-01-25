@@ -10,7 +10,7 @@ import {
 
 const Notification = () => {
   const navigation = useNavigation();
-  const [notification, setNotification] = useState([]);
+  const [notification, setNotification] = useState([1,2,3]);
   return (
     <View style={styles.container}>
       <CustomeAppbar title="Notifications" onBack={() => navigation.goBack()} />

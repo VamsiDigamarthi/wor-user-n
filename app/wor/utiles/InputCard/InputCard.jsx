@@ -12,6 +12,7 @@ import {
   Octicons,
   SimpleLineIcons,
   Zocial,
+  autoCorrect
 } from "@expo/vector-icons";
 
 const InputBox = ({
@@ -92,6 +93,7 @@ const InputBox = ({
           maxLength={maxLength}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
+          autoCorrect={false}
         />
       </View>
     </View>
