@@ -6,7 +6,9 @@ import {
   Text,
   TextInput,
   Keyboard,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  Platform
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import AuthAppBar from "./AuthAppBar";
@@ -108,6 +110,10 @@ const OtpScreen = () => {
   // },[])
 
   return (
+    <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === "ios" ? "padding" : "height"} // Adjust for iOS and Android
+      >
     <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
     <View style={styles.container}>
       <AuthAppBar isLoginScreen={false} />
@@ -197,6 +203,7 @@ const OtpScreen = () => {
       </View>
     </View>
     </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 

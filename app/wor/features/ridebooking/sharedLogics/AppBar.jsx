@@ -24,7 +24,7 @@ const Appbar = ({
   const navigation = useNavigation();
 
   const onOpenDrawer = () => {
-    console.log("open drawer");
+  
     navigation.dispatch(DrawerActions.openDrawer());
   };
 
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     width: "100%",
-    height:  Platform.OS === "ios" ? 95 : 85,
+    height:  Platform.OS === "ios" ? 100 : 85,
     // backgroundColor: "red",
     zIndex: 999,
   },

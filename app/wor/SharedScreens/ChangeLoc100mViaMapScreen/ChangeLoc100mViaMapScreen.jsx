@@ -27,7 +27,6 @@ const ChangeLoc100mViaMapScreen = () => {
   return (
     <AppBarLayout
       title={"Check Pick Up Location Again"}
-      
       isPositionAppbar={true}
     >
       <View style={styles.container}>

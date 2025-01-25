@@ -14,11 +14,13 @@ PODS:
     - ExpoModulesCore
   - EXNotifications (0.28.19):
     - ExpoModulesCore
-  - Expo (51.0.38):
+  - Expo (51.0.39):
     - ExpoModulesCore
   - ExpoAsset (10.0.10):
     - ExpoModulesCore
   - ExpoBackgroundFetch (12.0.1):
+    - ExpoModulesCore
+  - ExpoClipboard (6.0.3):
     - ExpoModulesCore
   - ExpoFileSystem (17.0.1):
     - ExpoModulesCore
@@ -995,11 +997,11 @@ PODS:
     - React-Core
   - react-native-contacts (8.0.4):
     - React-Core
-  - react-native-date-picker (5.0.7):
+  - react-native-date-picker (5.0.8):
     - React-Core
   - react-native-maps (1.14.0):
     - React-Core
-  - react-native-netinfo (11.4.1):
+  - react-native-netinfo (11.3.1):
     - React-Core
   - react-native-razorpay (2.3.0):
     - razorpay-pod
@@ -1239,7 +1241,7 @@ PODS:
     - React-utils (= 0.74.5)
   - RNCAsyncStorage (1.23.1):
     - React-Core
-  - RNDateTimePicker (8.2.0):
+  - RNDateTimePicker (8.0.1):
     - React-Core
   - RNGestureHandler (2.16.2):
     - DoubleConversion
@@ -1271,75 +1273,9 @@ PODS:
     - React-Core
     - React-RCTImage
     - TOCropViewController (~> 2.7.4)
-  - RNPermissions (5.2.0):
+  - RNPermissions (5.2.4):
     - React-Core
-  - RNReanimated (3.16.3):
-    - DoubleConversion
-    - glog
-    - hermes-engine
-    - RCT-Folly (= 2024.01.01.00)
-    - RCTRequired
-    - RCTTypeSafety
-    - React-Codegen
-    - React-Core
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-ImageManager
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-rendererdebug
-    - React-utils
-    - ReactCommon/turbomodule/bridging
-    - ReactCommon/turbomodule/core
-    - RNReanimated/reanimated (= 3.16.3)
-    - RNReanimated/worklets (= 3.16.3)
-    - Yoga
-  - RNReanimated/reanimated (3.16.3):
-    - DoubleConversion
-    - glog
-    - hermes-engine
-    - RCT-Folly (= 2024.01.01.00)
-    - RCTRequired
-    - RCTTypeSafety
-    - React-Codegen
-    - React-Core
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-ImageManager
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-rendererdebug
-    - React-utils
-    - ReactCommon/turbomodule/bridging
-    - ReactCommon/turbomodule/core
-    - RNReanimated/reanimated/apple (= 3.16.3)
-    - Yoga
-  - RNReanimated/reanimated/apple (3.16.3):
-    - DoubleConversion
-    - glog
-    - hermes-engine
-    - RCT-Folly (= 2024.01.01.00)
-    - RCTRequired
-    - RCTTypeSafety
-    - React-Codegen
-    - React-Core
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-ImageManager
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-rendererdebug
-    - React-utils
-    - ReactCommon/turbomodule/bridging
-    - ReactCommon/turbomodule/core
-    - Yoga
-  - RNReanimated/worklets (3.16.3):
+  - RNReanimated (3.10.1):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1427,6 +1363,7 @@ DEPENDENCIES:
   - Expo (from `../node_modules/expo`)
   - ExpoAsset (from `../node_modules/expo-asset/ios`)
   - ExpoBackgroundFetch (from `../node_modules/expo-background-fetch/ios`)
+  - ExpoClipboard (from `../node_modules/expo-clipboard/ios`)
   - ExpoFileSystem (from `../node_modules/expo-file-system/ios`)
   - ExpoFont (from `../node_modules/expo-font/ios`)
   - ExpoImagePicker (from `../node_modules/expo-image-picker/ios`)
@@ -1537,6 +1474,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-asset/ios"
   ExpoBackgroundFetch:
     :path: "../node_modules/expo-background-fetch/ios"
+  ExpoClipboard:
+    :path: "../node_modules/expo-clipboard/ios"
   ExpoFileSystem:
     :path: "../node_modules/expo-file-system/ios"
   ExpoFont:
@@ -1704,9 +1643,10 @@ SPEC CHECKSUMS:
   EXImageLoader: 1fe96c70cdc78bedc985ec4b1fab5dd8e67dc38b
   EXLocation: c52e800875ce2a5974b3b796ff2f3a8b978e0b28
   EXNotifications: 6ce128c0d3d3d161cd68bfd07d593db40e140396
-  Expo: 723b25eaad8c356d626c579e3d78d5b969e1d3ea
+  Expo: ed0a748eb6be0efd2c3df7f6de3f3158a14464c9
   ExpoAsset: 286fee7ba711ce66bf20b315e68106b13b8629fc
   ExpoBackgroundFetch: 2988b27bc95f322e856dbd44060b6951fdfe8950
+  ExpoClipboard: 243e22ff4161bbffcd3d2db469ae860ddc1156be
   ExpoFileSystem: 2988caaf68b7cb706e36d382829d99811d9d76a5
   ExpoFont: 38dddf823e32740c2a9f37c926a33aeca736b5c4
   ExpoImagePicker: 517a47896adf5d55d0a1c159e5d1e312af12e57c
@@ -1745,9 +1685,9 @@ SPEC CHECKSUMS:
   react-native-background-actions: 48e6bad9e2a47e3b04858634c5a05ea11062f680
   react-native-contact-pick: 7be564b83b2f6a96664d91fc74818a4f462e2d55
   react-native-contacts: 9f23a0a9576903468ad885f99d6d19a16bce266b
-  react-native-date-picker: 585252087d4820b4cd8f2cf80068f6e8f5b72413
+  react-native-date-picker: efc84d576cf2637a9697853e790c40f2790bd977
   react-native-maps: deb2adbdf309b622f15055b72b8742054929c740
-  react-native-netinfo: cec9c4e86083cb5b6aba0e0711f563e2fbbff187
+  react-native-netinfo: 2e3c27627db7d49ba412bfab25834e679db41e21
   react-native-razorpay: ab51e7be3d906f49b26198d978fc6f163e846d30
   react-native-safe-area-context: df9763c5de6fa38883028e243a0b60123acb8858
   react-native-voice: 908a0eba96c8c3d643e4f98b7232c6557d0a6f9c
@@ -1775,11 +1715,11 @@ SPEC CHECKSUMS:
   React-utils: 9fa4e5d0b5e6c6c85c958f19d6ef854337886417
   ReactCommon: 9f285823dbe955099978d9bff65a7653ca029256
   RNCAsyncStorage: aa75595c1aefa18f868452091fa0c411a516ce11
-  RNDateTimePicker: 818460dc31b0dc5ec58289003e27dd8d022fb79c
+  RNDateTimePicker: dde7ca9005d716f3efa9a63004b441679bca9a41
   RNGestureHandler: 326e35460fb6c8c64a435d5d739bea90d7ed4e49
   RNImageCropPicker: d5387003612dd08d52fb062760136e0e473df186
-  RNPermissions: 73c7e3ab867d4064b1c1de08d365c44e39d16f7f
-  RNReanimated: d059c7bba8449213d3199166265d0586676d655f
+  RNPermissions: 36d2f716a2f6b72554f07c3226d5163ef7bb43f0
+  RNReanimated: def444e044c354f38bb0a5926a8583ba19d944c1
   RNScreens: a2d8a2555b4653d7a19706eb172f855657ac30d7
   RNShare: 5d7762ded21e1fff97dda6d41e963e22dce2d025
   RNSound: 314cc5226453ef4a3314a196c65e8a65e5106a7b
