@@ -7,6 +7,7 @@ import {
   setIsBeforeBook,
 } from "../../sharedLogics/rideDetailsSlice";
 import SkeletonLoader from "../../../../utiles/Loaders/SingleLoader";
+import { View, StyleSheet } from "react-native";
 
 const HomePlaceNearPlaceCard = ({ nearByRandomItems }) => {
   const { homePlace, workPlace } = useSelector((state) => state.homePlaces);
@@ -33,7 +34,7 @@ const HomePlaceNearPlaceCard = ({ nearByRandomItems }) => {
   return (
     <>
       {location ? (
-        <>
+        <View style={styles.nearByLocationCard}>
           {renderLocationItem({
             place: nearByRandomItems[0],
             defaultPlace: null,
@@ -50,7 +51,7 @@ const HomePlaceNearPlaceCard = ({ nearByRandomItems }) => {
             defaultPlace: nearByRandomItems[2],
             ...(workPlace && { iconName: "work", iconType: "MaterialIcons" }),
           })}
-        </>
+        </View>
       ) : (
         <SkeletonLoader />
       )}
@@ -59,3 +60,10 @@ const HomePlaceNearPlaceCard = ({ nearByRandomItems }) => {
 };
 
 export default HomePlaceNearPlaceCard;
+
+const styles = StyleSheet.create({
+  nearByLocationCard: {
+    borderBottomWidth: 1,
+    borderBottomColor: "#ebebeb",
+  },
+});

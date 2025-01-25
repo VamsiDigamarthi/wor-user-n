@@ -10,7 +10,7 @@ import OfferCouponCard from "./Components/OfferCouponCard";
 import CustomBtn from "../../../utiles/CustomBtn";
 
 const screenHeight = Dimensions.get("window").height;
-const androidSnapPoints = [0.58, 0.7].map((p) => screenHeight * p); // Example snap points for Android
+const androidSnapPoints = [0.35, 0.7].map((p) => screenHeight * p); // Example snap points for Android
 const iosSnapPoints = [0.15, 0.6].map((p) => screenHeight * p); // Example snap points for iOS
 
 const ShowPriceScreen = () => {
@@ -21,11 +21,16 @@ const ShowPriceScreen = () => {
     selectedVehicleType,
     isParcScreen,
     onNavigateConfirmLocationScreen,
+    kownBotSheetChangeUpOrDown,
+    knowMoveDownOrUp,
+    storedSelectedVehicle,
   } = useShowPriceScreenHook();
   const { mapHeight, snapPoints, handleSheetChange } = useBottomSheetConfig(
     androidSnapPoints,
-    iosSnapPoints
+    iosSnapPoints,
+    kownBotSheetChangeUpOrDown
   );
+
   return (
     <AppBarLayout
       title={dropDetails?.name}
@@ -40,11 +45,19 @@ const ShowPriceScreen = () => {
         snapPoints={snapPoints}
         handleSheetChange={handleSheetChange}
       >
-        <View style={{ paddingHorizontal: 15, paddingVertical: 20 }}>
-          {filteredVehicles?.map((vehicle, index) => (
-            <DisplayVehicle key={index} vehicle={vehicle} />
-          ))}
-        </View>
+        {knowMoveDownOrUp === "moved down" ? (
+          <View style={styles.singleFilterStyle}>
+            {storedSelectedVehicle?.map((vehicle, index) => (
+              <DisplayVehicle key={index} vehicle={vehicle} />
+            ))}
+          </View>
+        ) : (
+          <View style={{ paddingHorizontal: 15, paddingVertical: 20 }}>
+            {filteredVehicles?.map((vehicle, index) => (
+              <DisplayVehicle key={index} vehicle={vehicle} />
+            ))}
+          </View>
+        )}
       </BottomSheetComponent>
       <View style={styles.coupneWithBtn}>
         <OfferCouponCard />
@@ -85,5 +98,11 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     backgroundColor: "#fff",
+  },
+  singleFilterStyle: {
+    width: "100%",
+    height: 300,
+    paddingHorizontal: 15,
+    paddingVertical: 20,
   },
 });

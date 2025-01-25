@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import HomeLocationCard from "../../../../utiles/HomeLocationCard";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import {
   setDropDetails,
   setInitialDropDetails,
 } from "../../sharedLogics/rideDetailsSlice";
+import AddHomePlaceBtn from "./AddHomePlaceBtn";
 
 const HomeWorkPlaceCard = ({ handleAddedHomePlace }) => {
   const dispatch = useDispatch();
@@ -38,11 +39,9 @@ const HomeWorkPlaceCard = ({ handleAddedHomePlace }) => {
           vicinity={homePlace?.vicinity}
         />
       ) : (
-        <CustomBtn
-          title="Add Home Place"
-          borderWidth={1}
-          borderColor="#e02e88"
-          btnColor="#e02e88"
+        <AddHomePlaceBtn
+          iconType="Entypo"
+          iconsName="home"
           onPress={() => handleAddedHomePlace({ type: "home" })}
         />
       )}
@@ -55,14 +54,21 @@ const HomeWorkPlaceCard = ({ handleAddedHomePlace }) => {
           onPress={() => onNavigateShowPriceScreen("home")}
         />
       ) : (
-        <CustomBtn
-          title="Add Work Place"
-          borderWidth={1}
-          borderColor="#e02e88"
-          btnColor="#e02e88"
+        <AddHomePlaceBtn
+          iconType="MaterialIcons"
+          iconsName="work"
+          title="Work"
+          subTitle="Add Work Place"
           onPress={() => handleAddedHomePlace({ type: "work" })}
         />
       )}
+      {/* <HomeLocationCard
+        location="Work"
+        vicinity={workPlace?.vicinity}
+        iconType="AntDesign"
+        iconName="star"
+        onPress={() => onNavigateShowPriceScreen("home")}
+      /> */}
     </View>
   );
 };
@@ -71,10 +77,12 @@ export default HomeWorkPlaceCard;
 
 const styles = StyleSheet.create({
   homeWorLocationCard: {
-    backgroundColor: "#fff",
+    backgroundColor: "#f7f7f7",
     width: "100%",
-    height: "25%",
-    justifyContent: "space-between",
+    // height: "20%",
+    gap: 5,
+    justifyContent: "space-around",
     alignItems: "center",
+    // backgroundColor: "blue",
   },
 });

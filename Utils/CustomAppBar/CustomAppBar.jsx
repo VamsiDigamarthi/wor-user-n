@@ -7,19 +7,25 @@ import {
   Animated,
   Easing,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons"; // Import icons from expo vector icons
+import { Ionicons, MaterialIcons } from "@expo/vector-icons"; // Import icons from expo vector icons
 import { COLORS } from "../../Constants/colors";
+import { useDispatch, useSelector } from "react-redux";
+import Toast from "react-native-toast-message";
+import { onFavoritePlace } from "../../app/wor/features/ridebooking/selectdroplocation/redux/favoritePlaces.slice";
+import { API } from "../../Constants/url";
 
-const CustomAppBar = ({ navigation, placeName }) => {
+const CustomAppBar = ({ navigation }) => {
+  const { token } = useSelector((state) => state.token);
+  const { favoritePlaces } = useSelector((state) => state.favoritePlaces);
+  const dispatch = useDispatch();
+  const { placeVicinity, placeName, location } = useSelector(
+    (state) => state.location
+  );
   const [currentIndex, setCurrentIndex] = useState(0);
   const animatedValue = useRef(new Animated.Value(1)).current; // Start animation value from 1
 
   // Text array to scroll through
-  const texts = [
-    placeName || "Your Current Location",
-    "Alternate Location 1",
-    "Alternate Location 2",
-  ];
+  const texts = [placeVicinity || "Your Current Location"];
 
   useEffect(() => {
     // Function to start animation and loop the text
@@ -43,16 +49,52 @@ const CustomAppBar = ({ navigation, placeName }) => {
     return () => clearInterval(intervalId); // Cleanup on unmount
   }, [animatedValue]);
 
+  const handleAddFavoritePlace = async () => {
+    try {
+      const response = await API.post(
+        "/user/favorites-places",
+        {
+          name: placeName,
+          vicinity: placeVicinity,
+          location,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      // console.log(response.data);
+      Toast.show({
+        text1: response?.data?.message,
+        type: "success",
+        position: "bottom",
+      });
+
+      dispatch(onFavoritePlace({ token }));
+    } catch (error) {
+      Toast.show({
+        text1: "Added favorite failed",
+        type: "error",
+        position: "bottom",
+      });
+    }
+  };
+
+  const isFavorite = favoritePlaces?.some((place) => place.name === placeName);
+
   return (
     <View style={styles.superContainer}>
       <View style={styles.appBarContainer}>
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          <Ionicons name="menu" size={24} color="#e02e88" />
+          <Ionicons name="menu" size={30} color="gray" />
         </TouchableOpacity>
 
         <View style={styles.appSecondCard}>
           <View style={styles.locationInputContainer}>
-            <Ionicons name="location-sharp" size={20} color="lightgray" />
+            <Ionicons name="location-sharp" size={20} color="#17a773" />
 
             {/* Animated Text Wrapper */}
             <Animated.View
@@ -65,14 +107,22 @@ const CustomAppBar = ({ navigation, placeName }) => {
                     }),
                   },
                 ],
+                // backgroundColor: "blue",
+                flex: 1,
               }}
             >
-              <Text style={styles.title}>{texts[currentIndex]}</Text>
+              <Text numberOfLines={1} ellipsizeMode="tail" style={styles.title}>
+                {texts[currentIndex]}
+              </Text>
             </Animated.View>
           </View>
 
-          <TouchableOpacity onPress={() => alert("Love icon pressed!")}>
-            <Ionicons name="heart-outline" size={24} color="lightgray" />
+          <TouchableOpacity onPress={handleAddFavoritePlace}>
+            {isFavorite ? (
+              <MaterialIcons name="favorite" size={24} color="#ea4c89" />
+            ) : (
+              <Ionicons name="heart-outline" size={24} color="#b0b0b0" />
+            )}
           </TouchableOpacity>
         </View>
       </View>
@@ -95,35 +145,38 @@ const styles = StyleSheet.create({
   appBarContainer: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    // justifyContent: "space-between",
     marginHorizontal: 20,
     marginTop: 20,
     marginBottom: 5,
     backgroundColor: COLORS.cardBackground,
     borderRadius: 6,
     height: 50,
+    // backgroundColor: "red",
   },
   appSecondCard: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    width: "90%",
+    width: "95%",
     borderRadius: 30,
     height: "100%",
-    paddingRight: 20,
+    paddingRight: 10,
     backgroundColor: "#fff",
     shadowColor: "red",
+    // backgroundColor: "blue",
   },
   locationInputContainer: {
     flexDirection: "row",
     alignItems: "center",
     borderRadius: 8,
-    paddingHorizontal: 10,
+    // paddingHorizontal: 10,
     paddingVertical: 5,
     flex: 1,
     marginHorizontal: 10,
     height: 30, // Fixed height for the animation
     overflow: "hidden", // To hide overflowing text
+    // backgroundColor: "red",
   },
   title: {
     fontSize: 13,

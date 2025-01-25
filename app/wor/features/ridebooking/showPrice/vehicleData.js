@@ -29,6 +29,11 @@ export const vehicles = [
     personCount: 3,
     vehicleType: "Auto",
   },
+  {
+    image: require("../../../../../assets/images/HomeServiceImages/cab.png"),
+    personCount: 4,
+    vehicleType: "Dummy",
+  },
 ];
 
 // Calculate price details based on distance
