@@ -9,15 +9,15 @@ import {
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import LinearGradient from "react-native-linear-gradient";
 import { mainImg } from "../../../../Images/ReferAndEarnImages";
-// import * as Clipboard from "expo-clipboard";
+import * as Clipboard from "expo-clipboard";
 import { useState } from "react";
 export default function MainCard() {
   const [text, setText] = useState("GOWOR");
 
   const copyToClipboard = () => {
     if (text) {
-      // Clipboard.setStringAsync(text);
-      // Alert.alert("Copied to Clipboard", text);
+      Clipboard.setStringAsync(text);
+      Alert.alert("Copied to Clipboard", text);
     } else {
       Alert.alert("Error", "Something went wrong");
     }
@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: 120,
     justifyContent: "space-between",
+    alignItems:"center"
   },
 
   image: {

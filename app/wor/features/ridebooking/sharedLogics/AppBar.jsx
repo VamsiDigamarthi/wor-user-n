@@ -43,7 +43,7 @@ const Appbar = ({
               style={[styles.btn]}
               onPress={() => navigation.goBack()}
             >
-              <Ionicons name="chevron-back" size={30} color="#000" />
+              <Ionicons name="chevron-back" size={24} color="#000" />
             </TouchableOpacity>
           )}
         </View>
@@ -54,7 +54,7 @@ const Appbar = ({
           >
             <View
               style={[
-                { flexDirection: "row", gap: 5, alignItems: "center" },
+                { flexDirection: "row", gap: 5, alignItems: "center", marginTop:vicinity ? 5 : -5 },
                 vicinity && styles.appTitCenWidth,
               ]}
             >

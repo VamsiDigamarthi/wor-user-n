@@ -1,15 +1,22 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { COLORS } from "../../../../../Constants/colors";
 import { imageUrl } from "../../../../../Constants/url";
 import { useNavigation } from "@react-navigation/native";
-import { PhoneIcon, SupportIcons } from "../../../Icons/Icons";
+import { PhoneIcon, SupportIcons , BackIcon} from "../../../Icons/Icons";
 
 const ChatHead = ({ captainDetails, isWorSupport }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
+
+
+
       <View style={styles.innerCard}>
+
+        <TouchableOpacity onPress={()=>navigation.goBack()}>
+          <BackIcon color={"#757575"}  size={24} />
+        </TouchableOpacity>
         <Pressable onPress={() => navigation.goBack()}>
           <View
             style={{

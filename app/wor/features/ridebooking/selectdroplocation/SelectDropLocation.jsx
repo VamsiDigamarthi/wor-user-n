@@ -17,7 +17,7 @@ const SelectDropLocation = () => {
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
+        // keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
       >
         <AppBarLayout title="Select Destination" isPositionAppbar={true}>
           <View style={styles.container}>

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity , Keyboard, TouchableWithoutFeedback } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity , Keyboard, TouchableWithoutFeedback , Platform, KeyboardAvoidingView} from "react-native";
 
 import CustomBtn from "../../../utiles/CustomBtn";
 import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
@@ -32,6 +32,11 @@ export default function DonationNew() {
   }, [donationAmount]);
 
   return (
+     <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            // keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
+          >
     <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       <CustomeAppbar title="Donation" onBack={() => navigation.goBack()} />
@@ -90,7 +95,7 @@ export default function DonationNew() {
       <View
         style={{
           position: "absolute",
-          bottom: 10,
+          bottom: Platform.OS == "ios" ? 24 : 10,
           width: "95%",
           left: 10,
         }}
@@ -104,6 +109,7 @@ export default function DonationNew() {
       </View>
     </View>
     </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 }
 

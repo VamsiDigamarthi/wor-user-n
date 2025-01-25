@@ -8,10 +8,14 @@ const ReferAndEarn = () => {
   const navigation = useNavigation();
   return (
     <View style={{ flex: 1 }}>
-      <CustomeAppbar
-        title="Refer And Earn"
-        onBack={() => navigation.goBack()}
-      />
+
+      <View style={{ zIndex: 10 }}>
+        <CustomeAppbar
+          title="Refer And Earn"
+          onBack={() => navigation.goBack()}
+        />
+      </View>
+
       <View style={styles.innerContainer}>
         <MainCard />
         <InviteCard />

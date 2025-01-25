@@ -24,7 +24,7 @@ const CustomeAppbar = ({
             style={[styles.btn]}
             onPress={() => navigation.goBack()}
           >
-            <Ionicons name="chevron-back" size={30} color="#000" />
+            <Ionicons name="chevron-back" size={24} color="#000" />
           </TouchableOpacity>
         </View>
 
@@ -112,8 +112,14 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
-    overflow: "hidden",
+    // overflow: "hidden",
     elevation: 4,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+  // backgroundColor:"red"
+
   },
   mainContainer: {
     flexDirection: "row",
@@ -123,7 +129,6 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     height: 50,
     zIndex: 30,
-    backgroundColor: "#fff",
     width: "100%",
   },
 
@@ -163,8 +168,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#000",
-    fontSize: Platform.OS == "ios"  ?16:18,
-    marginTop:Platform.OS == "ios"  ?-5:0,
+    fontSize: Platform.OS == "ios"  ? 16 : 18,
+    marginTop:Platform.OS == "ios"  ? -5 : 0,
     fontWeight: "bold",
     textAlign: "center",
   },
