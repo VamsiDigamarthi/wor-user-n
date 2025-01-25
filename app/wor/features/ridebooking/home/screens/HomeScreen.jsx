@@ -51,7 +51,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   bottomSheet: {
     gap: 5,
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
     paddingVertical: 10,
   },
 });

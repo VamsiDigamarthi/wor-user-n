@@ -119,6 +119,7 @@ import { useEffect } from "react";
 import SetNewMpin from "../app/wor/features/auth/Screens/MpinScreen";
 import PaymentHistory from "../app/wor/features/DrawerScreens/Wallet/Screens/PaymentHistory";
 import DelAccScreen from "../app/wor/features/DrawerScreens/About/Screens/DelAccount";
+import SavedLocations from "../app/wor/features/DrawerScreens/SavedLocations/SavedLocations";
 // >>>>>>> master
 /* Drawer Screens */
 
@@ -531,6 +532,11 @@ const AuthenticatedStack = ({ initialRoute, params }) => {
       <Stack.Screen
         name="DelAccScreen"
         component={DelAccScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SavedLocations"
+        component={SavedLocations}
         options={{ headerShown: false }}
       />
 

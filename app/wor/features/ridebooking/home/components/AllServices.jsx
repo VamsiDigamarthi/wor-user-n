@@ -16,7 +16,7 @@ const ServiceCard = ({ imageSource, label, onPress }) => {
         onPress={onPress}
         style={{
           backgroundColor: "#F2F0F5",
-          paddingHorizontal: 15,
+          paddingHorizontal: 13,
           paddingVertical: 10,
           borderRadius: 15,
         }}
@@ -99,7 +99,7 @@ const AllServices = () => {
         <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
           <Text style={styles.headerText}>Services</Text>
         </View>
-        <View style={styles.viewAllContainer}></View>
+        {/* <View style={styles.viewAllContainer}></View> */}
       </View>
       <View style={styles.serviceGrid}>{renderServices()}</View>
     </View>
@@ -153,8 +153,8 @@ const styles = StyleSheet.create({
     marginRight: 10, // Space between cards in horizontal scroll
   },
   image: {
-    width: 70,
-    height: 70,
+    width: 65,
+    height: 65,
     // marginBottom: 5,
     resizeMode: "contain",
   },
