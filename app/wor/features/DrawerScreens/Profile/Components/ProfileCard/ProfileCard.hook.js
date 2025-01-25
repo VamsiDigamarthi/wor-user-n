@@ -1,14 +1,16 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ImagePicker from "react-native-image-crop-picker";
 import { API, imageUrl } from "../../../../../../../Constants/url";
 import Toast from "react-native-toast-message";
 import { getMimeType } from "../../../../../../../Constants/imageAccepts";
 import { servicespng } from "../../../../../Images/ProfileImages";
+import { onProfileSection } from "../../../../../../../redux/Features/Auth/ProfileSlice";
 
 export const useProfileCardHook = () => {
   const { token } = useSelector((state) => state.token);
   const { profile } = useSelector((state) => state.profileSlice);
+  const dispatch = useDispatch();
   const [imageSource, setImageSource] = useState(
     profile?.profilePic
       ? { uri: `${imageUrl}/${profile.profilePic}` }
@@ -66,7 +68,9 @@ export const useProfileCardHook = () => {
         position: "bottom",
       });
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
+
+      console.log(error?.response?.data?.message);
       Toast.show({
         text1: "Profile update failed, please try again",
         type: "error",

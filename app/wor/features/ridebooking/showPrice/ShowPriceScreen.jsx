@@ -10,8 +10,10 @@ import OfferCouponCard from "./Components/OfferCouponCard";
 import CustomBtn from "../../../utiles/CustomBtn";
 
 const screenHeight = Dimensions.get("window").height;
+
 const androidSnapPoints = [0.58, 0.7].map((p) => screenHeight * p); // Example snap points for Android
 const iosSnapPoints = [0.34, 0.6].map((p) => screenHeight * p); // Example snap points for iOS
+
 
 const ShowPriceScreen = () => {
   const {
@@ -26,6 +28,9 @@ const ShowPriceScreen = () => {
     androidSnapPoints,
     iosSnapPoints
   );
+
+  console.log("mapHeight", mapHeight, "snapPoints", snapPoints);
+
   return (
     <AppBarLayout
       title={dropDetails?.name}
@@ -41,9 +46,11 @@ const ShowPriceScreen = () => {
         handleSheetChange={handleSheetChange}
       >
         <View style={{ paddingHorizontal: 15, paddingVertical: 20 }}>
-          {filteredVehicles?.map((vehicle, index) => (
-            <DisplayVehicle key={index} vehicle={vehicle} />
-          ))}
+          {filteredVehicles
+            ?.slice(0, mapHeight < 50 ? 3 : filteredVehicles.length)
+            .map((vehicle, index) => (
+              <DisplayVehicle key={index} vehicle={vehicle} />
+            ))}
         </View>
       </BottomSheetComponent>
       <View style={styles.coupneWithBtn}>
