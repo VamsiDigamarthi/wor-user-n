@@ -1,4 +1,4 @@
-// import * as Clipboard from "expo-clipboard";
+import * as Clipboard from "expo-clipboard";
 import { StyleSheet, Text, TouchableOpacity, View , Platform} from "react-native";
 import Toast from "react-native-toast-message";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -6,7 +6,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 export default function CopyBox() {
   const copyToClipboard = (text) => {
     if (text) {
-      // Clipboard.setStringAsync(text);
+      Clipboard.setStringAsync(text);
       Toast.show({ text1: "Copied to Clipboard", type: "success" });
     } else {
       Toast.show({ text1: "Error", type: "error" });

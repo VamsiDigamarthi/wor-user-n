@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View , Platform } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -105,7 +105,7 @@ export default CustomeAppbar;
 
 const styles = StyleSheet.create({
   superContainer: {
-    height: 85,
+    height: Platform.OS === "ios" ? 100 : 85,
     backgroundColor: "#fff",
     width: "100%",
     justifyContent: "flex-end",
@@ -163,7 +163,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#000",
-    fontSize: 18,
+    fontSize: Platform.OS == "ios"  ?16:18,
+    marginTop:Platform.OS == "ios"  ?-5:0,
     fontWeight: "bold",
     textAlign: "center",
   },
