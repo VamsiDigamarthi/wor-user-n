@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity , Keyboard, TouchableWithoutFeedback } from "react-native";
 
 import CustomBtn from "../../../utiles/CustomBtn";
 import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
@@ -32,6 +32,7 @@ export default function DonationNew() {
   }, [donationAmount]);
 
   return (
+    <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       <CustomeAppbar title="Donation" onBack={() => navigation.goBack()} />
 
@@ -51,6 +52,7 @@ export default function DonationNew() {
             style={styles.input}
             placeholder="Enter Donation Amount"
             keyboardType="numeric"
+            
           />
 
           <View style={{ flexDirection: "row", gap: 10, marginTop: 10 }}>
@@ -101,6 +103,7 @@ export default function DonationNew() {
         />
       </View>
     </View>
+    </TouchableWithoutFeedback>
   );
 }
 

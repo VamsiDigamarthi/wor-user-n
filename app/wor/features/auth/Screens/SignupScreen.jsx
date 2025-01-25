@@ -1,4 +1,4 @@
-import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
+import { Keyboard, Linking, Pressable, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import AuthAppBar from "./AuthAppBar";
 import CustomBtn from "../../../utiles/CustomBtn";
@@ -210,6 +210,7 @@ const SignupScreen = () => {
   }, [formData]);
 
   return (
+    <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
     <View style={styles.container}>
       <AuthAppBar isLoginScreen={false} />
       <View style={styles.loginInnerCard}>
@@ -301,6 +302,7 @@ const SignupScreen = () => {
         </Pressable>
       </View>
     </View>
+    </TouchableWithoutFeedback>
   );
 };
 

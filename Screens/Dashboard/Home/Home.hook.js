@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { onProfileSection } from "../../../redux/Features/Auth/ProfileSlice";
 import { API } from "../../../Constants/url";
 import Toast from "react-native-toast-message";
-import messaging from "@react-native-firebase/messaging";
+// import messaging from "@react-native-firebase/messaging";
 import * as Notifications from "expo-notifications";
 import { generateRandomMarkers } from "../../../Constants/generateMarkers";
 import { setNearPlaces } from "../../../app/wor/features/ridebooking/home/redux/nearPlaceSlice";
@@ -64,47 +64,47 @@ export const useHomeHook = () => {
   };
 
   // Get the Firebase token for the device
-  async function getToken() {
-    const token = await messaging().getToken();
-    console.log("Device FCM Token:", token);
-    setFbToken(token);
-  }
+  // async function getToken() {
+  //   const token = await messaging().getToken();
+  //   console.log("Device FCM Token:", token);
+  //   setFbToken(token);
+  // }
 
-  const onAddedFbTokenToServer = async () => {
-    try {
-      await API.patch(
-        "/auth/fbtoken",
-        { fbtoken: fbToken },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      Toast.show({
-        text1: "fb-token-added successfully",
-        type: "success",
-        position: "bottom",
-      });
-    } catch (error) {
-      console.log(error?.response?.data?.message);
-      Toast.show({
-        text1: error?.response?.data?.message ?? "Failed to upload fbtoken",
-        type: "error",
-        position: "bottom",
-      });
-    }
-  };
-  useEffect(() => {
-    fbToken && onAddedFbTokenToServer();
-  }, [fbToken]);
+  // const onAddedFbTokenToServer = async () => {
+  //   try {
+  //     await API.patch(
+  //       "/auth/fbtoken",
+  //       { fbtoken: fbToken },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+  //     Toast.show({
+  //       text1: "fb-token-added successfully",
+  //       type: "success",
+  //       position: "bottom",
+  //     });
+  //   } catch (error) {
+  //     console.log(error?.response?.data?.message);
+  //     Toast.show({
+  //       text1: error?.response?.data?.message ?? "Failed to upload fbtoken",
+  //       type: "error",
+  //       position: "bottom",
+  //     });
+  //   }
+  // };
+  // useEffect(() => {
+  //   fbToken && onAddedFbTokenToServer();
+  // }, [fbToken]);
 
   useEffect(() => {
     async function allMix() {
       onFetchActiveOrder();
       onFetchHomeLocations();
-      await getToken();
+      // await getToken();
     }
     allMix();
   }, []);

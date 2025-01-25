@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import HomeScreenServices from "../services/HomeScreenServices";
 import { onProfileSection } from "../redux/profileSlice";
-import messaging from "@react-native-firebase/messaging";
+// import messaging from "@react-native-firebase/messaging";
 import { fetchNearbyPlaces } from "../../../../../../Constants/displaylocationmap";
 import { fetchLocation } from "../../../../../../redux/Features/Location/LocationSlice";
 import { setNearPlaces } from "../redux/nearPlaceSlice";
@@ -25,22 +25,22 @@ export const useHomeScreenHook = () => {
     dispatch(homePlace({ token }));
   }, [dispatch, token]);
 
-  useEffect(() => {
-    async function allMix() {
-      await getToken();
-    }
-    allMix();
-  }, []);
+  // useEffect(() => {
+  //   async function allMix() {
+  //     await getToken();
+  //   }
+  //   allMix();
+  // }, []);
 
   // Get the Firebase token for the device
-  async function getToken() {
-    const token = await messaging().getToken();
-    setFbToken(token);
-  }
+  // async function getToken() {
+  //   const token = await messaging().getToken();
+  //   setFbToken(token);
+  // }
 
-  useEffect(() => {
-    fbToken && HomeScreenServices.onAddFbTokenToServer(token, fbToken);
-  }, [fbToken]);
+  // useEffect(() => {
+  //   fbToken && HomeScreenServices.onAddFbTokenToServer(token, fbToken);
+  // }, [fbToken]);
 
   useEffect(() => {
     const onFetchNearPlaces = async () => {

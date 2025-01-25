@@ -215,100 +215,100 @@ const MainNavigation = () => {
   };
 
   // Handle notifications
-  const handleNotification = useCallback(
-    (notification) => {
-      const id = notification?.request?.identifier;
-      if (!id || processedNotifications.has(id)) return;
+  // const handleNotification = useCallback(
+  //   (notification) => {
+  //     const id = notification?.request?.identifier;
+  //     if (!id || processedNotifications.has(id)) return;
 
-      const screen = notification?.request?.content?.data?.screen;
-      const order = notification?.request?.content?.data?.order;
+  //     const screen = notification?.request?.content?.data?.screen;
+  //     const order = notification?.request?.content?.data?.order;
 
-      if (screen) {
-        let newObj;
-        if (navigationRef.current?.isReady()) {
-          if (screen === "lookingforride") {
-            const newOrder = JSON.parse(order);
-            newObj = {
-              vehicleType: newOrder.vehicleType,
-              price: newOrder.price,
-              placeName: newOrder.pickupAddress,
-              dropAddress: {
-                location: {
-                  lat: newOrder?.drop?.coordinates[1],
-                  lng: newOrder?.drop?.coordinates[0],
-                },
-                name: newOrder?.dropAddress,
-                vicinity: newOrder?.dropVicinity,
-              },
-              pickUpCoordinated: {
-                lat: newOrder?.pickup?.coordinates[1],
-                lng: newOrder?.pickup?.coordinates[0],
-              },
-              orderId: newOrder._id,
-            };
-          } else if (screen === "captaineacceptride") {
-            newObj = JSON.parse(order);
-          }
+  //     if (screen) {
+  //       let newObj;
+  //       if (navigationRef.current?.isReady()) {
+  //         if (screen === "lookingforride") {
+  //           const newOrder = JSON.parse(order);
+  //           newObj = {
+  //             vehicleType: newOrder.vehicleType,
+  //             price: newOrder.price,
+  //             placeName: newOrder.pickupAddress,
+  //             dropAddress: {
+  //               location: {
+  //                 lat: newOrder?.drop?.coordinates[1],
+  //                 lng: newOrder?.drop?.coordinates[0],
+  //               },
+  //               name: newOrder?.dropAddress,
+  //               vicinity: newOrder?.dropVicinity,
+  //             },
+  //             pickUpCoordinated: {
+  //               lat: newOrder?.pickup?.coordinates[1],
+  //               lng: newOrder?.pickup?.coordinates[0],
+  //             },
+  //             orderId: newOrder._id,
+  //           };
+  //         } else if (screen === "captaineacceptride") {
+  //           newObj = JSON.parse(order);
+  //         }
 
-          navigationRef.current.navigate(screen, {
-            ...(newObj ?? null),
-          });
-        } else {
-          setPendingNotification(screen);
-        }
-      }
+  //         navigationRef.current.navigate(screen, {
+  //           ...(newObj ?? null),
+  //         });
+  //       } else {
+  //         setPendingNotification(screen);
+  //       }
+  //     }
 
-      setProcessedNotifications((prev) => new Set(prev).add(id));
-    },
-    [processedNotifications]
-  );
+  //     setProcessedNotifications((prev) => new Set(prev).add(id));
+  //   },
+  //   [processedNotifications]
+  // );
 
-  // Listeners for AppState and Notifications
-  useEffect(() => {
-    const appStateListener = AppState.addEventListener("change", setAppState);
+  // // Listeners for AppState and Notifications
+  // useEffect(() => {
+  //   const appStateListener = AppState.addEventListener("change", setAppState);
 
-    const foregroundNotificationListener =
-      Notifications.addNotificationReceivedListener((notification) => {
-        if (appState === "active") {
-          console.log("Foreground notification received");
-        } else {
-          handleNotification(notification);
-        }
-      });
+  //   const foregroundNotificationListener =
+  //     Notifications.addNotificationReceivedListener((notification) => {
+  //       if (appState === "active") {
+  //         console.log("Foreground notification received");
+  //       } else {
+  //         handleNotification(notification);
+  //       }
+  //     });
 
-    const backgroundNotificationListener =
-      Notifications.addNotificationResponseReceivedListener((response) => {
-        handleNotification(response.notification);
-      });
+  //   const backgroundNotificationListener =
+  //     Notifications.addNotificationResponseReceivedListener((response) => {
+  //       handleNotification(response.notification);
+  //     });
 
-    return () => {
-      appStateListener.remove();
-      foregroundNotificationListener.remove();
-      backgroundNotificationListener.remove();
-    };
-  }, [appState, handleNotification]);
+  //   return () => {
+  //     appStateListener.remove();
+  //     foregroundNotificationListener.remove();
+  //     backgroundNotificationListener.remove();
+  //   };
+  // }, [appState, handleNotification]);
 
-  // Handle notifications received while app is launched
-  useEffect(() => {
-    const handleAppLaunchNotification = async () => {
-      const response = await Notifications.getLastNotificationResponseAsync();
-      if (response) {
-        handleNotification(response.notification);
-      }
-    };
+  // // Handle notifications received while app is launched
+  // useEffect(() => {
+  //   const handleAppLaunchNotification = async () => {
+  //     const response = await Notifications.getLastNotificationResponseAsync();
+  //     if (response) {
+  //       handleNotification(response.notification);
+  //     }
+  //   };
 
-    handleAppLaunchNotification();
-  }, [handleNotification]);
+  //   handleAppLaunchNotification();
+  // }, [handleNotification]);
 
-  // Handle pending notifications when NavigationContainer is ready
-  const onReady = () => {
-    if (pendingNotification) {
-      navigationRef.current.navigate(pendingNotification, {
-        screen: pendingNotification,
-      });
-      setPendingNotification(null);
-    }
-  };
+  // // Handle pending notifications when NavigationContainer is ready
+  // const onReady = () => {
+  //   if (pendingNotification) {
+  //     navigationRef.current.navigate(pendingNotification, {
+  //       screen: pendingNotification,
+  //     });
+  //     setPendingNotification(null);
+  //   }
+  // };
 
   if (loading) {
     return (
@@ -322,7 +322,7 @@ const MainNavigation = () => {
   }
 
   return (
-    <NavigationContainer ref={navigationRef} onReady={onReady}>
+    <NavigationContainer ref={navigationRef}>
       <Stack.Navigator
         initialRouteName={token ? "AuthenticatedStack" : "AuthStack"}
         screenOptions={{ headerShown: false }}

@@ -1,11 +1,13 @@
 import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
 import Search from "./Components/Search";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, TouchableWithoutFeedback, Keyboard } from "react-native";
 import React from "react";
 import SliderComponent from "../../../../../Utils/SliderComponent/SliderComponent";
 import Card from "./Components/Card";
 export default function DrivingSchools() {
   return (
+
+    <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       <CustomeAppbar
         title="Driving Schools"
@@ -34,6 +36,7 @@ export default function DrivingSchools() {
         </ScrollView>
       </View>
     </View>
+    </TouchableWithoutFeedback>
   );
 }
 

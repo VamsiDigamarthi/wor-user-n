@@ -1,9 +1,11 @@
 import {
+  Keyboard,
   Linking,
   Pressable,
   StyleSheet,
   Text,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from "react-native";
 import React, { useEffect, useState } from "react";
@@ -98,6 +100,7 @@ const LoginScreen = () => {
   console.log("kiuygf", Object.keys(errorState));
 
   return (
+    <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
     <View style={styles.container}>
       <AuthAppBar />
       <View style={styles.loginInnerCard}>
@@ -165,6 +168,7 @@ const LoginScreen = () => {
         </Pressable>
       </View>
     </View>
+    </TouchableWithoutFeedback>
   );
 };
 
