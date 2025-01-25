@@ -24,25 +24,10 @@ const CustomDrawerContent = (props) => {
     ? { uri: `${imageUrl}/${profile.profilePic}` }
     : defaultImg;
 
-  // console.log(profile);
-  // const toggleDrawer = () => {
-  //   setIsDrawerOpen(!isDrawerOpen); // Toggle drawer state
-  // };
-
   const handleItemPress = (itemName) => {
     setSelectedItem(itemName); // Set selected item
     props.navigation.navigate(itemName); // Navigate to the corresponding screen
   };
-
-  // const getItemStyle = (itemName) => {
-  //   return itemName === selectedItem
-  //     ? { backgroundColor: "#fff5f9" } // Highlight selected item
-  //     : {}; // Default style
-  // };
-
-  // let image = profile
-  //   ? `${imageUrl}/${profile?.profilePic}`
-  //   : "https://via.placeholder.com/80";
 
   const onNavigateRatingScreen = () => {
     props.navigation.navigate("Rating", {

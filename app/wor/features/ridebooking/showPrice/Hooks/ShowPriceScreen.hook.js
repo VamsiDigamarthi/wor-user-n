@@ -15,6 +15,10 @@ export const useShowPriceScreenHook = () => {
   );
   const [filteredVehicles, setFilteredVehicles] = useState([]);
 
+  // this state stored selected vehicle is bottom sheet down display at top this selected vehicle
+  const [storedSelectedVehicle, setStoredSelectedVehicle] = useState(null);
+  const [knowMoveDownOrUp, setKnowMoveDonwOrUp] = useState("moved up");
+
   const handlePriceCalculation = () => {
     if (!location || !dropDetails?.location) return;
 
@@ -33,6 +37,7 @@ export const useShowPriceScreenHook = () => {
     const filteredVehicles = isParcScreen
       ? vehicles.filter((vehicle) => vehicle.vehicleType === "Scooty")
       : vehicles;
+
     setFilteredVehicles(filteredVehicles);
   }, [isParcScreen]);
 
@@ -41,6 +46,19 @@ export const useShowPriceScreenHook = () => {
     navigation.navigate("ChangeLoc100mViaMap");
   };
 
+  const kownBotSheetChangeUpOrDown = (changedValue) => {
+    setKnowMoveDonwOrUp(changedValue);
+  };
+
+  useEffect(() => {
+    const filterVichle = vehicles.filter(
+      (vehicle) =>
+        vehicle.vehicleType?.toLowerCase() ===
+        selectedVehicleType?.toLowerCase()
+    );
+    setStoredSelectedVehicle(filterVichle);
+  }, [selectedVehicleType]);
+
   return {
     location,
     dropDetails,
@@ -48,6 +66,9 @@ export const useShowPriceScreenHook = () => {
     selectedVehicleType,
     isParcScreen,
     onNavigateConfirmLocationScreen,
+    kownBotSheetChangeUpOrDown,
+    knowMoveDownOrUp,
+    storedSelectedVehicle,
   };
 };
 

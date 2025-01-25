@@ -78,10 +78,11 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: "#fff",
     width: "100%",
-    height: "75%",
+    height: "70%",
     borderRadius: 20,
     elevation: 1,
     gap: 10,
+    // backgroundColor: "red",
   },
   pickDropBtnCard: {
     gap: 10,

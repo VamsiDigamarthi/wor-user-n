@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 35,
   },
   handleIndicator: {
-    backgroundColor: "gray",
+    backgroundColor: "#f7f7f7",
     width: 50,
     height: 4,
     borderRadius: 2,

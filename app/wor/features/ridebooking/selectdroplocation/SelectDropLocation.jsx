@@ -19,7 +19,7 @@ const SelectDropLocation = () => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
       >
-        <AppBarLayout title="Select Destination">
+        <AppBarLayout title="Select Destination" isPositionAppbar={true}>
           <View style={styles.container}>
             <WhereToGo
               micVoiceText={micVoiceText}
@@ -46,7 +46,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 12,
     width: "100%",
-    height: "77%",
+    height: "94%",
     gap: 10,
+    backgroundColor: "#f7f7f7",
+    paddingTop: 100,
+    // backgroundColor: "blue",
   },
 });
