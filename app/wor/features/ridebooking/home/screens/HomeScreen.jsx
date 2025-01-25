@@ -14,7 +14,7 @@ import CopyBox from "../../../../utiles/CopyBox";
 
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.54, 0.6].map((p) => screenHeight * p); // Example snap points for Android
-const iosSnapPoints = [0.15, 0.6].map((p) => screenHeight * p); // Example snap points for iOS
+const iosSnapPoints = [0.5, 0.6].map((p) => screenHeight * p); // Example snap points for iOS
 
 const HomeScreen = () => {
   const { captainMarkers, nearByRandomItems } = useHomeScreenHook();
@@ -51,7 +51,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   bottomSheet: {
     gap: 5,
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
     paddingVertical: 10,
   },
 });

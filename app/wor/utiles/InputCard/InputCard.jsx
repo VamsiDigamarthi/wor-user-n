@@ -1,5 +1,5 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
-import React, { useState } from "react";
+import { StyleSheet, Text, TextInput, View , TouchableWithoutFeedback} from "react-native";
+import React, { useRef, useState } from "react";
 import {
   Entypo,
   EvilIcons,
@@ -12,6 +12,8 @@ import {
   Octicons,
   SimpleLineIcons,
   Zocial,
+  
+
 } from "@expo/vector-icons";
 
 const InputBox = ({
@@ -69,7 +71,10 @@ const InputBox = ({
   const [isFocused, setIsFocused] = useState(false);
   console.log(isFocused);
 
+  const inputRef = useRef(null)
+
   return (
+    <TouchableWithoutFeedback onPress={()=>inputRef.current.focus()}>
     <View
       style={[
         styles.container,
@@ -92,9 +97,12 @@ const InputBox = ({
           maxLength={maxLength}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
+          autoCorrect={false}
+          ref={inputRef}
         />
       </View>
     </View>
+    </TouchableWithoutFeedback>
   );
 };
 

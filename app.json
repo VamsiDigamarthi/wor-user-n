@@ -12,7 +12,8 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.nuhvin.womenrider"
     },
     "android": {
       "adaptiveIcon": {
@@ -29,8 +30,6 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "@react-native-firebase/app",
-
       [
         "expo-notifications",
         {
@@ -38,11 +37,13 @@
           "color": "#ffffff"
         }
       ],
-
       [
         "react-native-permissions",
         {
-          "ios": ["SPEECH_RECOGNITION", "MICROPHONE"],
+          "ios": [
+            "SPEECH_RECOGNITION",
+            "MICROPHONE"
+          ],
           "android": []
         }
       ]

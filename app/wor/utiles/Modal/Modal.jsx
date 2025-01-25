@@ -5,6 +5,8 @@ import {
   Text,
   TouchableWithoutFeedback,
   View,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import React from "react";
 
@@ -29,37 +31,39 @@ const ModalUI = ({
       visible={openCloseState}
       onRequestClose={closeModalFun}
     >
-      <Pressable
-        style={[styles.modalContainer, style]}
-        onPress={closeModalFun} // Close the modal when tapping outside
-      >
-        <Pressable
-          style={[styles.modalContent, insideCardStyle]}
-          onPress={(e) => e.stopPropagation()} // Prevent modal content taps from closing
+      <TouchableWithoutFeedback onPress={closeModalFun}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={[styles.modalContainer, style]}
         >
-          {children}
-          {closebtn && (
-            <View
-              style={[
-                styles.cancelBtnCard,
-                btnStyles && { paddingHorizontal: 20 },
-              ]}
-            >
-              <Pressable
-                onPress={closeModalFun}
-                style={[styles.closeModalBtn, btnStyles]}
+          <Pressable
+            style={[styles.modalContent, insideCardStyle]}
+            onPress={(e) => e.stopPropagation()} // Prevent modal content taps from closing
+          >
+            {children}
+            {closebtn && (
+              <View
+                style={[
+                  styles.cancelBtnCard,
+                  btnStyles && { paddingHorizontal: 20 },
+                ]}
               >
-                <Text style={[styles.closeText, btnTextStyle]}>{btnText}</Text>
-              </Pressable>
-              {rightBtnText && (
-                <Pressable onPress={rightBtnFun} style={styles.closeModalBtn}>
-                  <Text style={styles.closeText}>{rightBtnText}</Text>
+                <Pressable
+                  onPress={closeModalFun}
+                  style={[styles.closeModalBtn, btnStyles]}
+                >
+                  <Text style={[styles.closeText, btnTextStyle]}>{btnText}</Text>
                 </Pressable>
-              )}
-            </View>
-          )}
-        </Pressable>
-      </Pressable>
+                {rightBtnText && (
+                  <Pressable onPress={rightBtnFun} style={styles.closeModalBtn}>
+                    <Text style={styles.closeText}>{rightBtnText}</Text>
+                  </Pressable>
+                )}
+              </View>
+            )}
+          </Pressable>
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
     </Modal>
   );
 };
@@ -69,7 +73,6 @@ export default ModalUI;
 const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
-    // height: "fit",
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
@@ -79,12 +82,10 @@ const styles = StyleSheet.create({
   modalContent: {
     width: "85%",
     padding: 20,
-    // height: 250,
     backgroundColor: "white",
     borderRadius: 5,
     alignItems: "center",
     justifyContent: "center",
-    // gap: 5,
   },
   cancelBtnCard: {
     flexDirection: "row",
@@ -92,7 +93,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 0,
     width: "100%",
-    // marginTop: 10,
   },
   closeModalBtn: {
     backgroundColor: "lightgray",

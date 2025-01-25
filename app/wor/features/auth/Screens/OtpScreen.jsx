@@ -1,10 +1,14 @@
 import {
+  View,
   Linking,
   Pressable,
   StyleSheet,
   Text,
   TextInput,
-  View,
+  Keyboard,
+  TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  Platform
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import AuthAppBar from "./AuthAppBar";
@@ -34,6 +38,10 @@ const OtpScreen = () => {
     newOtp[index] = text;
     if (text && index < inputs.current.length - 1) {
       inputs.current[index + 1].focus();
+    }
+
+    if (index === inputs.current.length - 1 && text) {
+      Keyboard.dismiss(); // Dismiss the keyboard when the last digit is entered
     }
     setOtp(newOtp);
   };
@@ -102,6 +110,11 @@ const OtpScreen = () => {
   // },[])
 
   return (
+    <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === "ios" ? "padding" : "height"} // Adjust for iOS and Android
+      >
+    <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
     <View style={styles.container}>
       <AuthAppBar isLoginScreen={false} />
       <View style={styles.loginInnerCard}>
@@ -129,6 +142,7 @@ const OtpScreen = () => {
           >
             {otp.map((value, index) => (
               <TextInput
+              onPress={Keyboard.dismiss}
                 key={index}
                 ref={(input) => (inputs.current[index] = input)} // Store refs for each input
                 maxLength={1}
@@ -188,6 +202,8 @@ const OtpScreen = () => {
         </Pressable>
       </View>
     </View>
+    </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 

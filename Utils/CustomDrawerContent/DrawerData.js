@@ -8,60 +8,81 @@ import {
   FontAwesome,
 } from "@expo/vector-icons";
 
+import {
+  HelpImg,
+  walletImg,
+  suggest,
+  setting,
+  donation,
+  drivingschool,
+  location,
+  notification,
+  parcelImg,
+  refernearn,
+  rides,
+  safety,
+} from "../../app/wor/Images/DrawerImages";
+
 export default data = [
   {
     label: "Help & WoR Support",
     screenName: "HelpAndSupport",
-    icon: <FontAwesome name="book" size={24} color="black" />,
+    icon: HelpImg,
   },
   {
     label: "E-Wallet",
     screenName: "WalletLoad",
-    icon: <FontAwesome name="book" size={24} color="black" />,
+    icon: walletImg,
   },
   {
     label: "Parcel",
     screenName: "ParcelHome",
-    icon: <FontAwesome name="book" size={24} color="black" />,
+    icon: parcelImg,
   },
   {
     label: "Safety",
     screenName: "Safety",
-    icon: <FontAwesome name="book" size={24} color="black" />,
+    icon: safety,
   },
   {
     label: "My Rides",
     screenName: "RideHistory",
-    icon: <FontAwesome name="book" size={24} color="black" />,
+    icon: rides,
   },
   {
     label: "Notifications",
     screenName: "Notifications",
-    icon: <FontAwesome name="book" size={24} color="black" />,
+    icon: notification,
+  },
+  {
+    label: "Saved Locations",
+    screenName: "SavedLocations",
+    icon: location,
   },
   {
     label: "Donation",
     screenName: "Donation",
-    icon: <FontAwesome name="book" size={24} color="black" />,
+    icon: donation,
   },
   {
     label: "Refer to Earn",
     screenName: "ReferAndEarn",
-    icon: <FontAwesome name="book" size={24} color="black" />,
+    icon: refernearn,
   },
   {
     label: "Suggest to Wor",
     screenName: "Suggestions",
-    icon: <FontAwesome name="book" size={24} color="black" />,
+    icon: suggest,
   },
   {
     label: "Driving Schools",
     screenName: "DrivingSchools",
-    icon: <FontAwesome name="book" size={24} color="black" />,
+    icon: drivingschool,
   },
+
   {
     label: "Settings",
     screenName: "About",
-    icon: <FontAwesome name="book" size={24} color="black" />,
+    icon: setting,
   },
 ];

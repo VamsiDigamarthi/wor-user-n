@@ -22,12 +22,12 @@ import BottomSheet, {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation, CommonActions } from "@react-navigation/native";
 import * as Location from "expo-location";
-import * as Clipboard from "expo-clipboard";
+// import * as Clipboard from "expo-clipboard";
 import { StatusBar } from "expo-status-bar";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import Toast from "react-native-toast-message";
-import messaging from "@react-native-firebase/messaging";
-import * as Notifications from "expo-notifications";
+// import messaging from "@react-native-firebase/messaging";
+// import * as Notifications from "expo-notifications";
 
 import { useHomeHook } from "./Home.hook";
 import HomeMap from "../../../Utils/HomeMap/HomeMap";

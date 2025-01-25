@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity , Keyboard, KeyboardAvoidingView } from "react-native";
 import CustomeAppBar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import CustomBtn from "../../../utiles/CustomBtn";
@@ -55,6 +55,7 @@ export default function Wallet() {
       </View>
 
       {open && (
+        <KeyboardAvoidingView>
         <ModalUI
           modalStyle="slide"
           style={infoModalStyles.aadharModalStyles}
@@ -67,6 +68,7 @@ export default function Wallet() {
 
             <InputBox
               keyboardType="numeric"
+              onPress={()=>Keyboard.dismiss()}
               // maxLength={}
               placeholder="0.0"
               label="Enter Amount"
@@ -100,6 +102,7 @@ export default function Wallet() {
             />
           </View>
         </ModalUI>
+        </KeyboardAvoidingView>
       )}
     </View>
   );

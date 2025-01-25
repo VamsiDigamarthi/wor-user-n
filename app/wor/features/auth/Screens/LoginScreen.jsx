@@ -1,10 +1,14 @@
 import {
+  Keyboard,
   Linking,
   Pressable,
   StyleSheet,
   Text,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
+  KeyboardAvoidingView,
+  Platform
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import AuthAppBar from "./AuthAppBar";
@@ -98,6 +102,11 @@ const LoginScreen = () => {
   console.log("kiuygf", Object.keys(errorState));
 
   return (
+    <KeyboardAvoidingView
+    style={styles.container}
+    behavior={Platform.OS === "ios" ? "padding" : "height"} // Adjust for iOS and Android
+  >
+    <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
     <View style={styles.container}>
       <AuthAppBar />
       <View style={styles.loginInnerCard}>
@@ -153,6 +162,7 @@ const LoginScreen = () => {
             btnColor={Object.keys(errorState)?.length > 0 ? "#000" : "#fff"}
             onPress={handleLogin}
             isLoding={isLoading}
+            width="100%"
           />
         </View>
       </View>
@@ -165,6 +175,8 @@ const LoginScreen = () => {
         </Pressable>
       </View>
     </View>
+    </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 

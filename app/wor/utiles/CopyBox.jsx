@@ -1,5 +1,5 @@
 import * as Clipboard from "expo-clipboard";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View , Platform} from "react-native";
 import Toast from "react-native-toast-message";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -27,6 +27,8 @@ export default function CopyBox() {
   );
 }
 
+
+
 const styles = StyleSheet.create({
   copyBox: {
     marginTop: 10,
@@ -44,7 +46,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     width: 160,
-    borderStyle: "dashed",
+    borderStyle: Platform.OS === "ios" ? "solid" : "dashed",
     alignItems: "center",
     justifyContent: "center",
   },

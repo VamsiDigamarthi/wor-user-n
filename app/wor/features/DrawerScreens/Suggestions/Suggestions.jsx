@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
@@ -22,6 +22,7 @@ export default function Suggestions() {
   }
 
   return (
+    <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
     <View style={{ flex: 1 }}>
       <CustomeAppbar title="Suggestions" onBack={() => navigation.goBack()} />
       <View style={styles.container}>
@@ -60,6 +61,7 @@ export default function Suggestions() {
         </View>
       </View>
     </View>
+    </TouchableWithoutFeedback>
   );
 }
 

@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { io } from "socket.io-client";
 import { useSelector } from "react-redux";
-import { imageUrl } from "./Constants/url";
+import { socketUrl } from "./Constants/url";
 
 // Create a Context for the Socket
 const SocketContext = createContext();
@@ -26,7 +26,7 @@ export const SocketProvider = ({ children }) => {
   let socket;
 
   useEffect(() => {
-    socket = io(imageUrl, {
+    socket = io(socketUrl, {
       transports: ["websocket"],
       reconnectionAttempts: 200, // Retry 200 times if disconnected
       reconnectionDelay: 1000, // Wait 1 second before trying to reconnect

@@ -54,7 +54,7 @@ const DelAccScreen = () => {
           style={infoModalStyles.aadharModalStyles}
           insideCardStyle={infoModalStyles.insideCardStyle}
           closebtn={false}
-          closeModalFun={() => setOpen(!open)}
+          closeModalFun={() => setOpen(close)}
         >
           <View style={styles.bottomSheetContent}>
             <Text style={styles.bottomSheetTitle}>Delete Account</Text>
@@ -65,7 +65,7 @@ const DelAccScreen = () => {
             <View style={styles.buttonContainer}>
               <TouchableOpacity
                 style={styles.cancelButton}
-                onPress={() => modalizeRef?.current?.close()}
+                onPress={() => setOpen(!open)}
               >
                 <Text style={styles.cancelButtonText}>Cancel</Text>
               </TouchableOpacity>

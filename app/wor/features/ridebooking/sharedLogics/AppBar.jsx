@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -24,7 +24,7 @@ const Appbar = ({
   const navigation = useNavigation();
 
   const onOpenDrawer = () => {
-    console.log("open drawer");
+  
     navigation.dispatch(DrawerActions.openDrawer());
   };
 
@@ -156,7 +156,7 @@ export default Appbar;
 
 const styles = StyleSheet.create({
   superContainer: {
-    height: 85,
+    height:  Platform.OS === "ios" ? 95 : 85,
     backgroundColor: "#fff",
     width: "100%",
     justifyContent: "flex-end",
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     width: "100%",
-    height: 85,
+    height:  Platform.OS === "ios" ? 100 : 85,
     // backgroundColor: "red",
     zIndex: 999,
   },

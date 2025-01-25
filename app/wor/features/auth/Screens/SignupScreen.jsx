@@ -1,4 +1,4 @@
-import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
+import { Keyboard, Linking, Pressable, StyleSheet, Text, TouchableWithoutFeedback, View, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
 import AuthAppBar from "./AuthAppBar";
 import CustomBtn from "../../../utiles/CustomBtn";
@@ -209,98 +209,117 @@ const SignupScreen = () => {
     // }
   }, [formData]);
 
+
   return (
-    <View style={styles.container}>
-      <AuthAppBar isLoginScreen={false} />
-      <View style={styles.loginInnerCard}>
-        <View style={{ width: "100%", gap: 10 }}>
-          <Text style={{ fontSize: 13, color: "gray" }}>Please Fill Your</Text>
-          <Text style={{ fontSize: 22, fontWeight: "600" }}>
-            Basic Information
-          </Text>
-          <InputBox
-            label={"Full Name *"}
-            icon="person-outline"
-            placeholder="Enter Your Name"
-            value={formData.name}
-            onChangeText={(value) => handleInputChange("name", value)}
-            isValid={errors?.name?.length > 0 ? false : true}
-          />
-          <InputBox
-            label={errors?.email ? errors?.email : "Email *"}
-            icon="mail-outline"
-            placeholder="Enter your email address"
-            keyboardType="email-address"
-            value={formData.email}
-            onChangeText={(value) => handleInputChange("email", value)}
-            isValid={errors?.email?.length > 0 ? false : true}
-          />
-          <View style={styles.googleNearMapLocationCard}>
-            <InputBox
-              label={errors?.address ? errors?.address : "Current Address *"}
-              icon="location-outline"
-              placeholder=" Enter your address"
-              multiline={true}
-              numberOfLines={3}
-              textAlignVertical="top"
-              value={formData.address?.split("|")[0]}
-              onChangeText={(value) => handleInputChange("address", value)}
-              isValid={errors?.address?.length > 0 ? false : true}
-            />
-            {onOpenTextBasedLocationModal && (
-              <View style={styles.nearAddress}>
-                {storeNearLocation?.map((each, index) => (
-                  <SignUpLocationTextCard
-                    key={index}
-                    mainPlace={each?.name}
-                    subPlace={each?.vicinity}
-                    onPress={() => onAddressSelect(each)}
-                  />
-                ))}
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <ScrollView contentContainerStyle={styles.innerContainer}>
+          <AuthAppBar isLoginScreen={false} />
+          <View style={styles.loginInnerCard}>
+            <View style={{ width: "100%", gap: 10 }}>
+              <Text style={{ fontSize: 13, color: "gray" }}>Please Fill Your</Text>
+              <Text style={{ fontSize: 22, fontWeight: "600" }}>
+                Basic Information
+              </Text>
+              <InputBox
+                label={"Full Name *"}
+                icon="person-outline"
+                placeholder="Enter Your Name"
+                value={formData.name}
+                onChangeText={(value) => handleInputChange("name", value)}
+                isValid={errors?.name?.length > 0 ? false : true}
+              />
+              <InputBox
+                label={errors?.email ? errors?.email : "Email *"}
+                icon="mail-outline"
+                placeholder="Enter your email address"
+                keyboardType="email-address"
+                value={formData.email}
+                onChangeText={(value) => handleInputChange("email", value)}
+                isValid={errors?.email?.length > 0 ? false : true}
+              />
+              <View style={styles.googleNearMapLocationCard}>
+                <InputBox
+                  label={errors?.address ? errors?.address : "Current Address *"}
+                  icon="location-outline"
+                  placeholder=" Enter your address"
+                  multiline={true}
+                  numberOfLines={3}
+                  textAlignVertical="top"
+                  value={formData.address?.split("|")[0]}
+                  onChangeText={(value) => handleInputChange("address", value)}
+                  isValid={errors?.address?.length > 0 ? false : true}
+                />
+                {onOpenTextBasedLocationModal && (
+                  <View style={styles.nearAddress}>
+                    {storeNearLocation?.map((each, index) => (
+                      <SignUpLocationTextCard
+                        key={index}
+                        mainPlace={each?.name}
+                        subPlace={each?.vicinity}
+                        onPress={() => onAddressSelect(each)}
+                      />
+                    ))}
+                  </View>
+                )}
               </View>
-            )}
+              <InputBox
+                label="Referal Code (optional)"
+                icon="contract"
+                placeholder="Enter Referal Code"
+                value={formData.referalCode}
+                onChangeText={(value) => handleInputChange("referalCode", value)}
+              />
+            </View>
           </View>
-          <InputBox
-            label="Referal Code (optional)"
-            icon="contract"
-            placeholder="Enter Referal Code"
-            value={formData.referalCode}
-            onChangeText={(value) => handleInputChange("referalCode", value)}
-          />
-        </View>
-        <View style={{ width: "100%", marginBottom: 30 }}>
-          <CustomBtn
+          <View style={{ gap: 30, height: 100, backgroundColor:"#fff" }}>
+            <View style={{ paddingHorizontal: 10 }}>
+            <CustomBtn
             title="continue"
-            btnBg={
-              errors?.name?.length === 0 &&
-              validationCheck?.name &&
-              errors?.email?.length === 0 &&
-              errors?.address?.length === 0
-                ? "#E02E88"
-                : "#f7f7f7"
-            }
-            btnColor={
-              errors?.name?.length === 0 &&
-              errors?.email?.length === 0 &&
-              errors?.address?.length === 0
-                ? "#FFF"
-                : "#E02E88"
-            }
+            // btnBg={
+            //   errors?.name?.length === 0 &&
+            //   validationCheck?.name &&
+            //   errors?.email?.length === 0 &&
+            //   errors?.address?.length === 0
+            //     ? "#E02E88"
+            //     : "#f7f7f7"
+            // }
+            // btnColor={
+            //   errors?.name?.length === 0 &&
+            //   errors?.email?.length === 0 &&
+            //   errors?.address?.length === 0
+            //     ? "#FFF"
+            //     : "#E02E88"
+            // }
+
+
+              btnBg={
+                (formData.name && formData.email && formData.address) ? "#EA4C89" : "#FFF"
+              }
+              btnColor={
+                (formData.name && formData.email && formData.address) ? "#FFF" : "#EA4C89"
+              }
+
             onPress={handleNavigateToOTP}
             width="100%"
             isLoding={isLoading}
           />
-        </View>
-      </View>
-      <View style={styles.nuhvinProduct}>
-        <Text style={{ fontSize: 14, fontWeight: "500" }}>A Product From</Text>
-        <Pressable onPress={openLink}>
-          <Text style={{ fontSize: 14, fontWeight: "500", color: "#e02e88" }}>
-            Visit NuHvin
-          </Text>
-        </Pressable>
-      </View>
-    </View>
+            </View>
+            <View style={styles.nuhvinProduct}>
+              <Text style={{ fontSize: 14, fontWeight: "500" }}>A Product From</Text>
+              <Pressable onPress={openLink}>
+                <Text style={{ fontSize: 14, fontWeight: "500", color: "#e02e88" }}>
+                  Visit NuHvin
+                </Text>
+              </Pressable>
+            </View>
+          </View>
+        </ScrollView>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -310,10 +329,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    position: "relative",
+  },
+  innerContainer: {
+    flexGrow: 1,
+    justifyContent: "space-between",
+    paddingBottom: 20, // To ensure content at the bottom doesn't get hidden by keyboard
   },
   loginInnerCard: {
-    // width: "100%",
     flex: 1,
     justifyContent: "space-between",
     alignItems: "center",
@@ -325,7 +347,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 40,
     backgroundColor: "#b0b0b0",
-    bottom: 0,
+    bottom: -20,
     left: 0,
     zIndex: 10000,
     flexDirection: "row",
@@ -338,7 +360,6 @@ const styles = StyleSheet.create({
     zIndex: 6,
     height: 60,
     marginBottom: 15,
-    // backgroundColor: "yellow",
   },
   nearAddress: {
     position: "absolute",
@@ -346,12 +367,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     backgroundColor: "#fff",
-    padding: 10,
-    borderRadius: 10,
-    width: "100%",
-    height: 245,
-    overflow: "scroll",
-    elevation: 2,
-    // zIndex: 31,
+    zIndex: 10,
+    elevation: 10,
   },
 });
