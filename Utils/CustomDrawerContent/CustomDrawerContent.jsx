@@ -74,11 +74,11 @@ const CustomDrawerContent = (props) => {
   return (
     <View style={{ flex: 1 }}>
       {/* Profile Header */}
-      <View style={[styles.headerContainer]}>
-        <View style={{ width: "50%" }}>
+      <View style={[styles.headerContainer, { gap: 20, marginBottom: 15 }]}>
+        <View style={{ width: "30%" }}>
           <Image source={imageSrc} style={styles.profilePic} />
         </View>
-        <View style={{ gap: 10, width: "50%" }}>
+        <View style={{ gap: 10, width: "70%" }}>
           <Pressable
             onPress={() => handleItemPress("Profile")}
             style={{
@@ -203,18 +203,46 @@ const CustomDrawerContent = (props) => {
 
 function CustomDrawerItem({ label, onPress, icon }) {
   return (
-    <TouchableOpacity style={styles.itemContainer} onPress={onPress}>
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 20 }}>
-        {icon}
-        <Text style={styles.labelStyle}>{label}</Text>
-      </View>
-
-      <Ionicons name="chevron-forward-outline" size={22} color="gray" />
-    </TouchableOpacity>
+    <View style={styles.drccontainer}>
+      <Image source={icon} style={styles.iconImg} />
+      <TouchableOpacity onPress={onPress} style={styles.textCard}>
+        <Text style={styles.text}>{label}</Text>
+        <FontAwesome name="chevron-right" size={15} color="#B0B0B0" />
+      </TouchableOpacity>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  iconImg: {
+    height: 16,
+    width: 16,
+    resizeMode: "contain",
+  },
+
+  drccontainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    paddingVertical: 5,
+    paddingLeft: 20,
+    // paddingRight: 10,
+  },
+  textCard: {
+    width: "90%",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    flexDirection: "row",
+    borderBottomColor: "#e0e0e0",
+    borderBottomWidth: 1,
+    paddingVertical: 8,
+    paddingRight: 15,
+  },
+
+  text: {
+    fontSize: 16,
+    fontWeight: "600",
+  },
   itemContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -228,6 +256,7 @@ const styles = StyleSheet.create({
     // borderColor: "red",
     borderBottomWidth: 1,
     borderBottomColor: "#EEEEEE",
+    paddingLeft: 20,
   },
   labelStyle: {
     fontSize: 16,
@@ -244,7 +273,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     backgroundColor: "#fff",
     paddingHorizontal: 30,
-    paddingVertical: 15,
+    // paddingVertical: 15,
     alignItems: "center",
     // gap: 0,
     // justifyContent: "space-evenly",
@@ -255,7 +284,8 @@ const styles = StyleSheet.create({
 
     // padding: 20,
     width: "100%",
-    paddingTop: 80,
+    paddingTop: 50,
+    paddingBottom: 10,
     flexDirection: "row",
     justifyContent: "center",
     // borderWidth: 1,
