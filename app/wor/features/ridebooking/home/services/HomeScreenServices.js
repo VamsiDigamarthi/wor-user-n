@@ -57,6 +57,9 @@ const onAddFbTokenToServer = async (token, fbToken) => {
       type: "success",
       position: "bottom",
     });
+
+
+    
   } catch (error) {
     console.log(error?.response?.data?.message);
     Toast.show({
