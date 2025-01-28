@@ -2,6 +2,7 @@
 import React from "react";
 import { StyleSheet, View, Image, Text } from "react-native";
 import Swiper from "react-native-swiper";
+import { fonts } from "../../../../fonts/Fonts";
 
 const SliderComponent = ({ bottom = 2 }) => {
   const slides = [
@@ -76,12 +77,14 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 24,
     textAlign: "left",
-    fontWeight: "bold",
+    // fontWeight: "bold",
+    fontFamily: fonts.robotoBold,
     // bottom: 20,
   },
 
   desc: {
     color: "#fff",
+    fontFamily: fonts.robotoRegular,
   },
 
   pagination: {

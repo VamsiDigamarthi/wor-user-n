@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Toast from "react-native-toast-message";
 import { onFavoritePlace } from "../../app/wor/features/ridebooking/selectdroplocation/redux/favoritePlaces.slice";
 import { API } from "../../Constants/url";
+import { fonts } from "../../app/wor/fonts/Fonts";
 
 const CustomAppBar = ({ navigation }) => {
   const { token } = useSelector((state) => state.token);
@@ -142,7 +143,6 @@ const styles = StyleSheet.create({
     // overflow: "hidden",
     elevation: 4,
 
-
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
@@ -159,10 +159,6 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     height: 50,
     // backgroundColor: "red",
-
-
-
-    
   },
   appSecondCard: {
     flexDirection: "row",
@@ -190,7 +186,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 13,
-    fontWeight: "600",
+    // fontWeight: "600",
+    fontFamily: fonts.robotoMedium,
     color: COLORS.heading,
     marginLeft: 6,
   },

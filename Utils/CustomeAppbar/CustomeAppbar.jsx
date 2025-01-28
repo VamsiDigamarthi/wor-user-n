@@ -1,8 +1,9 @@
-import { Pressable, StyleSheet, Text, View , Platform } from "react-native";
+import { Pressable, StyleSheet, Text, View, Platform } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { COLORS } from "../../Constants/colors";
+import { fonts } from "../../app/wor/fonts/Fonts";
 
 const CustomeAppbar = ({
   title,
@@ -39,10 +40,7 @@ const CustomeAppbar = ({
               <Text
                 numberOfLines={1}
                 ellipsizeMode="tail"
-                style={[
-                  styles.text,
-                  vicinity && { fontSize: 10, fontWeight: "500" },
-                ]}
+                style={[styles.text, vicinity && { fontSize: 10 }]}
               >
                 {title || "Title"}
               </Text>
@@ -118,8 +116,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
-  // backgroundColor:"red"
-
+    // backgroundColor:"red"
   },
   mainContainer: {
     flexDirection: "row",
@@ -168,10 +165,11 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#000",
-    fontSize: Platform.OS == "ios"  ? 16 : 18,
-    marginTop:Platform.OS == "ios"  ? -5 : 0,
-    fontWeight: "bold",
+    fontSize: Platform.OS == "ios" ? 16 : 18,
+    marginTop: Platform.OS == "ios" ? -5 : 0,
+    // fontWeight: "bold",
     textAlign: "center",
+    fontFamily: fonts.robotoBold,
   },
   icon: {
     marginTop: 2,

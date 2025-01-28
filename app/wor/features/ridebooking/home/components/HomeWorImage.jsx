@@ -1,5 +1,7 @@
 import { ImageBackground, StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { fonts } from "../../../../fonts/Fonts";
+import { colors } from "../../../../colors/colors";
 
 const HomeWorImage = () => {
   return (
@@ -39,11 +41,13 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   goTitle: {
-    color: "#e02e88",
+    color: colors.maincolor,
     fontSize: 30,
-    fontWeight: "bold",
+    // fontWeight: "bold",
+    fontFamily: fonts.robotoBold,
   },
   madeText: {
     color: "gray",
+    fontFamily: fonts.robotoRegular,
   },
 });

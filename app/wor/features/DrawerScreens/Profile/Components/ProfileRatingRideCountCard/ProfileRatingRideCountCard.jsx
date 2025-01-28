@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+import { fonts } from "../../../../../fonts/Fonts";
 
 const ProfileRatingRideCountCard = () => {
   return (
@@ -54,10 +55,12 @@ const styles = StyleSheet.create({
 
   text: {
     fontSize: 12,
-    fontWeight: "600",
+    // fontWeight: "600",
+    fontFamily: fonts.robotoSemiBold,
   },
   ratingNewText: {
     fontSize: 12,
     // fontWeight: "600",
+    fontFamily: fonts.robotoRegular,
   },
 });
