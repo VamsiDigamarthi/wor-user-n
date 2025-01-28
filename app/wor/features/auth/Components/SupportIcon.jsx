@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { SupportIcons } from "../../../../Icons/Icons";
+import { SupportIcons } from "../../../Icons/Icons";
 
 const SupportIcon = () => {
   return (

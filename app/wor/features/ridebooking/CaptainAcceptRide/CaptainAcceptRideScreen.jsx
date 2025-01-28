@@ -68,7 +68,7 @@ const CaptainAcceptRideScreen = () => {
       isArrived={isArrived}
       otpVerified={otpVerified}
       rideTide={otpVerified ? disFromPickToDrop : disFromCaptainLocToPick}
-      isTimer={true}
+      isRideBookingScree={true}
     >
       <View style={styles.mapContainer}>
         <ShowPollyLine

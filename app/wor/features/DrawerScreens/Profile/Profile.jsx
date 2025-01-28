@@ -1,15 +1,11 @@
-import { useNavigation } from "@react-navigation/native";
-import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
 import ProfileCard from "./Components/ProfileCard/ProfileCard";
 import ProfileRatingRideCountCard from "./Components/ProfileRatingRideCountCard/ProfileRatingRideCountCard";
 import ProfileNavigationCard from "./Components/ProfileNavigationCard/ProfileNavigationCard";
 import { StyleSheet, View } from "react-native";
+import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 const ProfileScreen = () => {
-  const navigation = useNavigation();
-
   return (
-    <View style={styles.container}>
-      <CustomeAppbar title="Profile" onBack={() => navigation.goBack()} />
+    <AppBarLayout title="Profile" isPositionAppbar={true}>
       <View style={styles.innerContainer}>
         <View style={styles.topContainer}>
           <ProfileCard />
@@ -33,7 +29,7 @@ const ProfileScreen = () => {
           />
         </View>
       </View>
-    </View>
+    </AppBarLayout>
   );
 };
 
@@ -42,14 +38,15 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // paddingVertical: 12,
-    // backgroundColor: "red",
   },
 
   innerContainer: {
     paddingHorizontal: 5,
     paddingVertical: 10,
     gap: 15,
+    backgroundColor: "#f7f7f7",
+    flex: 1,
+    paddingTop: 100,
   },
   topContainer: {
     flexDirection: "row",

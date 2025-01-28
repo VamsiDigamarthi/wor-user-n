@@ -25,7 +25,7 @@ const CustomAppBar = ({ navigation }) => {
   const animatedValue = useRef(new Animated.Value(1)).current; // Start animation value from 1
 
   // Text array to scroll through
-  const texts = [placeVicinity || "Your Current Location"];
+  const texts = [placeVicinity, "Your Current Location"];
 
   useEffect(() => {
     // Function to start animation and loop the text
@@ -142,7 +142,6 @@ const styles = StyleSheet.create({
     // overflow: "hidden",
     elevation: 4,
 
-
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
@@ -159,10 +158,6 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     height: 50,
     // backgroundColor: "red",
-
-
-
-    
   },
   appSecondCard: {
     flexDirection: "row",

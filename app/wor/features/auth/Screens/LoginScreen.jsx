@@ -1,6 +1,5 @@
 import {
   Keyboard,
-  Linking,
   Pressable,
   StyleSheet,
   Text,
@@ -8,174 +7,106 @@ import {
   TouchableWithoutFeedback,
   View,
   KeyboardAvoidingView,
-  Platform
+  Platform,
 } from "react-native";
-import React, { useEffect, useState } from "react";
 import AuthAppBar from "./AuthAppBar";
 import InputBox from "../../../../../Utils/InputCard/InputCard";
 import CustomBtn from "../../../utiles/CustomBtn";
-import { API } from "../../../../../Constants/url";
-import { useNavigation } from "@react-navigation/native";
+import { useLoginHook } from "../Hooks/Login.hook";
 
 const LoginScreen = () => {
-  const handleCheck = () => {
-    const url = "https://womenrider.nuhvin.com/privacypolicy"; // Replace with your desired URL
-    Linking.openURL(url).catch((err) =>
-      console.error("Failed to open URL:", err)
-    );
-  };
-
-  const onNavigateTermsAndConditions = () => {
-    const url = "https://womenrider.nuhvin.com/termsandconditions"; // Replace with your desired URL
-    Linking.openURL(url).catch((err) =>
-      console.error("Failed to open URL:", err)
-    );
-  };
-
-  const openLink = () => {
-    const url = "https://nuhvin.com"; // Replace with your desired URL
-    Linking.openURL(url).catch((err) =>
-      console.error("Failed to open URL:", err)
-    );
-  };
-
-  const [mobile, setMobile] = useState("");
-  const [errorState, setErrorState] = useState({
-    mobile: "",
-  });
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [apiError, setApiError] = useState("");
-  const navigation = useNavigation();
-  const handleMobileChange = (text) => {
-    setMobile(text);
-  };
-
-  useEffect(() => {
-    if (mobile?.length === 10) {
-      setErrorState((prevState) => ({
-        ...prevState,
-        mobile: "",
-      }));
-    }
-    if (mobile?.length === 10) {
-      setErrorState({});
-    }
-  }, [mobile]);
-
-  const loginValidation = (mobile) => {
-    const errors = { mobile: "" };
-
-    if (!mobile) {
-      errors.mobile = "Mobile number is required.";
-    } else if (!/^[0-9]{10}$/.test(mobile)) {
-      errors.mobile = "Please enter a valid 10-digit mobile number.";
-    }
-
-    return errors.mobile ? errors : {};
-  };
-
-  const handleLogin = async () => {
-    const error = loginValidation(mobile);
-    setErrorState(error);
-    if (Object.keys(error).length > 0) {
-      return;
-    }
-    setIsLoading(true);
-    try {
-      const response = await API.post("/auth/send-otp", { mobile: mobile });
-      setIsLoading(false);
-      navigation.navigate("otp", {
-        mobile: mobile,
-        message:
-          response.data?.name === "user not found"
-            ? "WOR"
-            : response.data?.name,
-      });
-    } catch (error) {
-      console.log(error);
-      setIsLoading(false);
-      setApiError(error?.response?.data?.message);
-    }
-  };
-
-  console.log("kiuygf", Object.keys(errorState));
-
+  const {
+    handleLogin,
+    mobile,
+    handleMobileChange,
+    handleCheck,
+    onNavigateTermsAndConditions,
+    openLink,
+    errorState,
+    isLoading,
+    apiError,
+  } = useLoginHook();
   return (
     <KeyboardAvoidingView
-    style={styles.container}
-    behavior={Platform.OS === "ios" ? "padding" : "height"} // Adjust for iOS and Android
-  >
-    <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
-    <View style={styles.container}>
-      <AuthAppBar />
-      <View style={styles.loginInnerCard}>
-        <View style={{ width: "100%", gap: 10 }}>
-          <Text style={{ fontSize: 24, fontWeight: "600" }}>
-            Enter Your Mobile Number For Verification
-          </Text>
-          <Text style={{ fontSize: 13, color: "gray" }}>
-            This number is used for all ride related communication. you shall
-            receive and otp for this
-          </Text>
-          <InputBox
-            isIconsNotText={false}
-            keyboardType="numeric"
-            maxLength={10}
-            placeholder="Enter mobile number"
-            label="Mobile Number"
-            value={mobile}
-            onChangeText={handleMobileChange}
-            isValid={!errorState.mobile}
-          />
-        </View>
-        <View
-          style={{
-            width: "100%",
-            gap: 10,
-            alignItems: "center",
-            marginBottom: 40,
-          }}
-        >
-          <View style={{ flexDirection: "row" }}>
-            <Text style={{ fontSize: 11 }}>I agree to women rider's </Text>
-            <TouchableOpacity onPress={onNavigateTermsAndConditions}>
-              <Text style={{ fontSize: 11, color: "#e02e88" }}>
-                Terms of Services
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"} // Adjust for iOS and Android
+    >
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.container}>
+          <AuthAppBar />
+          <View style={styles.loginInnerCard}>
+            <View style={{ width: "100%", gap: 10 }}>
+              <Text style={{ fontSize: 24, fontWeight: "600" }}>
+                Enter Your Mobile Number For Verification
               </Text>
-            </TouchableOpacity>
-            <Text style={{ fontSize: 11 }}> and </Text>
-            <TouchableOpacity onPress={handleCheck}>
-              <Text style={{ fontSize: 11, color: "#e02e88" }}>
-                privacy Policy
+              <Text style={{ fontSize: 13, color: "gray" }}>
+                This number is used for all ride related communication. you
+                shall receive and otp for this
               </Text>
-            </TouchableOpacity>
-          </View>
-          {apiError && (
-            <View style={styles.errorCard}>
-              <Text style={styles.errorMsg}>{apiError}</Text>
+              <InputBox
+                isIconsNotText={false}
+                keyboardType="numeric"
+                maxLength={10}
+                placeholder="Enter mobile number"
+                label="Mobile Number"
+                value={mobile}
+                onChangeText={handleMobileChange}
+                isValid={!errorState.mobile}
+              />
             </View>
-          )}
-          <CustomBtn
-            title="Continue"
-            btnBg={Object.keys(errorState)?.length > 0 ? "#f7f7f7" : "#e02e88"}
-            btnColor={Object.keys(errorState)?.length > 0 ? "#000" : "#fff"}
-            onPress={handleLogin}
-            isLoding={isLoading}
-            width="100%"
-          />
+            <View
+              style={{
+                width: "100%",
+                gap: 10,
+                alignItems: "center",
+                marginBottom: 40,
+              }}
+            >
+              <View style={{ flexDirection: "row" }}>
+                <Text style={{ fontSize: 11 }}>I agree to women rider's </Text>
+                <TouchableOpacity onPress={onNavigateTermsAndConditions}>
+                  <Text style={{ fontSize: 11, color: "#e02e88" }}>
+                    Terms of Services
+                  </Text>
+                </TouchableOpacity>
+                <Text style={{ fontSize: 11 }}> and </Text>
+                <TouchableOpacity onPress={handleCheck}>
+                  <Text style={{ fontSize: 11, color: "#e02e88" }}>
+                    privacy Policy
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              {apiError && (
+                <View style={styles.errorCard}>
+                  <Text style={styles.errorMsg}>{apiError}</Text>
+                </View>
+              )}
+              <CustomBtn
+                title="Continue"
+                btnBg={
+                  Object.keys(errorState)?.length > 0 ? "#f7f7f7" : "#e02e88"
+                }
+                btnColor={Object.keys(errorState)?.length > 0 ? "#000" : "#fff"}
+                onPress={handleLogin}
+                isLoding={isLoading}
+                width="100%"
+              />
+            </View>
+          </View>
+          <View style={styles.nuhvinProduct}>
+            <Text style={{ fontSize: 14, fontWeight: "500" }}>
+              A Product From
+            </Text>
+            <Pressable onPress={openLink}>
+              <Text
+                style={{ fontSize: 14, fontWeight: "500", color: "#e02e88" }}
+              >
+                Visit NuHvin
+              </Text>
+            </Pressable>
+          </View>
         </View>
-      </View>
-      <View style={styles.nuhvinProduct}>
-        <Text style={{ fontSize: 14, fontWeight: "500" }}>A Product From</Text>
-        <Pressable onPress={openLink}>
-          <Text style={{ fontSize: 14, fontWeight: "500", color: "#e02e88" }}>
-            Visit NuHvin
-          </Text>
-        </Pressable>
-      </View>
-    </View>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
 };

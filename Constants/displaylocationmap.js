@@ -1,4 +1,5 @@
 const YOUR_API_KEY = "AIzaSyAvJUZ3vsynRkQhXSdZL-BIFo26bXH-Al8";
+
 import axios from "axios";
 export const coordinationMap = (lat, lng) => {
   // Construct the correct URL for the Google Static Maps API

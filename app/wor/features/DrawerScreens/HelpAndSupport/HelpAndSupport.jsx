@@ -5,16 +5,12 @@ import { useNavigation } from "@react-navigation/native";
 import { useRideHistoryHook } from "../RideHistory/Hooks/RideHistory.hook";
 import RideHistoryItem from "../RideHistory/Components/RideHistoryItem";
 import FaqListCard from "../RideHistory/Components/FaqListCard";
+import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 export default function HelpAndSupport() {
   const navigation = useNavigation();
   const { rideHistory } = useRideHistoryHook();
   return (
-    <View style={{ flex: 1 }}>
-      <CustomeAppbar
-        title="Help & WoR Support"
-        onBack={() => navigation.goBack()}
-      />
-
+    <AppBarLayout title="Help & WoR Support" isPositionAppbar={true}>
       <View style={styles.container}>
         <View style={styles.topContainer}>
           <Text style={styles.heading}>My Rides</Text>
@@ -36,7 +32,7 @@ export default function HelpAndSupport() {
           <FaqListCard />
         </View>
       </View>
-    </View>
+    </AppBarLayout>
   );
 }
 
@@ -47,6 +43,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     backgroundColor: "#fff",
     marginTop: 10,
+    paddingTop: 90,
   },
 
   topContainer: {

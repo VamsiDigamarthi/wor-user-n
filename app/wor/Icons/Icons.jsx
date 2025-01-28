@@ -16,8 +16,16 @@ export const UserIcons = ({ size, color }) => (
   <Feather name="user" size={size} color={color} />
 );
 
+export const CalendarIcons = ({ size, color }) => (
+  <FontAwesome5 name="calendar-alt" size={size} color={color} />
+);
+
 export const SearchIcons = ({ size, color }) => (
   <Ionicons name="search-sharp" size={size} color={color} />
+);
+
+export const BookIcon = ({ size, color, style }) => (
+  <FontAwesome name="book" style={style} size={size} color={color} />
 );
 
 export const MicIcon = ({ size, color }) => (

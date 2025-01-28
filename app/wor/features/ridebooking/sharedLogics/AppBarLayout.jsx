@@ -9,11 +9,13 @@ const AppBarLayout = ({
   isPositionAppbar,
   isDrawerIcon,
   isTimer,
+  timerFunction,
   // ride accept screen props
   isArrived,
   otpVerified,
   rideTide,
   ride3mTimes,
+  isRideBookingScree,
 }) => {
   return (
     <View style={styles.container}>
@@ -22,11 +24,13 @@ const AppBarLayout = ({
         title={title}
         vicinity={vicinity}
         isTimer={isTimer}
+        timerFunction={timerFunction}
         isDrawerIcon={isDrawerIcon}
         isArrived={isArrived}
         otpVerified={otpVerified}
         rideTide={rideTide}
         ride3mTimes={ride3mTimes}
+        isRideBookingScree={isRideBookingScree}
       />
       {children}
     </View>
@@ -41,6 +45,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     gap: 10,
     position: "relative",
-    
   },
 });

@@ -2,15 +2,11 @@ import { View, Text, StyleSheet } from "react-native";
 import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
 import TopCard from "./Components/TopCard";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
+import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 
 export default function SavedLocations() {
   return (
-    <View style={{ flex: 1, backgroundColor: "#fff" }}>
-      <CustomeAppbar
-        title="Saved Locations"
-        onBack={() => navigation.goBack()}
-      />
-
+    <AppBarLayout title="Saved Location">
       <View style={styles.container}>
         <Text style={styles.heading}>Saved Places</Text>
         <TopCard
@@ -24,7 +20,7 @@ export default function SavedLocations() {
           icon={<MaterialIcons name="work" size={24} color="#EA4C89" />}
         />
       </View>
-    </View>
+    </AppBarLayout>
   );
 }
 
