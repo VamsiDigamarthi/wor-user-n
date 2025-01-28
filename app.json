@@ -32,7 +32,6 @@
     },
     "plugins": [
       "@react-native-firebase/app",
-
       [
         "expo-notifications",
         {
@@ -43,10 +42,7 @@
       [
         "react-native-permissions",
         {
-          "ios": [
-            "SPEECH_RECOGNITION",
-            "MICROPHONE"
-          ],
+          "ios": ["SPEECH_RECOGNITION", "MICROPHONE"],
           "android": []
         }
       ],

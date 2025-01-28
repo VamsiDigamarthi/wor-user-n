@@ -1,4 +1,4 @@
-import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -28,6 +28,9 @@ const Appbar = ({
   const navigation = useNavigation();
 
   const onOpenDrawer = () => {
+
+    console.log("open drawer");
+
     navigation.dispatch(DrawerActions.openDrawer());
   };
 
@@ -46,17 +49,19 @@ const Appbar = ({
               style={[styles.btn]}
               onPress={() => navigation.goBack()}
             >
-              <Ionicons name="chevron-back" size={24} color="#000" />
+              <Ionicons name="chevron-back" size={30} color="#000" />
             </TouchableOpacity>
           )}
         </View>
 
         <View style={[styles.textContainer]}>
+
           <AppBarTitle title={title} vicinity={vicinity} />
           {isTimer && (
             <Pressable onPress={timerFunction} style={styles.timerCard}>
               <Ionicons size={24} name="timer" color="#f98600" />
               <Text style={{ fontSize: 12, color: "gray" }}>Now</Text>
+
             </Pressable>
           )}
 
@@ -84,6 +89,7 @@ export default Appbar;
 const styles = StyleSheet.create({
   superContainer: {
     height: Platform.OS === "ios" ? 95 : 85,
+
     backgroundColor: "#fff",
     width: "100%",
     justifyContent: "flex-end",
@@ -99,6 +105,7 @@ const styles = StyleSheet.create({
     left: 0,
     width: "100%",
     height: Platform.OS === "ios" ? 100 : 85,
+
     // backgroundColor: "red",
     zIndex: 999,
   },
@@ -140,6 +147,8 @@ const styles = StyleSheet.create({
     position: "relative",
     backgroundColor: "#fff",
     justifyContent: "space-between",
+    // paddingLeft: 30,
+    // textAlign: "center",
   },
   textinnerCard: {
     flexDirection: "row",
@@ -148,6 +157,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     alignItems: "center",
     paddingLeft: 10,
+
     // backgroundColor: "red",
   },
   text: {
@@ -155,6 +165,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "bold",
     textAlign: "center",
+    width: "100%",
+    // backgroundColor: "red",
   },
   icon: {
     marginTop: 2,
@@ -181,6 +193,18 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "flex-start",
     gap: 2,
+    elevation: 4,
+  },
+
+  midContainer: {
+    flexDirection: "row",
+    gap: 5,
+    alignItems: "center",
+    // borderWidth: 1,
+    borderRadius: 20,
+    padding: 10,
+
+    // backgroundColor: "red",
   },
   timerCard: {
     width: 50,

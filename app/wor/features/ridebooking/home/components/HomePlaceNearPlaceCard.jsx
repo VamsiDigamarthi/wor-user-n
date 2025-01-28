@@ -12,6 +12,7 @@ import { View, StyleSheet } from "react-native";
 const HomePlaceNearPlaceCard = ({ nearByRandomItems }) => {
   const { homePlace, workPlace } = useSelector((state) => state.homePlaces);
   const { location } = useSelector((state) => state.location);
+  // const location = null;
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -53,7 +54,17 @@ const HomePlaceNearPlaceCard = ({ nearByRandomItems }) => {
           })}
         </View>
       ) : (
-        <SkeletonLoader />
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <SkeletonLoader />
+          {/* <SkeletonLoader /> */}
+          {/* <SkeletonLoader /> */}
+        </View>
       )}
     </>
   );
@@ -67,3 +78,4 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ebebeb",
   },
 });
+//

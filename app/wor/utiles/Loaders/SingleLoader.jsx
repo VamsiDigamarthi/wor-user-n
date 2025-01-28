@@ -7,16 +7,16 @@ const SkeletonLoader = () => {
     <View style={styles.SkeletonLoader}>
       <ContentLoader
         speed={2}
-        width="100%" // Adjusted to take the full width of the container
-        height={80} // Adjusted height
+        width="95%" // Adjusted to take the full width of the container
+        height={100} // Adjusted height
         viewBox="0 0 400 60"
         backgroundColor="#b1aaaa"
         foregroundColor="#ecebeb"
       >
         <Rect x="20" y="10" rx="3" ry="3" width="100%" height="15" />
         {/* Adjusted width */}
-        <Rect x="20" y="30" rx="3" ry="3" width="100%" height="15" />
-        <Rect x="20" y="50" rx="3" ry="3" width="100%" height="15" />
+        <Rect x="20" y="40" rx="3" ry="3" width="100%" height="15" />
+        <Rect x="20" y="70" rx="3" ry="3" width="100%" height="15" />
 
         {/* Adjusted width */}
       </ContentLoader>
@@ -27,7 +27,7 @@ const SkeletonLoader = () => {
 const styles = StyleSheet.create({
   SkeletonLoader: {
     width: "100%",
-    height: 70, // Updated to match loader height
+    height: 100, // Updated to match loader height
     paddingHorizontal: 10, // Added padding for spacing
     marginBottom: 15, // Added margin to separate loaders
   },

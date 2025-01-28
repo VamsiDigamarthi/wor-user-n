@@ -23,7 +23,15 @@ const ServiceCard = ({ imageSource, label, onPress }) => {
       >
         <Image source={imageSource} style={styles.image} />
       </Pressable>
-      <Text style={{ fontWeight: "bold", color: "#757575" }}>{label}</Text>
+      <Text
+        style={{
+          fontWeight: "bold",
+          color: "#757575",
+          // fontFamily: "Roboto-Regular",
+        }}
+      >
+        {label}
+      </Text>
     </View>
   );
 };

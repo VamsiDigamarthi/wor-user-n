@@ -1,5 +1,12 @@
-import { Dimensions, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import {
+  Dimensions,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+} from "react-native";
+import React, { useState } from "react";
 import AppBarLayout from "../sharedLogics/AppBarLayout";
 import { useShowPriceScreenHook } from "./Hooks/ShowPriceScreen.hook";
 import ShowPollyLine from "../../../utiles/ShowPollyLine";
@@ -8,7 +15,17 @@ import BottomSheetComponent from "../sharedLogics/BottomSheetComponent/BottomShe
 import DisplayVehicle from "./Components/DisplayVehicle";
 import OfferCouponCard from "./Components/OfferCouponCard";
 import CustomBtn from "../../../utiles/CustomBtn";
+
 import ShceduleOrderModal from "./Modal/ShceduleOrderModal";
+
+import ModalUI from "../../../utiles/Modal/Modal";
+import { infoModalStyles } from "../../../../../Components/InfoUi/Styles/InfoModalStyles";
+import { TouchableOpacity } from "react-native-gesture-handler";
+
+import OfferCard from "./Components/OfferCard";
+import UhOhCard from "./Components/UhOhCard";
+import PaymentMethodCard from "./Components/PaymentMethodCard";
+
 
 const screenHeight = Dimensions.get("window").height;
 
@@ -35,6 +52,11 @@ const ShowPriceScreen = () => {
     kownBotSheetChangeUpOrDown
   );
 
+
+  const [coupons, setCoupons] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("cash");
+
   return (
     <>
       <AppBarLayout
@@ -44,6 +66,7 @@ const ShowPriceScreen = () => {
         isTimer={true}
         timerFunction={timerSetModalOpen}
       >
+
         <View style={styles.mapContainer}>
           <ShowPollyLine origin={location} destination={dropDetails.location} />
         </View>
@@ -85,6 +108,66 @@ const ShowPriceScreen = () => {
         timerSetModalOpen={timerSetModalOpen}
       />
     </>
+
+        {knowMoveDownOrUp === "moved down" ? (
+          <View style={styles.singleFilterStyle}>
+            {storedSelectedVehicle?.map((vehicle, index) => (
+              <DisplayVehicle key={index} vehicle={vehicle} />
+            ))}
+          </View>
+        ) : (
+          <View style={{ paddingHorizontal: 15, paddingVertical: 20 }}>
+            {filteredVehicles?.map((vehicle, index) => (
+              <DisplayVehicle key={index} vehicle={vehicle} />
+            ))}
+          </View>
+        )}
+      </BottomSheetComponent>
+      <View style={styles.coupneWithBtn}>
+        <OfferCouponCard
+          coupons={coupons}
+          onOfferPress={() => setModalOpen(true)}
+        />
+        <CustomBtn
+          width="100%"
+          btnBg={selectedVehicleType ? "#e02e88" : "#fff"}
+          btnColor={selectedVehicleType ? "#fff" : "#e02e88"}
+          title={`Book ${selectedVehicleType} `}
+          onPress={onNavigateConfirmLocationScreen}
+          disabled={true}
+          borderColor="#e02e88"
+          borderWidth={1}
+        />
+        {modalOpen && (
+          <ModalUI
+            modalStyle="slide"
+            style={infoModalStyles.aadharModalStyles}
+            insideCardStyle={infoModalStyles.insideCardStyle}
+            closebtn={false}
+            closeModalFun={() => setModalOpen(false)}
+          >
+            <View style={{ width: "100%", padding: 10 }}>
+              {/* {coupons.length > 0 && (
+                <Text style={{ fontWeight: "bold", fontSize: 20 }}>Offers</Text>
+              )}
+
+              {coupons.length ? (
+                <View style={{ marginTop: 10, gap: 10 }}>
+                  <OfferCard />
+                  <OfferCard />
+                  <OfferCard />
+                </View>
+              ) : (
+                <UhOhCard />
+              )} */}
+
+              <PaymentMethodCard paymentMethod={paymentMethod} />
+            </View>
+          </ModalUI>
+        )}
+      </View>
+    </AppBarLayout>
+
   );
 };
 
