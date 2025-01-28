@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -28,7 +28,6 @@ const Appbar = ({
   const navigation = useNavigation();
 
   const onOpenDrawer = () => {
-
     console.log("open drawer");
 
     navigation.dispatch(DrawerActions.openDrawer());
@@ -55,13 +54,11 @@ const Appbar = ({
         </View>
 
         <View style={[styles.textContainer]}>
-
           <AppBarTitle title={title} vicinity={vicinity} />
           {isTimer && (
             <Pressable onPress={timerFunction} style={styles.timerCard}>
               <Ionicons size={24} name="timer" color="#f98600" />
               <Text style={{ fontSize: 12, color: "gray" }}>Now</Text>
-
             </Pressable>
           )}
 
