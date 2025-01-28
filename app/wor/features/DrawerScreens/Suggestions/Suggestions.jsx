@@ -17,6 +17,7 @@ import Toast from "react-native-toast-message";
 import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
 import CustomBtn from "../../../utiles/CustomBtn";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
+import { fonts } from "../../../fonts/Fonts";
 
 export default function Suggestions() {
   const navigation = useNavigation();
@@ -58,6 +59,7 @@ export default function Suggestions() {
             <Text
               style={{
                 textAlign: "right",
+                fontFamily:fonts.robotoThin
               }}
             >
               {text.length} / 500 Charecters
@@ -91,7 +93,9 @@ const styles = StyleSheet.create({
     paddingTop: 110,
   },
   mainText: {
-    fontWeight: "bold",
+    // fontWeight: "bold",
+
+    fontFamily:fonts.robotoSemiBold,
     fontSize: 18,
   },
   textInput: {
@@ -102,6 +106,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     fontSize: 16,
+    fontFamily:fonts.robotoRegular
   },
   sendButton: {
     position: "absolute", // Position the button

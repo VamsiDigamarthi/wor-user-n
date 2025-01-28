@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Image } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
-import { FontAwesome } from "@expo/vector-icons";
+import { fonts } from "../../../../fonts/Fonts";
 export default function MainCard({}) {
   return (
     <LinearGradient
@@ -33,13 +33,15 @@ const styles = StyleSheet.create({
   },
 
   heading: {
-    fontWeight: "bold",
+    // fontWeight: "bold",
+    fontFamily:fonts.robotoSemiBold,
     fontSize: 20,
     color: "#fff",
   },
 
   subText: {
     color: "#000",
+    fontFamily:fonts.robotoRegular
   },
 
   secondCard: {

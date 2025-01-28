@@ -6,11 +6,11 @@ import MainCard from "./Components/MainCard";
 import RatingImageCard from "./Components/RatingImageCard";
 import Data from "../../../../../Constants/SafetyData.json";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
-
+import { fonts } from "../../../fonts/Fonts";
 const Rating = () => {
   const { hellow } = useRoute().params || {};
   const navigation = useNavigation();
-  console.log("hellow", hellow);
+  // console.log("hellow", hellow);
 
   return (
     <AppBarLayout title="Safety" isPositionAppbar={true}>
@@ -24,7 +24,7 @@ const Rating = () => {
             paddingVertical: 5,
           }}
         >
-          <Text style={{ fontWeight: "bold", fontSize: 20, paddingLeft: 10 }}>
+          <Text style={{fontFamily:fonts.robotoBold  ,fontSize: 20, paddingLeft: 10 }}>
             What We Offer
           </Text>
 
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f7f7f7",
     // gap: 10,
     position: "relative",
-    paddingTop: 70,
+    paddingTop: 100,
   },
   scrollContainer: {
     width: "100%",

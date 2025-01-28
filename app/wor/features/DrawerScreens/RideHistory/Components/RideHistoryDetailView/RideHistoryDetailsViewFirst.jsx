@@ -15,6 +15,7 @@ import {
 } from "../../../../../Images/Universal";
 import RideHistoryNewItem from "../RideHistoryNewItem";
 import StarRating from "../../../../../utiles/StarRating/StarRating";
+import { fonts } from "../../../../../fonts/Fonts";
 
 const RideHistoryDetailsViewFirst = ({ ride }) => {
   // console.log(ride);
@@ -82,7 +83,7 @@ const RideHistoryDetailsViewFirst = ({ ride }) => {
                 },
               ]}
             >
-              {" "}
+             
               {ride?.status}
             </Text>
           </View>
@@ -288,10 +289,12 @@ const styles = StyleSheet.create({
   },
 
   boldText: {
-    fontWeight: "bold",
+    // fontWeight: "bold",
+    fontFamily:fonts.robotoSemiBold
   },
   semiBoldText: {
-    fontWeight: "400",
+    // fontWeight: "400",
+    fontFamily:fonts.robotoRegular
   },
 
   ratingCard: {
