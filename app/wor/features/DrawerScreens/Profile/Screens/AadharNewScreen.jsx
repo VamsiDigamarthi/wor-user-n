@@ -7,7 +7,9 @@ import { useSelector } from "react-redux";
 import { fonts } from "../../../../fonts/Fonts";
 export default function AadharNewScreen() {
   const [modalOpen, setModalOpen] = useState(false);
+
   const { profile } = useSelector((state) => state.profileSlice);
+
   return (
     <AppBarLayout title="Documents" isPositionAppbar={true}>
       <View style={styles.container}>

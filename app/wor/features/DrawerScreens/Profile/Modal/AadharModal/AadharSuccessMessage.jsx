@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
   },
   message: {
     fontSize: 20,
-    // fontWeight: "600",
     fontFamily: fonts.robotoSemiBold,
     textAlign: "center",
   },

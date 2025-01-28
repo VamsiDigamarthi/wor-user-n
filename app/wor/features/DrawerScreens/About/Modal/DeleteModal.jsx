@@ -1,14 +1,18 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { StyleSheet, View } from "react-native";
+import React, { useState } from "react";
 import ModalUI from "../../../../utiles/Modal/Modal";
-import { useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
 import { infoModalStyles } from "../../../../../../Components/InfoUi/Styles/InfoModalStyles";
 import LeaseTell from "./LeaseTell";
+import AreYouSureModal from "./AreYouSureModal";
+import ConfirmDelete from "./ConfirmDelete";
 
 const DeleteModal = ({ deletAcoountModal, handleDeleteAcoountModal }) => {
-  const { token } = useSelector((state) => state.token);
-  const navigation = useNavigation();
+  const [displayModalType, setDisplayModalType] = useState("lease");
+  const [selectedValue, setSelectedValue] = useState(null);
+
+  const handleSelect = (id) => {
+    setSelectedValue(id);
+  };
 
   return (
     <ModalUI
@@ -20,7 +24,25 @@ const DeleteModal = ({ deletAcoountModal, handleDeleteAcoountModal }) => {
       closebtn={false}
     >
       <View style={styles.container}>
-        <LeaseTell />
+        {displayModalType === "lease" ? (
+          <LeaseTell
+            selectedValue={selectedValue}
+            handleSelect={handleSelect}
+            setDisplayModalType={setDisplayModalType}
+          />
+        ) : (
+          <>
+            {displayModalType === "areYourSure" ? (
+              <AreYouSureModal setDisplayModalType={setDisplayModalType} />
+            ) : (
+              <ConfirmDelete
+                selectedValue={selectedValue}
+                handleDeleteAcoountModal={handleDeleteAcoountModal}
+                setDisplayModalType={setDisplayModalType}
+              />
+            )}
+          </>
+        )}
       </View>
     </ModalUI>
   );

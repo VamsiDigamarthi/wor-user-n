@@ -11,16 +11,13 @@ const NavigateMPinScreenModal = ({
   const { profile } = useSelector((state) => state.profileSlice);
 
   const navigation = useNavigation();
+
   const onNavigateAadharUploadUi = () => {
-    navigation.navigate("DashBoardAadharCard", {
-      isPriceScreen: true,
-    });
+    navigation.navigate("ProfileDocumentScreen");
   };
 
   const onMpinScreen = () => {
-    navigation.navigate("DashBoardMPinCard", {
-      isPriceScreen: true,
-    });
+    navigation.navigate("SetNewMpin");
   };
 
   return (

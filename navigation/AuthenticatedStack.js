@@ -48,8 +48,8 @@ import { COLORS } from "../Constants/colors";
 import Coins from "../Screens/Dashboard/Donation/Coins";
 import DrawerFavorite from "../Screens/Dashboard/DrawerFavorite/DrawerFavorite";
 // import ParcelSavePlaces from "../Screens/Parcels/ParcelSavePlaces/ParcelSavePlaces";
-import DashBoardAadharCard from "../Screens/Dashboard/ShowPrice/Screens/DashBoardAadharCard";
-import DashBoardMPinCard from "../Screens/Dashboard/ShowPrice/Screens/DashBoardMPinCard";
+// import DashBoardAadharCard from "../Screens/Dashboard/ShowPrice/Screens/DashBoardAadharCard";
+// import DashBoardMPinCard from "../Screens/Dashboard/ShowPrice/Screens/DashBoardMPinCard";
 
 // import NewHome from "../Screens/Dashboard/Home/NewHome";
 
@@ -170,13 +170,6 @@ const DrawerNavigator = ({ route }) => {
           },
           drawerStyle: {
             width: "80%",
-            // borderTopRightRadius: 20,
-            // borderBottomRightRadius: 20,
-            // overflow: "hidden",
-            // borderBottomRightRadius: 20,
-            // borderTopRightRadius: 20,
-            // borderRightWidth: 8,
-            // borderColor: "#e02e88",
           },
         }}
       >
@@ -236,11 +229,11 @@ const AuthenticatedStack = ({ initialRoute, params }) => {
       />
 
       {/* MapPreview screen using reusable function */}
-      <Stack.Screen
+      {/* <Stack.Screen
         name="MapPreview"
         component={MapPreview}
-        options={({ navigation }) => getCommonOptions(navigation, "Map")}
-      />
+        // options={({ navigation }) => getCommonOptions(navigation, "Map")}
+      /> */}
 
       <Stack.Screen
         name="FixMapPreview"
@@ -298,22 +291,6 @@ const AuthenticatedStack = ({ initialRoute, params }) => {
         name="EmergencyContactNumber"
         component={EmergencyContactNumber}
         options={{ headerShown: false }}
-      />
-
-      <Stack.Screen
-        name="EmailVerification"
-        component={EmailVerification}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Email Verification")
-        }
-      />
-
-      <Stack.Screen
-        name="MobileVerification"
-        component={MobileVerification}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Mobile Verification")
-        }
       />
 
       <Stack.Screen
@@ -380,26 +357,11 @@ const AuthenticatedStack = ({ initialRoute, params }) => {
         options={{ headerShown: false }}
       />
 
-      {/* extra */}
-      <Stack.Screen
-        name="DashBoardAadharCard"
-        component={DashBoardAadharCard}
-        options={{ headerShown: false }}
-      />
-
-      <Stack.Screen
-        name="DashBoardMPinCard"
-        component={DashBoardMPinCard}
-        options={{ headerShown: false }}
-      />
-
       <Stack.Screen
         name="ProfileDocumentScreen"
         component={AadharNewScreen}
         options={{ headerShown: false }}
       />
-
-      {/* side bar screens */}
 
       <Stack.Screen
         name="Rating"
@@ -421,30 +383,6 @@ const AuthenticatedStack = ({ initialRoute, params }) => {
       {/* side bar screens */}
 
       {/* Voice and Bg */}
-
-      <Stack.Screen
-        name="VoiceTest"
-        component={VoiceTest}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "VoiceTest", "#fff")
-        }
-      />
-
-      <Stack.Screen
-        name="BgTest"
-        component={BgTest}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "BgTest", "#fff")
-        }
-      />
-
-      <Stack.Screen
-        name="Coins"
-        component={Coins}
-        options={({ navigation }) =>
-          getCommonOptions(navigation, "Your Coins", "#fff")
-        }
-      />
 
       <Stack.Screen
         name="FaqHome"
@@ -495,6 +433,7 @@ const AuthenticatedStack = ({ initialRoute, params }) => {
         component={ChangeLoc100mViaMapScreen}
         options={{ headerShown: false }}
       />
+
       <Stack.Screen
         name="ParSavedUsers"
         component={ParSavedUsers}
@@ -540,27 +479,6 @@ const AuthenticatedStack = ({ initialRoute, params }) => {
         component={SavedLocations}
         options={{ headerShown: false }}
       />
-
-      {/* <Stack.Screen
-        name="ParcelPickLocation"
-        component={PickLocation}
-        options={{ headerShown: false }}
-      /> */}
-      {/* <Stack.Screen
-        name="ParcelMapWithBottomSheet"
-        component={ParcelMapWithBottomSheet}
-        options={{ headerShown: false }}
-        // options={({ navigation }) =>
-        //   getCommonOptions(navigation, "Parcel Details", "#fff")
-        // }
-      /> */}
-
-      {/* <Stack.Screen
-        name="ParcelSavePlaces"
-        component={ParcelSavePlaces}
-        options={{ headerShown: false }}
-      /> */}
-      {/* parcel screens */}
     </Stack.Navigator>
   );
 };

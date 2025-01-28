@@ -53,6 +53,10 @@ export const useCheckMPinModalHook = ({
   };
 
   const onCheckMyPinCorrectOrWrong = async (newPin) => {
+    // if (!profile?.mpin || !profile?.aadharCardVerification) {
+    //   console.log("--- terminated----");
+    //   return;
+    // }
     const data = await onCheckMPin({ token, mpin: newPin });
     setMPin(["", "", "", ""]);
     onOpenIsEnterConfirmPinModal(); // close the m pin modal
@@ -60,11 +64,6 @@ export const useCheckMPinModalHook = ({
     if (!data) return;
 
     const { formattedDate, formattedTime } = getFormattedDateTime();
-
-
-
-
-    
 
     const orderDetails = createOrderDetails({
       isParcel: isParcScreen,
@@ -86,6 +85,7 @@ export const useCheckMPinModalHook = ({
     if (isConnected) {
       socket.emit("ride-live-communication", { orderId, userType: "user" });
     }
+
     navigation.navigate("lookingforride", { orderId });
   };
 

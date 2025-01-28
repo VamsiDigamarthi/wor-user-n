@@ -52,7 +52,9 @@ const ModalUI = ({
                   onPress={closeModalFun}
                   style={[styles.closeModalBtn, btnStyles]}
                 >
-                  <Text style={[styles.closeText, btnTextStyle]}>{btnText}</Text>
+                  <Text style={[styles.closeText, btnTextStyle]}>
+                    {btnText}
+                  </Text>
                 </Pressable>
                 {rightBtnText && (
                   <Pressable onPress={rightBtnFun} style={styles.closeModalBtn}>
@@ -82,7 +84,7 @@ const styles = StyleSheet.create({
   modalContent: {
     width: "85%",
     padding: 20,
-    backgroundColor: "white",
+    backgroundColor: "#fff",
     borderRadius: 5,
     alignItems: "center",
     justifyContent: "center",

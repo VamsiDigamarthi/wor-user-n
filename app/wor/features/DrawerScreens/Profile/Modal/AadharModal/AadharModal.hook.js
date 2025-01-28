@@ -15,11 +15,13 @@ export const useAadharModalHook = () => {
 
   const handleSubmitOtp = async () => {
     setIsLoading(true);
+
     const data = await aadharCardOtpVerification({
       otp: otp?.join(""),
       clientId,
       token,
     });
+
     setIsLoading(false);
     if (!data.status) {
       if (data?.gengerFailed) {
@@ -33,6 +35,7 @@ export const useAadharModalHook = () => {
         return;
       }
     }
+
     setOtpVerified(true);
   };
 
