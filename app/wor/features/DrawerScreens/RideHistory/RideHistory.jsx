@@ -1,19 +1,17 @@
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import RideHistoryItem from "./Components/RideHistoryItem";
 import { useRideHistoryHook } from "./Hooks/RideHistory.hook";
 import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
 import SingleLoader from "../../../utiles/Loaders/SingleLoader";
+import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 
 const RideHistory = ({ navigation }) => {
   const { rideHistory } = useRideHistoryHook();
-  // const rideHistory = null;
-  // console.log("RideHistory", rideHistory);
   return (
-    <View style={styles.container}>
-      <CustomeAppbar title="My Rides" onBack={() => navigation.goBack()} />
+    <AppBarLayout title="Ride History" isPositionAppbar={true}>
       <View style={styles.innerContainer}>
-        {rideHistory ? (
+        {rideHistory?.length > 0 ? (
           <FlatList
             scrollEnabled
             data={rideHistory}
@@ -24,18 +22,13 @@ const RideHistory = ({ navigation }) => {
           />
         ) : (
           <>
-            <SingleLoader />
-            <SingleLoader />
-            <SingleLoader />
-            <SingleLoader />
-            <SingleLoader />
-            <SingleLoader />
-            <SingleLoader />
-            <SingleLoader />
+            <View style={styles.centerCard}>
+              <Text style={{ fontSize: 20, fontWeight: "600" }}>No Rides</Text>
+            </View>
           </>
         )}
       </View>
-    </View>
+    </AppBarLayout>
   );
 };
 
@@ -54,5 +47,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
     gap: 15,
     flex: 1,
+    paddingTop: 90,
+  },
+  centerCard: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
