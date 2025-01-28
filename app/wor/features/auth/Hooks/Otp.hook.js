@@ -1,0 +1,102 @@
+import {
+  CommonActions,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
+import { useRef, useState } from "react";
+import DeviceInfo from "react-native-device-info";
+import { useDispatch } from "react-redux";
+import { API } from "../../../../../Constants/url";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { setToken } from "../../../../../redux/Features/Auth/LoginSlice";
+import { Keyboard } from "react-native";
+
+export const useOtpHook = () => {
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const { mobile, message } = useRoute().params;
+  const inputs = useRef([]);
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+  const [otpError, setOtpError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleChange = (text, index) => {
+    const newOtp = [...otp];
+    newOtp[index] = text;
+    if (text && index < inputs.current.length - 1) {
+      inputs.current[index + 1].focus();
+    }
+
+    if (index === inputs.current.length - 1 && text) {
+      Keyboard.dismiss(); // Dismiss the keyboard when the last digit is entered
+    }
+    setOtp(newOtp);
+  };
+
+  const handleKeyPress = (e, index) => {
+    if (e.nativeEvent.key === "Backspace" && index > 0 && otp[index] === "") {
+      inputs.current[index - 1].focus();
+    }
+  };
+
+  const justLog = async () => {
+    // console.log(otp);
+    if (otp[5]?.length <= 0) {
+      setOtpError("Please enter OTP");
+      return;
+    }
+    setIsLoading(true);
+    try {
+      const deviceId = await DeviceInfo.getUniqueId();
+      console.log("deviceId", deviceId);
+      const response = await API.post("/auth/verify-otp", {
+        mobile,
+        otp: otp.join(""),
+        isUserApp: true,
+        deviceId,
+      });
+      setIsLoading(false);
+
+      if (response.data.token) {
+        // console.log(response.data.token);
+        await AsyncStorage.setItem(
+          "token",
+          JSON.stringify(response.data.token)
+        );
+        dispatch(setToken(response.data.token));
+        // navigation.navigate("AuthenticatedStack");
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0, // Ensures the specified route is the only route in the stack
+            routes: [{ name: "AuthenticatedStack" }], // Replace 'Home' with your target screen name
+          })
+        );
+      }
+    } catch (error) {
+      // console.log(error?.response?.data?.message);
+      setIsLoading(false);
+      if (error.response?.data?.message === "Invalid OTP") {
+        setOtpError("Invalid Otp");
+      } else if (error.response?.data?.message === "User does not exist") {
+        // console.log("navigating");
+
+        navigation.navigate("signup", { mobile });
+      } else {
+        setOtpError(error?.response?.data?.message);
+      }
+    }
+  };
+
+  return {
+    message,
+    mobile,
+    otpError,
+    isLoading,
+    handleChange,
+    justLog,
+    otp,
+    setOtp,
+    inputs,
+    handleKeyPress,
+  };
+};

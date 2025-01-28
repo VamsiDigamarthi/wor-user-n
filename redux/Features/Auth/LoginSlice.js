@@ -43,6 +43,7 @@ const tokenSlice = createSlice({
     },
     noToken: (state) => {
       state.loading = false;
+      state.token = null;
     },
   },
   extraReducers: (builder) => {

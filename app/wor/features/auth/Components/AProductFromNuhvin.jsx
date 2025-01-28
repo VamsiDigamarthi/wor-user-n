@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 40,
     backgroundColor: "#b0b0b0",
-    bottom: -20,
+    bottom: 0,
     left: 0,
     zIndex: 10000,
     flexDirection: "row",

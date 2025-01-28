@@ -10,9 +10,9 @@ import {
   Platform,
 } from "react-native";
 import AuthAppBar from "./AuthAppBar";
-import InputBox from "../../../../../Utils/InputCard/InputCard";
 import CustomBtn from "../../../utiles/CustomBtn";
 import { useLoginHook } from "../Hooks/Login.hook";
+import Input from "../../../utiles/Input";
 
 const LoginScreen = () => {
   const {
@@ -43,15 +43,13 @@ const LoginScreen = () => {
                 This number is used for all ride related communication. you
                 shall receive and otp for this
               </Text>
-              <InputBox
+              <Input
                 isIconsNotText={false}
                 keyboardType="numeric"
                 maxLength={10}
-                placeholder="Enter mobile number"
                 label="Mobile Number"
                 value={mobile}
                 onChangeText={handleMobileChange}
-                isValid={!errorState.mobile}
               />
             </View>
             <View
