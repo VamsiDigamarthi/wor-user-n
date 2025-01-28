@@ -8,7 +8,11 @@ import { API } from "../../../../../Constants/url";
 import SettingIconCard from "./SettingIconCard";
 import ModalUI from "../../../utiles/Modal/Modal";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
+
 import DeleteModal from "./Modal/DeleteModal";
+
+import { fonts } from "../../../fonts/Fonts";
+
 
 const settingsData = [
   {
@@ -41,10 +45,12 @@ const AppSettingsScreen = () => {
           />
         ))}
       </View>
+
       <DeleteModal
         deletAcoountModal={deletAcoountModal}
         handleDeleteAcoountModal={handleDeleteAcoountModal}
       />
+
     </AppBarLayout>
   );
 };

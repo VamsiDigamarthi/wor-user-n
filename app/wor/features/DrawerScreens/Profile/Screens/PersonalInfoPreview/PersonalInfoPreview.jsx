@@ -181,7 +181,7 @@ function ProfileTextCard({ title, text, edit, onclick }) {
 function EditTextInp({ value, field, label, handleInputChange }) {
   return (
     <View>
-      <Text style={{ fontWeight: "bold" }}>{label}</Text>
+      <Text style={{ fontFamily:fonts.robotoRegular, marginBottom:5 , fontSize:10 }}>{label}</Text>
       <TextInput
         value={value}
         onChangeText={(text) => handleInputChange(field, text)}

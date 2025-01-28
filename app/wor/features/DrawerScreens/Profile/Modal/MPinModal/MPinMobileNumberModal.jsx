@@ -5,6 +5,7 @@ import { infoModalStyles } from "../../../../../../../Components/InfoUi/Styles/I
 import MPinMobileNumber from "./MPinMobileNumber";
 import AadharOtp from "../AadharModal/AadharOtp";
 import { onVerifiOtp } from "../../services/mPin.servi";
+import { fonts } from "../../../../../fonts/Fonts";
 
 const MPinMobileNumberModal = ({
   openModal,

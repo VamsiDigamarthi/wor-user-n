@@ -6,6 +6,7 @@ import { useRideHistoryHook } from "../RideHistory/Hooks/RideHistory.hook";
 import RideHistoryItem from "../RideHistory/Components/RideHistoryItem";
 import FaqListCard from "../RideHistory/Components/FaqListCard";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
+import { fonts } from "../../../fonts/Fonts";
 export default function HelpAndSupport() {
   const navigation = useNavigation();
   const { rideHistory } = useRideHistoryHook();
@@ -52,7 +53,8 @@ const styles = StyleSheet.create({
   },
 
   heading: {
-    fontWeight: "bold",
+    // fontWeight: "bold",
+    fontFamily:fonts.robotoSemiBold,
     color: "#2D2D2D",
     fontSize: 16,
   },

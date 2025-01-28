@@ -5,12 +5,12 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native";
-import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
+// import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
 import TopCard from "./Components/TopCard";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
-
+import {fonts} from "../../../fonts/Fonts"
 import { useState } from "react";
 
 
@@ -95,7 +95,7 @@ export default function SavedLocations() {
           >
             <MaterialIcons name="add" size={24} color="#EA4C89" />
           </TouchableOpacity>
-          <Text>Add New Place</Text>
+          <Text style={{fontFamily:fonts.robotoRegular}}>Add New Place</Text>
         </View>
 
         <Text style={styles.heading}>All Saved Places</Text>
@@ -163,7 +163,7 @@ function Chip({ text, selected, onPress }) {
         borderRadius: 10,
       }}
     >
-      <Text style={{ color: selected ? "white" : "black" }}>{text}</Text>
+      <Text style={{ color: selected ? "white" : "black" , fontFamily:fonts.robotoRegular }}>{text}</Text>
     </TouchableOpacity>
   );
 }
@@ -176,6 +176,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 16,
-    fontWeight: "bold",
+    // fontWeight: "bold",
+    fontFamily:fonts.robotoSemiBold
   },
 });

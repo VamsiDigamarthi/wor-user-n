@@ -23,6 +23,8 @@ const AadharModal = ({ openModal, closeModal }) => {
     aadharNumber,
   } = useAadharModalHook();
 
+  // const otpVerified = true;
+
   return (
     <ModalUI
       openCloseState={openModal}

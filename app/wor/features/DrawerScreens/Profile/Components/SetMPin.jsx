@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import OtpUi from "../../../../utiles/OtpUi";
 import CustomBtn from "../../../../utiles/CustomBtn";
 import { useSetMPinHook } from "../Hooks/setMPin.hook";
+import { fonts } from "../../../../fonts/Fonts";
 
 const SetMPin = ({ handleChangeSetMpin }) => {
   const {
@@ -18,9 +19,18 @@ const SetMPin = ({ handleChangeSetMpin }) => {
   return (
     <View style={styles.newContainer}>
       <View style={{ gap: 15 }}>
-        <Text style={{ fontSize: 18, fontWeight: "600" }}>Set new M-Pin</Text>
-        <Text style={{ fontSize: 13, color: "gray", lineHeight: 21 }}>
-          You'r PIN Con't have repeating (e.g.0000), or consective(e.g.1234)
+        <Text style={{ fontSize: 18, fontFamily: fonts.robotoSemiBold }}>
+          Set new M-Pin
+        </Text>
+        <Text
+          style={{
+            fontSize: 13,
+            color: "gray",
+            lineHeight: 21,
+            fontFamily: fonts.robotoRegular,
+          }}
+        >
+          You'r PIN Can't have repeating (e.g.0000), or consective(e.g.1234)
           numbers
         </Text>
         <View>
@@ -31,7 +41,15 @@ const SetMPin = ({ handleChangeSetMpin }) => {
           )}
           <OtpUi otp={pin} setOtp={setPin} style={styles.borderWidth} />
         </View>
-        <Text style={{ fontSize: 18, fontWeight: "600" }}>Confirm M-Pin</Text>
+        <Text
+          style={{
+            fontSize: 18,
+            fontWeight: "600",
+            fontFamily: fonts.robotoSemiBold,
+          }}
+        >
+          Confirm M-Pin
+        </Text>
         <View>
           {reEnterError && (
             <Text style={{ fontSize: 10, textAlign: "center", color: "red" }}>

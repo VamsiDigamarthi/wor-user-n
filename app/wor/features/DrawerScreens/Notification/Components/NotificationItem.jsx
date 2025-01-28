@@ -1,5 +1,6 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import { noficationHelmet } from "../../../../Images/Notification";
+import { fonts } from "../../../../fonts/Fonts";
 
 const NotificationItem = () => {
   return (
@@ -41,14 +42,18 @@ const styles = StyleSheet.create({
   },
   refer: {
     fontSize: 14,
-    fontWeight: "bold",
+    // fontWeight: "bold",
+    fontFamily:fonts.robotoSemiBold
   },
   forgot: {
     fontSize: 11,
     color: "#808080",
+    fontFamily:fonts.robotoRegular
   },
   days: {
     fontSize: 13,
+    fontFamily:fonts.robotoRegular
+
     // color: "#808080",
   },
 });

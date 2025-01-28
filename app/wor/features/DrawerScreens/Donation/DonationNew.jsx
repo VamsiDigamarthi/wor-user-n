@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { usePayments } from "../../../Payments/useRazorpay";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
+import { fonts } from "../../../fonts/Fonts";
 
 export default function DonationNew() {
   const { profile } = useSelector((state) => state.profileSlice);
@@ -84,15 +85,15 @@ export default function DonationNew() {
             </View>
 
             <View style={{ gap: 10 }}>
-              <Text>
+              <Text style={styles.listTxt}>
                 Make sure this is Monthly Donation For the Empower Women Rider
               </Text>
-              <Text>
+              <Text style={styles.listTxt}>
                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
                 diam nonumy eirmod tempor invidunt ut labore et dolore magna
                 aliquyam erat, sed
               </Text>
-              <Text>
+              <Text style={styles.listTxt}>
                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
                 diam nonumy eirmod tempor invidunt ut labore et dolore magna
                 aliquyam erat, sed
@@ -128,7 +129,8 @@ const styles = StyleSheet.create({
     paddingTop: 100,
   },
   heading: {
-    fontWeight: "bold",
+    // fontWeight: "bold",
+    fontFamily:fonts.robotoSemiBold,
     fontSize: 14,
   },
   switchContainer: {
@@ -141,6 +143,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     height: 30,
     padding: 0,
+    fontFamily:fonts.robotoRegular,
   },
   smallBtn: {
     borderWidth: 1,
@@ -148,4 +151,11 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
   },
+  btnText:{
+    fontFamily:fonts.robotoRegular
+  },
+  listTxt:{
+    fontFamily:fonts.robotoRegular,
+    textAlign:"justify"
+  }
 });

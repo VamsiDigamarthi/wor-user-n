@@ -6,6 +6,7 @@ import {
   Pressable,
   ActivityIndicator,
 } from "react-native";
+import { fonts } from "../fonts/Fonts";
 
 const CustomBtn = ({
   title,
@@ -67,6 +68,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 16,
-    fontWeight: "500",
+    // fontWeight: "500",
+    fontFamily: fonts.robotoMedium,
   },
 });

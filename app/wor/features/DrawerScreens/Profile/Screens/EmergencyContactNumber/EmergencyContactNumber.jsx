@@ -20,6 +20,7 @@ import { pickContact } from "react-native-contact-pick";
 import CustomeAppbar from "../../../../../../../Utils/CustomeAppbar/CustomeAppbar";
 import { topImg } from "../../../../../Images/ProfileImages";
 import { API } from "../../../../../../../Constants/url";
+import { fonts } from "../../../../../fonts/Fonts";
 const ProfileEmergencyContact = () => {
   const navigation = useNavigation();
   const routes = useRoute();
@@ -217,19 +218,19 @@ const ProfileEmergencyContact = () => {
   );
 };
 
-const AddTrusted = () => (
-  <View style={styles.topCard}>
-    <Image style={styles.topImg} source={topImg} />
-    <View style={{ width: "60%", gap: 10 }}>
-      <Text style={{ fontWeight: "bold", fontSize: 16 }}>
-        Add Trusted Contact Numbers
-      </Text>
-      <Text style={{ fontSize: 10 }}>
-        The emergency contact numbers are used for safety purposes.
-      </Text>
-    </View>
-  </View>
-);
+// const AddTrusted = () => (
+//   <View style={styles.topCard}>
+//     <Image style={styles.topImg} source={topImg} />
+//     <View style={{ width: "60%", gap: 10 }}>
+//       <Text style={{ fontWeight: "bold", fontSize: 16 }}>
+//         Add Trusted Contact Numbers
+//       </Text>
+//       <Text style={{ fontSize: 10 }}>
+//         The emergency contact numbers are used for safety purposes.
+//       </Text>
+//     </View>
+//   </View>
+// );
 
 const styles = StyleSheet.create({
   container: {
@@ -254,14 +255,26 @@ const styles = StyleSheet.create({
     width: 60,
     borderRadius: 30,
   },
-  contactName: { fontWeight: "bold", fontSize: 14 },
-  mobileText: { color: "#757575", fontWeight: "bold", fontSize: 14 },
+  contactName: {
+    fontFamily: fonts.robotoRegular,
+    fontSize: 12,
+    color: "#757575",
+  },
+  mobileText: {
+    // color: "#757575",
+    fontFamily: fonts.robotoBold,
+    fontSize: 14,
+  },
   addContactContainer: { flexDirection: "row", alignItems: "center", gap: 10 },
-  addContactText: { fontSize: 14, fontWeight: "bold", color: "#757575" },
+  addContactText: {
+    fontSize: 14,
+    fontFamily: fonts.robotoSemiBold,
+    color: "#757575",
+  },
   separator: { backgroundColor: "#E0E0E0", height: 2, marginVertical: 8 },
   topCard: { flexDirection: "row", padding: 12, marginTop: 10, height: 200 },
   topImg: { height: 120, width: 150, resizeMode: "contain" },
-  sectionTitle: { fontWeight: "bold", fontSize: 14 },
+  sectionTitle: { fontFamily: fonts.robotoBold, fontSize: 14 },
 });
 
 export default ProfileEmergencyContact;

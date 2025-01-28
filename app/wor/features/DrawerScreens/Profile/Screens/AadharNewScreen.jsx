@@ -4,15 +4,18 @@ import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import AppBarLayout from "../../../ridebooking/sharedLogics/AppBarLayout";
 import AadharModal from "../Modal/AadharModal/AadharModal";
 import { useSelector } from "react-redux";
+import { fonts } from "../../../../fonts/Fonts";
 export default function AadharNewScreen() {
   const [modalOpen, setModalOpen] = useState(false);
   const { profile } = useSelector((state) => state.profileSlice);
   return (
     <AppBarLayout title="Documents" isPositionAppbar={true}>
       <View style={styles.container}>
-        <Text style={styles.heading}>
-          Dear Women Rider User , Please verify your Gender Identity by using
-          your government ID
+        <Text style={[styles.heading, { fontFamily: fonts.robotoRegular }]}>
+          Aadhaar verification is an essential step to ensure the authenticity
+          of our users. By using Aadhaar, we can confirm your identity quickly
+          and securely, making it easier to access our services. This helps us
+          create a safe and trustworthy environment for all the users.
         </Text>
         <Text style={styles.heading}>Documents required</Text>
 
@@ -37,6 +40,13 @@ export default function AadharNewScreen() {
             </View>
           )}
         </TouchableOpacity>
+
+        <View style={styles.bottomText}>
+          <AntDesign name="Safety" size={20} color="#036413" />
+          <Text style={{ color: "#757575", fontFamily: fonts.robotoRegular }}>
+            Your Data is 100% Safe and Secure
+          </Text>
+        </View>
       </View>
       <AadharModal openModal={modalOpen} closeModal={setModalOpen} />
     </AppBarLayout>
@@ -50,11 +60,15 @@ const styles = StyleSheet.create({
     gap: 10,
     paddingTop: 100,
     backgroundColor: "#fff",
+    flex: 1,
   },
   heading: {
-    fontWeight: "600",
+    // fontWeight: "600",
     fontSize: 14,
     lineHeight: 21,
+    fontFamily: fonts.robotoSemiBold,
+    textAlign: "justify",
+    // color: "red",
   },
   card: {
     backgroundColor: "#FFFCF5",
@@ -101,5 +115,17 @@ const styles = StyleSheet.create({
     height: 20,
     borderRadius: 20,
     fontSize: 16,
+  },
+  bottomText: {
+    color: "#757575",
+    fontFamily: fonts.robotoRegular,
+    position: "absolute",
+    bottom: 20,
+
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 10,
+    width: "100%",
   },
 });

@@ -1,7 +1,7 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-
+import { fonts } from "../../../../fonts/Fonts";
 import { ScootyImg, AutoImg, CabImg } from "../../../../Images/Universal";
 
 const RideHistoryItem = ({
@@ -76,7 +76,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between", // Ensures equal spacing between children
   },
   dropAddress: {
-    fontWeight: "bold",
+    // fontWeight: "bold",
+    fontFamily: fonts.robotoBold,
     fontSize: 14,
     width: "100%", // Ensures all text aligns equally
     textAlign: "left",
@@ -86,12 +87,14 @@ const styles = StyleSheet.create({
     color: "#757575",
     width: "100%", // Consistent width with other elements
     textAlign: "left",
+    fontFamily: fonts.robotoRegular,
   },
   time: {
     fontSize: 12,
     color: "#757575",
     width: "100%",
     textAlign: "left",
+    fontFamily: fonts.robotoRegular,
   },
   rightContainer: {
     width: "20%",

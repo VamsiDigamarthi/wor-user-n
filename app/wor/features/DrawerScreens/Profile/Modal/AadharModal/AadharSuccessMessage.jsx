@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { fonts } from "../../../../../fonts/Fonts";
 
 const AadharSuccessMessage = ({ genderFailed }) => {
   const message =
@@ -37,7 +38,8 @@ const styles = StyleSheet.create({
   },
   message: {
     fontSize: 20,
-    fontWeight: "600",
+    // fontWeight: "600",
+    fontFamily: fonts.robotoSemiBold,
     textAlign: "center",
   },
 });

@@ -4,6 +4,7 @@ import CustomBtn from "../../../../../utiles/CustomBtn";
 import InputBox from "../../../../../utiles/InputCard/InputCard";
 import { AntDesign } from "@expo/vector-icons";
 import { aadharNumberSendOtp } from "./AadharModal.Serv";
+import { fonts } from "../../../../../fonts/Fonts";
 
 const AadharCardNumber = ({
   aadharNumber,
@@ -53,23 +54,25 @@ const AadharCardNumber = ({
 
       <View style={styles.rowCard}>
         <View style={styles.dot}></View>
-        <Text style={{ textAlign: "justify", fontSize: 12, fontWeight: "400" }}>
-          By clicking this checkbox and the sign Document button, I voluntarily
-          agree to aadhaar esign the previewed document
+        <Text style={styles.listText}>
+          we prioritize your safety and privacy. Aadhaar is used only for
+          verification to keep our services secure.
         </Text>
       </View>
 
       <View style={styles.rowCard}>
         <View style={styles.dot}></View>
-        <Text style={{ textAlign: "justify", fontSize: 12, fontWeight: "400" }}>
-          By clicking this checkbox and the sign Document button, I voluntarily
-          agree to aadhaar esign the previewed document
+        <Text style={styles.listText}>
+          We handle Aadhaar data carefully and never misuse or share it. Your
+          security is our top concern.
         </Text>
       </View>
 
       <View style={styles.verifiicons}>
         <AntDesign name="Safety" size={20} color="#036413" />
-        <Text>Your Data is 100% Safe and Secure</Text>
+        <Text style={{ color: "#757575", fontFamily: fonts.robotoRegular }}>
+          Your Data is 100% Safe and Secure
+        </Text>
       </View>
 
       <CustomBtn
@@ -95,12 +98,16 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 16,
-    fontWeight: "600",
+    // fontWeight: "600",
+    fontFamily: fonts.robotoSemiBold,
   },
   rowCard: {
     flexDirection: "row",
     gap: 4,
     justifyContent: "flex-start",
+
+    width: "99%",
+    marginHorizontal: "auto",
   },
   verifiicons: {
     justifyContent: "center",
@@ -112,7 +119,13 @@ const styles = StyleSheet.create({
     height: 5,
     width: 5,
     borderRadius: 200,
-    backgroundColor: "black",
+    backgroundColor: "#757575",
     marginTop: 5,
+  },
+  listText: {
+    textAlign: "justify",
+    fontSize: 10,
+    fontFamily: fonts.robotoRegular,
+    color: "#757575",
   },
 });

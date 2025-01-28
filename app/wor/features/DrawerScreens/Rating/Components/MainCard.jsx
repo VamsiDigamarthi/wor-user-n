@@ -3,6 +3,7 @@ import LinearGradient from "react-native-linear-gradient";
 import { mainImg } from "../../../../Images/ReferAndEarnImages";
 import StarRating from "../../../../utiles/StarRating/StarRating";
 import { FontAwesome } from "@expo/vector-icons";
+import { fonts } from "../../../../fonts/Fonts";
 export default function MainCard({ avgRating }) {
   return (
     <LinearGradient
@@ -13,7 +14,7 @@ export default function MainCard({ avgRating }) {
     >
       <View>
         <Text style={styles.heading}>How Your Rating is calculated</Text>
-        <Text style={[styles.subText, { fontSize: 14 }]}>
+        <Text style={[styles.subText]}>
           We ensure fairness and transparency in every rating.
         </Text>
       </View>
@@ -21,7 +22,7 @@ export default function MainCard({ avgRating }) {
       <View style={styles.secondCard}>
         <View style={{ width: "60%" }}>
           <Text style={[styles.heading, { fontSize: 16 }]}>Your Rating</Text>
-          <Text style={[styles.subText, { fontSize: 10 }]}>
+          <Text style={[styles.subText]}>
             We use a weighted average of all reviews submitted by users.
           </Text>
 
@@ -59,13 +60,16 @@ const styles = StyleSheet.create({
   },
 
   heading: {
-    fontWeight: "bold",
+    // fontWeight: "bold",
+    fontFamily:fonts.robotoSemiBold,
     fontSize: 20,
     color: "#fff",
   },
 
   subText: {
     color: "#000",
+    fontFamily:fonts.robotoRegular,
+    fontSize:10,
   },
 
   secondCard: {

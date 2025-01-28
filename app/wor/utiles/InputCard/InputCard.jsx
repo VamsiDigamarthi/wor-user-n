@@ -19,7 +19,7 @@ import {
   SimpleLineIcons,
   Zocial,
 } from "@expo/vector-icons";
-
+import { fonts } from "../../fonts/Fonts";
 const InputBox = ({
   label,
   isIconsNotText = true,
@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 12,
     color: "#000",
+    fontFamily: fonts.robotoRegular,
   },
   invalidLabel: {
     color: "red", // Change label color to red
@@ -149,5 +150,6 @@ const styles = StyleSheet.create({
   textInput: {
     width: "90%",
     padding: 0,
+    fontFamily: fonts.robotoRegular,
   },
 });

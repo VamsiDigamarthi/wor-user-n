@@ -11,6 +11,7 @@ import LinearGradient from "react-native-linear-gradient";
 import { mainImg } from "../../../../Images/ReferAndEarnImages";
 import * as Clipboard from "expo-clipboard";
 import { useState } from "react";
+import { fonts } from "../../../../fonts/Fonts";
 export default function MainCard() {
   const [text, setText] = useState("GOWOR");
 
@@ -35,7 +36,7 @@ export default function MainCard() {
         <Text style={styles.mainText}>25% off for them</Text>
 
         <TouchableOpacity onPress={copyToClipboard} style={styles.copyBtn}>
-          <Text style={{ fontWeight: "bold", color: "#000" }}>GOWOR</Text>
+          <Text style={{ fontFamily:fonts.robotoSemiBold }}>GOWOR</Text>
           <MaterialCommunityIcons name="content-copy" size={24} color="#000" />
         </TouchableOpacity>
       </View>
@@ -60,7 +61,8 @@ const styles = StyleSheet.create({
   mainText: {
     color: "#fff",
     fontSize: 14,
-    fontWeight: "bold",
+    // fontWeight: "bold",
+    fontFamily:fonts.robotoSemiBold
   },
 
   copyBtn: {
