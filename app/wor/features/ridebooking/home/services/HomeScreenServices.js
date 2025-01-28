@@ -57,9 +57,6 @@ const onAddFbTokenToServer = async (token, fbToken) => {
       type: "success",
       position: "bottom",
     });
-
-
-    
   } catch (error) {
     console.log(error?.response?.data?.message);
     Toast.show({
@@ -99,6 +96,62 @@ export const onFetchActiveOrders = async ({ token }) => {
     console.log("active order fetching failed");
     console.log(error.response.data.message);
     return null;
+  }
+};
+
+export const onFetchRideRating = async ({ token }) => {
+  try {
+    const response = await API.get("/rating/get-order-by-rating", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    return response?.data;
+  } catch (error) {
+    console.log("failed to fetch ride rating ");
+    return null;
+  }
+};
+
+export const ratingNotGivenByUser = async ({ token, orderId }) => {
+  try {
+    await API.patch(
+      "/rating/not-given-rating",
+      { orderId },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return true;
+  } catch (error) {
+    console.log("rating not given by user failed");
+    return null;
+  }
+};
+
+export const checkDeviceId = async ({ token, deviceId }) => {
+  try {
+    await API.patch(
+      "/auth/check-device",
+      { deviceId },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return { status: true };
+  } catch (error) {
+    console.log("device id Checking failes");
+    return {
+      status: false,
+      errorMsg: error?.response?.data?.message,
+    };
   }
 };
 

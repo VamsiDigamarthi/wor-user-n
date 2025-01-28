@@ -12,6 +12,7 @@ import CustomBtn from "../../../utiles/CustomBtn";
 import ParSendRecDetailsDisplayCard from "../Components/ParSendRecDetailsDisplayCard";
 import ParProtectDelivery from "../Components/ParProtectDelivery";
 import { useSelector } from "react-redux";
+import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 
 const ParcelHomeScreen = () => {
   const {
@@ -22,8 +23,7 @@ const ParcelHomeScreen = () => {
   } = useParcelHomeScreenHook();
 
   return (
-    <View style={styles.container}>
-      <CustomeAppbar title="Parcel" />
+    <AppBarLayout title="Parcel" isPositionAppbar={true}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <ParSendReceiveCard />
         <View style={styles.tripDetailsCard}>
@@ -51,7 +51,7 @@ const ParcelHomeScreen = () => {
           onPress={onNavigateParcelPickUpLocationScreen}
         />
       </ParcelBtnCard>
-    </View>
+    </AppBarLayout>
   );
 };
 
@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     gap: 15,
     flexGrow: 1,
     paddingBottom: 120,
+    paddingTop: 100,
   },
   tripDetailsCard: {
     width: "100%",

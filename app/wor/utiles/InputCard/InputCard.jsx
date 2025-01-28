@@ -1,4 +1,10 @@
-import { StyleSheet, Text, TextInput, View , TouchableWithoutFeedback} from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  TouchableWithoutFeedback,
+} from "react-native";
 import React, { useRef, useState } from "react";
 import {
   Entypo,
@@ -12,8 +18,6 @@ import {
   Octicons,
   SimpleLineIcons,
   Zocial,
-  
-
 } from "@expo/vector-icons";
 
 const InputBox = ({
@@ -64,6 +68,9 @@ const InputBox = ({
     case "FontAwesome":
       Icon = FontAwesome;
       break;
+    case "Zocial":
+      Icon = Zocial;
+      break;
     default:
       Icon = Ionicons;
   }
@@ -71,37 +78,37 @@ const InputBox = ({
   const [isFocused, setIsFocused] = useState(false);
   console.log(isFocused);
 
-  const inputRef = useRef(null)
+  const inputRef = useRef(null);
 
   return (
-    <TouchableWithoutFeedback onPress={()=>inputRef.current.focus()}>
-    <View
-      style={[
-        styles.container,
-        // !isValid && styles.invalidInputCard,
-        isFocused && { borderColor: "#e02e88" },
-      ]}
-    >
-      <Text style={[styles.label, !isValid && styles.invalidLabel]}>
-        {label}
-      </Text>
-      <View style={[styles.inputCard]}>
-        {isIconsNotText ? <Icon name={icon} size={20} /> : <Text>+91</Text>}
-        <TextInput
-          style={styles.textInput}
-          keyboardType={keyboardType}
-          placeholder={placeholder}
-          onChangeText={onChangeText}
-          secureTextEntry={secureTextEntry}
-          value={value}
-          maxLength={maxLength}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          autoCorrect={false}
-          ref={inputRef}
-        />
+    <TouchableWithoutFeedback onPress={() => inputRef.current.focus()}>
+      <View
+        style={[
+          styles.container,
+          // !isValid && styles.invalidInputCard,
+          isFocused && { borderColor: "#e02e88" },
+        ]}
+      >
+        <Text style={[styles.label, !isValid && styles.invalidLabel]}>
+          {label}
+        </Text>
+        <View style={[styles.inputCard]}>
+          {isIconsNotText ? <Icon name={icon} size={20} /> : <Text>+91</Text>}
+          <TextInput
+            style={styles.textInput}
+            keyboardType={keyboardType}
+            placeholder={placeholder}
+            onChangeText={onChangeText}
+            secureTextEntry={secureTextEntry}
+            value={value}
+            maxLength={maxLength}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            autoCorrect={false}
+            ref={inputRef}
+          />
+        </View>
       </View>
-    </View>
     </TouchableWithoutFeedback>
   );
 };

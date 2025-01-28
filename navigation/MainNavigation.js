@@ -99,6 +99,9 @@ const MainNavigation = () => {
                     dispatch(setCompleteRideDetails(singleOrder));
                     navigationRef.current?.navigate("captaineacceptride");
                   } else if (singleOrder.status === "waiting") {
+                    console.log(
+                      "----------------waiting order exist--------------"
+                    );
                     // navigationRef.current?.navigate("lookingforride", {
                     //   orderId: singleOrder?._id,
                     //   orderPlaceTime: singleOrder.orderPlaceTime,
@@ -264,7 +267,7 @@ const MainNavigation = () => {
   );
 
   // Listeners for AppState and Notifications
-   // Handle notifications received while app is launched
+  // Handle notifications received while app is launched
   useEffect(() => {
     const handleAppLaunchNotification = async () => {
       const response = await Notifications.getLastNotificationResponseAsync();

@@ -1,70 +1,95 @@
-import { StyleSheet, Text, View, TouchableOpacity, Button } from "react-native";
-import React, { useRef } from "react";
-import { Modalize } from "react-native-modalize";
+import { Linking, StyleSheet, Text, View } from "react-native";
+import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
+import { settingsData } from "./settingsData";
+import SettingIconCard from "./SettingIconCard";
+import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
-import SettingsItemsList from "./Components/SettingsItem/SettingsItemsList";
+import ModalUI from "../../../utiles/Modal/Modal";
 const About = () => {
-  // Create a reference for the bottom sheet
-  const modalizeRef = useRef(null);
-
-  // Function to open the modal after ensuring it's rendered
-  const onOpenModal = () => {
-    if (modalizeRef?.current) {
-      modalizeRef?.current?.open();
-    }
+  const [logOutModal, setLogOutModal] = useState(false);
+  const handleOpenCloseLogoutModal = () => {
+    setLogOutModal(!logOutModal);
   };
 
   const navigation = useNavigation();
+  const onNavPrivacy = () => {
+    Linking.openURL("https://womenrider.nuhvin.com/privacypolicy").catch(
+      (e) => {
+        console.log(e);
+      }
+    );
+  };
+
+  const onNavTermsAndConditon = () => {
+    Linking.openURL("https://womenrider.nuhvin.com/termsandconditions").catch(
+      (e) => {
+        console.log(e);
+      }
+    );
+  };
+
+  const logOut = () => {
+    handleOpenCloseLogoutModal();
+    AsyncStorage.removeItem("token");
+    navigation.navigate("AuthStack");
+  };
+
+  const parentReturnFun = (text) => {
+    console.log(text);
+    switch (text) {
+      case "Terms And Condition":
+        onNavTermsAndConditon();
+        break;
+      case "Privacy Policy":
+        onNavPrivacy();
+        break;
+      case "Software License":
+        onNavTermsAndConditon();
+        break;
+      case "LogOut":
+        // logOut();
+        setLogOutModal(true);
+        break;
+      default:
+        null;
+    }
+  };
 
   return (
-    <View style={styles.container}>
-      <CustomeAppbar title="Settings" onBack={() => navigation.goBack()} />
-
-      <SettingsItemsList onOpenDeleteModal={onOpenModal} />
-
-      <Modalize ref={modalizeRef} snapPoint={250}>
-        <View style={styles.bottomSheetContent}>
-          <Text style={styles.bottomSheetTitle}>Delete Account</Text>
-          <Text style={styles.bottomSheetText}>
-            Are you sure you want to delete your account? This action cannot be
-            undone.
-          </Text>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              style={styles.cancelButton}
-              onPress={() => modalizeRef?.current?.close()}
-            >
-              <Text style={styles.cancelButtonText}>Cancel</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.deleteButton}
-              onPress={(event) => {
-                event.persist();
-                // console.log("Delete pressed");
-                // Any async actions can be done here
-              }}
-            >
-              <Text style={styles.deleteButtonText}>Delete</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modalize>
-    </View>
+    <AppBarLayout title="Settings" isPositionAppbar={true}>
+      <View style={styles.innerCard}>
+        {settingsData?.map((each, index) => (
+          <SettingIconCard
+            key={index}
+            title={each.name}
+            navigationText={each.navigationScreen}
+            isFunc={each.isFunc}
+            parentReturnFun={parentReturnFun}
+          />
+        ))}
+      </View>
+      <ModalUI
+        openCloseState={logOutModal}
+        closeModalFun={handleOpenCloseLogoutModal}
+        rightBtnText="Ok Continue"
+        rightBtnFun={logOut}
+      >
+        <Text>Are you sure want to logout</Text>
+      </ModalUI>
+    </AppBarLayout>
   );
 };
 
 export default About;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // paddingHorizontal: 10,
-    // paddingVertical: 12,
-    gap: 15,
-    backgroundColor: "#fff",
-  },
-  bottomSheetContent: {
-    // padding: 20,
+  innerCard: {
+    width: "100%",
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    gap: 10,
+    flexGrow: 1,
+    backgroundColor: "#f7f7f7",
+    paddingTop: 100,
   },
 });

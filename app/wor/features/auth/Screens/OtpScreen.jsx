@@ -8,7 +8,7 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
-  Platform
+  Platform,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import AuthAppBar from "./AuthAppBar";
@@ -22,7 +22,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setToken } from "../../../../../redux/Features/Auth/LoginSlice";
 import { API } from "../../../../../Constants/url";
 import { useDispatch } from "react-redux";
-
+import DeviceInfo from "react-native-device-info";
 const OtpScreen = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const { mobile, message } = useRoute().params;
@@ -61,10 +61,13 @@ const OtpScreen = () => {
     }
     setIsLoading(true);
     try {
+      const deviceId = await DeviceInfo.getUniqueId();
+      console.log("deviceId", deviceId);
       const response = await API.post("/auth/verify-otp", {
         mobile,
         otp: otp.join(""),
         isUserApp: true,
+        deviceId,
       });
       setIsLoading(false);
 
@@ -111,98 +114,104 @@ const OtpScreen = () => {
 
   return (
     <KeyboardAvoidingView
-        style={styles.container}
-        behavior={Platform.OS === "ios" ? "padding" : "height"} // Adjust for iOS and Android
-      >
-    <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
-    <View style={styles.container}>
-      <AuthAppBar isLoginScreen={false} />
-      <View style={styles.loginInnerCard}>
-        <View style={{ width: "100%", gap: 10 }}>
-          <Text style={{ fontWeight: "600", fontSize: 24 }}>
-            Welcome Back {message} !
-          </Text>
-          <Text style={{ fontSize: 14, fontWeight: "500" }}>
-            Please enter your 6-digit OTP
-          </Text>
-          <Text style={{ color: "gray", fontSize: 13 }}>
-            The Otp will send your mobile number
-          </Text>
-          <View style={{ flexDirection: "row", gap: 10 }}>
-            {/* <Text style={{ color: "gray", fontSize: 13 }}>123456 .</Text> */}
-            <Pressable onPress={() => navigation.goBack()}>
-              <Text style={{ color: "blue", fontSize: 13 }}>Change Number</Text>
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"} // Adjust for iOS and Android
+    >
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.container}>
+          <AuthAppBar isLoginScreen={false} />
+          <View style={styles.loginInnerCard}>
+            <View style={{ width: "100%", gap: 10 }}>
+              <Text style={{ fontWeight: "600", fontSize: 24 }}>
+                Welcome Back {message} !
+              </Text>
+              <Text style={{ fontSize: 14, fontWeight: "500" }}>
+                Please enter your 6-digit OTP
+              </Text>
+              <Text style={{ color: "gray", fontSize: 13 }}>
+                The Otp will send your mobile number
+              </Text>
+              <View style={{ flexDirection: "row", gap: 10 }}>
+                {/* <Text style={{ color: "gray", fontSize: 13 }}>123456 .</Text> */}
+                <Pressable onPress={() => navigation.goBack()}>
+                  <Text style={{ color: "blue", fontSize: 13 }}>
+                    Change Number
+                  </Text>
+                </Pressable>
+              </View>
+              <View
+                style={[
+                  styles.inputCard,
+                  { borderColor: isFocused && "#e02e88", borderWidth: 1 },
+                ]}
+              >
+                {otp.map((value, index) => (
+                  <TextInput
+                    onPress={Keyboard.dismiss}
+                    key={index}
+                    ref={(input) => (inputs.current[index] = input)} // Store refs for each input
+                    maxLength={1}
+                    keyboardType="numeric"
+                    style={[
+                      styles.input,
+                      {
+                        backgroundColor: value ? "transparent" : "#f7f7f7",
+                      },
+                    ]}
+                    onChangeText={(text) => handleChange(text, index)}
+                    onKeyPress={(e) => handleKeyPress(e, index)}
+                    value={value}
+                    textAlign="center"
+                    onFocus={() => {
+                      inputs.current[index].setNativeProps({
+                        style: { borderColor: "#E02E88" }, // Change border color to pink on focus
+                      });
+                      setIsFocused(true);
+                    }}
+                    onBlur={() => {
+                      inputs.current[index].setNativeProps({
+                        style: { borderColor: value ? "#E02E88" : "#A9A9A9" }, // Revert based on value
+                      });
+                      setIsFocused(true);
+                    }}
+                  />
+                ))}
+              </View>
+              <Text style={{ color: "gray", fontSize: 13 }}>
+                Requested new OTP in 02
+              </Text>
+            </View>
+          </View>
+
+          <View style={{ width: "100%", marginBottom: 40, padding: 20 }}>
+            {otpError && (
+              <View style={styles.errorCard}>
+                <Text style={styles.errorMsg}>{otpError}</Text>
+              </View>
+            )}
+            <CustomBtn
+              title="continue"
+              btnBg={otp[5]?.length <= 0 ? "#f7f7f7" : "#e02e88"}
+              btnColor={otp[5]?.length <= 0 ? "#e02e88" : "#fff"}
+              onPress={justLog}
+              width="100%"
+              isLoding={isLoading}
+            />
+          </View>
+          <View style={styles.nuhvinProduct}>
+            <Text style={{ fontSize: 14, fontWeight: "500" }}>
+              A Product From
+            </Text>
+            <Pressable onPress={openLink}>
+              <Text
+                style={{ fontSize: 14, fontWeight: "500", color: "#e02e88" }}
+              >
+                Visit NuHvin
+              </Text>
             </Pressable>
           </View>
-          <View
-            style={[
-              styles.inputCard,
-              { borderColor: isFocused && "#e02e88", borderWidth: 1 },
-            ]}
-          >
-            {otp.map((value, index) => (
-              <TextInput
-              onPress={Keyboard.dismiss}
-                key={index}
-                ref={(input) => (inputs.current[index] = input)} // Store refs for each input
-                maxLength={1}
-                keyboardType="numeric"
-                style={[
-                  styles.input,
-                  {
-                    backgroundColor: value ? "transparent" : "#f7f7f7",
-                  },
-                ]}
-                onChangeText={(text) => handleChange(text, index)}
-                onKeyPress={(e) => handleKeyPress(e, index)}
-                value={value}
-                textAlign="center"
-                onFocus={() => {
-                  inputs.current[index].setNativeProps({
-                    style: { borderColor: "#E02E88" }, // Change border color to pink on focus
-                  });
-                  setIsFocused(true);
-                }}
-                onBlur={() => {
-                  inputs.current[index].setNativeProps({
-                    style: { borderColor: value ? "#E02E88" : "#A9A9A9" }, // Revert based on value
-                  });
-                  setIsFocused(true);
-                }}
-              />
-            ))}
-          </View>
-          <Text style={{ color: "gray", fontSize: 13 }}>
-            Requested new OTP in 02
-          </Text>
         </View>
-      </View>
-
-      <View style={{ width: "100%", marginBottom: 40, padding: 20 }}>
-        {otpError && (
-          <View style={styles.errorCard}>
-            <Text style={styles.errorMsg}>{otpError}</Text>
-          </View>
-        )}
-        <CustomBtn
-          title="continue"
-          btnBg={otp[5]?.length <= 0 ? "#f7f7f7" : "#e02e88"}
-          btnColor={otp[5]?.length <= 0 ? "#e02e88" : "#fff"}
-          onPress={justLog}
-          width="100%"
-          isLoding={isLoading}
-        />
-      </View>
-      <View style={styles.nuhvinProduct}>
-        <Text style={{ fontSize: 14, fontWeight: "500" }}>A Product From</Text>
-        <Pressable onPress={openLink}>
-          <Text style={{ fontSize: 14, fontWeight: "500", color: "#e02e88" }}>
-            Visit NuHvin
-          </Text>
-        </Pressable>
-      </View>
-    </View>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
 };

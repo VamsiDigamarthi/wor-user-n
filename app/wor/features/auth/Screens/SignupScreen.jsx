@@ -1,4 +1,15 @@
-import { Keyboard, Linking, Pressable, StyleSheet, Text, TouchableWithoutFeedback, View, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
+import {
+  Keyboard,
+  Linking,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import AuthAppBar from "./AuthAppBar";
 import CustomBtn from "../../../utiles/CustomBtn";
@@ -9,20 +20,16 @@ import {
 } from "@react-navigation/native";
 import InputBox from "../../../utiles/InputCard/InputCard";
 import { nearPlacesByText } from "../../../../../Constants/displaylocationmap";
-import SignUpLocationTextCard from "./Components/SignUpLocationTextCard";
+import SignUpLocationTextCard from "../Components/SignUpLocationTextCard";
 import { API } from "../../../../../Constants/url";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setToken } from "../../../../../redux/Features/Auth/LoginSlice";
 import { useDispatch } from "react-redux";
+import AProductFromNuhvin from "../Components/AProductFromNuhvin";
+import DeviceInfo from "react-native-device-info";
 
 const SignupScreen = () => {
-  const openLink = () => {
-    const url = "https://nuhvin.com"; // Replace with your desired URL
-    Linking.openURL(url).catch((err) =>
-      console.error("Failed to open URL:", err)
-    );
-  };
   const [errors, setErrors] = useState({
     name: "",
   });
@@ -114,13 +121,20 @@ const SignupScreen = () => {
     setIsLoading(true);
 
     try {
-      const response = await API.post("/auth/new-register", formData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const deviceId = await DeviceInfo.getUniqueId();
+
+      const response = await API.post(
+        "/auth/new-register",
+        { ...formData, deviceId },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       await AsyncStorage.setItem("token", JSON.stringify(response.data.token));
       setIsLoading(false);
+
       dispatch(setToken(response.data.token));
       navigation.dispatch(
         CommonActions.reset({
@@ -209,7 +223,6 @@ const SignupScreen = () => {
     // }
   }, [formData]);
 
-
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -220,7 +233,9 @@ const SignupScreen = () => {
           <AuthAppBar isLoginScreen={false} />
           <View style={styles.loginInnerCard}>
             <View style={{ width: "100%", gap: 10 }}>
-              <Text style={{ fontSize: 13, color: "gray" }}>Please Fill Your</Text>
+              <Text style={{ fontSize: 13, color: "gray" }}>
+                Please Fill Your
+              </Text>
               <Text style={{ fontSize: 22, fontWeight: "600" }}>
                 Basic Information
               </Text>
@@ -243,7 +258,9 @@ const SignupScreen = () => {
               />
               <View style={styles.googleNearMapLocationCard}>
                 <InputBox
-                  label={errors?.address ? errors?.address : "Current Address *"}
+                  label={
+                    errors?.address ? errors?.address : "Current Address *"
+                  }
                   icon="location-outline"
                   placeholder=" Enter your address"
                   multiline={true}
@@ -271,51 +288,48 @@ const SignupScreen = () => {
                 icon="contract"
                 placeholder="Enter Referal Code"
                 value={formData.referalCode}
-                onChangeText={(value) => handleInputChange("referalCode", value)}
+                onChangeText={(value) =>
+                  handleInputChange("referalCode", value)
+                }
               />
             </View>
           </View>
-          <View style={{ gap: 30, height: 100, backgroundColor:"#fff" }}>
+          <View style={{ gap: 30, height: 100, backgroundColor: "#fff" }}>
             <View style={{ paddingHorizontal: 10 }}>
-            <CustomBtn
-            title="continue"
-            // btnBg={
-            //   errors?.name?.length === 0 &&
-            //   validationCheck?.name &&
-            //   errors?.email?.length === 0 &&
-            //   errors?.address?.length === 0
-            //     ? "#E02E88"
-            //     : "#f7f7f7"
-            // }
-            // btnColor={
-            //   errors?.name?.length === 0 &&
-            //   errors?.email?.length === 0 &&
-            //   errors?.address?.length === 0
-            //     ? "#FFF"
-            //     : "#E02E88"
-            // }
+              <CustomBtn
+                title="continue"
+                // btnBg={
+                //   errors?.name?.length === 0 &&
+                //   validationCheck?.name &&
+                //   errors?.email?.length === 0 &&
+                //   errors?.address?.length === 0
+                //     ? "#E02E88"
+                //     : "#f7f7f7"
+                // }
+                // btnColor={
+                //   errors?.name?.length === 0 &&
+                //   errors?.email?.length === 0 &&
+                //   errors?.address?.length === 0
+                //     ? "#FFF"
+                //     : "#E02E88"
+                // }
 
-
-              btnBg={
-                (formData.name && formData.email && formData.address) ? "#EA4C89" : "#FFF"
-              }
-              btnColor={
-                (formData.name && formData.email && formData.address) ? "#FFF" : "#EA4C89"
-              }
-
-            onPress={handleNavigateToOTP}
-            width="100%"
-            isLoding={isLoading}
-          />
+                btnBg={
+                  formData.name && formData.email && formData.address
+                    ? "#EA4C89"
+                    : "#FFF"
+                }
+                btnColor={
+                  formData.name && formData.email && formData.address
+                    ? "#FFF"
+                    : "#EA4C89"
+                }
+                onPress={handleNavigateToOTP}
+                width="100%"
+                isLoding={isLoading}
+              />
             </View>
-            <View style={styles.nuhvinProduct}>
-              <Text style={{ fontSize: 14, fontWeight: "500" }}>A Product From</Text>
-              <Pressable onPress={openLink}>
-                <Text style={{ fontSize: 14, fontWeight: "500", color: "#e02e88" }}>
-                  Visit NuHvin
-                </Text>
-              </Pressable>
-            </View>
+            <AProductFromNuhvin />
           </View>
         </ScrollView>
       </TouchableWithoutFeedback>
@@ -342,19 +356,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 30,
   },
-  nuhvinProduct: {
-    position: "absolute",
-    width: "100%",
-    height: 40,
-    backgroundColor: "#b0b0b0",
-    bottom: -20,
-    left: 0,
-    zIndex: 10000,
-    flexDirection: "row",
-    gap: 10,
-    alignItems: "center",
-    paddingHorizontal: 20,
-  },
+
   googleNearMapLocationCard: {
     position: "relative",
     zIndex: 6,

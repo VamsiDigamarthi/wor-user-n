@@ -7,14 +7,13 @@ import {
   NotificationImg,
   noficationHelmet,
 } from "../../../Images/Notification";
+import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 
 const Notification = () => {
   const navigation = useNavigation();
-  const [notification, setNotification] = useState([1,2,3]);
+  const [notification, setNotification] = useState([1, 2, 3]);
   return (
-    <View style={styles.container}>
-      <CustomeAppbar title="Notifications" onBack={() => navigation.goBack()} />
-
+    <AppBarLayout title="Notification" isPositionAppbar={true}>
       <View style={styles.innerContainer}>
         {notification.length > 0 ? (
           <>
@@ -31,7 +30,7 @@ const Notification = () => {
           </View>
         )}
       </View>
-    </View>
+    </AppBarLayout>
   );
 };
 
@@ -46,6 +45,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     gap: 15,
     paddingVertical: 10,
+    paddingTop: 90,
   },
   noNotification: {
     justifyContent: "center",

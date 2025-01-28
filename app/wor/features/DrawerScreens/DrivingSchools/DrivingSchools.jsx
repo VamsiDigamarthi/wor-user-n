@@ -1,41 +1,43 @@
 import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
 import Search from "./Components/Search";
-import { View, Text, StyleSheet, ScrollView, TouchableWithoutFeedback, Keyboard } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
 import React from "react";
 import SliderComponent from "../../../../../Utils/SliderComponent/SliderComponent";
 import Card from "./Components/Card";
+import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 export default function DrivingSchools() {
   return (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <AppBarLayout title="Driving School">
+        <View style={styles.container}>
+          <SliderComponent />
 
-    <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
-    <View style={{ flex: 1, backgroundColor: "#fff" }}>
-      <CustomeAppbar
-        title="Driving Schools"
-        onBack={() => navigation.goBack()}
-      />
+          <View style={styles.searchCard}>
+            <Text style={styles.heading}>Driving Schools in Your Location</Text>
+            <Search />
+          </View>
 
-      <View style={styles.container}>
-        <SliderComponent />
-
-        <View style={styles.searchCard}>
-          <Text style={styles.heading}>Driving Schools in Your Location</Text>
-          <Search />
+          <ScrollView
+            contentContainerStyle={{
+              marginTop: 20,
+              gap: 10,
+            }}
+          >
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+          </ScrollView>
         </View>
-
-        <ScrollView
-          contentContainerStyle={{
-            marginTop: 20,
-            gap: 10,
-          }}
-        >
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-        </ScrollView>
-      </View>
-    </View>
+      </AppBarLayout>
     </TouchableWithoutFeedback>
   );
 }

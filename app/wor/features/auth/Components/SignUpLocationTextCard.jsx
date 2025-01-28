@@ -15,7 +15,7 @@ const SignUpLocationTextCard = ({ onPress, mainPlace, subPlace }) => {
         <View style={styles.first}>
           <Image
             style={styles.firstImage}
-            source={require("../../../../../../assets/images/locationIcons/pin locator 2.png")}
+            source={require("../../../../../assets/images/locationIcons/pin locator 2.png")}
           />
         </View>
         <View style={styles.second}>

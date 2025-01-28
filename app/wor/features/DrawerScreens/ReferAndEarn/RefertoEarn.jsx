@@ -4,40 +4,17 @@ import { useNavigation } from "@react-navigation/native";
 import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
 import MainCard from "./Components/MainCard";
 import InviteCard from "./Components/InviteCard";
+import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 const ReferAndEarn = () => {
   const navigation = useNavigation();
   return (
-    <View style={{ flex: 1 }}>
-
-      <View style={{ zIndex: 10 }}>
-        <CustomeAppbar
-          title="Refer And Earn"
-          onBack={() => navigation.goBack()}
-        />
-      </View>
-
+    <AppBarLayout title="Refer And Earn" isPositionAppbar={true}>
       <View style={styles.innerContainer}>
         <MainCard />
         <InviteCard />
         {/* <HowItWorks /> */}
-
-        {/* <View style={styles.buttonContainer}>
-        <CustomBtn
-          btnColor="#fff"
-          title="Find Friends to Refer"
-          borderWidth={1}
-          btnBg="#E02e88"
-          borderColor="#e02e88"
-        />
-        <CustomBtn
-        title="Refer Now"
-        borderWidth={1}
-          btnBg="#fff"
-          borderColor="#e02e88"
-        />
-      </View> */}
       </View>
-    </View>
+    </AppBarLayout>
   );
 };
 
@@ -54,6 +31,7 @@ const styles = StyleSheet.create({
   innerContainer: {
     // paddingHorizontal: 5,
     gap: 15,
+    paddingTop: 80,
   },
   buttonContainer: {
     position: "absolute",

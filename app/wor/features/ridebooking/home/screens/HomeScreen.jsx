@@ -11,21 +11,33 @@ import AllServices from "../components/AllServices";
 import HomeInput from "../components/HomeInput";
 import HomePlaceNearPlaceCard from "../components/HomePlaceNearPlaceCard";
 import CopyBox from "../../../../utiles/CopyBox";
+import { StatusBar } from "expo-status-bar";
+import RatingModal from "../modals/RatingModal/RatingModal";
 
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.54, 0.6].map((p) => screenHeight * p); // Example snap points for Android
 const iosSnapPoints = [0.5, 0.6].map((p) => screenHeight * p); // Example snap points for iOS
 
 const HomeScreen = () => {
-  const { captainMarkers, nearByRandomItems } = useHomeScreenHook();
+  const {
+    captainMarkers,
+    nearByRandomItems,
+    openRatingModal,
+    setOpenRatingModal,
+    handleCloseRatModAndUpdRatNotGivenToserver,
+    penRatOrderIdCaptainId,
+  } = useHomeScreenHook();
 
   const { mapHeight, snapPoints, handleSheetChange } = useBottomSheetConfig(
     androidSnapPoints,
     iosSnapPoints
   );
 
+  // console.log("pendingOrderRating", pendingOrderRatingId);
+
   return (
-    <BottomSheetModalProvider>
+    <>
+      <StatusBar style="dark" />
       <View style={allRideBookingScreen.container}>
         <HomeMap captainMarkers={captainMarkers} />
         <BottomSheetComponent
@@ -54,7 +66,13 @@ const HomeScreen = () => {
           </View>
         </BottomSheetComponent>
       </View>
-    </BottomSheetModalProvider>
+      <RatingModal
+        openModal={openRatingModal}
+        setOpenRatingModal={setOpenRatingModal}
+        closeModal={handleCloseRatModAndUpdRatNotGivenToserver}
+        penRatOrderIdCaptainId={penRatOrderIdCaptainId}
+      />
+    </>
   );
 };
 

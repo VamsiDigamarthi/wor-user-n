@@ -15,6 +15,9 @@ import BottomSheetComponent from "../sharedLogics/BottomSheetComponent/BottomShe
 import DisplayVehicle from "./Components/DisplayVehicle";
 import OfferCouponCard from "./Components/OfferCouponCard";
 import CustomBtn from "../../../utiles/CustomBtn";
+
+import ShceduleOrderModal from "./Modal/ShceduleOrderModal";
+
 import ModalUI from "../../../utiles/Modal/Modal";
 import { infoModalStyles } from "../../../../../Components/InfoUi/Styles/InfoModalStyles";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -22,6 +25,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import OfferCard from "./Components/OfferCard";
 import UhOhCard from "./Components/UhOhCard";
 import PaymentMethodCard from "./Components/PaymentMethodCard";
+
 
 const screenHeight = Dimensions.get("window").height;
 
@@ -39,6 +43,8 @@ const ShowPriceScreen = () => {
     kownBotSheetChangeUpOrDown,
     knowMoveDownOrUp,
     storedSelectedVehicle,
+    timerSetModalOpen,
+    shceduleOrderModal,
   } = useShowPriceScreenHook();
   const { mapHeight, snapPoints, handleSheetChange } = useBottomSheetConfig(
     androidSnapPoints,
@@ -46,24 +52,63 @@ const ShowPriceScreen = () => {
     kownBotSheetChangeUpOrDown
   );
 
+
   const [coupons, setCoupons] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("cash");
 
   return (
-    <AppBarLayout
-      title={dropDetails?.name}
-      vicinity={dropDetails?.vicinity}
-      isPositionAppbar={true}
-    >
-      <View style={styles.mapContainer}>
-        <ShowPollyLine origin={location} destination={dropDetails.location} />
-      </View>
-      <BottomSheetComponent
-        style={{ marginBottom: isParcScreen ? 150 : 100 }}
-        snapPoints={snapPoints}
-        handleSheetChange={handleSheetChange}
+    <>
+      <AppBarLayout
+        title={dropDetails?.name}
+        vicinity={dropDetails?.vicinity}
+        isPositionAppbar={true}
+        isTimer={true}
+        timerFunction={timerSetModalOpen}
       >
+
+        <View style={styles.mapContainer}>
+          <ShowPollyLine origin={location} destination={dropDetails.location} />
+        </View>
+        <BottomSheetComponent
+          style={{ marginBottom: isParcScreen ? 150 : 100 }}
+          snapPoints={snapPoints}
+          handleSheetChange={handleSheetChange}
+        >
+          {knowMoveDownOrUp === "moved down" ? (
+            <View style={styles.singleFilterStyle}>
+              {storedSelectedVehicle?.map((vehicle, index) => (
+                <DisplayVehicle key={index} vehicle={vehicle} />
+              ))}
+            </View>
+          ) : (
+            <View style={{ paddingHorizontal: 15, paddingVertical: 20 }}>
+              {filteredVehicles?.map((vehicle, index) => (
+                <DisplayVehicle key={index} vehicle={vehicle} />
+              ))}
+            </View>
+          )}
+        </BottomSheetComponent>
+        <View style={styles.coupneWithBtn}>
+          <OfferCouponCard />
+          <CustomBtn
+            width="100%"
+            btnBg={selectedVehicleType ? "#e02e88" : "#fff"}
+            btnColor={selectedVehicleType ? "#fff" : "#e02e88"}
+            title={`Book ${selectedVehicleType} `}
+            onPress={onNavigateConfirmLocationScreen}
+            disabled={true}
+            borderColor="#e02e88"
+            borderWidth={1}
+          />
+        </View>
+      </AppBarLayout>
+      <ShceduleOrderModal
+        shceduleOrderModal={shceduleOrderModal}
+        timerSetModalOpen={timerSetModalOpen}
+      />
+    </>
+
         {knowMoveDownOrUp === "moved down" ? (
           <View style={styles.singleFilterStyle}>
             {storedSelectedVehicle?.map((vehicle, index) => (
@@ -122,6 +167,7 @@ const ShowPriceScreen = () => {
         )}
       </View>
     </AppBarLayout>
+
   );
 };
 

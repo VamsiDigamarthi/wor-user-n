@@ -1,7 +1,7 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { BackIcon } from "../../../Icons/Icons";
-import SupportIcon from "./Components/SupportIcon";
+import SupportIcon from "../Components/SupportIcon";
 import { useNavigation } from "@react-navigation/native";
 
 const AuthAppBar = ({ isLoginScreen = true }) => {

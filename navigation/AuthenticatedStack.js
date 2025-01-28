@@ -76,7 +76,7 @@ import ParSavedUsers from "../app/wor/features/Parcels/screens/ParSavedUsers";
 
 /* Drawer Screens */
 
-import AadharNewScreen from "../app/wor/features/DrawerScreens/Profile/Screens/AadharNewScreen/AadharNewScreen";
+import AadharNewScreen from "../app/wor/features/DrawerScreens/Profile/Screens/AadharNewScreen";
 
 import PersonalInfoPreview from "../app/wor/features/DrawerScreens/Profile/Screens/PersonalInfoPreview/PersonalInfoPreview";
 import ProfileDocumentScreen from "../app/wor/features/DrawerScreens/Profile/Screens/ProfileDocumentScreen";
@@ -116,10 +116,11 @@ import ChatScreen from "../app/wor/features/ridebooking/Chat/ChatScreen";
 import { useEffect } from "react";
 
 // =======
-import SetNewMpin from "../app/wor/features/auth/Screens/MpinScreen";
+import SetNewMpin from "../app/wor/features/DrawerScreens/Profile/Screens/MpinScreen";
 import PaymentHistory from "../app/wor/features/DrawerScreens/Wallet/Screens/PaymentHistory";
-import DelAccScreen from "../app/wor/features/DrawerScreens/About/Screens/DelAccount";
+// import DelAccScreen from "../app/wor/features/DrawerScreens/About/Screens/DelAccount";
 import SavedLocations from "../app/wor/features/DrawerScreens/SavedLocations/SavedLocations";
+import AppSettingsScreen from "../app/wor/features/DrawerScreens/About/AppSettingsScreen";
 // >>>>>>> master
 /* Drawer Screens */
 
@@ -530,8 +531,8 @@ const AuthenticatedStack = ({ initialRoute, params }) => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="DelAccScreen"
-        component={DelAccScreen}
+        name="AppSettings"
+        component={AppSettingsScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen

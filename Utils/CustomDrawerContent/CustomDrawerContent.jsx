@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "600",
   },
   itemContainer: {
@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
     borderColor: "#eac4f9",
   },
   profileName: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
     color: "#333",
     lineHeight: 25,

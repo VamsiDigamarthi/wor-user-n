@@ -19,6 +19,12 @@ export const useShowPriceScreenHook = () => {
   const [storedSelectedVehicle, setStoredSelectedVehicle] = useState(null);
   const [knowMoveDownOrUp, setKnowMoveDonwOrUp] = useState("moved up");
 
+  // shcedule order state
+  const [shceduleOrderModal, setShceduleOrderModal] = useState(false);
+  const timerSetModalOpen = () => {
+    setShceduleOrderModal(!shceduleOrderModal);
+  };
+
   const handlePriceCalculation = () => {
     if (!location || !dropDetails?.location) return;
 
@@ -69,6 +75,8 @@ export const useShowPriceScreenHook = () => {
     kownBotSheetChangeUpOrDown,
     knowMoveDownOrUp,
     storedSelectedVehicle,
+    timerSetModalOpen,
+    shceduleOrderModal,
   };
 };
 
