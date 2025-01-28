@@ -8,6 +8,7 @@ import { API } from "../../../../../Constants/url";
 import SettingIconCard from "./SettingIconCard";
 import ModalUI from "../../../utiles/Modal/Modal";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
+import { fonts } from "../../../fonts/Fonts";
 
 const settingsData = [
   {
@@ -69,7 +70,7 @@ const AppSettingsScreen = () => {
         rightBtnText="Ok Continue"
         rightBtnFun={handleDeleteAccount}
       >
-        <Text>Are you sure want to delet account</Text>
+        <Text style={{fontFamily:fonts.robotoRegular}}>Are you sure want to delete account ?</Text>
       </ModalUI>
     </AppBarLayout>
   );

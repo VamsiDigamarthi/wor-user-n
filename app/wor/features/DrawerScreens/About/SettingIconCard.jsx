@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { BookIcon, ForwardArrowIcon } from "../../../Icons/Icons";
-
+import {fonts} from "../../../fonts/Fonts"
 const SettingIconCard = ({
   title,
   navigationText,
@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    fontWeight: "600",
+    // fontWeight: "600",
+    fontFamily:fonts.robotoSemiBold
   },
 });

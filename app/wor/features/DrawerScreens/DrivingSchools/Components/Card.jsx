@@ -3,6 +3,7 @@ import React from "react";
 import { RatingLady } from "../../../../Images/Rating";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
+import { fonts } from "../../../../fonts/Fonts";
 export default function Card() {
   const navigation = useNavigation();
   return (
@@ -46,10 +47,12 @@ const styles = StyleSheet.create({
   },
 
   mainText: {
-    fontWeight: "bold",
+    // fontWeight: "bold",
+    fontFamily:fonts.robotoSemiBold
   },
   subText: {
-    fontWeight: "400",
+    // fontWeight: "400",
+    fontFamily:fonts.robotoRegular
   },
   starRating: {
     flexDirection: "row",

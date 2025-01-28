@@ -5,6 +5,7 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import InviteBtn from "./InviteBtn";
 import { Linking, Share } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
+import { fonts } from "../../../../fonts/Fonts";
 
 const shareOnWhatsApp = () => {
   const message = "Hey! Check out Women Rider. Use my referral code: GOWOR";
@@ -88,10 +89,11 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontWeight: "bold",
+    // fontWeight: "bold",
     fontSize: 16,
     // textAlign: "center",
     marginBottom: 10,
+    fontFamily:fonts.robotoSemiBold
   },
 
   textCard: {
@@ -110,5 +112,6 @@ const styles = StyleSheet.create({
     flex: 1, // Occupies remaining horizontal space
     fontSize: 14,
     lineHeight: 20,
+    fontFamily:fonts.robotoRegular
   },
 });

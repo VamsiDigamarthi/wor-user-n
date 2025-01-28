@@ -12,6 +12,7 @@ import {
   AntDesign,
 } from "@expo/vector-icons";
 import { useState } from "react";
+import { fonts } from "../../../../fonts/Fonts";
 
 export default function TopCard({
   title,
@@ -67,11 +68,11 @@ function EditDelete({ editPress, deletePress }) {
     <View style={styles.editBox}>
       <TouchableOpacity style={styles.editDeleteButton} onPress={editPress}>
         <FontAwesome name="pencil-square-o" size={20} color="green" />
-        <Text>Edit</Text>
+        <Text style={{fontFamily:fonts.robotoRegular}}>Edit</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.editDeleteButton} onPress={deletePress}>
         <MaterialIcons name="delete-outline" size={20} color="red" />
-        <Text>Delete</Text>
+        <Text style={{fontFamily:fonts.robotoRegular}}>Delete</Text>
       </TouchableOpacity>
     </View>
   );
@@ -100,10 +101,12 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
   },
   heading: {
-    fontWeight: "bold",
+    // fontWeight: "bold",
+    fontFamily:fonts.robotoSemiBold
   },
   subHeading: {
-    fontWeight: "400",
+    // fontWeight: "400",
+    fontFamily:fonts.robotoRegular
   },
   editBox: {
     position: "absolute",

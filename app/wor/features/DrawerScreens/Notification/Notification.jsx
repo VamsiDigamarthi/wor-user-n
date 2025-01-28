@@ -8,6 +8,7 @@ import {
   noficationHelmet,
 } from "../../../Images/Notification";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
+import { fonts } from "../../../fonts/Fonts";
 
 const Notification = () => {
   const navigation = useNavigation();
@@ -60,7 +61,8 @@ const styles = StyleSheet.create({
   },
   noNotificationText: {
     fontSize: 18,
-    color: "#e02e88",
-    fontWeight: "600",
+    color: "#EA4C89",
+    // fontWeight: "600",
+    fontFamily:fonts.robotoSemiBold
   },
 });

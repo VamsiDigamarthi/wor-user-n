@@ -1,10 +1,11 @@
 import { Text, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
+import { fonts } from "../../../../fonts/Fonts";
 export default function InviteBtn({ text, icon, onclick }) {
   return (
     <TouchableOpacity onPress={onclick} style={styles.btn}>
       {icon}
-      <Text style={{ fontWeight: "bold", fontSize: 16 }}>{text}</Text>
+      <Text style={{ fontFamily:fonts.robotoSemiBold, fontSize: 16 }}>{text}</Text>
     </TouchableOpacity>
   );
 }

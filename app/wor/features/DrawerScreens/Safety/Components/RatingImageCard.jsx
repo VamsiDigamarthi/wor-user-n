@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, Image } from "react-native";
 import { RatingLady } from "../../../../Images/Rating";
+import { fonts } from "../../../../fonts/Fonts";
 
 export default function RatingImageCard({ title, text }) {
   return (
@@ -28,12 +29,14 @@ const styles = StyleSheet.create({
   },
   mainText: {
     textAlign: "center",
-    fontWeight: "bold",
+    fontFamily:fonts.robotoBold,
+    // fontWeight: "bold",
     fontSize: 16,
   },
   subText: {
     fontSize: 12,
-    fontWeight: "400",
+    // fontWeight: "400",
+    fontFamily:fonts.robotoRegular,
     textAlign: "justify",
   },
 });

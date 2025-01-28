@@ -5,6 +5,7 @@ import SettingIconCard from "./SettingIconCard";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import ModalUI from "../../../utiles/Modal/Modal";
+import { fonts } from "../../../fonts/Fonts";
 const About = () => {
   const [logOutModal, setLogOutModal] = useState(false);
   const handleOpenCloseLogoutModal = () => {
@@ -74,7 +75,7 @@ const About = () => {
         rightBtnText="Ok Continue"
         rightBtnFun={logOut}
       >
-        <Text>Are you sure want to logout</Text>
+        <Text style={{fontFamily:fonts.robotoRegular}}>Are you sure want to logout</Text>
       </ModalUI>
     </AppBarLayout>
   );

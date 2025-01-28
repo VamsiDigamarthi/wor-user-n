@@ -12,6 +12,7 @@ import React from "react";
 import SliderComponent from "../../../../../Utils/SliderComponent/SliderComponent";
 import Card from "./Components/Card";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
+import { fonts } from "../../../fonts/Fonts";
 export default function DrivingSchools() {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -56,7 +57,8 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   heading: {
-    fontWeight: "bold",
+    // fontWeight: "bold",
+    fontFamily:fonts.robotoSemiBold,
     textAlign: "left",
     fontSize: 16,
   },
