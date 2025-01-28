@@ -4,5 +4,7 @@ import Services from "../../../assets/images/profile/Services.png";
 import Prefrences from "../../../assets/images/profile/app perferences.png";
 import Refer from "../../../assets/images/profile/refer .png";
 import Payment from "../../../assets/images/profile/payment wallet.png";
+import offerBg from "../../../assets/images/bgImages/offer.png";
+import ohoh from "../../../assets/images/bgImages/ohoh.png";
 
-export { Helmet, Billing, Services, Prefrences, Refer, Payment };
+export { Helmet, Billing, Services, Prefrences, Refer, Payment, offerBg, ohoh };

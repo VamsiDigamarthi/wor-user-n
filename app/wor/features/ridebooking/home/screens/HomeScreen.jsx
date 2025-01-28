@@ -32,6 +32,18 @@ const HomeScreen = () => {
           snapPoints={snapPoints}
           handleSheetChange={handleSheetChange}
         >
+          <Text
+            style={{
+              fontSize: 25,
+              // fontFamily: "roboto-regular",
+              // fontFamily: "roboto-regular",
+              // fontWeight: "normal",
+              textAlign: "center",
+            }}
+          >
+            Hello
+          </Text>
+
           <View style={styles.bottomSheet}>
             <HomeInput />
             <HomePlaceNearPlaceCard nearByRandomItems={nearByRandomItems} />

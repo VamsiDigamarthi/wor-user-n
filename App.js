@@ -14,10 +14,9 @@ import { LogBox } from "react-native";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import "react-native-reanimated";
 import { SocketProvider } from "./SocketContext";
-
-
-
-
+import { useFonts } from "expo-font";
+import RobotoThin from "./assets/fonts/Roboto/Roboto-Thin.ttf";
+import RobotoRegular from "./assets/fonts/Roboto/Roboto-Regular.ttf";
 
 LogBox.ignoreLogs([
   "`new NativeEventEmitter()` was called with a non-null argument without the required `addListener` method",
@@ -26,7 +25,7 @@ LogBox.ignoreLogs([
 
 // Configure foreground notifications for Expo
 Notifications.setNotificationHandler({
-handleNotification: async () => ({
+  handleNotification: async () => ({
     shouldShowAlert: true,
     shouldPlaySound: true,
     shouldSetBadge: false,
@@ -47,7 +46,7 @@ async function requestUserPermission() {
     console.log("Firebase Messaging: Notification permission denied");
   }
 
-//   // Expo Notifications Permissions
+  //   // Expo Notifications Permissions
   const { status: existingStatus } = await Notifications.getPermissionsAsync();
   let finalStatus = existingStatus;
 
@@ -62,8 +61,6 @@ async function requestUserPermission() {
     console.log("Expo Notifications: Permission denied");
   }
 }
-
-
 
 messaging().onMessage(async (remoteMessage) => {
   console.log("onMessage triggered");
@@ -118,8 +115,12 @@ initializeNotifications();
 export default function App() {
   const [isConnected, setIsConnected] = useState(true);
 
-  useEffect(() => {
+  // const [loaded, error] = useFonts({
+  //   "roboto-regular": RobotoRegular,
+  //   "roboto-thin": RobotoThin,
+  // });
 
+  useEffect(() => {
     // requestUserPermission()
 
     const unsubscribe = NetInfo.addEventListener((state) => {
@@ -127,6 +128,12 @@ export default function App() {
     });
     return () => unsubscribe();
   }, []);
+
+  // useEffect(() => {
+  //   if (loaded || error) {
+  //     console.log(loaded, "loaded");
+  //   }
+  // }, [loaded, error]);
 
   if (!isConnected) {
     return (
@@ -139,7 +146,9 @@ export default function App() {
       />
     );
   }
-
+  // if (!loaded && !error) {
+  //   return null;
+  // }
   return (
     <Provider store={store}>
       <SocketProvider>
