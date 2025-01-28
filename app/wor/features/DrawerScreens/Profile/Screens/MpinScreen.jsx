@@ -4,11 +4,13 @@ import SetMPin from "../Components/SetMPin";
 import ForgotMPin from "../Components/ForgotMPin";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { fonts } from "../../../../fonts/Fonts";
 
 export default function MpinScreen() {
   const { profile } = useSelector((state) => state.profileSlice);
 
   const [mPinDisplay, setMPinDisplay] = useState(!profile?.mpin);
+  // const mPinDisplay = true;
 
   const handleChangeSetMpin = () => {
     setMPinDisplay(!mPinDisplay);

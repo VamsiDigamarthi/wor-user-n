@@ -18,6 +18,7 @@ import InputBox from "../../../utiles/InputCard/InputCard";
 import { usePayments } from "../../../Payments/useRazorpay";
 import { useSelector } from "react-redux";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
+import { fonts } from "../../../fonts/Fonts";
 export default function Wallet() {
   const navigation = useNavigation();
 
@@ -55,7 +56,9 @@ export default function Wallet() {
           ]}
           onPress={() => navigation.navigate("PaymentHistory")}
         >
-          <Text>Payment History</Text>
+          <Text style={{ fontFamily: fonts.robotoRegular }}>
+            Payment History
+          </Text>
           <Entypo name="chevron-right" size={24} color={"#B0B0B0"} />
         </TouchableOpacity>
       </View>
@@ -96,7 +99,9 @@ export default function Wallet() {
                 }}
               >
                 <AntDesign name="Safety" size={24} color="green" />
-                <Text>100% Safe and Secure Payments</Text>
+                <Text style={{ fontFamily: fonts.robotoRegular }}>
+                  100% Safe and Secure Payments
+                </Text>
               </View>
 
               <CustomBtn
@@ -122,7 +127,8 @@ const styles = StyleSheet.create({
     paddingTop: 90,
   },
   heading: {
-    fontWeight: "bold",
+    // fontWeight: "bold",
+    fontFamily: fonts.robotoMedium,
     fontSize: 16,
   },
 
@@ -136,9 +142,10 @@ const styles = StyleSheet.create({
   },
 
   amount: {
-    color: "#e02388",
+    color: "#EA4C89",
     fontSize: 25,
-    fontWeight: "bold",
+    // fontWeight: "bold",
+    fontFamily: fonts.robotoBold,
     paddingLeft: 45,
     marginBottom: 10,
   },

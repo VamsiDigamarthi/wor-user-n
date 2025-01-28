@@ -1,9 +1,18 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import CustomeAppbar from "../../../../../../Utils/CustomeAppbar/CustomeAppbar";
 import PaymentHistoryCard from "../Components/PaymentHistoryCard";
+import { useWallet } from "../Hooks/useWallet.hook";
 
-export default function PaymentHistory() {
+export default function PaymentHistory({ navigation }) {
+  const { getWalletTransactions, trxns } = useWallet();
+
+  useEffect(() => {
+    getWalletTransactions();
+  }, []);
+
+  console.log(trxns);
+
   return (
     <View style={{ flex: 1 }}>
       <CustomeAppbar
@@ -12,9 +21,9 @@ export default function PaymentHistory() {
       />
 
       <ScrollView style={styles.container}>
-      {
-        [1,2,3,4,5,6,7,8,0].map((e)=>  <PaymentHistoryCard key={e} />)
-      }
+        {trxns?.map((e, index) => (
+          <PaymentHistoryCard key={index} type={e?.type} />
+        ))}
       </ScrollView>
     </View>
   );
@@ -25,7 +34,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#f5f5f5",
     paddingHorizontal: 16,
-    marginTop:10
+    marginTop: 10,
   },
   heading: {
     fontWeight: "bold",

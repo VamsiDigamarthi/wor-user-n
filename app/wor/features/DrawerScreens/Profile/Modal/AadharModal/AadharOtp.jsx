@@ -3,6 +3,7 @@ import React from "react";
 import CustomBtn from "../../../../../utiles/CustomBtn";
 import { AntDesign } from "@expo/vector-icons";
 import OtpUi from "../../../../../utiles/OtpUi";
+import { fonts } from "../../../../../fonts/Fonts";
 
 const AadharOtp = ({
   otp,
@@ -16,24 +17,26 @@ const AadharOtp = ({
     <View style={styles.bottomCardContainer}>
       <View style={styles.Card}>
         <Text style={styles.heading}>Enter Otp</Text>
-        <Text style={{ fontSize: 12, color: "gray" }}>
+        <Text style={styles.subText}>
           Enter the 6 digit otp recieved on phone number
         </Text>
-        <Text style={{ fontSize: 12, color: "gray" }}>{text}</Text>
+        <Text style={styles.subText}>{text}</Text>
       </View>
       {otpError && (
         <Text style={{ fontSize: 11, color: "red" }}>{otpError}</Text>
       )}
       <OtpUi otp={otp} setOtp={setOtp} />
       <View>
-        <Text style={{ fontSize: 12, color: "gray" }}>
-          Having trouble ?Request new OTP in 00:52{" "}
+        <Text style={styles.subText}>
+          Having trouble ? Request new OTP in 00:52
         </Text>
       </View>
 
       <View style={styles.rowCard}>
         <AntDesign name="Safety" size={24} color="black" />
-        <Text>Your Data is 100% Safe and Secure</Text>
+        <Text style={{ color: "#757575", fontFamily: fonts.robotoRegular }}>
+          Your Data is 100% Safe and Secure
+        </Text>
       </View>
 
       <CustomBtn
@@ -62,7 +65,8 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 16,
-    fontWeight: "600",
+    // fontWeight: "600",
+    fontFamily: fonts.robotoMedium,
   },
   input: {
     backgroundColor: "red",
@@ -75,4 +79,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     gap: 8,
   },
+
+  subText: { fontSize: 12, color: "gray", fontFamily: fonts.robotoRegular },
 });

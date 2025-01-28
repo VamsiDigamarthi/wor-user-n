@@ -6,6 +6,7 @@ import CustomBtn from "../../../../../utiles/CustomBtn";
 import { sendOtpToMobileNumber } from "../../services/mPin.servi";
 import { useSelector } from "react-redux";
 import Toast from "react-native-toast-message";
+import { fonts } from "../../../../../fonts/Fonts";
 
 const MPinMobileNumber = ({ mobile, setMobile, setIsMobileOrOtp }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -13,7 +14,7 @@ const MPinMobileNumber = ({ mobile, setMobile, setIsMobileOrOtp }) => {
 
   const handleSendOtp = async () => {
     if (profile?.mobile !== mobile) {
-      console.log("mobile number not match");
+      // console.log("mobile number not match");
       Toast.show({
         text1: "Please Enter Your Register Mobile Number",
         type: "error",
@@ -31,8 +32,14 @@ const MPinMobileNumber = ({ mobile, setMobile, setIsMobileOrOtp }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Enter Modal Number</Text>
-      <Text style={{ fontSize: 11, color: "gray" }}>
+      <Text style={styles.heading}>Enter Mobile Number</Text>
+      <Text
+        style={{
+          fontSize: 11,
+          color: "gray",
+          fontFamily: fonts.robotoRegular,
+        }}
+      >
         Received OTP From Your Register Mobile Number
       </Text>
       <InputBox
@@ -49,7 +56,9 @@ const MPinMobileNumber = ({ mobile, setMobile, setIsMobileOrOtp }) => {
       <View style={{ gap: 10, marginTop: 20 }}>
         <View style={styles.verifiicons}>
           <AntDesign name="Safety" size={20} color="#036413" />
-          <Text>Your Data is 100% Safe and Secure</Text>
+          <Text style={{ fontFamily: fonts.robotoRegular }}>
+            Your Data is 100% Safe and Secure
+          </Text>
         </View>
         <CustomBtn
           width="100%"
@@ -75,7 +84,8 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 18,
-    fontWeight: "600",
+    // fontWeight: "600",
+    fontFamily: fonts.robotoSemiBold,
   },
   verifiicons: {
     justifyContent: "center",
