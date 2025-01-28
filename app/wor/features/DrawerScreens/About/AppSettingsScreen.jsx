@@ -8,6 +8,7 @@ import { API } from "../../../../../Constants/url";
 import SettingIconCard from "./SettingIconCard";
 import ModalUI from "../../../utiles/Modal/Modal";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
+import DeleteModal from "./Modal/DeleteModal";
 
 const settingsData = [
   {
@@ -18,8 +19,6 @@ const settingsData = [
 ];
 
 const AppSettingsScreen = () => {
-  const { token } = useSelector((state) => state.token);
-  const navigation = useNavigation();
   const [deletAcoountModal, setDeletAcoountModal] = useState(false);
   const handleDeleteAcoountModal = () => {
     setDeletAcoountModal(!deletAcoountModal);
@@ -27,27 +26,6 @@ const AppSettingsScreen = () => {
 
   const parentReturnFun = () => {
     handleDeleteAcoountModal();
-  };
-
-  const handleDeleteAccount = async () => {
-    try {
-      await API.delete("/auth/delete-account", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-      handleDeleteAcoountModal();
-      AsyncStorage.removeItem("token");
-      navigation.navigate("AuthStack");
-    } catch (error) {
-      console.log(error);
-      showMessage({
-        message: error?.response?.data?.message || "Account deletion failed",
-        type: "danger", // 'success' | 'info' | 'warning' | 'danger'
-        icon: "auto",
-      });
-    }
   };
 
   return (
@@ -63,14 +41,10 @@ const AppSettingsScreen = () => {
           />
         ))}
       </View>
-      <ModalUI
-        openCloseState={deletAcoountModal}
-        closeModalFun={handleDeleteAcoountModal}
-        rightBtnText="Ok Continue"
-        rightBtnFun={handleDeleteAccount}
-      >
-        <Text>Are you sure want to delet account</Text>
-      </ModalUI>
+      <DeleteModal
+        deletAcoountModal={deletAcoountModal}
+        handleDeleteAcoountModal={handleDeleteAcoountModal}
+      />
     </AppBarLayout>
   );
 };

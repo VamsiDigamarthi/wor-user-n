@@ -5,6 +5,7 @@ import SettingIconCard from "./SettingIconCard";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import ModalUI from "../../../utiles/Modal/Modal";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const About = () => {
   const [logOutModal, setLogOutModal] = useState(false);
   const handleOpenCloseLogoutModal = () => {

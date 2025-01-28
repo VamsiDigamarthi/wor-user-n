@@ -1,0 +1,113 @@
+import { useState, useEffect } from "react";
+import { API } from "../../../../../Constants/url";
+import DeviceInfo from "react-native-device-info";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch } from "react-redux";
+import { setToken } from "../../../../../redux/Features/Auth/LoginSlice";
+import { CommonActions } from "@react-navigation/native";
+import { nearPlacesByText } from "../../../../../Constants/displaylocationmap";
+
+export const useSignupForm = (mobile) => {
+  const [errors, setErrors] = useState({ name: "" });
+  const [apiError, setApiError] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    address: "",
+    role: "user",
+    referalCode: "",
+    mobile,
+    longitude: "76.978987",
+    latitude: "17.8765678",
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [onOpenTextBasedLocationModal, setOnOpenTextBasedLocationModal] =
+    useState(false);
+  const [validationCheck, setValidationCheck] = useState({ name: false });
+  const [storeNearLocation, setStoreNearLocation] = useState([]);
+
+  const dispatch = useDispatch();
+
+  const signUpValidation = (formData) => {
+    const newErrors = {};
+
+    if (!formData.name) {
+      newErrors.name = "Full Name is required";
+    } else if (!/^[A-Za-z\s]+$/.test(formData.name)) {
+      newErrors.name = "Name should only contain alphabetic characters";
+    } else if (formData.name?.length < 3) {
+      newErrors.name = "Name should be at least 3 characters long";
+    }
+
+    return Object.keys(newErrors)?.length > 0 ? newErrors : {};
+  };
+
+  const onFethcNearLocation = async (text) => {
+    const data = await nearPlacesByText(text);
+    setStoreNearLocation(data);
+  };
+
+  const handleInputChange = (field, value) => {
+    if (field === "address" && value?.length > 2) {
+      setOnOpenTextBasedLocationModal(true);
+      onFethcNearLocation(value);
+    }
+
+    setFormData((prevData) => ({ ...prevData, [field]: value }));
+  };
+
+  const onAddressSelect = (address) => {
+    setOnOpenTextBasedLocationModal(false);
+    setFormData((prev) => ({
+      ...prev,
+      address: `${address?.name} | ${address?.vicinity}`,
+    }));
+  };
+
+  const handleNavigateToOTP = async () => {
+    const errors = signUpValidation(formData);
+    setErrors(errors);
+
+    if (Object.keys(errors).length > 0) {
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const deviceId = await DeviceInfo.getUniqueId();
+
+      const response = await API.post(
+        "/auth/new-register",
+        { ...formData, deviceId },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      await AsyncStorage.setItem("token", JSON.stringify(response.data.token));
+      setIsLoading(false);
+
+      dispatch(setToken(response.data.token));
+
+      return response;
+    } catch (error) {
+      console.log(error?.response?.data?.message);
+      setIsLoading(false);
+      setApiError(error?.response?.data?.message);
+    }
+  };
+
+  return {
+    formData,
+    errors,
+    isLoading,
+    onOpenTextBasedLocationModal,
+    storeNearLocation,
+    handleInputChange,
+    onAddressSelect,
+    handleNavigateToOTP,
+  };
+};

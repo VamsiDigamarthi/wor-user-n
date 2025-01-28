@@ -1,6 +1,5 @@
 import {
   View,
-  Linking,
   Pressable,
   StyleSheet,
   Text,
@@ -10,107 +9,26 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
 import AuthAppBar from "./AuthAppBar";
 import CustomBtn from "../../../utiles/CustomBtn";
-import {
-  CommonActions,
-  useNavigation,
-  useRoute,
-} from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { setToken } from "../../../../../redux/Features/Auth/LoginSlice";
-import { API } from "../../../../../Constants/url";
-import { useDispatch } from "react-redux";
-import DeviceInfo from "react-native-device-info";
+
+import AProductFromNuhvin from "../Components/AProductFromNuhvin";
+import { useOtpHook } from "../Hooks/Otp.hook";
+import { useState } from "react";
 const OtpScreen = () => {
-  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-  const { mobile, message } = useRoute().params;
-  const inputs = useRef([]);
-  const dispatch = useDispatch();
-  const navigation = useNavigation();
-  const [otpError, setOtpError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  //   const [backColors, setBackColors] = useState()
+  const {
+    message,
+    otpError,
+    isLoading,
+    handleChange,
+    justLog,
+    otp,
+    setOtp,
+    inputs,
+    handleKeyPress,
+  } = useOtpHook();
 
-  const handleChange = (text, index) => {
-    const newOtp = [...otp];
-    newOtp[index] = text;
-    if (text && index < inputs.current.length - 1) {
-      inputs.current[index + 1].focus();
-    }
-
-    if (index === inputs.current.length - 1 && text) {
-      Keyboard.dismiss(); // Dismiss the keyboard when the last digit is entered
-    }
-    setOtp(newOtp);
-  };
-
-  const handleKeyPress = (e, index) => {
-    if (e.nativeEvent.key === "Backspace" && index > 0 && otp[index] === "") {
-      inputs.current[index - 1].focus();
-    }
-  };
   const [isFocused, setIsFocused] = useState(false);
-
-  const justLog = async () => {
-    // console.log(otp);
-    if (otp[5]?.length <= 0) {
-      setOtpError("Please enter OTP");
-      return;
-    }
-    setIsLoading(true);
-    try {
-      const deviceId = await DeviceInfo.getUniqueId();
-      console.log("deviceId", deviceId);
-      const response = await API.post("/auth/verify-otp", {
-        mobile,
-        otp: otp.join(""),
-        isUserApp: true,
-        deviceId,
-      });
-      setIsLoading(false);
-
-      if (response.data.token) {
-        // console.log(response.data.token);
-        await AsyncStorage.setItem(
-          "token",
-          JSON.stringify(response.data.token)
-        );
-        dispatch(setToken(response.data.token));
-        // navigation.navigate("AuthenticatedStack");
-        navigation.dispatch(
-          CommonActions.reset({
-            index: 0, // Ensures the specified route is the only route in the stack
-            routes: [{ name: "AuthenticatedStack" }], // Replace 'Home' with your target screen name
-          })
-        );
-      }
-    } catch (error) {
-      // console.log(error?.response?.data?.message);
-      setIsLoading(false);
-      if (error.response?.data?.message === "Invalid OTP") {
-        setOtpError("Invalid Otp");
-      } else if (error.response?.data?.message === "User does not exist") {
-        // console.log("navigating");
-
-        navigation.navigate("signup", { mobile });
-      } else {
-        setOtpError(error?.response?.data?.message);
-      }
-    }
-  };
-
-  const openLink = () => {
-    const url = "https://nuhvin.com"; // Replace with your desired URL
-    Linking.openURL(url).catch((err) =>
-      console.error("Failed to open URL:", err)
-    );
-  };
-
-  // useEffect(()=>{
-
-  // },[])
 
   return (
     <KeyboardAvoidingView
@@ -145,7 +63,7 @@ const OtpScreen = () => {
                   { borderColor: isFocused && "#e02e88", borderWidth: 1 },
                 ]}
               >
-                {otp.map((value, index) => (
+                {otp?.map((value, index) => (
                   <TextInput
                     onPress={Keyboard.dismiss}
                     key={index}
@@ -198,18 +116,7 @@ const OtpScreen = () => {
               isLoding={isLoading}
             />
           </View>
-          <View style={styles.nuhvinProduct}>
-            <Text style={{ fontSize: 14, fontWeight: "500" }}>
-              A Product From
-            </Text>
-            <Pressable onPress={openLink}>
-              <Text
-                style={{ fontSize: 14, fontWeight: "500", color: "#e02e88" }}
-              >
-                Visit NuHvin
-              </Text>
-            </Pressable>
-          </View>
+          <AProductFromNuhvin />
         </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
