@@ -1,4 +1,4 @@
-import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -24,7 +24,7 @@ const Appbar = ({
   const navigation = useNavigation();
 
   const onOpenDrawer = () => {
-  
+    console.log("open drawer");
     navigation.dispatch(DrawerActions.openDrawer());
   };
 
@@ -43,7 +43,7 @@ const Appbar = ({
               style={[styles.btn]}
               onPress={() => navigation.goBack()}
             >
-              <Ionicons name="chevron-back" size={24} color="#000" />
+              <Ionicons name="chevron-back" size={30} color="#000" />
             </TouchableOpacity>
           )}
         </View>
@@ -52,11 +52,9 @@ const Appbar = ({
           <View
             style={[styles.textinnerCard, vicinity && styles.appTitCenStyles]}
           >
-            <View
-              style={[
-                { flexDirection: "row", gap: 5, alignItems: "center", marginTop:vicinity ? 5 : -5 },
-                vicinity && styles.appTitCenWidth,
-              ]}
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={[styles.midContainer, vicinity && styles.appTitCenWidth]}
             >
               <Text
                 numberOfLines={1}
@@ -64,6 +62,7 @@ const Appbar = ({
                 style={[
                   styles.text,
                   vicinity && { fontSize: 13, fontWeight: "500" },
+                  { textAlign: "center" },
                 ]}
               >
                 {title || "Title"}
@@ -71,13 +70,13 @@ const Appbar = ({
               {vicinity && (
                 <Text
                   numberOfLines={1}
-                  style={{ fontSize: 10 }}
+                  style={{ fontSize: 10, textAlign: "center", width: "100%" }}
                   ellipsizeMode="tail"
                 >
                   {vicinity}
                 </Text>
               )}
-            </View>
+            </TouchableOpacity>
           </View>
 
           {/* this ui related "select destination" & "Ride Accept Screen" screen and show "support" icons screen */}
@@ -156,7 +155,7 @@ export default Appbar;
 
 const styles = StyleSheet.create({
   superContainer: {
-    height:  Platform.OS === "ios" ? 95 : 85,
+    height: 95,
     backgroundColor: "#fff",
     width: "100%",
     justifyContent: "flex-end",
@@ -171,7 +170,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     width: "100%",
-    height:  Platform.OS === "ios" ? 100 : 85,
+    height: 85,
     // backgroundColor: "red",
     zIndex: 999,
   },
@@ -213,6 +212,8 @@ const styles = StyleSheet.create({
     position: "relative",
     backgroundColor: "#fff",
     justifyContent: "space-between",
+    // paddingLeft: 30,
+    // textAlign: "center",
   },
   textinnerCard: {
     flexDirection: "row",
@@ -221,6 +222,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     alignItems: "center",
     paddingLeft: 10,
+
     // backgroundColor: "red",
   },
   text: {
@@ -228,6 +230,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "bold",
     textAlign: "center",
+    width: "100%",
+    // backgroundColor: "red",
   },
   icon: {
     marginTop: 2,
@@ -254,5 +258,17 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "flex-start",
     gap: 2,
+    elevation: 4,
+  },
+
+  midContainer: {
+    flexDirection: "row",
+    gap: 5,
+    alignItems: "center",
+    // borderWidth: 1,
+    borderRadius: 20,
+    padding: 10,
+
+    // backgroundColor: "red",
   },
 });

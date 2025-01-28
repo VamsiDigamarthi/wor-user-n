@@ -24,12 +24,6 @@ const ChangeLoc100mViaMapScreen = () => {
     onOpenIsEnterConfirmPinModal,
   } = useChangeLoc100mViaMapScreenHook();
 
-
-
-
-
-  
-
   return (
     <AppBarLayout
       title={"Check Pick Up Location Again"}
@@ -77,7 +71,7 @@ const ChangeLoc100mViaMapScreen = () => {
         pickUpPlace={placeName}
         newMarker={{ lat: newMarker.latitude, lng: newMarker.longitude }}
       />
-  </AppBarLayout>
+    </AppBarLayout>
   );
 };
 
@@ -88,7 +82,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     position: "relative",
-    bottom:10
+    bottom: 10,
   },
   mapContainer: {
     flex: 1,

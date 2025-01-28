@@ -1,26 +1,26 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { ForwardArrowIcon } from "../../../../Icons/Icons";
 
-const OfferCouponCard = () => {
+const OfferCouponCard = ({ onOfferPress }) => {
   return (
     <View style={styles.couponTextCard}>
-      <View style={styles.offersCard}>
+      <TouchableOpacity style={styles.offersCard} onPress={onOfferPress}>
         <View style={{ flexDirection: "row", gap: 9, alignItems: "center" }}>
           <Image
             source={require("../../../../../../assets/offers.png")}
-            style={{ width: 20, height: 20 }}
+            style={{ width: 15, height: 15 }}
           />
           <Text style={styles.couponText}>Offers</Text>
         </View>
-        <ForwardArrowIcon size={20} color="#f98600" />
-      </View>
+        <ForwardArrowIcon size={15} color="#f98600" />
+      </TouchableOpacity>
 
       <Text style={styles.textLine}></Text>
       <View style={styles.offersCard}>
         <View style={{ flexDirection: "row", gap: 9, alignItems: "center" }}>
           <Image
             source={require("../../../../../../assets/images/profile/payment wallet.png")}
-            style={{ width: 20, height: 20 }}
+            style={{ width: 15, height: 15 }}
           />
           <View style={{ flexDirection: "column" }}>
             <Text
@@ -33,7 +33,7 @@ const OfferCouponCard = () => {
             </Text>
           </View>
         </View>
-        <ForwardArrowIcon size={20} color="#e02e88" />
+        <ForwardArrowIcon size={14} color="#e02e88" />
       </View>
     </View>
   );
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   offersCard: {
     width: "45%",
     // backgroundColor: "red",
-    height: 30,
+    height: 20,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -60,6 +60,6 @@ const styles = StyleSheet.create({
   couponText: {
     fontWeight: "600",
     color: "#f98600",
-    fontSize: 18,
+    fontSize: 14,
   },
 });

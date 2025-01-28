@@ -1,5 +1,12 @@
-import { Dimensions, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import {
+  Dimensions,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+} from "react-native";
+import React, { useState } from "react";
 import AppBarLayout from "../sharedLogics/AppBarLayout";
 import { useShowPriceScreenHook } from "./Hooks/ShowPriceScreen.hook";
 import ShowPollyLine from "../../../utiles/ShowPollyLine";
@@ -8,12 +15,18 @@ import BottomSheetComponent from "../sharedLogics/BottomSheetComponent/BottomShe
 import DisplayVehicle from "./Components/DisplayVehicle";
 import OfferCouponCard from "./Components/OfferCouponCard";
 import CustomBtn from "../../../utiles/CustomBtn";
+import ModalUI from "../../../utiles/Modal/Modal";
+import { infoModalStyles } from "../../../../../Components/InfoUi/Styles/InfoModalStyles";
+import { TouchableOpacity } from "react-native-gesture-handler";
+
+import OfferCard from "./Components/OfferCard";
+import UhOhCard from "./Components/UhOhCard";
+import PaymentMethodCard from "./Components/PaymentMethodCard";
 
 const screenHeight = Dimensions.get("window").height;
 
 const androidSnapPoints = [0.35, 0.7].map((p) => screenHeight * p); // Example snap points for Android
 const iosSnapPoints = [0.35, 0.6].map((p) => screenHeight * p); // Example snap points for iOS
-
 
 const ShowPriceScreen = () => {
   const {
@@ -33,6 +46,9 @@ const ShowPriceScreen = () => {
     kownBotSheetChangeUpOrDown
   );
 
+  const [coupons, setCoupons] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("cash");
 
   return (
     <AppBarLayout
@@ -48,7 +64,7 @@ const ShowPriceScreen = () => {
         snapPoints={snapPoints}
         handleSheetChange={handleSheetChange}
       >
-   {knowMoveDownOrUp === "moved down" ? (
+        {knowMoveDownOrUp === "moved down" ? (
           <View style={styles.singleFilterStyle}>
             {storedSelectedVehicle?.map((vehicle, index) => (
               <DisplayVehicle key={index} vehicle={vehicle} />
@@ -61,10 +77,12 @@ const ShowPriceScreen = () => {
             ))}
           </View>
         )}
-
       </BottomSheetComponent>
       <View style={styles.coupneWithBtn}>
-        <OfferCouponCard />
+        <OfferCouponCard
+          coupons={coupons}
+          onOfferPress={() => setModalOpen(true)}
+        />
         <CustomBtn
           width="100%"
           btnBg={selectedVehicleType ? "#e02e88" : "#fff"}
@@ -75,6 +93,33 @@ const ShowPriceScreen = () => {
           borderColor="#e02e88"
           borderWidth={1}
         />
+        {modalOpen && (
+          <ModalUI
+            modalStyle="slide"
+            style={infoModalStyles.aadharModalStyles}
+            insideCardStyle={infoModalStyles.insideCardStyle}
+            closebtn={false}
+            closeModalFun={() => setModalOpen(false)}
+          >
+            <View style={{ width: "100%", padding: 10 }}>
+              {/* {coupons.length > 0 && (
+                <Text style={{ fontWeight: "bold", fontSize: 20 }}>Offers</Text>
+              )}
+
+              {coupons.length ? (
+                <View style={{ marginTop: 10, gap: 10 }}>
+                  <OfferCard />
+                  <OfferCard />
+                  <OfferCard />
+                </View>
+              ) : (
+                <UhOhCard />
+              )} */}
+
+              <PaymentMethodCard paymentMethod={paymentMethod} />
+            </View>
+          </ModalUI>
+        )}
       </View>
     </AppBarLayout>
   );
@@ -95,7 +140,7 @@ const styles = StyleSheet.create({
     gap: 20,
     alignItems: "center",
     position: "absolute",
-    bottom:0,
+    bottom: 0,
     left: 0,
     paddingBottom: 30,
     elevation: 20,
