@@ -1,6 +1,7 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useProfileCardHook } from "./ProfileCard.hook";
+import { fonts } from "../../../../../fonts/Fonts";
 
 const ProfileCard = () => {
   const { profile, imageSource, pickImage } = useProfileCardHook();
@@ -51,6 +52,7 @@ const styles = StyleSheet.create({
   },
   textCard: {
     fontSize: 16,
-    fontWeight: "600",
+    // fontWeight: "600",
+    fontFamily: fonts.robotoSemiBold,
   },
 });

@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { fonts } from "../../../../../fonts/Fonts";
 
 const ProfileNavigationCard = ({ title, navigateTo }) => {
   const navigation = useNavigation();
@@ -36,7 +37,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 14,
-    fontWeight: "600",
+    // fontWeight: "600",
+    fontFamily: fonts.robotoMedium,
   },
 
   leftCard: {

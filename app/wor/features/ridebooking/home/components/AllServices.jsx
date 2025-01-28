@@ -3,6 +3,7 @@ import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectVehicleType } from "../../sharedLogics/rideDetailsSlice";
+import { fonts } from "../../../../fonts/Fonts";
 // A reusable service card component
 const ServiceCard = ({ imageSource, label, onPress }) => {
   return (
@@ -25,9 +26,9 @@ const ServiceCard = ({ imageSource, label, onPress }) => {
       </Pressable>
       <Text
         style={{
-          fontWeight: "bold",
+          // fontWeight: "bold",
           color: "#757575",
-          // fontFamily: "Roboto-Regular",
+          fontFamily: fonts.robotoSemiBold,
         }}
       >
         {label}
@@ -141,7 +142,9 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 18,
-    fontWeight: "bold",
+    // fontWeight: "bold",
+    fontFamily: fonts.robotoBold,
+    // color: "red",
   },
   serviceGrid: {
     flexDirection: "row",

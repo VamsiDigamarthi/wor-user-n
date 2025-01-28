@@ -4,6 +4,8 @@ import { MicIcon, SearchIcons } from "../../../../Icons/Icons";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { setIsBeforeBook } from "../../sharedLogics/rideDetailsSlice";
+import { colors } from "../../../../colors/colors";
+import { fonts } from "../../../../fonts/Fonts";
 
 const HomeInput = () => {
   const navigation = useNavigation();
@@ -19,7 +21,14 @@ const HomeInput = () => {
         style={{ flex: 1 }}
         onPress={() => navigateSelectDestinationScreen({ isMic: false })}
       >
-        <Text style={{ fontSize: 18, fontWeight: "500", flex: 1 }}>
+        <Text
+          style={{
+            fontSize: 18,
+            flex: 1,
+            fontFamily: fonts.robotoMedium,
+            color: "#222222",
+          }}
+        >
           Search Destination
         </Text>
       </Pressable>
@@ -45,6 +54,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#efefef",
     padding: 10,
     gap: 10,
+    marginBottom: 8,
+    // elevation: 5,
   },
   micIcons: {
     backgroundColor: "#fff",
@@ -53,7 +64,7 @@ const styles = StyleSheet.create({
     width: 42.3,
     justifyContent: "center",
     alignItems: "center",
-    elevation: 2,
+    // elevation: 2,
     height: 40,
   },
 });

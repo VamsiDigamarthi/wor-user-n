@@ -3,6 +3,7 @@ import { Ionicons, Entypo, MaterialIcons } from "@expo/vector-icons";
 import { FavoritesIcons } from "../Icons/Icons";
 import { useLocationItemHook } from "./LocationItem.hook";
 import { useSelector } from "react-redux";
+import { fonts } from "../fonts/Fonts";
 
 const LocationItem = ({
   placeName,
@@ -108,13 +109,15 @@ const styles = StyleSheet.create({
   },
   locText: {
     fontSize: 13,
-    fontWeight: "600",
+    // fontWeight: "600",
+    fontFamily: fonts.robotoSemiBold,
   },
   subLocText: {
     fontSize: 11,
     color: "#666666",
     overflow: "hidden",
     whiteSpace: "nowrap",
+    fontFamily: fonts.robotoRegular,
   },
   favorite: {
     position: "absolute",

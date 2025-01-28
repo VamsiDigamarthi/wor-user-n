@@ -15,6 +15,7 @@ import { infoModalStyles } from "../../../../../../../Components/InfoUi/Styles/I
 import ModalUI from "../../../../../utiles/Modal/Modal";
 import CustomBtn from "../../../../../utiles/CustomBtn";
 import { usePersonalInfoHook } from "./PersonalInfo.hook";
+import { fonts } from "../../../../../fonts/Fonts";
 
 const PersonalInfoPreview = () => {
   const { onChangeProfile, handleInputChange, userData, profile } =
@@ -160,8 +161,12 @@ function ProfileTextCard({ title, text, edit, onclick }) {
           borderBottomColor: "#E0E0E0",
         }}
       >
-        <Text style={{ fontWeight: "bold" }}>{title}</Text>
-        <Text>{text}</Text>
+        <Text style={{ fontFamily: fonts.robotoMedium, fontSize: 12 }}>
+          {title}
+        </Text>
+        <Text style={{ fontFamily: fonts.robotoRegular, fontSize: 16 }}>
+          {text}
+        </Text>
       </View>
 
       {edit && (

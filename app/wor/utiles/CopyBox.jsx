@@ -1,7 +1,14 @@
 import * as Clipboard from "expo-clipboard";
-import { StyleSheet, Text, TouchableOpacity, View , Platform} from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Platform,
+} from "react-native";
 import Toast from "react-native-toast-message";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { fonts } from "../fonts/Fonts";
 
 export default function CopyBox() {
   const copyToClipboard = (text) => {
@@ -15,19 +22,19 @@ export default function CopyBox() {
 
   return (
     <View style={styles.copyBox}>
-      <Text>Invite Your Friends to women rider</Text>
+      <Text style={{ fontFamily: fonts.robotoRegular }}>
+        Invite Your Friends to women rider
+      </Text>
       <TouchableOpacity
         style={styles.copyBtn}
         onPress={() => copyToClipboard("GOWOR")}
       >
-        <Text style={{ fontWeight: "bold" }}>Code : GOWOR</Text>
+        <Text style={{ fontFamily: fonts.robotoBold }}>Code : GOWOR</Text>
         <MaterialCommunityIcons name="content-copy" size={24} color="black" />
       </TouchableOpacity>
     </View>
   );
 }
-
-
 
 const styles = StyleSheet.create({
   copyBox: {

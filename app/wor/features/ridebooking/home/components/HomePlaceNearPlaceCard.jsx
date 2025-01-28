@@ -8,6 +8,7 @@ import {
 } from "../../sharedLogics/rideDetailsSlice";
 import SkeletonLoader from "../../../../utiles/Loaders/SingleLoader";
 import { View, StyleSheet } from "react-native";
+import { fonts } from "../../../../fonts/Fonts";
 
 const HomePlaceNearPlaceCard = ({ nearByRandomItems }) => {
   const { homePlace, workPlace } = useSelector((state) => state.homePlaces);
@@ -76,6 +77,8 @@ const styles = StyleSheet.create({
   nearByLocationCard: {
     borderBottomWidth: 1,
     borderBottomColor: "#ebebeb",
+    gap: 10,
+    paddingBottom: 10,
   },
 });
 //
