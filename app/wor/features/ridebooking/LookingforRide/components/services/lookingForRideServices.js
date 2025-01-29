@@ -1,11 +1,11 @@
 import Toast from "react-native-toast-message";
 import { API } from "../../../../../../../Constants/url";
 
-export const cancelRide = async ({ token, orderId }) => {
+export const cancelRide = async ({ token, orderId, reason = "" }) => {
   try {
     const response = await API.patch(
       `user/cancel-order/${orderId}`,
-      {},
+      { reason },
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -60,6 +60,7 @@ export const rePlaceOrder = async ({ token, orderId }) => {
     });
     return true;
   } catch (error) {
+    console.log(error?.response?.data);
     Toast.show({
       text1: "Re-Place Order failed",
       type: "error",

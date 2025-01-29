@@ -60,34 +60,36 @@ const LookingForRideScreen = () => {
         snapPoints={snapPoints}
         handleSheetChange={handleSheetChange}
       >
-        <ProgressBar progressWidth={progressWidth} />
-        <View style={styles.cancelBtnWithImage}>
-          <Image
-            style={styles.images}
-            source={require("../../../../../assets/images/loadingbg.png")}
-          />
-        </View>
-        <View style={styles.cancelBtn}>
-          <CustomBtn
-            title={showCancelWithReOrderBtn ? "Cancel Ride" : "Re-Place Ride"}
-            btnBg="#F7F7F7"
-            btnColor="#e02e88"
-            borderRadius={10}
-            width="100%"
-            onPress={
-              showCancelWithReOrderBtn ? handleCancelRide : handleRplaceRide
-            }
-          // onPress={() => navigation.navigate("captaineacceptride")}
-          />
-          {!showCancelWithReOrderBtn && (
-            <CustomBtn
-              title="Cancel Order"
-              btnBg="#fff"
-              btnColor="#001"
-              width="100%"
-              onPress={onNewCancelHandle}
+        <View style={{ padding: 15 }}>
+          <ProgressBar progressWidth={progressWidth} />
+          <View style={styles.cancelBtnWithImage}>
+            <Image
+              style={styles.images}
+              source={require("../../../../../assets/images/loadingbg.png")}
             />
-          )}
+          </View>
+          <View style={styles.cancelBtn}>
+            <CustomBtn
+              title={showCancelWithReOrderBtn ? "Cancel Ride" : "Re-Place Ride"}
+              btnBg="#F7F7F7"
+              btnColor="#e02e88"
+              borderRadius={10}
+              width="100%"
+              onPress={
+                showCancelWithReOrderBtn ? handleCancelRide : handleRplaceRide
+              }
+              // onPress={() => navigation.navigate("captaineacceptride")}
+            />
+            {!showCancelWithReOrderBtn && (
+              <CustomBtn
+                title="Cancel Order"
+                btnBg="#fff"
+                btnColor="#001"
+                width="100%"
+                onPress={onNewCancelHandle}
+              />
+            )}
+          </View>
         </View>
       </BottomSheetComponent>
     </View>

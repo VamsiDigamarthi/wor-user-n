@@ -11,6 +11,8 @@ import homePlaces from "../app/wor/features/ridebooking/home/redux/homePlace";
 import allRideDetails from "../app/wor/features/ridebooking/sharedLogics/rideDetailsSlice";
 import favoritePlaces from "../app/wor/features/ridebooking/selectdroplocation/redux/favoritePlaces.slice";
 
+import tipSlice from "../app/wor/features/ridebooking/CaptainAcceptRide/tipSlice";
+
 const store = configureStore({
   reducer: {
     token,
@@ -21,6 +23,7 @@ const store = configureStore({
     homePlaces,
     allRideDetails,
     favoritePlaces,
+    tipSlice,
   },
 });
 

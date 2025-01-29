@@ -25,20 +25,36 @@ const NavigateMPinScreenModal = ({
       openCloseState={rideBookBeforeCheckMPinAddhar}
       closeModalFun={onChangeRideBookBeforeCheckPinAddharHandler}
     >
-      {profile?.adhar === null && (
-        <Pressable onPress={onNavigateAadharUploadUi}>
-          <Text>Your not set Aadhar please set Aadhar first to book ride</Text>
-        </Pressable>
-      )}
-      {!profile?.mpin && (
-        <Pressable onPress={onMpinScreen}>
-          <Text>Your not set MPIN please set M-pin first to book ride </Text>
-        </Pressable>
-      )}
+      <View style={styles.container}>
+        {profile?.aadharCarVerificaation === null && (
+          <Pressable onPress={onNavigateAadharUploadUi}>
+            <Text
+              style={{ fontSize: 16, fontWeight: "600", textAlign: "center" }}
+            >
+              Your not set Aadhar please set Aadhar first to book ride
+            </Text>
+          </Pressable>
+        )}
+        {!profile?.mpin && (
+          <Pressable onPress={onMpinScreen}>
+            <Text
+              style={{ fontSize: 16, fontWeight: "600", textAlign: "center" }}
+            >
+              Your not set MPIN please set M-pin first to book ride{" "}
+            </Text>
+          </Pressable>
+        )}
+      </View>
     </ModalUI>
   );
 };
 
 export default NavigateMPinScreenModal;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    width: "100%",
+    gap: 10,
+    paddingVertical: 20,
+  },
+});

@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { aadharCardOtpVerification } from "./AadharModal.Serv";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { onProfileSection } from "../../../../ridebooking/home/redux/profileSlice";
 
 export const useAadharModalHook = () => {
+  const dispatch = useDispatch();
   const { token } = useSelector((state) => state.token);
   const [aadharNumber, setAadharNumber] = useState("");
   const [otpPress, setOtpPress] = useState(false);
@@ -23,12 +25,16 @@ export const useAadharModalHook = () => {
     });
 
     setIsLoading(false);
+
     if (!data.status) {
       if (data?.gengerFailed) {
         setGenderFailed("Gender");
       } else if (data?.serverError) {
         setGenderFailed("server");
-      } else if (data?.ownServerFailed) {
+      } else if (data?.ownServerFailed === "Aadhar Number Already Exist....!") {
+        setOtpError("Aadhar Number Already Exist....!");
+        return;
+      } else if (data?.ownServerFailed !== "Aadhar Number Already Exist....!") {
         setGenderFailed("ownServer");
       } else {
         setOtpError(data?.otpFailed);
@@ -36,6 +42,7 @@ export const useAadharModalHook = () => {
       }
     }
 
+    dispatch(onProfileSection({ token }));
     setOtpVerified(true);
   };
 

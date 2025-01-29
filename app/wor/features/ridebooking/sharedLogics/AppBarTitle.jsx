@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   textinnerCard: {
     flexDirection: "row",
     gap: 10,
-    width: "90%",
+    width: "95%",
     marginLeft: 5,
     alignItems: "center",
     // paddingLeft: 10,
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   appTitCenStyles: {
     // backgroundColor: "red",
-    width: "80%",
+    width: "90%",
     marginBottom: 12,
   },
   appTitCenWidth: {

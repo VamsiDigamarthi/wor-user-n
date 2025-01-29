@@ -115,7 +115,7 @@ export const useChangeLoc100mViaMapScreenHook = () => {
   };
 
   const handleCheckMPinSetOrNot = () => {
-    if (profile?.mpin === null || profile?.adhar === null) {
+    if (profile?.mpin === null || profile?.aadharCarVerificaation === null) {
       onChangeRideBookBeforeCheckPinAddharHandler();
       return;
     }

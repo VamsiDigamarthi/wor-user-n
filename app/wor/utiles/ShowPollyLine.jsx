@@ -57,7 +57,7 @@ const ShowPollyLine = ({
 
   // Update marker position based on live coordinates
   useEffect(() => {
-    if (liveCoordinates) {
+    if (liveCoordinates?.lat) {
       setCurrentPosition({
         latitude: liveCoordinates.lat,
         longitude: liveCoordinates.lng,
