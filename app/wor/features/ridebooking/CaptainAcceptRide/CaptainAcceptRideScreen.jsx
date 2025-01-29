@@ -30,6 +30,7 @@ const CaptainAcceptRideScreen = () => {
     completeRideDetails,
     disFromCaptainLocToPick,
     disFromPickToDrop,
+    liveCoordinates,
   } = useCaptainAcceptRideScreenHook();
 
   let captainCoordinates = {
@@ -74,6 +75,7 @@ const CaptainAcceptRideScreen = () => {
         <ShowPollyLine
           origin={otpVerified ? pickUpCoordinates : captainCoordinates}
           destination={otpVerified ? dropCoordinates : pickUpCoordinates}
+          liveCoordinates={liveCoordinates}
         />
       </View>
       <BottomSheetComponent
