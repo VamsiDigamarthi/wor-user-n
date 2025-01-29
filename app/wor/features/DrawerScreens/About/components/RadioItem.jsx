@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 
-const RadioItem = ({ id, label, checked, onSelect }) => {
+const RadioItem = ({ label, checked, onSelect }) => {
   return (
     <TouchableOpacity
       style={{

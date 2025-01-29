@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import WaitingCard from "./WaitingCard";
 // import WaitingCard from "./WaitingCard";
 
 const AppBarRideBookingConditions = ({ isArrived, otpVerified, rideTide }) => {
@@ -10,6 +11,7 @@ const AppBarRideBookingConditions = ({ isArrived, otpVerified, rideTide }) => {
         justifyContent: "center",
         alignItems: "center",
         marginRight: 10,
+        // backgroundColor: "yellow",
       }}
     >
       {otpVerified ? (
@@ -22,10 +24,17 @@ const AppBarRideBookingConditions = ({ isArrived, otpVerified, rideTide }) => {
       ) : (
         <>
           {isArrived ? (
-            <>
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                // backgroundColor: "red",
+                marginTop: 35,
+              }}
+            >
               <Ionicons size={24} name="timer" color="#f98600" />
-              {/* <WaitingCard /> */}
-            </>
+              <WaitingCard />
+            </View>
           ) : (
             <>
               <Text style={{ fontSize: 11, fontWeight: "600" }}>ETA</Text>

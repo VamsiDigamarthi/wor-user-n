@@ -33,13 +33,14 @@ export const useLookingForRideScreenHook = () => {
       // Normalize the time to uppercase AM/PM
       const normalizedOrderTime = orderPlaceTime.toUpperCase(); // Converts 'am' to 'AM' and 'pm' to 'PM'
       console.log("normalizedOrderTime", normalizedOrderTime);
+
       // Create the full datetime string with the current date
       const currentDate = new Date().toISOString().split("T")[0]; // YYYY-MM-DD format
       console.log("currentDate", currentDate);
 
       // Separate hours, minutes, and AM/PM
-      const [time, ampm] = normalizedOrderTime.split(" "); // "12:00:57" and "PM"
-      const [hours, minutes, seconds] = time.split(":"); // "12", "00", "57"
+      const [time, ampm] = normalizedOrderTime.split(" "); // "3:29" and "PM"
+      const [hours, minutes] = time.split(":"); // "3" and "29" - no seconds part
 
       // Adjust hours for 12-hour clock
       let adjustedHours = parseInt(hours, 10);
@@ -49,15 +50,18 @@ export const useLookingForRideScreenHook = () => {
         adjustedHours = 0; // Midnight case (12 AM is 00:00)
       }
 
+      // Since the orderPlaceTime only has hours and minutes, set seconds to '00'
+      const seconds = "00";
+
       // Construct the full date-time string in ISO format
       const fullDateString = `${currentDate}T${String(adjustedHours).padStart(
         2,
         "0"
       )}:${minutes}:${seconds}.000+05:30`;
       console.log("fullDateString", fullDateString);
-      // Parse the full date string into a valid Date object
-      const orderTime = new Date(fullDateString); // Now this will create a valid Date object
 
+      // Parse the full date string into a valid Date object
+      const orderTime = new Date(fullDateString);
       console.log("orderTime", orderTime); // Log to check if it's correctly parsed
 
       const currentTime = new Date(); // Get current time
@@ -103,8 +107,6 @@ export const useLookingForRideScreenHook = () => {
     outputRange: ["0%", "100%"],
   });
 
-  console.log(progressWidth, "progressWidth");
-
   const handleCancelRide = async () => {
     const rideCancel = await cancelRide({ token, orderId });
     if (rideCancel) navigation?.goBack();
@@ -114,6 +116,7 @@ export const useLookingForRideScreenHook = () => {
     const replaceOrder = await rePlaceOrder({ token, orderId });
     if (replaceOrder) {
       setShowCancelWithReOrderBtn(true);
+      progress.setValue(0);
       startAnimation();
     }
   };
@@ -132,11 +135,15 @@ export const useLookingForRideScreenHook = () => {
   };
 
   const orderCancelledListener = (orderId) => {
+    console.log("-------------- cancel ---------------------");
+
     console.log("order-cancelled", orderId);
     setShowCancelWithReOrderBtn(false);
   };
 
   const orderAcceptListener = (order) => {
+    console.log("----------------accepted----------------------");
+
     dispatch(setCompleteRideDetails(order));
     progress.stopAnimation();
     navigation.navigate("captaineacceptride");

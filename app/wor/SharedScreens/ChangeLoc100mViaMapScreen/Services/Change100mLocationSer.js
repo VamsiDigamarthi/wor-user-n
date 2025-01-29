@@ -60,7 +60,6 @@ export const bookingRide = async ({ token, orderDetails }) => {
 //   return { formattedDate, formattedTime, indiaDateTime };
 // };
 
-
 export const getFormattedDateTime = () => {
   const now = new Date();
   const offset = 5.5 * 60; // IST is UTC+5:30 in minutes
@@ -78,7 +77,6 @@ export const getFormattedDateTime = () => {
   const formattedTime = `${hours}:${minutes} ${ampm}`;
   return { formattedDate, formattedTime };
 };
-
 
 // Utility function to create order details for both parcel and ride screens
 export const createOrderDetails = ({

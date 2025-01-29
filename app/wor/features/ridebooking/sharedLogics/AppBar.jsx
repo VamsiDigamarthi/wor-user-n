@@ -1,8 +1,6 @@
 import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
-import { TouchableOpacity } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { COLORS } from "../../../../../Constants/colors";
 import { HamborgIcon } from "../../../Icons/Icons";
 import { DrawerActions } from "@react-navigation/native";
 import AppBarRideBookingConditions from "./AppBarRideBookingConditions";
@@ -29,12 +27,6 @@ const Appbar = ({
 }) => {
   const navigation = useNavigation();
 
-  const onOpenDrawer = () => {
-    console.log("open drawer");
-
-    navigation.dispatch(DrawerActions.openDrawer());
-  };
-
   return (
     <View
       style={[styles.superContainer, isPositionAppbar && styles.postionAppBar]}
@@ -42,16 +34,13 @@ const Appbar = ({
       <View style={[styles.mainContainer]}>
         <View style={[styles.btnContainer]}>
           {isDrawerIcon ? (
-            <Pressable onPress={onOpenDrawer}>
+            <Pressable onPress={() => navigation.openDrawer()}>
               <HamborgIcon size={20} color="#000" />
             </Pressable>
           ) : (
-            <TouchableOpacity
-              style={[styles.btn]}
-              onPress={() => navigation.goBack()}
-            >
+            <Pressable style={[styles.btn]} onPress={() => navigation.goBack()}>
               <Ionicons name="chevron-back" size={30} color="#000" />
-            </TouchableOpacity>
+            </Pressable>
           )}
         </View>
 
@@ -142,7 +131,7 @@ const styles = StyleSheet.create({
   textContainer: {
     flexDirection: "row",
     borderColor: "#FFE2E6",
-    width: "100%",
+    width: "86%",
     height: "100%",
     alignItems: "center",
     gap: 8,
@@ -152,6 +141,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     // paddingLeft: 30,
     // textAlign: "center",
+    // backgroundColor: "red",
   },
   textinnerCard: {
     flexDirection: "row",

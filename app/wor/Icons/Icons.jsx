@@ -9,7 +9,7 @@ import {
 } from "@expo/vector-icons";
 
 export const HamborgIcon = ({ size, color }) => (
-  <FontAwesome5 name="hamburger" size={size} color={color} />
+  <Ionicons name="menu" size={28} color="gray" />
 );
 
 export const UserIcons = ({ size, color }) => (

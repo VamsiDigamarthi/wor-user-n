@@ -48,8 +48,6 @@ const CaptainAcceptRideScreen = () => {
     lng: completeRideDetails?.drop?.coordinates?.[0],
   };
 
-  const navigation = useNavigation();
-
   return (
     <AppBarLayout
       isDrawerIcon={true}

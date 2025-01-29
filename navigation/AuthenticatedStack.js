@@ -174,6 +174,12 @@ const DrawerNavigator = ({ route }) => {
         }}
       >
         <Drawer.Screen name="Home" component={HomeScreen} />
+        <Drawer.Screen
+          name="captaineacceptride"
+          // component={CaptainAcceptRide}
+          component={CaptainAcceptRideScreen}
+          options={{ headerShown: false }}
+        />
       </Drawer.Navigator>
     </>
   );
@@ -255,12 +261,6 @@ const AuthenticatedStack = ({ initialRoute, params }) => {
       />
 
       {/* CaptainAcceptRide screen */}
-      <Stack.Screen
-        name="captaineacceptride"
-        // component={CaptainAcceptRide}
-        component={CaptainAcceptRideScreen}
-        options={{ headerShown: false }}
-      />
 
       <Stack.Screen
         name="captaineacceptrideusershowridedetails"

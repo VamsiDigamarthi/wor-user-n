@@ -50,11 +50,19 @@ const handleUploadAdharDetailsToServer = async ({ data, token }) => {
       }
     );
 
-    return true;
+    return { status: true };
   } catch (error) {
-    console.log("aadhar supepass data upload failed");
-    console.log("handleUpdateAddharDetailsToServer");
-    return false;
+    if (error?.response?.data?.message === "Aadhar Number Already Exist....!") {
+      return {
+        status: false,
+        errMsg: error?.response?.data?.message,
+      };
+    }
+
+    return {
+      status: false,
+      errMsg: "Wor Server Update Your details failed Please try again later",
+    };
   }
 };
 
@@ -84,14 +92,15 @@ export const aadharCardOtpVerification = async ({ otp, clientId, token }) => {
       data: response?.data?.data,
       token,
     });
-    if (ownServerData) {
+
+    if (ownServerData.status) {
       return {
         status: true,
       };
     }
     return {
       status: false,
-      ownServerFailed: true,
+      ownServerFailed: ownServerData?.errMsg,
     };
   } catch (error) {
     if (error?.response?.data?.message === "Verification Failed.") {

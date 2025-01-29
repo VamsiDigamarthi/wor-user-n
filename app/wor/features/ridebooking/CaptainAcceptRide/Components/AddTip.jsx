@@ -1,30 +1,69 @@
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import React from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { addTipToServer, decrementTip, incrementTip } from "../tipSlice";
 
 const AddTip = () => {
+  const { completeRideDetails } = useSelector((state) => state.allRideDetails);
+  const { token } = useSelector((state) => state.token);
+  const dispatch = useDispatch();
+  const { tip, error, isTipAdded, status } = useSelector(
+    (state) => state.tipSlice
+  );
+  const decrement = () => dispatch(decrementTip());
+  const increment = () => dispatch(incrementTip());
+
+  const handleSubmitTip = () => {
+    dispatch(addTipToServer({ token, tip, orderId: completeRideDetails._id }));
+  };
+  // console.log(error, isTipAdded);
+
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 15, fontWeight: "600" }}>Add tip to Rider</Text>
-      <View style={{ flexDirection: "row", gap: 10 }}>
-        <View style={styles.tipCard}>
-          <Text>10</Text>
+      <Text style={{ fontSize: 16, fontWeight: "600" }}>Add Tip</Text>
+      <View style={styles.rowCard}>
+        <View style={styles.moneyCard}>
+          {completeRideDetails?.addTip === 0 && (
+            <Pressable
+              onPress={decrement}
+              style={{
+                width: 30,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ fontSize: 30, fontWeight: "600" }}>-</Text>
+            </Pressable>
+          )}
+          <Text style={{ fontSize: 20, fontWeight: "600" }}>
+            ₹
+            {completeRideDetails?.addTip === 0
+              ? tip
+              : completeRideDetails?.addTip}
+          </Text>
+          {completeRideDetails?.addTip === 0 && (
+            <Pressable
+              style={{
+                width: 30,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={increment}
+            >
+              <Text style={{ fontSize: 25, fontWeight: "600" }}>+</Text>
+            </Pressable>
+          )}
         </View>
-        <View style={[styles.tipCard, { borderColor: "gray" }]}>
-          <Text>20</Text>
-        </View>
-        <View style={[styles.tipCard, { width: 120, borderColor: "gray" }]}>
-          <TextInput placeholder="Enter Amount" />
-        </View>
-      </View>
-      <View style={{ flexDirection: "row", gap: 10 }}>
-        <Pressable
-          style={[styles.tipCard, { width: 100, borderColor: "gray" }]}
-        >
-          <Text>Clear</Text>
-        </Pressable>
-        <Pressable style={[styles.tipCard, { width: 100 }]}>
-          <Text>Add</Text>
-        </Pressable>
+        {isTipAdded || completeRideDetails?.addTip ? (
+          <Text style={{ fontSize: 16, fontWeight: "600", color: "gray" }}>
+            Tip Added
+          </Text>
+        ) : (
+          <Pressable onPress={handleSubmitTip}>
+            <Text style={{ fontSize: 20, color: "red", fontWeight: "600" }}>
+              Add
+            </Text>
+          </Pressable>
+        )}
       </View>
     </View>
   );
@@ -39,14 +78,25 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 15,
     borderRadius: 10,
-  },
-  tipCard: {
-    width: 50,
-    height: 30,
-    borderWidth: 1,
-    borderColor: "#e02e88",
-    justifyContent: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
-    borderRadius: 4,
+  },
+  moneyCard: {
+    // width: 120,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: "gray",
+    borderStyle: "dashed",
+    paddingHorizontal: 10,
+    // paddingVertical: 5,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
+  rowCard: {
+    flexDirection: "row",
+    gap: 10,
+    alignItems: "center",
   },
 });

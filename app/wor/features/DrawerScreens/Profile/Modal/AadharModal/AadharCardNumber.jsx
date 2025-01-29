@@ -14,6 +14,7 @@ const AadharCardNumber = ({
 }) => {
   const [formattedAadhar, setFormattedAadhar] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
 
   const handleAadharChange = (text) => {
     const numericValue = text.replace(/\D/g, "");
@@ -30,11 +31,14 @@ const AadharCardNumber = ({
   const handleSubmitAadharCard = async () => {
     setIsLoading(true);
     const data = await aadharNumberSendOtp({ aadharNumber });
+    console.log("data", data);
     setIsLoading(false);
     if (data?.status) {
       setClientId(data?.clientId);
       setOtpPress(true);
+      return;
     }
+    setErrMsg(data?.error);
   };
 
   return (
@@ -74,7 +78,7 @@ const AadharCardNumber = ({
           Your Data is 100% Safe and Secure
         </Text>
       </View>
-
+      {errMsg && <Text style={{ fontSize: 11, color: "red" }}>{errMsg}</Text>}
       <CustomBtn
         width="100%"
         onPress={handleSubmitAadharCard}
