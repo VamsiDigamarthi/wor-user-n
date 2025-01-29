@@ -6,6 +6,7 @@ const IconButton = ({
   title,
   onPress = () => {},
   isSelected = false,
+  width = 135,
 }) => {
   let Icons;
   switch (iconsName) {
@@ -23,7 +24,7 @@ const IconButton = ({
   }
   // console.log(isSelected);
   return (
-    <View style={[styles.container]}>
+    <View style={[styles.container, { width: width }]}>
       <Pressable
         android_ripple={{
           color: "#E02E88", // Set ripple color
@@ -55,7 +56,6 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   container: {
-    width: 135,
     height: 40,
     borderWidth: 1,
     borderColor: "#ffe2e6",

@@ -14,6 +14,8 @@ const LocationList = ({
   isHomeWorkPlace,
   setAddedHowWorkPlaceType,
   isFavoritePlaces = false,
+  iconname,
+  icontype,
 }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -63,16 +65,22 @@ const LocationList = ({
     navigation.navigate("ShowPrice");
   };
 
+  // console.log("data", data);
+
   return (
     <FlatList
       data={data}
-      keyExtractor={(item) => `${item.name}++${item.vicinity}`}
+      keyExtractor={(item) => (isFavoritePlaces ? item._id : item.id)}
+      // keyExtractor={(item, index) => index}
       renderItem={({ item }) => (
         <LocationItem
           placeName={item?.name}
           placeVicinity={item.vicinity}
           eachPlace={item}
           isFavoriteIconDisplay={true}
+          iconName={iconname}
+          iconType={icontype}
+          isFavoritePlaces={isFavoritePlaces}
           onPress={() =>
             handleToNavigateShowPriceScreen({
               place: item,

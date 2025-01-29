@@ -25,6 +25,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import OfferCard from "./Components/OfferCard";
 import UhOhCard from "./Components/UhOhCard";
 import PaymentMethodCard from "./Components/PaymentMethodCard";
+import DatePicker from "react-native-date-picker";
 
 const screenHeight = Dimensions.get("window").height;
 
@@ -63,6 +64,7 @@ const ShowPriceScreen = () => {
         isPositionAppbar={true}
         isTimer={true}
         timerFunction={timerSetModalOpen}
+        borderStyles={false}
       >
         <View style={styles.mapContainer}>
           <ShowPollyLine origin={location} destination={dropDetails.location} />

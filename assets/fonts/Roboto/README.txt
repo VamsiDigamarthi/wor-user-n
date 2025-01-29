@@ -1,118 +1,122 @@
-Roboto Variable Font
-====================
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import LocationInput from "./LocationInput";
+import IconButton from "../../../../utiles/IconButton";
+import { useSelector } from "react-redux";
+import { useWhereToGoHook } from "../Hooks/WhereToGo";
+import HomeWorkPlaceCard from "./HomeWorkPlaceCard";
+import LocationList from "./LocationList";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-This download contains Roboto as both variable fonts and static fonts.
+const WhereToGo = ({
+  micVoiceText,
+  setMicVoiceText,
+  setIsMicModalOpenClose,
+  title = "",
+  passParams,
+}) => {
+  const { nearPlaces } = useSelector((state) => state.nearPlaces);
+  const {
+    inputValue,
+    suggestions,
+    handleInputChange,
+    setAddedHowWorkPlaceType,
+    handleAddedHomePlace,
+    addedHomeWorkPlaceType,
+    // favorite place state
+    setIsSendOrReceiveParcel,
+    isSelectFavoritePlaces,
+    favoritePlaces,
+  } = useWhereToGoHook({ micVoiceText, setMicVoiceText, title });
 
-Roboto is a variable font with these axes:
-  wdth
-  wght
+  return (
+    <>
+      <View style={styles.container}>
+        <View style={styles.pickDropBtnCard}>
+          <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+            {addedHomeWorkPlaceType
+              ? `${addedHomeWorkPlaceType?.toUpperCase()} Place`
+              : "Where to go?"}
+          </Text>
+          <LocationInput
+            passParams={passParams}
+            inputValue={inputValue?.length > 0 ? inputValue : micVoiceText}
+            handleInputChange={handleInputChange}
+            setIsMicModalOpenClose={setIsMicModalOpenClose}
+          />
+          <View style={styles.mapFavoriteCard}>
+            <TouchableOpacity
+              onPress={() => setIsSendOrReceiveParcel(!isSelectFavoritePlaces)}
+            >
+              <Text
+                style={{
+                  fontSize: 12,
 
-This means all the styles are contained in these files:
-  Roboto-VariableFont_wdth,wght.ttf
-  Roboto-Italic-VariableFont_wdth,wght.ttf
+                  color: isSelectFavoritePlaces ? "blue" : "#000",
+                  // padding: 4,
+                  // borderRadius: 10,
+                }}
+              >
+                Suggested Destinations
+              </Text>
+            </TouchableOpacity>
 
-If your app fully supports variable fonts, you can now pick intermediate styles
-that aren’t available as static fonts. Not all apps support variable fonts, and
-in those cases you can use the static font files for Roboto:
-  static/Roboto_Condensed-Thin.ttf
-  static/Roboto_Condensed-ExtraLight.ttf
-  static/Roboto_Condensed-Light.ttf
-  static/Roboto_Condensed-Regular.ttf
-  static/Roboto_Condensed-Medium.ttf
-  static/Roboto_Condensed-SemiBold.ttf
-  static/Roboto_Condensed-Bold.ttf
-  static/Roboto_Condensed-ExtraBold.ttf
-  static/Roboto_Condensed-Black.ttf
-  static/Roboto_SemiCondensed-Thin.ttf
-  static/Roboto_SemiCondensed-ExtraLight.ttf
-  static/Roboto_SemiCondensed-Light.ttf
-  static/Roboto_SemiCondensed-Regular.ttf
-  static/Roboto_SemiCondensed-Medium.ttf
-  static/Roboto_SemiCondensed-SemiBold.ttf
-  static/Roboto_SemiCondensed-Bold.ttf
-  static/Roboto_SemiCondensed-ExtraBold.ttf
-  static/Roboto_SemiCondensed-Black.ttf
-  static/Roboto-Thin.ttf
-  static/Roboto-ExtraLight.ttf
-  static/Roboto-Light.ttf
-  static/Roboto-Regular.ttf
-  static/Roboto-Medium.ttf
-  static/Roboto-SemiBold.ttf
-  static/Roboto-Bold.ttf
-  static/Roboto-ExtraBold.ttf
-  static/Roboto-Black.ttf
-  static/Roboto_Condensed-ThinItalic.ttf
-  static/Roboto_Condensed-ExtraLightItalic.ttf
-  static/Roboto_Condensed-LightItalic.ttf
-  static/Roboto_Condensed-Italic.ttf
-  static/Roboto_Condensed-MediumItalic.ttf
-  static/Roboto_Condensed-SemiBoldItalic.ttf
-  static/Roboto_Condensed-BoldItalic.ttf
-  static/Roboto_Condensed-ExtraBoldItalic.ttf
-  static/Roboto_Condensed-BlackItalic.ttf
-  static/Roboto_SemiCondensed-ThinItalic.ttf
-  static/Roboto_SemiCondensed-ExtraLightItalic.ttf
-  static/Roboto_SemiCondensed-LightItalic.ttf
-  static/Roboto_SemiCondensed-Italic.ttf
-  static/Roboto_SemiCondensed-MediumItalic.ttf
-  static/Roboto_SemiCondensed-SemiBoldItalic.ttf
-  static/Roboto_SemiCondensed-BoldItalic.ttf
-  static/Roboto_SemiCondensed-ExtraBoldItalic.ttf
-  static/Roboto_SemiCondensed-BlackItalic.ttf
-  static/Roboto-ThinItalic.ttf
-  static/Roboto-ExtraLightItalic.ttf
-  static/Roboto-LightItalic.ttf
-  static/Roboto-Italic.ttf
-  static/Roboto-MediumItalic.ttf
-  static/Roboto-SemiBoldItalic.ttf
-  static/Roboto-BoldItalic.ttf
-  static/Roboto-ExtraBoldItalic.ttf
-  static/Roboto-BlackItalic.ttf
+            <IconButton
+              icons="favorite"
+              title="Saved Locations"
+              iconsName="MaterialIcons"
+              isSelected={isSelectFavoritePlaces}
+              onPress={() => setIsSendOrReceiveParcel(!isSelectFavoritePlaces)}
+            />
+          </View>
+        </View>
+        {isSelectFavoritePlaces ? (
+          <LocationList
+            icons="favorite"
+            iconname={"favorite"}
+            icontype={"MaterialIcons"}
+            data={favoritePlaces}
+            setAddedHowWorkPlaceType={setAddedHowWorkPlaceType}
+            isHomeWorkPlace={addedHomeWorkPlaceType}
+            isFavoritePlaces={false}
+          />
+        ) : (
+          <LocationList
+            icons="favorite"
+            data={suggestions ?? nearPlaces}
+            setAddedHowWorkPlaceType={setAddedHowWorkPlaceType}
+            isHomeWorkPlace={addedHomeWorkPlaceType}
+            isFavoritePlaces={false}
+          />
+        )}
+      </View>
+      <HomeWorkPlaceCard handleAddedHomePlace={handleAddedHomePlace} />
+    </>
+  );
+};
 
-Get started
------------
+export default WhereToGo;
 
-1. Install the font files you want to use
-
-2. Use your app's font picker to view the font family and all the
-available styles
-
-Learn more about variable fonts
--------------------------------
-
-  https://developers.google.com/web/fundamentals/design-and-ux/typography/variable-fonts
-  https://variablefonts.typenetwork.com
-  https://medium.com/variable-fonts
-
-In desktop apps
-
-  https://theblog.adobe.com/can-variable-fonts-illustrator-cc
-  https://helpx.adobe.com/nz/photoshop/using/fonts.html#variable_fonts
-
-Online
-
-  https://developers.google.com/fonts/docs/getting_started
-  https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Fonts/Variable_Fonts_Guide
-  https://developer.microsoft.com/en-us/microsoft-edge/testdrive/demos/variable-fonts
-
-Installing fonts
-
-  MacOS: https://support.apple.com/en-us/HT201749
-  Linux: https://www.google.com/search?q=how+to+install+a+font+on+gnu%2Blinux
-  Windows: https://support.microsoft.com/en-us/help/314960/how-to-install-or-remove-a-font-in-windows
-
-Android Apps
-
-  https://developers.google.com/fonts/docs/android
-  https://developer.android.com/guide/topics/ui/look-and-feel/downloadable-fonts
-
-License
--------
-Please read the full license text (OFL.txt) to understand the permissions,
-restrictions and requirements for usage, redistribution, and modification.
-
-You can use them in your products & projects – print or digital,
-commercial or otherwise.
-
-This isn't legal advice, please consider consulting a lawyer and see the full
-license for all details.
+const styles = StyleSheet.create({
+  container: {
+    padding: 15,
+    backgroundColor: "#fff",
+    width: "100%",
+    height: "70%",
+    borderRadius: 20,
+    elevation: 0.5,
+    gap: 10,
+    // backgroundColor: "red",
+  },
+  pickDropBtnCard: {
+    gap: 10,
+  },
+  mapFavoriteCard: {
+    width: "100%",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: 15,
+  },
+});

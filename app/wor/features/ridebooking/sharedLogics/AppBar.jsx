@@ -24,6 +24,8 @@ const Appbar = ({
   rideTide = "",
   ride3mTimes = "",
   isRideBookingScree = false,
+  // border styles
+  borderStyles = { borderStyles },
 }) => {
   const navigation = useNavigation();
 
@@ -54,7 +56,11 @@ const Appbar = ({
         </View>
 
         <View style={[styles.textContainer]}>
-          <AppBarTitle title={title} vicinity={vicinity} />
+          <AppBarTitle
+            borderStyles={borderStyles}
+            title={title}
+            vicinity={vicinity}
+          />
           {isTimer && (
             <Pressable onPress={timerFunction} style={styles.timerCard}>
               <Ionicons size={24} name="timer" color="#f98600" />

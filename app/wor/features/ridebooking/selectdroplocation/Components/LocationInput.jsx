@@ -1,20 +1,32 @@
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import React from "react";
-import { MicIcon, SearchIcons } from "../../../../Icons/Icons";
+import React, { useRef, useEffect } from "react";
+import { Pressable, StyleSheet, TextInput, View, Image } from "react-native";
+import { MicIcon } from "../../../../Icons/Icons";
+import { navigator } from "../../../../Images/DrawerImages";
 
 const LocationInput = ({
   inputValue,
   handleInputChange,
   setIsMicModalOpenClose,
+  passParams,
 }) => {
+  const ref = useRef();
+
+  useEffect(() => {
+    if (passParams && ref.current) {
+      ref.current.focus();
+    }
+  }, [passParams]);
+
   return (
     <View style={styles.container}>
-      <SearchIcons size={20} color="#000" />
+      <Image source={navigator} style={styles.navIcon} />
       <TextInput
+        ref={ref}
         style={{ flex: 1, fontSize: 16 }}
         placeholder="Enter Destination"
         value={inputValue}
         onChangeText={handleInputChange}
+        selectTextOnFocus={true} // Automatically select all text when focused
       />
       <Pressable
         onPress={() => setIsMicModalOpenClose(true)}
@@ -49,5 +61,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     elevation: 2,
     height: 40,
+  },
+  navIcon: {
+    height: 18,
+    width: 18,
+    resizeMode: "contain",
   },
 });

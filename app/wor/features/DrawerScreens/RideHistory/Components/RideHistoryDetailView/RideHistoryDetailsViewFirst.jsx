@@ -4,6 +4,7 @@ import {
   FontAwesome,
   FontAwesome6,
   Ionicons,
+  MaterialIcons,
 } from "@expo/vector-icons";
 import Entypo from "@expo/vector-icons/Entypo";
 import { COLORS } from "../../../../../../../Constants/colors";
@@ -75,17 +76,35 @@ const RideHistoryDetailsViewFirst = ({ ride }) => {
           <View>
             <Text style={styles.boldText}> {ride?.orderPlaceDate}</Text>
             <Text style={styles.semiBoldText}> {ride?._id}</Text>
-            <Text
-              style={[
-                styles.boldText,
-                {
-                  color: ride?.status == "cancelled" ? "red" : "green",
-                },
-              ]}
+
+            <View
+              style={{ flexDirection: "row", gap: 5, alignItems: "center" }}
             >
-             
-              {ride?.status}
-            </Text>
+              <Text
+                style={[
+                  styles.boldText,
+                  {
+                    color: ride?.status == "cancelled" ? "red" : "green",
+                  },
+                ]}
+              >
+                {ride?.status}
+              </Text>
+
+              <View
+                style={{
+                  backgroundColor: "red",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  // padding: 2,
+                  height: 30,
+                  width: 30,
+                  borderRadius: 30,
+                }}
+              >
+                <MaterialIcons name="delete-outline" size={24} color="black" />
+              </View>
+            </View>
           </View>
         </View>
 
@@ -290,11 +309,11 @@ const styles = StyleSheet.create({
 
   boldText: {
     // fontWeight: "bold",
-    fontFamily:fonts.robotoSemiBold
+    fontFamily: fonts.robotoSemiBold,
   },
   semiBoldText: {
     // fontWeight: "400",
-    fontFamily:fonts.robotoRegular
+    fontFamily: fonts.robotoRegular,
   },
 
   ratingCard: {

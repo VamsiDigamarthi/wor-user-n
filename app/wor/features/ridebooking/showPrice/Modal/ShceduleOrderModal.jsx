@@ -4,6 +4,7 @@ import ModalUI from "../../../../utiles/Modal/Modal";
 import { infoModalStyles } from "../../../../../../Components/InfoUi/Styles/InfoModalStyles";
 import { CalendarIcons } from "../../../../Icons/Icons";
 import CustomBtn from "../../../../utiles/CustomBtn";
+import DatePicker from "react-native-date-picker";
 
 const ShceduleOrderModal = ({ shceduleOrderModal, timerSetModalOpen }) => {
   return (
@@ -14,7 +15,7 @@ const ShceduleOrderModal = ({ shceduleOrderModal, timerSetModalOpen }) => {
       insideCardStyle={infoModalStyles.insideCardStyle}
       closebtn={false}
     >
-      <View style={styles.container}>
+      {/* <View style={styles.container}>
         <View style={styles.rowCard}>
           <View style={styles.rowCardWithGap}>
             <CalendarIcons size={25} color="gray" />
@@ -41,7 +42,30 @@ const ShceduleOrderModal = ({ shceduleOrderModal, timerSetModalOpen }) => {
             btnColor="#fff"
           />
         </View>
-      </View>
+      </View> */}
+
+      <DatePicker
+        // modal
+        open={true}
+        date={new Date()}
+        theme="light"
+        title="Select Future Time"
+        cancelText="Cancel"
+        confirmText="Confirm"
+        // minimumDate={minimumDate} // Dynamically set to the next valid time
+        // maximumDate={maximumDate}
+        // minuteInterval={15} // Enforce 15-minute intervals
+        // onConfirm={(selectedDate) => {
+        //   if (selectedDate.getTime() >= new Date().getTime()) {
+        //     onHandleTimeValueHandler(selectedDate);
+        //   } else {
+        //     Alert.alert("You selected a past time");
+        //   }
+
+        // }}
+        // onCancel={onTimeModalOpenCloseHandler}
+        // style={styles.datePicker}
+      />
     </ModalUI>
   );
 };

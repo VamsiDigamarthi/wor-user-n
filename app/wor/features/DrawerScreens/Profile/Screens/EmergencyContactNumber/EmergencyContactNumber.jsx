@@ -173,7 +173,9 @@ const ProfileEmergencyContact = () => {
     <View style={styles.numberCard}>
       <Pressable>
         <View style={styles.contactRow}>
-          <View style={styles.contactImage} />
+          <View style={styles.contactImage}>
+            <Text style={styles.letter}>{item?.name?.toString()[0]}</Text>
+          </View>
           <View>
             <Text style={styles.contactName}>{item.name}</Text>
             <Text style={styles.mobileText}>{item.mobile}</Text>
@@ -187,7 +189,7 @@ const ProfileEmergencyContact = () => {
   );
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: "#fff" }}>
       <CustomeAppbar
         title="Emergency Contacts"
         onBack={() => navigation.goBack()}
@@ -195,6 +197,13 @@ const ProfileEmergencyContact = () => {
       <View style={styles.container}>
         {/* <AddTrusted /> */}
         <View style={styles.bottomCard}>
+          <Text style={styles.text}>
+            This feature helps you feel safer on your rides. If you feel
+            uncomfortable, you can use "Secure Call." This will pretend to call
+            your emergency contacts. Note: This feature doesn't actually call
+            anyone. It just makes you feel safer.
+          </Text>
+
           <Text style={styles.sectionTitle}>You can add up to 5 Numbers</Text>
           <View style={styles.separator} />
           <FlatList
@@ -236,7 +245,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 12,
-    paddingVertical: 15,
+    // paddingVertical: 15,
     backgroundColor: "#fff",
     marginTop: 10,
   },
@@ -254,6 +263,8 @@ const styles = StyleSheet.create({
     height: 60,
     width: 60,
     borderRadius: 30,
+    alignItems: "center",
+    justifyContent: "center",
   },
   contactName: {
     fontFamily: fonts.robotoRegular,
@@ -275,6 +286,18 @@ const styles = StyleSheet.create({
   topCard: { flexDirection: "row", padding: 12, marginTop: 10, height: 200 },
   topImg: { height: 120, width: 150, resizeMode: "contain" },
   sectionTitle: { fontFamily: fonts.robotoBold, fontSize: 14 },
+
+  letter: {
+    fontWeight: "bold",
+    fontFamily: fonts.robotoBold,
+    fontSize: 18,
+  },
+
+  text: {
+    fontFamily: fonts.robotoRegular,
+    marginBottom: 10,
+    textAlign: "justify",
+  },
 });
 
 export default ProfileEmergencyContact;

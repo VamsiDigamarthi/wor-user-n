@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   },
   dropAddress: {
     // fontWeight: "bold",
-    fontFamily:fonts.robotoSemiBold,
+    fontFamily: fonts.robotoSemiBold,
     fontSize: 14,
     width: "100%", // Ensures all text aligns equally
     textAlign: "left",
@@ -94,14 +94,14 @@ const styles = StyleSheet.create({
     color: "#757575",
     width: "100%", // Consistent width with other elements
     textAlign: "left",
-    fontFamily:fonts.robotoRegular,
+    fontFamily: fonts.robotoRegular,
   },
   time: {
     fontSize: 12,
     color: "#757575",
     width: "100%",
     textAlign: "left",
-    fontFamily:fonts.robotoRegular,
+    fontFamily: fonts.robotoRegular,
   },
   rightContainer: {
     width: "20%",
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
   status: {
     fontSize: 12,
     // fontWeight: "bold",
-    fontFamily:fonts.robotoSemiBold,
+    fontFamily: fonts.robotoSemiBold,
     color: "#4CAF50",
   },
 

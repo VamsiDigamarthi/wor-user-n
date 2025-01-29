@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   nearByLocationCard: {
     borderBottomWidth: 1,
     borderBottomColor: "#ebebeb",
-    gap: 10,
+    gap: 8,
     paddingBottom: 10,
   },
 });

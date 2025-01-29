@@ -4,16 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { onFavoritePlace } from "../redux/favoritePlaces.slice";
 
-export const useWhereToGoHook = ({ micVoiceText, setMicVoiceText }) => {
+export const useWhereToGoHook = ({ micVoiceText, setMicVoiceText, title }) => {
   const dispatch = useDispatch();
 
   const { token } = useSelector((state) => state.token);
   const { favoritePlaces } = useSelector((state) => state.favoritePlaces);
   const { nearPlaces } = useSelector((state) => state.nearPlaces);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(title || "");
   const [suggestions, setSuggestions] = useState(null);
 
-  const [isSelectFavoritePlaces, setIsSendOrReceiveParcel] = useState(false);
+  const [isSelectFavoritePlaces, setIsSendOrReceiveParcel] =
+    useState("seggested");
 
   const [addedHomeWorkPlaceType, setAddedHowWorkPlaceType] = useState(null);
   const handleAddedHomePlace = async ({ type }) => {
