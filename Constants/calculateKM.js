@@ -21,7 +21,7 @@ export const haversineDistance = (coords1, coords2) => {
 };
 
 export const formatToIndiaISO = (date) => {
-  const year = date.getFullYear();
+  const year = date?.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
   const day = String(date.getDate()).padStart(2, "0");
   const hours = String(date.getHours()).padStart(2, "0");

@@ -13,6 +13,7 @@ const MicModal = ({
   isMicModalOpenClose,
   setIsMicModalOpenClose,
   setMicVoiceText,
+  micVoiceText,
 }) => {
   const { handleMicPress, isListening } = useMicModalHook({
     setMicVoiceText,
@@ -38,7 +39,7 @@ const MicModal = ({
             </View>
           </TouchableOpacity>
           <Text style={styles.infoText}>
-            {isListening ? "Listening..." : "Tap the mic to start speaking"}
+            {isListening ? micVoiceText : "Tap the mic to start speaking"}
           </Text>
           <Pressable
             onPress={() => setIsMicModalOpenClose(false)}
