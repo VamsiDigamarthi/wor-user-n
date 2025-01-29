@@ -9,6 +9,7 @@ import React, {
 import MapView, { Marker } from "react-native-maps";
 import { FontAwesome } from "@expo/vector-icons";
 import { customMapStyle } from "../../../../../../Constants/mapData";
+import { pinkpin } from "../../../../Images/OtherIcons";
 
 const HomeMapPreview = ({
   location,
@@ -84,7 +85,9 @@ const HomeMapPreview = ({
         onRegionChangeComplete={(region) => setRegion(region)}
       >
         <Marker coordinate={adjustedOrigin} title="Start Point">
-          <FontAwesome name="map-pin" size={20} color="#e02e88" />
+          {/* <FontAwesome name="map-pin" size={20} color="#e02e88" /> */}
+
+          <Image source={pinkpin} style={styles.pin} />
         </Marker>
 
         {captainMarkers?.map((marker, index) => (
@@ -160,5 +163,16 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 14,
     fontWeight: "bold",
+  },
+
+  pin: {
+    height: 10,
+    width: 10,
+    resizeMode: "contain",
+    // backgroundColor: "red",
+    // borderWidth: 1,
+    // borderColor: "red",
+    // resizeMode: "contain",
+    // overflow: "hidden",
   },
 });

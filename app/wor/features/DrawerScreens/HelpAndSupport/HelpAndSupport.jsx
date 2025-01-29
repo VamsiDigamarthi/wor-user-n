@@ -30,6 +30,7 @@ export default function HelpAndSupport() {
         </View>
 
         <View style={{ marginTop: 10 }}>
+          <Text style={styles.heading}>Help & Wor Support</Text>
           <FaqListCard />
         </View>
       </View>
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
 
   heading: {
     // fontWeight: "bold",
-    fontFamily:fonts.robotoSemiBold,
+    fontFamily: fonts.robotoSemiBold,
     color: "#2D2D2D",
     fontSize: 16,
   },

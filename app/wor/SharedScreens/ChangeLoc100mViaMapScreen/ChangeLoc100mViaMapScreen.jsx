@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import ParcelBtnCard from "../../features/Parcels/Components/ParcelBtnCard";
 import { useChangeLoc100mViaMapScreenHook } from "./ChangeLoc100mViaMapScreen.hook";
 import ChangeLocMapView from "./ChangeLocMapView";
@@ -9,8 +9,9 @@ import ShowPickLocation from "./ShowPickLocation";
 import NavigateMPinScreenModal from "./modals/NavigateMPinScreenModal";
 import CheckMPinModal from "./modals/CheckMPinModal";
 import AppBarLayout from "../../features/ridebooking/sharedLogics/AppBarLayout";
+import Entypo from "@expo/vector-icons/Entypo";
 
-const ChangeLoc100mViaMapScreen = () => {
+const ChangeLoc100mViaMapScreen = ({ navigation }) => {
   const {
     onNavigateSavedAddressScreen,
     handleMarkerDragEnd,
@@ -25,10 +26,18 @@ const ChangeLoc100mViaMapScreen = () => {
   } = useChangeLoc100mViaMapScreenHook();
 
   return (
-    <AppBarLayout
-      title={"Check Pick Up Location Again"}
-      isPositionAppbar={true}
-    >
+    // <AppBarLayout
+    //   title={"Check Pick Up Location Again"}
+    //   isPositionAppbar={true}
+    // >
+    <View style={{ flex: 1 }}>
+      <TouchableOpacity
+        style={styles.backbtn}
+        onPress={() => navigation.goBack()}
+      >
+        <Entypo name="chevron-left" size={30} color="black" />
+      </TouchableOpacity>
+
       <View style={styles.container}>
         {!isBeforeBook && (
           <CustomeAppbar
@@ -71,7 +80,7 @@ const ChangeLoc100mViaMapScreen = () => {
         pickUpPlace={placeName}
         newMarker={{ lat: newMarker.latitude, lng: newMarker.longitude }}
       />
-    </AppBarLayout>
+    </View>
   );
 };
 
@@ -86,5 +95,19 @@ const styles = StyleSheet.create({
   },
   mapContainer: {
     flex: 1,
+  },
+
+  backbtn: {
+    position: "absolute",
+    top: 30,
+    left: 10,
+    padding: 10,
+    borderRadius: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    // backgroundColor:
+    backgroundColor: "#fff",
+    elevation: 4,
+    zIndex: 100,
   },
 });

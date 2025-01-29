@@ -78,10 +78,10 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 60,
     // padding: 10,
-    elevation: 1,
+
     backgroundColor: "#fff",
     borderRadius: 10,
-    elevation: 2,
+    elevation: 0.5,
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",

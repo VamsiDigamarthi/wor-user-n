@@ -11,7 +11,7 @@ export default function AadharNewScreen() {
   const { profile } = useSelector((state) => state.profileSlice);
 
   return (
-    <AppBarLayout title="Documents" isPositionAppbar={true}>
+    <AppBarLayout title="Gender Identity" isPositionAppbar={true}>
       <View style={styles.container}>
         <Text style={[styles.heading, { fontFamily: fonts.robotoRegular }]}>
           Aadhaar verification is an essential step to ensure the authenticity
@@ -44,8 +44,14 @@ export default function AadharNewScreen() {
         </TouchableOpacity>
 
         <View style={styles.bottomText}>
-          <AntDesign name="Safety" size={20} color="#036413" />
-          <Text style={{ color: "#757575", fontFamily: fonts.robotoRegular }}>
+          <AntDesign name="Safety" size={15} color="#036413" />
+          <Text
+            style={{
+              color: "#757575",
+              fontFamily: fonts.robotoRegular,
+              fontSize: 10,
+            }}
+          >
             Your Data is 100% Safe and Secure
           </Text>
         </View>

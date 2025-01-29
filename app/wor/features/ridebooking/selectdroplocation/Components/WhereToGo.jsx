@@ -6,11 +6,14 @@ import { useSelector } from "react-redux";
 import { useWhereToGoHook } from "../Hooks/WhereToGo";
 import HomeWorkPlaceCard from "./HomeWorkPlaceCard";
 import LocationList from "./LocationList";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const WhereToGo = ({
   micVoiceText,
   setMicVoiceText,
   setIsMicModalOpenClose,
+  title = "",
+  passParams,
 }) => {
   const { nearPlaces } = useSelector((state) => state.nearPlaces);
   const {
@@ -24,7 +27,7 @@ const WhereToGo = ({
     setIsSendOrReceiveParcel,
     isSelectFavoritePlaces,
     favoritePlaces,
-  } = useWhereToGoHook({ micVoiceText, setMicVoiceText });
+  } = useWhereToGoHook({ micVoiceText, setMicVoiceText, title });
 
   return (
     <>
@@ -36,22 +39,37 @@ const WhereToGo = ({
               : "Where to go?"}
           </Text>
           <LocationInput
+            passParams={passParams}
             inputValue={inputValue?.length > 0 ? inputValue : micVoiceText}
             handleInputChange={handleInputChange}
             setIsMicModalOpenClose={setIsMicModalOpenClose}
           />
           <View style={styles.mapFavoriteCard}>
-            <Text style={{ fontSize: 12 }}>Suggested Destination</Text>
+            <TouchableOpacity
+              onPress={() => setIsSendOrReceiveParcel("seggested")}
+            >
+              <Text
+                style={{
+                  fontSize: 12,
+
+                  color:
+                    isSelectFavoritePlaces === "seggested" ? "blue" : "#000",
+                }}
+              >
+                Suggested Destinations
+              </Text>
+            </TouchableOpacity>
+
             <IconButton
               icons="favorite"
-              title="Favorite Places"
+              title="Saved Locations"
               iconsName="MaterialIcons"
-              isSelected={isSelectFavoritePlaces}
-              onPress={() => setIsSendOrReceiveParcel(!isSelectFavoritePlaces)}
+              isSelected={isSelectFavoritePlaces === "favorite"}
+              onPress={() => setIsSendOrReceiveParcel("favorite")}
             />
           </View>
         </View>
-        {isSelectFavoritePlaces ? (
+        {isSelectFavoritePlaces === "favorite" ? (
           <LocationList
             data={favoritePlaces}
             setAddedHowWorkPlaceType={setAddedHowWorkPlaceType}
@@ -60,9 +78,11 @@ const WhereToGo = ({
           />
         ) : (
           <LocationList
+            // icons="favorite"
             data={suggestions ?? nearPlaces}
             setAddedHowWorkPlaceType={setAddedHowWorkPlaceType}
             isHomeWorkPlace={addedHomeWorkPlaceType}
+            // isFavoritePlaces={false}
           />
         )}
       </View>
@@ -80,7 +100,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "70%",
     borderRadius: 20,
-    elevation: 1,
+    elevation: 0.5,
     gap: 10,
     // backgroundColor: "red",
   },

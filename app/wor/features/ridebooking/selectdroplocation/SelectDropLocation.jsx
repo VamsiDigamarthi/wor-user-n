@@ -4,6 +4,7 @@ import WhereToGo from "./Components/WhereToGo";
 import SelectOnMap from "./Components/SelectOnMap";
 import { useSelectDropLocationHook } from "./Hooks/SelectDropLocation.hook";
 import MicModal from "./MicModal";
+import { useRoute } from "@react-navigation/native";
 
 const SelectDropLocation = () => {
   const {
@@ -12,6 +13,9 @@ const SelectDropLocation = () => {
     micVoiceText,
     setMicVoiceText,
   } = useSelectDropLocationHook();
+
+  const { title, passParams } = useRoute().params;
+
   return (
     <>
       <KeyboardAvoidingView
@@ -22,6 +26,8 @@ const SelectDropLocation = () => {
         <AppBarLayout title="Select Destination" isPositionAppbar={true}>
           <View style={styles.container}>
             <WhereToGo
+              title={title}
+              passParams={passParams}
               micVoiceText={micVoiceText}
               setMicVoiceText={setMicVoiceText}
               setIsMicModalOpenClose={setIsMicModalOpenClose}

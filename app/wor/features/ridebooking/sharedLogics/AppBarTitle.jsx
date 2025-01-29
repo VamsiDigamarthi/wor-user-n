@@ -1,9 +1,27 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Octicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
-const AppBarTitle = ({ vicinity, title }) => {
+const AppBarTitle = ({ vicinity, title, borderStyles = true }) => {
+  const navigation = useNavigation();
+
+  const handleBackOrNavigateSelectDropScreen = () => {
+    !borderStyles &&
+      navigation.navigate("SelectDropLocation", {
+        title,
+        passParams: true,
+      });
+  };
+
   return (
-    <View style={[styles.textinnerCard, vicinity && styles.appTitCenStyles]}>
+    <TouchableOpacity
+      onPress={handleBackOrNavigateSelectDropScreen}
+      style={[
+        !borderStyles && styles.main,
+        styles.textinnerCard,
+        vicinity && styles.appTitCenStyles,
+      ]}
+    >
       <View
         style={[
           { flexDirection: "row", gap: 5, alignItems: "center" },
@@ -15,18 +33,30 @@ const AppBarTitle = ({ vicinity, title }) => {
         <Text
           numberOfLines={1}
           ellipsizeMode="tail"
-          style={[styles.text, vicinity && { fontSize: 13, fontWeight: "500" }]}
+          style={[
+            styles.text,
+            vicinity && {
+              fontSize: 13,
+              fontWeight: "500",
+              textAlign: "center",
+              width: "100%",
+            },
+          ]}
         >
           {title || "Title"}
         </Text>
         {/* </View> */}
         {vicinity && (
-          <Text numberOfLines={1} style={{ fontSize: 10 }} ellipsizeMode="tail">
+          <Text
+            numberOfLines={1}
+            style={{ fontSize: 10, textAlign: "center" }}
+            ellipsizeMode="tail"
+          >
             {vicinity}
           </Text>
         )}
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -59,5 +89,15 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "flex-start",
     gap: 2,
+  },
+  main: {
+    // backgroundColor: "red",
+    // borderWidth: 1,
+    // borderColor: "red",
+    elevation: 4,
+    padding: 8,
+    borderRadius: 30,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

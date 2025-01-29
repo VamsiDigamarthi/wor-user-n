@@ -1,10 +1,11 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Ionicons, Entypo, MaterialIcons } from "@expo/vector-icons";
 import { FavoritesIcons } from "../Icons/Icons";
 import { useLocationItemHook } from "./LocationItem.hook";
 import { useSelector } from "react-redux";
 import { fonts } from "../fonts/Fonts";
 
+import { recentPlaces } from "../Images/DrawerImages";
 const LocationItem = ({
   placeName,
   placeVicinity,
@@ -13,6 +14,7 @@ const LocationItem = ({
   iconName = "location-sharp",
   isFavoriteIconDisplay = false,
   onPress = () => {},
+  isFavoritePlaces,
 }) => {
   const { favoritePlaces } = useSelector((state) => state.favoritePlaces);
   const { addedFavoritePlace } = useLocationItemHook();
@@ -46,9 +48,11 @@ const LocationItem = ({
         style={styles.pressableCard}
         onPress={onPress}
       >
-        <View style={styles.first}>
-          <Icon name={iconName} size={25} color="#e02e88" />
-        </View>
+        {!isFavoritePlaces && (
+          <View style={styles.first}>
+            <Image source={recentPlaces} style={styles.icon} />
+          </View>
+        )}
         <View style={styles.second}>
           <Text style={styles.locText} numberOfLines={1} ellipsizeMode="tail">
             {placeName}
@@ -85,6 +89,8 @@ const styles = StyleSheet.create({
     // backgroundColor: "red",
     flexDirection: "row",
     position: "relative",
+
+    // marginVertical: 2,
   },
   pressableCard: {
     width: "95%",
@@ -123,5 +129,9 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 2,
     right: 3,
+  },
+  icon: {
+    height: 18,
+    width: 18,
   },
 });

@@ -49,8 +49,8 @@ const ChangeLocMapView = ({ newMarker, handleMarkerDragEnd }) => {
       <Circle
         center={{ latitude: lat, longitude: lng }}
         radius={100} // 100 meters
-        strokeColor="#e02e88"
-        fillColor="rgba(224, 46, 136, 0.2)"
+        strokeColor="#EA4c89"
+        fillColor="#fff7fb"
         strokeWidth={2}
       />
 

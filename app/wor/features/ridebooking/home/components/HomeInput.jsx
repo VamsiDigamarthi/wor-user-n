@@ -16,9 +16,9 @@ const HomeInput = () => {
   };
   return (
     <View style={styles.container}>
-      <SearchIcons size={22} color="#222222" />
+      <SearchIcons size={26} color="#222222" />
       <Pressable
-        style={{ flex: 1 }}
+        style={{ flex: 1, justifyContent: "center", marginTop: 5 }}
         onPress={() => navigateSelectDestinationScreen({ isMic: false })}
       >
         <Text
@@ -26,7 +26,7 @@ const HomeInput = () => {
             fontSize: 18,
             flex: 1,
             fontFamily: fonts.robotoMedium,
-            color: "#222222",
+            color: "#757575",
           }}
         >
           Search Destination
@@ -47,24 +47,24 @@ export default HomeInput;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: 50,
+    height: 60,
     borderRadius: 35,
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#efefef",
     padding: 10,
     gap: 10,
-    marginBottom: 8,
+    marginBottom: 10,
     // elevation: 5,
   },
   micIcons: {
     backgroundColor: "#fff",
     padding: 10,
-    borderRadius: 20,
-    width: 42.3,
+    borderRadius: 22,
+    width: 44,
     justifyContent: "center",
     alignItems: "center",
     // elevation: 2,
-    height: 40,
+    height: 44,
   },
 });

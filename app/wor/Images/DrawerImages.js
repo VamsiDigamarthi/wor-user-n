@@ -10,6 +10,8 @@ import refernearn from "../../../assets/drawericons/referearn.png";
 import suggest from "../../../assets/drawericons/suggest.png";
 import drivingschool from "../../../assets/drawericons/drivingschool.png";
 import setting from "../../../assets/drawericons/setting.png";
+import navigator from "../../../assets/drawericons/navigator.png";
+import recentPlaces from "../../../assets/drawericons/nearbylocation.png";
 
 export {
   HelpImg,
@@ -24,4 +26,6 @@ export {
   refernearn,
   rides,
   safety,
+  navigator,
+  recentPlaces,
 };

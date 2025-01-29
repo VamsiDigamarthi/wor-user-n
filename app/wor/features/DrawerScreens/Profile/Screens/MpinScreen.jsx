@@ -17,7 +17,7 @@ export default function MpinScreen() {
   };
 
   return (
-    <AppBarLayout title="Set M-Pin" isPositionAppbar={true}>
+    <AppBarLayout title="M-Pin" isPositionAppbar={true}>
       <View style={styles.container}>
         {mPinDisplay ? (
           <SetMPin handleChangeSetMpin={handleChangeSetMpin} />

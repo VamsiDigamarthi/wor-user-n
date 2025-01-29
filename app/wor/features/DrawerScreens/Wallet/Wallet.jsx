@@ -32,6 +32,11 @@ export default function Wallet() {
   return (
     <AppBarLayout title="E-Wallet" isPositionAppbar={true}>
       <View style={styles.container}>
+        <Text style={styles.text}>
+          The WOR Wallet makes payments easy by add money ahead of time for
+          fast, secure, cashless rides. It’s safe, simple to use.
+        </Text>
+
         <View style={styles.card}>
           <View style={{ flexDirection: "row", gap: 15, alignItems: "center" }}>
             <Entypo name="wallet" size={30} color="#e02e88" />
@@ -122,7 +127,7 @@ export default function Wallet() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#f7f7f7",
     paddingHorizontal: 16,
     paddingTop: 90,
   },
@@ -153,5 +158,11 @@ const styles = StyleSheet.create({
     padding: 16,
     width: "100%",
     gap: 10,
+  },
+
+  text: {
+    fontFamily: fonts.robotoRegular,
+    textAlign: "justify",
+    paddingVertical: 10,
   },
 });
