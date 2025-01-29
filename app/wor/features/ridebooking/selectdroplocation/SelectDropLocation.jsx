@@ -37,6 +37,7 @@ const SelectDropLocation = () => {
         </AppBarLayout>
       </KeyboardAvoidingView>
       <MicModal
+        micVoiceText={micVoiceText}
         setMicVoiceText={setMicVoiceText}
         isMicModalOpenClose={isMicModalOpenClose}
         setIsMicModalOpenClose={setIsMicModalOpenClose}

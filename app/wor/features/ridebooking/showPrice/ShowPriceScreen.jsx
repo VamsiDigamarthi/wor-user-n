@@ -18,17 +18,10 @@ import CustomBtn from "../../../utiles/CustomBtn";
 
 import ShceduleOrderModal from "./Modal/ShceduleOrderModal";
 
-import ModalUI from "../../../utiles/Modal/Modal";
-import { infoModalStyles } from "../../../../../Components/InfoUi/Styles/InfoModalStyles";
-import { TouchableOpacity } from "react-native-gesture-handler";
-
-import OfferCard from "./Components/OfferCard";
-import UhOhCard from "./Components/UhOhCard";
-import PaymentMethodCard from "./Components/PaymentMethodCard";
-import DatePicker from "react-native-date-picker";
+import OfferModal from "./Modal/OfferModal";
+import PaymentModal from "./Modal/PaymentModal";
 
 const screenHeight = Dimensions.get("window").height;
-
 const androidSnapPoints = [0.35, 0.7].map((p) => screenHeight * p); // Example snap points for Android
 const iosSnapPoints = [0.35, 0.6].map((p) => screenHeight * p); // Example snap points for iOS
 
@@ -53,8 +46,9 @@ const ShowPriceScreen = () => {
   );
 
   const [coupons, setCoupons] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState("cash");
+  const [offerModalOpen, setOfferModalOpen] = useState(false);
+  const [paymentModalOpen, setPaymentModalOpen] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("wallet");
 
   return (
     <>
@@ -89,7 +83,11 @@ const ShowPriceScreen = () => {
           )}
         </BottomSheetComponent>
         <View style={styles.coupneWithBtn}>
-          <OfferCouponCard />
+          <OfferCouponCard
+            paymentMethod={paymentMethod}
+            onPaymentPress={() => setPaymentModalOpen(true)}
+            onOfferPress={() => setOfferModalOpen(true)}
+          />
           <CustomBtn
             width="100%"
             btnBg={selectedVehicleType ? "#e02e88" : "#fff"}
@@ -106,37 +104,18 @@ const ShowPriceScreen = () => {
         shceduleOrderModal={shceduleOrderModal}
         timerSetModalOpen={timerSetModalOpen}
       />
+
+      {offerModalOpen && (
+        <OfferModal onClose={() => setOfferModalOpen(false)} />
+      )}
+      {paymentModalOpen && (
+        <PaymentModal
+          paymentMethod={paymentMethod}
+          setPaymentMethod={setPaymentMethod}
+          onClose={() => setPaymentModalOpen(false)}
+        />
+      )}
     </>
-
-    //     {modalOpen && (
-    //       <ModalUI
-    //         modalStyle="slide"
-    //         style={infoModalStyles.aadharModalStyles}
-    //         insideCardStyle={infoModalStyles.insideCardStyle}
-    //         closebtn={false}
-    //         closeModalFun={() => setModalOpen(false)}
-    //       >
-    //         <View style={{ width: "100%", padding: 10 }}>
-    //           {/* {coupons.length > 0 && (
-    //             <Text style={{ fontWeight: "bold", fontSize: 20 }}>Offers</Text>
-    //           )}
-
-    //           {coupons.length ? (
-    //             <View style={{ marginTop: 10, gap: 10 }}>
-    //               <OfferCard />
-    //               <OfferCard />
-    //               <OfferCard />
-    //             </View>
-    //           ) : (
-    //             <UhOhCard />
-    //           )} */}
-
-    //           <PaymentMethodCard paymentMethod={paymentMethod} />
-    //         </View>
-    //       </ModalUI>
-    //     )}
-    //   </View>
-    // </AppBarLayout>
   );
 };
 

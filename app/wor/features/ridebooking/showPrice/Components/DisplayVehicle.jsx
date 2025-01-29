@@ -33,7 +33,7 @@ const DisplayVehicle = ({ vehicle }) => {
           <View style={styles.textWithPersonCard}>
             <Text style={styles.vehicleType}>{vehicle?.vehicleType}</Text>
             {vehicle?.isDisplayFastTag && <FastCard />}
-            {vehicle?.isDisplayUsericon && (
+            {vehicle?.vehicleType?.toLowerCase() === selectedVehicleType && (
               <View
                 style={{ flexDirection: "row", gap: 2, alignItems: "center" }}
               >

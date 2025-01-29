@@ -37,7 +37,11 @@ const ModalUI = ({
           style={[styles.modalContainer, style]}
         >
           <Pressable
-            style={[styles.modalContent, insideCardStyle]}
+            style={[
+              styles.modalContent,
+              insideCardStyle,
+              { overflow: "hidden" },
+            ]}
             onPress={(e) => e.stopPropagation()} // Prevent modal content taps from closing
           >
             {children}

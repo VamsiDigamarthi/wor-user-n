@@ -1,15 +1,24 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { ForwardArrowIcon } from "../../../../Icons/Icons";
+import {
+  OfferImg,
+  WalletImg,
+  Cash,
+  CreditCard,
+  Upi,
+} from "../../../../Images/Payment";
 
-const OfferCouponCard = ({ onOfferPress }) => {
+const OfferCouponCard = ({ onOfferPress, onPaymentPress, paymentMethod }) => {
   return (
     <View style={styles.couponTextCard}>
       <TouchableOpacity style={styles.offersCard} onPress={onOfferPress}>
         <View style={{ flexDirection: "row", gap: 9, alignItems: "center" }}>
-          <Image
+          {/* <Image
             source={require("../../../../../../assets/offers.png")}
             style={{ width: 15, height: 15 }}
-          />
+          /> */}
+
+          <OfferImg height={15} width={15} />
           <Text style={styles.couponText}>Offers</Text>
         </View>
         <ForwardArrowIcon size={15} color="#f98600" />
@@ -18,20 +27,33 @@ const OfferCouponCard = ({ onOfferPress }) => {
       <Text style={styles.textLine}></Text>
       <View style={styles.offersCard}>
         <View style={{ flexDirection: "row", gap: 9, alignItems: "center" }}>
-          <Image
+          {/* <Image
             source={require("../../../../../../assets/images/profile/payment wallet.png")}
             style={{ width: 15, height: 15 }}
-          />
-          <View style={{ flexDirection: "column" }}>
+          /> */}
+
+          {paymentMethod === "wallet" ? (
+            <WalletImg height={30} width={30} />
+          ) : paymentMethod === "cash" ? (
+            <Cash width={30} height={30} />
+          ) : paymentMethod === "upi" ? (
+            <Upi height={30} width={30} />
+          ) : (
+            <CreditCard height={30} width={30} />
+          )}
+          <TouchableOpacity
+            style={{ flexDirection: "column" }}
+            onPress={onPaymentPress}
+          >
             <Text
               style={[styles.couponText, { color: "#e02e88", fontSize: 14 }]}
             >
-              Wor Wallet
+              {paymentMethod?.charAt(0).toUpperCase() + paymentMethod?.slice(1)}
             </Text>
             <Text style={{ fontSize: 10, color: "gray" }}>
               Available Rs. 120/-
             </Text>
-          </View>
+          </TouchableOpacity>
         </View>
         <ForwardArrowIcon size={14} color="#e02e88" />
       </View>

@@ -29,6 +29,12 @@ export const useMicModalHook = ({
     setIsListening(false);
   };
 
+  // const onSpeechResults = (e) => {
+  //   if (e.value && e.value.length > 0) {
+  //     setMicVoiceText(e.value.join(" ")); // Update text dynamically
+  //   }
+  // };
+
   const onSpeechError = (e) => {
     console.error(e);
     Alert.alert("Error", "Speech recognition error");

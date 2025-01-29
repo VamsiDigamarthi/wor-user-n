@@ -1,12 +1,28 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ModalUI from "../../../../utiles/Modal/Modal";
 import { infoModalStyles } from "../../../../../../Components/InfoUi/Styles/InfoModalStyles";
 import { CalendarIcons } from "../../../../Icons/Icons";
 import CustomBtn from "../../../../utiles/CustomBtn";
 import DatePicker from "react-native-date-picker";
+import { formatToIndiaISO } from "../../../../../../Constants/calculateKM";
+import { useNavigation } from "@react-navigation/native";
+import { DateFormatModal } from "../Hooks/DateFormatInModal.hook";
 
 const ShceduleOrderModal = ({ shceduleOrderModal, timerSetModalOpen }) => {
+  const {
+    setNewDate,
+    normalDateFormat,
+    minimumDate,
+    maximumDate,
+    onTimeModalOpenCloseHandler,
+    isTimeModalOpenClose,
+    date,
+    isDateTimeData,
+    setMinimumDate,
+    setDate,
+  } = DateFormatModal();
+
   return (
     <ModalUI
       openCloseState={shceduleOrderModal}
@@ -15,7 +31,7 @@ const ShceduleOrderModal = ({ shceduleOrderModal, timerSetModalOpen }) => {
       insideCardStyle={infoModalStyles.insideCardStyle}
       closebtn={false}
     >
-      {/* <View style={styles.container}>
+      <View style={styles.container}>
         <View style={styles.rowCard}>
           <View style={styles.rowCardWithGap}>
             <CalendarIcons size={25} color="gray" />
@@ -24,48 +40,39 @@ const ShceduleOrderModal = ({ shceduleOrderModal, timerSetModalOpen }) => {
         </View>
         <View style={styles.innerCard}>
           <Text style={styles.subTitle}>
-            Choose your required pickup time upto 2 days in advance. No
+            Choose your required pickup time upto 7 days in advance. No
             cancellation charges upto 15 mins before the booking
           </Text>
           <View style={styles.pickUpcard}>
             <Text style={styles.subTitle}>Your Pickup will be on</Text>
-            <Text style={styles.largeHeading}>Tomorrow, 10:20 PM</Text>
+            <Text style={styles.largeHeading}>{normalDateFormat}</Text>
           </View>
           <View style={styles.dateTimeCard}>
-            <Text style={styles.timeFirsText}>Today</Text>
-            <Text style={styles.secondTimeText}>10:10</Text>
-            <Text style={styles.secondTimeText}>AM</Text>
+            <DatePicker
+              // modal //use this if you want in popup style instead of bottom modal
+              open={isTimeModalOpenClose}
+              date={date}
+              theme="light"
+              title="Select Future Time"
+              cancelText="cancel"
+              confirmText="confirmText"
+              collapsable={true}
+              minimumDate={minimumDate} // Dynamically set to the next valid time
+              maximumDate={maximumDate}
+              minuteInterval={15} // Enforce 15-minute intervals
+              onDateChange={setDate}
+              onCancel={onTimeModalOpenCloseHandler}
+              style={styles.datePicker}
+            />
           </View>
           <CustomBtn
             title="Confirm Pickup Time"
             btnBg="#e02e88"
             btnColor="#fff"
+            // onPress={onPlaceTheOrder}
           />
         </View>
-      </View> */}
-
-      <DatePicker
-        // modal
-        open={true}
-        date={new Date()}
-        theme="light"
-        title="Select Future Time"
-        cancelText="Cancel"
-        confirmText="Confirm"
-        // minimumDate={minimumDate} // Dynamically set to the next valid time
-        // maximumDate={maximumDate}
-        // minuteInterval={15} // Enforce 15-minute intervals
-        // onConfirm={(selectedDate) => {
-        //   if (selectedDate.getTime() >= new Date().getTime()) {
-        //     onHandleTimeValueHandler(selectedDate);
-        //   } else {
-        //     Alert.alert("You selected a past time");
-        //   }
-
-        // }}
-        // onCancel={onTimeModalOpenCloseHandler}
-        // style={styles.datePicker}
-      />
+      </View>
     </ModalUI>
   );
 };
@@ -134,5 +141,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "gray",
     fontWeight: "600",
+  },
+
+  datePicker: {
+    // backgroundColor: "red",
+    width: 350,
   },
 });
