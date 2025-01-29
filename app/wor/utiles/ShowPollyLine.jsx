@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { customMapStyle } from "../../../Constants/mapData";
@@ -59,8 +59,8 @@ const ShowPollyLine = ({
   useEffect(() => {
     if (liveCoordinates) {
       setCurrentPosition({
-        latitude: liveCoordinates.latitude,
-        longitude: liveCoordinates.longitude,
+        latitude: liveCoordinates.lat,
+        longitude: liveCoordinates.lng,
       });
     }
   }, [liveCoordinates]);
@@ -105,7 +105,11 @@ const ShowPollyLine = ({
           <FontAwesome name="map-pin" size={20} color="#4caf50" />
         </Marker>
         <Marker coordinate={currentPosition} title="Live Position">
-          <MaterialCommunityIcons name="motorbike" size={24} color="#e02e88" />
+          <Image
+            style={{ width: 30, height: 30, resizeMode: "contain" }}
+            source={require("../../../assets/images/markers/BIKE-removebg-preview.png")}
+          />
+          {/* <MaterialCommunityIcons name="motorbike" size={24} color="#000" /> */}
         </Marker>
 
         {/* Polyline */}
