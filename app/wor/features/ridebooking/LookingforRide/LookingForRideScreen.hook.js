@@ -17,6 +17,7 @@ export const useLookingForRideScreenHook = () => {
     orderId,
     orderPlaceTime,
     isDirectNavigation = false,
+    futureTime = false,
   } = useRoute().params;
   const progress = useRef(new Animated.Value(0)).current;
   const navigation = useNavigation();
@@ -166,5 +167,6 @@ export const useLookingForRideScreenHook = () => {
     handleRplaceRide,
     showCancelWithReOrderBtn,
     onNewCancelHandle,
+    futureTime,
   };
 };

@@ -34,6 +34,16 @@ export const bookingRide = async ({ token, orderDetails }) => {
         "Content-Type": "application/json",
       },
     });
+
+    if (response?.data?.notifiedTime) {
+      Toast.show({
+        text1: "Future Order Placed ...!",
+        type: "success",
+        position: "bottom",
+      });
+      return;
+    }
+
     return response?.data?.order?._id;
   } catch (error) {
     console.log(error?.response?.data);
@@ -91,6 +101,7 @@ export const createOrderDetails = ({
   formattedTime,
   howManyMens,
   isSendOrReceiveParcel,
+  time,
 }) => {
   return isParcel
     ? {
@@ -162,5 +173,6 @@ export const createOrderDetails = ({
         dropVicinity: dropDetails?.vicinity,
         howManyMens,
         isSendOrReceiveParcel,
+        time,
       };
 };

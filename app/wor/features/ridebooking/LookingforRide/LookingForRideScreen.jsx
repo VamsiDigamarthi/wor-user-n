@@ -7,6 +7,7 @@ import BottomSheetComponent from "../sharedLogics/BottomSheetComponent/BottomShe
 import ProgressBar from "./components/ProgressBar";
 import CustomBtn from "../../../utiles/CustomBtn";
 import { useNavigation } from "@react-navigation/native";
+import { Chase } from "react-native-animated-spinkit";
 
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.48, 0.5].map((p) => screenHeight * p); // Example snap points for Android
@@ -30,14 +31,13 @@ const LookingForRideScreen = () => {
     handleRplaceRide,
     showCancelWithReOrderBtn,
     onNewCancelHandle,
+    futureTime,
   } = useLookingForRideScreenHook();
 
   const { mapHeight, snapPoints, handleSheetChange } = useBottomSheetConfig(
     androidSnapPoints,
     iosSnapPoints
   );
-
-  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
@@ -61,7 +61,13 @@ const LookingForRideScreen = () => {
         handleSheetChange={handleSheetChange}
       >
         <View style={{ padding: 15 }}>
-          <ProgressBar progressWidth={progressWidth} />
+          {futureTime ? (
+            <View style={styles.loadingContainer}>
+              <Chase size={60} color="#e02e88" />
+            </View>
+          ) : (
+            <ProgressBar progressWidth={progressWidth} />
+          )}
           <View style={styles.cancelBtnWithImage}>
             <Image
               style={styles.images}
@@ -105,4 +111,11 @@ const styles = StyleSheet.create({
   mapContainer: { width: "100%", height: "100%" },
   cancelBtnWithImage: { width: "100%", height: 250, position: "relative" },
   images: { width: "100%", height: "90%", marginBottom: 20, borderRadius: 10 },
+  loadingContainer: {
+    width: "100%",
+    height: 120,
+    justifyContent: "center",
+    alignItems: "center",
+    height: 60,
+  },
 });

@@ -38,14 +38,15 @@ const ShowPriceScreen = () => {
     storedSelectedVehicle,
     timerSetModalOpen,
     shceduleOrderModal,
+    time,
   } = useShowPriceScreenHook();
+
   const { mapHeight, snapPoints, handleSheetChange } = useBottomSheetConfig(
     androidSnapPoints,
     iosSnapPoints,
     kownBotSheetChangeUpOrDown
   );
 
-  const [coupons, setCoupons] = useState([]);
   const [offerModalOpen, setOfferModalOpen] = useState(false);
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("wallet");
@@ -68,18 +69,29 @@ const ShowPriceScreen = () => {
           snapPoints={snapPoints}
           handleSheetChange={handleSheetChange}
         >
-          {knowMoveDownOrUp === "moved down" ? (
-            <View style={styles.singleFilterStyle}>
-              {storedSelectedVehicle?.map((vehicle, index) => (
-                <DisplayVehicle key={index} vehicle={vehicle} />
-              ))}
-            </View>
-          ) : (
+          {filteredVehicles?.length === 1 ? (
             <View style={{ paddingHorizontal: 15, paddingVertical: 20 }}>
               {filteredVehicles?.map((vehicle, index) => (
                 <DisplayVehicle key={index} vehicle={vehicle} />
               ))}
+              <View style={{ height: 150, width: "100%" }} />
             </View>
+          ) : (
+            <>
+              {knowMoveDownOrUp === "moved down" && !time ? (
+                <View style={styles.singleFilterStyle}>
+                  {storedSelectedVehicle?.map((vehicle, index) => (
+                    <DisplayVehicle key={index} vehicle={vehicle} />
+                  ))}
+                </View>
+              ) : (
+                <View style={{ paddingHorizontal: 15, paddingVertical: 20 }}>
+                  {filteredVehicles?.map((vehicle, index) => (
+                    <DisplayVehicle key={index} vehicle={vehicle} />
+                  ))}
+                </View>
+              )}
+            </>
           )}
         </BottomSheetComponent>
         <View style={styles.coupneWithBtn}>

@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 import { formatToIndiaISO } from "../../../../../../Constants/calculateKM";
+import { useDispatch } from "react-redux";
+import {
+  setFormatedTime,
+  setSelectVehicleType,
+  setTime,
+} from "../../sharedLogics/rideDetailsSlice";
 
 export const DateFormatModal = ({ timerSetModalOpen }) => {
+  const dispatch = useDispatch();
   const currentDate = new Date();
   const maxDate = new Date();
   maxDate.setDate(currentDate.getDate() + 7);
@@ -42,9 +49,9 @@ export const DateFormatModal = ({ timerSetModalOpen }) => {
 
   useEffect(() => {
     if (timerSetModalOpen) {
-      calculateNextInterval(); // Recalculate when modal is opened
+      calculateNextInterval();
     }
-  }, [timerSetModalOpen]); // Runs only when modal is toggled open
+  }, [timerSetModalOpen]);
 
   // Trigger recalculation of minimumDate whenever the user picks a new time
   useEffect(() => {
@@ -52,6 +59,7 @@ export const DateFormatModal = ({ timerSetModalOpen }) => {
       calculateNextInterval(); // Recalculate when date is updated by user
     }
   }, [date]); // Runs whenever date state changes
+
   const [isDateTimeData, setIsDateTimeData] = useState("");
   const [normalDateFormat, setNormalDateFormat] = useState(null);
 
@@ -59,21 +67,28 @@ export const DateFormatModal = ({ timerSetModalOpen }) => {
     const formattedIndiaTime = formatToIndiaISO(date);
 
     const options = {
+      day: "2-digit",
+      month: "short", // Jan, Feb, etc.
       hour: "2-digit",
       minute: "2-digit",
-      day: "2-digit",
-      month: "short",
-      weekday: "short",
+      hour12: true,
     };
     const formattedDate = date.toLocaleDateString("en-GB", options);
+
     setIsDateTimeData(formattedIndiaTime);
     setNormalDateFormat(formattedDate);
-    // onTimeModalOpenCloseHandler();
   };
 
-  // useEffect(()=>{
-  //   onHandleTimeValueHandler(new Date)
-  // },[])
+  const handleAddedScheduleTime = () => {
+    if (!isDateTimeData || !normalDateFormat) {
+      console.log("--------------------");
+      return;
+    }
+    dispatch(setTime({ time: isDateTimeData, formatedTime: normalDateFormat }));
+    dispatch(setSelectVehicleType("Car"));
+
+    timerSetModalOpen();
+  };
 
   return {
     minimumDate,
@@ -82,5 +97,6 @@ export const DateFormatModal = ({ timerSetModalOpen }) => {
     onHandleTimeValueHandler,
     date,
     isDateTimeData,
+    handleAddedScheduleTime,
   };
 };

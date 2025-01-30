@@ -13,9 +13,8 @@ const ShceduleOrderModal = ({ shceduleOrderModal, timerSetModalOpen }) => {
     maximumDate,
     normalDateFormat,
     onHandleTimeValueHandler,
-
     date,
-    isDateTimeData,
+    handleAddedScheduleTime,
   } = DateFormatModal({ timerSetModalOpen });
 
   return (
@@ -77,7 +76,7 @@ const ShceduleOrderModal = ({ shceduleOrderModal, timerSetModalOpen }) => {
             btnBg="#e02e88"
             btnColor="#fff"
             // onPress={onPlaceTheOrder}
-            onPress={() => Alert.alert(isDateTimeData)}
+            onPress={handleAddedScheduleTime}
           />
         </View>
       </View>

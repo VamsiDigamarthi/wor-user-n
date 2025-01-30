@@ -13,6 +13,8 @@ const initialState = {
   priceDetails: {},
   pickUpDetails: {},
   howManyMens: 0,
+  time: null,
+  formateTime: null,
   completeRideDetails: null, // this will store entire ride data after captain accept the ride -- socket will listening and stored and snnd to otp verification screen
 };
 
@@ -53,6 +55,11 @@ const allRideDetails = createSlice({
       state.howManyMens = action.payload;
     },
 
+    setTime: (state, action) => {
+      state.time = action.payload?.time;
+      state.formateTime = action.payload?.formatedTime;
+    },
+
     setSelectVehicleType: (state, action) => {
       state.selectedVehicleType = action.payload;
     },
@@ -77,6 +84,7 @@ const allRideDetails = createSlice({
     setParcelType: (state, action) => {
       state.parcelType = action.payload;
     },
+
     clearDropData: (state) => {
       state.initialDropDetails = null; // {}
       state.dropDetails = null; // {}
@@ -90,6 +98,8 @@ const allRideDetails = createSlice({
       state.pickUpDetails = null;
       state.howManyMens = 0;
       state.completeRideDetails = null;
+      state.time = null;
+      state.formateTime = null;
     },
   },
 });
@@ -111,6 +121,7 @@ export const {
   setHowManyMens,
   setMergePickUpDetails,
   setCompleteRideDetails,
+  setTime,
 } = allRideDetails.actions;
 
 export default allRideDetails.reducer;

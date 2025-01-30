@@ -11,7 +11,7 @@ export const useShowPriceScreenHook = () => {
   const { profile } = useSelector((state) => state.profileSlice);
 
   const { location } = useSelector((state) => state.location);
-  const { dropDetails, selectedVehicleType, isParcScreen } = useSelector(
+  const { dropDetails, selectedVehicleType, isParcScreen, time } = useSelector(
     (state) => state.allRideDetails
   );
   const [filteredVehicles, setFilteredVehicles] = useState([]);
@@ -31,15 +31,15 @@ export const useShowPriceScreenHook = () => {
 
     const distance = haversineDistance(location, dropDetails.location);
     const calculatedPriceDetails = calculatePriceDetails(distance);
-    let price = +calculatedPriceDetails[selectedVehicleType];
+    let price = calculatedPriceDetails[selectedVehicleType];
 
-    if (profile?.donationActive) {
-      Object.keys(calculatedPriceDetails).forEach((vehicleType) => {
-        calculatedPriceDetails[vehicleType] =
-          +calculatedPriceDetails[vehicleType] + 2;
-      });
-      price += 2;
-    }
+    // if (profile?.donationActive) {
+    //   Object.keys(calculatedPriceDetails).forEach((vehicleType) => {
+    //     calculatedPriceDetails[vehicleType] =
+    //       +calculatedPriceDetails[vehicleType] + 2;
+    //   });
+    //   price += 2;
+    // }
 
     dispatch(setPrice(price));
     dispatch(setPriceDetails(calculatedPriceDetails));
@@ -52,10 +52,12 @@ export const useShowPriceScreenHook = () => {
   useEffect(() => {
     const filteredVehicles = isParcScreen
       ? vehicles.filter((vehicle) => vehicle.vehicleType === "Scooty")
+      : time
+      ? vehicles.filter((vehicle) => vehicle.vehicleType === "Car")
       : vehicles;
 
     setFilteredVehicles(filteredVehicles);
-  }, [isParcScreen]);
+  }, [isParcScreen, time]);
 
   // console.log("dropDetails", dropDetails);
   const onNavigateConfirmLocationScreen = () => {
@@ -87,6 +89,7 @@ export const useShowPriceScreenHook = () => {
     storedSelectedVehicle,
     timerSetModalOpen,
     shceduleOrderModal,
+    time,
   };
 };
 
