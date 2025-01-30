@@ -1,6 +1,8 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { fonts } from "../../../../../fonts/Fonts";
+
+import star from "../../../../../../../assets/profileicons/star.png";
 
 const ProfileRatingRideCountCard = () => {
   return (
@@ -8,7 +10,7 @@ const ProfileRatingRideCountCard = () => {
       <View style={styles.singleCard}>
         <View style={{ flexDirection: "row", gap: 5 }}>
           <Text style={styles.text}>4.9</Text>
-          <FontAwesome name="star" size={20} color="#000" />
+          <Image source={star} style={{ height: 20, width: 20 }} />
         </View>
         <Text style={styles.ratingNewText}>Rating</Text>
       </View>

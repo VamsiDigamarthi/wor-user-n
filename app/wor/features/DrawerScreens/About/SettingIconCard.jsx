@@ -1,12 +1,13 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { BookIcon, ForwardArrowIcon } from "../../../Icons/Icons";
-import {fonts} from "../../../fonts/Fonts"
+import { fonts } from "../../../fonts/Fonts";
 const SettingIconCard = ({
   title,
   navigationText,
   isFunc,
   parentReturnFun,
+  icon,
 }) => {
   const navigation = useNavigation();
   const handleNavigationScreen = () => {
@@ -14,7 +15,8 @@ const SettingIconCard = ({
   };
   return (
     <View style={styles.container}>
-      <BookIcon style={{ marginTop: 7 }} size={25} color="black" />
+      {/* <BookIcon style={{ marginTop: 7 }} size={25} color="black" /> */}
+      <Image source={icon} style={styles.icon} />
       <Pressable
         onPress={isFunc ? () => parentReturnFun(title) : handleNavigationScreen}
         style={styles.textCard}
@@ -46,6 +48,10 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     // fontWeight: "600",
-    fontFamily:fonts.robotoSemiBold
+    fontFamily: fonts.robotoSemiBold,
+  },
+  icon: {
+    height: 20,
+    width: 20,
   },
 });
