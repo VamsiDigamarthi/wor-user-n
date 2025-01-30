@@ -3,27 +3,23 @@ import { fetchSavedAddress } from "../services/parSavedAddressServices";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { mergeDropDetails } from "../../ridebooking/sharedLogics/rideDetailsSlice";
+import { fetchSavedPlace } from "../redux/parcelSavedPlace.slice";
 
 export const useSavedUserItemWithArrowHook = () => {
   const { token } = useSelector((state) => state.token);
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
+  const { savedPlaces } = useSelector((state) => state.parcelSavedPlace);
+
   const [showHideSavedAddress, setShowHideSavedAddress] = useState(true);
-  const [savedAddressFromApi, setSavedAddressFromApi] = useState(null);
 
   const onShowHideSavedAddress = () => {
     setShowHideSavedAddress(!showHideSavedAddress);
   };
 
-  const onFetchSavedAddress = async () => {
-    const data = await fetchSavedAddress({ token });
-    if (!data) return setSavedAddressFromApi(null);
-    setSavedAddressFromApi(data);
-  };
-
   useEffect(() => {
-    onFetchSavedAddress();
+    dispatch(fetchSavedPlace({ token }));
   }, []);
 
   const onHandlerClickSaveAddress = (address) => {
@@ -34,7 +30,7 @@ export const useSavedUserItemWithArrowHook = () => {
   return {
     showHideSavedAddress,
     onShowHideSavedAddress,
-    savedAddressFromApi,
+    savedPlaces,
     onHandlerClickSaveAddress,
   };
 };

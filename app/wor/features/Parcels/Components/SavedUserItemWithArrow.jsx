@@ -8,10 +8,10 @@ const SavedUserItemWithArrow = () => {
   const {
     showHideSavedAddress,
     onShowHideSavedAddress,
-    savedAddressFromApi,
+    savedPlaces,
     onHandlerClickSaveAddress,
   } = useSavedUserItemWithArrowHook();
-  console.log(showHideSavedAddress);
+
   return (
     <>
       <ParShowAddressArrow
@@ -23,7 +23,7 @@ const SavedUserItemWithArrow = () => {
         <View style={styles.listContainer}>
           <FlatList
             style={styles.flatList}
-            data={savedAddressFromApi}
+            data={savedPlaces}
             keyExtractor={(item) => item?.mobile}
             renderItem={({ item }) => (
               <SavedAddressItme

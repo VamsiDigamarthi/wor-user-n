@@ -6,7 +6,9 @@ const UserCard = ({ captainDetails }) => {
   const captainImageUrl = captainDetails?.profilePic
     ? `${imageUrl}/${captainDetails.profilePic}`
     : "https://png.pngtree.com/png-clipart/20231019/original/pngtree-user-profile-avatar-png-image_13369988.png";
-
+  // console.log("captainDetails", captainDetails);
+  // languages
+  let data = ["English", "Telugu"];
   return (
     <View style={styles.container}>
       <View style={styles.userImageCard}>
@@ -31,9 +33,9 @@ const UserCard = ({ captainDetails }) => {
         <Text style={{ fontSize: 14, color: "gray" }}>
           {captainDetails?.vehicleName}
         </Text>
-        <Text style={{ fontSize: 11, color: "gray" }}>
-          Speaks in English, Telugu, Hindi
-        </Text>
+        <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
+          <Text style={{ fontSize: 11, color: "gray" }}>Speaks in</Text>
+        </View>
       </View>
     </View>
   );

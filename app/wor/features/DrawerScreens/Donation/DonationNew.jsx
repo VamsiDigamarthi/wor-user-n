@@ -14,22 +14,24 @@ import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
 import CustomSwitch from "../../../utiles/CustomSwitch";
 import { TextInput } from "react-native-gesture-handler";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { usePayments } from "../../../Payments/useRazorpay";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 import { fonts } from "../../../fonts/Fonts";
+import { changeDonationStatus } from "./donation.serv";
+import { onProfileSection } from "../../ridebooking/home/redux/profileSlice";
 
 export default function DonationNew() {
+  const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.token);
   const { profile } = useSelector((state) => state.profileSlice);
   const { makeDonation } = usePayments();
   const { email, mobile, name } = profile;
-  console.log(email, mobile, name);
 
-  const handleToggle = (isOn) => {
-    if (isOn) {
-      //   let added = parseInt(donationAmount) + 2;
-      //   setDonationAmount(added.toString());
-    }
+  const handleToggle = async () => {
+    const data = await changeDonationStatus({ token });
+    if (!data) return;
+    dispatch(onProfileSection({ token }));
   };
 
   const [donationAmount, setDonationAmount] = useState(0);
@@ -56,7 +58,10 @@ export default function DonationNew() {
                 ₹2 per ride to Women Rider Foundation
               </Text>
 
-              <CustomSwitch onToggle={handleToggle} />
+              <CustomSwitch
+                initialValue={profile?.donationActive}
+                onToggle={handleToggle}
+              />
             </View>
 
             <View>
@@ -130,7 +135,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     // fontWeight: "bold",
-    fontFamily:fonts.robotoSemiBold,
+    fontFamily: fonts.robotoSemiBold,
     fontSize: 14,
   },
   switchContainer: {
@@ -143,7 +148,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     height: 30,
     padding: 0,
-    fontFamily:fonts.robotoRegular,
+    fontFamily: fonts.robotoRegular,
   },
   smallBtn: {
     borderWidth: 1,
@@ -151,11 +156,11 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
   },
-  btnText:{
-    fontFamily:fonts.robotoRegular
+  btnText: {
+    fontFamily: fonts.robotoRegular,
   },
-  listTxt:{
-    fontFamily:fonts.robotoRegular,
-    textAlign:"justify"
-  }
+  listTxt: {
+    fontFamily: fonts.robotoRegular,
+    textAlign: "justify",
+  },
 });

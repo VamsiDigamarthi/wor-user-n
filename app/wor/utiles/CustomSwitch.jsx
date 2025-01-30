@@ -2,13 +2,9 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 const CustomSwitch = ({ initialValue = false, onToggle }) => {
-  const [isOn, setIsOn] = useState(initialValue);
-
   const toggleSwitch = () => {
-    const newValue = !isOn;
-    setIsOn(newValue);
     if (onToggle) {
-      onToggle(newValue); // Notify parent component of state change
+      onToggle();
     }
   };
 
@@ -16,7 +12,7 @@ const CustomSwitch = ({ initialValue = false, onToggle }) => {
     <TouchableOpacity
       style={[
         styles.switchContainer,
-        { backgroundColor: isOn ? "#EA4C89" : "#e0e0e0" },
+        { backgroundColor: initialValue ? "#EA4C89" : "#e0e0e0" },
       ]}
       onPress={toggleSwitch}
       activeOpacity={0.8}
@@ -24,7 +20,7 @@ const CustomSwitch = ({ initialValue = false, onToggle }) => {
       <View
         style={[
           styles.switchCircle,
-          { alignSelf: isOn ? "flex-end" : "flex-start" },
+          { alignSelf: initialValue ? "flex-end" : "flex-start" },
         ]}
       />
     </TouchableOpacity>

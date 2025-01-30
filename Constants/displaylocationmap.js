@@ -280,3 +280,20 @@ export const fetchNameAndVicinity = async (lat, lng) => {
     console.log(error, "Location name and vicinity fetching failed");
   }
 };
+
+const calculateBearing = (startCoords, endCoords) => {
+  const { latitude: lat1, longitude: lon1 } = startCoords;
+  const { latitude: lat2, longitude: lon2 } = endCoords;
+
+  const toRadians = (degrees) => degrees * (Math.PI / 180);
+  const toDegrees = (radians) => radians * (180 / Math.PI);
+
+  const dLon = toRadians(lon2 - lon1);
+  const y = Math.sin(dLon) * Math.cos(toRadians(lat2));
+  const x =
+    Math.cos(toRadians(lat1)) * Math.sin(toRadians(lat2)) -
+    Math.sin(toRadians(lat1)) * Math.cos(toRadians(lat2)) * Math.cos(dLon);
+
+  const bearing = toDegrees(Math.atan2(y, x));
+  return (bearing + 360) % 360; // Normalize to 0-360 degrees
+};

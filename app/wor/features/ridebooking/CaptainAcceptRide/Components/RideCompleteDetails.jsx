@@ -109,6 +109,8 @@ const RideCompleteDetails = ({ disFromPickToDrop }) => {
       <ChangeDestinationModal
         closeDestinationModal={handleChangeDestinationModal}
         openDestinationModal={changeDestinationModal}
+        destinationName={completeRideDetails?.dropAddress}
+        destinationCoordinates={completeRideDetails?.drop?.coordinates}
       />
     </>
   );

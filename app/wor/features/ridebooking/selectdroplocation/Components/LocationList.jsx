@@ -8,23 +8,24 @@ import {
 } from "../../sharedLogics/rideDetailsSlice";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
+import { homePlace } from "../../home/redux/homePlace";
+import { clearHomeOrWorkPlace } from "../redux/homePlaceType.slice";
 
 const LocationList = ({
   data,
-  isHomeWorkPlace,
-  setAddedHowWorkPlaceType,
   isFavoritePlaces = false,
   iconname,
   icontype,
+  isDisplayAddHomePlace, // this prop initially true || and this props used for change destination location after ride accept
+  handleReturnPlaceName, // this is function return place name to change destination modal
 }) => {
+  const { homeOrWorkPlacetype } = useSelector((state) => state.homeOrWorkPlace);
+  const { token } = useSelector((state) => state.token);
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const { isParcScreen } = useSelector((state) => state.allRideDetails);
 
-  const handleToNavigateShowPriceScreen = async ({
-    place,
-    isHomeWorkPlace,
-  }) => {
+  const handleToNavigateShowPriceScreen = async ({ place }) => {
     let newDropLocation = null;
     if (isFavoritePlaces) {
       newDropLocation = {
@@ -44,25 +45,35 @@ const LocationList = ({
       };
     }
 
-    if (isHomeWorkPlace) {
-      await onAddedHomePlace({
+    if (homeOrWorkPlacetype) {
+      const data = await onAddedHomePlace({
         token,
         name: place.name,
         vicinity: place.vicinity,
         location: newDropLocation ? newDropLocation.location : place.location,
-        type: isHomeWorkPlace,
+        type: homeOrWorkPlacetype,
       });
-      setAddedHowWorkPlaceType(null);
-      return;
-    }
-    dispatch(setDropDetails(newDropLocation ?? place));
 
-    if (isParcScreen) {
-      dispatch(setInitialDropDetails(newDropLocation ?? place));
-      navigation.navigate("ChangeLoc100mViaMap");
+      if (data) {
+        dispatch(clearHomeOrWorkPlace());
+        dispatch(homePlace({ token }));
+      }
       return;
     }
-    navigation.navigate("ShowPrice");
+
+    if (isDisplayAddHomePlace) {
+      dispatch(setDropDetails(newDropLocation ?? place));
+      if (isParcScreen) {
+        dispatch(setInitialDropDetails(newDropLocation ?? place));
+        navigation.navigate("ChangeLoc100mViaMap");
+        return;
+      }
+      navigation.navigate("ShowPrice");
+      return;
+    }
+
+    // this function return place to change destination modal to change destination place after ride accept
+    handleReturnPlaceName(newDropLocation ?? place);
   };
 
   // console.log("data", data);
@@ -70,8 +81,9 @@ const LocationList = ({
   return (
     <FlatList
       data={data}
-      keyExtractor={(item) => (isFavoritePlaces ? item._id : item.id)}
-      // keyExtractor={(item, index) => index}
+      keyExtractor={(item, index) =>
+        isFavoritePlaces ? `${item._id}-${index}` : `${item.id}-${index}`
+      }
       renderItem={({ item }) => (
         <LocationItem
           placeName={item?.name}
@@ -84,7 +96,6 @@ const LocationList = ({
           onPress={() =>
             handleToNavigateShowPriceScreen({
               place: item,
-              isHomeWorkPlace: isHomeWorkPlace,
             })
           }
         />

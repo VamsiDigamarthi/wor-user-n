@@ -9,6 +9,7 @@ const PriceDetailsModal = ({
   openPriceModal,
   handleChangePriceModal,
   totalPrice,
+  tip,
 }) => {
   const { completeRideDetails } = useSelector((state) => state.allRideDetails);
   return (
@@ -50,12 +51,7 @@ const PriceDetailsModal = ({
           </View>
           <View style={styles.priceSecond}>
             <Text style={{ fontSize: 17, fontWeight: "600" }}>Your Tip</Text>
-            <Text>
-              ₹
-              {completeRideDetails?.addTip === 0
-                ? 0
-                : completeRideDetails?.addTip}
-            </Text>
+            <Text>₹{tip}</Text>
           </View>
           <Text style={{ fontSize: 14, color: "gray" }}>
             Total fare may change if toll, route or destination changes or if

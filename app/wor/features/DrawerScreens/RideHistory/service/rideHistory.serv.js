@@ -1,22 +1,11 @@
 import Toast from "react-native-toast-message";
 import { API } from "../../../../../../Constants/url";
 
-export const onAddedHomePlace = async ({
-  token,
-  name,
-  vicinity,
-  location,
-  type,
-}) => {
+export const rideDeleteRequest = async ({ token, orderId }) => {
   try {
-    await API.post(
-      "/auth/home-place",
-      {
-        name,
-        vicinity,
-        location,
-        type,
-      },
+    await API.patch(
+      `/user/ride-delete-request/${orderId}`,
+      {},
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -24,16 +13,19 @@ export const onAddedHomePlace = async ({
         },
       }
     );
+
     Toast.show({
-      text1: "Home location added successfully",
+      text1: "Ride Deleted Successfully",
       type: "success",
       position: "bottom",
     });
+
     return true;
   } catch (error) {
-    console.log(error);
+    console.log(error?.response?.data);
+
     Toast.show({
-      text1: "Failed to add home location",
+      text1: "Failed to delete ride",
       type: "error",
       position: "bottom",
     });

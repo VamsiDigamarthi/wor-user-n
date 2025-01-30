@@ -5,14 +5,10 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
-import {
-  MaterialCommunityIcons,
-  FontAwesome,
-  MaterialIcons,
-  AntDesign,
-} from "@expo/vector-icons";
+import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 import { useState } from "react";
 import { fonts } from "../../../../fonts/Fonts";
+import EditDelete from "./EditDelete";
 
 export default function TopCard({
   title,
@@ -20,6 +16,8 @@ export default function TopCard({
   icon,
   type = "ride",
   otherData,
+  entireItem,
+  editDeleteType,
 }) {
   const [open, setOpen] = useState(false);
 
@@ -32,8 +30,20 @@ export default function TopCard({
           {/* This View now contains only the text and 3 dots */}
           <View style={styles.textAndDotsContainer}>
             <View>
-              <Text style={styles.heading}>{title}</Text>
-              <Text style={styles.subHeading}>{subtitle}</Text>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={styles.heading}
+              >
+                {title}
+              </Text>
+              <Text
+                numberOfLines={2}
+                ellipsizeMode="tail"
+                style={styles.subHeading}
+              >
+                {subtitle}
+              </Text>
               {otherData?.map((e, index) => (
                 <Text key={index} style={styles.subHeading}>
                   {e}
@@ -51,30 +61,17 @@ export default function TopCard({
               </TouchableOpacity>
             ) : (
               <TouchableOpacity>
-                <AntDesign name="hearto" size={24} color="black" />
+                <AntDesign name="hearto" size={24} color="#e02e88" />
               </TouchableOpacity>
             )}
           </View>
         </View>
 
-        {open && <EditDelete />}
+        {open && (
+          <EditDelete place={entireItem} editDeleteType={editDeleteType} />
+        )}
       </View>
     </TouchableWithoutFeedback>
-  );
-}
-
-function EditDelete({ editPress, deletePress }) {
-  return (
-    <View style={styles.editBox}>
-      <TouchableOpacity style={styles.editDeleteButton} onPress={editPress}>
-        <FontAwesome name="pencil-square-o" size={20} color="green" />
-        <Text style={{fontFamily:fonts.robotoRegular}}>Edit</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.editDeleteButton} onPress={deletePress}>
-        <MaterialIcons name="delete-outline" size={20} color="red" />
-        <Text style={{fontFamily:fonts.robotoRegular}}>Delete</Text>
-      </TouchableOpacity>
-    </View>
   );
 }
 
@@ -102,26 +99,10 @@ const styles = StyleSheet.create({
   },
   heading: {
     // fontWeight: "bold",
-    fontFamily:fonts.robotoSemiBold
+    fontFamily: fonts.robotoSemiBold,
   },
   subHeading: {
     // fontWeight: "400",
-    fontFamily:fonts.robotoRegular
-  },
-  editBox: {
-    position: "absolute",
-    top: 10,
-    right: 9,
-    backgroundColor: "#f5f5f5",
-    padding: 10,
-    gap: 10,
-    borderRadius: 10,
-    elevation: 1,
-    zIndex: 10,
-  },
-  editDeleteButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 5, // Space between icon and text
+    fontFamily: fonts.robotoRegular,
   },
 });

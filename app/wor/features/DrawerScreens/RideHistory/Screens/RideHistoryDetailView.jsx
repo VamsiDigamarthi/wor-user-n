@@ -4,13 +4,13 @@ import { useRoute } from "@react-navigation/native";
 import RideHistoryDetailsViewFirst from "../Components/RideHistoryDetailView/RideHistoryDetailsViewFirst";
 import CustomeAppbar from "../../../../../../Utils/CustomeAppbar/CustomeAppbar";
 import FaqListCard from "../Components/FaqListCard";
+import AppBarLayout from "../../../ridebooking/sharedLogics/AppBarLayout";
 
-const RideHistoryDetailView = ({ navigation }) => {
+const RideHistoryDetailView = () => {
   const route = useRoute();
   const { ride } = route.params;
   return (
-    <View style={styles.container}>
-      <CustomeAppbar title="Ride Details" onBack={() => navigation.goBack()} />
+    <AppBarLayout title="Ride Details" isPositionAppbar={false}>
       <View style={{ flex: 1 }}>
         <ScrollView
           contentContainerStyle={styles.scrollContainer}
@@ -21,7 +21,7 @@ const RideHistoryDetailView = ({ navigation }) => {
           <FaqListCard />
         </ScrollView>
       </View>
-    </View>
+    </AppBarLayout>
   );
 };
 

@@ -15,12 +15,16 @@ const CancelRideModal = ({ openCancelModal, closeCancelModal }) => {
   const { completeRideDetails } = useSelector((state) => state.allRideDetails);
 
   const [selectedValue, setSelectedValue] = useState(null);
-
+  const [errMsg, setErrMsg] = useState("");
   const handleSelect = (id) => {
     setSelectedValue(id);
   };
 
   const handleCancelBtn = async () => {
+    if (!selectedValue) {
+      setErrMsg("Please Select Reason");
+    }
+
     const data = await cancelRide({
       token,
       orderId: completeRideDetails?._id,
@@ -61,6 +65,12 @@ const CancelRideModal = ({ openCancelModal, closeCancelModal }) => {
             />
           ))}
         </View>
+
+        {errMsg && (
+          <Text style={{ fontSize: 11, fontWeight: "500", color: "red" }}>
+            {errMsg}
+          </Text>
+        )}
         <View style={{ paddingHorizontal: 20, paddingVertical: 15, gap: 10 }}>
           <CustomBtn
             title="Okay, Cancel"

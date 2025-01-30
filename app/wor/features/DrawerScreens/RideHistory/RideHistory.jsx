@@ -1,32 +1,36 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import RideHistoryItem from "./Components/RideHistoryItem";
-import { useRideHistoryHook } from "./Hooks/RideHistory.hook";
-import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
-import SingleLoader from "../../../utiles/Loaders/SingleLoader";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
+import { useDispatch, useSelector } from "react-redux";
+import { rideHistoryAsyc } from "./rideHistory.slice";
 
-const RideHistory = ({ navigation }) => {
-  const { rideHistory } = useRideHistoryHook();
+const RideHistory = () => {
+  const { token } = useSelector((state) => state.token);
+  const dispatch = useDispatch();
+
+  const { rideHistory } = useSelector((state) => state.rideHistory);
+
+  useEffect(() => {
+    dispatch(rideHistoryAsyc({ token }));
+  }, []);
+
   return (
     <AppBarLayout title="Ride History" isPositionAppbar={true}>
       <View style={styles.innerContainer}>
-        {rideHistory?.length > 0 ? (
-          <FlatList
-            scrollEnabled
-            data={rideHistory}
-            keyExtractor={(item) => item._id}
-            renderItem={({ item }) => <RideHistoryItem ride={item} />}
-            ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-            showsVerticalScrollIndicator={false}
-          />
-        ) : (
-          <>
+        <FlatList
+          scrollEnabled
+          data={rideHistory}
+          keyExtractor={(item) => item._id}
+          renderItem={({ item }) => <RideHistoryItem ride={item} />}
+          ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+          showsVerticalScrollIndicator={false}
+          ListEmptyComponent={
             <View style={styles.centerCard}>
               <Text style={{ fontSize: 20, fontWeight: "600" }}>No Rides</Text>
             </View>
-          </>
-        )}
+          }
+        />
       </View>
     </AppBarLayout>
   );
