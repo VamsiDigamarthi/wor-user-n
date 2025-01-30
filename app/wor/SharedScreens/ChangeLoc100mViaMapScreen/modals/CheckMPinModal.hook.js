@@ -9,10 +9,7 @@ import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { useSocket } from "../../../../../SocketContext";
 
-export const useCheckMPinModalHook = ({
-  time,
-  onOpenIsEnterConfirmPinModal,
-}) => {
+export const useCheckMPinModalHook = ({ onOpenIsEnterConfirmPinModal }) => {
   const {
     isParcScreen,
     dropDetails,
@@ -22,6 +19,7 @@ export const useCheckMPinModalHook = ({
     price,
     pickUpDetails,
     howManyMens,
+    time,
   } = useSelector((state) => state.allRideDetails);
 
   const { socket, isConnected } = useSocket();
@@ -53,10 +51,6 @@ export const useCheckMPinModalHook = ({
   };
 
   const onCheckMyPinCorrectOrWrong = async (newPin) => {
-    // if (!profile?.mpin || !profile?.aadharCardVerification) {
-    //   console.log("--- terminated----");
-    //   return;
-    // }
     const data = await onCheckMPin({ token, mpin: newPin });
     setMPin(["", "", "", ""]);
     onOpenIsEnterConfirmPinModal(); // close the m pin modal
@@ -77,6 +71,7 @@ export const useCheckMPinModalHook = ({
       formattedTime,
       howManyMens,
       isSendOrReceiveParcel,
+      time,
     });
 
     const orderId = await bookingRide({ token, orderDetails });
@@ -86,7 +81,9 @@ export const useCheckMPinModalHook = ({
       socket.emit("ride-live-communication", { orderId, userType: "user" });
     }
 
-    navigation.navigate("lookingforride", { orderId });
+    navigation.navigate("lookingforride", {
+      orderId,
+    });
   };
 
   return {

@@ -1,8 +1,38 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import MapView, { Circle, Marker, Polyline } from "react-native-maps";
+import MapView, { Marker, Polyline } from "react-native-maps";
 import { PinIcon } from "../../Icons/Icons";
 import { useSelector } from "react-redux";
+
+// Helper function to generate polyline coordinates approximating a circle
+const generateDashedCircleCoordinates = (lat, lng, radius, numberOfDashes) => {
+  const dashes = [];
+  const angleIncrement = (2 * Math.PI) / numberOfDashes;
+
+  for (let i = 0; i < numberOfDashes; i++) {
+    const startAngle = i * angleIncrement;
+    const endAngle = startAngle + angleIncrement / 2; // Create a gap for the dash
+
+    const startLat = lat + (radius / 111320) * Math.cos(startAngle);
+    const startLng =
+      lng +
+      (radius / (111320 * Math.cos((lat * Math.PI) / 180))) *
+        Math.sin(startAngle);
+
+    const endLat = lat + (radius / 111320) * Math.cos(endAngle);
+    const endLng =
+      lng +
+      (radius / (111320 * Math.cos((lat * Math.PI) / 180))) *
+        Math.sin(endAngle);
+
+    dashes.push([
+      { latitude: startLat, longitude: startLng },
+      { latitude: endLat, longitude: endLng },
+    ]);
+  }
+
+  return dashes;
+};
 
 const ChangeLocMapView = ({ newMarker, handleMarkerDragEnd }) => {
   const { location, placeName, placeVicinity } = useSelector(
@@ -15,6 +45,13 @@ const ChangeLocMapView = ({ newMarker, handleMarkerDragEnd }) => {
   const { lat, lng } = isBeforeBook
     ? location
     : initialDropDetails?.location || {};
+
+  const dashedCircleCoordinates = generateDashedCircleCoordinates(
+    lat,
+    lng,
+    100,
+    60
+  ); // 60 dashes
 
   return (
     <MapView
@@ -46,13 +83,15 @@ const ChangeLocMapView = ({ newMarker, handleMarkerDragEnd }) => {
         <PinIcon name="map-pin" size={30} color="#2b8a3e" />
       </Marker>
 
-      <Circle
-        center={{ latitude: lat, longitude: lng }}
-        radius={100} // 100 meters
-        strokeColor="#EA4c89"
-        fillColor="#fff7fb"
-        strokeWidth={2}
-      />
+      {/* Render dashed circle using multiple polylines */}
+      {dashedCircleCoordinates.map((dash, index) => (
+        <Polyline
+          key={index}
+          coordinates={dash}
+          strokeColor="#EA4c89"
+          strokeWidth={1}
+        />
+      ))}
 
       <Polyline
         coordinates={[

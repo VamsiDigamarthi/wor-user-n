@@ -22,8 +22,8 @@ const DisplayVehicle = ({ vehicle }) => {
     <Pressable
       style={[
         styles.pressContainer,
-        vehicle?.vehicleType?.toLowerCase() === selectedVehicleType &&
-          styles.pressedContainer,
+        vehicle?.vehicleType?.toLowerCase() ===
+          selectedVehicleType?.toLowerCase() && styles.pressedContainer,
       ]}
       onPress={() => handelSelectVehicle(vehicle?.vehicleType?.toLowerCase())} // Call onPress when clicked
     >

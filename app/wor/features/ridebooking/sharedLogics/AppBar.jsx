@@ -6,6 +6,7 @@ import { DrawerActions } from "@react-navigation/native";
 import AppBarRideBookingConditions from "./AppBarRideBookingConditions";
 import SupportIcons from "./SupportIcons";
 import AppBarTitle from "./AppBarTitle";
+import { useSelector } from "react-redux";
 
 const Appbar = ({
   title,
@@ -26,6 +27,7 @@ const Appbar = ({
   borderStyles = { borderStyles },
 }) => {
   const navigation = useNavigation();
+  const { formateTime } = useSelector((state) => state.allRideDetails);
 
   return (
     <View
@@ -53,7 +55,9 @@ const Appbar = ({
           {isTimer && (
             <Pressable onPress={timerFunction} style={styles.timerCard}>
               <Ionicons size={24} name="timer" color="#f98600" />
-              <Text style={{ fontSize: 12, color: "gray" }}>Now</Text>
+              <Text style={{ fontSize: 10, color: "gray" }}>
+                {formateTime ? formateTime : "Now"}
+              </Text>
             </Pressable>
           )}
 
@@ -204,5 +208,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginRight: 10,
+    // backgroundColor: "red",
   },
 });

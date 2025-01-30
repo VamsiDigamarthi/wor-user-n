@@ -18,7 +18,6 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
     newMarker,
     placeName,
     isBeforeBook,
-    time,
     rideBookBeforeCheckMPinAddhar,
     onChangeRideBookBeforeCheckPinAddharHandler,
     isOpenEnterConfirmMPinModal,
@@ -76,7 +75,6 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
       <CheckMPinModal
         isOpenEnterConfirmMPinModal={isOpenEnterConfirmMPinModal}
         onOpenIsEnterConfirmPinModal={onOpenIsEnterConfirmPinModal}
-        time={time}
         pickUpPlace={placeName}
         newMarker={{ lat: newMarker.latitude, lng: newMarker.longitude }}
       />

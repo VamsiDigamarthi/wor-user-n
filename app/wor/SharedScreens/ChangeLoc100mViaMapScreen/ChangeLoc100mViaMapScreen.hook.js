@@ -21,8 +21,6 @@ export const useChangeLoc100mViaMapScreenHook = () => {
     (state) => state.allRideDetails
   );
 
-  const { time } = useRoute().params || {};
-
   const { profile } = useSelector((state) => state.profileSlice);
   const { token } = useSelector((state) => state.token);
 
@@ -138,7 +136,6 @@ export const useChangeLoc100mViaMapScreenHook = () => {
     onChangeRideBookBeforeCheckPinAddharHandler,
     isOpenEnterConfirmMPinModal,
     onOpenIsEnterConfirmPinModal,
-    time,
   };
 };
 

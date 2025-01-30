@@ -16,12 +16,10 @@ import { useNavigation } from "@react-navigation/native";
 const CheckMPinModal = ({
   isOpenEnterConfirmMPinModal,
   onOpenIsEnterConfirmPinModal,
-  time,
   pickUpPlace,
   newMarker,
 }) => {
   const { mPin, inputRefs, handleChange } = useCheckMPinModalHook({
-    time,
     pickUpPlace,
     newMarker,
     onOpenIsEnterConfirmPinModal,
