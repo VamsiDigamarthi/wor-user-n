@@ -11,7 +11,7 @@ export default function PaymentHistory({ navigation }) {
     getWalletTransactions();
   }, []);
 
-  console.log(trxns);
+  // console.log(trxns);
 
   return (
     <View style={{ flex: 1 }}>
@@ -22,7 +22,13 @@ export default function PaymentHistory({ navigation }) {
 
       <ScrollView style={styles.container}>
         {trxns?.map((e, index) => (
-          <PaymentHistoryCard key={index} type={e?.type} />
+          <PaymentHistoryCard
+            date={e.date}
+            amount={e?.amount}
+            key={index}
+            desc={e.description}
+            type={e?.type}
+          />
         ))}
       </ScrollView>
     </View>

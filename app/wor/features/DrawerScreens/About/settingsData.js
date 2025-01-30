@@ -19,7 +19,7 @@ export const settingsData = [
     isFunc: true,
   },
   {
-    name: "LogOut",
+    name: "Logout",
     navigationScreen: null,
     isFunc: true,
   },

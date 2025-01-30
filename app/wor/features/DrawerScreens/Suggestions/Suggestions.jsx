@@ -3,44 +3,70 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  TouchableOpacity,
-  Keyboard,
   TouchableWithoutFeedback,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import React, { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import React, { useState, useCallback, useMemo } from "react";
 import Toast from "react-native-toast-message";
-// import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
-
-import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
-import CustomBtn from "../../../utiles/CustomBtn";
+import { useSelector } from "react-redux";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
+import CustomBtn from "../../../utiles/CustomBtn";
 import { fonts } from "../../../fonts/Fonts";
+import { API } from "../../../../../Constants/url";
 
 export default function Suggestions() {
-  const navigation = useNavigation();
-
+  const { token } = useSelector((state) => state.token);
   const [text, setText] = useState("");
 
-  async function SendData() {
-    setText("");
+  const handleChangeText = useCallback((value) => {
+    setText(value);
+  }, []);
 
-    Toast.show({
-      text1: "Your Suggestion reached to us, Thank You !",
-      position: "bottom",
-    });
+  const SendData = useCallback(async () => {
+    if (!text.trim()) return;
 
-    // console.log("Pressed");
-  }
+    try {
+      const response = await API.post(
+        "/saved-address/suggestToWor",
+        { message: text },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      setText("");
+      Toast.show({
+        text1: "Thank You For Your Suggestion!",
+        text2: "We Will Try to improve your experience",
+        position: "top",
+        type: "success",
+      });
+    } catch (error) {
+      Toast.show({
+        text1: "Something went wrong!",
+        text2: "Try Again Later",
+        position: "top",
+        type: "error",
+      });
+    }
+  }, [text, token]);
+
+  const buttonStyles = useMemo(
+    () => ({
+      btnColor: text ? "#fff" : "#EA4C89",
+      btnBg: text ? "#EA4C89" : "#fff",
+      borderColor: !text && "#EA4C89",
+      borderWidth: 1,
+    }),
+    [text]
+  );
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === "ios" ? "padding" : "height"} // Adjust for iOS and Android
+      style={styles.flexContainer}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <AppBarLayout title="Suggestion" isPositionAppbar={true}>
           <View style={styles.container}>
             <Text style={styles.mainText}>Suggest To Wor</Text>
@@ -50,32 +76,16 @@ export default function Suggestions() {
               placeholder="Write your Suggestions"
               placeholderTextColor="#a9a9a9"
               value={text}
-              onChangeText={setText}
+              onChangeText={handleChangeText}
               maxLength={500}
               multiline
-              textAlignVertical="top" // Ensures the text starts at the top
+              textAlignVertical="top"
             />
 
-            <Text
-              style={{
-                textAlign: "right",
-                fontFamily:fonts.robotoThin
-              }}
-            >
-              {text.length} / 500 Charecters
-            </Text>
+            <Text style={styles.charCount}>{text.length} / 500 Characters</Text>
 
             <View style={styles.sendButton}>
-              <CustomBtn
-                title="send"
-                onPress={() => {
-                  SendData();
-                }}
-                btnColor={text ? "#fff" : "#EA4C89"}
-                btnBg={text ? "#EA4C89" : "#fff"}
-                borderColor={!text && "#EA4C89"}
-                borderWidth={1}
-              />
+              <CustomBtn title="Send" onPress={SendData} {...buttonStyles} />
             </View>
           </View>
         </AppBarLayout>
@@ -85,6 +95,9 @@ export default function Suggestions() {
 }
 
 const styles = StyleSheet.create({
+  flexContainer: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     paddingHorizontal: 10,
@@ -93,9 +106,7 @@ const styles = StyleSheet.create({
     paddingTop: 110,
   },
   mainText: {
-    // fontWeight: "bold",
-
-    fontFamily:fonts.robotoSemiBold,
+    fontFamily: fonts.robotoSemiBold,
     fontSize: 18,
   },
   textInput: {
@@ -106,11 +117,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     fontSize: 16,
-    fontFamily:fonts.robotoRegular
+    fontFamily: fonts.robotoRegular,
+  },
+  charCount: {
+    textAlign: "right",
+    fontFamily: fonts.robotoThin,
   },
   sendButton: {
-    position: "absolute", // Position the button
-    bottom: 20, // Set the distance from the bottom
+    position: "absolute",
+    bottom: 20,
     width: "100%",
     left: 10,
   },

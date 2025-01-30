@@ -28,6 +28,8 @@ const ProfileEmergencyContact = () => {
   const { token } = useSelector((state) => state.token);
   const [userBackendContactNumber, setUserBackendContactNumber] = useState([]);
 
+  const colors = ["#FFFCF5", "#FAFBFF", "#F4F1FF", "#F3FCFB", "#fff"];
+
   // Fetch emergency contacts from backend
   const handlerFetchEmergencyConcats = async () => {
     try {
@@ -169,11 +171,13 @@ const ProfileEmergencyContact = () => {
   };
 
   // Render a single contact item
-  const renderContact = ({ item }) => (
+  const renderContact = (item, index) => (
     <View style={styles.numberCard}>
       <Pressable>
         <View style={styles.contactRow}>
-          <View style={styles.contactImage}>
+          <View
+            style={[styles.contactImage, { backgroundColor: colors[index] }]}
+          >
             <Text style={styles.letter}>{item?.name?.toString()[0]}</Text>
           </View>
           <View>
@@ -208,8 +212,10 @@ const ProfileEmergencyContact = () => {
           <View style={styles.separator} />
           <FlatList
             data={userBackendContactNumber}
-            keyExtractor={(item) => item._id || item.mobile}
-            renderItem={renderContact}
+            keyExtractor={(item, index) =>
+              item._id || item.mobile || index.toString()
+            }
+            renderItem={({ item, index }) => renderContact(item, index)} // ✅ Pass item & index correctly
           />
         </View>
         {userBackendContactNumber?.length < 5 && (

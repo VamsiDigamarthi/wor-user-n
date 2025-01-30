@@ -1,27 +1,22 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import ModalUI from "../../../../utiles/Modal/Modal";
 import { infoModalStyles } from "../../../../../../Components/InfoUi/Styles/InfoModalStyles";
 import { CalendarIcons } from "../../../../Icons/Icons";
 import CustomBtn from "../../../../utiles/CustomBtn";
 import DatePicker from "react-native-date-picker";
-import { formatToIndiaISO } from "../../../../../../Constants/calculateKM";
-import { useNavigation } from "@react-navigation/native";
 import { DateFormatModal } from "../Hooks/DateFormatInModal.hook";
 
 const ShceduleOrderModal = ({ shceduleOrderModal, timerSetModalOpen }) => {
   const {
-    setNewDate,
-    normalDateFormat,
     minimumDate,
     maximumDate,
-    onTimeModalOpenCloseHandler,
-    isTimeModalOpenClose,
+    normalDateFormat,
+    onHandleTimeValueHandler,
+
     date,
     isDateTimeData,
-    setMinimumDate,
-    setDate,
-  } = DateFormatModal();
+  } = DateFormatModal({ timerSetModalOpen });
 
   return (
     <ModalUI
@@ -45,23 +40,35 @@ const ShceduleOrderModal = ({ shceduleOrderModal, timerSetModalOpen }) => {
           </Text>
           <View style={styles.pickUpcard}>
             <Text style={styles.subTitle}>Your Pickup will be on</Text>
-            <Text style={styles.largeHeading}>{normalDateFormat}</Text>
+            <Text style={styles.largeHeading}>
+              {normalDateFormat ||
+                `Today ${new Date().getHours() % 12 || 12}:${new Date()
+                  .getMinutes()
+                  .toString()
+                  .padStart(2, "0")} ${
+                  new Date().getHours() >= 12 ? "PM" : "AM"
+                }`}
+            </Text>
           </View>
           <View style={styles.dateTimeCard}>
             <DatePicker
-              // modal //use this if you want in popup style instead of bottom modal
-              open={isTimeModalOpenClose}
+              // modal
+              // open={timerSetModalOpen}
               date={date}
               theme="light"
               title="Select Future Time"
-              cancelText="cancel"
-              confirmText="confirmText"
-              collapsable={true}
+              cancelText="Cancel"
+              confirmText="Confirm"
               minimumDate={minimumDate} // Dynamically set to the next valid time
               maximumDate={maximumDate}
               minuteInterval={15} // Enforce 15-minute intervals
-              onDateChange={setDate}
-              onCancel={onTimeModalOpenCloseHandler}
+              onDateChange={(selectedDate) => {
+                if (selectedDate.getTime() >= new Date().getTime()) {
+                  onHandleTimeValueHandler(selectedDate);
+                } else {
+                  Alert.alert("You selected a past time");
+                }
+              }}
               style={styles.datePicker}
             />
           </View>
@@ -70,6 +77,7 @@ const ShceduleOrderModal = ({ shceduleOrderModal, timerSetModalOpen }) => {
             btnBg="#e02e88"
             btnColor="#fff"
             // onPress={onPlaceTheOrder}
+            onPress={() => Alert.alert(isDateTimeData)}
           />
         </View>
       </View>

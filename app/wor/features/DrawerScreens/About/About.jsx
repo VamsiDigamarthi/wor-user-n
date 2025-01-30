@@ -40,7 +40,6 @@ const About = () => {
   };
 
   const parentReturnFun = (text) => {
-    console.log(text);
     switch (text) {
       case "Terms And Condition":
         onNavTermsAndConditon();
@@ -51,7 +50,7 @@ const About = () => {
       case "Software License":
         onNavTermsAndConditon();
         break;
-      case "LogOut":
+      case "Logout":
         // logOut();
         setLogOutModal(true);
         break;
@@ -79,7 +78,9 @@ const About = () => {
         rightBtnText="Ok Continue"
         rightBtnFun={logOut}
       >
-        <Text style={{fontFamily:fonts.robotoRegular}}>Are you sure want to logout</Text>
+        <Text style={{ fontFamily: fonts.robotoRegular }}>
+          Are you sure want to logout
+        </Text>
       </ModalUI>
     </AppBarLayout>
   );

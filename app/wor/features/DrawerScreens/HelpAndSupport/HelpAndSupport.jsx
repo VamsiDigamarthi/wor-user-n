@@ -1,5 +1,4 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
-import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useNavigation } from "@react-navigation/native";
 import { useRideHistoryHook } from "../RideHistory/Hooks/RideHistory.hook";
@@ -7,30 +6,34 @@ import RideHistoryItem from "../RideHistory/Components/RideHistoryItem";
 import FaqListCard from "../RideHistory/Components/FaqListCard";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 import { fonts } from "../../../fonts/Fonts";
-export default function HelpAndSupport() {
+import { memo } from "react";
+
+function HelpAndSupport() {
   const navigation = useNavigation();
   const { rideHistory } = useRideHistoryHook();
+
   return (
-    <AppBarLayout title="Help & WoR Support" isPositionAppbar={true}>
+    <AppBarLayout title="Help & WoR Support" isPositionAppbar>
       <View style={styles.container}>
         <View style={styles.topContainer}>
           <Text style={styles.heading}>My Rides</Text>
           <Pressable
             onPress={() => navigation.navigate("RideHistory")}
-            style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
+            style={styles.pressable}
           >
             <Text style={styles.heading}>See All</Text>
             <AntDesign name="caretright" size={20} color="#EA4C89" />
           </Pressable>
         </View>
 
-        <View style={{ marginTop: 10 }}>
-          {rideHistory[0] && <RideHistoryItem ride={rideHistory[0]} />}
-          {rideHistory[1] && <RideHistoryItem ride={rideHistory[1]} />}
+        <View style={styles.rideContainer}>
+          {rideHistory.slice(0, 2).map((ride, index) => (
+            <RideHistoryItem key={index} ride={ride} />
+          ))}
         </View>
 
-        <View style={{ marginTop: 10 }}>
-          <Text style={styles.heading}>Help & Wor Support</Text>
+        <View style={styles.supportContainer}>
+          <Text style={styles.heading}>Help & WoR Support</Text>
           <FaqListCard />
         </View>
       </View>
@@ -38,25 +41,33 @@ export default function HelpAndSupport() {
   );
 }
 
+export default memo(HelpAndSupport);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
+    padding: 10,
     backgroundColor: "#fff",
-    marginTop: 10,
-    paddingTop: 90,
+    paddingTop: 100,
   },
-
   topContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
   },
-
+  pressable: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
   heading: {
-    // fontWeight: "bold",
     fontFamily: fonts.robotoSemiBold,
     color: "#2D2D2D",
     fontSize: 16,
+  },
+  rideContainer: {
+    marginTop: 10,
+  },
+  supportContainer: {
+    marginTop: 10,
   },
 });

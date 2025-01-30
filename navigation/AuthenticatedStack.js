@@ -121,6 +121,7 @@ import PaymentHistory from "../app/wor/features/DrawerScreens/Wallet/Screens/Pay
 // import DelAccScreen from "../app/wor/features/DrawerScreens/About/Screens/DelAccount";
 import SavedLocations from "../app/wor/features/DrawerScreens/SavedLocations/SavedLocations";
 import AppSettingsScreen from "../app/wor/features/DrawerScreens/About/AppSettingsScreen";
+import PaymentMethod from "../app/wor/features/DrawerScreens/Wallet/Screens/PaymentMethod";
 // >>>>>>> master
 /* Drawer Screens */
 
@@ -477,6 +478,11 @@ const AuthenticatedStack = ({ initialRoute, params }) => {
       <Stack.Screen
         name="SavedLocations"
         component={SavedLocations}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="PaymentMethodNew"
+        component={PaymentMethod}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

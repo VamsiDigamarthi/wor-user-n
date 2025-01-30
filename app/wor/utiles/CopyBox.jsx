@@ -5,11 +5,12 @@ import {
   TouchableOpacity,
   View,
   Platform,
+  ImageBackground,
 } from "react-native";
 import Toast from "react-native-toast-message";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { fonts } from "../fonts/Fonts";
-
+import { CopyBoxImg } from "../Images/Home";
 export default function CopyBox() {
   const copyToClipboard = (text) => {
     if (text) {
@@ -21,7 +22,7 @@ export default function CopyBox() {
   };
 
   return (
-    <View style={styles.copyBox}>
+    <ImageBackground style={styles.copyBox} source={CopyBoxImg}>
       <Text style={{ fontFamily: fonts.robotoRegular }}>
         Invite Your Friends to women rider
       </Text>
@@ -32,7 +33,7 @@ export default function CopyBox() {
         <Text style={{ fontFamily: fonts.robotoBold }}>Code : GOWOR</Text>
         <MaterialCommunityIcons name="content-copy" size={24} color="black" />
       </TouchableOpacity>
-    </View>
+    </ImageBackground>
   );
 }
 
@@ -42,6 +43,7 @@ const styles = StyleSheet.create({
     padding: 10,
     height: 120,
     borderRadius: 20,
+    overflow: "hidden",
     gap: 10,
     justifyContent: "center",
     backgroundColor: "#F2F0F5",

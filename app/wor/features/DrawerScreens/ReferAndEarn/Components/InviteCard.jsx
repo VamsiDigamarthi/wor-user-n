@@ -1,66 +1,55 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Alert, Share } from "react-native";
+import React, { memo, useCallback, useMemo } from "react";
 import Fontisto from "@expo/vector-icons/Fontisto";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import InviteBtn from "./InviteBtn";
-import { Linking, Share } from "react-native";
+import { Linking } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { fonts } from "../../../../fonts/Fonts";
 
-const shareOnWhatsApp = () => {
-  const message = "Hey! Check out Women Rider. Use my referral code: GOWOR";
-  const url = `whatsapp://send?text=${encodeURIComponent(message)}`;
-  Linking.openURL(url).catch(() => {
-    Alert.alert("Error", "WhatsApp is not installed on your device.");
-  });
-};
+const InviteCard = () => {
+  const inviteMessage = useMemo(
+    () =>
+      "Hey! Check out Women Rider. Use my referral code: GOWOR \n https://play.google.com/store/apps/details?id=com.nuhvin.womenrider&hl=en",
+    []
+  );
 
-const shareInviteLink = async () => {
-  try {
-    await Share.share({
-      message: "Hey! Check out Women Rider. Use my referral code: GOWOR",
+  const shareOnWhatsApp = useCallback(() => {
+    const url = `whatsapp://send?text=${encodeURIComponent(inviteMessage)}`;
+    Linking.openURL(url).catch(() => {
+      Alert.alert("Error", "WhatsApp is not installed on your device.");
     });
-  } catch (error) {
-    console.error(error.message);
-  }
-};
+  }, [inviteMessage]);
 
-export default function InviteCard() {
+  const shareInviteLink = useCallback(async () => {
+    try {
+      await Share.share({ message: inviteMessage });
+    } catch (error) {
+      console.error(error.message);
+    }
+  }, [inviteMessage]);
+
   return (
     <LinearGradient
-      colors={["#fff", "#fff5f9"]} // Gradient colors
-      start={{ x: 0, y: 0 }} // Gradient start point (top-left)
-      end={{ x: 0, y: 1 }} // Gradient end point (bottom-right)
-      style={styles.card} // Apply styles
+      colors={["#fff", "#fff5f9"]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+      style={styles.card}
     >
       <Text style={styles.title}>How It Works</Text>
 
-      <View style={[styles.textCard]}>
-        <Fontisto name="share-a" size={24} color="black" style={styles.icon} />
-        <Text style={styles.text}>
-          Share the referral link with your friend.
-        </Text>
-      </View>
-
-      <View style={styles.textCard}>
-        <FontAwesome
-          name="shopping-bag"
-          size={24}
-          color="black"
-          style={styles.icon}
-        />
-        <Text style={styles.text}>
-          After your friend places their first order, you get 20% off up to 200
-          on your next order
-        </Text>
-      </View>
-
-      <View style={styles.textCard}>
-        <FontAwesome name="rupee" size={24} color="black" style={styles.icon} />
-        <Text style={styles.text}>
-          Upon 10 successful referrals, you earn 500
-        </Text>
-      </View>
+      {howItWorksData.map((item, index) => (
+        <View key={index} style={styles.textCard}>
+          <item.icon
+            name={item.iconName}
+            size={24}
+            color="black"
+            style={styles.icon}
+          />
+          <Text style={styles.text}>{item.text}</Text>
+        </View>
+      ))}
 
       <InviteBtn
         text="Invite Via Whatsapp"
@@ -74,7 +63,27 @@ export default function InviteCard() {
       />
     </LinearGradient>
   );
-}
+};
+
+export default memo(InviteCard); // Prevent unnecessary re-renders
+
+const howItWorksData = [
+  {
+    icon: Fontisto,
+    iconName: "share-a",
+    text: "Share the referral link with your friend.",
+  },
+  {
+    icon: FontAwesome,
+    iconName: "shopping-bag",
+    text: "After your friend places their first order, you get 20% off up to 200 on your next order.",
+  },
+  {
+    icon: FontAwesome,
+    iconName: "rupee",
+    text: "Upon 10 successful referrals, you earn 500.",
+  },
+];
 
 const styles = StyleSheet.create({
   card: {
@@ -87,31 +96,25 @@ const styles = StyleSheet.create({
     width: "95%",
     left: 8,
   },
-
   title: {
-    // fontWeight: "bold",
     fontSize: 16,
-    // textAlign: "center",
     marginBottom: 10,
-    fontFamily:fonts.robotoSemiBold
+    fontFamily: fonts.robotoSemiBold,
   },
-
   textCard: {
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 4,
     gap: 12,
   },
-
   icon: {
-    width: 30, // Fixed width for consistent spacing
-    textAlign: "center", // Centers the icon horizontally within the width
+    width: 30,
+    textAlign: "center",
   },
-
   text: {
-    flex: 1, // Occupies remaining horizontal space
+    flex: 1,
     fontSize: 14,
     lineHeight: 20,
-    fontFamily:fonts.robotoRegular
+    fontFamily: fonts.robotoRegular,
   },
 });

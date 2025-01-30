@@ -7,14 +7,17 @@ import {
   TouchableWithoutFeedback,
   Platform,
   KeyboardAvoidingView,
+  TextInput,
 } from "react-native";
-
+import { useEffect, useState, useMemo } from "react";
+import { useSelector } from "react-redux";
 import CustomBtn from "../../../utiles/CustomBtn";
-import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
 import CustomSwitch from "../../../utiles/CustomSwitch";
+
 import { TextInput } from "react-native-gesture-handler";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { usePayments } from "../../../Payments/useRazorpay";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 import { fonts } from "../../../fonts/Fonts";
@@ -32,12 +35,7 @@ export default function DonationNew() {
     const data = await changeDonationStatus({ token });
     if (!data) return;
     dispatch(onProfileSection({ token }));
-  };
 
-  const [donationAmount, setDonationAmount] = useState(0);
-
-  const onChangeDonationAmount = (amount) => {
-    setDonationAmount(amount);
   };
 
   useEffect(() => {
@@ -46,22 +44,23 @@ export default function DonationNew() {
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1 }}
+      style={styles.flexContainer}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      // keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
     >
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <AppBarLayout title="Donation" isPositionAppbar={true}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <AppBarLayout title="Donation" isPositionAppbar>
           <View style={styles.container}>
             <View style={styles.switchContainer}>
               <Text style={styles.heading}>
                 ₹2 per ride to Women Rider Foundation
               </Text>
 
+
               <CustomSwitch
                 initialValue={profile?.donationActive}
                 onToggle={handleToggle}
               />
+
             </View>
 
             <View>
@@ -73,49 +72,47 @@ export default function DonationNew() {
                 keyboardType="numeric"
               />
 
-              <View style={{ flexDirection: "row", gap: 10, marginTop: 10 }}>
-                <TouchableOpacity
-                  style={styles.smallBtn}
-                  onPress={() => onChangeDonationAmount("10")}
-                >
-                  <Text style={styles.btnText}>10 rs</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.smallBtn}
-                  onPress={() => onChangeDonationAmount("20")}
-                >
-                  <Text style={styles.btnText}>20 rs</Text>
-                </TouchableOpacity>
+              <View style={styles.btnGroup}>
+                {[10, 20].map((amount) => (
+                  <TouchableOpacity
+                    key={amount}
+                    style={styles.smallBtn}
+                    onPress={() => setDonationAmount(amount.toString())}
+                  >
+                    <Text style={styles.btnText}>{amount} rs</Text>
+                  </TouchableOpacity>
+                ))}
               </View>
             </View>
 
-            <View style={{ gap: 10 }}>
+            <View style={styles.infoContainer}>
               <Text style={styles.listTxt}>
-                Make sure this is Monthly Donation For the Empower Women Rider
+                Make sure this is a Monthly Donation for the Empower Women
+                Rider.
               </Text>
               <Text style={styles.listTxt}>
                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
                 diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat, sed
+                aliquyam erat.
               </Text>
               <Text style={styles.listTxt}>
                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
                 diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat, sed
+                aliquyam erat.
               </Text>
             </View>
           </View>
-          <View
-            style={{
-              position: "absolute",
-              bottom: Platform.OS == "ios" ? 24 : 10,
-              width: "95%",
-              left: 10,
-            }}
-          >
+
+          <View style={styles.buttonContainer}>
             <CustomBtn
               title="Continue"
-              onPress={() => makeDonation(donationAmount, email, mobile)}
+              onPress={() =>
+                makeDonation(
+                  donationAmount,
+                  memoizedProfile.email,
+                  memoizedProfile.mobile
+                )
+              }
               btnColor={donationAmount ? "#f7f7f7" : "#ea4c89"}
               btnBg={donationAmount ? "#ea4c89" : "#f7f7f7"}
             />
@@ -124,9 +121,14 @@ export default function DonationNew() {
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
-}
+};
+
+export default DonationNew;
 
 const styles = StyleSheet.create({
+  flexContainer: {
+    flex: 1,
+  },
   container: {
     paddingHorizontal: 16,
     paddingVertical: 10,
@@ -134,7 +136,7 @@ const styles = StyleSheet.create({
     paddingTop: 100,
   },
   heading: {
-    // fontWeight: "bold",
+
     fontFamily: fonts.robotoSemiBold,
     fontSize: 14,
   },
@@ -149,6 +151,7 @@ const styles = StyleSheet.create({
     height: 30,
     padding: 0,
     fontFamily: fonts.robotoRegular,
+
   },
   smallBtn: {
     borderWidth: 1,
@@ -159,8 +162,23 @@ const styles = StyleSheet.create({
   btnText: {
     fontFamily: fonts.robotoRegular,
   },
+
   listTxt: {
     fontFamily: fonts.robotoRegular,
     textAlign: "justify",
+
+  infoContainer: {
+    gap: 10,
+  },
+  listTxt: {
+    fontFamily: fonts.robotoRegular,
+    textAlign: "justify",
+  },
+  buttonContainer: {
+    position: "absolute",
+    bottom: Platform.OS === "ios" ? 24 : 10,
+    width: "95%",
+    left: 10,
+
   },
 });
