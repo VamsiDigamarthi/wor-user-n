@@ -34,7 +34,7 @@ function Wallet() {
         <View style={styles.card}>
           <View style={styles.walletHeader}>
             <Entypo name="wallet" size={30} color="#e02e88" />
-            <Text style={styles.heading}>Wor Wallet</Text>
+            <Text style={styles.heading}>E-Wallet</Text>
           </View>
           <Text style={styles.amount}>₹ {profile?.walletBalance}</Text>
           <CustomBtn

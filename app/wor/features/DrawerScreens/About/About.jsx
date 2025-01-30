@@ -65,6 +65,7 @@ const About = () => {
         {settingsData?.map((each, index) => (
           <SettingIconCard
             key={index}
+            icon={each.icon}
             title={each.name}
             navigationText={each.navigationScreen}
             isFunc={each.isFunc}
