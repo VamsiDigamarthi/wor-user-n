@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     padding: 10,
     gap: 10,
     marginBottom: 10,
+    marginTop: -10,
     // elevation: 5,
   },
   micIcons: {

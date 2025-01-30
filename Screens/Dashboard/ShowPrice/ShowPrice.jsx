@@ -62,13 +62,10 @@ const ShowPrice = () => {
     isTimeModalOpenClose,
     onHandleTimeValueHandler,
     normalDateFormat,
-
     profile,
-
     navigation,
     isDateTimeData,
     parcelDetails,
-
     sortedVehicles,
   } = useShowPriceHook();
 

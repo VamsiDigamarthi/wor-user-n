@@ -14,7 +14,7 @@ const SelectDropLocation = () => {
     setMicVoiceText,
   } = useSelectDropLocationHook();
 
-  const { title, passParams } = useRoute().params;
+  const { title, passParams } = useRoute().params || {};
 
   return (
     <>

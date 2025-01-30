@@ -13,7 +13,7 @@ export default function Suggestions() {
 
   async function SendData() {
     // const data = await API.post("/suggestion", {
-    //   data: text,
+    //   message: text,
     // });
 
     setText("");

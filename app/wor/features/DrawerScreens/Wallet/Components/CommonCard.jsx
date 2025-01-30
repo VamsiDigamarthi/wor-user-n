@@ -1,7 +1,8 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import CustomRadioBtn from "./CustomRadioBtn";
 import { CreditCard } from "../../../../Images/Payment";
+import { fonts } from "../../../../fonts/Fonts";
 
 export default function CommonCard({
   title = "Credit / Debit Cards",
@@ -10,13 +11,17 @@ export default function CommonCard({
   selected,
 }) {
   return (
-    <View style={styles.card}>
+    <TouchableOpacity
+      style={styles.card}
+      onPress={setSelected}
+      selected={selected}
+    >
       <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
-        {icon}
-        <Text>{title}</Text>
+        {icon && icon}
+        <Text style={styles.text}>{title}</Text>
       </View>
       <CustomRadioBtn onPress={setSelected} selected={selected} />
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -31,5 +36,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: 10,
     borderRadius: 10,
+  },
+
+  text: {
+    fontFamily: fonts.robotoSemiBold,
   },
 });

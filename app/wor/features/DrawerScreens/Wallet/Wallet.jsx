@@ -1,3 +1,4 @@
+import React, { memo, useState } from "react";
 import {
   View,
   Text,
@@ -6,66 +7,58 @@ import {
   Keyboard,
   KeyboardAvoidingView,
 } from "react-native";
-import CustomeAppBar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
-import { AntDesign, Entypo } from "@expo/vector-icons";
+import { Entypo, AntDesign } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { usePayments } from "../../../Payments/useRazorpay";
+import { fonts } from "../../../fonts/Fonts";
+import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 import CustomBtn from "../../../utiles/CustomBtn";
 import CopyBox from "../../../utiles/CopyBox";
-import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
-import { infoModalStyles } from "../../../../../Components/InfoUi/Styles/InfoModalStyles";
 import ModalUI from "../../../utiles/Modal/Modal";
 import InputBox from "../../../utiles/InputCard/InputCard";
-import { usePayments } from "../../../Payments/useRazorpay";
-import { useSelector } from "react-redux";
-import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
-import { fonts } from "../../../fonts/Fonts";
-export default function Wallet() {
+import { infoModalStyles } from "../../../../../Components/InfoUi/Styles/InfoModalStyles";
+function Wallet() {
   const navigation = useNavigation();
-
   const [open, setOpen] = useState(false);
   const [amount, setAmount] = useState(0);
-
   const { addToWallet, profile } = usePayments();
 
-  console.log(profile?.walletBalance);
-
   return (
-    <AppBarLayout title="E-Wallet" isPositionAppbar={true}>
+    <AppBarLayout title="E-Wallet" isPositionAppbar>
       <View style={styles.container}>
         <Text style={styles.text}>
-          The WOR Wallet makes payments easy by add money ahead of time for
-          fast, secure, cashless rides. It’s safe, simple to use.
+          The WOR Wallet makes payments easy by adding money ahead of time for
+          fast, secure, cashless rides. It’s safe and simple to use.
         </Text>
 
         <View style={styles.card}>
-          <View style={{ flexDirection: "row", gap: 15, alignItems: "center" }}>
+          <View style={styles.walletHeader}>
             <Entypo name="wallet" size={30} color="#e02e88" />
             <Text style={styles.heading}>Wor Wallet</Text>
           </View>
-
           <Text style={styles.amount}>₹ {profile?.walletBalance}</Text>
-
           <CustomBtn
-            //   borderWidth={1}
-            onPress={() => setOpen(!open)}
-            btnBg={"#F7F7F7"}
+            onPress={() => setOpen(true)}
+            btnBg="#F7F7F7"
             title="+ Add Money To Wallet"
           />
         </View>
+
         <CopyBox />
 
-        <TouchableOpacity
-          style={[
-            styles.card,
-            { flexDirection: "row", justifyContent: "space-between" },
-          ]}
-          onPress={() => navigation.navigate("PaymentHistory")}
-        >
-          <Text style={{ fontFamily: fonts.robotoRegular }}>
-            Payment History
-          </Text>
-          <Entypo name="chevron-right" size={24} color={"#B0B0B0"} />
-        </TouchableOpacity>
+        {[
+          { title: "Payment History", route: "PaymentHistory" },
+          { title: "Payment Method", route: "PaymentMethodNew" },
+        ].map((item, index) => (
+          <TouchableOpacity
+            key={index}
+            style={styles.cardRow}
+            onPress={() => navigation.navigate(item.route)}
+          >
+            <Text style={styles.cardText}>{item.title}</Text>
+            <Entypo name="chevron-right" size={24} color="#B0B0B0" />
+          </TouchableOpacity>
+        ))}
       </View>
 
       {open && (
@@ -75,44 +68,30 @@ export default function Wallet() {
             style={infoModalStyles.aadharModalStyles}
             insideCardStyle={infoModalStyles.insideCardStyle}
             closebtn={false}
-            closeModalFun={() => setOpen(!open)}
+            closeModalFun={() => setOpen(false)}
           >
             <View style={styles.btContainer}>
               <Text style={styles.heading}>Adding Money To Wallet</Text>
-
               <InputBox
                 keyboardType="numeric"
-                onPress={() => Keyboard.dismiss()}
-                // maxLength={}
                 placeholder="0.0"
                 label="Enter Amount"
-                isIconsNotText={true}
-                icon={"currency-rupee"}
+                isIconsNotText
+                icon="currency-rupee"
                 iconType="MaterialIcons"
                 value={amount}
                 onChangeText={setAmount}
-                // isValid={!errorState.mobile}
               />
-
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: 8,
-                  marginTop: 40,
-                }}
-              >
+              <View style={styles.safePaymentContainer}>
                 <AntDesign name="Safety" size={24} color="green" />
-                <Text style={{ fontFamily: fonts.robotoRegular }}>
+                <Text style={styles.safePaymentText}>
                   100% Safe and Secure Payments
                 </Text>
               </View>
-
               <CustomBtn
                 width="100%"
                 onPress={() => addToWallet(amount)}
-                title="continue"
+                title="Continue"
                 btnBg={amount ? "#EA4C89" : "#F7F7F7"}
                 btnColor={amount ? "#fff" : "#000"}
               />
@@ -124,6 +103,8 @@ export default function Wallet() {
   );
 }
 
+export default memo(Wallet);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -131,38 +112,59 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 90,
   },
+  text: {
+    fontFamily: fonts.robotoMedium,
+    textAlign: "justify",
+    paddingVertical: 10,
+  },
   heading: {
-    // fontWeight: "bold",
     fontFamily: fonts.robotoMedium,
     fontSize: 16,
   },
-
   card: {
     borderRadius: 15,
     marginTop: 10,
     elevation: 1,
     backgroundColor: "#fff",
     padding: 20,
-    // marginHorizontal: 10,
   },
-
+  walletHeader: {
+    flexDirection: "row",
+    gap: 15,
+    alignItems: "center",
+  },
   amount: {
     color: "#EA4C89",
     fontSize: 25,
-    // fontWeight: "bold",
     fontFamily: fonts.robotoBold,
     paddingLeft: 45,
     marginBottom: 10,
+  },
+  cardRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    borderRadius: 15,
+    marginTop: 10,
+    elevation: 1,
+    backgroundColor: "#fff",
+    padding: 20,
+  },
+  cardText: {
+    fontFamily: fonts.robotoSemiBold,
   },
   btContainer: {
     padding: 16,
     width: "100%",
     gap: 10,
   },
-
-  text: {
+  safePaymentContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+    marginTop: 40,
+  },
+  safePaymentText: {
     fontFamily: fonts.robotoRegular,
-    textAlign: "justify",
-    paddingVertical: 10,
   },
 });

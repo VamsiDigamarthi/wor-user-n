@@ -1,19 +1,14 @@
 import { useEffect, useState } from "react";
 import { formatToIndiaISO } from "../../../../../../Constants/calculateKM";
 
-export const DateFormatModal = () => {
+export const DateFormatModal = ({ timerSetModalOpen }) => {
+  const currentDate = new Date();
+  const maxDate = new Date();
+  maxDate.setDate(currentDate.getDate() + 7);
+
   const [date, setDate] = useState(new Date());
   const [minimumDate, setMinimumDate] = useState(new Date());
-  const [isDateTimeData, setIsDateTimeData] = useState("");
-  const [normalDateFormat, setNormalDateFormat] = useState(null);
 
-  // function and state to open and close modal
-  const [isTimeModalOpenClose, setIsTimeModalOpenClose] = useState(false);
-  const onTimeModalOpenCloseHandler = () => {
-    setIsTimeModalOpenClose(!isTimeModalOpenClose);
-  };
-
-  // limiting the modal for maximunm date
   const maximumDate = new Date(minimumDate);
   maximumDate.setDate(minimumDate.getDate() + 6);
 
@@ -44,11 +39,12 @@ export const DateFormatModal = () => {
 
     setMinimumDate(nextTime); // Set the minimum date based on calculated time
   };
+
   useEffect(() => {
-    if (isTimeModalOpenClose) {
+    if (timerSetModalOpen) {
       calculateNextInterval(); // Recalculate when modal is opened
     }
-  }, [isTimeModalOpenClose]); // Runs only when modal is toggled open
+  }, [timerSetModalOpen]); // Runs only when modal is toggled open
 
   // Trigger recalculation of minimumDate whenever the user picks a new time
   useEffect(() => {
@@ -56,6 +52,8 @@ export const DateFormatModal = () => {
       calculateNextInterval(); // Recalculate when date is updated by user
     }
   }, [date]); // Runs whenever date state changes
+  const [isDateTimeData, setIsDateTimeData] = useState("");
+  const [normalDateFormat, setNormalDateFormat] = useState(null);
 
   const onHandleTimeValueHandler = (date) => {
     const formattedIndiaTime = formatToIndiaISO(date);
@@ -67,27 +65,22 @@ export const DateFormatModal = () => {
       month: "short",
       weekday: "short",
     };
-
     const formattedDate = date.toLocaleDateString("en-GB", options);
     setIsDateTimeData(formattedIndiaTime);
     setNormalDateFormat(formattedDate);
+    // onTimeModalOpenCloseHandler();
   };
 
-  const setNewDate = (date) => {
-    setMinimumDate(date);
-    onHandleTimeValueHandler(date);
-  };
+  // useEffect(()=>{
+  //   onHandleTimeValueHandler(new Date)
+  // },[])
 
   return {
-    setNewDate,
-    normalDateFormat,
     minimumDate,
     maximumDate,
-    onTimeModalOpenCloseHandler,
-    isTimeModalOpenClose,
+    normalDateFormat,
+    onHandleTimeValueHandler,
     date,
     isDateTimeData,
-    setMinimumDate,
-    setDate,
   };
 };

@@ -29,11 +29,15 @@ const DeleteModal = ({ deletAcoountModal, handleDeleteAcoountModal }) => {
             selectedValue={selectedValue}
             handleSelect={handleSelect}
             setDisplayModalType={setDisplayModalType}
+            handleDeleteAcoountModal={handleDeleteAcoountModal}
           />
         ) : (
           <>
             {displayModalType === "areYourSure" ? (
-              <AreYouSureModal setDisplayModalType={setDisplayModalType} />
+              <AreYouSureModal
+                setDisplayModalType={setDisplayModalType}
+                handleDeleteAcoountModal={handleDeleteAcoountModal}
+              />
             ) : (
               <ConfirmDelete
                 selectedValue={selectedValue}

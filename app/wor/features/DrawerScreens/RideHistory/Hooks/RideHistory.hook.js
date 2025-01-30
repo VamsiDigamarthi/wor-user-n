@@ -1,14 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import Toast from "react-native-toast-message";
 import { API } from "../../../../../../Constants/url";
 
 export const useRideHistoryHook = () => {
   const { token } = useSelector((state) => state.token);
-
   const [rideHistory, setRideHistory] = useState([]);
 
-  const onFetchRideHistory = async () => {
+  const onFetchRideHistory = useCallback(async () => {
     try {
       const response = await API.get("/user/all-order", {
         headers: {
@@ -16,23 +15,19 @@ export const useRideHistoryHook = () => {
           "Content-Type": "application/json",
         },
       });
-      // console.log(response.data);
-      setRideHistory(response.data?.reverse());
+      setRideHistory(response.data?.reverse() || []);
     } catch (error) {
-      console.log("ride history", error.response.data.message);
       Toast.show({
-        text1: "Failed to fetch ride history places",
+        text1: "Failed to fetch ride history",
         type: "error",
         position: "bottom",
       });
     }
-  };
+  }, [token]);
 
   useEffect(() => {
     onFetchRideHistory();
-  }, []);
+  }, [onFetchRideHistory]);
 
-  return {
-    rideHistory,
-  };
+  return { rideHistory };
 };

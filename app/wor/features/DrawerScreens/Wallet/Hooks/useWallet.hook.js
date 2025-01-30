@@ -16,10 +16,10 @@ export const useWallet = () => {
         },
       });
 
-      console.log(response);
+      // console.log(response);
       setTrxns(response.data);
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
 
       Toast.show({
         text1: "Something Went Wrong",
