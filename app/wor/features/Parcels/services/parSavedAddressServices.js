@@ -31,6 +31,7 @@ export const onSavedParcelAddress = async ({ token, formData }) => {
   }
 };
 
+// not using convert in to redux
 export const fetchSavedAddress = async ({ token }) => {
   try {
     const response = await API.get("/saved-address", {
@@ -40,6 +41,31 @@ export const fetchSavedAddress = async ({ token }) => {
     });
     return response.data;
   } catch (error) {
+    Toast.show({
+      text1: error?.response?.data?.message ?? "Failed to fetch saved address",
+      type: "error",
+      position: "bottom",
+    });
+    return null;
+  }
+};
+
+export const deleteSavedAddress = async ({ token, id }) => {
+  try {
+    await API.delete(`/saved-address/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    Toast.show({
+      text1: "successfully added address",
+      type: "success",
+      position: "bottom",
+    });
+    return true;
+  } catch (error) {
+    console.log(error);
+
     Toast.show({
       text1: error?.response?.data?.message ?? "Failed to fetch saved address",
       type: "error",

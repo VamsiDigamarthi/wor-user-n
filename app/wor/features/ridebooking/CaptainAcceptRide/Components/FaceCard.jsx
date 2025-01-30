@@ -64,6 +64,7 @@ const FaceCard = () => {
         handleChangePriceModal={handleChangePriceModal}
         openPriceModal={openPriceModal}
         totalPrice={totalPrice}
+        tip={isTipAdded ? tip : completeRideDetails?.addTip}
       />
     </>
   );

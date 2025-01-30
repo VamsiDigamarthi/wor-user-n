@@ -15,6 +15,7 @@ import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { clearDropData } from "../../sharedLogics/rideDetailsSlice";
 import DeviceInfo from "react-native-device-info";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { clearHomeOrWorkPlace } from "../../selectdroplocation/redux/homePlaceType.slice";
 
 export const useHomeScreenHook = () => {
   const isFocused = useIsFocused();
@@ -101,6 +102,7 @@ export const useHomeScreenHook = () => {
     if (isFocused) {
       dispatch(clearDropData());
       fetchPendingOrderRating();
+      dispatch(clearHomeOrWorkPlace());
     }
   }, [isFocused]);
 

@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 export const useShowPriceScreenHook = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const { profile } = useSelector((state) => state.profileSlice);
 
   const { location } = useSelector((state) => state.location);
   const { dropDetails, selectedVehicleType, isParcScreen } = useSelector(
@@ -30,8 +31,17 @@ export const useShowPriceScreenHook = () => {
 
     const distance = haversineDistance(location, dropDetails.location);
     const calculatedPriceDetails = calculatePriceDetails(distance);
+    let price = +calculatedPriceDetails[selectedVehicleType];
 
-    dispatch(setPrice(calculatedPriceDetails[selectedVehicleType]));
+    if (profile?.donationActive) {
+      Object.keys(calculatedPriceDetails).forEach((vehicleType) => {
+        calculatedPriceDetails[vehicleType] =
+          +calculatedPriceDetails[vehicleType] + 2;
+      });
+      price += 2;
+    }
+
+    dispatch(setPrice(price));
     dispatch(setPriceDetails(calculatedPriceDetails));
   };
 

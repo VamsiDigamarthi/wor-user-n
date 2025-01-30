@@ -17,13 +17,12 @@ import InputBox from "../../../utiles/InputCard/InputCard";
 import { useState } from "react";
 import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
 import { usePayments } from "../../../Payments/useRazorpay";
-import { Provider, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const screenWidth = Dimensions.get("window").width;
 
 const Donation = () => {
   const navigation = useNavigation();
-
   const [donationAmount, setDonationAmount] = useState(0);
 
   const onChangeDonationAmount = (amount) => {
@@ -32,10 +31,6 @@ const Donation = () => {
   };
 
   const { makeDonation } = usePayments();
-
-  const { profile } = useSelector((state) => state.profileSlice);
-
-  console.log(profile, "s");
 
   return (
     <View style={{ flex: 1 }}>

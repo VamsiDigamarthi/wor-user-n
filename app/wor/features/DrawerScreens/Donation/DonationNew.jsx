@@ -13,21 +13,29 @@ import { useEffect, useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 import CustomBtn from "../../../utiles/CustomBtn";
 import CustomSwitch from "../../../utiles/CustomSwitch";
+
+import { TextInput } from "react-native-gesture-handler";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import { usePayments } from "../../../Payments/useRazorpay";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 import { fonts } from "../../../fonts/Fonts";
+import { changeDonationStatus } from "./donation.serv";
+import { onProfileSection } from "../../ridebooking/home/redux/profileSlice";
 
-const DonationNew = () => {
-  const profile = useSelector((state) => state.profileSlice.profile);
+export default function DonationNew() {
+  const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.token);
+  const { profile } = useSelector((state) => state.profileSlice);
   const { makeDonation } = usePayments();
-  const [donationAmount, setDonationAmount] = useState(0);
+  const { email, mobile, name } = profile;
 
-  const memoizedProfile = useMemo(() => profile, [profile]);
+  const handleToggle = async () => {
+    const data = await changeDonationStatus({ token });
+    if (!data) return;
+    dispatch(onProfileSection({ token }));
 
-  const handleToggle = (isOn) => {
-    if (isOn) {
-      // Handle toggle logic here if needed
-    }
   };
 
   useEffect(() => {
@@ -46,7 +54,13 @@ const DonationNew = () => {
               <Text style={styles.heading}>
                 ₹2 per ride to Women Rider Foundation
               </Text>
-              <CustomSwitch onToggle={handleToggle} />
+
+
+              <CustomSwitch
+                initialValue={profile?.donationActive}
+                onToggle={handleToggle}
+              />
+
             </View>
 
             <View>
@@ -122,6 +136,7 @@ const styles = StyleSheet.create({
     paddingTop: 100,
   },
   heading: {
+
     fontFamily: fonts.robotoSemiBold,
     fontSize: 14,
   },
@@ -136,11 +151,7 @@ const styles = StyleSheet.create({
     height: 30,
     padding: 0,
     fontFamily: fonts.robotoRegular,
-  },
-  btnGroup: {
-    flexDirection: "row",
-    gap: 10,
-    marginTop: 10,
+
   },
   smallBtn: {
     borderWidth: 1,
@@ -151,6 +162,11 @@ const styles = StyleSheet.create({
   btnText: {
     fontFamily: fonts.robotoRegular,
   },
+
+  listTxt: {
+    fontFamily: fonts.robotoRegular,
+    textAlign: "justify",
+
   infoContainer: {
     gap: 10,
   },
@@ -163,5 +179,6 @@ const styles = StyleSheet.create({
     bottom: Platform.OS === "ios" ? 24 : 10,
     width: "95%",
     left: 10,
+
   },
 });

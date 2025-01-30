@@ -14,28 +14,30 @@ const WhereToGo = ({
   setIsMicModalOpenClose,
   title = "",
   passParams,
+  isDisplayAddHomePlace = true, // this display home places card default and || this prop used change drop location after ride accept to hidden the home place card
+  height = "70%",
+  handleReturnPlaceName, // this function return place to change destination modal
 }) => {
   const { nearPlaces } = useSelector((state) => state.nearPlaces);
+
   const {
     inputValue,
     suggestions,
     handleInputChange,
-    setAddedHowWorkPlaceType,
-    handleAddedHomePlace,
-    addedHomeWorkPlaceType,
     // favorite place state
     setIsSendOrReceiveParcel,
     isSelectFavoritePlaces,
     favoritePlaces,
   } = useWhereToGoHook({ micVoiceText, setMicVoiceText, title });
 
+  const { homeOrWorkPlacetype } = useSelector((state) => state.homeOrWorkPlace);
   return (
     <>
-      <View style={styles.container}>
+      <View style={[styles.container, { height }]}>
         <View style={styles.pickDropBtnCard}>
           <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-            {addedHomeWorkPlaceType
-              ? `${addedHomeWorkPlaceType?.toUpperCase()} Place`
+            {homeOrWorkPlacetype
+              ? `${homeOrWorkPlacetype?.toUpperCase()} Place`
               : "Where to go?"}
           </Text>
           <LocationInput
@@ -72,21 +74,21 @@ const WhereToGo = ({
         {isSelectFavoritePlaces === "favorite" ? (
           <LocationList
             data={favoritePlaces}
-            setAddedHowWorkPlaceType={setAddedHowWorkPlaceType}
-            isHomeWorkPlace={addedHomeWorkPlaceType}
             isFavoritePlaces={true}
+            // this props comming from destinatio changes after accept ride screen
+            isDisplayAddHomePlace={isDisplayAddHomePlace}
+            handleReturnPlaceName={handleReturnPlaceName}
           />
         ) : (
           <LocationList
-            // icons="favorite"
             data={suggestions ?? nearPlaces}
-            setAddedHowWorkPlaceType={setAddedHowWorkPlaceType}
-            isHomeWorkPlace={addedHomeWorkPlaceType}
-            // isFavoritePlaces={false}
+            // this props comming from destinatio changes after accept ride screen
+            isDisplayAddHomePlace={isDisplayAddHomePlace}
+            handleReturnPlaceName={handleReturnPlaceName}
           />
         )}
       </View>
-      <HomeWorkPlaceCard handleAddedHomePlace={handleAddedHomePlace} />
+      {isDisplayAddHomePlace && <HomeWorkPlaceCard />}
     </>
   );
 };
@@ -98,7 +100,6 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: "#fff",
     width: "100%",
-    height: "70%",
     borderRadius: 20,
     elevation: 0.5,
     gap: 10,

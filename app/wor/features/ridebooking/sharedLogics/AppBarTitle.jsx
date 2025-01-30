@@ -28,8 +28,6 @@ const AppBarTitle = ({ vicinity, title, borderStyles = true }) => {
           vicinity && styles.appTitCenWidth,
         ]}
       >
-        {/* <View style={{ flexDirection: "row", gap: 3, alignItems: "center" }}> */}
-        {/* <Octicons name="dot" size={20} color="#fd2a2e" /> */}
         <Text
           numberOfLines={1}
           ellipsizeMode="tail"
@@ -38,8 +36,6 @@ const AppBarTitle = ({ vicinity, title, borderStyles = true }) => {
             vicinity && {
               fontSize: 13,
               fontWeight: "500",
-              textAlign: "center",
-              width: "100%",
             },
           ]}
         >
@@ -89,6 +85,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "flex-start",
     gap: 2,
+    // backgroundColor: "blue",
   },
   main: {
     // backgroundColor: "red",

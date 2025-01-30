@@ -10,16 +10,13 @@ export const useWhereToGoHook = ({ micVoiceText, setMicVoiceText, title }) => {
   const { token } = useSelector((state) => state.token);
   const { favoritePlaces } = useSelector((state) => state.favoritePlaces);
   const { nearPlaces } = useSelector((state) => state.nearPlaces);
+  const { homeOrWorkPlacetype } = useSelector((state) => state.homeOrWorkPlace);
+
   const [inputValue, setInputValue] = useState(title || "");
   const [suggestions, setSuggestions] = useState(null);
 
   const [isSelectFavoritePlaces, setIsSendOrReceiveParcel] =
     useState("seggested");
-
-  const [addedHomeWorkPlaceType, setAddedHowWorkPlaceType] = useState(null);
-  const handleAddedHomePlace = async ({ type }) => {
-    setAddedHowWorkPlaceType(type);
-  };
 
   const fetchPlaceSuggestions = async (input) => {
     let nearPlaces = await nearPlacesByText(input);
@@ -56,10 +53,7 @@ export const useWhereToGoHook = ({ micVoiceText, setMicVoiceText, title }) => {
     inputValue,
     suggestions,
     handleInputChange,
-    setAddedHowWorkPlaceType,
-    // howe and work places states
-    handleAddedHomePlace,
-    addedHomeWorkPlaceType,
+
     // favorite place state
     setIsSendOrReceiveParcel,
     isSelectFavoritePlaces,

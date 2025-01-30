@@ -1,31 +1,48 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import React, { memo, useMemo } from "react";
+
+import React, { useEffect, memo, useMemo } from "react";
+import RideHistoryItem from "./Components/RideHistoryItem";
+
 import RideHistoryItem from "./Components/RideHistoryItem";
 import { useRideHistoryHook } from "./Hooks/RideHistory.hook";
+
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
+import { useDispatch, useSelector } from "react-redux";
+import { rideHistoryAsyc } from "./rideHistory.slice";
+
+const RideHistory = () => {
+  const { token } = useSelector((state) => state.token);
+  const dispatch = useDispatch();
+
+  const { rideHistory } = useSelector((state) => state.rideHistory);
+
+  useEffect(() => {
+    dispatch(rideHistoryAsyc({ token }));
+  }, []);
 
 const RideHistory = () => {
   const { rideHistory } = useRideHistoryHook();
 
-  // Memoized ride history length check
   const hasRides = useMemo(() => rideHistory.length > 0, [rideHistory]);
 
   return (
     <AppBarLayout title="Ride History" isPositionAppbar>
       <View style={styles.innerContainer}>
-        {hasRides ? (
-          <FlatList
-            data={rideHistory}
-            keyExtractor={(item) => item._id}
-            renderItem={({ item }) => <RideHistoryItem ride={item} />}
-            ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}
-            showsVerticalScrollIndicator={false}
-          />
-        ) : (
-          <View style={styles.centerCard}>
-            <Text style={styles.noRideText}>No Rides</Text>
-          </View>
-        )}
+
+        <FlatList
+          scrollEnabled
+          data={rideHistory}
+          keyExtractor={(item) => item._id}
+          renderItem={({ item }) => <RideHistoryItem ride={item} />}
+          ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+          showsVerticalScrollIndicator={false}
+          ListEmptyComponent={
+            <View style={styles.centerCard}>
+              <Text style={{ fontSize: 20, fontWeight: "600" }}>No Rides</Text>
+            </View>
+          }
+        />
+
       </View>
     </AppBarLayout>
   );

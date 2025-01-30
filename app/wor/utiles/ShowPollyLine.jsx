@@ -16,10 +16,10 @@ const ShowPollyLine = ({
     latitude: origin.lat,
     longitude: origin.lng,
   });
+  const [heading, setHeading] = useState(0); // Add a state for heading
 
   const mapRef = useRef(null);
 
-  // Adjust origin and destination for MapView
   const adjustedOrigin = { latitude: origin.lat, longitude: origin.lng };
   const adjustedDestination = {
     latitude: destination.lat,
@@ -36,7 +36,6 @@ const ShowPollyLine = ({
   const { fetchRouteCoordinates, routeCoordinates, error } =
     useFetchRouteCoordinates(origin, destination);
 
-  // Fetch route on component mount or when origin/destination changes
   useEffect(() => {
     const fetchData = async () => {
       const coordinates = await fetchRouteCoordinates();
@@ -45,7 +44,6 @@ const ShowPollyLine = ({
     fetchData();
   }, [origin, destination]);
 
-  // Fit map to route coordinates
   const fitMapToCoordinates = (coordinates) => {
     if (mapRef.current && coordinates.length > 0) {
       mapRef.current.fitToCoordinates(coordinates, {
@@ -55,13 +53,17 @@ const ShowPollyLine = ({
     }
   };
 
-  // Update marker position based on live coordinates
   useEffect(() => {
     if (liveCoordinates?.lat) {
+      // Calculate the heading based on current and previous position
+      const newHeading = calculateBearing(currentPosition, liveCoordinates);
+
       setCurrentPosition({
         latitude: liveCoordinates.lat,
         longitude: liveCoordinates.lng,
       });
+
+      setHeading(newHeading); // Update the heading state
     }
   }, [liveCoordinates]);
 
@@ -80,6 +82,8 @@ const ShowPollyLine = ({
       );
     }
   }, [height]);
+
+  // console.log("heading", heading);
 
   return (
     <View style={styles.container}>
@@ -106,10 +110,14 @@ const ShowPollyLine = ({
         </Marker>
         <Marker coordinate={currentPosition} title="Live Position">
           <Image
-            style={{ width: 30, height: 30, resizeMode: "contain" }}
+            style={{
+              width: 30,
+              height: 30,
+              resizeMode: "contain",
+              transform: [{ rotate: `${heading}deg` }], // Rotate the bike image
+            }}
             source={require("../../../assets/images/markers/BIKE-removebg-preview.png")}
           />
-          {/* <MaterialCommunityIcons name="motorbike" size={24} color="#000" /> */}
         </Marker>
 
         {/* Polyline */}

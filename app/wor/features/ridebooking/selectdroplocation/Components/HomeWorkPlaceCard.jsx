@@ -9,8 +9,9 @@ import {
   setInitialDropDetails,
 } from "../../sharedLogics/rideDetailsSlice";
 import AddHomePlaceBtn from "./AddHomePlaceBtn";
+import { setHomeOrWorkPlaceType } from "../redux/homePlaceType.slice";
 
-const HomeWorkPlaceCard = ({ handleAddedHomePlace }) => {
+const HomeWorkPlaceCard = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -30,6 +31,10 @@ const HomeWorkPlaceCard = ({ handleAddedHomePlace }) => {
     navigation.navigate("ShowPrice");
   };
 
+  const handleSetHomeOrWorkPlace = ({ type }) => {
+    dispatch(setHomeOrWorkPlaceType(type));
+  };
+
   return (
     <View style={styles.homeWorLocationCard}>
       {homePlace ? (
@@ -42,7 +47,7 @@ const HomeWorkPlaceCard = ({ handleAddedHomePlace }) => {
         <AddHomePlaceBtn
           iconType="Entypo"
           iconsName="home"
-          onPress={() => handleAddedHomePlace({ type: "home" })}
+          onPress={() => handleSetHomeOrWorkPlace({ type: "home" })}
         />
       )}
       {workPlace ? (
@@ -59,7 +64,7 @@ const HomeWorkPlaceCard = ({ handleAddedHomePlace }) => {
           iconsName="work"
           title="Work"
           subTitle="Add Work Place"
-          onPress={() => handleAddedHomePlace({ type: "work" })}
+          onPress={() => handleSetHomeOrWorkPlace({ type: "work" })}
         />
       )}
       {/* <HomeLocationCard

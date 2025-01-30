@@ -29,7 +29,7 @@ const AppBarRideBookingConditions = ({ isArrived, otpVerified, rideTide }) => {
                 justifyContent: "center",
                 alignItems: "center",
                 // backgroundColor: "red",
-                marginTop: 35,
+                marginTop: 6,
               }}
             >
               <Ionicons size={24} name="timer" color="#f98600" />
