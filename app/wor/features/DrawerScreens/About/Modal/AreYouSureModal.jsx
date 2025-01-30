@@ -4,7 +4,7 @@ import { InfoIcons } from "../../../../Icons/Icons";
 import CustomBtn from "../../../../utiles/CustomBtn";
 import { TickCard } from "../components/TickCard";
 
-const AreYouSureModal = ({ setDisplayModalType }) => {
+const AreYouSureModal = ({ setDisplayModalType, handleDeleteAcoountModal }) => {
   const data = [
     "You will lose access to all Ola services like Mobility, Cars, Dash and Financial Services.",
     "If you have or are in the process of availing any Ola Electric product or service, we will not be able to process your deletion request as it will render the product unusable",
@@ -27,7 +27,13 @@ const AreYouSureModal = ({ setDisplayModalType }) => {
         height={50}
         onPress={() => setDisplayModalType("accountDelete")}
       />
-      <CustomBtn title="Cancel" btnBg="#f7f7f7" btnColor="#000" height={50} />
+      <CustomBtn
+        onPress={handleDeleteAcoountModal}
+        title="Cancel"
+        btnBg="#f7f7f7"
+        btnColor="#000"
+        height={50}
+      />
     </View>
   );
 };

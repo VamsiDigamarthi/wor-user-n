@@ -2,20 +2,15 @@ import { ImageBackground, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { fonts } from "../../../../fonts/Fonts";
 import { colors } from "../../../../colors/colors";
+import { woriderimg } from "../../../../Images/Home";
 
 const HomeWorImage = () => {
   return (
-    <ImageBackground
-      source={{
-        uri: "https://s3-alpha-sig.figma.com/img/7911/de63/52b2a75265856d69f141a38e4434558f?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=RAocZw5Rc3jB8VsL64WqRmTcZsABcJV4rNDw4rdVJ3gZKC8iLxUAiPZul0RJnCgirjIrvjJT1FBxkNXOYwoJW0UvlmRhI9BtAmQUzZGPg15wqw1Uz~E6EEbDAKAofy7aCQ2ZGsg-A48C~9n0ozfB1b2gTGC8wsuHz05K3Z9q4zwvfbJy3tJbiEnWNFDaEGvo2MAst9ckOtdE~W6YjEH41GSjdlx1UtPSVuqH4HODgwRnxUGgqYayCpkkiLiHQB1w5lesRCndmYVgGQG3m2v1Q9TSI09LwJxAk5066FcD9mt2SrVTwBNeTMK8rZYluvhUnGYX-fDOgCFjsdSN7Yj5SA__",
-      }}
-      style={styles.backImage}
-      resizeMode="cover"
-    >
+    <ImageBackground source={woriderimg} style={styles.backImage}>
       <View style={styles.overlay}>
-        <Text style={styles.goTitle}>#go Women Rider</Text>
-        <Text style={styles.madeText}>Made for women</Text>
-        <Text style={styles.madeText}>Crafted in Hyderbad</Text>
+        <Text style={styles.goTitle}>#WoRider</Text>
+        <Text style={styles.madeText}>Made in India</Text>
+        {/* <Text style={styles.madeText}>Crafted in Hyderbad</Text> */}
       </View>
     </ImageBackground>
   );
@@ -28,6 +23,9 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 200,
     marginTop: 20,
+    resizeMode: "contain",
+    overflow: "hidden",
+    borderRadius: 20,
   },
   overlay: {
     position: "absolute",
@@ -35,8 +33,8 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: "#f5f2f2a9",
-    justifyContent: "center",
+    backgroundColor: "rgba(0,0,0,0.1)",
+    // justifyContent: "center",
     // alignItems: "center",
     padding: 10,
   },
@@ -47,7 +45,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.robotoBold,
   },
   madeText: {
-    color: "gray",
+    color: "#000",
     fontFamily: fonts.robotoRegular,
   },
 });

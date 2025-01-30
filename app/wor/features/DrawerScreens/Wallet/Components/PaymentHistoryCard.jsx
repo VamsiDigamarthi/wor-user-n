@@ -8,6 +8,8 @@ const RideHistoryItem = ({
   status = "debit",
   type = "car",
   isFavoriteOrRideHistory = true,
+  amount = "",
+  date = "",
 }) => {
   const navigation = useNavigation();
 
@@ -36,7 +38,7 @@ const RideHistoryItem = ({
           <Text style={styles.subAddr} numberOfLines={1} ellipsizeMode="tail">
             UPI
           </Text>
-          <Text style={styles.time}>08:10 AM JAN 10 2024</Text>
+          <Text style={styles.time}>{new Date(date).toDateString()}</Text>
         </View>
       </View>
 
@@ -47,7 +49,7 @@ const RideHistoryItem = ({
             { color: status == "debit" ? "red" : "#1dad07" },
           ]}
         >
-          - 150
+          {amount && status == "debit" ? `- ${amount}` : `+ ${amount}`}
         </Text>
       </View>
     </Pressable>
