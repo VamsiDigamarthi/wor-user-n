@@ -9,13 +9,13 @@ import {
   KeyboardAvoidingView,
   TextInput,
 } from "react-native";
-import { useEffect, useState, useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState, useMemo, memo } from "react";
+// import { useSelector } from "react-redux";
 import CustomBtn from "../../../utiles/CustomBtn";
 import CustomSwitch from "../../../utiles/CustomSwitch";
 
-import { TextInput } from "react-native-gesture-handler";
-import { useEffect, useState } from "react";
+// import { TextInput } from "react-native-gesture-handler";
+// import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { usePayments } from "../../../Payments/useRazorpay";
@@ -24,7 +24,7 @@ import { fonts } from "../../../fonts/Fonts";
 import { changeDonationStatus } from "./donation.serv";
 import { onProfileSection } from "../../ridebooking/home/redux/profileSlice";
 
-export default function DonationNew() {
+function DonationNew() {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.token);
   const { profile } = useSelector((state) => state.profileSlice);
@@ -35,8 +35,9 @@ export default function DonationNew() {
     const data = await changeDonationStatus({ token });
     if (!data) return;
     dispatch(onProfileSection({ token }));
-
   };
+
+  const [donationAmount, setDonationAmount] = useState(0);
 
   useEffect(() => {
     console.log(donationAmount);
@@ -55,12 +56,10 @@ export default function DonationNew() {
                 ₹2 per ride to Women Rider Foundation
               </Text>
 
-
               <CustomSwitch
                 initialValue={profile?.donationActive}
                 onToggle={handleToggle}
               />
-
             </View>
 
             <View>
@@ -72,7 +71,7 @@ export default function DonationNew() {
                 keyboardType="numeric"
               />
 
-              <View style={styles.btnGroup}>
+              <View style={{ flexDirection: "row", gap: 10, marginTop: 10 }}>
                 {[10, 20].map((amount) => (
                   <TouchableOpacity
                     key={amount}
@@ -106,13 +105,7 @@ export default function DonationNew() {
           <View style={styles.buttonContainer}>
             <CustomBtn
               title="Continue"
-              onPress={() =>
-                makeDonation(
-                  donationAmount,
-                  memoizedProfile.email,
-                  memoizedProfile.mobile
-                )
-              }
+              onPress={() => makeDonation(donationAmount, email, mobile)}
               btnColor={donationAmount ? "#f7f7f7" : "#ea4c89"}
               btnBg={donationAmount ? "#ea4c89" : "#f7f7f7"}
             />
@@ -121,9 +114,9 @@ export default function DonationNew() {
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
-};
+}
 
-export default DonationNew;
+export default memo(DonationNew);
 
 const styles = StyleSheet.create({
   flexContainer: {
@@ -136,7 +129,6 @@ const styles = StyleSheet.create({
     paddingTop: 100,
   },
   heading: {
-
     fontFamily: fonts.robotoSemiBold,
     fontSize: 14,
   },
@@ -151,7 +143,6 @@ const styles = StyleSheet.create({
     height: 30,
     padding: 0,
     fontFamily: fonts.robotoRegular,
-
   },
   smallBtn: {
     borderWidth: 1,
@@ -166,6 +157,7 @@ const styles = StyleSheet.create({
   listTxt: {
     fontFamily: fonts.robotoRegular,
     textAlign: "justify",
+  },
 
   infoContainer: {
     gap: 10,
@@ -179,6 +171,5 @@ const styles = StyleSheet.create({
     bottom: Platform.OS === "ios" ? 24 : 10,
     width: "95%",
     left: 10,
-
   },
 });

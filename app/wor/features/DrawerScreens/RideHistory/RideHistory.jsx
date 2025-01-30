@@ -3,7 +3,7 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, memo, useMemo } from "react";
 import RideHistoryItem from "./Components/RideHistoryItem";
 
-import RideHistoryItem from "./Components/RideHistoryItem";
+// import RideHistoryItem from "./Components/RideHistoryItem";
 import { useRideHistoryHook } from "./Hooks/RideHistory.hook";
 
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
@@ -20,15 +20,11 @@ const RideHistory = () => {
     dispatch(rideHistoryAsyc({ token }));
   }, []);
 
-const RideHistory = () => {
-  const { rideHistory } = useRideHistoryHook();
-
   const hasRides = useMemo(() => rideHistory.length > 0, [rideHistory]);
 
   return (
     <AppBarLayout title="Ride History" isPositionAppbar>
       <View style={styles.innerContainer}>
-
         <FlatList
           scrollEnabled
           data={rideHistory}
@@ -42,7 +38,6 @@ const RideHistory = () => {
             </View>
           }
         />
-
       </View>
     </AppBarLayout>
   );

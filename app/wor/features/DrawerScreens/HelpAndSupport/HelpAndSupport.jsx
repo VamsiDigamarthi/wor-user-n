@@ -6,11 +6,19 @@ import RideHistoryItem from "../RideHistory/Components/RideHistoryItem";
 import FaqListCard from "../RideHistory/Components/FaqListCard";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 import { fonts } from "../../../fonts/Fonts";
-import { memo } from "react";
+import { memo, useEffect } from "react";
+import { rideHistoryAsyc } from "../RideHistory/rideHistory.slice";
+import { useDispatch, useSelector } from "react-redux";
 
 function HelpAndSupport() {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
-  const { rideHistory } = useRideHistoryHook();
+  const { token } = useSelector((state) => state.token);
+  const { rideHistory } = useSelector((state) => state.rideHistory);
+
+  useEffect(() => {
+    dispatch(rideHistoryAsyc({ token }));
+  }, []);
 
   return (
     <AppBarLayout title="Help & WoR Support" isPositionAppbar>
