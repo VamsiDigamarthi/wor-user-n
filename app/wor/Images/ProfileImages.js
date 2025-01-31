@@ -5,6 +5,11 @@ import personalInfo from "../../../assets/profileicons/personalinfo.png";
 import genderidentity from "../../../assets/profileicons/genderidentity.png";
 import mpin from "../../../assets/profileicons/mpin.png";
 import emergencycontact from "../../../assets/profileicons/emergencycontact.png";
+import calendar from "../../../assets/profileicons/calendar.png";
+import clock from "../../../assets/profileicons/clock.png";
+import email from "../../../assets/profileicons/email.png";
+import locationpin from "../../../assets/profileicons/locationPpin.png";
+import mobile from "../../../assets/profileicons/mobile.png";
 
 export {
   servicespng,
@@ -13,4 +18,9 @@ export {
   genderidentity,
   mpin,
   personalInfo,
+  calendar,
+  clock,
+  email,
+  locationpin,
+  mobile,
 };

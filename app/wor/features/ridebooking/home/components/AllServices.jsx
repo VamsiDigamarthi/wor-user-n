@@ -50,7 +50,7 @@ const AllServices = () => {
     navigation.navigate("SelectDropLocation");
   };
 
-  const renderServices = () => {
+  const renderServices1 = () => {
     const services = [
       {
         label: "Scooty",
@@ -67,7 +67,24 @@ const AllServices = () => {
         image: require("../../../../../../assets/images/HomeServiceImages/auto.png"),
         vehicle: "auto",
       },
+    ];
 
+    return services.map((service, index) => (
+      <ServiceCard
+        key={index}
+        imageSource={service.image}
+        label={service.label}
+        onPress={
+          service.isParcel
+            ? navigateToParcelScreen
+            : () => navigateToPickLocationScreen(service.vehicle)
+        }
+      />
+    ));
+  };
+
+  const renderServices2 = () => {
+    const services = [
       {
         label: "Wor Premium",
         image: require("../../../../../../assets/images/HomeServiceImages/cab.png"),
@@ -108,9 +125,9 @@ const AllServices = () => {
         <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
           <Text style={styles.headerText}>Services</Text>
         </View>
-        {/* <View style={styles.viewAllContainer}></View> */}
       </View>
-      <View style={styles.serviceGrid}>{renderServices()}</View>
+      <View style={styles.serviceGrid}>{renderServices1()}</View>
+      <View style={styles.serviceGrid}>{renderServices2()}</View>
     </View>
   );
 };
@@ -148,7 +165,7 @@ const styles = StyleSheet.create({
   },
   serviceGrid: {
     flexDirection: "row",
-    flexWrap: "wrap",
+    // flexWrap: "wrap",
     justifyContent: "space-between",
     alignItems: "center",
   },

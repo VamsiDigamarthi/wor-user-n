@@ -39,6 +39,7 @@ const ShowPriceScreen = () => {
     timerSetModalOpen,
     shceduleOrderModal,
     time,
+    profile,
   } = useShowPriceScreenHook();
 
   const { mapHeight, snapPoints, handleSheetChange } = useBottomSheetConfig(
@@ -50,6 +51,8 @@ const ShowPriceScreen = () => {
   const [offerModalOpen, setOfferModalOpen] = useState(false);
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("wallet");
+
+  // console.log(profile?.walletBalance);
 
   return (
     <>
@@ -96,6 +99,7 @@ const ShowPriceScreen = () => {
         </BottomSheetComponent>
         <View style={styles.coupneWithBtn}>
           <OfferCouponCard
+            walletBalance={profile?.walletBalance}
             paymentMethod={paymentMethod}
             onPaymentPress={() => setPaymentModalOpen(true)}
             onOfferPress={() => setOfferModalOpen(true)}

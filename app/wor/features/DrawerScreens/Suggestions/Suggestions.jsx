@@ -7,6 +7,7 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
+  Image,
 } from "react-native";
 import React, { useState, useCallback, useMemo } from "react";
 import Toast from "react-native-toast-message";
@@ -15,10 +16,14 @@ import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 import CustomBtn from "../../../utiles/CustomBtn";
 import { fonts } from "../../../fonts/Fonts";
 import { API } from "../../../../../Constants/url";
+import ModalUi from "../../../utiles/Modal/Modal";
+import { infoModalStyles } from "../../../../../Components/InfoUi/Styles/InfoModalStyles";
+import TickBig from "../../../../../assets/tickBig.png";
 
-export default function Suggestions() {
+export default function Suggestions({ navigation }) {
   const { token } = useSelector((state) => state.token);
   const [text, setText] = useState("");
+  const [openModal, setOpenModal] = useState(false);
 
   const handleChangeText = useCallback((value) => {
     setText(value);
@@ -35,12 +40,13 @@ export default function Suggestions() {
       );
 
       setText("");
-      Toast.show({
-        text1: "Thank You For Your Suggestion!",
-        text2: "We Will Try to improve your experience",
-        position: "top",
-        type: "success",
-      });
+      setOpenModal(true);
+      // Toast.show({
+      //   text1: "Thank You For Your Suggestion!",
+      //   text2: "We Will Try to improve your experience",
+      //   position: "top",
+      //   type: "success",
+      // });
     } catch (error) {
       Toast.show({
         text1: "Something went wrong!",
@@ -90,6 +96,32 @@ export default function Suggestions() {
           </View>
         </AppBarLayout>
       </TouchableWithoutFeedback>
+
+      {openModal && (
+        <ModalUi
+          modalStyle="slide"
+          style={infoModalStyles.aadharModalStyles}
+          insideCardStyle={infoModalStyles.insideCardStyle}
+          closebtn={false}
+        >
+          <View style={styles.btContainer}>
+            <Image source={TickBig} style={{ height: 100, width: 100 }} />
+
+            <Text style={styles.heading}>Thank You !</Text>
+            <Text style={{ fontFamily: fonts.robotoRegular }}>
+              Your Suggestion has been send to WoR team
+            </Text>
+
+            <CustomBtn
+              title="Back Home"
+              btnBg={"#EA4C89"}
+              btnColor={"#FFF"}
+              onPress={() => navigation?.navigate("Home")}
+              width="100%"
+            />
+          </View>
+        </ModalUi>
+      )}
     </KeyboardAvoidingView>
   );
 }
@@ -128,5 +160,18 @@ const styles = StyleSheet.create({
     bottom: 20,
     width: "100%",
     left: 10,
+  },
+
+  btContainer: {
+    padding: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 10,
+    width: "100%",
+  },
+
+  heading: {
+    fontFamily: fonts.robotoSemiBold,
+    fontSize: 26,
   },
 });

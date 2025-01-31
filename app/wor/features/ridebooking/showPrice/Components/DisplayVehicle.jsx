@@ -1,6 +1,6 @@
 import React from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Fontisto, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setPrice,
@@ -37,7 +37,7 @@ const DisplayVehicle = ({ vehicle }) => {
               <View
                 style={{ flexDirection: "row", gap: 2, alignItems: "center" }}
               >
-                <Entypo name="user" size={16} color="gray" />
+                <Fontisto name="female" size={15} color="black" />
                 <Text style={{ fontSize: 15, color: "gray" }}>
                   {vehicle?.personCount}
                 </Text>

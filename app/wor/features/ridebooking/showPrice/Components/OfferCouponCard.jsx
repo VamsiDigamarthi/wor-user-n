@@ -8,7 +8,12 @@ import {
   Upi,
 } from "../../../../Images/Payment";
 
-const OfferCouponCard = ({ onOfferPress, onPaymentPress, paymentMethod }) => {
+const OfferCouponCard = ({
+  onOfferPress,
+  onPaymentPress,
+  paymentMethod,
+  walletBalance,
+}) => {
   return (
     <View style={styles.couponTextCard}>
       <TouchableOpacity style={styles.offersCard} onPress={onOfferPress}>
@@ -51,7 +56,7 @@ const OfferCouponCard = ({ onOfferPress, onPaymentPress, paymentMethod }) => {
               {paymentMethod?.charAt(0).toUpperCase() + paymentMethod?.slice(1)}
             </Text>
             <Text style={{ fontSize: 10, color: "gray" }}>
-              Available Rs. 120/-
+              Available Rs. {walletBalance?.toString()}/-
             </Text>
           </TouchableOpacity>
         </View>
