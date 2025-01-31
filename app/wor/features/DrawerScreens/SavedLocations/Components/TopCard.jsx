@@ -29,7 +29,7 @@ export default function TopCard({
 
           {/* This View now contains only the text and 3 dots */}
           <View style={styles.textAndDotsContainer}>
-            <View>
+            <View style={{ width: "90%" }}>
               <Text
                 numberOfLines={1}
                 ellipsizeMode="tail"
@@ -104,5 +104,6 @@ const styles = StyleSheet.create({
   subHeading: {
     // fontWeight: "400",
     fontFamily: fonts.robotoRegular,
+    // width: "30%",
   },
 });

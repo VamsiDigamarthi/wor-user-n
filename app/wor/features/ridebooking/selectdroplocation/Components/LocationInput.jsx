@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     paddingHorizontal: 10,
+    backgroundColor: "#e4e1e16b",
   },
   micIcons: {
     backgroundColor: "#fff",

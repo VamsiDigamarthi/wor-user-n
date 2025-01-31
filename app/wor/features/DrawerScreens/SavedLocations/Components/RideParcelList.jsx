@@ -9,6 +9,7 @@ import { onFavoritePlace } from "../../../ridebooking/selectdroplocation/redux/f
 
 import NoData from "../../../../utiles/NoData";
 import { fetchSavedPlace } from "../../../Parcels/redux/parcelSavedPlace.slice";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 const RideParcelList = () => {
   const dispatch = useDispatch();
@@ -50,7 +51,9 @@ const RideParcelList = () => {
                 type="favorite"
                 title={item.name}
                 subtitle={item.vicinity}
-                icon={<Entypo name="triangle-left" size={30} color="black" />}
+                icon={
+                  <FontAwesome name="location-arrow" size={24} color="black" />
+                }
                 entireItem={item}
               />
             )}
@@ -68,7 +71,9 @@ const RideParcelList = () => {
                 title={item.landMark}
                 subtitle={item.address}
                 otherData={[item.mobile, item.senderName]}
-                icon={<Entypo name="triangle-left" size={30} color="black" />}
+                icon={
+                  <FontAwesome name="location-arrow" size={24} color="black" />
+                }
                 entireItem={item}
                 editDeleteType="savedAddress"
               />

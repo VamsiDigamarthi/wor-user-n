@@ -1,25 +1,60 @@
 [
   {
     "icon": "star",
-    "title": "Know your Rider",
-    "subTitle": "Understanding what contributes to a rider's happiness can make you a 5-star rider. By being aware of the factors that improve their experience, such as clear communication, respect, and attentiveness, you can enhance the journey and create a positive environment for both you and the rider."
+    "title": "How we calculate your ratings",
+    "subTitle": "Rating is calculated as an average of all your past ratings and is measured out of 5 stars. Ratings are 100% anonymous, so either you or your Rider will never see rating for an individual ride."
   },
 
   {
     "icon": "stopwatch",
-    "title": "Timely",
-    "subTitle": "To ensure a smooth and timely pickup, please double-check your designated pickup location. Arriving promptly at the specified spot not only helps the rider maintain their schedule but also contributes to a more efficient and stress-free journey for both of you."
+    "title": "Rate your ride",
+    "subTitle": "Provide an overall rating for your experience,including the captain,vehicle,and app.Help us understand how we can improve your journey."
   },
 
   {
     "icon": "shield",
-    "title": "Safety",
-    "subTitle": "Put on your helmet and take it easy. Both riders and drivers should always adhere to traffic laws for everyone's safety."
+    "title": "Rate Captain Behavior",
+    "subTitle": "Share feedback on the captain’s professionalism, courtesy, and adherence to safety protocols. Your input ensures better service for everyone."
   },
 
   {
     "icon": "shield",
-    "title": "Courtesy",
-    "subTitle": "A simple smile or greeting can make a big difference! Treat your riders with the same kindness and respect you would want to receive."
+    "title": "Rate Safety Measures",
+    "subTitle": " Evaluate how well safety features like helmet use, speed monitoring, and SOS were followed. Your feedback helps us prioritize safety."
+  },
+  {
+    "icon": "shield",
+    "title": "Rate Vehicle Condition",
+    "subTitle": "Let us know about the cleanliness, maintenance, and comfort of the vehicle. We strive to ensure every ride meets high standards."
+  },
+  {
+    "icon": "shield",
+    "title": " Incident Reporting",
+    "subTitle": "Report any safety concerns, misbehavior, or incidents during your ride. We take every report seriously to ensure a safe environment."
+  },
+  {
+    "icon": "shield",
+    "title": "Rate Driving Skills",
+    "subTitle": "Share feedback on the captain’s driving skills, adherence to traffic rules, and smoothness of the ride. Your input helps improve driver training."
+  },
+  {
+    "icon": "shield",
+    "title": "Rate Time Punctuality",
+    "subTitle": "Evaluate whether the captain arrived on time for pickup and drop-off. Timeliness is key to a seamless experience."
+  },
+  {
+    "icon": "shield",
+    "title": "Anonymous Feedback Option",
+    "subTitle": "Provide honest feedback without revealing your identity, especially for sensitive issues. Your privacy is our priority."
+  },
+  {
+    "icon": "shield",
+    "title": "Rate App Experience",
+    "subTitle": "Share your thoughts on the app’s ease of use, functionality, and reliability. We aim to make your experience as smooth as possible."
+  },
+  {
+    "icon": "shield",
+    "title": "Suggestions for Improvement",
+    "subTitle": "Tell us how we can enhance your ride experience, safety, or service. Your ideas help us grow and improve."
   }
 ]

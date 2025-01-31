@@ -3,16 +3,16 @@ import { StyleSheet, Text, View } from "react-native";
 const ParcelSpecification = () => {
   let data = [
     {
-      name: "Parcel Weights 10kgs or Less",
+      name: "Max Parcel Weight : 10 KG",
     },
     {
-      name: "No Illegal, alcohol or restricted items",
+      name: "Max Dimensions : Should fit in Standard Bagpack",
     },
     {
-      name: "Item should fit in a backpack",
+      name: "Shape : No sharp Edges",
     },
     {
-      name: "Avoid sending high value & Fragile items",
+      name: "Secure packaging required",
     },
   ];
 
