@@ -10,8 +10,13 @@ const SupportIcons = ({ navigationText, rightText }) => {
       onPress={() => navigation.navigate(navigationText)}
       style={styles.rightIconCard}
     >
-      <MaterialIcons name="support-agent" size={15} color="#e02e88" />
-      <Text style={styles.supportText}>{rightText}</Text>
+      <MaterialIcons
+        style={{ marginTop: 10 }}
+        name="support-agent"
+        size={25}
+        color="#fff"
+      />
+      {rightText && <Text style={styles.supportText}>{rightText}</Text>}
     </Pressable>
   );
 };
@@ -19,6 +24,14 @@ const SupportIcons = ({ navigationText, rightText }) => {
 export default SupportIcons;
 
 const styles = StyleSheet.create({
+  rightIconCard: {
+    backgroundColor: "#e02e88",
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   supportText: {
     fontSize: 12,
     fontWeight: "500",

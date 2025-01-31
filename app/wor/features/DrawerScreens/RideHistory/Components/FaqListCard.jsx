@@ -13,11 +13,14 @@ import {
   services,
 } from "../../../../Images/helpandsupport";
 
-export default function FaqListCard() {
+export default function FaqListCard({orderId}) {
+
   const navigation = useNavigation();
-  function handleNavigation(title) {
-    navigation.navigate("FaqHome", { title: title });
+
+  function handleNavigation(caterogy) {
+    navigation.navigate("ChatBot", { caterogy, orderId });
   }
+
   return (
     <View style={style.container}>
       {faqData?.map((e, index) => {

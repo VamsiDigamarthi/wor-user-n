@@ -2,7 +2,12 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Octicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-const AppBarTitle = ({ vicinity, title, borderStyles = true }) => {
+const AppBarTitle = ({
+  vicinity,
+  title,
+  borderStyles = true,
+  width = "94%",
+}) => {
   const navigation = useNavigation();
 
   const handleBackOrNavigateSelectDropScreen = () => {
@@ -20,6 +25,7 @@ const AppBarTitle = ({ vicinity, title, borderStyles = true }) => {
         !borderStyles && styles.main,
         styles.textinnerCard,
         vicinity && styles.appTitCenStyles,
+        { width },
       ]}
     >
       <View

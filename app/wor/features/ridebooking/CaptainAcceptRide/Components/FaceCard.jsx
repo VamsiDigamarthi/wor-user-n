@@ -4,10 +4,18 @@ import { InfoIcons, UserIcons } from "../../../../Icons/Icons";
 import { useSelector } from "react-redux";
 import PriceDetailsModal from "../Modals/PriceDetailsModal";
 
+import PaymentModal from "../../showPrice/Modal/PaymentModal";
+
 const FaceCard = () => {
   const { completeRideDetails } = useSelector((state) => state.allRideDetails);
   const { tip, isTipAdded } = useSelector((state) => state.tipSlice);
   const [openPriceModal, setOpenPriceModal] = useState(false);
+
+  const [paymentMethodsModal, setPaymentMethodsModal] = useState(false);
+
+  const changePaymentMethodModal = () => {
+    setPaymentMethodsModal(!paymentMethodsModal);
+  };
 
   const handleChangePriceModal = () => {
     setOpenPriceModal(!openPriceModal);
@@ -51,8 +59,13 @@ const FaceCard = () => {
               justifyContent: "space-between",
             }}
           >
-            <Text>Payment Mode : Cash</Text>
-            <Pressable>
+            <Text>
+              Payment Mode :{" "}
+              <Text style={{ fontSize: 14, fontWeight: "600" }}>
+                {completeRideDetails?.paymentMethod?.toUpperCase()}
+              </Text>
+            </Text>
+            <Pressable onPress={changePaymentMethodModal}>
               <Text style={{ color: "#e02e88", fontWeight: "500" }}>
                 Change
               </Text>
@@ -65,6 +78,11 @@ const FaceCard = () => {
         openPriceModal={openPriceModal}
         totalPrice={totalPrice}
         tip={isTipAdded ? tip : completeRideDetails?.addTip}
+      />
+      <PaymentModal
+        onClose={changePaymentMethodModal}
+        paymentMethodsModal={paymentMethodsModal}
+        isRideBookingScreen={true}
       />
     </>
   );

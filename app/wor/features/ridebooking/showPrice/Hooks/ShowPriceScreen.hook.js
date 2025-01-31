@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { haversineDistance } from "../../../../../../Constants/calculateKM";
-import { setPrice, setPriceDetails } from "../../sharedLogics/rideDetailsSlice";
+import {
+  setPaymentMethod,
+  setPrice,
+  setPriceDetails,
+} from "../../sharedLogics/rideDetailsSlice";
 import { calculatePriceDetails, vehicles } from "../vehicleData";
 import { useNavigation } from "@react-navigation/native";
 
@@ -43,6 +47,10 @@ export const useShowPriceScreenHook = () => {
 
     dispatch(setPrice(price));
     dispatch(setPriceDetails(calculatedPriceDetails));
+
+    let paymentMethod = price >= profile?.walletBalance ? "cash" : "wallet";
+
+    dispatch(setPaymentMethod(paymentMethod));
   };
 
   useEffect(() => {

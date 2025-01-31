@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useSocket } from "../../../../../SocketContext";
 import { getTravelDetails } from "../../../../../Constants/displaylocationmap";
+import { CommonActions, useNavigation } from "@react-navigation/native";
 
 export const useCaptainAcceptRideScreenHook = () => {
+  const navigation = useNavigation();
   const { socket, isConnected } = useSocket();
   const { completeRideDetails } = useSelector((state) => state.allRideDetails);
 
@@ -36,15 +38,28 @@ export const useCaptainAcceptRideScreenHook = () => {
     setLiveCoordinates(coordinates);
   };
 
+  const handleCompleteRide = () => {
+    console.log("--------- ride completed -------------");
+
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0, // Ensures the specified route is the only route in the stack
+        routes: [{ name: "AuthenticatedStack" }], // Replace 'Home' with your target screen name
+      })
+    );
+  };
+
   useEffect(() => {
     if (socket && isConnected) {
       socket.on("order-otp-verified", onVerifiedOtp);
       socket.on("order-arrived", onOrderArrived);
+      socket.on("order-completed", handleCompleteRide);
       socket.on("new-receive-coordinates", handleLiveCoordinates);
     }
     return () => {
       socket.off("order-otp-verified", onVerifiedOtp);
       socket.off("order-arrived", onOrderArrived);
+      socket.off("order-completed", handleCompleteRide);
       socket.off("new-receive-coordinates", handleLiveCoordinates);
     };
   }, [socket, isConnected]);

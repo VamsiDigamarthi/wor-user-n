@@ -50,7 +50,6 @@ const ShowPriceScreen = () => {
 
   const [offerModalOpen, setOfferModalOpen] = useState(false);
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState("wallet");
 
   // console.log(profile?.walletBalance);
 
@@ -99,8 +98,6 @@ const ShowPriceScreen = () => {
         </BottomSheetComponent>
         <View style={styles.coupneWithBtn}>
           <OfferCouponCard
-            walletBalance={profile?.walletBalance}
-            paymentMethod={paymentMethod}
             onPaymentPress={() => setPaymentModalOpen(true)}
             onOfferPress={() => setOfferModalOpen(true)}
           />
@@ -125,11 +122,7 @@ const ShowPriceScreen = () => {
         <OfferModal onClose={() => setOfferModalOpen(false)} />
       )}
       {paymentModalOpen && (
-        <PaymentModal
-          paymentMethod={paymentMethod}
-          setPaymentMethod={setPaymentMethod}
-          onClose={() => setPaymentModalOpen(false)}
-        />
+        <PaymentModal onClose={() => setPaymentModalOpen(false)} />
       )}
     </>
   );

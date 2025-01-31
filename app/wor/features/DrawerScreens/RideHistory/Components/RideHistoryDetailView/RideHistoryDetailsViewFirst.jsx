@@ -2,13 +2,13 @@ import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Feather, FontAwesome6, MaterialIcons } from "@expo/vector-icons";
 import { COLORS } from "../../../../../../../Constants/colors";
 import { ScootyImg } from "../../../../../Images/Universal";
-import RideHistoryNewItem from "../RideHistoryNewItem";
 import StarRating from "../../../../../utiles/StarRating/StarRating";
 import { fonts } from "../../../../../fonts/Fonts";
 import { rideDeleteRequest } from "../../service/rideHistory.serv";
 import { useDispatch, useSelector } from "react-redux";
 import { deletRideItme } from "../../rideHistory.slice";
 import { useNavigation } from "@react-navigation/native";
+import PickDropCard from "../PickDropCard";
 
 const RideHistoryDetailsViewFirst = ({ ride }) => {
   const dispatch = useDispatch();
@@ -26,6 +26,7 @@ const RideHistoryDetailsViewFirst = ({ ride }) => {
     const filterRides = rideHistory?.filter((each) => each._id !== ride._id);
     dispatch(deletRideItme(filterRides));
   };
+  console.log("rating", ride?.ratings?.rating);
 
   return (
     <>
@@ -74,11 +75,19 @@ const RideHistoryDetailsViewFirst = ({ ride }) => {
           </View>
         </View>
 
-        <RideHistoryNewItem orderDetails={ride} />
+        <PickDropCard
+          dropPlaceName={ride?.dropAddress}
+          dropVicinity={ride?.dropVicinity}
+          pickPlaceName={ride?.pickupAddress}
+          pickVicinity={ride?.pickupVicinity}
+        />
 
         <View style={styles.ratingCard}>
           <Text style={styles.boldText}>Your Rating</Text>
-          <StarRating rating={4} />
+          <StarRating
+            initialRating={ride?.ratings?.rating}
+            isFunCallable={false}
+          />
         </View>
 
         <View style={styles.priceCard}>

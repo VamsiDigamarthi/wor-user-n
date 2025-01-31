@@ -7,22 +7,23 @@ import {
   CreditCard,
   Upi,
 } from "../../../../Images/Payment";
+import { useSelector } from "react-redux";
+
+const OfferCouponCard = ({ onOfferPress, onPaymentPress }) => {
+  const { paymentMethod } = useSelector((state) => state.allRideDetails);
+  const { profile } = useSelector((state) => state.profileSlice);
+
 
 const OfferCouponCard = ({
   onOfferPress,
   onPaymentPress,
-  paymentMethod,
-  walletBalance,
+  
+  
 }) => {
   return (
     <View style={styles.couponTextCard}>
       <TouchableOpacity style={styles.offersCard} onPress={onOfferPress}>
         <View style={{ flexDirection: "row", gap: 9, alignItems: "center" }}>
-          {/* <Image
-            source={require("../../../../../../assets/offers.png")}
-            style={{ width: 15, height: 15 }}
-          /> */}
-
           <OfferImg height={15} width={15} />
           <Text style={styles.couponText}>Offers</Text>
         </View>
@@ -32,11 +33,6 @@ const OfferCouponCard = ({
       <Text style={styles.textLine}></Text>
       <View style={styles.offersCard}>
         <View style={{ flexDirection: "row", gap: 9, alignItems: "center" }}>
-          {/* <Image
-            source={require("../../../../../../assets/images/profile/payment wallet.png")}
-            style={{ width: 15, height: 15 }}
-          /> */}
-
           {paymentMethod === "wallet" ? (
             <WalletImg height={30} width={30} />
           ) : paymentMethod === "cash" ? (
@@ -55,9 +51,13 @@ const OfferCouponCard = ({
             >
               {paymentMethod?.charAt(0).toUpperCase() + paymentMethod?.slice(1)}
             </Text>
-            <Text style={{ fontSize: 10, color: "gray" }}>
-              Available Rs. {walletBalance?.toString()}/-
-            </Text>
+
+            {paymentMethod === "wallet" && (
+              <Text style={{ fontSize: 10, color: "gray" }}>
+                Available Rs. {profile?.walletBalance}/-
+              </Text>
+            )}
+
           </TouchableOpacity>
         </View>
         <ForwardArrowIcon size={14} color="#e02e88" />
