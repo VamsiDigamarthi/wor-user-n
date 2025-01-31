@@ -18,7 +18,7 @@ const RideHistoryDetailView = () => {
         >
           <RideHistoryDetailsViewFirst ride={ride} />
 
-          <FaqListCard />
+          <FaqListCard orderId={ride?._id} />
         </ScrollView>
       </View>
     </AppBarLayout>

@@ -47,10 +47,12 @@ const Appbar = ({
         </View>
 
         <View style={[styles.textContainer]}>
+          {/* { width: rightText ? "86%" : "70%" } */}
           <AppBarTitle
             borderStyles={borderStyles}
             title={title}
             vicinity={vicinity}
+            width={rightText ? "96%" : "86%"}
           />
           {isTimer && (
             <Pressable onPress={timerFunction} style={styles.timerCard}>

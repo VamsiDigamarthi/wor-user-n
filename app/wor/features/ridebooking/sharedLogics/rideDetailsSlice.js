@@ -16,6 +16,7 @@ const initialState = {
   time: null,
   formateTime: null,
   completeRideDetails: null, // this will store entire ride data after captain accept the ride -- socket will listening and stored and snnd to otp verification screen
+  paymentMethod: "wallet",
 };
 
 const allRideDetails = createSlice({
@@ -85,6 +86,10 @@ const allRideDetails = createSlice({
       state.parcelType = action.payload;
     },
 
+    setPaymentMethod: (state, action) => {
+      state.paymentMethod = action.payload;
+    },
+
     clearDropData: (state) => {
       state.initialDropDetails = null; // {}
       state.dropDetails = null; // {}
@@ -100,6 +105,7 @@ const allRideDetails = createSlice({
       state.completeRideDetails = null;
       state.time = null;
       state.formateTime = null;
+      state.paymentMethod = "wallet";
     },
   },
 });
@@ -122,6 +128,7 @@ export const {
   setMergePickUpDetails,
   setCompleteRideDetails,
   setTime,
+  setPaymentMethod,
 } = allRideDetails.actions;
 
 export default allRideDetails.reducer;

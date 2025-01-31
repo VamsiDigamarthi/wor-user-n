@@ -102,6 +102,7 @@ export const createOrderDetails = ({
   howManyMens,
   isSendOrReceiveParcel,
   time,
+  paymentMethod,
 }) => {
   return isParcel
     ? {
@@ -143,6 +144,7 @@ export const createOrderDetails = ({
             ? dropDetails?.vicinity
             : pickUpDetails?.vicinity,
         isSendOrReceiveParcel,
+        paymentMethod,
         sendReceiverData: [
           {
             personName: profile?.name,
@@ -174,5 +176,6 @@ export const createOrderDetails = ({
         howManyMens,
         isSendOrReceiveParcel,
         time,
+        paymentMethod,
       };
 };

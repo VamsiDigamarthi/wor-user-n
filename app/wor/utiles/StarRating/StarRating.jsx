@@ -9,6 +9,7 @@ const StarRating = ({
   iconSize = 20,
   gap = 2,
   onRatingChange, // callback to pass the new rating
+  isFunCallable = true,
 }) => {
   const [rating, setRating] = useState(initialRating);
 
@@ -36,7 +37,9 @@ const StarRating = ({
             <TouchableOpacity
               key={i}
               activeOpacity={0.7}
-              onPress={(event) => handleStarPress(i, event)} // Pass index and event to calculate rating
+              onPress={
+                isFunCallable ? (event) => handleStarPress(i, event) : null
+              } // Pass index and event to calculate rating
             >
               {isFullStar ? (
                 <FontAwesome name="star" color={color} size={iconSize} />

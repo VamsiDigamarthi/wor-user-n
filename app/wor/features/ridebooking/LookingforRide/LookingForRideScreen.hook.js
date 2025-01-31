@@ -19,6 +19,7 @@ export const useLookingForRideScreenHook = () => {
     isDirectNavigation = false,
     futureTime = false,
   } = useRoute().params;
+
   const progress = useRef(new Animated.Value(0)).current;
   const navigation = useNavigation();
   const [showCancelWithReOrderBtn, setShowCancelWithReOrderBtn] =

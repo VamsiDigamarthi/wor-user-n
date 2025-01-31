@@ -20,8 +20,6 @@ const RideHistory = () => {
     dispatch(rideHistoryAsyc({ token }));
   }, []);
 
-  const hasRides = useMemo(() => rideHistory.length > 0, [rideHistory]);
-
   return (
     <AppBarLayout title="Ride History" isPositionAppbar>
       <View style={styles.innerContainer}>

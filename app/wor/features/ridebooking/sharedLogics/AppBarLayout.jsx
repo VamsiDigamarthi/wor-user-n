@@ -17,6 +17,7 @@ const AppBarLayout = ({
   ride3mTimes,
   isRideBookingScree,
   borderStyles,
+  rightText,
 }) => {
   return (
     <View style={styles.container}>
@@ -33,6 +34,7 @@ const AppBarLayout = ({
         ride3mTimes={ride3mTimes}
         isRideBookingScree={isRideBookingScree}
         borderStyles={borderStyles}
+        rightText={rightText}
       />
       {children}
     </View>

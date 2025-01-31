@@ -122,6 +122,7 @@ import PaymentHistory from "../app/wor/features/DrawerScreens/Wallet/Screens/Pay
 import SavedLocations from "../app/wor/features/DrawerScreens/SavedLocations/SavedLocations";
 import AppSettingsScreen from "../app/wor/features/DrawerScreens/About/AppSettingsScreen";
 import PaymentMethod from "../app/wor/features/DrawerScreens/Wallet/Screens/PaymentMethod";
+import ChatBot from "../app/wor/features/DrawerScreens/RideHistory/Screens/ChatBot";
 // >>>>>>> master
 /* Drawer Screens */
 
@@ -386,8 +387,8 @@ const AuthenticatedStack = ({ initialRoute, params }) => {
       {/* Voice and Bg */}
 
       <Stack.Screen
-        name="FaqHome"
-        component={FaqHome}
+        name="ChatBot"
+        component={ChatBot}
         options={{ headerShown: false }}
       />
 

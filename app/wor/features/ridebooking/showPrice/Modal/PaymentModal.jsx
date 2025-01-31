@@ -6,10 +6,14 @@ import { infoModalStyles } from "../../../../../../Components/InfoUi/Styles/Info
 import { fonts } from "../../../../fonts/Fonts";
 import PaymentModalNew from "../../../../../wor/features/DrawerScreens/Wallet/Modal/PaymentModal";
 
-export default function PaymentModal({ onClose }) {
+export default function PaymentModal({
+  onClose,
+  paymentMethodsModal,
+  isRideBookingScreen = false,
+}) {
   return (
     <ModalUI
-      // openCloseState={shceduleOrderModal}
+      openCloseState={paymentMethodsModal}
       closeModalFun={onClose}
       style={infoModalStyles.aadharModalStyles}
       insideCardStyle={infoModalStyles.insideCardStyle}
@@ -17,8 +21,10 @@ export default function PaymentModal({ onClose }) {
     >
       <View style={styles.container}>
         <Text style={styles.heading}>Payment Methods</Text>
-
-        <PaymentModalNew />
+        <PaymentModalNew
+          onClose={onClose}
+          isRideBookingScreen={isRideBookingScreen}
+        />
       </View>
     </ModalUI>
   );
@@ -28,7 +34,7 @@ const styles = StyleSheet.create({
   heading: {
     fontFamily: fonts.robotoSemiBold,
     fontSize: 15,
-    paddingVertical: 10,
+    paddingVertical: 20,
     marginBottom: 15,
     borderBottomWidth: 1,
     borderColor: "#757575",

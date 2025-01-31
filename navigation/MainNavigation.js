@@ -102,6 +102,7 @@ const MainNavigation = () => {
                     console.log(
                       "----------------waiting order exist--------------"
                     );
+
                     // navigationRef.current?.navigate("lookingforride", {
                     //   orderId: singleOrder?._id,
                     //   orderPlaceTime: singleOrder.orderPlaceTime,
@@ -145,35 +146,39 @@ const MainNavigation = () => {
       const order = notification?.request?.content?.data?.order;
 
       if (screen) {
-        let newObj;
+        let newOrder;
         if (navigationRef.current?.isReady()) {
           if (screen === "lookingforride") {
             const newOrder = JSON.parse(order);
-            newObj = {
-              vehicleType: newOrder.vehicleType,
-              price: newOrder.price,
-              placeName: newOrder.pickupAddress,
-              dropAddress: {
-                location: {
-                  lat: newOrder?.drop?.coordinates[1],
-                  lng: newOrder?.drop?.coordinates[0],
-                },
-                name: newOrder?.dropAddress,
-                vicinity: newOrder?.dropVicinity,
+            let dropDetails = {
+              location: {
+                lat: newOrder?.drop?.coordinates[1],
+                lng: newOrder?.drop?.coordinates[0],
               },
-              pickUpCoordinated: {
+              name: newOrder?.dropAddress,
+              vicinity: newOrder?.dropVicinity,
+            };
+
+            let pickupDetails = {
+              location: {
                 lat: newOrder?.pickup?.coordinates[1],
                 lng: newOrder?.pickup?.coordinates[0],
               },
-              orderId: newOrder._id,
+              name: newOrder?.pickupAddress,
+              vicinity: newOrder?.pickupVicinity,
             };
-          } else if (screen === "captaineacceptride") {
-            newObj = JSON.parse(order);
-          }
+            dispatch(setPickUpDetails(pickupDetails));
+            dispatch(setDropDetails(dropDetails));
+            dispatch(setIsSendOrReceiveParcel(newOrder?.isSendOrReceiveParcel));
 
-          navigationRef.current.navigate(screen, {
-            ...(newObj ?? null),
-          });
+            navigationRef.current.navigate(screen, {
+              orderId: newOrder._id,
+            });
+          } else if (screen === "captaineacceptride") {
+            newOrder = JSON.parse(order);
+            dispatch(setCompleteRideDetails(newOrder));
+            navigationRef.current?.navigate(screen);
+          }
         } else {
           setPendingNotification(screen);
         }

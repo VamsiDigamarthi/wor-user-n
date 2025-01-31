@@ -3,11 +3,13 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Feather from "@expo/vector-icons/Feather";
 import faqData from "../../../../../../Constants/FaqData.json";
 import { useNavigation } from "@react-navigation/native";
-export default function FaqListCard() {
+export default function FaqListCard({ orderId }) {
   const navigation = useNavigation();
-  function handleNavigation(title) {
-    navigation.navigate("FaqHome", { title: title });
+
+  function handleNavigation(caterogy) {
+    navigation.navigate("ChatBot", { caterogy, orderId });
   }
+
   return (
     <View style={style.container}>
       {faqData?.map((e, index) => {
