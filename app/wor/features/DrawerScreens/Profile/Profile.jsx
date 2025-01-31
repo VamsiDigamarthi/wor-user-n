@@ -3,6 +3,12 @@ import ProfileRatingRideCountCard from "./Components/ProfileRatingRideCountCard/
 import ProfileNavigationCard from "./Components/ProfileNavigationCard/ProfileNavigationCard";
 import { StyleSheet, View } from "react-native";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
+import {
+  emergencycontact,
+  genderidentity,
+  mpin,
+  personalInfo,
+} from "../../../Images/ProfileImages";
 const ProfileScreen = () => {
   return (
     <AppBarLayout title="Profile" isPositionAppbar={true}>
@@ -14,18 +20,25 @@ const ProfileScreen = () => {
 
         <View style={styles.bottomContainer}>
           <ProfileNavigationCard
+            icon={personalInfo}
             navigateTo="PersonalInfoPreview"
             title="Personal Information"
           />
           <ProfileNavigationCard
+            icon={genderidentity}
             navigateTo="ProfileDocumentScreen"
             title="Gender Identity (Aadhar)"
           />
-          <ProfileNavigationCard navigateTo="SetNewMpin" title="M-Pin" />
+          <ProfileNavigationCard
+            navigateTo="SetNewMpin"
+            title="M-Pin"
+            icon={mpin}
+          />
 
           <ProfileNavigationCard
             navigateTo="EmergencyContactNumber"
             title="Emergency Contact Number"
+            icon={emergencycontact}
           />
         </View>
       </View>

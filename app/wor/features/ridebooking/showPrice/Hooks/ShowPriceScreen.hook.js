@@ -98,6 +98,7 @@ export const useShowPriceScreenHook = () => {
     timerSetModalOpen,
     shceduleOrderModal,
     time,
+    profile,
   };
 };
 

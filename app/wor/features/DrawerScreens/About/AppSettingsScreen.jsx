@@ -13,12 +13,14 @@ import DeleteModal from "./Modal/DeleteModal";
 
 import { fonts } from "../../../fonts/Fonts";
 
+import delicon from "../../../../../assets/abouticons/delete.png";
 
 const settingsData = [
   {
     name: "Delete Account",
     navigationScreen: null,
     isFunc: true,
+    icon: delicon,
   },
 ];
 
@@ -38,6 +40,7 @@ const AppSettingsScreen = () => {
         {settingsData?.map((each, index) => (
           <SettingIconCard
             key={index}
+            icon={each.icon}
             title={each.name}
             navigationText={each.navigationScreen}
             isFunc={each.isFunc}
@@ -50,7 +53,6 @@ const AppSettingsScreen = () => {
         deletAcoountModal={deletAcoountModal}
         handleDeleteAcoountModal={handleDeleteAcoountModal}
       />
-
     </AppBarLayout>
   );
 };

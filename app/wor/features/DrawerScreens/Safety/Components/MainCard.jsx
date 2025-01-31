@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     // flexDirection: "row",
     // justifyContent: "space-between",
     position: "relative",
-    top: -15,
+    top: -30,
     zIndex: -1,
     height: 220,
     paddingTop: 35,
@@ -34,14 +34,14 @@ const styles = StyleSheet.create({
 
   heading: {
     // fontWeight: "bold",
-    fontFamily:fonts.robotoSemiBold,
+    fontFamily: fonts.robotoSemiBold,
     fontSize: 20,
     color: "#fff",
   },
 
   subText: {
     color: "#000",
-    fontFamily:fonts.robotoRegular
+    fontFamily: fonts.robotoRegular,
   },
 
   secondCard: {

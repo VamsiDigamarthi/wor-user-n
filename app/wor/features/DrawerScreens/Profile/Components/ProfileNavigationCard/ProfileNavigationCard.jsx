@@ -1,15 +1,15 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View, Image } from "react-native";
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { fonts } from "../../../../../fonts/Fonts";
 
-const ProfileNavigationCard = ({ title, navigateTo }) => {
+const ProfileNavigationCard = ({ title, navigateTo, icon }) => {
   const navigation = useNavigation();
   return (
     <Pressable onPress={() => navigation.navigate(navigateTo)}>
       <View style={styles.container}>
         <View style={styles.leftCard}>
-          <Entypo name="book" size={24} color="black" />
+          <Image source={icon} style={styles.img} />
           <Text style={styles.text}>{title}</Text>
         </View>
         <MaterialIcons name="keyboard-arrow-right" size={25} color="#e02e88" />
@@ -44,5 +44,10 @@ const styles = StyleSheet.create({
   leftCard: {
     flexDirection: "row",
     gap: 10,
+  },
+
+  img: {
+    height: 20,
+    width: 20,
   },
 });

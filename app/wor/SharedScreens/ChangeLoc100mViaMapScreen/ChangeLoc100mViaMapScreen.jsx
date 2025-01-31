@@ -38,7 +38,7 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
       </TouchableOpacity>
 
       <View style={styles.container}>
-        {!isBeforeBook && (
+        {/* {!isBeforeBook && (
           <CustomeAppbar
             onBack={() => navigation.goBack()}
             appTitCenStyles={appbarStyles.appTitCenStyles}
@@ -46,7 +46,7 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
             title={placeName?.placeName}
             vicinity={placeName?.placeVicinity}
           />
-        )}
+        )} */}
         <View style={styles.mapContainer}>
           <ChangeLocMapView
             newMarker={newMarker}
@@ -97,9 +97,9 @@ const styles = StyleSheet.create({
 
   backbtn: {
     position: "absolute",
-    top: 30,
-    left: 10,
-    padding: 10,
+    top: 40,
+    left: 2,
+    padding: 5,
     borderRadius: 50,
     alignItems: "center",
     justifyContent: "center",

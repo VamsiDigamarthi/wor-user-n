@@ -26,9 +26,9 @@ const ParcelHomeScreen = () => {
     <AppBarLayout title="Parcel" isPositionAppbar={true}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <ParSendReceiveCard />
-        <View style={styles.tripDetailsCard}>
+        {/* <View style={styles.tripDetailsCard}>
           <Text style={styles.tripDetailsText}>Trip Details: 1234567890</Text>
-        </View>
+        </View> */}
         {dropDetails ? (
           <>
             <ParSendRecDetailsDisplayCard parcelDetails={dropDetails} />
@@ -46,8 +46,9 @@ const ParcelHomeScreen = () => {
       <ParcelBtnCard>
         <CustomBtn
           title="Continue"
-          borderColor={dropDetails ? "#fff" : "rgba(255,255,255"}
-          btnBg={dropDetails ? "#e02e88" : "#f7f7f7"}
+          borderColor={dropDetails ? "#fff" : "#EA4C89"}
+          btnBg={dropDetails ? "#EA4C89" : "#fff"}
+          btnColor={dropDetails ? "#fff" : "#EA4C89"}
           onPress={onNavigateParcelPickUpLocationScreen}
         />
       </ParcelBtnCard>

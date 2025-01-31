@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     paddingHorizontal: 10,
-    paddingVertical: 10,
+    // paddingVertical: 10,
     gap: 15,
   },
   heading: {

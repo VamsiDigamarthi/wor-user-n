@@ -31,6 +31,7 @@ const WhereToGo = ({
   } = useWhereToGoHook({ micVoiceText, setMicVoiceText, title });
 
   const { homeOrWorkPlacetype } = useSelector((state) => state.homeOrWorkPlace);
+  const { isParcScreen } = useSelector((state) => state.allRideDetails);
   return (
     <>
       <View style={[styles.container, { height }]}>
@@ -38,7 +39,9 @@ const WhereToGo = ({
           <Text style={{ fontSize: 20, fontWeight: "bold" }}>
             {homeOrWorkPlacetype
               ? `${homeOrWorkPlacetype?.toUpperCase()} Place`
-              : "Where to go?"}
+              : isParcScreen
+              ? "Where to Send Parcel ?"
+              : "Where to go ?"}
           </Text>
           <LocationInput
             passParams={passParams}

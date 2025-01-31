@@ -78,7 +78,7 @@ const ParSendReceiveCard = () => {
           style={[styles.textCard, { backgroundColor: sendBackgroundColor }]}
         >
           <Animated.Text style={[styles.text, { color: sendTextColor }]}>
-            I'm Send
+            I'm Sending
           </Animated.Text>
         </Animated.View>
       </TouchableOpacity>
@@ -92,7 +92,7 @@ const ParSendReceiveCard = () => {
           style={[styles.textCard, { backgroundColor: receiveBackgroundColor }]}
         >
           <Animated.Text style={[styles.text, { color: receiveTextColor }]}>
-            I'm Receive
+            I'm Receiving
           </Animated.Text>
         </Animated.View>
       </TouchableOpacity>

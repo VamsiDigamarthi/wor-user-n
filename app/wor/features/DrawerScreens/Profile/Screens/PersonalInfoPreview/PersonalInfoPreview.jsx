@@ -4,6 +4,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Image,
 } from "react-native";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
@@ -16,6 +17,16 @@ import ModalUI from "../../../../../utiles/Modal/Modal";
 import CustomBtn from "../../../../../utiles/CustomBtn";
 import { usePersonalInfoHook } from "./PersonalInfo.hook";
 import { fonts } from "../../../../../fonts/Fonts";
+
+import {
+  calendar,
+  clock,
+  email,
+  locationpin,
+  mobile,
+  genderidentity,
+  personalInfo,
+} from "../../../../../Images/ProfileImages";
 
 const PersonalInfoPreview = () => {
   const { onChangeProfile, handleInputChange, userData, profile } =
@@ -55,22 +66,37 @@ const PersonalInfoPreview = () => {
             title="Full Name"
             edit={true}
             onclick={() => openModalToEdit("name")}
+            icon={personalInfo}
           />
-          <ProfileTextCard text={profile?.gender || "Female"} title="Gender" />
-          <ProfileTextCard text={profile?.mobile} title="Mobile Number" />
-          <ProfileTextCard text={profile?.dateOfBirth} title="Date of Birth" />
+          <ProfileTextCard
+            text={profile?.gender || "Female"}
+            title="Gender"
+            icon={genderidentity}
+          />
+          <ProfileTextCard
+            text={profile?.mobile}
+            title="Mobile Number"
+            icon={mobile}
+          />
+          <ProfileTextCard
+            text={profile?.dateOfBirth}
+            title="Date of Birth"
+            icon={calendar}
+          />
           <ProfileTextCard
             text={profile?.email}
             title="Email Id"
             edit={true}
             onclick={() => openModalToEdit("email")}
+            icon={email}
           />
-          <ProfileTextCard text={"20 days"} title="Member Since" />
+          <ProfileTextCard text={"20 days"} title="Member Since" icon={clock} />
           <ProfileTextCard
             text={profile?.address}
             title="Address"
             edit={true}
             onclick={() => openModalToEdit("address")}
+            icon={locationpin}
           />
         </View>
 
@@ -148,10 +174,12 @@ const PersonalInfoPreview = () => {
 
 export default PersonalInfoPreview;
 
-function ProfileTextCard({ title, text, edit, onclick }) {
+function ProfileTextCard({ title, text, edit, onclick, icon }) {
   return (
     <View style={styles.singleCard}>
-      <AntDesign name="profile" size={24} color="black" />
+      {/* <AntDesign name="profile" size={24} color="black" /> */}
+
+      <Image source={icon} style={styles.icon} />
 
       <View
         style={{
@@ -181,7 +209,15 @@ function ProfileTextCard({ title, text, edit, onclick }) {
 function EditTextInp({ value, field, label, handleInputChange }) {
   return (
     <View>
-      <Text style={{ fontFamily:fonts.robotoRegular, marginBottom:5 , fontSize:10 }}>{label}</Text>
+      <Text
+        style={{
+          fontFamily: fonts.robotoRegular,
+          marginBottom: 5,
+          fontSize: 10,
+        }}
+      >
+        {label}
+      </Text>
       <TextInput
         value={value}
         onChangeText={(text) => handleInputChange(field, text)}
@@ -223,5 +259,10 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     width: "100%",
     gap: 10,
+  },
+
+  icon: {
+    height: 20,
+    width: 20,
   },
 });
