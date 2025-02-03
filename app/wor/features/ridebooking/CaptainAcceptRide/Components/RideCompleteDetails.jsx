@@ -9,16 +9,24 @@ import {
 } from "../../../../Icons/Icons";
 import { useSelector } from "react-redux";
 import ChangeDestinationModal from "../Modals/ChangeDestinationModal";
+import ConfirmChangeDestinationModal from "../Modals/ConfirmChangeDestinationModal";
 
 const RideCompleteDetails = ({ disFromPickToDrop }) => {
   const { completeRideDetails } = useSelector((state) => state.allRideDetails);
   const [pickupFavorite, setPickupFavorite] = useState(false);
   const [dropFavorite, setDropFavorite] = useState(false);
   const { favoritePlaces } = useSelector((state) => state.favoritePlaces);
+  const [beforeOpeningDestinationModal, setBeforeOpeningDestinationModal] =
+    useState(false);
 
   const [changeDestinationModal, setChangeDestinationModal] = useState(false);
   const handleChangeDestinationModal = () => {
+    setBeforeOpeningDestinationModal(false);
     setChangeDestinationModal(!changeDestinationModal);
+  };
+
+  const OpenConfirmChangeDestinationModal = () => {
+    setBeforeOpeningDestinationModal(!beforeOpeningDestinationModal);
   };
 
   useEffect(() => {
@@ -98,7 +106,7 @@ const RideCompleteDetails = ({ disFromPickToDrop }) => {
                 size={22}
                 color={dropFavorite ? "#e02e88" : "gray"}
               />
-              <Pressable onPress={handleChangeDestinationModal}>
+              <Pressable onPress={OpenConfirmChangeDestinationModal}>
                 <EditIcons size={21} color="gray" />
               </Pressable>
             </View>
@@ -112,6 +120,13 @@ const RideCompleteDetails = ({ disFromPickToDrop }) => {
         destinationName={completeRideDetails?.dropAddress}
         destinationCoordinates={completeRideDetails?.drop?.coordinates}
       />
+
+      {beforeOpeningDestinationModal && (
+        <ConfirmChangeDestinationModal
+          onOkPress={handleChangeDestinationModal}
+          onCancelPress={OpenConfirmChangeDestinationModal}
+        />
+      )}
     </>
   );
 };

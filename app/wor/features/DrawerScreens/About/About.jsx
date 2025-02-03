@@ -9,6 +9,7 @@ import ModalUI from "../../../utiles/Modal/Modal";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { fonts } from "../../../fonts/Fonts";
+import LogoutModal from "./Modal/LogoutModal";
 
 const About = () => {
   const [logOutModal, setLogOutModal] = useState(false);
@@ -73,7 +74,7 @@ const About = () => {
           />
         ))}
       </View>
-      <ModalUI
+      {/* <ModalUI
         openCloseState={logOutModal}
         closeModalFun={handleOpenCloseLogoutModal}
         rightBtnText="Ok Continue"
@@ -82,7 +83,14 @@ const About = () => {
         <Text style={{ fontFamily: fonts.robotoRegular }}>
           Are you sure want to logout
         </Text>
-      </ModalUI>
+      </ModalUI> */}
+
+      {logOutModal && (
+        <LogoutModal
+          onOkPress={logOut}
+          onCancelPress={handleOpenCloseLogoutModal}
+        />
+      )}
     </AppBarLayout>
   );
 };

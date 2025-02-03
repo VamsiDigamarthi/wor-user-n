@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { useCaptainAcceptRideScreenHook } from "./CaptainAcceptRideScreen.hook";
 import ShowPollyLine from "../../../utiles/ShowPollyLine";
 import AddTip from "./Components/AddTip";
+import AddTipNew from "./Components/AddTipNew";
 import CopyBox from "../../../utiles/CopyBox";
 
 const screenHeight = Dimensions.get("window").height;
@@ -93,7 +94,7 @@ const CaptainAcceptRideScreen = () => {
             completeRideDetails={completeRideDetails}
           />
           <WorSupportCard />
-          {otpVerified && <AddTip />}
+          {otpVerified && <AddTipNew />}
           <CopyBox backgroundColor="#fff" />
         </View>
       </BottomSheetComponent>
