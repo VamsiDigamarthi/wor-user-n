@@ -8,6 +8,7 @@ import WorSupportCard from "./Components/WorSupportCard";
 import RideVerified from "./Components/RideVerified";
 import ShowPollyLine from "../../../utiles/ShowPollyLine";
 import AddTip from "./Components/AddTip";
+import AddTipNew from "./Components/AddTipNew";
 import CopyBox from "../../../utiles/CopyBox";
 import { useCaptainAcceptRideScreenHook } from "./Hooks/CaptainAcceptRideScreen.hook";
 
@@ -90,7 +91,7 @@ const CaptainAcceptRideScreen = () => {
             completeRideDetails={completeRideDetails}
           />
           <WorSupportCard />
-          {otpVerified && <AddTip />}
+          {otpVerified && <AddTipNew />}
           <CopyBox backgroundColor="#fff" />
         </View>
       </BottomSheetComponent>
