@@ -12,14 +12,6 @@ import { useSelector } from "react-redux";
 const OfferCouponCard = ({ onOfferPress, onPaymentPress }) => {
   const { paymentMethod } = useSelector((state) => state.allRideDetails);
   const { profile } = useSelector((state) => state.profileSlice);
-
-
-const OfferCouponCard = ({
-  onOfferPress,
-  onPaymentPress,
-  
-  
-}) => {
   return (
     <View style={styles.couponTextCard}>
       <TouchableOpacity style={styles.offersCard} onPress={onOfferPress}>
@@ -57,7 +49,6 @@ const OfferCouponCard = ({
                 Available Rs. {profile?.walletBalance}/-
               </Text>
             )}
-
           </TouchableOpacity>
         </View>
         <ForwardArrowIcon size={14} color="#e02e88" />

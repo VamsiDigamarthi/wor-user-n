@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { Linking } from "react-native";
 import { API } from "../../../../../Constants/url";
+import { loginApi } from "../services/authServices";
 
 export const useLoginHook = () => {
   const handleCheck = () => {
@@ -68,23 +69,17 @@ export const useLoginHook = () => {
       return;
     }
     setIsLoading(true);
-    try {
-      const response = await API.post("/auth/send-otp", {
-        mobile: mobile,
-      });
-      setIsLoading(false);
-      navigation.navigate("otp", {
-        mobile: mobile,
-        message:
-          response.data?.name === "user not found"
-            ? "WOR"
-            : response.data?.name,
-      });
-    } catch (error) {
-      console.log(error);
-      setIsLoading(false);
+
+    const data = loginApi({ mobile });
+    setIsLoading(false);
+    if (!data) {
       setApiError(error?.response?.data?.message);
+      return;
     }
+    navigation.navigate("otp", {
+      mobile: mobile,
+      message: data.data?.name === "user not found" ? "WOR" : data.data?.name,
+    });
   };
 
   return {

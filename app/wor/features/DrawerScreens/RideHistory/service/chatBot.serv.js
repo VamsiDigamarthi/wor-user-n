@@ -2,6 +2,8 @@ import Toast from "react-native-toast-message";
 import { API } from "../../../../../../Constants/url";
 
 export const fetchChatbotMessage = async ({ token, orderId, caterogy }) => {
+  console.log("caterogy", caterogy);
+
   try {
     const res = await API.get(`/chat-bot/${orderId}/${caterogy}`, {
       headers: {
@@ -12,6 +14,8 @@ export const fetchChatbotMessage = async ({ token, orderId, caterogy }) => {
 
     return res?.data[0]?.allMessages;
   } catch (error) {
+    console.log(error?.response?.data);
+
     Toast.show({
       text1: "Failed to Fetch Chat bot messages",
       type: "error",

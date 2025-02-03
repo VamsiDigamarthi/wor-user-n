@@ -13,8 +13,7 @@ import {
   services,
 } from "../../../../Images/helpandsupport";
 
-export default function FaqListCard({orderId}) {
-
+export default function FaqListCard({ orderId }) {
   const navigation = useNavigation();
 
   function handleNavigation(caterogy) {

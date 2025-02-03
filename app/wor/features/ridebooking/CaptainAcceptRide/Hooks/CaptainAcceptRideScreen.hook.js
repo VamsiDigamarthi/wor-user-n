@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useSocket } from "../../../../../SocketContext";
-import { getTravelDetails } from "../../../../../Constants/displaylocationmap";
+import { useSocket } from "../../../../../../SocketContext";
+import { getTravelDetails } from "../../../../../../Constants/displaylocationmap";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 
 export const useCaptainAcceptRideScreenHook = () => {

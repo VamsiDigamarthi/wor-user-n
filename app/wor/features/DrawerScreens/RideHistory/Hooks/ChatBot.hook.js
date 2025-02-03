@@ -27,7 +27,7 @@ export const useChatBotHook = () => {
     const success = await savedNewMessageApi({
       token,
       orderId,
-      caterogy,
+      caterogy: caterogy?.split(" ")?.join(""),
       message: newMessage,
     });
     if (!success) return;
@@ -37,7 +37,7 @@ export const useChatBotHook = () => {
     await savedNewMessageApi({
       token,
       orderId,
-      caterogy,
+      caterogy: caterogy?.split(" ")?.join(""),
       message: botMessage,
     });
 
@@ -49,7 +49,11 @@ export const useChatBotHook = () => {
   };
 
   const fetchPreviousMeg = async () => {
-    const data = await fetchChatbotMessage({ token, orderId, caterogy });
+    const data = await fetchChatbotMessage({
+      token,
+      orderId,
+      caterogy: caterogy?.split(" ")?.join(""),
+    });
     if (!data) return;
     setChatMessageHistory(data);
   };

@@ -1,6 +1,6 @@
 [
   {
-    "maintitle": "Safety & Security",
+    "maintitle": "Safety And Security",
     "data": [
       {
         "What is the time duration at which the insurance starts working?": "Your insurance cover begins with your seating on a Women Rider ride and continues until you reach the destination. The insurance can be claimed for a maximum of 24 hours."
@@ -21,7 +21,7 @@
   },
 
   {
-    "maintitle": "Ride & Billing",
+    "maintitle": "Ride And Billing",
     "data": [
       {
         "How do I know how much a ride will cost?": "Input your pickup and drop-off addresses in the app to get an estimate of the fare. Fare varies by location, time booked, and rider availability"
@@ -62,7 +62,7 @@
   },
 
   {
-    "maintitle": "Account & App",
+    "maintitle": "Account And App",
     "data": [
       {
         "How do I book a ride?": "Enter your destination, confirm the pickup location, and tap Request Ride. You'll receive a notification when your ride is confirmed."
@@ -90,7 +90,7 @@
   },
 
   {
-    "maintitle": "Payment & Wallets",
+    "maintitle": "Payment And Wallets",
     "data": [
       {
         "How do I link or unlink a wallet?": "Navigate to Menu > Payment, tap on the wallet you wish to link or unlink and follow the on-screen instructions. Please note that the wallet must be registered with the same number as your Women Rider account."

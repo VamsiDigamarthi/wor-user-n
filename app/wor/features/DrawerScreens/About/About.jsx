@@ -76,12 +76,11 @@ const About = () => {
       <ModalUI
         openCloseState={logOutModal}
         closeModalFun={handleOpenCloseLogoutModal}
-        rightBtnText="Ok Continue"
-        rightBtnFun={logOut}
+        // rightBtnText="Ok Continue"
+        // rightBtnFun={logOut}
+        closebtn={false}
       >
-        <Text style={{ fontFamily: fonts.robotoRegular }}>
-          Are you sure want to logout
-        </Text>
+        <Text>Are you sure want to</Text>
       </ModalUI>
     </AppBarLayout>
   );
