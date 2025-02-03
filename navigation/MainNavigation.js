@@ -103,11 +103,11 @@ const MainNavigation = () => {
                       "----------------waiting order exist--------------"
                     );
 
-                    // navigationRef.current?.navigate("lookingforride", {
-                    //   orderId: singleOrder?._id,
-                    //   orderPlaceTime: singleOrder.orderPlaceTime,
-                    //   futureTime: singleOrder.futureTime,
-                    // });
+                    navigationRef.current?.navigate("lookingforride", {
+                      orderId: singleOrder?._id,
+                      orderPlaceTime: singleOrder.orderPlaceTime,
+                      futureTime: singleOrder.futureTime,
+                    });
                   }
                 });
 

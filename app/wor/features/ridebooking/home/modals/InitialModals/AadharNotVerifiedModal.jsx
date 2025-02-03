@@ -1,22 +1,36 @@
 import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
-import ModalUI from "../../../utiles/Modal/Modal";
-import { infoModalStyles } from "../../../../../Components/InfoUi/Styles/InfoModalStyles";
-import { ladyGlassesAnime } from "../../../Images/Ride";
-import { fonts } from "../../../fonts/Fonts";
+import ModalUI from "../../../../../utiles/Modal/Modal";
+import { infoModalStyles } from "../../../../../../../Components/InfoUi/Styles/InfoModalStyles";
+import { ladyGlassesAnime } from "../../../../../Images/Ride";
+import { fonts } from "../../../../../fonts/Fonts";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import CustomBtn from "../../../utiles/CustomBtn";
+import CustomBtn from "../../../../../utiles/CustomBtn";
+import { useDispatch, useSelector } from "react-redux";
+import { setDisplayAadharModal } from "../../redux/initialModals";
+import { useNavigation } from "@react-navigation/native";
 
 export default function AadharNotVerifiedModal() {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
+  const { isDisplayAadharModal } = useSelector((state) => state.initialModals);
+
+  const closeAadharModal = () => {
+    dispatch(setDisplayAadharModal(false));
+  };
+
+  const navigateAddhaVerificationScreen = () => {
+    navigation.navigate("ProfileDocumentScreen");
+  };
+
   return (
     <ModalUI
+      openCloseState={isDisplayAadharModal}
+      closeModalFun={closeAadharModal}
       modalStyle="slide"
       style={infoModalStyles.aadharModalStyles}
-      insideCardStyle={[
-        infoModalStyles.insideCardStyle,
-        // { backgroundColor: "blue", paddingHorizontal: 8 },
-      ]}
-      //   closeModalFun={onChangeRideBookBeforeCheckPinAddharHandler}
+      insideCardStyle={[infoModalStyles.insideCardStyle]}
       closebtn={false}
     >
       <View style={styles.container}>
@@ -27,7 +41,7 @@ export default function AadharNotVerifiedModal() {
             protection.
           </Text>
         </View>
-        <View style={{ gap: 10 }}>
+        <View style={{ gap: 10, paddingVertical: 30 }}>
           <Image source={ladyGlassesAnime} style={styles.img} />
           <View style={styles.iconContainer}>
             <AntDesign name="warning" size={15} color="red" />
@@ -45,12 +59,14 @@ export default function AadharNotVerifiedModal() {
             btnBg={"#fff"}
             btnColor={"#EA4C89"}
             width="45%"
+            onPress={closeAadharModal}
           />
           <CustomBtn
             title={"Verify now"}
             btnBg={"#EA4C89"}
             btnColor={"#fff"}
             width="45%"
+            onPress={navigateAddhaVerificationScreen}
           />
         </View>
       </View>
@@ -61,8 +77,8 @@ export default function AadharNotVerifiedModal() {
 const styles = StyleSheet.create({
   container: {
     // padding: 10,
-    // paddingHorizontal: 6,
-    paddingVertical: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 20,
     alignItems: "center",
     // backgroundColor: "red",
     // flex: 1,
@@ -70,11 +86,12 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontFamily: fonts.robotoBold,
-    fontSize: 14,
+    fontSize: 18,
   },
   text: {
     fontFamily: fonts.robotoRegular,
-    fontSize: 10,
+    fontSize: 12,
+    lineHeight: 21,
   },
 
   img: {
@@ -96,6 +113,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     marginBottom: 15,
     width: "100%",
+    gap: 5,
   },
   iconContainer: {
     flexDirection: "row",
