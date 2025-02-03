@@ -81,6 +81,9 @@ import PaymentMethod from "../app/wor/features/DrawerScreens/Wallet/Screens/Paym
 import ChatBot from "../app/wor/features/DrawerScreens/RideHistory/Screens/ChatBot";
 import HomeAppBard from "../app/wor/utiles/HomeAppBard";
 import CustomeDrawer from "../app/wor/utiles/CustomeDrawer/CustomeDrawer";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Ad from "../app/wor/Ad";
+import { useEffect, useState } from "react";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -90,12 +93,28 @@ const DrawerNavigator = ({ route }) => {
     Rating: COLORS.bottomSheetBg,
   };
 
+  const [ownUser, setOwnUser] = useState(true);
+
+  const takeOwnUser = async () => {
+    const isOwnUser = await AsyncStorage.getItem("ownUser");
+    console.log("isOwnUser -------------------", typeof isOwnUser);
+
+    setOwnUser(isOwnUser === "true");
+    console.log(isOwnUser, "isOwnUser");
+  };
+
+  useEffect(() => {
+    takeOwnUser();
+  }, []);
+  console.log("ownUser", ownUser);
+
   return (
     <>
       <Drawer.Navigator
         drawerContent={(props) => <CustomeDrawer {...props} />} // Use custom drawer
         screenOptions={{
-          header: ({ navigation }) => <HomeAppBard navigation={navigation} />,
+          header: ({ navigation }) =>
+            ownUser && <HomeAppBard navigation={navigation} />,
           headerStyle: {
             backgroundColor: "red", // Apply background color to the header
           },
@@ -107,7 +126,7 @@ const DrawerNavigator = ({ route }) => {
           },
         }}
       >
-        <Drawer.Screen name="Home" component={HomeScreen} />
+        <Drawer.Screen name="Home" component={ownUser ? HomeScreen : Ad} />
         <Drawer.Screen
           name="captaineacceptride"
           component={CaptainAcceptRideScreen}

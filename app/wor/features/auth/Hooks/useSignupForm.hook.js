@@ -4,7 +4,7 @@ import DeviceInfo from "react-native-device-info";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
 import { setToken } from "../../../../../redux/Features/Auth/LoginSlice";
-import { CommonActions } from "@react-navigation/native";
+import { CommonActions, useNavigation } from "@react-navigation/native";
 import { nearPlacesByText } from "../../../../../Constants/displaylocationmap";
 
 export const useSignupForm = ({ mobile }) => {
@@ -27,6 +27,7 @@ export const useSignupForm = ({ mobile }) => {
   const [storeNearLocation, setStoreNearLocation] = useState([]);
 
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const signUpValidation = (formData) => {
     const newErrors = {};
@@ -88,10 +89,21 @@ export const useSignupForm = ({ mobile }) => {
       );
 
       await AsyncStorage.setItem("token", JSON.stringify(response.data.token));
+
+      await AsyncStorage.setItem(
+        "ownUser",
+        JSON.stringify(response.data.ownUser)
+      );
+
       setIsLoading(false);
 
       dispatch(setToken(response.data.token));
-
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0, // Ensures the specified route is the only route in the stack
+          routes: [{ name: "AuthenticatedStack" }], // Replace 'Home' with your target screen name
+        })
+      );
       return response;
     } catch (error) {
       console.log(error?.response?.data?.message);

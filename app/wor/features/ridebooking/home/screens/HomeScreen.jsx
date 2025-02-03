@@ -29,6 +29,7 @@ const HomeScreen = () => {
     setOpenRatingModal,
     handleCloseRatModAndUpdRatNotGivenToserver,
     penRatOrderIdCaptainId,
+    ownUser,
   } = useHomeScreenHook();
 
   const { mapHeight, snapPoints, handleSheetChange } = useBottomSheetConfig(
@@ -39,6 +40,7 @@ const HomeScreen = () => {
   return (
     <>
       <StatusBar style="dark" />
+
       <View style={allRideBookingScreen.container}>
         <HomeMap captainMarkers={captainMarkers} mapHeight={mapHeight} />
         <BottomSheetComponent
