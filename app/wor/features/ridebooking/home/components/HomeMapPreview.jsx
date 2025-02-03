@@ -10,12 +10,15 @@ import MapView, { Marker } from "react-native-maps";
 import { FontAwesome } from "@expo/vector-icons";
 import { customMapStyle } from "../../../../../../Constants/mapData";
 import { pinkpin } from "../../../../Images/OtherIcons";
+import Map3Btns from "../../../../utiles/Map3Btn";
+import MapModalUi from "../modals/MapModalUi";
 
 const HomeMapPreview = ({
   location,
   captainMarkers,
   toggleCloseSOS,
-  mapIconsBottom = 100,
+  mapIconsTop = 100,
+  mapHeight,
 }) => {
   const mapRef = useRef(null);
   const [region, setRegion] = useState({
@@ -117,13 +120,13 @@ const HomeMapPreview = ({
         ))}
       </MapView>
 
-      {/* <Map3Btns
-          handleOpenSafetyModal={() => setToggle((prev) => !prev)}
-          handleZoomToggle={handleResetZoom}
-          bottom={mapIconsBottom}
-        />
-  
-        {toggle && <MapModalUi toggle={toggle} setToggle={setToggle} />} */}
+      <Map3Btns
+        handleOpenSafetyModal={() => setToggle((prev) => !prev)}
+        handleZoomToggle={handleResetZoom}
+        bottom={mapIconsTop}
+      />
+
+      {toggle && <MapModalUi toggle={toggle} setToggle={setToggle} />}
     </View>
   );
 };

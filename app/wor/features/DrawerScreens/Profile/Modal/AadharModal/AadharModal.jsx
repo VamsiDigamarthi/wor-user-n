@@ -25,6 +25,8 @@ const AadharModal = ({ openModal, closeModal }) => {
 
   // const otpVerified = true;
 
+  // console.log(aadharNumber);
+
   return (
     <ModalUI
       openCloseState={openModal}

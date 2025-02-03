@@ -10,15 +10,13 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import { useState, useEffect } from "react";
 import AuthAppBar from "./AuthAppBar";
 import CustomBtn from "../../../utiles/CustomBtn";
 import AProductFromNuhvin from "../Components/AProductFromNuhvin";
 import { useOtpHook } from "../Hooks/Otp.hook";
-
+import { useNavigation } from "@react-navigation/native";
 
 const OtpScreen = ({}) => {
-
   const {
     message,
     otpError,
@@ -35,7 +33,6 @@ const OtpScreen = ({}) => {
 
   const [isFocused, setIsFocused] = useState(false);
   const navigation = useNavigation();
-
 
   return (
     <KeyboardAvoidingView
@@ -57,9 +54,7 @@ const OtpScreen = ({}) => {
                 The OTP will be sent to your mobile number
               </Text>
               <View style={{ flexDirection: "row", gap: 10 }}>
-
                 <Pressable onPress={() => navigation.goBack()}>
-
                   <Text style={{ color: "blue", fontSize: 13 }}>
                     Change Number
                   </Text>
@@ -103,20 +98,16 @@ const OtpScreen = ({}) => {
                 ))}
               </View>
 
-
               {isResendAvailable ? (
-
                 <Pressable onPress={handleResendOtp}>
                   <Text style={{ color: "blue", fontSize: 13 }}>
                     Resend OTP
                   </Text>
                 </Pressable>
               ) : (
-
                 <Text style={{ color: "gray", fontSize: 13 }}>
                   Requested new OTP in {timer}s
                 </Text>
-
               )}
             </View>
           </View>

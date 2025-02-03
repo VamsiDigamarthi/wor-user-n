@@ -19,12 +19,17 @@ export const aadharNumberSendOtp = async ({ aadharNumber }) => {
         },
       }
     );
+
+    console.log(response, "skgdjsg");
+
     return {
       status: true,
       clientId: response?.data?.data?.client_id,
     };
   } catch (error) {
     console.log("aadhar otp sending failed");
+    console.log(error);
+
     showMessage({
       message: error?.response?.data?.message || "Send Otp Failed",
       type: "danger",
