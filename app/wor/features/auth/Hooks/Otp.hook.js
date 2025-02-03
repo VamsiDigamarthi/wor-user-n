@@ -68,6 +68,14 @@ export const useOtpHook = () => {
           "token",
           JSON.stringify(response.data.token)
         );
+
+        await AsyncStorage.setItem(
+          "ownUser",
+          JSON.stringify(response.data.ownUser)
+        );
+
+        console.log("response.data.ownUser", response.data.ownUser);
+
         dispatch(setToken(response.data.token));
         // navigation.navigate("AuthenticatedStack");
         navigation.dispatch(

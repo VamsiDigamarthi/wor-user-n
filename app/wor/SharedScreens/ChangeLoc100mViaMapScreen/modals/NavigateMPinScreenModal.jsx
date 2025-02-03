@@ -41,7 +41,15 @@ const NavigateMPinScreenModal = ({
           </Text>
         )}
 
-        <View style={{ flexDirection: "row", gap: 10, width: "100%" }}>
+        <View
+          style={{
+            flexDirection: "row",
+            gap: 10,
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           {profile?.aadharCarVerificaation === null && (
             <CustomBtn
               title="Gender Verification"
@@ -74,5 +82,10 @@ const styles = StyleSheet.create({
     gap: 10,
     paddingVertical: 20,
   },
-  text: { fontSize: 16, fontWeight: "600", textAlign: "center" },
+  text: {
+    fontSize: 16,
+    fontWeight: "600",
+    textAlign: "center",
+    lineHeight: 22,
+  },
 });

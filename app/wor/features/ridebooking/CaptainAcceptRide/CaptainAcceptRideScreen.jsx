@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet, View } from "react-native";
+import { Animated, Dimensions, StyleSheet, Text, View } from "react-native";
 import AppBarLayout from "../sharedLogics/AppBarLayout";
 import { useBottomSheetConfig } from "../sharedLogics/BottomSheetComponent/useBottomSheetConfig";
 import BottomSheetComponent from "../sharedLogics/BottomSheetComponent/BottomSheetComponent";
@@ -7,20 +7,18 @@ import UserCard from "./Components/UserRideDetailsCard";
 import WorSupportCard from "./Components/WorSupportCard";
 import RideVerified from "./Components/RideVerified";
 import ShowPollyLine from "../../../utiles/ShowPollyLine";
-import AddTip from "./Components/AddTip";
 import AddTipNew from "./Components/AddTipNew";
 import CopyBox from "../../../utiles/CopyBox";
 import { useCaptainAcceptRideScreenHook } from "./Hooks/CaptainAcceptRideScreen.hook";
+import TrackMe from "./Components/TrackMe";
 
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.4, 0.6].map((p) => screenHeight * p);
 const iosSnapPoints = [0.35, 0.6].map((p) => screenHeight * p);
 
 const CaptainAcceptRideScreen = () => {
-  const { mapHeight, snapPoints, handleSheetChange } = useBottomSheetConfig(
-    androidSnapPoints,
-    iosSnapPoints
-  );
+  const { mapHeight, snapPoints, handleSheetChange, trackMeTranslateY } =
+    useBottomSheetConfig(androidSnapPoints, iosSnapPoints);
 
   const {
     otpVerified,
@@ -72,8 +70,12 @@ const CaptainAcceptRideScreen = () => {
           origin={otpVerified ? pickUpCoordinates : captainCoordinates}
           destination={otpVerified ? dropCoordinates : pickUpCoordinates}
           liveCoordinates={liveCoordinates}
+          height={mapHeight}
         />
       </View>
+
+      <TrackMe trackMeTranslateY={trackMeTranslateY} />
+
       <BottomSheetComponent
         backgroundColor="#f7f7f7"
         snapPoints={snapPoints}

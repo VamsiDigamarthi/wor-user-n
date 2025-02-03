@@ -6,10 +6,15 @@ import {
   MaterialCommunityIcons,
   AntDesign,
   FontAwesome5,
+  Entypo,
 } from "@expo/vector-icons";
 
 export const HamborgIcon = ({ size, color }) => (
   <Ionicons name="menu" size={28} color="gray" />
+);
+
+export const AddIcon = ({ size, color }) => (
+  <Entypo name="circle-with-plus" size={28} color="gray" />
 );
 
 export const UserIcons = ({ size, color }) => (
