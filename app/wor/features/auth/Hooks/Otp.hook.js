@@ -3,13 +3,14 @@ import {
   useNavigation,
   useRoute,
 } from "@react-navigation/native";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DeviceInfo from "react-native-device-info";
 import { useDispatch } from "react-redux";
 import { API } from "../../../../../Constants/url";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setToken } from "../../../../../redux/Features/Auth/LoginSlice";
 import { Keyboard } from "react-native";
+import { loginApi } from "../services/authServices";
 
 export const useOtpHook = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
@@ -20,6 +21,9 @@ export const useOtpHook = () => {
   const navigation = useNavigation();
   const [otpError, setOtpError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const [timer, setTimer] = useState(60); // Timer starts at 60 seconds
+  const [isResendAvailable, setIsResendAvailable] = useState(false); // To control "Resend OTP" button visibility
 
   const handleChange = (text, index) => {
     const newOtp = [...otp];
@@ -88,6 +92,24 @@ export const useOtpHook = () => {
     }
   };
 
+  // Timer logic
+  useEffect(() => {
+    if (timer > 0) {
+      const interval = setInterval(() => {
+        setTimer((prevTimer) => prevTimer - 1);
+      }, 1000);
+      return () => clearInterval(interval);
+    } else {
+      setIsResendAvailable(true);
+    }
+  }, [timer]);
+
+  const handleResendOtp = async () => {
+    setTimer(60);
+    setIsResendAvailable(false);
+    loginApi({ mobile });
+  };
+
   return {
     message,
     mobile,
@@ -99,5 +121,8 @@ export const useOtpHook = () => {
     setOtp,
     inputs,
     handleKeyPress,
+    timer,
+    isResendAvailable,
+    handleResendOtp,
   };
 };

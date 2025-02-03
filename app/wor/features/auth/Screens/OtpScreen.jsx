@@ -10,41 +10,15 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
+import { useState, useEffect } from "react";
 import AuthAppBar from "./AuthAppBar";
 import CustomBtn from "../../../utiles/CustomBtn";
 import AProductFromNuhvin from "../Components/AProductFromNuhvin";
 import { useOtpHook } from "../Hooks/Otp.hook";
-import { useNavigation } from "@react-navigation/native";
 
-// Separate Timer Component
-const Timer = ({ timeLeft, setTimeLeft, setCanResend }) => {
-  const timerRef = useRef(null);
-
-  useEffect(() => {
-    if (timeLeft > 0) {
-      timerRef.current = setTimeout(() => {
-        setTimeLeft((prev) => prev - 1);
-      }, 1000);
-    } else {
-      setCanResend(true);
-    }
-
-    // Cleanup on unmount
-    return () => {
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-      }
-    };
-  }, [timeLeft]);
-
-  return (
-    <Text style={{ color: "gray", fontSize: 13 }}>
-      {timeLeft > 0 ? `Request new OTP in ${timeLeft} seconds` : "Resend OTP"}
-    </Text>
-  );
-};
 
 const OtpScreen = ({}) => {
+
   const {
     message,
     otpError,
@@ -52,36 +26,21 @@ const OtpScreen = ({}) => {
     handleChange,
     justLog,
     otp,
-    setOtp,
     inputs,
     handleKeyPress,
+    timer,
+    isResendAvailable,
+    handleResendOtp,
   } = useOtpHook();
 
   const [isFocused, setIsFocused] = useState(false);
   const navigation = useNavigation();
-  const [timeLeft, setTimeLeft] = useState(60); // 1 minute countdown
-  const [canResend, setCanResend] = useState(false);
 
-  // console.log(mobile);
-  const handleResendOtp = () => {
-    // Add your resend OTP logic here
-    console.log("Resending OTP...");
-    setTimeLeft(60); // Reset the timer
-    setCanResend(false); // Disable the resend button again
-  };
-
-  function handleBack() {
-    try {
-      navigation.goBack();
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === "ios" ? "padding" : "height"} // Adjust for iOS and Android
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.container}>
@@ -98,7 +57,9 @@ const OtpScreen = ({}) => {
                 The OTP will be sent to your mobile number
               </Text>
               <View style={{ flexDirection: "row", gap: 10 }}>
-                <Pressable onPress={handleBack}>
+
+                <Pressable onPress={() => navigation.goBack()}>
+
                   <Text style={{ color: "blue", fontSize: 13 }}>
                     Change Number
                   </Text>
@@ -112,9 +73,8 @@ const OtpScreen = ({}) => {
               >
                 {otp?.map((value, index) => (
                   <TextInput
-                    onPress={Keyboard.dismiss}
                     key={index}
-                    ref={(input) => (inputs.current[index] = input)} // Store refs for each input
+                    ref={(input) => (inputs.current[index] = input)}
                     maxLength={1}
                     keyboardType="numeric"
                     style={[
@@ -129,31 +89,34 @@ const OtpScreen = ({}) => {
                     textAlign="center"
                     onFocus={() => {
                       inputs.current[index].setNativeProps({
-                        style: { borderColor: "#E02E88" }, // Change border color to pink on focus
+                        style: { borderColor: "#E02E88" },
                       });
                       setIsFocused(true);
                     }}
                     onBlur={() => {
                       inputs.current[index].setNativeProps({
-                        style: { borderColor: value ? "#E02E88" : "#A9A9A9" }, // Revert based on value
+                        style: { borderColor: value ? "#E02E88" : "#A9A9A9" },
                       });
-                      setIsFocused(true);
+                      setIsFocused(false);
                     }}
                   />
                 ))}
               </View>
-              {canResend ? (
+
+
+              {isResendAvailable ? (
+
                 <Pressable onPress={handleResendOtp}>
                   <Text style={{ color: "blue", fontSize: 13 }}>
                     Resend OTP
                   </Text>
                 </Pressable>
               ) : (
-                <Timer
-                  timeLeft={timeLeft}
-                  setTimeLeft={setTimeLeft}
-                  setCanResend={setCanResend}
-                />
+
+                <Text style={{ color: "gray", fontSize: 13 }}>
+                  Requested new OTP in {timer}s
+                </Text>
+
               )}
             </View>
           </View>
