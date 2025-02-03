@@ -106,56 +106,6 @@ const CustomDrawerContent = (props) => {
               />
             );
           })}
-          {/* 
-          <FlatList
-            data={DrawerData}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
-              <CustomDrawerItem
-                label={item.label}
-                onPress={() => handleItemPress(item.screenName)}
-                icon={item.icon}
-              />
-            )}
-          /> */}
-
-          {/* <DrawerItem
-            label="Profile"
-            icon={() => (
-              <Ionicons name="person-outline" size={22} color="gray" />
-            )}
-            onPress={() => handleItemPress("Profile")}
-            labelStyle={styles.labelStyle}
-            style={getItemStyle("Profile")}
-          /> */}
-
-          {/* <DrawerItem
-            label="Favorites"
-            icon={() => (
-              <MaterialIcons name="favorite-border" size={22} color="gray" />
-            )}
-            onPress={() => handleItemPress("DrawerFavorite")}
-            labelStyle={styles.labelStyle}
-            style={getItemStyle("Favorites")}
-          /> */}
-
-          {/* <DrawerItem
-            label="Payment Method"
-            icon={() => <Ionicons name="card-outline" size={22} color="gray" />}
-            onPress={() => handleItemPress("PaymentMethod")}
-            labelStyle={styles.labelStyle}
-            style={getItemStyle("Payment Method")}
-          /> */}
-
-          {/* <DrawerItem
-            label="Help"
-            icon={() => (
-              <Ionicons name="help-circle-outline" size={22} color="gray" />
-            )}
-            onPress={() => handleItemPress("Help")}
-            labelStyle={styles.labelStyle}
-            style={getItemStyle("Help")}
-          /> */}
         </View>
       </DrawerContentScrollView>
 

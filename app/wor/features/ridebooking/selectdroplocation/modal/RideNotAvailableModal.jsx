@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
-import ModalUI from "../../../utiles/Modal/Modal";
-import { infoModalStyles } from "../../../../../Components/InfoUi/Styles/InfoModalStyles";
-import { Aishwarya } from "../../../Images/Ride";
-import { fonts } from "../../../fonts/Fonts";
+import ModalUI from "../../../../utiles/Modal/Modal";
+import { infoModalStyles } from "../../../../../../Components/InfoUi/Styles/InfoModalStyles";
+import { Aishwarya } from "../../../../Images/Ride";
+import { fonts } from "../../../../fonts/Fonts";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import CustomBtn from "../../../utiles/CustomBtn";
+import CustomBtn from "../../../../utiles/CustomBtn";
 
 export default function RideNotAvailableModal() {
   return (

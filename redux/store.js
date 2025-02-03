@@ -3,6 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import token from "./Features/Auth/LoginSlice";
 // import profileSlice from "./Features/Auth/ProfileSlice";
 import profileSlice from "../app/wor/features/ridebooking/home/redux/profileSlice";
+import initialModals from "../app/wor/features/ridebooking/home/redux/initialModals";
 
 import previewOrders from "./Features/Auth/PreviousOrders";
 import location from "./Features/Location/LocationSlice";
@@ -32,6 +33,7 @@ const store = configureStore({
     rideHistory,
     homeOrWorkPlace,
     parcelSavedPlace,
+    initialModals,
   },
 });
 

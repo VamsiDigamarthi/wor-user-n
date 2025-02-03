@@ -1,22 +1,35 @@
 import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
-import ModalUI from "../../../utiles/Modal/Modal";
-import { infoModalStyles } from "../../../../../Components/InfoUi/Styles/InfoModalStyles";
-import { shield } from "../../../Images/Ride";
-import { fonts } from "../../../fonts/Fonts";
+import ModalUI from "../../../../../utiles/Modal/Modal";
+import { infoModalStyles } from "../../../../../../../Components/InfoUi/Styles/InfoModalStyles";
+import { shield } from "../../../../../Images/Ride";
+import { fonts } from "../../../../../fonts/Fonts";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import CustomBtn from "../../../utiles/CustomBtn";
+import CustomBtn from "../../../../../utiles/CustomBtn";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+import { setDisplayMPinModal } from "../../redux/initialModals";
 
 export default function MpinNotAvailableModal() {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
+  const { isDisplayMPinModal } = useSelector((state) => state.initialModals);
+
+  const closeAadharModal = () => {
+    dispatch(setDisplayMPinModal(false));
+  };
+
+  const navigateMPinVerificationScreen = () => {
+    navigation.navigate("SetNewMpin");
+  };
   return (
     <ModalUI
       modalStyle="slide"
+      openCloseState={isDisplayMPinModal}
+      closeModalFun={closeAadharModal}
       style={infoModalStyles.aadharModalStyles}
-      insideCardStyle={[
-        infoModalStyles.insideCardStyle,
-        // { backgroundColor: "blue", paddingHorizontal: 8 },
-      ]}
-      //   closeModalFun={onChangeRideBookBeforeCheckPinAddharHandler}
+      insideCardStyle={[infoModalStyles.insideCardStyle]}
       closebtn={false}
     >
       <View style={styles.container}>
@@ -27,7 +40,7 @@ export default function MpinNotAvailableModal() {
             protection.
           </Text>
         </View>
-        <View style={{ gap: 10, marginVertical: 20 }}>
+        <View style={{ gap: 10, marginVertical: 20, paddingVertical: 20 }}>
           <Image source={shield} style={styles.img} />
         </View>
 
@@ -36,6 +49,7 @@ export default function MpinNotAvailableModal() {
           btnBg={"#EA4C89"}
           btnColor={"#fff"}
           width="100%"
+          onPress={navigateMPinVerificationScreen}
         />
       </View>
     </ModalUI>
@@ -45,8 +59,8 @@ export default function MpinNotAvailableModal() {
 const styles = StyleSheet.create({
   container: {
     // padding: 10,
-    paddingHorizontal: 6,
-    paddingVertical: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 20,
     alignItems: "center",
     // backgroundColor: "red",
     // flex: 1,
@@ -54,11 +68,12 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontFamily: fonts.robotoBold,
-    fontSize: 14,
+    fontSize: 18,
   },
   text: {
     fontFamily: fonts.robotoRegular,
-    fontSize: 10,
+    fontSize: 12,
+    lineHeight: 20,
   },
 
   img: {

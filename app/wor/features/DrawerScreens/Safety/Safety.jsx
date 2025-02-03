@@ -8,8 +8,6 @@ import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 import { fonts } from "../../../fonts/Fonts";
 
 const Rating = () => {
-  const { hellow } = useRoute().params || {};
-
   return (
     <AppBarLayout title="Safety" isPositionAppbar={true}>
       <View style={styles.container}>

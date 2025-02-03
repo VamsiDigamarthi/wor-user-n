@@ -3,16 +3,10 @@ import ParcelBtnCard from "../../features/Parcels/Components/ParcelBtnCard";
 import { useChangeLoc100mViaMapScreenHook } from "./ChangeLoc100mViaMapScreen.hook";
 import ChangeLocMapView from "./ChangeLocMapView";
 import CustomBtn from "../../utiles/CustomBtn";
-import CustomeAppbar from "../../../../Utils/CustomeAppbar/CustomeAppbar";
-import { appbarStyles } from "../../utiles/styles";
 import ShowPickLocation from "./ShowPickLocation";
 import NavigateMPinScreenModal from "./modals/NavigateMPinScreenModal";
 import CheckMPinModal from "./modals/CheckMPinModal";
-import AppBarLayout from "../../features/ridebooking/sharedLogics/AppBarLayout";
 import Entypo from "@expo/vector-icons/Entypo";
-import AadharNotVerifiedModal from "./modals/AadharNotVerifiedModal";
-import RideNotAvailableModal from "./modals/RideNotAvailableModal";
-import MpinNotAvailableModal from "./modals/MpinNotAvailableModal";
 
 const ChangeLoc100mViaMapScreen = ({ navigation }) => {
   const {
@@ -41,15 +35,6 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
       </TouchableOpacity>
 
       <View style={styles.container}>
-        {/* {!isBeforeBook && (
-          <CustomeAppbar
-            onBack={() => navigation.goBack()}
-            appTitCenStyles={appbarStyles.appTitCenStyles}
-            appTitCenWidth={appbarStyles.appTitCenWidth}
-            title={placeName?.placeName}
-            vicinity={placeName?.placeVicinity}
-          />
-        )} */}
         <View style={styles.mapContainer}>
           <ChangeLocMapView
             newMarker={newMarker}
@@ -81,10 +66,6 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
         pickUpPlace={placeName}
         newMarker={{ lat: newMarker.latitude, lng: newMarker.longitude }}
       />
-
-      {/* <AadharNotVerifiedModal /> */}
-      {/* <RideNotAvailableModal /> */}
-      {/* <MpinNotAvailableModal /> */}
     </View>
   );
 };
