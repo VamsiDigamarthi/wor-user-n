@@ -6,6 +6,7 @@ import {
   setPrice,
   setSelectVehicleType,
 } from "../../sharedLogics/rideDetailsSlice";
+import { fonts } from "../../../../fonts/Fonts";
 
 const DisplayVehicle = ({ vehicle }) => {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ const DisplayVehicle = ({ vehicle }) => {
         <Image style={styles.image} source={vehicle?.image} />
         <View style={styles.textCard}>
           <View style={styles.textWithPersonCard}>
-            <Text style={styles.vehicleType}>{vehicle?.vehicleType}</Text>
+            <Text style={styles.vehicleType}>{vehicle?.displayName}</Text>
             {vehicle?.isDisplayFastTag && <FastCard />}
             {vehicle?.vehicleType?.toLowerCase() === selectedVehicleType && (
               <View
@@ -56,9 +57,15 @@ const DisplayVehicle = ({ vehicle }) => {
             <Text style={styles.captionText}>Beat the traffic & Pay less</Text>
           )}
         </View>
-        <Text style={styles.price}>
-          ₹{priceDetails?.[vehicle?.vehicleType?.toLowerCase()]}
-        </Text>
+
+        <View>
+          <Text style={styles.price}>
+            ₹{priceDetails?.[vehicle?.vehicleType?.toLowerCase()]}
+          </Text>
+          <Text style={[styles.priceStrike]}>
+            ₹{priceDetails?.[vehicle?.vehicleType?.toLowerCase()]}
+          </Text>
+        </View>
       </View>
     </Pressable>
   );
@@ -140,7 +147,14 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
   price: {
-    fontWeight: "bold",
-    fontSize: 16,
+    // fontWeight: "bold",
+    fontFamily: fonts.robotoSemiBold,
+    fontSize: 14,
+  },
+  priceStrike: {
+    // fontWeight: "bold",
+    fontFamily: fonts.robotoRegular,
+    fontSize: 12,
+    textDecorationLine: "line-through",
   },
 });

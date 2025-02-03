@@ -41,6 +41,7 @@ export const useChangeLoc100mViaMapScreenHook = () => {
   // ride booking state
   const [rideBookBeforeCheckMPinAddhar, setRideBookBeforeCheckPinAddhar] =
     useState(false);
+
   const onChangeRideBookBeforeCheckPinAddharHandler = () => {
     setRideBookBeforeCheckPinAddhar(!rideBookBeforeCheckMPinAddhar);
   };

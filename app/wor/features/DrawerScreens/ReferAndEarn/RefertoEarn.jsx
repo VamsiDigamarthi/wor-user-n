@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import MainCard from "./Components/MainCard";
 import InviteCard from "./Components/InviteCard";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
+import RefHistory from "./Components/RefHistory";
 
 const ReferAndEarn = () => {
   return (
@@ -11,6 +12,7 @@ const ReferAndEarn = () => {
       <View style={styles.innerContainer}>
         <MainCard />
         <InviteCard />
+        <RefHistory />
       </View>
     </AppBarLayout>
   );

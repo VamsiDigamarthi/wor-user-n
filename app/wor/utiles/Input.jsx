@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     top: 19,
     fontSize: 14,
     color: "rgb(81, 81, 85)",
-    textTransform: "uppercase",
+    textTransform: "capitalize",
     backgroundColor: "#fff",
     paddingHorizontal: 5,
     zIndex: 2,

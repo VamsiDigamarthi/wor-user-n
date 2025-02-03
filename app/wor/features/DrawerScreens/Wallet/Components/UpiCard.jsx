@@ -1,17 +1,74 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import {
   Upi,
-  Gpay,
-  BhimUpi,
-  Paytm,
-  Cred,
-  Navi,
-  PhonePay,
+  // Gpay,
+  // // BhimUpi,
+  // Paytm,
+  // Cred,
+  // Navi,
+  // PhonePay,
 } from "../../../../Images/Payment";
 import { fonts } from "../../../../fonts/Fonts";
 import CustomRadioBtn from "./CustomRadioBtn";
 
-export default function UpiCard({ setSelected, selected }) {
+import {
+  BhimUpi,
+  cred,
+  hdfc,
+  mobikwik,
+  sbi,
+  amazon,
+  gpay,
+  phonepay,
+  navi,
+  paytm,
+} from "../../../../Images/PaymentNew";
+
+const upiAppImages = [
+  {
+    name: "Google Pay",
+    icon: gpay,
+  },
+  {
+    name: "PhonePe",
+    icon: phonepay,
+  },
+  {
+    name: "Paytm",
+    icon: paytm,
+  },
+  {
+    name: "BHIM",
+    icon: BhimUpi,
+  },
+  {
+    name: "Mobikwik",
+    icon: mobikwik,
+  },
+  {
+    name: "SBI Yono",
+    icon: sbi,
+  },
+  {
+    name: "Cred",
+    icon: cred,
+  },
+
+  {
+    name: "HDFC Bank",
+    icon: hdfc,
+  },
+  {
+    name: "Amazon Pay",
+    icon: amazon,
+  },
+  {
+    name: "Navi",
+    icon: navi,
+  },
+];
+
+export default function UpiCard({ setSelected, selected, installedUpiApps }) {
   return (
     <TouchableOpacity style={styles.container} onPress={setSelected}>
       <View
@@ -29,15 +86,21 @@ export default function UpiCard({ setSelected, selected }) {
         <CustomRadioBtn selected={selected} onPress={setSelected} />
       </View>
       <View style={styles.list}>
-        {[Gpay, BhimUpi, Cred, Navi].map((Component, index) => {
-          return <Component key={index} height={40} width={40} />;
-        })}
+        {upiAppImages
+          ?.filter((e) => installedUpiApps.includes(e.name))
+          .slice(0, 4) // Take only the first 4 matched items
+          .map((e, index) => (
+            <Image source={e.icon} key={index} style={styles.icon} />
+          ))}
       </View>
-      <View style={styles.list}>
-        {[PhonePay, Paytm, Cred, Navi].map((Component, index) => {
-          return <Component key={index} height={40} width={40} />;
-        })}
-      </View>
+      {/* <View style={styles.list}>
+        {upiAppImages
+          ?.filter((e) => installedUpiApps.includes(e.name))
+          .slice(4) // Take only the first 4 matched items
+          .map((e, index) => (
+            <Image source={e.icon} key={index} style={styles.icon} />
+          ))}
+      </View> */}
     </TouchableOpacity>
   );
 }
@@ -57,5 +120,11 @@ const styles = StyleSheet.create({
   list: {
     flexDirection: "row",
     justifyContent: "space-around",
+  },
+
+  icon: {
+    height: 48,
+    width: 48,
+    resizeMode: "contain",
   },
 });

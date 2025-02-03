@@ -3,6 +3,7 @@ import React from "react";
 import ModalUI from "../../../utiles/Modal/Modal";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
+import CustomBtn from "../../../utiles/CustomBtn";
 
 const NavigateMPinScreenModal = ({
   rideBookBeforeCheckMPinAddhar,
@@ -24,26 +25,42 @@ const NavigateMPinScreenModal = ({
     <ModalUI
       openCloseState={rideBookBeforeCheckMPinAddhar}
       closeModalFun={onChangeRideBookBeforeCheckPinAddharHandler}
+      closebtn={false}
     >
       <View style={styles.container}>
         {profile?.aadharCarVerificaation === null && (
-          <Pressable onPress={onNavigateAadharUploadUi}>
-            <Text
-              style={{ fontSize: 16, fontWeight: "600", textAlign: "center" }}
-            >
-              Your not set Aadhar please set Aadhar first to book ride
-            </Text>
-          </Pressable>
+          <Text style={styles.text}>
+            Book your ride with Aadhar for a safe and Convenient Journey
+          </Text>
         )}
+
         {!profile?.mpin && (
-          <Pressable onPress={onMpinScreen}>
-            <Text
-              style={{ fontSize: 16, fontWeight: "600", textAlign: "center" }}
-            >
-              Your not set MPIN please set M-pin first to book ride{" "}
-            </Text>
-          </Pressable>
+          <Text style={styles.text}>
+            MPIN is a secure 4-digit code for safe account access and ride
+            protection.
+          </Text>
         )}
+
+        <View style={{ flexDirection: "row", gap: 10, width: "100%" }}>
+          {profile?.aadharCarVerificaation === null && (
+            <CustomBtn
+              title="Gender Verification"
+              onPress={onNavigateAadharUploadUi}
+              width="50%"
+              btnBg="#EA4C89"
+              btnColor={"#fff"}
+            />
+          )}
+          {!profile?.mpin && (
+            <CustomBtn
+              title="Set Mpin"
+              onPress={onMpinScreen}
+              width="50%"
+              btnBg="#EA4C89"
+              btnColor={"#fff"}
+            />
+          )}
+        </View>
       </View>
     </ModalUI>
   );
@@ -57,4 +74,5 @@ const styles = StyleSheet.create({
     gap: 10,
     paddingVertical: 20,
   },
+  text: { fontSize: 16, fontWeight: "600", textAlign: "center" },
 });

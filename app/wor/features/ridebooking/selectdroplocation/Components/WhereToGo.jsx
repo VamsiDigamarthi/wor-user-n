@@ -58,7 +58,7 @@ const WhereToGo = ({
                   fontSize: 12,
 
                   color:
-                    isSelectFavoritePlaces === "seggested" ? "blue" : "#000",
+                    isSelectFavoritePlaces === "seggested" ? "#000" : "blue",
                 }}
               >
                 Suggested Destinations

@@ -8,6 +8,8 @@ import { deleteSavedAddress } from "../../../Parcels/services/parSavedAddressSer
 import { fetchSavedPlace } from "../../../Parcels/redux/parcelSavedPlace.slice";
 
 const EditDelete = ({ place, editDeleteType }) => {
+  // console.log(place);
+
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.token);
 
@@ -15,11 +17,19 @@ const EditDelete = ({ place, editDeleteType }) => {
 
   const handleDeletePlace = async () => {
     if (editDeleteType === "home" || editDeleteType === "work") {
-      await onDeleteSavedPlaces({ token, id: place._id });
-      dispatch(homePlace({ token }));
+      try {
+        await onDeleteSavedPlaces({ token: token, id: place._id });
+      } catch (error) {
+        console.log(error);
+      }
     } else if (editDeleteType === "savedAddress") {
-      const data = await deleteSavedAddress({ token, id: place?._id });
-      dispatch(fetchSavedPlace({ token }));
+      try {
+        await deleteSavedAddress({ token: token, id: place?._id });
+
+        dispatch(fetchSavedPlace({ token }));
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 

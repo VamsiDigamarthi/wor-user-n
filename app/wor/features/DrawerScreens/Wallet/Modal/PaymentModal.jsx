@@ -11,8 +11,14 @@ import {
 } from "../../../ridebooking/sharedLogics/rideDetailsSlice";
 import { onChangePaymentMethod } from "../services/changePaymentMethod";
 
+import { useUpiApps } from "./UpiApps.hook";
+
 export default function PaymentModal({ onClose, isRideBookingScreen }) {
   const dispatch = useDispatch();
+
+  const { installedUpiApps } = useUpiApps();
+
+  // console.log(installedUpiApps);
 
   // Local state to track the selected payment method during modal interaction
   const [selectedMethod, setSelectedMethod] = useState(null);
@@ -62,6 +68,7 @@ export default function PaymentModal({ onClose, isRideBookingScreen }) {
         )}
 
       <UpiCard
+        installedUpiApps={installedUpiApps}
         selected={selectedMethod === "upi"}
         setSelected={() => handleChangePaymentMethod("upi")}
       />

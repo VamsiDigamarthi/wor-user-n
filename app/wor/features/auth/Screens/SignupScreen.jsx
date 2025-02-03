@@ -15,8 +15,11 @@ import Input from "../../../utiles/Input";
 import AProductFromNuhvin from "../Components/AProductFromNuhvin";
 import SignUpLocationTextCard from "../Components/SignUpLocationTextCard";
 import { useSignupForm } from "../Hooks/useSignupForm.hook";
+import { useRoute } from "@react-navigation/native";
 
 const SignupScreen = () => {
+  const { mobile } = useRoute().params || {};
+
   const {
     formData,
     errors,
@@ -26,7 +29,7 @@ const SignupScreen = () => {
     handleInputChange,
     onAddressSelect,
     handleNavigateToOTP,
-  } = useSignupForm();
+  } = useSignupForm({ mobile });
 
   return (
     <KeyboardAvoidingView
@@ -55,7 +58,7 @@ const SignupScreen = () => {
               />
 
               <Input
-                label={errors?.email ? errors?.email : "Email *"}
+                label={errors?.email ? errors?.email : "Email "}
                 icon="mail-outline"
                 placeholder="Enter your email address"
                 keyboardType="email-address"
@@ -64,11 +67,9 @@ const SignupScreen = () => {
                 isValid={!errors?.email}
               />
 
-              <View style={styles.googleNearMapLocationCard}>
+              {/* <View style={styles.googleNearMapLocationCard}>
                 <Input
-                  label={
-                    errors?.address ? errors?.address : "Current Address *"
-                  }
+                  label={errors?.address ? errors?.address : "Current Address "}
                   icon="location-outline"
                   placeholder="Enter your address"
                   multiline={true}
@@ -90,7 +91,7 @@ const SignupScreen = () => {
                     ))}
                   </View>
                 )}
-              </View>
+              </View> */}
 
               <Input
                 label="Referral Code (optional)"
@@ -113,7 +114,7 @@ const SignupScreen = () => {
               width="100%"
               isLoading={isLoading}
             />
-            <AProductFromNuhvin />
+            <AProductFromNuhvin bottom={-20} />
           </View>
         </ScrollView>
       </TouchableWithoutFeedback>
