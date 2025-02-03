@@ -1,3 +1,4 @@
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Pressable,
@@ -11,11 +12,39 @@ import {
 } from "react-native";
 import AuthAppBar from "./AuthAppBar";
 import CustomBtn from "../../../utiles/CustomBtn";
-
 import AProductFromNuhvin from "../Components/AProductFromNuhvin";
 import { useOtpHook } from "../Hooks/Otp.hook";
-import { useState } from "react";
-const OtpScreen = () => {
+import { useNavigation } from "@react-navigation/native";
+
+// Separate Timer Component
+const Timer = ({ timeLeft, setTimeLeft, setCanResend }) => {
+  const timerRef = useRef(null);
+
+  useEffect(() => {
+    if (timeLeft > 0) {
+      timerRef.current = setTimeout(() => {
+        setTimeLeft((prev) => prev - 1);
+      }, 1000);
+    } else {
+      setCanResend(true);
+    }
+
+    // Cleanup on unmount
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, [timeLeft]);
+
+  return (
+    <Text style={{ color: "gray", fontSize: 13 }}>
+      {timeLeft > 0 ? `Request new OTP in ${timeLeft} seconds` : "Resend OTP"}
+    </Text>
+  );
+};
+
+const OtpScreen = ({}) => {
   const {
     message,
     otpError,
@@ -29,6 +58,25 @@ const OtpScreen = () => {
   } = useOtpHook();
 
   const [isFocused, setIsFocused] = useState(false);
+  const navigation = useNavigation();
+  const [timeLeft, setTimeLeft] = useState(60); // 1 minute countdown
+  const [canResend, setCanResend] = useState(false);
+
+  // console.log(mobile);
+  const handleResendOtp = () => {
+    // Add your resend OTP logic here
+    console.log("Resending OTP...");
+    setTimeLeft(60); // Reset the timer
+    setCanResend(false); // Disable the resend button again
+  };
+
+  function handleBack() {
+    try {
+      navigation.goBack();
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <KeyboardAvoidingView
@@ -47,11 +95,10 @@ const OtpScreen = () => {
                 Please enter your 6-digit OTP
               </Text>
               <Text style={{ color: "gray", fontSize: 13 }}>
-                The Otp will send your mobile number
+                The OTP will be sent to your mobile number
               </Text>
               <View style={{ flexDirection: "row", gap: 10 }}>
-                {/* <Text style={{ color: "gray", fontSize: 13 }}>123456 .</Text> */}
-                <Pressable onPress={() => navigation.goBack()}>
+                <Pressable onPress={handleBack}>
                   <Text style={{ color: "blue", fontSize: 13 }}>
                     Change Number
                   </Text>
@@ -95,9 +142,19 @@ const OtpScreen = () => {
                   />
                 ))}
               </View>
-              <Text style={{ color: "gray", fontSize: 13 }}>
-                Requested new OTP in 02
-              </Text>
+              {canResend ? (
+                <Pressable onPress={handleResendOtp}>
+                  <Text style={{ color: "blue", fontSize: 13 }}>
+                    Resend OTP
+                  </Text>
+                </Pressable>
+              ) : (
+                <Timer
+                  timeLeft={timeLeft}
+                  setTimeLeft={setTimeLeft}
+                  setCanResend={setCanResend}
+                />
+              )}
             </View>
           </View>
 
@@ -132,7 +189,6 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   loginInnerCard: {
-    // width: "100%",
     flex: 1,
     justifyContent: "space-between",
     alignItems: "center",

@@ -10,6 +10,9 @@ import NavigateMPinScreenModal from "./modals/NavigateMPinScreenModal";
 import CheckMPinModal from "./modals/CheckMPinModal";
 import AppBarLayout from "../../features/ridebooking/sharedLogics/AppBarLayout";
 import Entypo from "@expo/vector-icons/Entypo";
+import AadharNotVerifiedModal from "./modals/AadharNotVerifiedModal";
+import RideNotAvailableModal from "./modals/RideNotAvailableModal";
+import MpinNotAvailableModal from "./modals/MpinNotAvailableModal";
 
 const ChangeLoc100mViaMapScreen = ({ navigation }) => {
   const {
@@ -78,10 +81,14 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
         pickUpPlace={placeName}
         newMarker={{ lat: newMarker.latitude, lng: newMarker.longitude }}
       />
+
+      {/* <AadharNotVerifiedModal /> */}
+      {/* <RideNotAvailableModal /> */}
+      {/* <MpinNotAvailableModal /> */}
     </View>
   );
 };
-
+//
 export default ChangeLoc100mViaMapScreen;
 
 const styles = StyleSheet.create({

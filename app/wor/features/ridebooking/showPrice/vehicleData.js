@@ -13,26 +13,31 @@ export const vehicles = [
     isDisplayFastTag: true,
     isDisplayBeatTheTraffic: true,
     isDisplayUsericon: true,
+    displayName: "Scooty",
   },
   {
     image: require("../../../../../assets/images/HomeServiceImages/cab.png"),
     personCount: 4,
     vehicleType: "Car",
-  },
-  {
-    image: require("../../../../../assets/images/HomeServiceImages/cab.png"),
-    personCount: 4,
-    vehicleType: "wor-premium",
-  },
-  {
-    image: require("../../../../../assets/images/HomeServiceImages/auto.png"),
-    personCount: 3,
-    vehicleType: "Auto",
+    displayName: "Wor Mini",
   },
   {
     image: require("../../../../../assets/images/HomeServiceImages/cab.png"),
     personCount: 4,
     vehicleType: "Dummy",
+    displayName: "Book Any",
+  },
+  {
+    image: require("../../../../../assets/images/HomeServiceImages/auto.png"),
+    personCount: 3,
+    vehicleType: "Auto",
+    displayName: "Auto",
+  },
+  {
+    image: require("../../../../../assets/images/HomeServiceImages/cab.png"),
+    personCount: 6,
+    vehicleType: "wor-premium",
+    displayName: "Wor Luxury",
   },
 ];
 

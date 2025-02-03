@@ -17,6 +17,8 @@ export const onDeleteSavedPlaces = async ({ token, id }) => {
     });
     return true;
   } catch (error) {
+    console.log(error);
+
     Toast.show({
       text1: "Failed to delete saved places",
       type: "error",

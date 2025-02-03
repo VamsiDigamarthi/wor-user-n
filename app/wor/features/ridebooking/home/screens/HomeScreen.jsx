@@ -43,6 +43,9 @@ const HomeScreen = () => {
         <BottomSheetComponent
           snapPoints={snapPoints}
           handleSheetChange={handleSheetChange}
+          enableContentPanningGesture={true} // Allows gestures inside BottomSheet
+          enableHandlePanningGesture={true} // Allows gestures on the handle
+          enableOverDrag={true}
         >
           <View style={styles.bottomSheet}>
             <HomeInput />

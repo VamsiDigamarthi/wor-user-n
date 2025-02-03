@@ -1,7 +1,7 @@
 import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const AProductFromNuhvin = () => {
+const AProductFromNuhvin = ({ bottom = 0 }) => {
   const openLink = () => {
     const url = "https://nuhvin.com"; // Replace with your desired URL
     Linking.openURL(url).catch((err) =>
@@ -9,7 +9,7 @@ const AProductFromNuhvin = () => {
     );
   };
   return (
-    <View style={styles.nuhvinProduct}>
+    <View style={[styles.nuhvinProduct, { bottom: bottom }]}>
       <Text style={{ fontSize: 14, fontWeight: "500" }}>A Product From</Text>
       <Pressable onPress={openLink}>
         <Text style={{ fontSize: 14, fontWeight: "500", color: "#e02e88" }}>
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 40,
     backgroundColor: "#b0b0b0",
-    bottom: 0,
+    // bottom: 0,
     left: 0,
     zIndex: 10000,
     flexDirection: "row",

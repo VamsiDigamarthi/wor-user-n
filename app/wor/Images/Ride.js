@@ -6,5 +6,20 @@ import Refer from "../../../assets/images/profile/refer .png";
 import Payment from "../../../assets/images/profile/payment wallet.png";
 import offerBg from "../../../assets/images/bgImages/offer.png";
 import ohoh from "../../../assets/images/bgImages/ohoh.png";
+import Aishwarya from "../../../assets/images/HomeServiceImages/Aishwarya.png";
+import ladyGlassesAnime from "../../../assets/images/HomeServiceImages/ladywithglasses.png";
+import shield from "../../../assets/images/HomeServiceImages/shield.png";
 
-export { Helmet, Billing, Services, Prefrences, Refer, Payment, offerBg, ohoh };
+export {
+  Helmet,
+  Billing,
+  Services,
+  Prefrences,
+  Refer,
+  Payment,
+  offerBg,
+  ohoh,
+  Aishwarya,
+  ladyGlassesAnime,
+  shield,
+};
