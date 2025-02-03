@@ -77,9 +77,11 @@ const About = () => {
       {/* <ModalUI
         openCloseState={logOutModal}
         closeModalFun={handleOpenCloseLogoutModal}
-        rightBtnText="Ok Continue"
-        rightBtnFun={logOut}
+        // rightBtnText="Ok Continue"
+        // rightBtnFun={logOut}
+        closebtn={false}
       >
+
         <Text style={{ fontFamily: fonts.robotoRegular }}>
           Are you sure want to logout
         </Text>
@@ -91,6 +93,7 @@ const About = () => {
           onCancelPress={handleOpenCloseLogoutModal}
         />
       )}
+
     </AppBarLayout>
   );
 };

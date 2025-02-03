@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { customMapStyle } from "../../../Constants/mapData";
 import useFetchRouteCoordinates from "./ShowPollyLine.services";
+import { calculateBearing } from "../../../Constants/displaylocationmap";
 
 const ShowPollyLine = ({
   origin,
@@ -13,8 +14,8 @@ const ShowPollyLine = ({
   handleOpenSafetySheet,
 }) => {
   const [currentPosition, setCurrentPosition] = useState({
-    latitude: origin.lat,
-    longitude: origin.lng,
+    latitude: liveCoordinates?.lat,
+    longitude: liveCoordinates?.lng,
   });
   const [heading, setHeading] = useState(0); // Add a state for heading
 
@@ -63,7 +64,7 @@ const ShowPollyLine = ({
         longitude: liveCoordinates.lng,
       });
 
-      setHeading(newHeading); // Update the heading state
+      // setHeading(newHeading); // Update the heading state
     }
   }, [liveCoordinates]);
 
@@ -108,17 +109,19 @@ const ShowPollyLine = ({
         <Marker coordinate={adjustedDestination} title="End Point">
           <FontAwesome name="map-pin" size={20} color="#4caf50" />
         </Marker>
-        <Marker coordinate={currentPosition} title="Live Position">
-          <Image
-            style={{
-              width: 30,
-              height: 30,
-              resizeMode: "contain",
-              transform: [{ rotate: `${heading}deg` }], // Rotate the bike image
-            }}
-            source={require("../../../assets/images/markers/BIKE-removebg-preview.png")}
-          />
-        </Marker>
+        {currentPosition?.latitude && (
+          <Marker coordinate={currentPosition} title="Live Position">
+            <Image
+              style={{
+                width: 30,
+                height: 30,
+                resizeMode: "contain",
+                // transform: [{ rotate: `${heading}deg` }], // Rotate the bike image
+              }}
+              source={require("../../../assets/images/markers/BIKE-removebg-preview.png")}
+            />
+          </Marker>
+        )}
 
         {/* Polyline */}
         <Polyline

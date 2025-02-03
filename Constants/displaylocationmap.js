@@ -281,7 +281,7 @@ export const fetchNameAndVicinity = async (lat, lng) => {
   }
 };
 
-const calculateBearing = (startCoords, endCoords) => {
+export const calculateBearing = (startCoords, endCoords) => {
   const { latitude: lat1, longitude: lon1 } = startCoords;
   const { latitude: lat2, longitude: lon2 } = endCoords;
 
