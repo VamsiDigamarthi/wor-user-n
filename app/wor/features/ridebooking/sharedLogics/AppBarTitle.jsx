@@ -39,6 +39,7 @@ const AppBarTitle = ({
           ellipsizeMode="tail"
           style={[
             styles.text,
+            !borderStyles && { textAlign: "center", width: "100%" },
             vicinity && {
               fontSize: 13,
               fontWeight: "500",
@@ -51,7 +52,10 @@ const AppBarTitle = ({
         {vicinity && (
           <Text
             numberOfLines={1}
-            style={{ fontSize: 10, textAlign: "center" }}
+            style={[
+              !borderStyles && { textAlign: "center", width: "100%" },
+              { fontSize: 10, textAlign: "center" },
+            ]}
             ellipsizeMode="tail"
           >
             {vicinity}

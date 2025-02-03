@@ -7,7 +7,7 @@ import { setToken } from "../../../../../redux/Features/Auth/LoginSlice";
 import { CommonActions } from "@react-navigation/native";
 import { nearPlacesByText } from "../../../../../Constants/displaylocationmap";
 
-export const useSignupForm = (mobile) => {
+export const useSignupForm = ({ mobile }) => {
   const [errors, setErrors] = useState({ name: "" });
   const [apiError, setApiError] = useState("");
   const [formData, setFormData] = useState({

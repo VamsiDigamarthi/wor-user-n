@@ -37,7 +37,7 @@ const LoginScreen = () => {
           <View style={styles.loginInnerCard}>
             <View style={{ width: "100%", gap: 10 }}>
               <Text style={{ fontSize: 24, fontWeight: "600" }}>
-                Enter Your Mobile Number For Verification
+                Please Enter Your Mobile Number For Verification
               </Text>
               <Text style={{ fontSize: 13, color: "gray" }}>
                 This number is used for all ride related communication. you

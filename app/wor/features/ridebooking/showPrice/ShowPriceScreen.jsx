@@ -15,9 +15,7 @@ import BottomSheetComponent from "../sharedLogics/BottomSheetComponent/BottomShe
 import DisplayVehicle from "./Components/DisplayVehicle";
 import OfferCouponCard from "./Components/OfferCouponCard";
 import CustomBtn from "../../../utiles/CustomBtn";
-
 import ShceduleOrderModal from "./Modal/ShceduleOrderModal";
-
 import OfferModal from "./Modal/OfferModal";
 import PaymentModal from "./Modal/PaymentModal";
 
@@ -50,8 +48,6 @@ const ShowPriceScreen = () => {
 
   const [offerModalOpen, setOfferModalOpen] = useState(false);
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
-
-  // console.log(profile?.walletBalance);
 
   return (
     <>

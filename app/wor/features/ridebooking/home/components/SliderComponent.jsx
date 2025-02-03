@@ -38,6 +38,8 @@ const SliderComponent = ({ bottom = 2 }) => {
       paginationStyle={[styles.pagination, { bottom }]} // Reposition the dots
       dotStyle={styles.dot} // Custom dot style
       activeDotStyle={styles.activeDot} // Custom active dot style
+      scrollEnabled={true}
+      loop={true}
     >
       {slides.map((slide) => (
         <View style={styles.slide} key={slide.id}>

@@ -14,7 +14,8 @@ import { loginApi } from "../services/authServices";
 
 export const useOtpHook = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-  const { mobile, message } = useRoute().params;
+  const { mobile, message } = useRoute().params || {};
+
   const inputs = useRef([]);
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -44,7 +45,7 @@ export const useOtpHook = () => {
   };
 
   const justLog = async () => {
-    // console.log(otp);
+    console.log(otp);
     if (otp[5]?.length <= 0) {
       setOtpError("Please enter OTP");
       return;
@@ -54,7 +55,7 @@ export const useOtpHook = () => {
       const deviceId = await DeviceInfo.getUniqueId();
       console.log("deviceId", deviceId);
       const response = await API.post("/auth/verify-otp", {
-        mobile,
+        mobile: mobile,
         otp: otp.join(""),
         isUserApp: true,
         deviceId,
@@ -84,7 +85,7 @@ export const useOtpHook = () => {
       } else if (error.response?.data?.message === "User does not exist") {
         // console.log("navigating");
 
-        navigation.navigate("signup", { mobile });
+        navigation.navigate("signup", { mobile: mobile });
       } else {
         setOtpError(error?.response?.data?.message);
       }
