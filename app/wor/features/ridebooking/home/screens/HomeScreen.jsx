@@ -40,7 +40,7 @@ const HomeScreen = () => {
     <>
       <StatusBar style="dark" />
       <View style={allRideBookingScreen.container}>
-        <HomeMap captainMarkers={captainMarkers} />
+        <HomeMap captainMarkers={captainMarkers} mapHeight={mapHeight} />
         <BottomSheetComponent
           snapPoints={snapPoints}
           handleSheetChange={handleSheetChange}
