@@ -51,7 +51,7 @@ export const sendOtpToMobileNumber = async ({ mobile }) => {
 };
 
 export const onVerifiOtp = async ({ otp, mobile }) => {
-  console.log(otp, mobile);
+  // console.log(otp, mobile);
   try {
     await API.post("/auth/verify-otp", { mobile, otp });
     return true;

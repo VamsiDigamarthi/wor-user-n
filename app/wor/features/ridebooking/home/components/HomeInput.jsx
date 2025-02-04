@@ -21,16 +21,7 @@ const HomeInput = () => {
         style={{ flex: 1, justifyContent: "center", marginTop: 5 }}
         onPress={() => navigateSelectDestinationScreen({ isMic: false })}
       >
-        <Text
-          style={{
-            fontSize: 18,
-            flex: 1,
-            fontFamily: fonts.robotoMedium,
-            color: "#757575",
-          }}
-        >
-          Search Destination
-        </Text>
+        <Text style={styles.text}>Search Destination</Text>
       </Pressable>
       <Pressable
         onPress={() => navigateSelectDestinationScreen({ isMic: true })}
@@ -67,5 +58,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     // elevation: 2,
     height: 44,
+  },
+  text: {
+    fontSize: 18,
+    flex: 1,
+    fontFamily: fonts.robotoMedium,
+    color: "#757575",
   },
 });
