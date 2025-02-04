@@ -9,17 +9,8 @@ const ForgotMPin = ({ handleChangeSetMpin }) => {
     <>
       <View style={styles.newContainer}>
         <View style={{ gap: 15 }}>
-          <Text style={{ fontSize: 18, fontFamily: fonts.robotoSemiBold }}>
-            Set new M-Pin
-          </Text>
-          <Text
-            style={{
-              fontSize: 13,
-              color: "gray",
-              lineHeight: 21,
-              fontFamily: fonts.robotoRegular,
-            }}
-          >
+          <Text style={styles.heading}>Set new M-Pin</Text>
+          <Text style={styles.text}>
             You'r PIN Can't have repeating (e.g.0000), or consective(e.g.1234)
             numbers
           </Text>
@@ -49,4 +40,12 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
     backgroundColor: "#fff",
   },
+  text: {
+    fontSize: 13,
+    color: "gray",
+    lineHeight: 21,
+    fontFamily: fonts.robotoRegular,
+  },
+
+  heading: { fontSize: 18, fontFamily: fonts.robotoSemiBold },
 });

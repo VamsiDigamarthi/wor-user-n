@@ -19,16 +19,11 @@ const SetMPin = ({ handleChangeSetMpin }) => {
   return (
     <View style={styles.newContainer}>
       <View style={{ gap: 15 }}>
-        <Text style={{ fontSize: 18, fontFamily: fonts.robotoSemiBold }}>
+        <Text style={styles.heading}>
           Set new M-Pin
         </Text>
         <Text
-          style={{
-            fontSize: 13,
-            color: "gray",
-            lineHeight: 21,
-            fontFamily: fonts.robotoRegular,
-          }}
+          style={styles.text}
         >
           You'r PIN Can't have repeating (e.g.0000), or consective(e.g.1234)
           numbers
@@ -91,4 +86,11 @@ const styles = StyleSheet.create({
   borderWidth: {
     borderWidth: 0,
   },
+  heading:{ fontSize: 18, fontFamily: fonts.robotoSemiBold },
+  text:{
+    fontSize: 13,
+    color: "gray",
+    lineHeight: 21,
+    fontFamily: fonts.robotoRegular,
+  }
 });

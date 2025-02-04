@@ -38,11 +38,14 @@ target 'WomenUser' do
   use_expo_modules!
   config = use_native_modules!
 
+
+  # --------------- written By Me because firebase needs its own headers instead of getting from internet---------
   pod 'Firebase', :modular_headers => true
   pod 'FirebaseCoreInternal', :modular_headers => true
   pod 'GoogleUtilities', :modular_headers => true
   pod 'FirebaseCore', :modular_headers => true
   pod 'Firebase/Messaging', :modular_headers => true
+  # --------------- written By Me because firebase needs its own headers instead of getting from internet---------
 
 
   use_frameworks! :linkage => podfile_properties['ios.useFrameworks'].to_sym if podfile_properties['ios.useFrameworks']
