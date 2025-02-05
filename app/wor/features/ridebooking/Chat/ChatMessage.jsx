@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 8,
     marginBottom: 10,
-    backgroundColor: "red",
+    // backgroundColor: "red",
   },
   text: {
     backgroundColor: "#fff",
@@ -57,8 +57,9 @@ const styles = StyleSheet.create({
     backgroundColor: "blue",
     // textAlign: "center",
     paddingHorizontal: 15,
-    // borderRadius: 20,
     color: "#e02e88",
     lineHeight: 20,
+    borderRadius:10,
+    overflow:"hidden"
   },
 });

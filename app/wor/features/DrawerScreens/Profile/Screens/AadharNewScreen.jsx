@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Platform } from "react-native";
 import React, { useState } from "react";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import AppBarLayout from "../../../ridebooking/sharedLogics/AppBarLayout";
@@ -12,7 +12,7 @@ export default function AadharNewScreen() {
 
   return (
     <AppBarLayout title="Gender Identity" isPositionAppbar={true}>
-      <View style={styles.container}>
+      <View style={[styles.container,{paddingTop : Platform.OS=="ios" ? 110 : 100}]}>
         <Text style={[styles.heading]}>
           Aadhaar verification is an essential step to ensure the authenticity
           of our users. By using Aadhaar, we can confirm your identity quickly
@@ -62,8 +62,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 10,
     gap: 10,
-    paddingTop: 100,
-    backgroundColor: "#fff",
+    paddingTop: 120,
+    backgroundColor: "#f7f7f7",
     flex: 1,
   },
   heading: {

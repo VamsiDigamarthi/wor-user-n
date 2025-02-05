@@ -1,7 +1,7 @@
 import ProfileCard from "./Components/ProfileCard/ProfileCard";
 import ProfileRatingRideCountCard from "./Components/ProfileRatingRideCountCard/ProfileRatingRideCountCard";
 import ProfileNavigationCard from "./Components/ProfileNavigationCard/ProfileNavigationCard";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 import {
   emergencycontact,
@@ -9,10 +9,11 @@ import {
   mpin,
   personalInfo,
 } from "../../../Images/ProfileImages";
+
 const ProfileScreen = () => {
   return (
     <AppBarLayout title="Profile" isPositionAppbar={true}>
-      <View style={styles.innerContainer}>
+      <View style={[styles.innerContainer, {paddingTop : Platform.OS=="ios" ? 110 : 100}]}>
         <View style={styles.topContainer}>
           <ProfileCard />
           <ProfileRatingRideCountCard />

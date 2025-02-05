@@ -113,6 +113,10 @@ export const useCaptainAcceptRideScreenHook = () => {
     }
   };
 
+  const kownBotSheetChangeUpOrDown = (changedValue) => {
+    console.log(changedValue);
+  };
+
   return {
     otpVerified,
     isArrived,
@@ -120,5 +124,6 @@ export const useCaptainAcceptRideScreenHook = () => {
     disFromCaptainLocToPick,
     disFromPickToDrop,
     liveCoordinates,
+    kownBotSheetChangeUpOrDown
   };
 };

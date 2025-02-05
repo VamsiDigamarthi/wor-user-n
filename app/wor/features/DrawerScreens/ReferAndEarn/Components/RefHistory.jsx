@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     padding: 8,
     position: "relative",
     bottom: 80,
-    height: 140,
+    height: 240,
     gap: 10,
   },
   mainCard: {

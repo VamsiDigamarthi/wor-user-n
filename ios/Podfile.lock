@@ -26,7 +26,7 @@ PODS:
     - ExpoModulesCore
   - ExpoFont (12.0.10):
     - ExpoModulesCore
-  - ExpoImagePicker (15.0.7):
+  - ExpoImagePicker (15.1.0):
     - ExpoModulesCore
   - ExpoKeepAwake (13.0.2):
     - ExpoModulesCore
@@ -1404,73 +1404,7 @@ PODS:
     - TOCropViewController (~> 2.7.4)
   - RNPermissions (5.2.4):
     - React-Core
-  - RNReanimated (3.16.7):
-    - DoubleConversion
-    - glog
-    - hermes-engine
-    - RCT-Folly (= 2024.01.01.00)
-    - RCTRequired
-    - RCTTypeSafety
-    - React-Codegen
-    - React-Core
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-ImageManager
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-rendererdebug
-    - React-utils
-    - ReactCommon/turbomodule/bridging
-    - ReactCommon/turbomodule/core
-    - RNReanimated/reanimated (= 3.16.7)
-    - RNReanimated/worklets (= 3.16.7)
-    - Yoga
-  - RNReanimated/reanimated (3.16.7):
-    - DoubleConversion
-    - glog
-    - hermes-engine
-    - RCT-Folly (= 2024.01.01.00)
-    - RCTRequired
-    - RCTTypeSafety
-    - React-Codegen
-    - React-Core
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-ImageManager
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-rendererdebug
-    - React-utils
-    - ReactCommon/turbomodule/bridging
-    - ReactCommon/turbomodule/core
-    - RNReanimated/reanimated/apple (= 3.16.7)
-    - Yoga
-  - RNReanimated/reanimated/apple (3.16.7):
-    - DoubleConversion
-    - glog
-    - hermes-engine
-    - RCT-Folly (= 2024.01.01.00)
-    - RCTRequired
-    - RCTTypeSafety
-    - React-Codegen
-    - React-Core
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-ImageManager
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-rendererdebug
-    - React-utils
-    - ReactCommon/turbomodule/bridging
-    - ReactCommon/turbomodule/core
-    - Yoga
-  - RNReanimated/worklets (3.16.7):
+  - RNReanimated (3.10.1):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1870,7 +1804,7 @@ SPEC CHECKSUMS:
   ExpoClipboard: 243e22ff4161bbffcd3d2db469ae860ddc1156be
   ExpoFileSystem: 2988caaf68b7cb706e36d382829d99811d9d76a5
   ExpoFont: 38dddf823e32740c2a9f37c926a33aeca736b5c4
-  ExpoImagePicker: 517a47896adf5d55d0a1c159e5d1e312af12e57c
+  ExpoImagePicker: 7038c1740853c170002c491de63f9f9780c8139b
   ExpoKeepAwake: dd02e65d49f1cfd9194640028ae2857e536eb1c9
   ExpoModulesCore: 9ac73e2f60e0ea1d30137ca96cfc8c2aa34ef2b2
   EXTaskManager: b515b853fd97286a25cb643978ff7fa456f3139a
@@ -1955,7 +1889,7 @@ SPEC CHECKSUMS:
   RNGestureHandler: 326e35460fb6c8c64a435d5d739bea90d7ed4e49
   RNImageCropPicker: d5387003612dd08d52fb062760136e0e473df186
   RNPermissions: 36d2f716a2f6b72554f07c3226d5163ef7bb43f0
-  RNReanimated: 54c8f1cc0be7504cc3eaf213655ad13c4ba53fc2
+  RNReanimated: def444e044c354f38bb0a5926a8583ba19d944c1
   RNScreens: a2d8a2555b4653d7a19706eb172f855657ac30d7
   RNShare: 5d7762ded21e1fff97dda6d41e963e22dce2d025
   RNSound: 314cc5226453ef4a3314a196c65e8a65e5106a7b
@@ -1965,6 +1899,6 @@ SPEC CHECKSUMS:
   UMAppLoader: f17a5ee8e85b536ace0fc254b447a37ed198d57e
   Yoga: 950bbfd7e6f04790fdb51149ed51df41f329fcc8
 
-PODFILE CHECKSUM: 0aae4c87503471e0890ed8a2364ff8e4d15a3919
+PODFILE CHECKSUM: 96462f35f3e070b728b8d30e34305c54cd348866
 
 COCOAPODS: 1.16.2

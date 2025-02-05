@@ -40,7 +40,7 @@ export default function PaymentModal({ onClose, isRideBookingScreen }) {
 
   const handleChangePaymentMethod = (method) => {
     setSelectedMethod(method);
-    dispatch(setPaymentMethod(selectedMethod));
+    dispatch(setPaymentMethod(method));
   };
 
   const handleChangePaymentMethodApi = async () => {
@@ -55,10 +55,15 @@ export default function PaymentModal({ onClose, isRideBookingScreen }) {
     dispatch(setCompleteRideDetails(data?.order));
   };
 
+  console.log("profile?.walletBalance", profile?.walletBalance);
+  console.log("price", price);
+  console.log("completeRideDetails", completeRideDetails);
+
   return (
     <View style={styles.container}>
       {price <= profile?.walletBalance &&
-        completeRideDetails?.price <= profile?.walletBalance && (
+        (!completeRideDetails ||
+          completeRideDetails?.price <= profile?.walletBalance) && (
           <CommonCard
             selected={selectedMethod === "wallet"}
             setSelected={() => handleChangePaymentMethod("wallet")}

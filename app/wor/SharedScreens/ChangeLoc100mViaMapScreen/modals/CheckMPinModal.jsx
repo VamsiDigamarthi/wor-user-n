@@ -112,6 +112,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     // backgroundColor: "red",
   },
+  
   inputBox: {
     marginTop: 10,
     borderBottomWidth: 1,
@@ -119,5 +120,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     backgroundColor: "#fff",
     elevation: 1,
+    width:20
   },
 });

@@ -85,8 +85,8 @@ const styles = StyleSheet.create({
 
   backbtn: {
     position: "absolute",
-    top: 40,
-    left: 2,
+    top: 39,
+    left: 10,
     padding: 5,
     borderRadius: 50,
     alignItems: "center",
