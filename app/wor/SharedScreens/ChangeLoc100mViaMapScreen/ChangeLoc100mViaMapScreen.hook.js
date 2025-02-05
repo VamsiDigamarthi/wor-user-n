@@ -1,5 +1,5 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { computeDestinationPoint } from "geolib";
+import { computeDestinationPoint, getCompassDirection } from "geolib";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchNameAndVicinity } from "../../../../Constants/displaylocationmap";
@@ -29,6 +29,7 @@ export const useChangeLoc100mViaMapScreenHook = () => {
     : initialDropDetails?.location || {};
 
   // const [howManyMans, setHowManyMans] = useState(0);
+console.log(lat, lng  ,"lat, lng >>>>>>>>>>>>>>>>>>>>>>>>");
 
   const [newMarker, setNewMarker] = useState({ latitude: lat, longitude: lng });
 
@@ -66,8 +67,8 @@ export const useChangeLoc100mViaMapScreenHook = () => {
         { latitude: lat, longitude: lng },
         100, // 100 meters
         getCompassDirection(
-          { latitude: lat, longitude: lng },
-          { latitude, longitude }
+          { latitude: Number(lat), longitude: Number(lng) },
+          { latitude:Number(latitude), longitude:Number(longitude) }
         )
       );
 
