@@ -37,11 +37,11 @@ const Appbar = ({
         <View style={[styles.btnContainer]}>
           {isDrawerIcon ? (
             <Pressable onPress={() => navigation.openDrawer()}>
-              <HamborgIcon size={20} color="#000" />
+              <HamborgIcon size={25} color="#000" />
             </Pressable>
           ) : (
             <Pressable style={[styles.btn]} onPress={() => navigation.goBack()}>
-              <Ionicons name="chevron-back" size={30} color="#000" />
+              <Ionicons name="chevron-back" size={25} color="#000" />
             </Pressable>
           )}
         </View>
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     overflow: "hidden",
-    elevation: 4,
+    // elevation: 4,
   },
   postionAppBar: {
     position: "absolute",

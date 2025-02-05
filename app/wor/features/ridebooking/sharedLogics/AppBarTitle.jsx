@@ -99,9 +99,9 @@ const styles = StyleSheet.create({
   },
   main: {
     // backgroundColor: "red",
-    // borderWidth: 1,
-    // borderColor: "red",
-    elevation: 4,
+    borderWidth: 1,
+    borderColor: "#f2f3f6",
+    // elevation: 4,
     padding: 8,
     borderRadius: 30,
     alignItems: "center",

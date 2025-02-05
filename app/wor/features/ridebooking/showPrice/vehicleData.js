@@ -24,7 +24,7 @@ export const vehicles = [
   {
     image: require("../../../../../assets/images/HomeServiceImages/cab.png"),
     personCount: 4,
-    vehicleType: "Dummy",
+    vehicleType: "bookany",
     displayName: "Book Any",
   },
   {

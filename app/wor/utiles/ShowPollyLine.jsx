@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { customMapStyle } from "../../../Constants/mapData";
 import useFetchRouteCoordinates from "./ShowPollyLine.services";
 import { calculateBearing } from "../../../Constants/displaylocationmap";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const ShowPollyLine = ({
   origin,
@@ -68,6 +69,12 @@ const ShowPollyLine = ({
     }
   }, [liveCoordinates]);
 
+    // const handleResetZoom = useCallback(() => {
+    //   if (mapRef.current && initialRegion) {
+    //     mapRef.current.animateToRegion(initialRegion, 800);
+    //   }
+    // }, [initialRegion]);
+
   // Adjust zoom based on height
   useEffect(() => {
     if (mapRef.current) {
@@ -129,6 +136,12 @@ const ShowPollyLine = ({
           strokeColor="#e02e88"
           strokeWidth={2}
         />
+
+        {/* <View style={[styles.singleIconsCard, styles.zoomContainer]}>
+          <TouchableOpacity style={styles.zoomButton} onPress={handleResetZoom}>
+            <MaterialIcons name="my-location" size={25} color="#e02e88" />
+          </TouchableOpacity>
+        </View> */}
       </MapView>
     </View>
   );
@@ -143,5 +156,11 @@ const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
     bottom: 200,
+  },
+  zoomContainer: {
+    gap: 10,
+    position: "absolute",
+    top: 350,
+    right: 20,
   },
 });

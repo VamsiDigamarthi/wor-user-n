@@ -77,7 +77,7 @@ export default ChatHead;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    paddingTop: 40,
+    paddingTop: 60,
     backgroundColor: "#fff",
     paddingHorizontal: 15,
     paddingBottom: 10,

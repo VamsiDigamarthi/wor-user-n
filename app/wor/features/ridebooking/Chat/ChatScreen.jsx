@@ -1,4 +1,10 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  Keyboard,
+  View,
+  TouchableWithoutFeedback,
+} from "react-native";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ChatHead from "./ChatHead";
 import ChatInput from "./ChatInput";
@@ -8,6 +14,7 @@ import { StatusBar } from "expo-status-bar";
 import io from "socket.io-client";
 import { useRoute } from "@react-navigation/native";
 import { API, imageUrl } from "../../../../../Constants/url";
+import { COLORS } from "../../../../../Constants/colors";
 const ChatScreen = () => {
   const route = useRoute();
   const { token } = useSelector((state) => state.token);
@@ -15,6 +22,7 @@ const ChatScreen = () => {
   const socketRef = useRef(null);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+
   const { orderId, captainDetails, isWorSupport } = route.params || {};
 
   const mref = useRef(null);
@@ -62,6 +70,7 @@ const ChatScreen = () => {
         socketRef.current.emit("ride-chat-connected", {
           orderId: orderId,
           userId: profile?._id,
+          userType: "user",
         });
       }
     }
@@ -115,30 +124,33 @@ const ChatScreen = () => {
   }, [messages]);
 
   return (
-    <View style={styles.container}>
-      <StatusBar style="dark" />
-      <ChatHead captainDetails={captainDetails} isWorSupport={isWorSupport} />
-      <View style={{ padding: 10, marginBottom: 170 }}>
-        <FlatList
-          ref={mref}
-          data={messages}
-          keyExtractor={(item, index) => item.timestamp + index} // Ensure uniqueness by appending index
-          renderItem={({ item }) => (
-            <ChatMessage
-              text={item.text}
-              type={item.sender}
-              captainProfilePic={captainDetails?.profilePic}
-            />
-          )}
-          showsVerticalScrollIndicator={false}
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.container}>
+        <StatusBar style="dark" />
+
+        <ChatHead captainDetails={captainDetails} isWorSupport={isWorSupport} />
+        <View style={{ padding: 10, marginBottom: 170 }}>
+          <FlatList
+            ref={mref}
+            data={messages}
+            keyExtractor={(item, index) => item.timestamp + index} // Ensure uniqueness by appending index
+            renderItem={({ item }) => (
+              <ChatMessage
+                text={item.text}
+                type={item.sender}
+                captainProfilePic={captainDetails?.profilePic}
+              />
+            )}
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
+        <ChatInput
+          setMessage={setMessage}
+          message={message}
+          handleSendMessage={handleSendMessage}
         />
       </View>
-      <ChatInput
-        setMessage={setMessage}
-        message={message}
-        handleSendMessage={handleSendMessage}
-      />
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -148,5 +160,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     position: "relative",
+    backgroundColor:COLORS.mainBackgroundColor
   },
 });

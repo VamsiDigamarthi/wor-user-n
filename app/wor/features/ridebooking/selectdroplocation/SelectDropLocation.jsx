@@ -23,7 +23,7 @@ const SelectDropLocation = () => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <AppBarLayout title="Select Destination" isPositionAppbar={true}>
-          <View style={styles.container}>
+          <View style={[styles.container, {paddingTop : Platform.OS=="ios" ? 110 : 100}]}>
             <WhereToGo
               title={title}
               passParams={passParams}
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 12,
     width: "100%",
-    height: "94%",
+    height: "95%",
     gap: 10,
     backgroundColor: "#f7f7f7",
     paddingTop: 100,

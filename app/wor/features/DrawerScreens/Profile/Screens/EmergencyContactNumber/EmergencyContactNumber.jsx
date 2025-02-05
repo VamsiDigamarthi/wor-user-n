@@ -22,6 +22,11 @@ import { topImg } from "../../../../../Images/ProfileImages";
 import { API } from "../../../../../../../Constants/url";
 import { fonts } from "../../../../../fonts/Fonts";
 
+import AppBarLayout from "../../../../ridebooking/sharedLogics/AppBarLayout";
+// import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
+// import reactNativeContacts from "react-native-contacts";
+
+
 const ProfileEmergencyContact = () => {
   const navigation = useNavigation();
   const routes = useRoute();
@@ -60,27 +65,30 @@ const ProfileEmergencyContact = () => {
       Platform.OS === "android"
         ? PERMISSIONS.ANDROID.READ_CONTACTS
         : PERMISSIONS.IOS.CONTACTS;
-
+  
     try {
       const permissionStatus = await check(permissionType);
+      console.log('Permission Status:', permissionStatus); // Add this line for debugging
+  
       if (permissionStatus === RESULTS.GRANTED) {
         openContactPicker();
-      } else {
+      } else if (permissionStatus === RESULTS.DENIED) {
         const requestStatus = await request(permissionType);
+        console.log('Request Status:', requestStatus); // Add this line for debugging
+        
         if (requestStatus === RESULTS.GRANTED) {
           openContactPicker();
         } else {
-          Alert.alert(
-            "Permission Denied",
-            "We need contact access to proceed."
-          );
+          Alert.alert("Permission Denied", "We need contact access to proceed.");
         }
+      } else if (permissionStatus === RESULTS.UNAVAILABLE) {
+        Alert.alert("Permission Unavailable", "Contacts permission is unavailable on this device.");
       }
     } catch (error) {
       console.error("Permission error:", error);
     }
   };
-
+  
   // Open Contact Picker and handle selection
   const openContactPicker = async () => {
     try {
@@ -130,6 +138,7 @@ const ProfileEmergencyContact = () => {
         type: "success",
         icon: "auto",
       });
+      
       if (isHomeSafetyScreen) navigation.goBack();
     } catch (error) {
       console.error("Save contact error:", error);
@@ -194,12 +203,10 @@ const ProfileEmergencyContact = () => {
   );
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#fff" }}>
-      <CustomeAppbar
-        title="Emergency Contacts"
-        onBack={() => navigation.goBack()}
-      />
-      <View style={styles.container}>
+
+     <AppBarLayout title="Gender Identity" isPositionAppbar={true}>
+      
+      <View style={[styles.container, {paddingTop : Platform.OS=="ios" ? 100 : 80}]}>
         {/* <AddTrusted /> */}
         <View style={styles.bottomCard}>
           <Text style={styles.text}>
@@ -230,7 +237,7 @@ const ProfileEmergencyContact = () => {
           </View>
         )}
       </View>
-    </View>
+    </AppBarLayout>
   );
 };
 
@@ -253,8 +260,8 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 12,
     // paddingVertical: 15,
-    backgroundColor: "#fff",
-    marginTop: 10,
+    backgroundColor: "#f7f7f7",
+    paddingTop: 120,
   },
 
   bottomCard: { marginTop: 20 },

@@ -56,37 +56,31 @@ export const bookingRide = async ({ token, orderDetails }) => {
   }
 };
 
-// Helper function for formatting date and time
-// export const getFormattedDateTime = () => {
-//   // const indiaDateTime = new Date().toLocaleString("en-IN", {
-//   //   timeZone: "Asia/Kolkata",
-//   // });
-//   const indiaDateTime = new Date().toLocaleString();
-//   const datePart = indiaDateTime.split(",")[0];
-//   const [day, month, year] = datePart.split("/");
-//   const formattedDate = `${day}-${month}-${year}`;
-//   const formattedTime = indiaDateTime.split(",")[1].trim();
-
-//   return { formattedDate, formattedTime, indiaDateTime };
-// };
 
 export const getFormattedDateTime = () => {
-  const now = new Date();
-  const offset = 5.5 * 60; // IST is UTC+5:30 in minutes
-  const localTime = new Date(now.getTime());
+  // Get current time in "Asia/Kolkata" timezone
+  const indiaDateTime = new Intl.DateTimeFormat("en-IN", {
+    timeZone: "Asia/Kolkata",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true, // 12-hour format with AM/PM
+  }).format(new Date());
 
-  // Format the date and time
-  const day = String(localTime.getDate()).padStart(2, "0");
-  const month = String(localTime.getMonth() + 1).padStart(2, "0");
-  const year = localTime.getFullYear();
-  const hours = localTime.getHours() % 12 || 12; // Convert to 12-hour format
-  const minutes = String(localTime.getMinutes()).padStart(2, "0");
-  const ampm = localTime.getHours() >= 12 ? "pm" : "am";
-
+  // Split the date and time parts
+  const [datePart, timePart] = indiaDateTime.split(", ");
+  
+  // Extract day, month, and year from date
+  const [day, month, year] = datePart.split("/");
   const formattedDate = `${day}-${month}-${year}`;
-  const formattedTime = `${hours}:${minutes} ${ampm}`;
-  return { formattedDate, formattedTime };
+
+  // Return formatted date and time
+  return { formattedDate, formattedTime: timePart };
 };
+
 
 // Utility function to create order details for both parcel and ride screens
 export const createOrderDetails = ({

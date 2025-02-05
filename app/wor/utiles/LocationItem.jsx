@@ -15,6 +15,7 @@ const LocationItem = ({
   isFavoriteIconDisplay = false,
   onPress = () => {},
   isFavoritePlaces,
+  isHomePlaceOrWork="near"
 }) => {
   const { favoritePlaces } = useSelector((state) => state.favoritePlaces);
   const { addedFavoritePlace } = useLocationItemHook();
@@ -50,7 +51,17 @@ const LocationItem = ({
       >
         {!isFavoritePlaces && (
           <View style={styles.first}>
-            <Image source={recentPlaces} style={styles.icon} />
+            {isHomePlaceOrWork === 'near' &&
+              <Image source={recentPlaces} style={styles.icon} />
+            }
+            {isHomePlaceOrWork === "work"   &&
+            <Icon name={iconName} size={20} color="#e02e88"  />
+            }
+            {isHomePlaceOrWork==="home" &&
+            <Icon name={iconName} size={20} color="#e02e88"  />
+            
+            }
+          
           </View>
         )}
         <View style={styles.second}>

@@ -24,7 +24,7 @@ const ForgotMPin = ({ handleChangeSetMpin }) => {
       <MPinMobileNumberModal
         handleChangeSetMpin={handleChangeSetMpin}
         openModal={openModal}
-        closeModal={setOpenModal}
+        closeModal={()=>setOpenModal(!openModal)}
       />
     </>
   );
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between",
     paddingBottom: 30,
-    backgroundColor: "#fff",
+    backgroundColor: "#f7f7f7",
   },
   text: {
     fontSize: 13,

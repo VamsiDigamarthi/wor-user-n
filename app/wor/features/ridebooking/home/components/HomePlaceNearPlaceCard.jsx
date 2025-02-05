@@ -23,13 +23,14 @@ const HomePlaceNearPlaceCard = ({ nearByRandomItems }) => {
     navigation.navigate("ShowPrice");
   };
 
-  const renderLocationItem = ({ place, defaultPlace, iconName, iconType }) => (
+  const renderLocationItem = ({ place, defaultPlace, iconName, iconType,isHomePlaceOrWork }) => (
     <LocationItem
       placeName={place ? place.name : defaultPlace?.name}
       placeVicinity={place ? place.vicinity : defaultPlace?.vicinity}
       iconName={iconName}
       iconType={iconType}
       onPress={() => navigateShowPriceScreen(place ?? defaultPlace)}
+      isHomePlaceOrWork={isHomePlaceOrWork}
     />
   );
 
@@ -40,18 +41,19 @@ const HomePlaceNearPlaceCard = ({ nearByRandomItems }) => {
           {renderLocationItem({
             place: nearByRandomItems[0],
             defaultPlace: null,
+            isHomePlaceOrWork:"near"
           })}
 
           {renderLocationItem({
             place: homePlace,
             defaultPlace: nearByRandomItems[1],
-            ...(homePlace && { iconName: "home", iconType: "Entypo" }),
+            ...(homePlace && { iconName: "home", iconType: "Entypo",isHomePlaceOrWork:"home" }),
           })}
 
           {renderLocationItem({
             place: workPlace,
             defaultPlace: nearByRandomItems[2],
-            ...(workPlace && { iconName: "work", iconType: "MaterialIcons" }),
+            ...(workPlace && { iconName: "work", iconType: "MaterialIcons", isHomePlaceOrWork:"work" }),
           })}
         </View>
       ) : (

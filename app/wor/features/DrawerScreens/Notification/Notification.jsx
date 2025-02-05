@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, Platform, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import NotificationItem from "./Components/NotificationItem";
 import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
@@ -9,13 +9,15 @@ import {
 } from "../../../Images/Notification";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 import { fonts } from "../../../fonts/Fonts";
+import { COLORS } from "../../../../../Constants/colors";
 
 const Notification = () => {
+
   const navigation = useNavigation();
-  const [notification, setNotification] = useState([1, 2, 3]);
+  const [notification, setNotification] = useState([]);
   return (
     <AppBarLayout title="Notification" isPositionAppbar={true}>
-      <View style={styles.innerContainer}>
+      <View style={[styles.innerContainer,{paddingTop : Platform.OS=="ios" ? 110 : 95}]}>
         {notification.length > 0 ? (
           <>
             <NotificationItem />
@@ -47,6 +49,8 @@ const styles = StyleSheet.create({
     gap: 15,
     paddingVertical: 10,
     paddingTop: 90,
+    flex:1,
+    backgroundColor:COLORS.mainBackgroundColor
   },
   noNotification: {
     justifyContent: "center",

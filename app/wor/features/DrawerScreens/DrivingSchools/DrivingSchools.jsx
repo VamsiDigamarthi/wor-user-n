@@ -7,17 +7,19 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
   Keyboard,
+  Platform,
 } from "react-native";
 import React from "react";
 import SliderComponent from "../../../../../Utils/SliderComponent/SliderComponent";
 import Card from "./Components/Card";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 import { fonts } from "../../../fonts/Fonts";
+import { COLORS } from "../../../../../Constants/colors";
 export default function DrivingSchools() {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <AppBarLayout title="Driving School">
-        <View style={styles.container}>
+      <AppBarLayout title="Driving School" isPositionAppbar={true}>
+        <View style={[styles.container,{paddingTop : Platform.OS=="ios" ? 110 : 100}]}>
           <SliderComponent />
 
           <View style={styles.searchCard}>
@@ -47,6 +49,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 10,
+    backgroundColor:COLORS.mainBackgroundColor
   },
 
   searchCard: {

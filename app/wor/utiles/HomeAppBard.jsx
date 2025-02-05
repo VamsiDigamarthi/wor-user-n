@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     // overflow: "hidden",
-    elevation: 4,
+    // elevation: 4,
 
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
