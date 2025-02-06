@@ -14,11 +14,13 @@ export const cancelRide = async ({ token, orderId, reason = "" }) => {
         },
       }
     );
+
     Toast.show({
       text1: response?.data?.message,
       type: "success",
       position: "bottom",
     });
+
     return true;
   } catch (error) {
     console.log(error);
