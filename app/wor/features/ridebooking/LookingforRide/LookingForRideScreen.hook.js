@@ -20,6 +20,8 @@ export const useLookingForRideScreenHook = () => {
     futureTime = false,
   } = useRoute().params;
 
+  const [cancelModal, setCancelModal] = useState(false);
+
   const progress = useRef(new Animated.Value(0)).current;
   const navigation = useNavigation();
   const [showCancelWithReOrderBtn, setShowCancelWithReOrderBtn] =
@@ -110,8 +112,9 @@ export const useLookingForRideScreenHook = () => {
   });
 
   const handleCancelRide = async () => {
-    const rideCancel = await cancelRide({ token, orderId });
-    if (rideCancel) navigation?.goBack();
+    setCancelModal(true);
+    // const rideCancel = await cancelRide({ token, orderId });
+    // if (rideCancel) navigation?.goBack();
   };
 
   const handleRplaceRide = async () => {
@@ -169,5 +172,8 @@ export const useLookingForRideScreenHook = () => {
     showCancelWithReOrderBtn,
     onNewCancelHandle,
     futureTime,
+    setCancelModal,
+    cancelModal,
+    orderId,
   };
 };

@@ -1,10 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { customMapStyle } from "../../../Constants/mapData";
 import useFetchRouteCoordinates from "./ShowPollyLine.services";
 import { calculateBearing } from "../../../Constants/displaylocationmap";
+import Map3Btns from "./Map3Btn";
+import MapModalUi from "../features/ridebooking/home/modals/MapModalUi";
 
 const ShowPollyLine = ({
   origin,
@@ -20,6 +22,7 @@ const ShowPollyLine = ({
   const [heading, setHeading] = useState(0); // Add a state for heading
 
   const mapRef = useRef(null);
+  const [toggle, setToggle] = useState(false);
 
   const adjustedOrigin = { latitude: origin.lat, longitude: origin.lng };
   const adjustedDestination = {
@@ -84,6 +87,11 @@ const ShowPollyLine = ({
     }
   }, [height]);
 
+  const handleResetZoom = useCallback(() => {
+    if (mapRef.current && initialRegion) {
+      mapRef.current.animateToRegion(initialRegion, 800);
+    }
+  }, [initialRegion]);
   // console.log("heading", heading);
 
   return (
@@ -130,6 +138,14 @@ const ShowPollyLine = ({
           strokeWidth={2}
         />
       </MapView>
+
+      <Map3Btns
+        handleOpenSafetyModal={() => setToggle((prev) => !prev)}
+        handleZoomToggle={handleResetZoom}
+        mapIconsTop={200}
+      />
+
+      {toggle && <MapModalUi toggle={toggle} setToggle={setToggle} />}
     </View>
   );
 };

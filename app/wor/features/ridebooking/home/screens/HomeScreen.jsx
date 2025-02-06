@@ -66,8 +66,8 @@ const HomeScreen = () => {
         closeModal={handleCloseRatModAndUpdRatNotGivenToserver}
         penRatOrderIdCaptainId={penRatOrderIdCaptainId}
       />
-      <AadharNotVerifiedModal />
-      <MpinNotAvailableModal />
+      {/* <AadharNotVerifiedModal /> */}
+      {/* <MpinNotAvailableModal /> */}
     </>
   );
 };
