@@ -1,5 +1,6 @@
 import Toast from "react-native-toast-message";
 import { API } from "../../../../../Constants/url";
+import moment from 'moment-timezone';
 
 export const onCheckMPin = async ({ token, mpin }) => {
   try {
@@ -58,27 +59,14 @@ export const bookingRide = async ({ token, orderDetails }) => {
 
 
 export const getFormattedDateTime = () => {
-  // Get current time in "Asia/Kolkata" timezone
-  const indiaDateTime = new Intl.DateTimeFormat("en-IN", {
-    timeZone: "Asia/Kolkata",
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: true, // 12-hour format with AM/PM
-  }).format(new Date());
+  const indiaDateTime = moment().tz('Asia/Kolkata');
 
-  // Split the date and time parts
-  const [datePart, timePart] = indiaDateTime.split(", ");
-  
-  // Extract day, month, and year from date
-  const [day, month, year] = datePart.split("/");
-  const formattedDate = `${day}-${month}-${year}`;
+    const formattedDate = indiaDateTime.format('DD-MM-YYYY');
 
-  // Return formatted date and time
-  return { formattedDate, formattedTime: timePart };
+    let formattedTime = indiaDateTime.format('h:mm:ss A');
+    formattedTime = formattedTime.toLowerCase(); 
+
+  return { formattedDate, formattedTime };
 };
 
 

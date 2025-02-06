@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   },
 
   second: {
-    width: "90%",
+    width: "90%",gap:5
   },
   locText: {
     fontSize: 13,

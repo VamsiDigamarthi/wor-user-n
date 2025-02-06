@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { Pressable, StyleSheet, TextInput, View, Image } from "react-native";
 import { MicIcon } from "../../../../Icons/Icons";
 import { navigator } from "../../../../Images/DrawerImages";
+import { COLORS } from "../../../../../../Constants/colors";
 
 const LocationInput = ({
   inputValue,
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     paddingHorizontal: 10,
-    backgroundColor: "#e4e1e16b",
+    backgroundColor: COLORS.inputBackGround,
   },
   micIcons: {
     backgroundColor: "#fff",

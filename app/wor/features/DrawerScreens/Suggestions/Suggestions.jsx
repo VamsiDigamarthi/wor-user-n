@@ -70,7 +70,8 @@ export default function Suggestions({ navigation }) {
       style={styles.flexContainer}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <AppBarLayout title="Suggestion" isPositionAppbar={true}>
           <View
             style={[

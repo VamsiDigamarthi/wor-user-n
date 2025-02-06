@@ -19,7 +19,7 @@ import MpinNotAvailableModal from "../modals/InitialModals/MpinNotAvailableModal
 
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.54, 0.6].map((p) => screenHeight * p); // Example snap points for Android
-const iosSnapPoints = [0.5, 0.6].map((p) => screenHeight * p); // Example snap points for iOS
+const iosSnapPoints = [0.5, 0.59].map((p) => screenHeight * p); // Example snap points for iOS
 
 const HomeScreen = () => {
   const {

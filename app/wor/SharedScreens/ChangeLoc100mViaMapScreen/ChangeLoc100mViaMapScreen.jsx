@@ -31,7 +31,7 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
         style={styles.backbtn}
         onPress={() => navigation.goBack()}
       >
-        <Entypo name="chevron-left" size={30} color="black" />
+        <Entypo name="chevron-left" size={24} color="black" />
       </TouchableOpacity>
 
       <View style={styles.container}>

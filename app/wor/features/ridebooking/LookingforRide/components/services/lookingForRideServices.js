@@ -1,5 +1,6 @@
 import Toast from "react-native-toast-message";
 import { API } from "../../../../../../../Constants/url";
+import { getFormattedDateTime } from "../../../../../SharedScreens/ChangeLoc100mViaMapScreen/Services/Change100mLocationSer";
 
 export const cancelRide = async ({ token, orderId, reason = "" }) => {
   try {
@@ -31,17 +32,19 @@ export const cancelRide = async ({ token, orderId, reason = "" }) => {
 };
 
 export const rePlaceOrder = async ({ token, orderId }) => {
-  const indiaDateTime = new Date().toLocaleString("en-IN", {
-    timeZone: "Asia/Kolkata",
-  });
-  const datePart = indiaDateTime.split(",")[0];
-  const [day, month, year] = datePart.split("/");
-  const formattedDate = `${day}-${month}-${year}`;
-  const timePart = indiaDateTime.split(",")[1].trim();
+  // const indiaDateTime = new Date().toLocaleString("en-IN", {
+  //   timeZone: "Asia/Kolkata",
+  // });
+  // const datePart = indiaDateTime.split(",")[0];
+  // const [day, month, year] = datePart.split("/");
+  // const formattedDate = `${day}-${month}-${year}`;
+  // const timePart = indiaDateTime.split(",")[1].trim();
+    
+    const { formattedDate, formattedTime } = getFormattedDateTime();
 
   const orderDetails = {
     orderPlaceDate: formattedDate,
-    orderPlaceTime: timePart,
+    orderPlaceTime: formattedTime,
     time: null,
     futureTime: null,
   };
