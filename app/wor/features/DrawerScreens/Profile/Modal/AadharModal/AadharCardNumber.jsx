@@ -29,6 +29,11 @@ const AadharCardNumber = ({
   };
 
   const handleSubmitAadharCard = async () => {
+    if(aadharNumber?.length !== 12){
+      setErrMsg("Please Enter Aadhar Number")
+      return
+    }
+
     setIsLoading(true);
     const data = await aadharNumberSendOtp({ aadharNumber });
     console.log("data", data);

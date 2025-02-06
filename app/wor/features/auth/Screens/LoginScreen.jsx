@@ -63,13 +63,13 @@ const LoginScreen = () => {
               <View style={{ flexDirection: "row" }}>
                 <Text style={{ fontSize: 11 }}>I agree to women rider's </Text>
                 <TouchableOpacity onPress={onNavigateTermsAndConditions}>
-                  <Text style={{ fontSize: 11, color: "#e02e88" }}>
+                  <Text style={{ fontSize: 11, color: "#0597ff" }}>
                     Terms of Services
                   </Text>
                 </TouchableOpacity>
                 <Text style={{ fontSize: 11 }}> and </Text>
                 <TouchableOpacity onPress={handleCheck}>
-                  <Text style={{ fontSize: 11, color: "#e02e88" }}>
+                  <Text style={{ fontSize: 11, color: "#0597ff" }}>
                     privacy Policy
                   </Text>
                 </TouchableOpacity>
@@ -88,10 +88,11 @@ const LoginScreen = () => {
                 onPress={handleLogin}
                 isLoding={isLoading}
                 width="100%"
+                height={55}
               />
             </View>
           </View>
-          <View style={styles.nuhvinProduct}>
+          <View style={[styles.nuhvinProduct, {paddingHorizontal : Platform.OS === 'ios' && 30, }]}>
             <Text style={{ fontSize: 14, fontWeight: "500" }}>
               A Product From
             </Text>
@@ -129,7 +130,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     width: "100%",
     height: 40,
-    backgroundColor: "#b0b0b0",
+    backgroundColor: "#f7f7f7",
     bottom: 0,
     left: 0,
     zIndex: 10000,

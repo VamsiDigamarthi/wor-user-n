@@ -179,6 +179,14 @@ const MainNavigation = () => {
             dispatch(setCompleteRideDetails(newOrder));
             navigationRef.current?.navigate(screen);
           }
+          else if(screen === 'Chat'){
+            newOrder = JSON.parse(order);
+            dispatch(setCompleteRideDetails(newOrder));
+            navigationRef.current?.navigate(screen,{
+              orderId: newOrder._id,
+              captainDetails :newOrder?.acceptCaptain
+            });
+          }
         } else {
           setPendingNotification(screen);
         }

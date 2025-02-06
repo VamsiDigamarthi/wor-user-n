@@ -115,9 +115,7 @@ const DrawerNavigator = ({ route }) => {
         screenOptions={{
           header: ({ navigation }) =>
             <HomeAppBard navigation={navigation} />,
-          headerStyle: {
-            backgroundColor: "red", // Apply background color to the header
-          },
+          
           sceneContainerStyle: {
             backgroundColor: screenBackgroundColors[route.name] || null, // Fallback to white if no color found
           },

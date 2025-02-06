@@ -1,4 +1,4 @@
-import { Linking, StyleSheet, Text, View } from "react-native";
+import { Linking, Platform, StyleSheet, Text, View } from "react-native";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 import { settingsData } from "./settingsData";
 import SettingIconCard from "./SettingIconCard";
@@ -10,6 +10,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { fonts } from "../../../fonts/Fonts";
 import LogoutModal from "./Modal/LogoutModal";
+import { COLORS } from "../../../../../Constants/colors";
 
 const About = () => {
   const [logOutModal, setLogOutModal] = useState(false);
@@ -62,7 +63,7 @@ const About = () => {
 
   return (
     <AppBarLayout title="Settings" isPositionAppbar={true}>
-      <View style={styles.innerCard}>
+      <View style={[styles.innerCard,{paddingTop : Platform.OS=="ios" ? 110 : 100}]}>
         {settingsData?.map((each, index) => (
           <SettingIconCard
             key={index}
@@ -74,18 +75,6 @@ const About = () => {
           />
         ))}
       </View>
-      {/* <ModalUI
-        openCloseState={logOutModal}
-        closeModalFun={handleOpenCloseLogoutModal}
-        // rightBtnText="Ok Continue"
-        // rightBtnFun={logOut}
-        closebtn={false}
-      >
-
-        <Text style={{ fontFamily: fonts.robotoRegular }}>
-          Are you sure want to logout
-        </Text>
-      </ModalUI> */}
 
       {logOutModal && (
         <LogoutModal
@@ -107,7 +96,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     gap: 10,
     flexGrow: 1,
-    backgroundColor: "#f7f7f7",
+    backgroundColor:COLORS.mainBackgroundColor,
     paddingTop: 100,
   },
 });

@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { memo } from "react";
 import { useRoute } from "@react-navigation/native";
 import MainCard from "./Components/MainCard";
@@ -10,7 +10,7 @@ import { fonts } from "../../../fonts/Fonts";
 const Rating = () => {
   return (
     <AppBarLayout title="Safety" isPositionAppbar={true}>
-      <View style={styles.container}>
+      <View style={[styles.container,{paddingTop : Platform.OS=="ios" ? 110 : 100}]}>
         <MainCard />
 
         <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -29,13 +29,14 @@ export default memo(Rating);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f7f7f7",
     paddingTop: 85,
+    backgroundColor:"#fff"
   },
   scrollContainer: {
     paddingHorizontal: 10,
     // paddingVertical: 10,
     gap: 15,
+    backgroundColor:"#fff"
   },
   heading: {
     fontFamily: fonts.robotoBold,

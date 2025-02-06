@@ -1,14 +1,20 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { useSelectLocationByMapScreenHook } from "./hooks/SelectLocationByMapScreen.hook";
 import MapWithFixedMarker from "./components/MapWithFixedMarker";
 import MapBottomDetails from "./components/MapBottomDetails";
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const SelectLocationByMapScreen = () => {
+  const navigation = useNavigation()
   const { mapRegion, onRegionChangeComplete, dragLocation } =
     useSelectLocationByMapScreenHook();
   return (
     <View style={styles.container}>
+      <Pressable style={[styles.backBtn]} onPress={() => navigation.goBack()}>
+        <Ionicons name="chevron-back" size={25} color="#fff" />
+      </Pressable>
       {mapRegion ? (
         <MapWithFixedMarker
           mapRegion={mapRegion}
@@ -29,6 +35,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    position:"relative"
   },
 
   coordinatesContainer: {
@@ -88,5 +95,14 @@ const styles = StyleSheet.create({
   },
   coorlocationCard: {
     width: "90%",
+  },
+  backBtn: {
+    position: "absolute",
+    top: 40,
+    left: 20,
+    backgroundColor: "#e02e88",
+    padding: 10,
+    borderRadius: 30,
+    zIndex:999
   },
 });

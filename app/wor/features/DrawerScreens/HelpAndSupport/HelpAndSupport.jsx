@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, Platform } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useNavigation } from "@react-navigation/native";
 import { useRideHistoryHook } from "../RideHistory/Hooks/RideHistory.hook";
@@ -21,8 +21,8 @@ function HelpAndSupport() {
   }, []);
 
   return (
-    <AppBarLayout title="Help & WoR Support" isPositionAppbar>
-      <View style={styles.container}>
+    <AppBarLayout title="Help & WoR Support" isPositionAppbar={true}>
+      <View style={[styles.container, {paddingTop : Platform.OS=="ios" ? 110 : 100}]}>
         <View style={styles.topContainer}>
           <Text style={styles.heading}>My Rides</Text>
           <Pressable
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: "#fff",
+    backgroundColor: "#f3f2f7",
     paddingTop: 100,
   },
   topContainer: {
@@ -77,5 +77,6 @@ const styles = StyleSheet.create({
   },
   supportContainer: {
     marginTop: 10,
+    gap:10
   },
 });

@@ -47,7 +47,7 @@ const DrawerProfil = () => {
   }, [profile]);
 
   const renderContext = () => {
-    if (isDisplayMPinModal) {
+    if (isDisplayAadharModal) {
       setVerifyText("Verify your gender Identify");
     } else if (isDisplayMPinModal) {
       setVerifyText("Set Your M-Pin");
@@ -56,7 +56,10 @@ const DrawerProfil = () => {
 
   useEffect(() => {
     renderContext();
-  }, [isDisplayMPinModal, isDisplayMPinModal]);
+  }, [isDisplayMPinModal, isDisplayAadharModal]);
+
+
+  
 
   return (
     <View style={styles.container}>
@@ -106,7 +109,7 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     padding: 10,
-    paddingTop: 50,
+    paddingTop: 70,
     flexDirection: "row",
     gap: 10,
   },

@@ -19,6 +19,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     gap: 5,
     padding: 10,
+    shadowColor: "#000",  // Color of the shadow
+    shadowOffset: { width: 0, height: 2 }, // Offset of the shadow (x, y)
+    shadowOpacity: 0.1,  // Opacity of the shadow
+    shadowRadius: 5, 
+    marginBottom:10
   },
   img: {
     height: 200,
@@ -34,9 +39,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   subText: {
-    fontSize: 12,
+    fontSize: 14,
     // fontWeight: "400",
     fontFamily:fonts.robotoRegular,
     textAlign: "justify",
+    lineHeight:20
   },
 });

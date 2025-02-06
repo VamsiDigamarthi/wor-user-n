@@ -49,9 +49,16 @@ const useVerificationCheck = (profile) => {
 
   useEffect(() => {
     if (profile?.aadharCarVerificaation === null) {
+      console.log("--- adhar not verified---");
+      
       dispatch(setDisplayAadharModal(true));
     } else if (profile?.mpin === null) {
       dispatch(setDisplayMPinModal(true));
+    }
+    return () => {
+      dispatch(setDisplayAadharModal(false));
+      dispatch(setDisplayMPinModal(false));
+
     }
   }, [profile, dispatch]);
 };
