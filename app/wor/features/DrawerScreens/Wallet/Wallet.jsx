@@ -50,7 +50,7 @@ function Wallet() {
 
         {[
           { title: "Payment History", route: "PaymentHistory" },
-          { title: "Payment Method", route: "PaymentMethodNew" },
+          // { title: "Payment Method", route: "PaymentMethodNew" },
         ].map((item, index) => (
           <TouchableOpacity
             key={index}

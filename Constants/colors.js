@@ -5,5 +5,6 @@ export const COLORS = {
   desBackground: "#F2F0F5",
   bottomSheetBg: "#fff",
   borderColor: "#ffe2e6",
-  mainBackgroundColor : "#f3f2f7"
+  mainBackgroundColor : "#f3f2f7",
+  inputBackGround :"#ececea"
 };

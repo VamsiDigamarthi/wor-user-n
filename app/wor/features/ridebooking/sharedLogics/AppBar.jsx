@@ -36,7 +36,7 @@ const Appbar = ({
       <View style={[styles.mainContainer]}>
         <View style={[styles.btnContainer]}>
           {isDrawerIcon ? (
-            <Pressable onPress={() => navigation.openDrawer()}>
+            <Pressable style={styles.menu} onPress={() => navigation.openDrawer()}>
               <HamborgIcon size={25} color="#000" />
             </Pressable>
           ) : (
@@ -117,14 +117,16 @@ const styles = StyleSheet.create({
     zIndex: 30,
     backgroundColor: "#fff",
     width: "100%",
+    // backgroundColor:"yellow"
   },
 
   btnContainer: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
     width: "12%",
     height: "100%",
     marginBottom: 5,
+    // backgroundColor:"red"
   },
 
   btn: {
@@ -137,7 +139,7 @@ const styles = StyleSheet.create({
   textContainer: {
     flexDirection: "row",
     borderColor: "#FFE2E6",
-    width: "86%",
+    width: "88%",
     height: "100%",
     alignItems: "center",
     gap: 8,
@@ -148,6 +150,7 @@ const styles = StyleSheet.create({
     // paddingLeft: 30,
     // textAlign: "center",
     // backgroundColor: "red",
+    marginTop:3
   },
   textinnerCard: {
     flexDirection: "row",
@@ -212,4 +215,9 @@ const styles = StyleSheet.create({
     marginRight: 10,
     // backgroundColor: "red",
   },
+  menu:{
+    // backgroundColor:"red",
+    marginBottom:7,
+    marginRight:6
+  }
 });

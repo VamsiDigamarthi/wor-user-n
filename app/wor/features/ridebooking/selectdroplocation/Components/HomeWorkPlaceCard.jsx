@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f7f7f7",
     width: "100%",
     // height: "20%",
-    gap: 5,
+    gap: 10,
     justifyContent: "space-around",
     alignItems: "center",
     // backgroundColor: "blue",
