@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useSocket } from "../../../../../../SocketContext";
 import { getTravelDetails } from "../../../../../../Constants/displaylocationmap";
 import { CommonActions, useNavigation } from "@react-navigation/native";
+import { setCompleteRideDetails } from "../../sharedLogics/rideDetailsSlice";
 
 export const useCaptainAcceptRideScreenHook = () => {
   const navigation = useNavigation();
@@ -24,9 +25,12 @@ export const useCaptainAcceptRideScreenHook = () => {
     lng: null,
   });
 
-  const onVerifiedOtp = (value) => {
-    console.log("--------------verified ----------------");
-    setOtpVerified(value ?? false);
+  const onVerifiedOtp = ({status, order}) => {
+    console.log("--------------verified ----------------",status);
+    setOtpVerified(status ?? false);
+    if(status){
+      dispatch(setCompleteRideDetails(order));
+    }
   };
   const onOrderArrived = (value) => {
     console.log("-------- arrived ------------");

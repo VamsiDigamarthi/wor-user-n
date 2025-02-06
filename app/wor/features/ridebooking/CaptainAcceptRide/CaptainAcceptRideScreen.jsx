@@ -14,7 +14,7 @@ import TrackMe from "./Components/TrackMe";
 
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.4, 0.6].map((p) => screenHeight * p);
-const iosSnapPoints = [0.35, 0.6].map((p) => screenHeight * p);
+const iosSnapPoints = [0.3, 0.6].map((p) => screenHeight * p);
 
 const CaptainAcceptRideScreen = () => {
   
