@@ -19,11 +19,11 @@ const Map3Btns = ({
   handleZoomToggle,
   handleOpenSafetyModal,
   // height,
-  mapIconsTop = 300,
+  mapIconsTop = 400,
 }) => {
   return (
     <View style={[styles.mainCont, { top: mapIconsTop }]}>
-      <View style={styles.singleIconsCard}>
+      {/* <View style={styles.singleIconsCard}>
         <TouchableOpacity
           onPress={() => openDialer("100")}
           style={[
@@ -35,16 +35,16 @@ const Map3Btns = ({
             SOS
           </Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
 
-      <View style={styles.singleIconsCard}>
+      {/* <View style={styles.singleIconsCard}>
         <TouchableOpacity
           onPress={handleOpenSafetyModal}
           style={styles.zoomButton}
         >
           <AntDesign name="Safety" size={20} color="#e02e88" />
         </TouchableOpacity>
-      </View>
+      </View> */}
 
       <View style={[styles.singleIconsCard, styles.zoomContainer]}>
         <TouchableOpacity onPress={handleZoomToggle} style={styles.zoomButton}>
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   mainCont: {
     gap: 10,
     position: "absolute",
-    top: 350,
+    top: 250,
     right: 20,
   },
 });

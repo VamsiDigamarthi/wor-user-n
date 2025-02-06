@@ -26,7 +26,7 @@ PODS:
     - ExpoModulesCore
   - ExpoFont (12.0.10):
     - ExpoModulesCore
-  - ExpoImagePicker (15.0.7):
+  - ExpoImagePicker (15.1.0):
     - ExpoModulesCore
   - ExpoKeepAwake (13.0.2):
     - ExpoModulesCore
@@ -1870,7 +1870,7 @@ SPEC CHECKSUMS:
   ExpoClipboard: 243e22ff4161bbffcd3d2db469ae860ddc1156be
   ExpoFileSystem: 2988caaf68b7cb706e36d382829d99811d9d76a5
   ExpoFont: 38dddf823e32740c2a9f37c926a33aeca736b5c4
-  ExpoImagePicker: 517a47896adf5d55d0a1c159e5d1e312af12e57c
+  ExpoImagePicker: 7038c1740853c170002c491de63f9f9780c8139b
   ExpoKeepAwake: dd02e65d49f1cfd9194640028ae2857e536eb1c9
   ExpoModulesCore: 9ac73e2f60e0ea1d30137ca96cfc8c2aa34ef2b2
   EXTaskManager: b515b853fd97286a25cb643978ff7fa456f3139a
@@ -1965,6 +1965,6 @@ SPEC CHECKSUMS:
   UMAppLoader: f17a5ee8e85b536ace0fc254b447a37ed198d57e
   Yoga: 950bbfd7e6f04790fdb51149ed51df41f329fcc8
 
-PODFILE CHECKSUM: 0aae4c87503471e0890ed8a2364ff8e4d15a3919
+PODFILE CHECKSUM: 96462f35f3e070b728b8d30e34305c54cd348866
 
 COCOAPODS: 1.16.2

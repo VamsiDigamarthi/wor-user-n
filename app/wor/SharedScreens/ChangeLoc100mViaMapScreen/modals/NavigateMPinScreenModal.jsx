@@ -54,7 +54,7 @@ const NavigateMPinScreenModal = ({
             <CustomBtn
               title="Gender Verification"
               onPress={onNavigateAadharUploadUi}
-              width="50%"
+              width="100%"
               btnBg="#EA4C89"
               btnColor={"#fff"}
             />
@@ -63,7 +63,7 @@ const NavigateMPinScreenModal = ({
             <CustomBtn
               title="Set Mpin"
               onPress={onMpinScreen}
-              width="50%"
+              width="100%"
               btnBg="#EA4C89"
               btnColor={"#fff"}
             />
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    fontWeight: "600",
+    fontWeight: "500",
     textAlign: "center",
     lineHeight: 22,
   },

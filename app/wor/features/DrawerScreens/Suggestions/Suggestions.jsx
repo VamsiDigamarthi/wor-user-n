@@ -19,11 +19,13 @@ import { API } from "../../../../../Constants/url";
 import ModalUi from "../../../utiles/Modal/Modal";
 import { infoModalStyles } from "../../../../../Components/InfoUi/Styles/InfoModalStyles";
 import TickBig from "../../../../../assets/tickBig.png";
+import { COLORS } from "../../../../../Constants/colors";
 
 export default function Suggestions({ navigation }) {
   const { token } = useSelector((state) => state.token);
   const [text, setText] = useState("");
   const [openModal, setOpenModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleChangeText = useCallback((value) => {
     setText(value);
@@ -31,7 +33,7 @@ export default function Suggestions({ navigation }) {
 
   const SendData = useCallback(async () => {
     if (!text.trim()) return;
-
+    setIsLoading(true)
     try {
       const response = await API.post(
         "/saved-address/suggestToWor",
@@ -41,12 +43,7 @@ export default function Suggestions({ navigation }) {
 
       setText("");
       setOpenModal(true);
-      // Toast.show({
-      //   text1: "Thank You For Your Suggestion!",
-      //   text2: "We Will Try to improve your experience",
-      //   position: "top",
-      //   type: "success",
-      // });
+      setIsLoading(false)
     } catch (error) {
       Toast.show({
         text1: "Something went wrong!",
@@ -54,6 +51,7 @@ export default function Suggestions({ navigation }) {
         position: "top",
         type: "error",
       });
+      setIsLoading(false)
     }
   }, [text, token]);
 
@@ -72,9 +70,15 @@ export default function Suggestions({ navigation }) {
       style={styles.flexContainer}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <AppBarLayout title="Suggestion" isPositionAppbar={true}>
-          <View style={styles.container}>
+          <View
+            style={[
+              styles.container,
+              { paddingTop: Platform.OS == "ios" ? 115 : 100 },
+            ]}
+          >
             <Text style={styles.mainText}>Suggest To Wor</Text>
 
             <TextInput
@@ -89,7 +93,17 @@ export default function Suggestions({ navigation }) {
             />
 
             <Text style={styles.charCount}>{text.length} / 500 Characters</Text>
-
+            <Text style={styles.staticText}>
+              At women ride[WoR], we're focused on making every ride
+              better,safer,and more secure for women riders.Your suggestion
+              helps us improve comfort,safety,and security.Whether its better
+              enhancing your overall riding experience,your thoughts are crucial
+              to us.We are dedicated to designing products that empower women to
+              ride with confidance and comfort. Together we'll continue to
+              create user meets your needs and expectations. Thank you for being
+              part of this journey-we're excited ro hear from you and keep
+              improving for your
+            </Text>
             <View style={styles.sendButton}>
               <CustomBtn title="Send" onPress={SendData} {...buttonStyles} />
             </View>
@@ -118,6 +132,7 @@ export default function Suggestions({ navigation }) {
               btnColor={"#FFF"}
               onPress={() => navigation?.navigate("Home")}
               width="100%"
+              isLoding={isLoading}
             />
           </View>
         </ModalUi>
@@ -135,7 +150,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 12,
     gap: 15,
-    paddingTop: 110,
+    backgroundColor: COLORS.mainBackgroundColor,
   },
   mainText: {
     fontFamily: fonts.robotoSemiBold,
@@ -143,7 +158,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     borderWidth: 1,
-    borderColor: "#fff5f9",
+    borderColor: "lightgray",
     height: 200,
     backgroundColor: "#fff",
     borderRadius: 10,
@@ -174,4 +189,8 @@ const styles = StyleSheet.create({
     fontFamily: fonts.robotoSemiBold,
     fontSize: 26,
   },
+  staticText:{
+    fontSize:16, lineHeight:20,
+    textAlign:"justify"
+  }
 });

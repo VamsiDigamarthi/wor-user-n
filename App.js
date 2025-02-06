@@ -35,6 +35,9 @@ Notifications.setNotificationHandler({
   }),
 });
 
+
+
+
 // // Request notification permissions for both Firebase and Expo
 async function requestUserPermission() {
   // Firebase Messaging Permissions

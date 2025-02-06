@@ -126,8 +126,10 @@ const AllServices = () => {
           <Text style={styles.headerText}>Services</Text>
         </View>
       </View>
-      <View style={styles.serviceGrid}>{renderServices1()}</View>
-      <View style={styles.serviceGrid}>{renderServices2()}</View>
+      <View style={{ gap: 10 }}>
+        <View style={styles.serviceGrid}>{renderServices1()}</View>
+        <View style={styles.serviceGrid}>{renderServices2()}</View>
+      </View>
     </View>
   );
 };

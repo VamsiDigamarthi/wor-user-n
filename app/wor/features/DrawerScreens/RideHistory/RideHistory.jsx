@@ -1,4 +1,11 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 import React, { useEffect, memo, useMemo } from "react";
 import RideHistoryItem from "./Components/RideHistoryItem";
@@ -9,8 +16,10 @@ import { useRideHistoryHook } from "./Hooks/RideHistory.hook";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 import { useDispatch, useSelector } from "react-redux";
 import { rideHistoryAsyc } from "./rideHistory.slice";
+import { useNavigation } from "@react-navigation/native";
 
 const RideHistory = () => {
+  const navigation = useNavigation()
   const { token } = useSelector((state) => state.token);
   const dispatch = useDispatch();
 
@@ -22,7 +31,12 @@ const RideHistory = () => {
 
   return (
     <AppBarLayout title="Ride History" isPositionAppbar>
-      <View style={styles.innerContainer}>
+      <View
+        style={[
+          styles.innerContainer,
+          { paddingTop: Platform.OS == "ios" ? 110 : 100 },
+        ]}
+      >
         <FlatList
           scrollEnabled
           data={rideHistory}
@@ -32,7 +46,23 @@ const RideHistory = () => {
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={
             <View style={styles.centerCard}>
-              <Text style={{ fontSize: 20, fontWeight: "600" }}>No Rides</Text>
+              <Text style={{ fontSize: 10, fontWeight: "600" }}>
+                Easily view your past rides including pickup, drop-off, face and
+                timetime
+              </Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: 600,
+                  textAlign: "center",
+                  lineHeight: 21,
+                }}
+              >
+                Kepp track of your trips anytime, all in one place.
+              </Text>
+              <Pressable onPress={() => navigation.navigate("SelectDropLocation")} style={styles.rideStart}>
+                <Text style={styles.start}>Start Your Rides</Text>
+              </Pressable>
             </View>
           }
         />
@@ -49,6 +79,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     marginTop: 10,
     paddingTop: 90,
+    backgroundColor: "#f3f2f7",
+    zIndex:-1
   },
   itemSeparator: {
     height: 10,
@@ -57,9 +89,24 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    height: 400,
+    gap: 14,
   },
   noRideText: {
     fontSize: 20,
     fontWeight: "600",
+  },
+  rideStart: {
+    width: 200,
+    height: 50,
+    backgroundColor: "#e02e88",
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  start: {
+    fontSize: 18,
+    fontWeight: "600",
+    color:"#fff"
   },
 });

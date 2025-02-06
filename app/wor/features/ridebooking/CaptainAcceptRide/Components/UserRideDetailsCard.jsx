@@ -10,9 +10,12 @@ const UserRideDetailsCard = ({
   completeRideDetails,
   disFromPickToDrop,
 }) => {
+  
+
+  
   return (
     <View style={styles.container}>
-      <UserCard captainDetails={completeRideDetails?.acceptCaptain} />
+      <UserCard vehcleType={completeRideDetails?.vehicleType} captainDetails={completeRideDetails?.acceptCaptain} />
       {!otpVerified && (
         <MessageCall
           orderId={completeRideDetails._id}

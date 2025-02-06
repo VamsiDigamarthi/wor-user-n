@@ -4,14 +4,14 @@ import { fonts } from "../../../../fonts/Fonts";
 export default function MainCard({}) {
   return (
     <LinearGradient
-      colors={["#EA4C89", "#f7f7f7"]} // Gradient colors
+      colors={["#EA4C89", "#fff"]} // Gradient colors
       start={{ x: 0, y: 0 }} // Gradient start point (top-left)
       end={{ x: 0, y: 1 }} // Gradient end point (bottom-right)
       style={styles.card} // Apply styles
     >
       <View>
         <Text style={styles.heading}>Safety All The Way</Text>
-        <Text style={[styles.subText, { fontSize: 14 }]}>
+        <Text style={[styles.subText, { fontSize: 14 , lineHeight:20}]}>
           At women rider, your safety comes first. Here are some measures and
           provisions to ensure your safety, every time
         </Text>

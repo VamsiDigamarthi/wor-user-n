@@ -106,7 +106,7 @@ const PersonalInfoPreview = () => {
             style={infoModalStyles.aadharModalStyles}
             insideCardStyle={infoModalStyles.insideCardStyle}
             closebtn={false}
-            //   closeModalFun={() => setModalOpen(!modalOpen)}
+              closeModalFun={() => openModalToEdit("name")}
           >
             <View style={styles.btContainer}>
               {current == "name" && (

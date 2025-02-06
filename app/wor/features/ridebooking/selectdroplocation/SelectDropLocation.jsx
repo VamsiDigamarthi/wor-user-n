@@ -1,10 +1,11 @@
-import { KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
+import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback, View } from "react-native";
 import AppBarLayout from "../sharedLogics/AppBarLayout";
 import WhereToGo from "./Components/WhereToGo";
 import SelectOnMap from "./Components/SelectOnMap";
 import { useSelectDropLocationHook } from "./Hooks/SelectDropLocation.hook";
 import MicModal from "./MicModal";
 import { useRoute } from "@react-navigation/native";
+import { COLORS } from "../../../../../Constants/colors";
 
 const SelectDropLocation = () => {
   const {
@@ -22,18 +23,21 @@ const SelectDropLocation = () => {
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+
         <AppBarLayout title="Select Destination" isPositionAppbar={true}>
-          <View style={styles.container}>
+          <View style={[styles.container, {paddingTop : Platform.OS=="ios" ? 110 : 100}]}>
             <WhereToGo
               title={title}
               passParams={passParams}
               micVoiceText={micVoiceText}
               setMicVoiceText={setMicVoiceText}
               setIsMicModalOpenClose={setIsMicModalOpenClose}
-            />
+              />
           </View>
           <SelectOnMap />
         </AppBarLayout>
+      </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
       <MicModal
         micVoiceText={micVoiceText}
@@ -52,9 +56,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 12,
     width: "100%",
-    height: "94%",
+    height: "95%",
     gap: 10,
-    backgroundColor: "#f7f7f7",
+    backgroundColor: COLORS.mainBackgroundColor,
     paddingTop: 100,
     // backgroundColor: "blue",
   },

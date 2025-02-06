@@ -1,6 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Octicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { COLORS } from "../../../../../Constants/colors";
 
 const AppBarTitle = ({
   vicinity,
@@ -73,14 +74,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 10,
     width: "95%",
-    marginLeft: 5,
+    // marginLeft: 5,
     alignItems: "center",
     // paddingLeft: 10,
     backgroundColor: "#fff",
   },
   text: {
     color: "#000",
-    fontSize: 15,
+    fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",
   },
@@ -99,9 +100,9 @@ const styles = StyleSheet.create({
   },
   main: {
     // backgroundColor: "red",
-    // borderWidth: 1,
-    // borderColor: "red",
-    elevation: 4,
+    borderWidth: 1,
+    borderColor: "#b0b0b0",
+    // elevation: 4,
     padding: 8,
     borderRadius: 30,
     alignItems: "center",

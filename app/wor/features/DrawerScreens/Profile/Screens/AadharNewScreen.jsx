@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Platform } from "react-native";
 import React, { useState } from "react";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import AppBarLayout from "../../../ridebooking/sharedLogics/AppBarLayout";
@@ -12,8 +12,8 @@ export default function AadharNewScreen() {
 
   return (
     <AppBarLayout title="Gender Identity" isPositionAppbar={true}>
-      <View style={styles.container}>
-        <Text style={[styles.heading, { fontFamily: fonts.robotoRegular }]}>
+      <View style={[styles.container,{paddingTop : Platform.OS=="ios" ? 110 : 100}]}>
+        <Text style={[styles.heading]}>
           Aadhaar verification is an essential step to ensure the authenticity
           of our users. By using Aadhaar, we can confirm your identity quickly
           and securely, making it easier to access our services. This helps us
@@ -37,7 +37,7 @@ export default function AadharNewScreen() {
 
           {profile?.aadharCarVerificaation && (
             <View style={styles.verifiedBtn}>
-              <Text style={{ fontSize: 10 }}>Verified</Text>
+              <Text style={{ fontSize: 10 , fontFamily:fonts.robotoSemiBold }}>Verified</Text>
               <MaterialIcons name="verified" size={15} color="black" />
             </View>
           )}
@@ -46,17 +46,13 @@ export default function AadharNewScreen() {
         <View style={styles.bottomText}>
           <AntDesign name="Safety" size={15} color="#036413" />
           <Text
-            style={{
-              color: "#757575",
-              fontFamily: fonts.robotoRegular,
-              fontSize: 10,
-            }}
+            style={styles.secureText}
           >
             Your Data is 100% Safe and Secure
           </Text>
         </View>
       </View>
-      <AadharModal openModal={modalOpen} closeModal={setModalOpen} />
+      <AadharModal openModal={modalOpen} closeModal={()=>setModalOpen(!modalOpen)} />
     </AppBarLayout>
   );
 }
@@ -66,15 +62,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 10,
     gap: 10,
-    paddingTop: 100,
-    backgroundColor: "#fff",
+    paddingTop: 120,
+    backgroundColor: "#f7f7f7",
     flex: 1,
   },
   heading: {
     // fontWeight: "600",
     fontSize: 14,
     lineHeight: 21,
-    fontFamily: fonts.robotoSemiBold,
+    fontFamily: fonts.robotoRegular,
     textAlign: "justify",
     // color: "red",
   },
@@ -125,8 +121,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   bottomText: {
-    color: "#757575",
-    fontFamily: fonts.robotoRegular,
+
     position: "absolute",
     bottom: 20,
 
@@ -136,4 +131,9 @@ const styles = StyleSheet.create({
     gap: 10,
     width: "100%",
   },
+  secureText:{
+    color: "#757575",
+    fontFamily: fonts.robotoRegular,
+    fontSize: 10,
+  }
 });
