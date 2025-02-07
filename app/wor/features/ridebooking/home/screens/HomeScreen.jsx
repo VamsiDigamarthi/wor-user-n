@@ -1,9 +1,8 @@
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import { useHomeScreenHook } from "./HomeScreen.hook";
 import { useBottomSheetConfig } from "../../sharedLogics/BottomSheetComponent/useBottomSheetConfig";
 import BottomSheetComponent from "../../sharedLogics/BottomSheetComponent/BottomSheetComponent";
 import { allRideBookingScreen } from "../../sharedLogics/styles/ridebookingstyles";
-import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import HomeMap from "../components/HomeMap";
 import SliderComponent from "../components/SliderComponent";
 import HomeWorImage from "../components/HomeWorImage";
@@ -13,7 +12,6 @@ import HomePlaceNearPlaceCard from "../components/HomePlaceNearPlaceCard";
 import CopyBox from "../../../../utiles/CopyBox";
 import { StatusBar } from "expo-status-bar";
 import RatingModal from "../modals/RatingModal/RatingModal";
-import { useSelector } from "react-redux";
 import AadharNotVerifiedModal from "../modals/InitialModals/AadharNotVerifiedModal";
 import MpinNotAvailableModal from "../modals/InitialModals/MpinNotAvailableModal";
 

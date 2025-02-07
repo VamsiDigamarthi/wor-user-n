@@ -5,9 +5,10 @@ import { infoModalStyles } from "../../../../../../Components/InfoUi/Styles/Info
 import RadioItem from "../../../DrawerScreens/About/components/RadioItem";
 import { cancelData } from "../cancelData";
 import CustomBtn from "../../../../utiles/CustomBtn";
-import { cancelRide } from "../../LookingforRide/components/services/lookingForRideServices";
+// import { cancelRide } from "../../LookingforRide/components/services/lookingForRideServices";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+import { cancelRide } from "../../LookingforRide/services/lookingForRideServices";
 
 const CancelRideModal = ({ openCancelModal, closeCancelModal }) => {
   const navigation = useNavigation();

@@ -20,6 +20,7 @@ import {
   setDisplayAadharModal,
   setDisplayMPinModal,
 } from "../redux/initialModals";
+import { rideHistoryAsyc } from "../../../DrawerScreens/RideHistory/rideHistory.slice";
 
 // Split into smaller utility functions for readability
 const useFirebaseToken = (token) => {
@@ -50,7 +51,7 @@ const useVerificationCheck = (profile) => {
   useEffect(() => {
     if (profile?.aadharCarVerificaation === null) {
       console.log("--- adhar not verified---");
-      
+
       dispatch(setDisplayAadharModal(true));
     } else if (profile?.mpin === null) {
       dispatch(setDisplayMPinModal(true));
@@ -58,8 +59,7 @@ const useVerificationCheck = (profile) => {
     return () => {
       dispatch(setDisplayAadharModal(false));
       dispatch(setDisplayMPinModal(false));
-
-    }
+    };
   }, [profile, dispatch]);
 };
 
@@ -152,6 +152,8 @@ export const useHomeScreenHook = () => {
     dispatch(fetchLocation());
     dispatch(onProfileSection({ token }));
     dispatch(homePlace({ token }));
+
+    dispatch(rideHistoryAsyc({ token }));
   }, [dispatch, token]);
 
   // Fetch nearby places
@@ -177,6 +179,7 @@ export const useHomeScreenHook = () => {
       dispatch(clearDropData());
       fetchPendingOrderRating();
       dispatch(clearHomeOrWorkPlace());
+      dispatch(rideHistoryAsyc({ token }));
     }
   }, [isFocused, dispatch, fetchPendingOrderRating]);
 

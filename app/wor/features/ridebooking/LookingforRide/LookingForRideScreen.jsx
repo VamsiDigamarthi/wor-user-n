@@ -25,6 +25,7 @@ const LookingForRideScreen = () => {
     showCancelWithReOrderBtn,
     onNewCancelHandle,
     futureTime,
+    cancelRideModal
   } = useLookingForRideScreenHook();
 
   const { mapHeight, snapPoints, handleSheetChange } = useBottomSheetConfig(

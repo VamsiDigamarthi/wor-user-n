@@ -34,7 +34,7 @@ export const useShowPriceScreenHook = () => {
     if (!location || !dropDetails?.location) return;
 
     const distance = haversineDistance(location, dropDetails.location);
-    const calculatedPriceDetails = calculatePriceDetails(distance);
+    const calculatedPriceDetails = calculatePriceDetails(Math.ceil(distance));
     let price = calculatedPriceDetails[selectedVehicleType];
 
     // if (profile?.donationActive) {

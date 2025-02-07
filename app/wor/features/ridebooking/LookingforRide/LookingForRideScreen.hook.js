@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   cancelRide,
   rePlaceOrder,
-} from "./components/services/lookingForRideServices";
+} from "./services/lookingForRideServices";
 import { useEffect, useRef, useState } from "react";
 import { Animated } from "react-native";
 import { useSocket } from "../../../../../SocketContext";
@@ -24,6 +24,8 @@ export const useLookingForRideScreenHook = () => {
   const navigation = useNavigation();
   const [showCancelWithReOrderBtn, setShowCancelWithReOrderBtn] =
     useState(true);
+
+    const [cancelRideModal, setCancelRideModal] = useState(false)
 
   console.log("orderId", orderId, "orderPlaceTime", orderPlaceTime);
 
@@ -110,6 +112,7 @@ export const useLookingForRideScreenHook = () => {
   });
 
   const handleCancelRide = async () => {
+    setCancelRideModal(true)
     const rideCancel = await cancelRide({ token, orderId });
     if (rideCancel) navigation?.goBack();
   };
@@ -169,5 +172,6 @@ export const useLookingForRideScreenHook = () => {
     showCancelWithReOrderBtn,
     onNewCancelHandle,
     futureTime,
+    cancelRideModal
   };
 };
