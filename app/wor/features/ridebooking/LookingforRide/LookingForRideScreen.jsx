@@ -8,6 +8,7 @@ import ProgressBar from "./components/ProgressBar";
 import CustomBtn from "../../../utiles/CustomBtn";
 import { useNavigation } from "@react-navigation/native";
 import { Chase } from "react-native-animated-spinkit";
+import CancelRideModal from "../CaptainAcceptRide/Modals/CancelRideModal";
 
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.48, 0.5].map((p) => screenHeight * p); // Example snap points for Android
@@ -25,7 +26,11 @@ const LookingForRideScreen = () => {
     showCancelWithReOrderBtn,
     onNewCancelHandle,
     futureTime,
-    cancelRideModal
+    cancelRideModal,
+
+    setCancelModal,
+    cancelModal,
+    orderId,
   } = useLookingForRideScreenHook();
 
   const { mapHeight, snapPoints, handleSheetChange } = useBottomSheetConfig(
@@ -92,6 +97,12 @@ const LookingForRideScreen = () => {
           </View>
         </View>
       </BottomSheetComponent>
+      <CancelRideModal
+        closeCancelModal={() => setCancelModal(false)}
+        openCancelModal={cancelModal}
+        orderId={orderId}
+        isLookingForRideScreen={true}
+      />
     </View>
   );
 };

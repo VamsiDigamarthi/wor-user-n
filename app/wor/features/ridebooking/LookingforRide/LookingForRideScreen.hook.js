@@ -1,9 +1,6 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  cancelRide,
-  rePlaceOrder,
-} from "./services/lookingForRideServices";
+import { cancelRide, rePlaceOrder } from "./services/lookingForRideServices";
 import { useEffect, useRef, useState } from "react";
 import { Animated } from "react-native";
 import { useSocket } from "../../../../../SocketContext";
@@ -20,12 +17,14 @@ export const useLookingForRideScreenHook = () => {
     futureTime = false,
   } = useRoute().params;
 
+  const [cancelModal, setCancelModal] = useState(false);
+
   const progress = useRef(new Animated.Value(0)).current;
   const navigation = useNavigation();
   const [showCancelWithReOrderBtn, setShowCancelWithReOrderBtn] =
     useState(true);
 
-    const [cancelRideModal, setCancelRideModal] = useState(false)
+  const [cancelRideModal, setCancelRideModal] = useState(false);
 
   console.log("orderId", orderId, "orderPlaceTime", orderPlaceTime);
 
@@ -112,9 +111,13 @@ export const useLookingForRideScreenHook = () => {
   });
 
   const handleCancelRide = async () => {
-    setCancelRideModal(true)
-    const rideCancel = await cancelRide({ token, orderId });
-    if (rideCancel) navigation?.goBack();
+    // setCancelRideModal(true)
+    // const rideCancel = await cancelRide({ token, orderId });
+    // if (rideCancel) navigation?.goBack();
+
+    setCancelModal(true);
+    // const rideCancel = await cancelRide({ token, orderId });
+    // if (rideCancel) navigation?.goBack();
   };
 
   const handleRplaceRide = async () => {
@@ -172,6 +175,8 @@ export const useLookingForRideScreenHook = () => {
     showCancelWithReOrderBtn,
     onNewCancelHandle,
     futureTime,
-    cancelRideModal
+    setCancelModal,
+    cancelModal,
+    orderId,
   };
 };

@@ -10,7 +10,12 @@ import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { cancelRide } from "../../LookingforRide/services/lookingForRideServices";
 
-const CancelRideModal = ({ openCancelModal, closeCancelModal }) => {
+const CancelRideModal = ({
+  openCancelModal,
+  closeCancelModal,
+  orderId,
+  isLookingForRideScreen = false,
+}) => {
   const navigation = useNavigation();
   const { token } = useSelector((state) => state.token);
   const { completeRideDetails } = useSelector((state) => state.allRideDetails);
@@ -28,7 +33,7 @@ const CancelRideModal = ({ openCancelModal, closeCancelModal }) => {
 
     const data = await cancelRide({
       token,
-      orderId: completeRideDetails?._id,
+      orderId: isLookingForRideScreen ? orderId : completeRideDetails?._id,
       reason: selectedValue,
     });
 

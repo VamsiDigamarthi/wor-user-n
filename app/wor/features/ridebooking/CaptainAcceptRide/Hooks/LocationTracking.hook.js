@@ -1,7 +1,7 @@
-// useLocationTracking.js
 import { useCallback, useEffect, useRef, useState } from "react";
 import * as Location from "expo-location";
 import { useFocusEffect } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const useLocationTracking = (
   orderId,
@@ -10,10 +10,9 @@ export const useLocationTracking = (
   isLiveTrackingEnabled
 ) => {
   const locationRef = useRef({ lat: null, lng: null });
-  const coordinatesFetchedRef = useRef(false); // Using ref to store the latest value of coordinatesFetched
-  const [isFocused, setIsFocused] = useState(false); // Track screen focus state
+  const coordinatesFetchedRef = useRef(false);
+  const [isFocused, setIsFocused] = useState(false);
 
-  // Live location fetching logic
   const onFetchLiveLocation = async () => {
     try {
       const { status } = await Location.requestForegroundPermissionsAsync();
@@ -33,6 +32,9 @@ export const useLocationTracking = (
   };
 
   useEffect(() => {
+    console.log("000000000000000000", isLiveTrackingEnabled);
+    console.log("orderId ---------------", orderId);
+
     if (isLiveTrackingEnabled && isFocused) {
       const locationInterval = setInterval(() => {
         onFetchLiveLocation();
@@ -44,6 +46,7 @@ export const useLocationTracking = (
               lng: locationRef.current.lng,
             },
           });
+          console.log("---- live coordinates---");
         }
       }, 5000);
 
@@ -55,8 +58,8 @@ export const useLocationTracking = (
     useCallback(() => {
       setIsFocused(true);
       return () => {
-        setIsFocused(false); // Stop fetching and sending coordinates when the screen is unfocused
-        coordinatesFetchedRef.current = false; // Reset coordinatesFetched in the ref
+        setIsFocused(false);
+        coordinatesFetchedRef.current = false;
       };
     }, [])
   );
