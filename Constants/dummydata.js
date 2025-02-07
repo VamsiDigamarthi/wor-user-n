@@ -1,17 +1,53 @@
-let nearPlace = {
-  id: "ChIJ9-84wbqRyzsRFscOkuHoOBw",
-  location: { lat: 17.479773, lng: 78.426975 },
-  name: "VSP Industries",
-  photo:
-    "AVzFdbnDU1BGDXHp_kPf3lFSC7Hwpasv1IKbK5f5m4jQh2MGFhHsflgnQKVU0w1WCs8Bco4g0t61WP218zwYMpTk4l9kKVOBlfQITvoVOqdxRkR_pStqPs2CnofCj2Of3Yyvo9tE526Q_vlKjqj3YOzWozxgJyNZ8KE96J6bHetwPIIWBaQy",
-  vicinity:
-    "Shed No: 4-B, Type1, TSIIC, IALA, Besides Daewoong Pharrmsutical, TGIIC Road, Prashanth Nagar, Kukatpally, Hyderabad",
-};
-
-let rideHi = {
-  _id: "67a5637e2036c029d47d6ee7",
-  location: { lat: 17.48273945505065, lng: 78.41902896361806 },
-  name: "5/7/8",
-  vicinity:
-    "5/7/8, Dayarguda, Sangeet Nagar, Kukatpally, Hyderabad, Telangana 500072, India",
-};
+let f = [
+  {
+    __v: 0,
+    _id: "67a596a13f6c063c5962f30b",
+    businesDetails: "One percent man registration",
+    businessType: {
+      image: "uploads\\1738905249604.jpeg",
+      name: "Trade license",
+    },
+    city: "jdlasj",
+    day: ['["Sunday"]'],
+    district: "asd",
+    drivingSchoolName: "lkjasljld",
+    email: "akshdkh@gmail.com",
+    landMark: "djasll",
+    location: { image: "uploads\\1738905249628.png", name: "utility bill" },
+    mobileNumber: "7979798797",
+    ownerName: "alsjdl",
+    password: "$2b$10$oj015A8rA8B.9AJ/EA.zV.8.GlVWHTwQ4DwwjHueIW/6G5b5Fm2pK",
+    pinCode: 887789,
+    services: ['["Car","Scooty"]'],
+    specificLinence: { image: "", name: "N/A" },
+    state: "as",
+    status: "pending",
+    streetName: "asldkj",
+    timings: { endTime: "asd", startTime: "asd" },
+    trainerDetails: [[Object]],
+  },
+  {
+    __v: 0,
+    _id: "67a5980b3f6c063c5962f3ff",
+    businesDetails: "One percent man registration",
+    businessType: { image: "uploads\\1738905611742.png", name: "PAN" },
+    city: "gjasjgj",
+    day: ['["Sunday"]'],
+    district: "asdg",
+    drivingSchoolName: "Shankar sambaram",
+    email: "vad@gmai.com",
+    landMark: "gdjhasjgjg",
+    location: { image: "uploads\\1738905611762.png", name: "bank statement" },
+    mobileNumber: "7878878878",
+    ownerName: "Shankar",
+    password: "$2b$10$ixZgzH3wjFlSVYJLM2TS4e6ZcE1UzIebk7I3WrSRx7nF2s3Y5U9U2",
+    pinCode: 789798,
+    services: ['["Car","Scooty"]'],
+    specificLinence: { image: "", name: "N/A" },
+    state: "jajgshjhjh",
+    status: "pending",
+    streetName: "hgsagjhgj",
+    timings: { endTime: "ajshdkj", startTime: "12121" },
+    trainerDetails: [[Object]],
+  },
+];

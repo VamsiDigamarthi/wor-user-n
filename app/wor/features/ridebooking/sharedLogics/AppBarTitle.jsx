@@ -12,6 +12,8 @@ const AppBarTitle = ({
   const navigation = useNavigation();
 
   const handleBackOrNavigateSelectDropScreen = () => {
+    console.log(borderStyles,"borderStyles",title);
+    
     !borderStyles &&
       navigation.navigate("SelectDropLocation", {
         title,
