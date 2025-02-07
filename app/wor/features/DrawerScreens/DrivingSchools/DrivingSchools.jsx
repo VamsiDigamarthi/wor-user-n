@@ -34,6 +34,9 @@ export default function DrivingSchools() {
 
   // console.log("drivingSchools",drivingSchools?.length);
 
+    
+  
+
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <AppBarLayout

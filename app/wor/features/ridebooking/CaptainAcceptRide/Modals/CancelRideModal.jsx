@@ -29,6 +29,7 @@ const CancelRideModal = ({
   const handleCancelBtn = async () => {
     if (!selectedValue) {
       setErrMsg("Please Select Reason");
+      return
     }
 
     const data = await cancelRide({
@@ -77,7 +78,7 @@ const CancelRideModal = ({
         </View>
 
         {errMsg && (
-          <Text style={{ fontSize: 11, fontWeight: "500", color: "red" }}>
+          <Text style={{ fontSize: 11, fontWeight: "500", color: "red", textAlign:"center" }}>
             {errMsg}
           </Text>
         )}

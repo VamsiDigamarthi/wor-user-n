@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, Pressable } from "react-native";
+import { View, Text, StyleSheet, Image, Pressable, Linking } from "react-native";
 import React, { useState } from "react";
 import { RatingLady } from "../../../../Images/Rating";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -6,16 +6,26 @@ import { useNavigation } from "@react-navigation/native";
 import { fonts } from "../../../../fonts/Fonts";
 import { imageUrl } from "../../../../../../Constants/url";
 export default function Card({item}) {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
    const [imageSource, setImageSource] = useState(
       item?.businessType?.image
         ? { uri: `${imageUrl}/${item?.businessType?.image}` }
         : RatingLady
     );
+
+    
+
+    const openDrivingSchool = () => {
+      const url = "https://drivingschools.nuhvin.com/register"; // Replace with your desired URL
+      Linking.openURL(url).catch((err) =>
+        console.error("Failed to open URL:", err)
+      );
+    };
+
   return (
     <Pressable
       style={styles.container}
-      // onPress={() => navigation.navigate("DrivingSchoolsDetailView")}
+      onPress={openDrivingSchool}
     >
       <Image source={imageSource} style={styles.img} />
       <View style={styles.middle}>
