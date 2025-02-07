@@ -37,7 +37,7 @@ const ShowPriceScreen = () => {
     timerSetModalOpen,
     shceduleOrderModal,
     time,
-    profile,
+    
   } = useShowPriceScreenHook();
 
   const { mapHeight, snapPoints, handleSheetChange } = useBottomSheetConfig(
@@ -48,6 +48,7 @@ const ShowPriceScreen = () => {
 
   const [offerModalOpen, setOfferModalOpen] = useState(false);
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
+console.log("time",time);
 
   return (
     <>

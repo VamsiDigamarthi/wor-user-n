@@ -26,6 +26,8 @@ const LookingForRideScreen = () => {
     showCancelWithReOrderBtn,
     onNewCancelHandle,
     futureTime,
+    cancelRideModal,
+
     setCancelModal,
     cancelModal,
     orderId,

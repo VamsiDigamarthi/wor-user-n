@@ -17,15 +17,20 @@ import DeviceInfo from "react-native-device-info";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { clearHomeOrWorkPlace } from "../../selectdroplocation/redux/homePlaceType.slice";
 
+import {
+  setDisplayAadharModal,
+  setDisplayMPinModal,
+} from "../redux/initialModals";
+import { rideHistoryAsyc } from "../../../DrawerScreens/RideHistory/rideHistory.slice";
+
 export const useHomeScreenHook = () => {
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
 
-
   useEffect(() => {
     if (profile?.aadharCarVerificaation === null) {
       console.log("--- adhar not verified---");
-      
+
       dispatch(setDisplayAadharModal(true));
     } else if (profile?.mpin === null) {
       dispatch(setDisplayMPinModal(true));
@@ -33,14 +38,12 @@ export const useHomeScreenHook = () => {
     return () => {
       dispatch(setDisplayAadharModal(false));
       dispatch(setDisplayMPinModal(false));
-
-    }
+    };
   }, [profile, dispatch]);
 };
 
 // Handles device ID checks and redirects if mismatched
 const useDeviceIdCheck = (token) => {
-
   const navigation = useNavigation();
   const { token } = useSelector((state) => state.token);
   const { location } = useSelector((state) => state.location);
@@ -74,6 +77,8 @@ const useDeviceIdCheck = (token) => {
     dispatch(fetchLocation());
     dispatch(onProfileSection({ token }));
     dispatch(homePlace({ token }));
+
+    dispatch(rideHistoryAsyc({ token }));
   }, [dispatch, token]);
 
   useEffect(() => {
@@ -124,6 +129,7 @@ const useDeviceIdCheck = (token) => {
       dispatch(clearDropData());
       fetchPendingOrderRating();
       dispatch(clearHomeOrWorkPlace());
+      dispatch(rideHistoryAsyc({ token }));
     }
   }, [isFocused]);
 
