@@ -16,14 +16,18 @@ const HomePlaceNearPlaceCard = ({ nearByRandomItems }) => {
   const { rideHistory } = useSelector((state) => state.rideHistory);
   const navigation = useNavigation();
   const dispatch = useDispatch();
+// console.log(rideHistory[0]);
+
 
   const navigateShowPriceScreen = (place) => {
     dispatch(setIsBeforeBook(true));
-    dispatch(setDropDetails(place));
+    dispatch(setDropDetails(place))
     
     navigation.navigate("ShowPrice");
   };
 
+  // console.log("homePlace",homePlace);
+  
   const renderLocationItem = ({
     place,
     defaultPlace,
@@ -45,12 +49,12 @@ const HomePlaceNearPlaceCard = ({ nearByRandomItems }) => {
   const renderFirstLocationItem = () => {
     const place = rideHistory[0]
       ? {
-          name: rideHistory[0].pickupAddress,
-          vicinity: rideHistory[0].pickupVicinity,
+          name: rideHistory[0]?.dropAddress,
+          vicinity: rideHistory[0]?.dropVicinity,
           _id: rideHistory[0]?._id,
           location: {
-            lat: rideHistory[0]?.pickup?.coordinates?.[1],
-            lng: rideHistory[0]?.pickup?.coordinates?.[0],
+            lat: rideHistory[0]?.drop?.coordinates?.[1],
+            lng: rideHistory[0]?.drop?.coordinates?.[0],
           },
         }
       : null;
@@ -66,13 +70,15 @@ const HomePlaceNearPlaceCard = ({ nearByRandomItems }) => {
   const renderSecondLocationItem = () => {
     const place = homePlace
       ? {
-          name: homePlace.name,
-          vicinity: homePlace.vicinity,
+          name: homePlace?.name,
+          vicinity: homePlace?.vicinity,
+          _id : homePlace?._id,
+          location : homePlace?.location
         }
       : rideHistory[1]
       ? {
-          name: rideHistory[1].pickupAddress,
-          vicinity: rideHistory[1].pickupVicinity,
+          name: rideHistory[1]?.pickupAddress,
+          vicinity: rideHistory[1]?.pickupVicinity,
           _id: rideHistory[1]?._id,
           location: {
             lat: rideHistory[1]?.pickup?.coordinates?.[1],
@@ -94,13 +100,17 @@ const HomePlaceNearPlaceCard = ({ nearByRandomItems }) => {
   const renderThirdLocationItem = () => {
     const place = workPlace
       ? {
-          name: workPlace.name,
-          vicinity: workPlace.vicinity,
+          name: workPlace?.name,
+          vicinity: workPlace?.vicinity,
+          _id : homePlace?._id,
+
+          location : homePlace?.location
+
         }
       : rideHistory[2]
       ? {
-          name: rideHistory[2].pickupAddress,
-          vicinity: rideHistory[2].pickupVicinity,
+          name: rideHistory[2]?.pickupAddress,
+          vicinity: rideHistory[2]?.pickupVicinity,
           _id: rideHistory[2]?._id,
           location: {
             lat: rideHistory[2]?.pickup?.coordinates?.[1],

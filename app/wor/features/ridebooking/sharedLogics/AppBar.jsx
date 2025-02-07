@@ -52,7 +52,7 @@ const Appbar = ({
             borderStyles={borderStyles}
             title={title}
             vicinity={vicinity}
-            width={rightText ? "96%" : "86%"}
+            width={rightText ? "70%" : "96%"}
           />
           {isTimer && (
             <Pressable onPress={timerFunction} style={styles.timerCard}>

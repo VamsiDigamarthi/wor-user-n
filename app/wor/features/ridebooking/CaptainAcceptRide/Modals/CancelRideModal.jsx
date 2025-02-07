@@ -38,6 +38,10 @@ const CancelRideModal = ({
     });
 
     if (data) {
+      if(isLookingForRideScreen){
+        navigation.goBack()
+        return
+      }
       navigation.reset({
         index: 0,
         routes: [{ name: "AuthenticatedStack" }],
