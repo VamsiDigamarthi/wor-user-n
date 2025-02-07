@@ -12,12 +12,14 @@ import { infoModalStyles } from "../../../../../../Components/InfoUi/Styles/Info
 import { AddIcon, UserIcons } from "../../../../Icons/Icons";
 import { emergencyContact } from "../Services/emergencyContact";
 import { useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { useLocationTracking } from "../Hooks/LocationTracking.hook";
 import { useSocket } from "../../../../../../SocketContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const EmergencyContactModal = ({ openModal, closeModal }) => {
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
 
   const { token } = useSelector((state) => state.token);
   const { completeRideDetails } = useSelector((state) => state.allRideDetails);
@@ -45,10 +47,27 @@ const EmergencyContactModal = ({ openModal, closeModal }) => {
   };
 
   useEffect(() => {
-    handleFetchEmergecyContact();
-  }, []);
+    if (isFocused) {
+      handleFetchEmergecyContact();
+      checkStoredLiveTracking();
+    }
+  }, [isFocused]);
 
-  const shareLocation = (mobile, link) => {
+  const checkStoredLiveTracking = async () => {
+    try {
+      const storedRideId = await AsyncStorage.getItem("liveTrackingRideId");
+      if (storedRideId === completeRideDetails._id) {
+        setIsLiveTrackingEnabled(true); // Continue live tracking
+      } else {
+        await AsyncStorage.removeItem("liveTrackingRideId"); // Remove if different
+        setIsLiveTrackingEnabled(false); // Stop live tracking
+      }
+    } catch (error) {
+      console.error("Error checking live tracking state:", error);
+    }
+  };
+
+  const shareLocation = async (mobile, link) => {
     setIsLiveTrackingEnabled(true);
     const locationLink = `http://localhost:3000/live-tracking/${completeRideDetails?._id}?startLat=${completeRideDetails?.pickup?.coordinates[1]}&startLng=${completeRideDetails?.pickup?.coordinates[0]}&destLat=${completeRideDetails?.drop?.coordinates[1]}&destLng=${completeRideDetails?.drop?.coordinates[0]}`; // Replace with dynamic location coordinates
 
@@ -61,11 +80,17 @@ const EmergencyContactModal = ({ openModal, closeModal }) => {
     const phoneNumber = `+${formattedMobile}`;
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
-    const smsUrl = `sms:${phoneNumber}?body=${encodedMessage}`;
 
     Linking.openURL(whatsappUrl).catch(() => {
       Alert.alert("Something Went Wrong");
     });
+
+    // Store the ride ID for live tracking
+    try {
+      await AsyncStorage.setItem("liveTrackingRideId", completeRideDetails._id);
+    } catch (error) {
+      console.error("Error storing live tracking state:", error);
+    }
   };
 
   return (

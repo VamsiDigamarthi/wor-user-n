@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 8,
     marginBottom: 10,
-    backgroundColor: "red",
+    // backgroundColor: "red",
   },
   text: {
     backgroundColor: "#fff",
