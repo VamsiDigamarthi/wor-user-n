@@ -114,10 +114,8 @@ const DrawerNavigator = ({ route }) => {
         drawerContent={(props) => <CustomeDrawer {...props} />} // Use custom drawer
         screenOptions={{
           header: ({ navigation }) =>
-            ownUser && <HomeAppBard navigation={navigation} />,
-          headerStyle: {
-            backgroundColor: "red", // Apply background color to the header
-          },
+            <HomeAppBard navigation={navigation} />,
+          
           sceneContainerStyle: {
             backgroundColor: screenBackgroundColors[route.name] || null, // Fallback to white if no color found
           },

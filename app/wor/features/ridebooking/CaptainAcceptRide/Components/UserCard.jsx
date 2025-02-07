@@ -1,24 +1,53 @@
 import { Image, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { imageUrl } from "../../../../../../Constants/url";
 
-const UserCard = ({ captainDetails }) => {
-  const captainImageUrl = captainDetails?.profilePic
-    ? `${imageUrl}/${captainDetails.profilePic}`
-    : "https://png.pngtree.com/png-clipart/20231019/original/pngtree-user-profile-avatar-png-image_13369988.png";
-  // console.log("captainDetails", captainDetails);
-  // languages
-  let data = ["English", "Telugu"];
+import defaultImg from "../../../../../../assets/images/profile/Services.png";
+
+const UserCard = ({ captainDetails, vehcleType }) => {
+  const imageSrc = captainDetails?.profilePic
+    ? { uri: `${imageUrl}/${captainDetails.profilePic}` }
+    : defaultImg;
+  const [vehImage, setVehImage] = useState(null);
+
+  const returnVehicleImage = (imageName) => {
+    switch (imageName) {
+      case "scooty":
+        return require("../../../../../../assets/images/HomeServiceImages/scooty.png");
+      case "card":
+        return require("../../../../../../assets/images/HomeServiceImages/cab.png");
+
+      case "auto":
+        return require("../../../../../../assets/images/HomeServiceImages/auto.png");
+
+      case "bookany":
+        return require("../../../../../../assets/images/HomeServiceImages/cab.png");
+
+      case "wor-premium":
+        return require("../../../../../../assets/images/HomeServiceImages/cab.png");
+
+      default:
+        return null;
+    }
+  };
+
+  useEffect(() => {
+    if (vehcleType) {
+      const data = returnVehicleImage(vehcleType);
+      setVehImage(data);
+    }
+  }, [vehcleType]);
+
   return (
     <View style={styles.container}>
       <View style={styles.userImageCard}>
-        <Image
-          style={styles.userImage}
-          source={{
-            uri: captainImageUrl,
-          }}
-        />
-        <View style={styles.bikeImage}></View>
+        <Image style={styles.userImage} source={imageSrc} />
+        <View style={styles.bikeImage}>
+          <Image
+            style={{ width: "100%", height: "100%", resizeMode: "contain" }}
+            source={vehImage}
+          />
+        </View>
       </View>
       <View style={styles.userInfo}>
         <View style={styles.nameWithRating}>
@@ -33,9 +62,16 @@ const UserCard = ({ captainDetails }) => {
         <Text style={{ fontSize: 14, color: "gray" }}>
           {captainDetails?.vehicleName}
         </Text>
-        <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
-          <Text style={{ fontSize: 11, color: "gray" }}>Speaks in</Text>
-        </View>
+        {captainDetails?.languages?.length > 0 && (
+          <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
+            <Text style={{ fontSize: 11, color: "gray" }}>Speaks in</Text>
+            {captainDetails?.languages?.map((each, index) => (
+              <Text key={index} style={{ fontSize: 11, color: "gray" }}>
+                {each}
+              </Text>
+            ))}
+          </View>
+        )}
       </View>
     </View>
   );
@@ -69,8 +105,9 @@ const styles = StyleSheet.create({
     bottom: -5,
     width: 30,
     height: 30,
-    backgroundColor: "red",
+    backgroundColor: "#f7adca",
     borderRadius: 20,
+    padding: 3,
   },
   userInfo: {
     gap: 2,

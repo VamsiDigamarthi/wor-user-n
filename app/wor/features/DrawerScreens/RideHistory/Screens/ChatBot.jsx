@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, Text, View, ScrollView, Platform } from "react-native";
 import { useChatBotHook } from "../Hooks/ChatBot.hook";
 import AppBarLayout from "../../../ridebooking/sharedLogics/AppBarLayout";
 import ChatBotMessage from "../Components/ChatBotMessage";
@@ -11,7 +11,7 @@ const ChatBot = () => {
 
   return (
     <AppBarLayout title="WoR Support" isPositionAppbar={true} rightText={true}>
-      <View style={styles.container}>
+      <View style={[styles.container, {paddingTop : Platform.OS=="ios" ? 110 : 80}]}>
         <Text style={styles.text}>{caterogy}</Text>
         <ScrollView
           style={styles.messageContainer}

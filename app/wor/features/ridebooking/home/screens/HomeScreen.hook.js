@@ -20,6 +20,27 @@ import { clearHomeOrWorkPlace } from "../../selectdroplocation/redux/homePlaceTy
 export const useHomeScreenHook = () => {
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    if (profile?.aadharCarVerificaation === null) {
+      console.log("--- adhar not verified---");
+      
+      dispatch(setDisplayAadharModal(true));
+    } else if (profile?.mpin === null) {
+      dispatch(setDisplayMPinModal(true));
+    }
+    return () => {
+      dispatch(setDisplayAadharModal(false));
+      dispatch(setDisplayMPinModal(false));
+
+    }
+  }, [profile, dispatch]);
+};
+
+// Handles device ID checks and redirects if mismatched
+const useDeviceIdCheck = (token) => {
+
   const navigation = useNavigation();
   const { token } = useSelector((state) => state.token);
   const { location } = useSelector((state) => state.location);

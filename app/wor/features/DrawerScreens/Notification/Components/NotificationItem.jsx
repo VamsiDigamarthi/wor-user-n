@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
     padding: 15,
     // marginHorizontal: 10,
     borderRadius: 15,
-    borderBottomWidth: 1,
-    borderColor: "#808080",
+    // borderBottomWidth: 1,
+    // borderColor: "#808080",
   },
   img: {
     height: 50,

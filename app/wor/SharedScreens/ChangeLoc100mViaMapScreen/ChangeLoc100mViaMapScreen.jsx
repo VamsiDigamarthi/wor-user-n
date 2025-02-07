@@ -31,7 +31,7 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
         style={styles.backbtn}
         onPress={() => navigation.goBack()}
       >
-        <Entypo name="chevron-left" size={30} color="black" />
+        <Entypo name="chevron-left" size={24} color="black" />
       </TouchableOpacity>
 
       <View style={styles.container}>
@@ -85,8 +85,8 @@ const styles = StyleSheet.create({
 
   backbtn: {
     position: "absolute",
-    top: 40,
-    left: 2,
+    top: 39,
+    left: 10,
     padding: 5,
     borderRadius: 50,
     alignItems: "center",

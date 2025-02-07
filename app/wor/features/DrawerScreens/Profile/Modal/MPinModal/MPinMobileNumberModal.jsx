@@ -19,7 +19,7 @@ const MPinMobileNumberModal = ({
 
   const handleSubmitOtp = async () => {
     setIsLoading(true);
-    console.log("iugf");
+    // console.log("iugf");
     const data = await onVerifiOtp({ otp: otp?.join(""), mobile });
     setIsLoading(false);
     if (!data) return;

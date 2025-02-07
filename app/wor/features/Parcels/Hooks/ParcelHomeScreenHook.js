@@ -24,15 +24,7 @@ export const useParcelHomeScreenHook = () => {
     dispatch(setIsBeforeBook(true));
     dispatch(setIsParcScreen(true));
     navigation.navigate("ShowPrice");
-    //  {
-    //   placeName: placeName,
-    //   placeVicinity: placeVicinity,
-    //   pickUpCoordinated: location,
-    //   isPickLocationFromParc: true,
-    //   parcelDetails: parcelDetails,
-    //   // selectedCard: selectedCard,
-    //   dropDetails: null,
-    // });
+    
   };
 
   return {

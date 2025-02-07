@@ -10,7 +10,7 @@
 {
   self.moduleName = @"main";
  
-    [FIRApp configure]; // Initialize Firebase
+    [FIRApp configure]; // Initialize Firebase manually in file 
   
 
   // You can add your custom initial props in the dictionary below.

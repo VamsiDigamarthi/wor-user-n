@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -14,6 +14,7 @@ import DeleteModal from "./Modal/DeleteModal";
 import { fonts } from "../../../fonts/Fonts";
 
 import delicon from "../../../../../assets/abouticons/delete.png";
+import { COLORS } from "../../../../../Constants/colors";
 
 const settingsData = [
   {
@@ -36,7 +37,7 @@ const AppSettingsScreen = () => {
 
   return (
     <AppBarLayout title="App Settings" isPositionAppbar={true}>
-      <View style={styles.innerCard}>
+      <View style={[styles.innerCard,{paddingTop : Platform.OS=="ios" ? 115 : 100}]}>
         {settingsData?.map((each, index) => (
           <SettingIconCard
             key={index}
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     gap: 10,
     flexGrow: 1,
-    backgroundColor: "#f7f7f7",
+    backgroundColor: COLORS.mainBackgroundColor,
     paddingTop: 110,
   },
 });

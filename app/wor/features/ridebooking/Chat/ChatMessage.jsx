@@ -57,8 +57,9 @@ const styles = StyleSheet.create({
     backgroundColor: "blue",
     // textAlign: "center",
     paddingHorizontal: 15,
-    // borderRadius: 20,
     color: "#e02e88",
     lineHeight: 20,
+    borderRadius:10,
+    overflow:"hidden"
   },
 });

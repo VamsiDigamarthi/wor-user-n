@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Keyboard,
   KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import { Entypo, AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -17,6 +18,7 @@ import CopyBox from "../../../utiles/CopyBox";
 import ModalUI from "../../../utiles/Modal/Modal";
 import InputBox from "../../../utiles/InputCard/InputCard";
 import { infoModalStyles } from "../../../../../Components/InfoUi/Styles/InfoModalStyles";
+import { COLORS } from "../../../../../Constants/colors";
 function Wallet() {
   const navigation = useNavigation();
   const [open, setOpen] = useState(false);
@@ -25,7 +27,7 @@ function Wallet() {
 
   return (
     <AppBarLayout title="E-Wallet" isPositionAppbar>
-      <View style={styles.container}>
+      <View style={[styles.container, {paddingTop : Platform.OS=="ios" ? 110 : 90}]}>
         <Text style={styles.text}>
           The WOR Wallet makes payments easy by adding money ahead of time for
           fast, secure, cashless rides. It’s safe and simple to use.
@@ -48,7 +50,7 @@ function Wallet() {
 
         {[
           { title: "Payment History", route: "PaymentHistory" },
-          { title: "Payment Method", route: "PaymentMethodNew" },
+          // { title: "Payment Method", route: "PaymentMethodNew" },
         ].map((item, index) => (
           <TouchableOpacity
             key={index}
@@ -108,14 +110,14 @@ export default memo(Wallet);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f7f7f7",
+    backgroundColor:COLORS.mainBackgroundColor,
     paddingHorizontal: 16,
-    paddingTop: 90,
   },
   text: {
     fontFamily: fonts.robotoMedium,
     textAlign: "justify",
     paddingVertical: 10,
+    lineHeight:20
   },
   heading: {
     fontFamily: fonts.robotoMedium,
@@ -153,7 +155,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.robotoSemiBold,
   },
   btContainer: {
-    padding: 16,
+    paddingHorizontal:20, paddingVertical:30,
     width: "100%",
     gap: 10,
   },
