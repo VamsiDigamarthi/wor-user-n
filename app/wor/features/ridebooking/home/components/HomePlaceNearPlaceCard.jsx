@@ -16,18 +16,17 @@ const HomePlaceNearPlaceCard = ({ nearByRandomItems }) => {
   const { rideHistory } = useSelector((state) => state.rideHistory);
   const navigation = useNavigation();
   const dispatch = useDispatch();
-// console.log(rideHistory[0]);
-
+  // console.log(rideHistory[0]);
 
   const navigateShowPriceScreen = (place) => {
     dispatch(setIsBeforeBook(true));
-    dispatch(setDropDetails(place))
-    
+    dispatch(setDropDetails(place));
+
     navigation.navigate("ShowPrice");
   };
 
   // console.log("homePlace",homePlace);
-  
+
   const renderLocationItem = ({
     place,
     defaultPlace,
@@ -72,8 +71,8 @@ const HomePlaceNearPlaceCard = ({ nearByRandomItems }) => {
       ? {
           name: homePlace?.name,
           vicinity: homePlace?.vicinity,
-          _id : homePlace?._id,
-          location : homePlace?.location
+          _id: homePlace?._id,
+          location: homePlace?.location,
         }
       : rideHistory[1]
       ? {
@@ -102,10 +101,9 @@ const HomePlaceNearPlaceCard = ({ nearByRandomItems }) => {
       ? {
           name: workPlace?.name,
           vicinity: workPlace?.vicinity,
-          _id : homePlace?._id,
+          _id: homePlace?._id,
 
-          location : homePlace?.location
-
+          location: homePlace?.location,
         }
       : rideHistory[2]
       ? {
