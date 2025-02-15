@@ -69,8 +69,6 @@ const HomeScreen = () => {
       <FutureOrderBox />
       <AadharNotVerifiedModal />
       <MpinNotAvailableModal />
-
-
     </>
   );
 };

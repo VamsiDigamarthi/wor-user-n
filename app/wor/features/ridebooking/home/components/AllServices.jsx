@@ -86,7 +86,7 @@ const AllServices = () => {
   const renderServices2 = () => {
     const services = [
       {
-        label: "Wor Premium",
+        label: "Wor Luxury",
         image: require("../../../../../../assets/images/HomeServiceImages/cab.png"),
         vehicle: "wor-premium",
         // isParcel: true,
