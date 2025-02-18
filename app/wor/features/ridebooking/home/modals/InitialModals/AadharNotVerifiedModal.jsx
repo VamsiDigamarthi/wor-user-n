@@ -21,6 +21,7 @@ export default function AadharNotVerifiedModal() {
   };
 
   const navigateAddhaVerificationScreen = () => {
+    closeAadharModal()
     navigation.navigate("ProfileDocumentScreen");
   };
 
