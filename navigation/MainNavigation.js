@@ -143,7 +143,12 @@ const MainNavigation = () => {
       if (!id || processedNotifications.has(id)) return;
 
       const screen = notification?.request?.content?.data?.screen;
+
+      // console.log(screen, "-----------------screen--------------------------");
+
       const order = notification?.request?.content?.data?.order;
+
+      // console.log(order, "--------------------------------");
 
       if (screen) {
         let newOrder;
@@ -178,13 +183,21 @@ const MainNavigation = () => {
             newOrder = JSON.parse(order);
             dispatch(setCompleteRideDetails(newOrder));
             navigationRef.current?.navigate(screen);
-          }
-          else if(screen === 'Chat'){
+          } else if (screen === "Chat") {
             newOrder = JSON.parse(order);
             dispatch(setCompleteRideDetails(newOrder));
-            navigationRef.current?.navigate(screen,{
-              orderId: newOrder._id,
-              captainDetails :newOrder?.acceptCaptain
+            // navigationRef.current?.navigate(screen,{
+            //   orderId: newOrder._id,
+            //   captainDetails :newOrder?.acceptCaptain
+            // });
+
+            navigationRef.current?.navigate("AuthenticatedStack", {
+              // screen: "Chat",
+              params: {
+                screen: "chat",
+                orderId: newOrder._id,
+                captainDetails: newOrder?.acceptCaptain,
+              },
             });
           }
         } else {
@@ -213,8 +226,15 @@ const MainNavigation = () => {
   // Handle pending notifications when NavigationContainer is ready
   const onReady = () => {
     if (pendingNotification) {
-      navigationRef.current.navigate(pendingNotification, {
-        screen: pendingNotification,
+      // navigationRef.current.navigate(pendingNotification, {
+      //   screen: pendingNotification,
+      // });
+
+      navigationRef.current?.navigate("AuthenticatedStack", {
+        screen: pendingNotification, // Dynamic screen name
+        params: {
+          // Add any parameters you want to pass to the screen
+        },
       });
       setPendingNotification(null);
     }

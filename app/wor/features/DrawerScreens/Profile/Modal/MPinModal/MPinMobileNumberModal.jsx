@@ -21,6 +21,8 @@ const MPinMobileNumberModal = ({
     setIsLoading(true);
     // console.log("iugf");
     const data = await onVerifiOtp({ otp: otp?.join(""), mobile });
+    console.log(data);
+
     setIsLoading(false);
     if (!data) return;
     handleChangeSetMpin();
