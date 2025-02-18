@@ -21,10 +21,11 @@ export const useParcelHomeScreenHook = () => {
   };
 
   const onNavigateParcelPickUpLocationScreen = () => {
+    console.log("asdhashdkhskdh");
+
     dispatch(setIsBeforeBook(true));
     dispatch(setIsParcScreen(true));
     navigation.navigate("ShowPrice");
-    
   };
 
   return {

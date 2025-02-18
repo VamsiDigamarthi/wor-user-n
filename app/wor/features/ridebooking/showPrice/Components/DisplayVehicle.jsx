@@ -8,11 +8,33 @@ import {
 } from "../../sharedLogics/rideDetailsSlice";
 import { fonts } from "../../../../fonts/Fonts";
 
-const DisplayVehicle = ({ vehicle }) => {
+const DisplayVehicle = ({ vehicle, carData, scootyData, autoData }) => {
   const dispatch = useDispatch();
   const { selectedVehicleType, priceDetails } = useSelector(
     (state) => state.allRideDetails
   );
+
+  // Function to calculate and format destination time
+  const getDestinationTime = (durationInMinutes) => {
+    const now = new Date(); // Current time
+    const destinationTime = new Date(now.getTime() + durationInMinutes * 60000); // Add duration in milliseconds
+
+    // Extract hours and minutes
+    let hours = destinationTime.getHours();
+    const minutes = destinationTime.getMinutes();
+
+    // Determine AM or PM
+    const ampm = hours >= 12 ? "PM" : "AM";
+
+    // Convert to 12-hour format
+    hours = hours % 12;
+    hours = hours ? hours : 12; // Handle midnight (0 hours)
+
+    // Format minutes to always be two digits
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+
+    return `${hours}:${formattedMinutes} ${ampm}`;
+  };
 
   const handelSelectVehicle = (vehicle) => {
     dispatch(setPrice(priceDetails[vehicle]));
@@ -26,7 +48,7 @@ const DisplayVehicle = ({ vehicle }) => {
         vehicle?.vehicleType?.toLowerCase() ===
           selectedVehicleType?.toLowerCase() && styles.pressedContainer,
       ]}
-      onPress={() => handelSelectVehicle(vehicle?.vehicleType?.toLowerCase())} // Call onPress when clicked
+      onPress={() => handelSelectVehicle(vehicle?.vehicleType?.toLowerCase())}
     >
       <View style={[styles.container]}>
         <Image style={styles.image} source={vehicle?.image} />
@@ -51,13 +73,22 @@ const DisplayVehicle = ({ vehicle }) => {
               { fontSize: 14, color: "#888", fontWeight: "600" },
             ]}
           >
-            2 mins away drop 5:32
+            {vehicle?.vehicleType.toLowerCase() == "scooty"
+              ? `${scootyData?.duration} Minutes away drop ${getDestinationTime(
+                  scootyData?.duration
+                )}`
+              : vehicle?.vehicleType.toLowerCase() == "auto"
+              ? `${autoData?.duration} Minutes away drop ${getDestinationTime(
+                  autoData?.duration
+                )}`
+              : `${carData?.duration} Minutes away drop ${getDestinationTime(
+                  carData?.duration
+                )}`}
           </Text>
           {vehicle?.isDisplayBeatTheTraffic && (
             <Text style={styles.captionText}>Beat the traffic & Pay less</Text>
           )}
         </View>
-
         <View>
           <Text style={styles.price}>
             ₹{priceDetails?.[vehicle?.vehicleType?.toLowerCase()]}
@@ -98,13 +129,10 @@ const FastCard = () => (
 const styles = StyleSheet.create({
   pressContainer: {
     width: "100%",
-    // borderWidth: 1,
     height: 78,
-    // borderColor: "#ffe2e6",
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
-    // backgroundColor: "red",
   },
   pressedContainer: {
     height: 78,
@@ -115,8 +143,6 @@ const styles = StyleSheet.create({
   },
   container: {
     width: "100%",
-    // backgroundColor: "#fff",
-    // elevation: 0,
     borderRadius: 8,
     paddingHorizontal: 8,
     alignItems: "center",
@@ -137,7 +163,6 @@ const styles = StyleSheet.create({
   textWithPersonCard: {
     width: "100%",
     flexDirection: "row",
-    // justifyContent: "space-between",
     gap: 10,
     alignItems: "center",
   },
@@ -147,12 +172,10 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
   price: {
-    // fontWeight: "bold",
     fontFamily: fonts.robotoSemiBold,
     fontSize: 14,
   },
   priceStrike: {
-    // fontWeight: "bold",
     fontFamily: fonts.robotoRegular,
     fontSize: 12,
     textDecorationLine: "line-through",

@@ -15,10 +15,10 @@ const ParSendRecDetailsDisplayCard = ({ parcelDetails }) => {
         <Text style={{ fontSize: 16, fontWeight: "600", flex: 1 }}>
           Add {isSendOrReceiveParcel === "send" ? "Recevier" : "Sender"} Details
         </Text>
-        <View style={styles.favoriteIconcard}>
+        {/* <View style={styles.favoriteIconcard}>
           <FavoritesIcons size={24} color="grey" />
           <EditIcons size={21} color="black" />
-        </View>
+        </View> */}
       </View>
       <View style={styles.secondCard}>
         <Text style={styles.name}>{parcelDetails?.senderName}</Text>

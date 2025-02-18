@@ -8,6 +8,7 @@ import {
 } from "../../sharedLogics/rideDetailsSlice";
 import { calculatePriceDetails, vehicles } from "../vehicleData";
 import { useNavigation } from "@react-navigation/native";
+import { getTravelDetails } from "../../../../../../Constants/displaylocationmap";
 
 export const useShowPriceScreenHook = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,56 @@ export const useShowPriceScreenHook = () => {
   // this state stored selected vehicle is bottom sheet down display at top this selected vehicle
   const [storedSelectedVehicle, setStoredSelectedVehicle] = useState(null);
   const [knowMoveDownOrUp, setKnowMoveDonwOrUp] = useState("moved up");
+
+  const [scootyData, setScootyData] = useState(null);
+
+  const [carData, setCarData] = useState(null);
+
+  const [autoData, setAutoData] = useState(null);
+
+  const calDisFromPickToDrop = async (vehicleType) => {
+    try {
+      if (location && dropDetails?.location) {
+        const data = await getTravelDetails(
+          [(startLon = location?.lng), (startLat = location?.lat)],
+          [
+            (endLon = dropDetails?.location?.lng),
+            (endLat = dropDetails?.location?.lat),
+          ],
+          vehicleType
+        );
+
+        console.log(data?.distance, data?.durationInMinutes, vehicleType);
+
+        const newData = {
+          distance: data?.distance?.toString(),
+          duration: data?.durationInMinutes?.toString(),
+        };
+
+        return newData;
+      } else {
+        console.warn("Incomplete pickup or drop details");
+        return null;
+      }
+    } catch (error) {
+      console.error("Error calculating distance from pickup to drop:", error);
+      return null;
+    }
+  };
+
+  async function getAll() {
+    let scooty = await calDisFromPickToDrop("scooty");
+    setScootyData(scooty);
+    let car = await calDisFromPickToDrop("car");
+    setCarData(car);
+
+    let auto = await calDisFromPickToDrop("auto");
+    setAutoData(auto);
+  }
+
+  useEffect(() => {
+    getAll();
+  }, [selectedVehicleType, location]);
 
   // shcedule order state
   const [shceduleOrderModal, setShceduleOrderModal] = useState(false);
@@ -54,6 +105,8 @@ export const useShowPriceScreenHook = () => {
   };
 
   useEffect(() => {
+    console.log("from useefects");
+
     handlePriceCalculation();
   }, [location, dropDetails]);
 
@@ -99,6 +152,9 @@ export const useShowPriceScreenHook = () => {
     shceduleOrderModal,
     time,
     profile,
+    scootyData,
+    carData,
+    autoData,
   };
 };
 

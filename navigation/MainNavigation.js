@@ -232,9 +232,7 @@ const MainNavigation = () => {
 
       navigationRef.current?.navigate("AuthenticatedStack", {
         screen: pendingNotification, // Dynamic screen name
-        params: {
-          // Add any parameters you want to pass to the screen
-        },
+        params: {},
       });
       setPendingNotification(null);
     }
