@@ -6,7 +6,7 @@ import {
   View,
   Image,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AppBarLayout from "../sharedLogics/AppBarLayout";
 import { useShowPriceScreenHook } from "./Hooks/ShowPriceScreen.hook";
 import ShowPollyLine from "../../../utiles/ShowPollyLine";
@@ -18,6 +18,7 @@ import CustomBtn from "../../../utiles/CustomBtn";
 import ShceduleOrderModal from "./Modal/ShceduleOrderModal";
 import OfferModal from "./Modal/OfferModal";
 import PaymentModal from "./Modal/PaymentModal";
+import { useSelector } from "react-redux";
 
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.35, 0.7].map((p) => screenHeight * p); // Example snap points for Android
@@ -37,7 +38,9 @@ const ShowPriceScreen = () => {
     timerSetModalOpen,
     shceduleOrderModal,
     time,
-    
+    scootyData,
+    carData,
+    autoData,
   } = useShowPriceScreenHook();
 
   const { mapHeight, snapPoints, handleSheetChange } = useBottomSheetConfig(
@@ -48,7 +51,6 @@ const ShowPriceScreen = () => {
 
   const [offerModalOpen, setOfferModalOpen] = useState(false);
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
-console.log("time",time);
 
   return (
     <>
@@ -71,7 +73,13 @@ console.log("time",time);
           {filteredVehicles?.length === 1 ? (
             <View style={{ paddingHorizontal: 15, paddingVertical: 20 }}>
               {filteredVehicles?.map((vehicle, index) => (
-                <DisplayVehicle key={index} vehicle={vehicle} />
+                <DisplayVehicle
+                  key={index}
+                  vehicle={vehicle}
+                  carData={carData}
+                  scootyData={scootyData}
+                  autoData={autoData}
+                />
               ))}
               <View style={{ height: 150, width: "100%" }} />
             </View>
@@ -80,13 +88,25 @@ console.log("time",time);
               {knowMoveDownOrUp === "moved down" && !time ? (
                 <View style={styles.singleFilterStyle}>
                   {storedSelectedVehicle?.map((vehicle, index) => (
-                    <DisplayVehicle key={index} vehicle={vehicle} />
+                    <DisplayVehicle
+                      key={index}
+                      vehicle={vehicle}
+                      carData={carData}
+                      scootyData={scootyData}
+                      autoData={autoData}
+                    />
                   ))}
                 </View>
               ) : (
                 <View style={{ paddingHorizontal: 15, paddingVertical: 20 }}>
                   {filteredVehicles?.map((vehicle, index) => (
-                    <DisplayVehicle key={index} vehicle={vehicle} />
+                    <DisplayVehicle
+                      key={index}
+                      vehicle={vehicle}
+                      carData={carData}
+                      scootyData={scootyData}
+                      autoData={autoData}
+                    />
                   ))}
                 </View>
               )}

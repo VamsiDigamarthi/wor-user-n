@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useSocket } from "../../../../../../SocketContext";
 import { getTravelDetails } from "../../../../../../Constants/displaylocationmap";
 import { CommonActions, useNavigation } from "@react-navigation/native";
@@ -7,6 +7,7 @@ import { setCompleteRideDetails } from "../../sharedLogics/rideDetailsSlice";
 
 export const useCaptainAcceptRideScreenHook = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const { socket, isConnected } = useSocket();
   const { completeRideDetails } = useSelector((state) => state.allRideDetails);
 
@@ -25,10 +26,10 @@ export const useCaptainAcceptRideScreenHook = () => {
     lng: null,
   });
 
-  const onVerifiedOtp = ({status, order}) => {
-    console.log("--------------verified ----------------",status);
+  const onVerifiedOtp = ({ status, order }) => {
+    console.log("--------------verified ----------------", status);
     setOtpVerified(status ?? false);
-    if(status){
+    if (status) {
       dispatch(setCompleteRideDetails(order));
     }
   };
@@ -128,6 +129,6 @@ export const useCaptainAcceptRideScreenHook = () => {
     disFromCaptainLocToPick,
     disFromPickToDrop,
     liveCoordinates,
-    kownBotSheetChangeUpOrDown
+    kownBotSheetChangeUpOrDown,
   };
 };
