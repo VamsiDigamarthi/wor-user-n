@@ -3,7 +3,8 @@ import { showMessage } from "react-native-flash-message";
 import { API } from "../../../../../../../Constants/url";
 
 const surePassApiKay =
-  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczNzk3MDczNSwianRpIjoiOWQyNTQ1ODQtNWY1NS00ZDYzLWJiNTQtZTY2MWVhMThlNDY0IiwidHlwZSI6ImFjY2VzcyIsImlkZW50aXR5IjoiZGV2Lm51aHZpbjAyQHN1cmVwYXNzLmlvIiwibmJmIjoxNzM3OTcwNzM1LCJleHAiOjE3MzkyNjY3MzUsImVtYWlsIjoibnVodmluMDJAc3VyZXBhc3MuaW8iLCJ0ZW5hbnRfaWQiOiJtYWluIiwidXNlcl9jbGFpbXMiOnsic2NvcGVzIjpbInVzZXIiXX19.J85AasDpYdVQbo9ytGdf0mmAVFgymmmWhHfQzMGgJHQ";
+  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczOTQzMzM1NCwianRpIjoiNGIxMjZlNzktNDcwNi00Y2U5LTk2YzEtNzJjZmNiMjcwZGIyIiwidHlwZSI6ImFjY2VzcyIsImlkZW50aXR5IjoiZGV2Lm51aHZpbjAyQHN1cmVwYXNzLmlvIiwibmJmIjoxNzM5NDMzMzU0LCJleHAiOjE3Mzk4NjUzNTQsImVtYWlsIjoibnVodmluMDJAc3VyZXBhc3MuaW8iLCJ0ZW5hbnRfaWQiOiJtYWluIiwidXNlcl9jbGFpbXMiOnsic2NvcGVzIjpbInVzZXIiXX19.AOdeTbjcm0OFo74BGVnGY5v4LlFYsxqtfWLs-OYF2H0";
+
 
 export const aadharNumberSendOtp = async ({ aadharNumber }) => {
   try {
@@ -20,15 +21,16 @@ export const aadharNumberSendOtp = async ({ aadharNumber }) => {
       }
     );
 
-    console.log(response, "skgdjsg");
+    console.log(response, "skgdjsg----");
 
     return {
       status: true,
       clientId: response?.data?.data?.client_id,
     };
+
   } catch (error) {
     console.log("aadhar otp sending failed");
-    console.log(error);
+    console.log(error?.response?.data);
 
     showMessage({
       message: error?.response?.data?.message || "Send Otp Failed",
@@ -97,6 +99,9 @@ export const aadharCardOtpVerification = async ({ otp, clientId, token }) => {
       data: response?.data?.data,
       token,
     });
+
+    console.log("ownServerData",ownServerData);
+    
 
     if (ownServerData.status) {
       return {

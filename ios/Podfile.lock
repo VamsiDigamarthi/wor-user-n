@@ -175,6 +175,7 @@ PODS:
   - hermes-engine (0.74.5):
     - hermes-engine/Pre-built (= 0.74.5)
   - hermes-engine/Pre-built (0.74.5)
+  - JitsiWebRTC (124.0.2)
   - nanopb (3.30910.0):
     - nanopb/decode (= 3.30910.0)
     - nanopb/encode (= 3.30910.0)
@@ -1116,7 +1117,7 @@ PODS:
     - React-Core
   - react-native-contacts (8.0.4):
     - React-Core
-  - react-native-date-picker (5.0.8):
+  - react-native-date-picker (5.0.10):
     - React-Core
   - react-native-maps (1.14.0):
     - React-Core
@@ -1128,6 +1129,9 @@ PODS:
   - react-native-safe-area-context (4.10.5):
     - React-Core
   - react-native-voice (3.2.4):
+    - React-Core
+  - react-native-webrtc (124.0.5):
+    - JitsiWebRTC (~> 124.0.0)
     - React-Core
   - React-nativeconfig (0.74.5)
   - React-NativeModulesApple (0.74.5):
@@ -1362,7 +1366,7 @@ PODS:
     - React-Core
   - RNDateTimePicker (8.0.1):
     - React-Core
-  - RNDeviceInfo (14.0.2):
+  - RNDeviceInfo (14.0.4):
     - React-Core
   - RNFBApp (21.7.1):
     - Firebase/CoreOnly (= 11.7.0)
@@ -1402,7 +1406,7 @@ PODS:
     - React-Core
     - React-RCTImage
     - TOCropViewController (~> 2.7.4)
-  - RNPermissions (5.2.4):
+  - RNPermissions (5.2.5):
     - React-Core
   - RNReanimated (3.16.7):
     - DoubleConversion
@@ -1609,6 +1613,7 @@ DEPENDENCIES:
   - react-native-razorpay (from `../node_modules/react-native-razorpay`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - "react-native-voice (from `../node_modules/@react-native-voice/voice`)"
+  - react-native-webrtc (from `../node_modules/react-native-webrtc`)
   - React-nativeconfig (from `../node_modules/react-native/ReactCommon`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -1660,6 +1665,7 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
+    - JitsiWebRTC
     - nanopb
     - PromisesObjC
     - razorpay-pod
@@ -1778,6 +1784,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-voice:
     :path: "../node_modules/@react-native-voice/voice"
+  react-native-webrtc:
+    :path: "../node_modules/react-native-webrtc"
   React-nativeconfig:
     :path: "../node_modules/react-native/ReactCommon"
   React-NativeModulesApple:
@@ -1888,6 +1896,7 @@ SPEC CHECKSUMS:
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
   hermes-engine: 8c1577f3fdb849cbe7729c2e7b5abc4b845e88f8
+  JitsiWebRTC: b47805ab5668be38e7ee60e2258f49badfe8e1d0
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   razorpay-pod: ffee2198928e2a5ed2556863af4db6b79722cea3
@@ -1918,12 +1927,13 @@ SPEC CHECKSUMS:
   react-native-background-actions: 48e6bad9e2a47e3b04858634c5a05ea11062f680
   react-native-contact-pick: 7be564b83b2f6a96664d91fc74818a4f462e2d55
   react-native-contacts: 9f23a0a9576903468ad885f99d6d19a16bce266b
-  react-native-date-picker: efc84d576cf2637a9697853e790c40f2790bd977
+  react-native-date-picker: c7605040f9fd11702eb818323b31ad7f15e1f7be
   react-native-maps: deb2adbdf309b622f15055b72b8742054929c740
   react-native-netinfo: 2e3c27627db7d49ba412bfab25834e679db41e21
   react-native-razorpay: ab51e7be3d906f49b26198d978fc6f163e846d30
   react-native-safe-area-context: df9763c5de6fa38883028e243a0b60123acb8858
   react-native-voice: 908a0eba96c8c3d643e4f98b7232c6557d0a6f9c
+  react-native-webrtc: 62659d18a13f6b50ad95c99a9a48cf9872a15815
   React-nativeconfig: ba9a2e54e2f0882cf7882698825052793ed4c851
   React-NativeModulesApple: 84aaad2b0e546d7b839837ca537f6e72804a4cad
   React-perflogger: ed4e0c65781521e0424f2e5e40b40cc7879d737e
@@ -1949,12 +1959,12 @@ SPEC CHECKSUMS:
   ReactCommon: 9f285823dbe955099978d9bff65a7653ca029256
   RNCAsyncStorage: aa75595c1aefa18f868452091fa0c411a516ce11
   RNDateTimePicker: dde7ca9005d716f3efa9a63004b441679bca9a41
-  RNDeviceInfo: 801c18d0525e86580900e7b5f562dca0c8c05021
+  RNDeviceInfo: d863506092aef7e7af3a1c350c913d867d795047
   RNFBApp: 6ea10ef8a45c43cd75d580599484c0931e6c3683
   RNFBMessaging: 10f37d2c5d9fe83e8f275322062803532faa4609
   RNGestureHandler: 326e35460fb6c8c64a435d5d739bea90d7ed4e49
   RNImageCropPicker: d5387003612dd08d52fb062760136e0e473df186
-  RNPermissions: 36d2f716a2f6b72554f07c3226d5163ef7bb43f0
+  RNPermissions: 92fa8c09d19da18e4f5e55971d666e1a2d1f480a
   RNReanimated: 54c8f1cc0be7504cc3eaf213655ad13c4ba53fc2
   RNScreens: a2d8a2555b4653d7a19706eb172f855657ac30d7
   RNShare: 5d7762ded21e1fff97dda6d41e963e22dce2d025
