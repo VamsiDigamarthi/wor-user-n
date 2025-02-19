@@ -1128,8 +1128,8 @@ PODS:
     - React
   - react-native-safe-area-context (4.10.5):
     - React-Core
-  - react-native-voice (3.2.4):
-    - React-Core
+  - react-native-voice (1.1.9):
+    - React
   - react-native-webrtc (124.0.5):
     - JitsiWebRTC (~> 124.0.0)
     - React-Core
@@ -1612,7 +1612,7 @@ DEPENDENCIES:
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-razorpay (from `../node_modules/react-native-razorpay`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
-  - "react-native-voice (from `../node_modules/@react-native-voice/voice`)"
+  - "react-native-voice (from `../node_modules/@react-native-community/voice`)"
   - react-native-webrtc (from `../node_modules/react-native-webrtc`)
   - React-nativeconfig (from `../node_modules/react-native/ReactCommon`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
@@ -1783,7 +1783,7 @@ EXTERNAL SOURCES:
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-voice:
-    :path: "../node_modules/@react-native-voice/voice"
+    :path: "../node_modules/@react-native-community/voice"
   react-native-webrtc:
     :path: "../node_modules/react-native-webrtc"
   React-nativeconfig:
@@ -1932,7 +1932,7 @@ SPEC CHECKSUMS:
   react-native-netinfo: 2e3c27627db7d49ba412bfab25834e679db41e21
   react-native-razorpay: ab51e7be3d906f49b26198d978fc6f163e846d30
   react-native-safe-area-context: df9763c5de6fa38883028e243a0b60123acb8858
-  react-native-voice: 908a0eba96c8c3d643e4f98b7232c6557d0a6f9c
+  react-native-voice: 8d95edc2806570cd545890d549c41f54148b6e1f
   react-native-webrtc: 62659d18a13f6b50ad95c99a9a48cf9872a15815
   React-nativeconfig: ba9a2e54e2f0882cf7882698825052793ed4c851
   React-NativeModulesApple: 84aaad2b0e546d7b839837ca537f6e72804a4cad
@@ -1964,7 +1964,7 @@ SPEC CHECKSUMS:
   RNFBMessaging: 10f37d2c5d9fe83e8f275322062803532faa4609
   RNGestureHandler: 326e35460fb6c8c64a435d5d739bea90d7ed4e49
   RNImageCropPicker: d5387003612dd08d52fb062760136e0e473df186
-  RNPermissions: 92fa8c09d19da18e4f5e55971d666e1a2d1f480a
+  RNPermissions: 5c1e1fa728940bc5d5d9aee9a25890f14c42c83c
   RNReanimated: 54c8f1cc0be7504cc3eaf213655ad13c4ba53fc2
   RNScreens: a2d8a2555b4653d7a19706eb172f855657ac30d7
   RNShare: 5d7762ded21e1fff97dda6d41e963e22dce2d025
@@ -1975,6 +1975,6 @@ SPEC CHECKSUMS:
   UMAppLoader: f17a5ee8e85b536ace0fc254b447a37ed198d57e
   Yoga: 950bbfd7e6f04790fdb51149ed51df41f329fcc8
 
-PODFILE CHECKSUM: 96462f35f3e070b728b8d30e34305c54cd348866
+PODFILE CHECKSUM: f80b9ade1d9328c6759864d1c3d8ef39fcb73266
 
 COCOAPODS: 1.16.2

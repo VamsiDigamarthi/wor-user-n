@@ -1,4 +1,11 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { imageUrl } from "../../../../Constants/url";
@@ -18,9 +25,16 @@ const DrawerProfil = () => {
   const [avgRating, setAvgRating] = useState("");
   const [verifyText, setVerifyText] = useState(null);
 
-  const imageSrc = profile?.profilePic
-    ? { uri: `${imageUrl}/${profile.profilePic}` }
-    : defaultImg;
+  // const imageSrc = profile?.profilePic
+  //   ? { uri: `${imageUrl}/${profile.profilePic}` }
+  //   : defaultImg;
+
+  // Sanitize the image URL to replace backslashes with forward slashes
+  const sanitizedImageUrl = profile?.profilePic
+    ? `${imageUrl}/${profile.profilePic}`.replace(/\\/g, "/")
+    : null;
+
+  const imageSrc = sanitizedImageUrl ? { uri: sanitizedImageUrl } : defaultImg;
 
   const onNavigateRatingScreen = () => {
     navigation.navigate("Rating", {
@@ -42,7 +56,11 @@ const DrawerProfil = () => {
   useEffect(() => {
     if (profile) {
       // console.log(profile);
-      setAvgRating(calculateAverageRating(profile?.reviews)?.toFixed(1));
+
+      // console.log(profile);
+      
+      // setAvgRating(calculateAverageRating(profile?.reviews)?.toFixed(1));
+      setAvgRating((  profile?.averageRating));
     }
   }, [profile]);
 
@@ -54,20 +72,27 @@ const DrawerProfil = () => {
     }
   };
 
+  const handleVericationNavigation = () => {
+    if (isDisplayAadharModal) {
+      navigation.navigate("ProfileDocumentScreen");
+    } else {
+      navigation.navigate("SetNewMpin");
+    }
+  };
+
   useEffect(() => {
     renderContext();
   }, [isDisplayMPinModal, isDisplayAadharModal]);
 
-
-  
-
   return (
     <View style={styles.container}>
       <View style={styles.image}>
-        <Image
-          source={imageSrc}
-          style={{ width: "100%", height: "100%", resizeMode: "contain" }}
-        />
+        <TouchableWithoutFeedback onPress={() => handleItemPress("Profile")}>
+          <Image
+            source={imageSrc}
+            style={{ width: "100%", height: "100%", resizeMode: "contain" }}
+          />
+        </TouchableWithoutFeedback>
       </View>
       <View style={styles.rightSideCard}>
         <Pressable
@@ -92,7 +117,10 @@ const DrawerProfil = () => {
           <Text style={styles.profileEmail}>{avgRating}</Text>
         </Pressable>
         {verifyText && (
-          <Pressable style={styles.rowCard}>
+          <Pressable
+            style={styles.rowCard}
+            onPress={handleVericationNavigation}
+          >
             <Ionicons name="warning" size={15} color="red" />
             <Text style={{ fontSize: 11 }}>{verifyText}</Text>
             <MaterialIcons name="chevron-right" size={18} color="red" />

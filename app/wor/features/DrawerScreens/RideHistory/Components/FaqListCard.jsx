@@ -1,17 +1,15 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Feather from "@expo/vector-icons/Feather";
-import faqData from "../../../../../../Constants/FaqData.json";
+import {faqData} from "../../../../../../Constants/FaqData";
+
+
 import { useNavigation } from "@react-navigation/native";
 
-import {
-  safetyIcon,
-  rideBilling,
-  account,
-  payment,
-  refer,
-  services,
-} from "../../../../Images/helpandsupport";
+
+
+
+
 
 export default function FaqListCard({ orderId }) {
   const navigation = useNavigation();
@@ -32,7 +30,7 @@ export default function FaqListCard({ orderId }) {
             <View
               style={{ flexDirection: "row", gap: 10, alignItems: "center" }}
             >
-              <Image source={rideBilling} />
+              <Image source={e.icon} style={style.icon}/>
               <Text style={style.text}>{e?.maintitle}</Text>
             </View>
             <Feather name="chevron-right" size={30} color="#B0B0B0" />
@@ -65,4 +63,9 @@ const style = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
+  icon:{
+    height:30,
+    width:30,
+    resizeMode:"contain"
+  }
 });

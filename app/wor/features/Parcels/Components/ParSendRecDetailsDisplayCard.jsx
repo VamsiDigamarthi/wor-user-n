@@ -1,13 +1,30 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { EditIcons, FavoritesIcons, LocationIcon } from "../../../Icons/Icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+import { setIsParcScreen } from "../../ridebooking/sharedLogics/rideDetailsSlice";
 
 const ParSendRecDetailsDisplayCard = ({ parcelDetails }) => {
+
+
+  const navigation = useNavigation()
+  const dispatch = useDispatch()
   //   console.log(parcelDetails);
   const { isSendOrReceiveParcel } = useSelector(
     (state) => state.allRideDetails
   );
+
+  const handleEditLocation = ()=>{
+        dispatch(setIsParcScreen(true));
+        navigation.navigate("SelectDropLocation", {
+          isMic:false,
+          title:parcelDetails?.name,
+          passParams:true
+        });
+  }
+
+
   return (
     <View style={styles.container}>
       <View style={styles.firstCard}>
@@ -15,10 +32,15 @@ const ParSendRecDetailsDisplayCard = ({ parcelDetails }) => {
         <Text style={{ fontSize: 16, fontWeight: "600", flex: 1 }}>
           Add {isSendOrReceiveParcel === "send" ? "Recevier" : "Sender"} Details
         </Text>
-        {/* <View style={styles.favoriteIconcard}>
-          <FavoritesIcons size={24} color="grey" />
-          <EditIcons size={21} color="black" />
-        </View> */}
+        <View style={styles.favoriteIconcard}>
+          {/* <FavoritesIcons size={24} color="grey" /> */}
+          
+
+        <TouchableOpacity onPress={handleEditLocation}>
+            <EditIcons size={21} color="black" />
+        </TouchableOpacity>
+
+        </View>
       </View>
       <View style={styles.secondCard}>
         <Text style={styles.name}>{parcelDetails?.senderName}</Text>
@@ -56,7 +78,8 @@ const styles = StyleSheet.create({
   favoriteIconcard: {
     width: 60,
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
+    gap:20,
     alignItems: "center",
   },
   secondCard: {

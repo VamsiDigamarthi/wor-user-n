@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { aadharCardOtpVerification } from "./AadharModal.Serv";
+import { useEffect, useState } from "react";
+import { aadharCardOtpVerification, aadharNumberSendOtp } from "./AadharModal.Serv";
 import { useDispatch, useSelector } from "react-redux";
 import { onProfileSection } from "../../../../ridebooking/home/redux/profileSlice";
+import { loginApi } from "../../../../auth/services/authServices";
 
 export const useAadharModalHook = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,9 @@ export const useAadharModalHook = () => {
   const [otpError, setOtpError] = useState("");
   const [genderFailed, setGenderFailed] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [resendAvailable , setIsResendAvailable] = useState(false)
+
+  const [timer, setTimer] = useState(120); // Timer starts at 60 seconds
 
   const handleSubmitOtp = async () => {
     setIsLoading(true);
@@ -46,6 +50,32 @@ export const useAadharModalHook = () => {
     setOtpVerified(true);
   };
 
+
+
+    // Timer logic
+    useEffect(() => {
+      if (timer > 0) {
+        const interval = setInterval(() => {
+          setTimer((prevTimer) => prevTimer - 1);
+        }, 1000);
+        return () => clearInterval(interval);
+      } else {
+        setIsResendAvailable(true);
+      }
+    }, [timer]);
+  
+    const handleResendOtp = async () => {
+      setTimer(120);
+      setIsResendAvailable(false);
+      aadharNumberSendOtp({ aadharNumber })
+
+      console.log(data , "From otp");
+      
+    };
+
+
+
+
   return {
     otpPress,
     setOtpPress,
@@ -60,5 +90,8 @@ export const useAadharModalHook = () => {
     isLoading,
     setAadharNumber,
     aadharNumber,
+    handleResendOtp,
+    resendAvailable,
+    timer
   };
 };

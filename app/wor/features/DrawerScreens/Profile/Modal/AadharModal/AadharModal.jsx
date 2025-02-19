@@ -21,6 +21,9 @@ const AadharModal = ({ openModal, closeModal }) => {
     isLoading,
     setAadharNumber,
     aadharNumber,
+    resendAvailable,
+    handleResendOtp,
+    timer
   } = useAadharModalHook();
 
   // const otpVerified = true;
@@ -40,23 +43,26 @@ const AadharModal = ({ openModal, closeModal }) => {
         <AadharSuccessMessage genderFailed={genderFailed} />
       ) : (
         <>
-          {!otpPress ? (
+     {!otpPress ? (
             <AadharCardNumber
               setOtpPress={setOtpPress}
               setClientId={setClientId}
               setAadharNumber={setAadharNumber}
               aadharNumber={aadharNumber}
             />
-          ) : (
+      ) : ( 
             <AadharOtp
               otpError={otpError}
               otp={otp}
               setOtp={setOtp}
               handleSubmitOtp={handleSubmitOtp}
               isLoading={isLoading}
+              handleResendOtp={handleResendOtp}
+              resendAvailable={resendAvailable}
+              timer={timer}
               text={`Linked to your Aadhar ${aadharNumber}`}
             />
-          )}
+   )} 
         </>
       )}
     </ModalUI>
