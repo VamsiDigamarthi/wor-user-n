@@ -5,6 +5,7 @@ const initialState = {
   loading: false,
   homePlace: null,
   workPlace: null,
+  otherHomePlace : null,
   error: "",
 };
 
@@ -41,12 +42,14 @@ const homePlaceSlice = createSlice({
         state.loading = false;
         state.homePlace = action.payload?.home;
         state.workPlace = action.payload?.work;
+        state.otherHomePlace = action.payload?.otherHomePlace
         state.error = "";
       })
       .addCase(homePlace.rejected, (state, action) => {
         state.loading = false;
         state.homePlace = null;
         state.workPlace = null;
+        state.otherHomePlace = null
         state.error = action.payload || action.error.message;
       });
   },

@@ -43,7 +43,7 @@ export const useShowPriceScreenHook = () => {
           vehicleType
         );
 
-        console.log(data?.distance, data?.durationInMinutes, vehicleType);
+        // console.log(data?.distance, data?.durationInMinutes, vehicleType);
 
         const newData = {
           distance: data?.distance?.toString(),
@@ -105,7 +105,7 @@ export const useShowPriceScreenHook = () => {
   };
 
   useEffect(() => {
-    console.log("from useefects");
+    // console.log("from useefects");
 
     handlePriceCalculation();
   }, [location, dropDetails]);

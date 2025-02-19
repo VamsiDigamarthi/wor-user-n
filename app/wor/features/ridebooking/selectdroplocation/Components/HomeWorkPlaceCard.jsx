@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import {
   setDropDetails,
   setInitialDropDetails,
+  setIsBeforeBook,
 } from "../../sharedLogics/rideDetailsSlice";
 import AddHomePlaceBtn from "./AddHomePlaceBtn";
 import { setHomeOrWorkPlaceType } from "../redux/homePlaceType.slice";
@@ -20,6 +21,7 @@ const HomeWorkPlaceCard = () => {
 
   const onNavigateShowPriceScreen = (type) => {
     let place = type === "home" ? homePlace : workPlace;
+    dispatch(setIsBeforeBook(true));
     dispatch(setDropDetails(place));
 
     if (isParcScreen) {

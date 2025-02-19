@@ -22,6 +22,9 @@ const SelectParcelType = () => {
     if (item === "Others") {
       setIsOtherOpenTextField(true);
     }
+    else{
+      setIsOtherOpenTextField(false)
+    }
     dispatch(setParcelType(item));
 
     setSelectedItem(item); // Set the selected item when pressed

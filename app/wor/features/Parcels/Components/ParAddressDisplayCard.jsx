@@ -1,8 +1,11 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { EditIcons, LocationIcon } from "../../../Icons/Icons";
+import { useNavigation } from "@react-navigation/native";
 
 const ParAddressDisplayCard = ({ placeName, vicinity }) => {
+
+  const navigation = useNavigation()
   return (
     <View style={styles.container}>
       <Pressable style={styles.iconsCard}>
@@ -16,7 +19,7 @@ const ParAddressDisplayCard = ({ placeName, vicinity }) => {
           {vicinity}
         </Text>
       </View>
-      <Pressable style={styles.iconsCard}>
+      <Pressable style={styles.iconsCard} onPress={()=>navigation.goBack()}>
         <EditIcons size={20} color="gray" />
       </Pressable>
     </View>

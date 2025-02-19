@@ -55,6 +55,7 @@ const SelectDropLocation = () => {
                 passParams={passParams}
                 micVoiceText={micVoiceText}
                 setMicVoiceText={setMicVoiceText}
+                isMicModalOpenClose={isMicModalOpenClose}
                 setIsMicModalOpenClose={setIsMicModalOpenClose}
               />
             </View>

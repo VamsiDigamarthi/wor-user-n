@@ -9,12 +9,14 @@ const LocationInput = ({
   handleInputChange,
   setIsMicModalOpenClose,
   passParams,
+  title=""
 }) => {
   const ref = useRef();
 
   useEffect(() => {
     if (passParams && ref.current) {
       ref.current.focus();
+      handleInputChange(title)
     }
   }, [passParams]);
 

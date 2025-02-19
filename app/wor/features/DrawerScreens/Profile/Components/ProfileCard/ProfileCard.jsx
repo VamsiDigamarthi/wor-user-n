@@ -4,12 +4,19 @@ import { useProfileCardHook } from "./ProfileCard.hook";
 import { fonts } from "../../../../../fonts/Fonts";
 
 const ProfileCard = () => {
-  const { profile, imageSource, pickImage } = useProfileCardHook();
+  const { profile, imageSource, pickImage , servicespng} = useProfileCardHook();
 
   return (
     <View style={styles.container}>
       <View style={styles.imageCard}>
-        <Image style={styles.image} source={imageSource} />
+        <Image
+          style={styles.image}
+          source={imageSource.uri ? imageSource : servicespng}
+          defaultSource={servicespng}
+          onError={(error) => {
+            console.log("Image Load Error:", error.nativeEvent.error);
+          }}
+        />
         <View style={styles.editCard}>
           <Pressable onPress={pickImage}>
             <FontAwesome name="edit" size={25} color="#e02e88" />
@@ -25,7 +32,6 @@ export default ProfileCard;
 
 const styles = StyleSheet.create({
   container: {
-    // width: "100%",
     justifyContent: "center",
     alignItems: "center",
     marginTop: 20,
@@ -52,7 +58,6 @@ const styles = StyleSheet.create({
   },
   textCard: {
     fontSize: 16,
-    // fontWeight: "600",
     fontFamily: fonts.robotoSemiBold,
   },
 });

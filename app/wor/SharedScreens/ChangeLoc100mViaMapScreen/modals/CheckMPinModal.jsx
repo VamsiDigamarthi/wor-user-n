@@ -44,7 +44,8 @@ const CheckMPinModal = ({
       closebtn={false}
     >
       <View style={styles.mainContainer}>
-        <Text style={{ fontWeight: "bold" }}>Enter M-PIN</Text>
+        <Text style={styles.heading}>Enter WoR-PIN</Text>
+        <Text>WoR-PIN is a secure 4 digit code for safe account access and ride protection</Text>
         <View style={styles.inputContainer}>
           {mPin.map((digit, index) => (
             <TextInput
@@ -122,4 +123,6 @@ const styles = StyleSheet.create({
     elevation: 1,
     width:20
   },
+
+  heading : { fontWeight: "bold", fontSize:16}
 });

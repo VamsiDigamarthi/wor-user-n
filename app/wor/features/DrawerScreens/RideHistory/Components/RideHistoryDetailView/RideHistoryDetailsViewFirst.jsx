@@ -34,9 +34,9 @@ const RideHistoryDetailsViewFirst = ({ ride }) => {
         <View style={styles.topCard}>
           <Image source={ScootyImg} style={styles.img} />
 
-          <View>
-            <Text style={styles.boldText}> {ride?.orderPlaceDate}</Text>
-            <Text style={styles.semiBoldText}> {ride?._id}</Text>
+          <View style={{gap:4}}>
+            <Text style={styles.boldText}>{ride?.orderPlaceDate}</Text>
+            <Text style={styles.semiBoldText}>Id : {ride?._id}</Text>
 
             <View
               style={{ flexDirection: "row", gap: 5, alignItems: "center" }}
@@ -67,7 +67,7 @@ const RideHistoryDetailsViewFirst = ({ ride }) => {
                   <MaterialIcons
                     name="delete-outline"
                     size={24}
-                    color="black"
+                    color="#fff"
                   />
                 </Pressable>
               </View>
@@ -149,6 +149,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderStyle: "dashed",
     borderColor: "#E8E8E8",
+    gap:4
   },
 
   priceCard: {
