@@ -2,6 +2,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { SupportIcons } from "../../../../Icons/Icons";
 import { useNavigation } from "@react-navigation/native";
+import { fonts } from "../../../../fonts/Fonts";
 
 const WorSupportCard = () => {
   const navigation = useNavigation();
@@ -16,10 +17,20 @@ const WorSupportCard = () => {
     <View style={styles.container}>
       <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
         <SupportIcons size={20} color="gray" />
-        <Text style={{ fontSize: 12, color: "gray" }}>Any Issue with ride</Text>
+        <Text
+          style={{
+            fontSize: 12,
+            color: "gray",
+            fontFamily: fonts.robotoRegular,
+          }}
+        >
+          Any Issue with ride
+        </Text>
       </View>
       <Pressable onPress={handelNavigateWorSupport}>
-        <Text style={{ color: "#0597ff", fontWeight: "600" }}>WOR Support</Text>
+        <Text style={{ color: "#0597ff", fontFamily: fonts.robotoSemiBold }}>
+          WOR Support
+        </Text>
       </Pressable>
     </View>
   );

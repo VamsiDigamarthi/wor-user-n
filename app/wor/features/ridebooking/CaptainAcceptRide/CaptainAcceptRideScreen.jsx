@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   mapContainer: {
     width: "100%",
     height: "100%",
-    backgroundColor: "red",
+    backgroundColor: "rgba(0,0,0,0.1)",
   },
   innerCard: {
     gap: 10,
