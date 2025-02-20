@@ -1,7 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-import { Image, StyleSheet, Text, View } from "react-native";
-
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import MapView, { Marker, Polyline } from "react-native-maps";
@@ -14,7 +12,6 @@ import Map3Btns from "./Map3Btn";
 import MapModalUi from "../features/ridebooking/home/modals/MapModalUi";
 
 import { MaterialIcons } from "@expo/vector-icons";
-
 
 const ShowPollyLine = ({
   origin,
@@ -79,11 +76,11 @@ const ShowPollyLine = ({
     }
   }, [liveCoordinates]);
 
-    // const handleResetZoom = useCallback(() => {
-    //   if (mapRef.current && initialRegion) {
-    //     mapRef.current.animateToRegion(initialRegion, 800);
-    //   }
-    // }, [initialRegion]);
+  // const handleResetZoom = useCallback(() => {
+  //   if (mapRef.current && initialRegion) {
+  //     mapRef.current.animateToRegion(initialRegion, 800);
+  //   }
+  // }, [initialRegion]);
 
   // Adjust zoom based on height
   useEffect(() => {

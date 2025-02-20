@@ -43,6 +43,9 @@ const MainNavigation = () => {
         if (storedToken) {
           try {
             // console.log("kjhg");
+
+            await handleTokenValidation(JSON.parse(storedToken));
+
             const previousOrders = await API.get("/user/all-orders", {
               headers: {
                 Authorization: `Bearer ${JSON.parse(storedToken)}`,
@@ -116,7 +119,7 @@ const MainNavigation = () => {
             }, 100);
             // console.log("previous", previousOrders?.data);
             dispatch(setOrders(previousOrders?.data));
-            dispatch(setToken(JSON.parse(storedToken)));
+            // dispatch(setToken(JSON.parse(storedToken)));
           } catch (error) {
             dispatch(setToken(JSON.parse(storedToken)));
 
@@ -135,6 +138,30 @@ const MainNavigation = () => {
 
     checkTokenAndNavigate();
   }, [dispatch, isConnected]);
+
+  const handleTokenValidation = async (storedToken) => {
+    const profile = await checkProfileValidOrNot(storedToken);
+    if (!profile) {
+      dispatch(noToken(false));
+      AsyncStorage.removeItem("token");
+      return false;
+    } else {
+      dispatch(setToken(storedToken));
+      return true;
+    }
+  };
+
+  const checkProfileValidOrNot = async (token) => {
+    try {
+      const response = await API.get("/auth/profile", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error validating profile:", error.message);
+      return null;
+    }
+  };
 
   // Handle notifications
   const handleNotification = useCallback(
@@ -178,13 +205,12 @@ const MainNavigation = () => {
             newOrder = JSON.parse(order);
             dispatch(setCompleteRideDetails(newOrder));
             navigationRef.current?.navigate(screen);
-          }
-          else if(screen === 'Chat'){
+          } else if (screen === "Chat") {
             newOrder = JSON.parse(order);
             dispatch(setCompleteRideDetails(newOrder));
-            navigationRef.current?.navigate(screen,{
+            navigationRef.current?.navigate(screen, {
               orderId: newOrder._id,
-              captainDetails :newOrder?.acceptCaptain
+              captainDetails: newOrder?.acceptCaptain,
             });
           }
         } else {

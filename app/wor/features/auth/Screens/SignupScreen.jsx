@@ -24,10 +24,7 @@ const SignupScreen = () => {
     formData,
     errors,
     isLoading,
-    onOpenTextBasedLocationModal,
-    storeNearLocation,
     handleInputChange,
-    onAddressSelect,
     handleNavigateToOTP,
   } = useSignupForm({ mobile });
 
