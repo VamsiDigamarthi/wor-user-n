@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 
 import { setIsParcScreen } from "../../ridebooking/sharedLogics/rideDetailsSlice";
+import { fonts } from "../../../fonts/Fonts";
 
 const ParcSendReceInputCard = () => {
   const navigation = useNavigation();
@@ -23,7 +24,7 @@ const ParcSendReceInputCard = () => {
     <View style={styles.container}>
       <View style={styles.addDetails}>
         <UserIcons size={22} color="#e02e88" />
-        <Text style={{ fontSize: 16, fontWeight: "500" }}>
+        <Text style={styles.sendRecieveText}>
           Add {isSendOrReceiveParcel === "send" ? "Recevier" : "Sender"} Details
         </Text>
       </View>
@@ -33,7 +34,7 @@ const ParcSendReceInputCard = () => {
           onPress={onNavigateToSelectDropLocationScreen}
         >
           <SearchIcons size={25} color="gray" />
-          <Text style={{ fontSize: 16, fontWeight: "500", color: "#222222" }}>
+          <Text style={styles.searchText}>
             Search {isSendOrReceiveParcel === "send" ? "Recevier" : "Sender"}{" "}
             Location
           </Text>
@@ -96,4 +97,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     elevation: 2,
   },
+
+  sendRecieveText:{ fontSize: 16, fontFamily:fonts.robotoMedium },
+  searchText:{ fontSize: 16, fontFamily:fonts.robotoMedium, color: "#222222" }
 });

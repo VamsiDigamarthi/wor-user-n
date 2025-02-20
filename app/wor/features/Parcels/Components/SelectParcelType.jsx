@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { COLORS } from "../../../../../Constants/colors";
 import { useDispatch } from "react-redux";
 import { setParcelType } from "../../ridebooking/sharedLogics/rideDetailsSlice";
+import { fonts } from "../../../fonts/Fonts";
 
 const SelectParcelType = () => {
   const dispatch = useDispatch();
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    fontWeight: "600",
+    fontFamily:fonts.robotoSemiBold
   },
   itemsContainer: {
     flexWrap: "wrap",
@@ -112,12 +113,14 @@ const styles = StyleSheet.create({
   },
   selectedTypeText: {
     backgroundColor: "#E02E88",
+    fontFamily:fonts.robotoMedium
   },
   selectedTypeTextColor: {
     color: "#fff",
   },
   typeTextText: {
     color: "#000",
+    fontFamily:fonts.robotoRegular
   },
   input: {
     width: "100%",
@@ -126,5 +129,6 @@ const styles = StyleSheet.create({
     borderColor: COLORS.borderColor,
     borderRadius: 10,
     paddingHorizontal: 10,
+    fontFamily:fonts.robotoRegular
   },
 });

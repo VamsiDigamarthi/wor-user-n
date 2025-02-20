@@ -191,6 +191,7 @@ const styles = StyleSheet.create({
   },
   staticText:{
     fontSize:16, lineHeight:20,
-    textAlign:"justify"
+    textAlign:"justify",
+    fontFamily:fonts.robotoRegular,
   }
 });

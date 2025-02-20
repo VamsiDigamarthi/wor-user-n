@@ -7,6 +7,7 @@ import AppBarRideBookingConditions from "./AppBarRideBookingConditions";
 import SupportIcons from "./SupportIcons";
 import AppBarTitle from "./AppBarTitle";
 import { useSelector } from "react-redux";
+import { fonts } from "../../../fonts/Fonts";
 
 const Appbar = ({
   title,
@@ -57,7 +58,7 @@ const Appbar = ({
           {isTimer && (
             <Pressable onPress={timerFunction} style={styles.timerCard}>
               <Ionicons size={24} name="timer" color="#f98600" />
-              <Text style={{ fontSize: 10, color: "gray" }}>
+              <Text style={{ fontSize: 10, color: "gray" , fontFamily:fonts.robotoRegular }}>
                 {formateTime ? formateTime : "Now"}
               </Text>
             </Pressable>

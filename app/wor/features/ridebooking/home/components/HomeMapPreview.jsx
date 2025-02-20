@@ -1,11 +1,5 @@
+import React, { useCallback, useEffect, useRef, useState, useMemo } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
 import MapView, { Marker } from "react-native-maps";
 import { FontAwesome } from "@expo/vector-icons";
 import { customMapStyle } from "../../../../../../Constants/mapData";
@@ -49,20 +43,25 @@ const HomeMapPreview = ({
   }, [initialRegion]);
 
   useEffect(() => {
-    if (location) {
-      const newRegion = {
-        latitude: location.lat,
-        longitude: location.lng,
-        latitudeDelta: 0.005,
-        longitudeDelta: 0.005,
-      };
-      setRegion(newRegion);
-      setInitialRegion(newRegion);
-      setNewLocation(location);
+    if (!location) {
+      console.warn("Location data is not available yet.");
+      return;
     }
 
+    const newRegion = {
+      latitude: location.lat,
+      longitude: location.lng,
+      latitudeDelta: 0.005,
+      longitudeDelta: 0.005,
+    };
+    setRegion(newRegion);
+    setInitialRegion(newRegion);
+    setNewLocation(location);
+
+    const coordinatesArray = [{ latitude: location.lat, longitude: location.lng }];
+
     if (mapRef.current) {
-      mapRef.current.fitToCoordinates(initialRegion, {
+      mapRef.current.fitToCoordinates(coordinatesArray, {
         edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
         animated: true,
       });
@@ -87,12 +86,9 @@ const HomeMapPreview = ({
         showsMyLocationButton={false}
         onRegionChangeComplete={(region) => setRegion(region)}
       >
-        <Marker coordinate={adjustedOrigin} title="Start Point">
-          {/* <FontAwesome name="map-pin" size={20} color="#e02e88" /> */}
-
+        <Marker coordinate={adjustedOrigin} title="Start Point" anchor={{ x: 0.5, y: 0.5 }}>
           <Image source={pinkpin} style={styles.pin} />
         </Marker>
-
         {captainMarkers?.map((marker, index) => (
           <Marker
             zIndex={index + 1}
@@ -119,13 +115,11 @@ const HomeMapPreview = ({
           </Marker>
         ))}
       </MapView>
-
       <Map3Btns
         handleOpenSafetyModal={() => setToggle((prev) => !prev)}
         handleZoomToggle={handleResetZoom}
         bottom={mapIconsTop}
       />
-
       {toggle && <MapModalUi toggle={toggle} setToggle={setToggle} />}
     </View>
   );
@@ -146,36 +140,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#fff",
   },
-  bottomContainer: {
-    position: "absolute",
-    bottom: 10,
-    width: "100%",
-    alignItems: "center",
-  },
-  shareLocationBtn: {
-    backgroundColor: "#e02e88",
-    borderRadius: 30,
-    height: 35,
-    width: "35%",
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row",
-    gap: 10,
-  },
-  text: {
-    color: "#fff",
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-
   pin: {
-    height: 10,
-    width: 10,
+    height: 24,
+    width: 24,
     resizeMode: "contain",
-    // backgroundColor: "red",
-    // borderWidth: 1,
-    // borderColor: "red",
-    // resizeMode: "contain",
-    // overflow: "hidden",
   },
 });

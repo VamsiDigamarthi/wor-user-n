@@ -4,6 +4,7 @@ import { EditIcons, FavoritesIcons, LocationIcon } from "../../../Icons/Icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { setIsParcScreen } from "../../ridebooking/sharedLogics/rideDetailsSlice";
+import { fonts } from "../../../fonts/Fonts";
 
 const ParSendRecDetailsDisplayCard = ({ parcelDetails }) => {
 
@@ -29,7 +30,7 @@ const ParSendRecDetailsDisplayCard = ({ parcelDetails }) => {
     <View style={styles.container}>
       <View style={styles.firstCard}>
         <LocationIcon size={20} color="#e02e88" />
-        <Text style={{ fontSize: 16, fontWeight: "600", flex: 1 }}>
+        <Text style={styles.sendRecieveText}>
           Add {isSendOrReceiveParcel === "send" ? "Recevier" : "Sender"} Details
         </Text>
         <View style={styles.favoriteIconcard}>
@@ -89,7 +90,10 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 16,
-    fontWeight: "600",
+    fontFamily:fonts.robotoSemiBold,
     color: "#000",
   },
+  number:{fontFamily:fonts.robotoSemiBold},
+  sendRecieveText:{ fontSize: 16, fontFamily:fonts.robotoSemiBold, flex: 1 },
+  addressVicinity:{fontFamily:fonts.robotoRegular}
 });

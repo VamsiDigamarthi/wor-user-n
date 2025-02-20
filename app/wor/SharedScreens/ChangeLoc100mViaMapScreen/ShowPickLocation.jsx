@@ -3,6 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { PickLocationIcon } from "../../Icons/Icons";
 import { setHowManyMens } from "../../features/ridebooking/sharedLogics/rideDetailsSlice";
+import { fonts } from "../../fonts/Fonts";
 
 export default function ShowPickLocation({ place }) {
   const {
@@ -85,9 +86,9 @@ export default function ShowPickLocation({ place }) {
       </View>
       {selectedVehicleType !== "scooty" && (
         <View style={pickLocStyles.mensProblem}>
-          <Text style={{ fontSize: 20, fontWeight: "600" }}>Mention mens</Text>
+          <Text style={{ fontSize: 20, fontFamily:fonts.robotoSemiBold}}>Mention mens</Text>
           <View style={pickLocStyles.meninnercard}>
-            <Text style={{ fontSize: 13, color: "gray" }}>
+            <Text style={{ fontSize: 13, color: "gray", fontFamily:fonts.robotoRegular }}>
               Enter the number of mens
             </Text>
             <View style={pickLocStyles.iconsCard}>
@@ -99,9 +100,9 @@ export default function ShowPickLocation({ place }) {
                 }}
                 onPress={onDecrementMens}
               >
-                <Text style={{ fontSize: 22, fontWeight: "600" }}>-</Text>
+                <Text style={{ fontSize: 22, fontFamily:fonts.robotoSemiBold }}>-</Text>
               </Pressable>
-              <Text style={{ fontSize: 18, fontWeight: "600" }}>
+              <Text style={{ fontSize: 18, fontFamily:fonts.robotoSemiBold }}>
                 {howManyMens}
               </Text>
               <Pressable
@@ -112,7 +113,7 @@ export default function ShowPickLocation({ place }) {
                 }}
                 onPress={onIncrementMens}
               >
-                <Text style={{ fontSize: 20, fontWeight: "600" }}>+</Text>
+                <Text style={{ fontSize: 20, fontFamily:fonts.robotoSemiBold }}>+</Text>
               </Pressable>
             </View>
           </View>
@@ -131,11 +132,12 @@ const pickLocStyles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontWeight: "600",
+    fontFamily:fonts.robotoSemiBold
   },
   subTitle: {
     fontSize: 11,
     color: "gray",
+    fontFamily:fonts.robotoRegular,
   },
   card: {
     flexDirection: "row",
@@ -152,11 +154,12 @@ const pickLocStyles = StyleSheet.create({
   },
   placeName: {
     fontSize: 15,
-    fontWeight: "500",
+    fontFamily:fonts.robotoMedium
   },
   placeVicinity: {
     fontSize: 13,
     color: "gray",
+    fontFamily:fonts.robotoRegular
   },
   mensProblem: {
     // flexDirection:"row",

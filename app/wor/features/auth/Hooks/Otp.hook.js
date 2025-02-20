@@ -45,7 +45,7 @@ export const useOtpHook = () => {
   };
 
   const justLog = async () => {
-    console.log(otp);
+    // console.log(otp);
     if (otp[5]?.length <= 0) {
       setOtpError("Please enter OTP");
       return;
@@ -53,7 +53,7 @@ export const useOtpHook = () => {
     setIsLoading(true);
     try {
       const deviceId = await DeviceInfo.getUniqueId();
-      console.log("deviceId", deviceId);
+      // console.log("deviceId", deviceId);
       const response = await API.post("/auth/verify-otp", {
         mobile: mobile,
         otp: otp.join(""),
