@@ -82,7 +82,7 @@ const LoginScreen = () => {
               <CustomBtn
                 title="Continue"
                 btnBg={
-                  Object.keys(errorState)?.length > 0 ? "#f7f7f7" : "#e02e88"
+                  Object.keys(errorState)?.length > 0 ? "#f7f7f7" : "#EA4C89"
                 }
                 btnColor={Object.keys(errorState)?.length > 0 ? "#000" : "#fff"}
                 onPress={handleLogin}
@@ -92,13 +92,18 @@ const LoginScreen = () => {
               />
             </View>
           </View>
-          <View style={[styles.nuhvinProduct, {paddingHorizontal : Platform.OS === 'ios' && 30, }]}>
+          <View
+            style={[
+              styles.nuhvinProduct,
+              { paddingHorizontal: Platform.OS === "ios" && 30 },
+            ]}
+          >
             <Text style={{ fontSize: 14, fontWeight: "500" }}>
               A Product From
             </Text>
             <Pressable onPress={openLink}>
               <Text
-                style={{ fontSize: 14, fontWeight: "500", color: "#e02e88" }}
+                style={{ fontSize: 14, fontWeight: "500", color: "#EA4C89" }}
               >
                 Visit NuHvin
               </Text>

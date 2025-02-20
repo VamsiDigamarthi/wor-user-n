@@ -4,7 +4,7 @@ import { useProfileCardHook } from "./ProfileCard.hook";
 import { fonts } from "../../../../../fonts/Fonts";
 
 const ProfileCard = () => {
-  const { profile, imageSource, pickImage , servicespng} = useProfileCardHook();
+  const { profile, imageSource, pickImage, servicespng } = useProfileCardHook();
 
   return (
     <View style={styles.container}>
@@ -19,7 +19,7 @@ const ProfileCard = () => {
         />
         <View style={styles.editCard}>
           <Pressable onPress={pickImage}>
-            <FontAwesome name="edit" size={25} color="#e02e88" />
+            <FontAwesome name="edit" size={25} color="#EA4C89" />
           </Pressable>
         </View>
       </View>

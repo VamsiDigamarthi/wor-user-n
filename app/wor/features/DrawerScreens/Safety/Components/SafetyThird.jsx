@@ -54,7 +54,7 @@ export const SingleCard = ({ title, text, threeText = false }) => {
             alignItems: "center",
           }}
         >
-          <Ionicons name="chatbubbles-outline" size={20} color="#e02e88" />
+          <Ionicons name="chatbubbles-outline" size={20} color="#EA4C89" />
         </View>
         <Text
           //   numberOfLines={1}

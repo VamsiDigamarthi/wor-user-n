@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   text: {
     width: 120,
     height: 4,
-    backgroundColor: "#E02E88",
+    backgroundColor: "#EA4C89",
     borderRadius: 100,
   },
   subText: {

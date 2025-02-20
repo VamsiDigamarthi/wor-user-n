@@ -7,7 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 const SelectLocationByMapScreen = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const { mapRegion, onRegionChangeComplete, dragLocation } =
     useSelectLocationByMapScreenHook();
   return (
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    position:"relative"
+    position: "relative",
   },
 
   coordinatesContainer: {
@@ -100,9 +100,9 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 40,
     left: 20,
-    backgroundColor: "#e02e88",
+    backgroundColor: "#EA4C89",
     padding: 10,
     borderRadius: 30,
-    zIndex:999
+    zIndex: 999,
   },
 });

@@ -13,7 +13,7 @@ const AddharOtpUi = ({ inputs, handleKeyPress, handleChange, otp }) => {
           style={[
             styles.input,
             {
-              borderColor: value ? "#E02E88" : "#A9A9A9", // Change to pink if filled, else light gray
+              borderColor: value ? "#EA4C89" : "#A9A9A9", // Change to pink if filled, else light gray
             },
           ]}
           onChangeText={(text) => handleChange(text, index)}
@@ -22,12 +22,12 @@ const AddharOtpUi = ({ inputs, handleKeyPress, handleChange, otp }) => {
           textAlign="center" // Ensure text is centered
           onFocus={() => {
             inputs.current[index].setNativeProps({
-              style: { borderColor: "#E02E88" }, // Change border color to pink on focus
+              style: { borderColor: "#EA4C89" }, // Change border color to pink on focus
             });
           }}
           onBlur={() => {
             inputs.current[index].setNativeProps({
-              style: { borderColor: value ? "#E02E88" : "#A9A9A9" }, // Revert based on value
+              style: { borderColor: value ? "#EA4C89" : "#A9A9A9" }, // Revert based on value
             });
           }}
         />

@@ -18,7 +18,7 @@ const HomeInput = () => {
     <View style={styles.container}>
       <SearchIcons size={26} color="#222222" />
       <Pressable
-        style={{ flex: 1, justifyContent: "center", marginTop: 5,}}
+        style={{ flex: 1, justifyContent: "center", marginTop: 5 }}
         onPress={() => navigateSelectDestinationScreen({ isMic: false })}
       >
         <Text style={[styles.text]}>Search Destination</Text>
@@ -27,7 +27,7 @@ const HomeInput = () => {
         onPress={() => navigateSelectDestinationScreen({ isMic: true })}
         style={styles.micIcons}
       >
-        <MicIcon size={22} color="#e02e88" />
+        <MicIcon size={22} color="#EA4C89" />
       </Pressable>
     </View>
   );
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     marginTop: -10,
     // elevation: 5,
   },
-  
+
   micIcons: {
     backgroundColor: "#fff",
     padding: 10,
@@ -65,6 +65,6 @@ const styles = StyleSheet.create({
     flex: 1,
     fontFamily: fonts.robotoMedium,
     color: "#757575",
-    marginTop:1
+    marginTop: 1,
   },
 });

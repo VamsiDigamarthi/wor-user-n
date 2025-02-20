@@ -23,7 +23,7 @@ const ParcSendReceInputCard = () => {
   return (
     <View style={styles.container}>
       <View style={styles.addDetails}>
-        <UserIcons size={22} color="#e02e88" />
+        <UserIcons size={22} color="#EA4C89" />
         <Text style={styles.sendRecieveText}>
           Add {isSendOrReceiveParcel === "send" ? "Recevier" : "Sender"} Details
         </Text>
@@ -43,7 +43,7 @@ const ParcSendReceInputCard = () => {
           style={styles.micIcons}
           onPress={() => onNavigateToSelectDropLocationScreen({ isMic: true })}
         >
-          <MicIcon size={22} color="#e02e88" />
+          <MicIcon size={22} color="#EA4C89" />
         </Pressable>
       </View>
     </View>
@@ -98,6 +98,10 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
 
-  sendRecieveText:{ fontSize: 16, fontFamily:fonts.robotoMedium },
-  searchText:{ fontSize: 16, fontFamily:fonts.robotoMedium, color: "#222222" }
+  sendRecieveText: { fontSize: 16, fontFamily: fonts.robotoMedium },
+  searchText: {
+    fontSize: 16,
+    fontFamily: fonts.robotoMedium,
+    color: "#222222",
+  },
 });

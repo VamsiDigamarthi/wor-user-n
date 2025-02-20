@@ -9,7 +9,7 @@ const InfoListCard = ({ text }) => {
         style={{
           height: 5,
           width: 5,
-          backgroundColor: "#e02e88",
+          backgroundColor: "#EA4C89",
           borderRadius: 5,
           marginTop: 7,
         }}

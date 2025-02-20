@@ -18,7 +18,7 @@ const ParcelSendReceivesCard = ({
       >
         {selectedCard === "firstCard" && (
           <View style={styles.icon}>
-            <AntDesign name="checkcircle" size={16} color="#e02e88" />
+            <AntDesign name="checkcircle" size={16} color="#EA4C89" />
           </View>
         )}
 
@@ -50,7 +50,7 @@ const ParcelSendReceivesCard = ({
       >
         {selectedCard === "secondCard" && (
           <View style={styles.iconSecond}>
-            <AntDesign name="checkcircle" size={16} color="#e02e88" />
+            <AntDesign name="checkcircle" size={16} color="#EA4C89" />
           </View>
         )}
         <Text
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     right: 0,
   },
   selected: {
-    borderColor: "#e02e88",
+    borderColor: "#EA4C89",
     borderWidth: 1,
     backgroundColor: "#fff",
     zIndex: 1,

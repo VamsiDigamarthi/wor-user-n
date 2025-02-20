@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     width: 24,
     borderRadius: 12,
     borderWidth: 2,
-    borderColor: "#e02e88",
+    borderColor: "#EA4C89",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     height: 12,
     width: 12,
     borderRadius: 6,
-    backgroundColor: "#e02e88",
+    backgroundColor: "#EA4C89",
   },
   radioText: {
     fontSize: 16,

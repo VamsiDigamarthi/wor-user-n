@@ -16,7 +16,7 @@ const RideHistoryCaptainProfileCard = () => {
         </View>
         <View style={{ gap: 2 }}>
           <View style={{ flexDirection: "row", gap: 10 }}>
-            <Entypo name="star" size={20} color="#e02e88" />
+            <Entypo name="star" size={20} color="#EA4C89" />
             <Text style={styles.subHeading}>5.0</Text>
           </View>
           <Text style={styles.subHeading}>Active 5G</Text>
@@ -49,14 +49,14 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 30,
     borderWidth: 2,
-    borderColor: "#e02e88",
+    borderColor: "#EA4C89",
     position: "relative",
   },
   profileBikeCard: {
     width: 20,
     height: 20,
     borderRadius: 15,
-    backgroundColor: "#e02e88",
+    backgroundColor: "#EA4C89",
     position: "absolute",
     bottom: -2,
     right: -5,

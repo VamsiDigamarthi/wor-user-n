@@ -1,10 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-
 import { Image, StyleSheet, View } from "react-native";
 
 import MapView, { Marker, Polyline } from "react-native-maps";
-import { FontAwesome, } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import { customMapStyle } from "../../../Constants/mapData";
 import useFetchRouteCoordinates from "./ShowPollyLine.services";
 import { calculateBearing } from "../../../Constants/displaylocationmap";
@@ -13,7 +12,6 @@ import Map3Btns from "./Map3Btn";
 import MapModalUi from "../features/ridebooking/home/modals/MapModalUi";
 
 // import { MaterialIcons } from "@expo/vector-icons";
-
 
 const ShowPollyLine = ({
   origin,
@@ -118,7 +116,7 @@ const ShowPollyLine = ({
       >
         {/* Markers */}
         <Marker coordinate={adjustedOrigin} title="Start Point">
-          <FontAwesome name="map-pin" size={20} color="#e02e88" />
+          <FontAwesome name="map-pin" size={20} color="#EA4C89" />
         </Marker>
         <Marker coordinate={adjustedDestination} title="End Point">
           <FontAwesome name="map-pin" size={20} color="#4caf50" />
@@ -140,13 +138,13 @@ const ShowPollyLine = ({
         {/* Polyline */}
         <Polyline
           coordinates={routeCoordinates}
-          strokeColor="#e02e88"
+          strokeColor="#EA4C89"
           strokeWidth={2}
         />
 
         {/* <View style={[styles.singleIconsCard, styles.zoomContainer]}>
           <TouchableOpacity style={styles.zoomButton} onPress={handleResetZoom}>
-            <MaterialIcons name="my-location" size={25} color="#e02e88" />
+            <MaterialIcons name="my-location" size={25} color="#EA4C89" />
           </TouchableOpacity>
         </View> */}
       </MapView>

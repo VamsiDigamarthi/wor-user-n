@@ -173,7 +173,7 @@ const ShowPollyLine = ({
         {/* Marker for Start */}
         {adjustedOrigin.latitude && adjustedOrigin.longitude && (
           <Marker coordinate={adjustedOrigin} title="Start Point">
-            <FontAwesome name="map-pin" size={20} color="#e02e88" />
+            <FontAwesome name="map-pin" size={20} color="#EA4C89" />
           </Marker>
         )}
 
@@ -190,7 +190,7 @@ const ShowPollyLine = ({
             <MaterialCommunityIcons
               name="motorbike"
               size={24}
-              color="#e02e88"
+              color="#EA4C89"
             />
           </Marker>
         )}
@@ -199,7 +199,7 @@ const ShowPollyLine = ({
         {routeCoordinates.length > 0 && (
           <Polyline
             coordinates={routeCoordinates}
-            strokeColor="#e02e88" // Pink polyline
+            strokeColor="#EA4C89" // Pink polyline
             strokeWidth={2}
           />
         )}

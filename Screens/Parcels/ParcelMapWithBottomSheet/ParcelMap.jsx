@@ -54,7 +54,7 @@ const ParcelMap = ({ pickUpLocationCoorWithName }) => {
       >
         {/* Add a Marker at the coordinates */}
         <Marker coordinate={adjustedOrigin} title="Start Point">
-          <FontAwesome name="map-pin" size={20} color="#e02e88" />
+          <FontAwesome name="map-pin" size={20} color="#EA4C89" />
         </Marker>
       </MapView>
     </View>

@@ -134,7 +134,7 @@ const PaymentMethods = () => {
       {/* </View> */}
 
       {/* <View style={styles.positionCard}>
-        <CustomBtn title="Pay Now" btnBg="#e02e88" btnColor="#fff" />
+        <CustomBtn title="Pay Now" btnBg="#EA4C89" btnColor="#fff" />
       </View> */}
     </View>
   );

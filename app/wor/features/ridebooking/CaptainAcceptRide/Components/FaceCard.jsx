@@ -66,7 +66,7 @@ const FaceCard = () => {
               </Text>
             </Text>
             <Pressable onPress={changePaymentMethodModal}>
-              <Text style={{ color: "#e02e88", fontWeight: "500" }}>
+              <Text style={{ color: "#EA4C89", fontWeight: "500" }}>
                 Change
               </Text>
             </Pressable>

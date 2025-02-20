@@ -12,7 +12,7 @@ const RideBillCard = () => {
           justifyContent: "space-between",
           alignItems: "center",
           borderBottomWidth: 1,
-          borderBottomColor: "#e02e88",
+          borderBottomColor: "#EA4C89",
           borderStyle: "dashed",
           paddingVertical: 2,
         }}
@@ -22,7 +22,7 @@ const RideBillCard = () => {
         >
           Total Fare Price
         </Text>
-        <Text style={{ color: "#e02e88", fontSize: 15, fontWeight: "600" }}>
+        <Text style={{ color: "#EA4C89", fontSize: 15, fontWeight: "600" }}>
           ₹50
         </Text>
       </View>

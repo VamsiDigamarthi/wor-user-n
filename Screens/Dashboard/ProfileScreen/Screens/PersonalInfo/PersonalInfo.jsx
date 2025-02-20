@@ -46,7 +46,7 @@ const PersonalInfo = () => {
           >
             <CustomBtn
               title="Update"
-              btnBg="#e02e88"
+              btnBg="#EA4C89"
               btnColor="#fff"
               onPress={onChangeProfile}
             />

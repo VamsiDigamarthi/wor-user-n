@@ -53,7 +53,7 @@ const SendAndReceiveParcelPicDropCardItem = ({
             alignItems: "center",
           }}
         >
-          <FontAwesome5 name="microphone" size={25} color="#e02e88" />
+          <FontAwesome5 name="microphone" size={25} color="#EA4C89" />
         </View>
       </Pressable>
     </View>
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   secondCard: {
     width: 30,
     height: 30,
-    backgroundColor: "#e02e88",
+    backgroundColor: "#EA4C89",
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",

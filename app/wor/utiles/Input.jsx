@@ -67,7 +67,7 @@ const Input = ({
     }),
     color: animatedValue.interpolate({
       inputRange: [0, 1],
-      outputRange: ["rgb(81, 81, 85)", "#e02e88"],
+      outputRange: ["rgb(81, 81, 85)", "#EA4C89"],
     }),
   };
 
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     zIndex: 88,
   },
   inputFocused: {
-    borderColor: "#e02e88", // Change border color when focused
+    borderColor: "#EA4C89", // Change border color when focused
   },
   placeholder: {
     position: "absolute",

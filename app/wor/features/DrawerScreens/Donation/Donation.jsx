@@ -63,7 +63,7 @@ const Donation = () => {
           </View>
           <View style={styles.ruppesCard}>
             <Pressable onPress={() => onChangeDonationAmount(20)}>
-            <Text style={styles.rupeeChip}>20 Rs</Text>
+              <Text style={styles.rupeeChip}>20 Rs</Text>
             </Pressable>
           </View>
         </View>
@@ -80,7 +80,7 @@ const Donation = () => {
       <View style={styles.positionCard}>
         <CustomBtn
           title="Donate Now"
-          btnBg="#e02e88"
+          btnBg="#EA4C89"
           btnColor="#fff"
           onPress={() => {
             makeDonation();
@@ -94,19 +94,16 @@ const Donation = () => {
 export default Donation;
 
 const styles = StyleSheet.create({
-  conatiner: 
-    {
-      flexGrow: 1,
-      gap: 15,
-      paddingBottom: 80,
-      paddingHorizontal: 15,
-      // backgroundColor: "#fff",
-      gap: 15,
-    
+  conatiner: {
+    flexGrow: 1,
+    gap: 15,
+    paddingBottom: 80,
+    paddingHorizontal: 15,
+    // backgroundColor: "#fff",
+    gap: 15,
   },
 
-
-  rupeeChip:{ fontFamily:fonts.robotoBold },
+  rupeeChip: { fontFamily: fonts.robotoBold },
   positionCard: {
     width: screenWidth,
     position: "absolute",
@@ -121,7 +118,7 @@ const styles = StyleSheet.create({
   mainText: {
     fontSize: 20,
     // fontWeight: "600",
-    fontFamily:fonts.robotoSemiBold,
+    fontFamily: fonts.robotoSemiBold,
     borderBottomColor: "#ffe2e6",
     borderBottomWidth: 2,
   },
@@ -129,7 +126,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 18,
     textAlign: "justify",
-    fontFamily:fonts.robotoSemiBold,
+    fontFamily: fonts.robotoSemiBold,
   },
   pickerContainer: {
     backgroundColor: "#fff",
@@ -142,13 +139,13 @@ const styles = StyleSheet.create({
   womenRiderText: {
     fontSize: 14,
     lineHeight: 20,
-    fontFamily:fonts.robotoRegular,
+    fontFamily: fonts.robotoRegular,
   },
   ruppesCard: {
     flexDirection: "row",
     gap: 5,
     borderWidth: 2,
-    borderColor: "#e02e88",
+    borderColor: "#EA4C89",
     borderRadius: 25,
     paddingVertical: 6,
     paddingHorizontal: 15,

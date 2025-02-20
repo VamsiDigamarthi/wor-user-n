@@ -26,8 +26,8 @@ const ChatMessage = ({ text, type, captainProfilePic }) => {
         style={[
           styles.text,
           {
-            backgroundColor: type === "user" ? "#e02e88" : "#fff",
-            color: type === "user" ? "#fff" : "#e02e88",
+            backgroundColor: type === "user" ? "#EA4C89" : "#fff",
+            color: type === "user" ? "#fff" : "#EA4C89",
           },
         ]}
       >
@@ -57,9 +57,9 @@ const styles = StyleSheet.create({
     backgroundColor: "blue",
     // textAlign: "center",
     paddingHorizontal: 15,
-    color: "#e02e88",
+    color: "#EA4C89",
     lineHeight: 20,
-    borderRadius:10,
-    overflow:"hidden"
+    borderRadius: 10,
+    overflow: "hidden",
   },
 });

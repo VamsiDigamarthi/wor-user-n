@@ -115,7 +115,7 @@ const OtpRelatedInput = ({ btnShow = true }) => {
               style={[
                 styles.input,
                 {
-                  borderColor: value ? "#E02E88" : "#A9A9A9", // Change to pink if filled, else light gray
+                  borderColor: value ? "#EA4C89" : "#A9A9A9", // Change to pink if filled, else light gray
                 },
               ]}
               onChangeText={(text) => handleChange(text, index)}
@@ -124,12 +124,12 @@ const OtpRelatedInput = ({ btnShow = true }) => {
               textAlign="center" // Ensure text is centered
               onFocus={() => {
                 inputs.current[index].setNativeProps({
-                  style: { borderColor: "#E02E88" }, // Change border color to pink on focus
+                  style: { borderColor: "#EA4C89" }, // Change border color to pink on focus
                 });
               }}
               onBlur={() => {
                 inputs.current[index].setNativeProps({
-                  style: { borderColor: value ? "#E02E88" : "#A9A9A9" }, // Revert based on value
+                  style: { borderColor: value ? "#EA4C89" : "#A9A9A9" }, // Revert based on value
                 });
               }}
             />
@@ -137,7 +137,7 @@ const OtpRelatedInput = ({ btnShow = true }) => {
         </View>
         {openResendBtn && (
           <Pressable onPress={() => resendOtp()} style={styles.resentOtpCard}>
-            <Text style={{ color: "#E02E88", fontSize: 13 }}>Resend Otp</Text>
+            <Text style={{ color: "#EA4C89", fontSize: 13 }}>Resend Otp</Text>
           </Pressable>
         )}
         {otpError && (
@@ -148,8 +148,8 @@ const OtpRelatedInput = ({ btnShow = true }) => {
         {btnShow && (
           <CustomBtn
             title="continue"
-            btnBg={otp[5]?.length <= 0 ? "#fdfdfd" : "#e02e88"}
-            btnColor={otp[5]?.length <= 0 ? "#e02e88" : "#fff"}
+            btnBg={otp[5]?.length <= 0 ? "#fdfdfd" : "#EA4C89"}
+            btnColor={otp[5]?.length <= 0 ? "#EA4C89" : "#fff"}
             onPress={justLog}
             width="100%"
             isLoding={isLoading}

@@ -50,7 +50,7 @@ const OfferCouponCard = ({ onOfferPress, onPaymentPress }) => {
             )}
           </TouchableOpacity>
         </View>
-        <ForwardArrowIcon size={14} color="#e02e88" />
+        <ForwardArrowIcon size={14} color="#EA4C89" />
       </View>
     </View>
   );

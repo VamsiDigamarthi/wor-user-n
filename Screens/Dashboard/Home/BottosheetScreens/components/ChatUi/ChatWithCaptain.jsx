@@ -89,14 +89,14 @@ export default function ChatWithCaptain({ onPress }) {
       {/* Chat Header */}
       <View style={styles.chatHeader}>
         <TouchableOpacity onPress={() => onPress("main")}>
-          <Entypo name="chevron-left" size={30} color="#e02e88" />
+          <Entypo name="chevron-left" size={30} color="#EA4C89" />
         </TouchableOpacity>
 
         <View style={{ gap: 1, alignItems: "center" }}>
           <Text style={styles.headerBigText}>Wor Support</Text>
         </View>
 
-        <Entypo name="phone" size={30} color="#e02e88" />
+        <Entypo name="phone" size={30} color="#EA4C89" />
       </View>
 
       {/* Messages */}
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f9f9f9",
   },
   sendButton: {
-    backgroundColor: "#e02e88",
+    backgroundColor: "#EA4C89",
     borderRadius: 20,
     padding: 10,
     marginLeft: 10,

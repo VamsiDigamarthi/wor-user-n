@@ -51,7 +51,7 @@ const MapBottomDetails = ({ dragLocation }) => {
 
       <CustomBtn
         title="Save"
-        btnBg="#e02e88"
+        btnBg="#EA4C89"
         btnColor="#fff"
         onPress={onNavigateShowPriceScreen}
       />

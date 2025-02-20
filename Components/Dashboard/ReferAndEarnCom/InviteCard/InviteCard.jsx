@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     color: "black",
   },
   textInvite: {
-    color: "#e02e88",
+    color: "#EA4C89",
     fontWeight: "bold",
   },
   image: {

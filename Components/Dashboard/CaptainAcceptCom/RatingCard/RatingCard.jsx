@@ -21,7 +21,7 @@ const RatingCard = ({
               <Ionicons
                 name="star"
                 size={30}
-                color={star <= ratingData?.reviewRating ? "#e02e88" : "#ccc"} // Change star color based on rating
+                color={star <= ratingData?.reviewRating ? "#EA4C89" : "#ccc"} // Change star color based on rating
                 style={styles.star}
               />
             </TouchableOpacity>
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   confirmTextColor: {
-    color: "#e02e88",
+    color: "#EA4C89",
   },
   starCard: {
     gap: 15,
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     width: "100%",
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "#e02e88",
+    borderColor: "#EA4C89",
     height: 50,
   },
   inputCard: {
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   },
   thankyou: {
     fontSize: 20,
-    color: "#e02e88",
+    color: "#EA4C89",
     fontWeight: "600",
   },
 });

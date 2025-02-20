@@ -86,7 +86,7 @@ const InputBox = ({
         style={[
           styles.container,
           // !isValid && styles.invalidInputCard,
-          isFocused && { borderColor: "#e02e88" },
+          isFocused && { borderColor: "#EA4C89" },
         ]}
       >
         <Text style={[styles.label, !isValid && styles.invalidLabel]}>

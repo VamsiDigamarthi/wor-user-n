@@ -115,7 +115,7 @@ const EmergencyContactModal = ({ openModal, closeModal }) => {
               style={styles.contact}
             >
               <View style={styles.imageCard}>
-                <UserIcons size={30} color="#e02e88" />
+                <UserIcons size={30} color="#EA4C89" />
               </View>
               <Text style={styles.name}>{contact?.name}</Text>
             </Pressable>
@@ -127,7 +127,7 @@ const EmergencyContactModal = ({ openModal, closeModal }) => {
               onPress={handleNavigateEmenrgencyContcat}
             >
               <View style={styles.imageCard}>
-                <AddIcon size={30} color="#e02e88" />
+                <AddIcon size={30} color="#EA4C89" />
               </View>
               <Text style={styles.name}>Add</Text>
             </Pressable>

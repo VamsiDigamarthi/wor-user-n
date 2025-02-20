@@ -84,7 +84,7 @@ const HandlWithSupport = () => {
   return (
     <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
       <Text style={{ fontSize: 16, fontWeight: "600" }}>Support</Text>
-      <FontAwesome name="handshake-o" size={20} color="#e02e88" />
+      <FontAwesome name="handshake-o" size={20} color="#EA4C89" />
     </View>
   );
 };

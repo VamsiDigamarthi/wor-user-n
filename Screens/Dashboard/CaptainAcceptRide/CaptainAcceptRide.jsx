@@ -101,7 +101,7 @@ const CaptainAcceptRide = () => {
           <View
             style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
           >
-            <ActivityIndicator size={30} color={"#e02e88"} />
+            <ActivityIndicator size={30} color={"#EA4C89"} />
           </View>
         )}
       </View>
@@ -109,7 +109,7 @@ const CaptainAcceptRide = () => {
         <Pressable onPress={onShowFullMap}>
           <MaterialCommunityIcons
             name="checkbox-blank-outline"
-            color="#e02e88"
+            color="#EA4C89"
             size={30}
           />
         </Pressable>

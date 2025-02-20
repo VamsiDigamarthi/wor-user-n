@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   },
   noNotificationText: {
     fontSize: 18,
-    color: "#e02e88",
+    color: "#EA4C89",
     fontWeight: "600",
   },
 });

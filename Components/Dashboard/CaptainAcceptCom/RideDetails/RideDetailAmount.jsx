@@ -40,17 +40,17 @@ const RideDetailAmount = ({
       >
         <Text style={styles.fareText}>Payment Mode : cash</Text>
 
-        <Text style={{ color: "#e02e88", fontWeight: "600" }}>Change</Text>
+        <Text style={{ color: "#EA4C89", fontWeight: "600" }}>Change</Text>
       </View>
 
       {/* <View style={styles.btnContainer}>
         <TouchableOpacity
           style={[
             styles.btn,
-            { backgroundColor: "#fff", borderWidth: 1, borderColor: "#e02e88" },
+            { backgroundColor: "#fff", borderWidth: 1, borderColor: "#EA4C89" },
           ]}
         >
-          <Entypo name="cross" size={24} color="#e02e88" />
+          <Entypo name="cross" size={24} color="#EA4C89" />
           <Text style={{ fontWeight: "bold" }}>Cancel</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.btn}>
@@ -63,7 +63,7 @@ const RideDetailAmount = ({
         <View>
           <CustomBtn
             title="Pay Now"
-            btnBg="#e02e88"
+            btnBg="#EA4C89"
             btnColor="#fff"
             onPress={onNavigateRatingScreen}
           />

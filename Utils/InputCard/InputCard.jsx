@@ -77,12 +77,7 @@ const InputBox = ({
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View
-        style={[
-          styles.container,
-          isFocused && { borderColor: "#e02e88" },
-        ]}
-      >
+      <View style={[styles.container, isFocused && { borderColor: "#EA4C89" }]}>
         <Text style={[styles.label, !isValid && styles.invalidLabel]}>
           {label}
         </Text>

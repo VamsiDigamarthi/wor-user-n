@@ -40,7 +40,7 @@ const ShowPickDropPriceCard = ({
       </View>
 
       {/* <View style={styles.donwArraowCard}>
-        <Ionicons name="arrow-down" size={25} color="#E02E88" />
+        <Ionicons name="arrow-down" size={25} color="#EA4C89" />
       </View> */}
       {/* <View style={styles.priceShowCard}>
         <Text style={styles.priceText}>
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderTopWidth: 2,
-    borderTopColor: "#e02e88",
+    borderTopColor: "#EA4C89",
   },
   priceText: {
     fontSize: 11,

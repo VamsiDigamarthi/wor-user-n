@@ -267,7 +267,7 @@ const ChangeLoc100mViaMap = () => {
               title={place?.name}
               description={place?.vicinity}
             >
-              <PinIcon name="map-pin" size={30} color="#e02e88" />
+              <PinIcon name="map-pin" size={30} color="#EA4C89" />
             </Marker>
 
             <Marker
@@ -282,7 +282,7 @@ const ChangeLoc100mViaMap = () => {
             <Circle
               center={{ latitude: lat, longitude: lng }}
               radius={100} // 100 meters
-              strokeColor="#e02e88"
+              strokeColor="#EA4C89"
               fillColor="rgba(224, 46, 136, 0.2)"
               strokeWidth={2}
             />
@@ -295,14 +295,14 @@ const ChangeLoc100mViaMap = () => {
                   longitude: newMarker.longitude,
                 },
               ]}
-              strokeColor="#e02e88"
+              strokeColor="#EA4C89"
               strokeWidth={3}
               lineDashPattern={[10, 5]}
             />
           </MapView>
         ) : (
           <View style={styles.mapContainer}>
-            <ActivityIndicator color="#e02e88" size={30} />
+            <ActivityIndicator color="#EA4C89" size={30} />
           </View>
         )}
       </View>
@@ -313,7 +313,7 @@ const ChangeLoc100mViaMap = () => {
         <CustomBtn
           onPress={onNavigateSavedAddressScreen}
           title="Confirm Location"
-          btnBg="#e02e88"
+          btnBg="#EA4C89"
           btnColor="#fff"
         />
       </ParcelBtnCard>

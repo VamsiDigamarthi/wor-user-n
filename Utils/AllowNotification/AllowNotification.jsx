@@ -48,10 +48,10 @@ const AllowNotification = ({ onModalClose }) => {
         To Enable Notification Permissions, Go to settings.Click on Notification
         and turn on the toggle on for Show Notification
       </Text>
-      <CustomBtn btnBg="#e02e88" btnColor="#fff" title="Open Settings" />
+      <CustomBtn btnBg="#EA4C89" btnColor="#fff" title="Open Settings" />
       <CustomBtn
         btnBg="#fff"
-        btnColor="#e02e88"
+        btnColor="#EA4C89"
         title="Maybe, Later"
         onPress={onModalClose}
       />

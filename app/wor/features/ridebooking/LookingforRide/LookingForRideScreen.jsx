@@ -62,7 +62,7 @@ const LookingForRideScreen = () => {
         <View style={{ padding: 15 }}>
           {futureTime ? (
             <View style={styles.loadingContainer}>
-              <Chase size={60} color="#e02e88" />
+              <Chase size={60} color="#EA4C89" />
             </View>
           ) : (
             <ProgressBar progressWidth={progressWidth} />
@@ -77,7 +77,7 @@ const LookingForRideScreen = () => {
             <CustomBtn
               title={showCancelWithReOrderBtn ? "Cancel Ride" : "Re-Place Ride"}
               btnBg="#F7F7F7"
-              btnColor="#e02e88"
+              btnColor="#EA4C89"
               borderRadius={10}
               width="100%"
               onPress={

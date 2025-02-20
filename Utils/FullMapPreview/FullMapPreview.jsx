@@ -118,7 +118,7 @@ const FullMapPreview = () => {
       >
         {/* Marker for Start */}
         <Marker coordinate={adjustedOrigin} title="Start Point">
-          <FontAwesome name="map-pin" size={20} color="#e02e88" />
+          <FontAwesome name="map-pin" size={20} color="#EA4C89" />
         </Marker>
 
         {/* Marker for End */}
@@ -132,7 +132,7 @@ const FullMapPreview = () => {
             <MaterialCommunityIcons
               name="motorbike"
               size={24}
-              color="#e02e88"
+              color="#EA4C89"
             />
           </Marker>
         )}
@@ -141,7 +141,7 @@ const FullMapPreview = () => {
         {routeCoordinates.length > 0 && (
           <Polyline
             coordinates={routeCoordinates}
-            strokeColor="#e02e88" // Black polyline
+            strokeColor="#EA4C89" // Black polyline
             strokeWidth={2}
           />
         )}

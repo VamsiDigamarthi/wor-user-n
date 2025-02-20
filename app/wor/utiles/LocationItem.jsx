@@ -58,7 +58,7 @@ const LocationItem = ({
             {isHomePlaceOrWork === "work" && (
               <>
                 {workPlace ? (
-                  <Icon name={iconName} size={20} color="#e02e88" />
+                  <Icon name={iconName} size={20} color="#EA4C89" />
                 ) : (
                   <Image source={recentPlaces} style={styles.icon} />
                 )}
@@ -67,7 +67,7 @@ const LocationItem = ({
             {isHomePlaceOrWork === "home" && (
               <>
                 {homePlace ? (
-                  <Icon name={iconName} size={20} color="#e02e88" />
+                  <Icon name={iconName} size={20} color="#EA4C89" />
                 ) : (
                   <Image source={recentPlaces} style={styles.icon} />
                 )}
@@ -95,7 +95,7 @@ const LocationItem = ({
         >
           <FavoritesIcons
             size={22}
-            color={isFavorite ? "#e02e88" : "#808080"}
+            color={isFavorite ? "#EA4C89" : "#808080"}
           />
         </Pressable>
       )}

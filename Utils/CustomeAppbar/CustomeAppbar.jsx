@@ -78,7 +78,7 @@ const CustomeAppbar = ({
                   <MaterialIcons
                     name="support-agent"
                     size={15}
-                    color="#e02e88"
+                    color="#EA4C89"
                   />
                   <Text
                     style={{

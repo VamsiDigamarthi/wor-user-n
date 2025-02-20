@@ -45,7 +45,7 @@ const LeaseTell = ({
       {error && <Text style={{ fontSize: 11, color: "red" }}>{error}</Text>}
       <CustomBtn
         title="Confirm Deletion"
-        btnBg={selectedValue ? "#e02e88" : "#f7f7f7"}
+        btnBg={selectedValue ? "#EA4C89" : "#f7f7f7"}
         btnColor={selectedValue ? "#fff" : "#000"}
         height={50}
         onPress={handleShowError}

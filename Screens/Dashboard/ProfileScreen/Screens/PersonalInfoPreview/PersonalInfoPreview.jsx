@@ -89,6 +89,6 @@ const styles = StyleSheet.create({
   secondText: {
     fontSize: 14,
     fontWeight: "600",
-    color: "#e02e88",
+    color: "#EA4C89",
   },
 });

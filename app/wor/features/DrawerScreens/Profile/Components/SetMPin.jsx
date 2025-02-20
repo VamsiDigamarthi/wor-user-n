@@ -26,7 +26,10 @@ const SetMPin = ({ handleChangeSetMpin }) => {
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS == "ios" ? "padding": "height"}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
+      >
         <View style={styles.newContainer}>
           <View style={{ gap: 15 }}>
             <Text style={styles.heading}>Set new M-Pin</Text>
@@ -69,13 +72,13 @@ const SetMPin = ({ handleChangeSetMpin }) => {
             title="Continue"
             btnBg={
               pin.join("")?.length === 4 && newPin.join("")?.length === 4
-                ? "#e02e88"
+                ? "#EA4C89"
                 : "#f7f7f7"
             }
             btnColor={
               pin.join("")?.length === 4 && newPin.join("")?.length === 4
                 ? "#fff"
-                : "#e02e88"
+                : "#EA4C89"
             }
           />
         </View>

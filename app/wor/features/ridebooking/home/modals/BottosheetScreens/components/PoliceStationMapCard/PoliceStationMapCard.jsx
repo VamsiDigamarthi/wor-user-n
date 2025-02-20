@@ -60,7 +60,7 @@ const PoliceStationMapCard = () => {
           title="Your Location"
           description="This is your current location"
         >
-          <FontAwesome name="map-pin" size={20} color="#e02e88" />
+          <FontAwesome name="map-pin" size={20} color="#EA4C89" />
         </Marker>
 
         {/* Marker for Police Station */}
@@ -92,7 +92,7 @@ const PoliceStationMapCard = () => {
       </MapView>
 
       <TouchableOpacity onPress={openGoogleMaps}>
-        <Text style={{ fontWeight: "600", fontSize: 17, color: "#e02e88" }}>
+        <Text style={{ fontWeight: "600", fontSize: 17, color: "#EA4C89" }}>
           Get Direction
         </Text>
       </TouchableOpacity>

@@ -85,7 +85,7 @@ const ParAddressInputCard = () => {
               errors?.landmark?.length === 0 &&
               errors?.address?.length === 0) ||
             Object.keys(errors).length === 0
-              ? "#e02e88"
+              ? "#EA4C89"
               : "#fdfdfd"
           }
           btnColor={
@@ -95,9 +95,9 @@ const ParAddressInputCard = () => {
               errors?.address?.length === 0) ||
             Object.keys(errors).length === 0
               ? "#fdfdfd"
-              : "#e02e88"
+              : "#EA4C89"
           }
-          borderColor="#e02e88"
+          borderColor="#EA4C89"
           borderWidth={1}
           onPress={onHandlerContinueNext}
         />

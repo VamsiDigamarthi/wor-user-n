@@ -73,7 +73,7 @@
 //           isBeforeBook ? placeVicinity : initialDropDetails?.vicinity
 //         }
 //       >
-//         <PinIcon name="map-pin" size={30} color="#e02e88" />
+//         <PinIcon name="map-pin" size={30} color="#EA4C89" />
 //       </Marker>
 
 //       <Marker
@@ -103,7 +103,7 @@
 //             longitude: Number(newMarker.longitude),
 //           },
 //         ]}
-//         strokeColor="#e02e88"
+//         strokeColor="#EA4C89"
 //         strokeWidth={3}
 //         lineDashPattern={[10, 5]}
 //       />
@@ -118,7 +118,6 @@
 //     ...StyleSheet.absoluteFillObject, // Ensures the map covers the entire container
 //   },
 // });
-
 
 import { StyleSheet } from "react-native";
 import React, { useState } from "react";
@@ -174,7 +173,10 @@ const limitMarkerToCircle = (lat, lng, newLat, newLng, radius) => {
       radius, // Limit to 100 meters
       (angle * 180) / Math.PI
     );
-    return { latitude: limitedPosition.latitude, longitude: limitedPosition.longitude };
+    return {
+      latitude: limitedPosition.latitude,
+      longitude: limitedPosition.longitude,
+    };
   }
 };
 
@@ -205,7 +207,13 @@ const ChangeLocMapView = () => {
     const { latitude, longitude } = e.nativeEvent.coordinate;
 
     // Restrict movement within 100 meters
-    const validPosition = limitMarkerToCircle(lat, lng, latitude, longitude, 100);
+    const validPosition = limitMarkerToCircle(
+      lat,
+      lng,
+      latitude,
+      longitude,
+      100
+    );
     setNewMarker(validPosition);
   };
 
@@ -223,9 +231,11 @@ const ChangeLocMapView = () => {
       <Marker
         coordinate={{ latitude: Number(lat), longitude: Number(lng) }}
         title={isBeforeBook ? placeName : initialDropDetails?.name}
-        description={isBeforeBook ? placeVicinity : initialDropDetails?.vicinity}
+        description={
+          isBeforeBook ? placeVicinity : initialDropDetails?.vicinity
+        }
       >
-        <PinIcon name="map-pin" size={30} color="#e02e88" />
+        <PinIcon name="map-pin" size={30} color="#EA4C89" />
       </Marker>
 
       <Marker
@@ -239,7 +249,12 @@ const ChangeLocMapView = () => {
 
       {/* Render dashed circle using multiple polylines */}
       {dashedCircleCoordinates.map((dash, index) => (
-        <Polyline key={index} coordinates={dash} strokeColor="#EA4c89" strokeWidth={1} />
+        <Polyline
+          key={index}
+          coordinates={dash}
+          strokeColor="#EA4c89"
+          strokeWidth={1}
+        />
       ))}
 
       <Polyline
@@ -247,7 +262,7 @@ const ChangeLocMapView = () => {
           { latitude: Number(lat), longitude: Number(lng) },
           { latitude: newMarker.latitude, longitude: newMarker.longitude },
         ]}
-        strokeColor="#e02e88"
+        strokeColor="#EA4C89"
         strokeWidth={3}
         lineDashPattern={[10, 5]}
       />

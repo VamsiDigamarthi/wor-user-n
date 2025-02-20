@@ -27,7 +27,12 @@ function Wallet() {
 
   return (
     <AppBarLayout title="E-Wallet" isPositionAppbar>
-      <View style={[styles.container, {paddingTop : Platform.OS=="ios" ? 110 : 90}]}>
+      <View
+        style={[
+          styles.container,
+          { paddingTop: Platform.OS == "ios" ? 110 : 90 },
+        ]}
+      >
         <Text style={styles.text}>
           The WOR Wallet makes payments easy by adding money ahead of time for
           fast, secure, cashless rides. It’s safe and simple to use.
@@ -35,7 +40,7 @@ function Wallet() {
 
         <View style={styles.card}>
           <View style={styles.walletHeader}>
-            <Entypo name="wallet" size={30} color="#e02e88" />
+            <Entypo name="wallet" size={30} color="#EA4C89" />
             <Text style={styles.heading}>E-Wallet</Text>
           </View>
           <Text style={styles.amount}>₹ {profile?.walletBalance}</Text>
@@ -110,14 +115,14 @@ export default memo(Wallet);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:COLORS.mainBackgroundColor,
+    backgroundColor: COLORS.mainBackgroundColor,
     paddingHorizontal: 16,
   },
   text: {
     fontFamily: fonts.robotoMedium,
     textAlign: "justify",
     paddingVertical: 10,
-    lineHeight:20
+    lineHeight: 20,
   },
   heading: {
     fontFamily: fonts.robotoMedium,
@@ -155,7 +160,8 @@ const styles = StyleSheet.create({
     fontFamily: fonts.robotoSemiBold,
   },
   btContainer: {
-    paddingHorizontal:20, paddingVertical:30,
+    paddingHorizontal: 20,
+    paddingVertical: 30,
     width: "100%",
     gap: 10,
   },

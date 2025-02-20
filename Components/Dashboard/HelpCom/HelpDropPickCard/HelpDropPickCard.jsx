@@ -19,7 +19,7 @@ const HelpDropPickCard = ({ lastOrder }) => {
             navigation.navigate("RideHistoryDetailView", { ride: lastOrder })
           }
         >
-          <Ionicons name="arrow-forward" size={20} color="#e02e88" />
+          <Ionicons name="arrow-forward" size={20} color="#EA4C89" />
         </Pressable>
       </View>
     </View>

@@ -12,7 +12,7 @@ const CustomCheckbox = ({
         <View
           style={[
             styles.checkbox,
-            isChecked && { backgroundColor: "#E02E88", borderColor: "#fff5f9" }, // Changes background when checked
+            isChecked && { backgroundColor: "#EA4C89", borderColor: "#fff5f9" }, // Changes background when checked
           ]}
         >
           {isChecked && <Ionicons name="checkmark" size={16} color="white" />}

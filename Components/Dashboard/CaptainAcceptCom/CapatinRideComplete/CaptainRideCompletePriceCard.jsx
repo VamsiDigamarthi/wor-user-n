@@ -18,7 +18,7 @@ const CaptainRideCompletePriceCard = ({
         <SingleCard
           title={orderDetails?.dropAddress ?? "No Drop Up Address"}
           iconName="location-arrow"
-          iconColor="#e02e88"
+          iconColor="#EA4C89"
         />
       </View>
       <View style={styles.timeKmCard}>
