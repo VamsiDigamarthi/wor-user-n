@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+
 
 import MapView, { Marker, Polyline } from "react-native-maps";
 import { FontAwesome } from "@expo/vector-icons";
@@ -11,7 +12,8 @@ import { calculateBearing } from "../../../Constants/displaylocationmap";
 import Map3Btns from "./Map3Btn";
 import MapModalUi from "../features/ridebooking/home/modals/MapModalUi";
 
-// import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+
 
 const ShowPollyLine = ({
   origin,
@@ -75,6 +77,7 @@ const ShowPollyLine = ({
       // setHeading(newHeading); // Update the heading state
     }
   }, [liveCoordinates]);
+
 
   useEffect(() => {
     if (mapRef.current) {
