@@ -26,6 +26,7 @@ const ChangeDestinationModal = ({
       orderId: completeRideDetails._id,
       place,
     });
+
     closeDestinationModal();
     if (!data) return;
     dispatch(setCompleteRideDetails(data));

@@ -8,29 +8,23 @@ import {
 } from "../../sharedLogics/rideDetailsSlice";
 import { fonts } from "../../../../fonts/Fonts";
 
-const DisplayVehicle = ({ vehicle, carData, scootyData, autoData }) => {
+const DisplayVehicle = ({ vehicle }) => {
   const dispatch = useDispatch();
   const { selectedVehicleType, priceDetails } = useSelector(
     (state) => state.allRideDetails
   );
 
-  // Function to calculate and format destination time
   const getDestinationTime = (durationInMinutes) => {
-    const now = new Date(); // Current time
-    const destinationTime = new Date(now.getTime() + durationInMinutes * 60000); // Add duration in milliseconds
+    const now = new Date();
+    const destinationTime = new Date(now.getTime() + durationInMinutes * 60000);
 
-    // Extract hours and minutes
     let hours = destinationTime.getHours();
     const minutes = destinationTime.getMinutes();
-
-    // Determine AM or PM
     const ampm = hours >= 12 ? "PM" : "AM";
 
-    // Convert to 12-hour format
     hours = hours % 12;
-    hours = hours ? hours : 12; // Handle midnight (0 hours)
+    hours = hours ? hours : 12;
 
-    // Format minutes to always be two digits
     const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
 
     return `${hours}:${formattedMinutes} ${ampm}`;
@@ -73,7 +67,7 @@ const DisplayVehicle = ({ vehicle, carData, scootyData, autoData }) => {
               { fontSize: 14, color: "#888", fontWeight: "600" },
             ]}
           >
-            {vehicle?.vehicleType.toLowerCase() == "scooty"
+            {/* {vehicle?.vehicleType.toLowerCase() == "scooty"
               ? `${scootyData?.duration} Minutes away drop ${getDestinationTime(
                   scootyData?.duration
                 )}`
@@ -83,7 +77,7 @@ const DisplayVehicle = ({ vehicle, carData, scootyData, autoData }) => {
                 )}`
               : `${carData?.duration} Minutes away drop ${getDestinationTime(
                   carData?.duration
-                )}`}
+                )}`} */}
           </Text>
           {vehicle?.isDisplayBeatTheTraffic && (
             <Text style={styles.captionText}>Beat the traffic & Pay less</Text>

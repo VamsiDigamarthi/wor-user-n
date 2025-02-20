@@ -35,7 +35,11 @@ const RideCompleteDetails = ({ disFromPickToDrop }) => {
       if (fav.name === completeRideDetails?.pickupAddress) {
         setPickupFavorite(true);
       }
-      if (fav.name === completeRideDetails?.dropAddress) {
+      let dropAdd =
+        completeRideDetails?.newDesitionOrderStatus === "accept"
+          ? completeRideDetails?.newDropAddress
+          : completeRideDetails?.dropAddress;
+      if (fav.name === dropAdd) {
         setDropFavorite(true);
       }
     });
@@ -58,14 +62,18 @@ const RideCompleteDetails = ({ disFromPickToDrop }) => {
               gap: 5,
             }}
           >
-            <Text
-              style={[styles.orderText, { width: "90%" }]}
-              numberOfLines={2}
-              ellipsizeMode="tail"
-            >
-              {completeRideDetails?.pickupAddress} --{" "}
-              {completeRideDetails?.pickupVicinity}
-            </Text>
+            <View>
+              <Text
+                style={[styles.orderText, { width: "90%" }]}
+                numberOfLines={2}
+                ellipsizeMode="tail"
+              >
+                {completeRideDetails?.pickupAddress}
+              </Text>
+              <Text style={{ fontSize: 10, color: "gray" }} numberOfLines={1}>
+                {completeRideDetails?.pickupVicinity}
+              </Text>
+            </View>
 
             <FavoritesIcons
               size={21}
@@ -101,8 +109,14 @@ const RideCompleteDetails = ({ disFromPickToDrop }) => {
               numberOfLines={2}
               ellipsizeMode="tail"
             >
-              {completeRideDetails?.dropAddress} --{" "}
-              {completeRideDetails?.dropVicinity}
+              {completeRideDetails?.newDesitionOrderStatus === "accept"
+                ? completeRideDetails?.newDropAddress
+                : completeRideDetails?.dropAddress}{" "}
+              <Text style={{ fontSize: 10, color: "gray" }}>
+                {completeRideDetails?.newDesitionOrderStatus === "accept"
+                  ? completeRideDetails?.newDropVicinity
+                  : completeRideDetails?.dropVicinity}
+              </Text>
             </Text>
             <View
               style={{ flexDirection: "row", alignItems: "center", gap: 6 }}

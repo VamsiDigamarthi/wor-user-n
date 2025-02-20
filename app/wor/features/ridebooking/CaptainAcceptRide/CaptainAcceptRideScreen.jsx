@@ -45,8 +45,14 @@ const CaptainAcceptRideScreen = () => {
   };
 
   let dropCoordinates = {
-    lat: completeRideDetails?.drop?.coordinates?.[1],
-    lng: completeRideDetails?.drop?.coordinates?.[0],
+    lat:
+      completeRideDetails?.newDesitionOrderStatus === "accept"
+        ? completeRideDetails?.newDropLocation?.coordinates?.[1]
+        : completeRideDetails?.drop?.coordinates?.[1],
+    lng:
+      completeRideDetails?.newDesitionOrderStatus === "accept"
+        ? completeRideDetails?.newDropLocation?.coordinates?.[0]
+        : completeRideDetails?.drop?.coordinates?.[0],
   };
 
   return (
@@ -54,14 +60,18 @@ const CaptainAcceptRideScreen = () => {
       isDrawerIcon={true}
       title={
         otpVerified
-          ? completeRideDetails?.dropAddress
+          ? completeRideDetails?.newDesitionOrderStatus === "accept"
+            ? completeRideDetails?.newDropAddress
+            : completeRideDetails?.dropAddress
           : isArrived
           ? "Rider has arrived"
           : "Ride On the way"
       }
       vicinity={
         otpVerified
-          ? completeRideDetails?.dropVicinity
+          ? completeRideDetails?.newDesitionOrderStatus === "accept"
+            ? completeRideDetails?.newDropVicinity
+            : completeRideDetails?.dropVicinity
           : isArrived && "Your 3m free waiting Timer has started"
       }
       isPositionAppbar={true}

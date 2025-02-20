@@ -156,8 +156,6 @@ export const getTravelDetails = async (
     const response = await axios.get(url);
     const data = response.data;
 
-    console.log(response.data, "IN DISPLAY MAP", data.rows[0]);
-
     if (data.rows[0].elements[0].status === "OK") {
       let distance = data.rows[0].elements[0].distance.text;
       let duration = data.rows[0].elements[0].duration.value; // Duration in seconds
