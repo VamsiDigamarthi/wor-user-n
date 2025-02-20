@@ -1,14 +1,15 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { fonts } from "../../../fonts/Fonts";
 
 const ParProtectDelivery = ({ isChecked, handleProtectedParcel }) => {
   return (
     <View style={styles.container}>
       <View style={styles.innerCard}>
-        <Text style={{ fontSize: 15, fontWeight: "600" }}>
+        <Text style={styles.title}>
           Protect Your Delivery
         </Text>
-        <Text style={{ fontSize: 12, color: "gray" }}>
+        <Text style={styles.text}>
           Recipients will receive a 4 digits PIN once the package is on its way
         </Text>
       </View>
@@ -61,4 +62,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
+
+  title:{ fontSize: 15, fontFamily:fonts.robotoSemiBold },
+  text:{ fontSize: 12, color: "gray", fontFamily:fonts.robotoRegular }
 });

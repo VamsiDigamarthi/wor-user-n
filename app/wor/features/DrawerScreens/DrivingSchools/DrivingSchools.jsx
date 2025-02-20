@@ -65,15 +65,10 @@ export default function DrivingSchools() {
             renderItem={({ item }) => <Card  item={item} />}
             ListEmptyComponent={
               <View
-                style={{
-                  width: "100%",
-                  height: 400,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
+                style={styles.emptyContainer}
               >
-                <Text>No Data </Text>
-                <Text>Please click to add business button to added your services  </Text>
+                <Text style={styles.emptyText}>No Data </Text>
+                <Text style={styles.emptyText}>Please click to add business button to added your services  </Text>
               </View>
             }
           />
@@ -104,4 +99,14 @@ const styles = StyleSheet.create({
     textAlign: "left",
     fontSize: 16,
   },
+  emptyContainer:{
+    width: "100%",
+    height: 400,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  emptyText:{
+    fontFamily:fonts.robotoRegular
+  }
 });

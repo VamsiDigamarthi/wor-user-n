@@ -4,7 +4,6 @@ import { FavoritesIcons } from "../Icons/Icons";
 import { useLocationItemHook } from "./LocationItem.hook";
 import { useSelector } from "react-redux";
 import { fonts } from "../fonts/Fonts";
-
 import { recentPlaces } from "../Images/DrawerImages";
 const LocationItem = ({
   placeName,

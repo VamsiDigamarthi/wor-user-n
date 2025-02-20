@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import LocationItem from "../../../../utiles/LocationItem";
 import { getCoordinatesFromPlaceId } from "../../../../../../Constants/displaylocationmap";
 import { onAddedHomePlace } from "../Services/WhereToGoServ";
@@ -83,6 +83,7 @@ const LocationList = ({
   return (
     <FlatList
       data={data}
+      ItemSeparatorComponent={<View style={{height:8}} />}
       keyExtractor={
         (item, index) =>
           isFavoritePlaces

@@ -13,6 +13,7 @@ import { FontAwesome, Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 import defaultImg from "../../../../assets/images/profile/Services.png";
 import { useNavigation } from "@react-navigation/native";
+import { fonts } from "../../fonts/Fonts";
 
 const DrawerProfil = () => {
   const navigation = useNavigation();
@@ -58,9 +59,9 @@ const DrawerProfil = () => {
       // console.log(profile);
 
       // console.log(profile);
-      
+
       // setAvgRating(calculateAverageRating(profile?.reviews)?.toFixed(1));
-      setAvgRating((  profile?.averageRating));
+      setAvgRating(profile?.averageRating);
     }
   }, [profile]);
 
@@ -99,22 +100,14 @@ const DrawerProfil = () => {
           onPress={() => handleItemPress("Profile")}
           style={styles.rowCard}
         >
-          <Text
-            style={{
-              fontSize: 14,
-              fontWeight: "600",
-              width: "90%",
-            }}
-            numberOfLines={1}
-            ellipsizeMode="tail"
-          >
+          <Text style={styles.name} numberOfLines={1} ellipsizeMode="tail">
             {profile?.name}
           </Text>
           <FontAwesome name="chevron-right" size={15} color="#B0B0B0" />
         </Pressable>
         <Pressable style={styles.starRating} onPress={onNavigateRatingScreen}>
           <FontAwesome name="star" size={14} color="gold" />
-          <Text style={styles.profileEmail}>{avgRating}</Text>
+          <Text style={styles.ratingNumber}>{avgRating}</Text>
         </Pressable>
         {verifyText && (
           <Pressable
@@ -171,4 +164,12 @@ const styles = StyleSheet.create({
     width: 50,
     justifyContent: "center",
   },
+  name: {
+    width: "90%",
+    fontFamily: fonts.robotoSemiBold,
+  },
+
+  ratingNumber:{
+    fontFamily: fonts.robotoSemiBold,
+  }
 });

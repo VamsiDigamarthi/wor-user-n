@@ -8,7 +8,7 @@ import emergencycontact from "../../../assets/profileicons/emergencycontact.png"
 import calendar from "../../../assets/profileicons/calendar.png";
 import clock from "../../../assets/profileicons/clock.png";
 import email from "../../../assets/profileicons/email.png";
-import locationpin from "../../../assets/profileicons/locationpPin.png";
+import locationpin from "../../../assets/profileicons/locationPpin.png";
 import mobile from "../../../assets/profileicons/mobile.png";
 
 export {

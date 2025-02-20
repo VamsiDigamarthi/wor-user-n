@@ -20,6 +20,7 @@ import OfferModal from "./Modal/OfferModal";
 import PaymentModal from "./Modal/PaymentModal";
 import { useSelector } from "react-redux";
 
+
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.35, 0.7].map((p) => screenHeight * p); // Example snap points for Android
 const iosSnapPoints = [0.3, 0.6].map((p) => screenHeight * p); // Example snap points for iOS
@@ -41,6 +42,7 @@ const ShowPriceScreen = () => {
     scootyData,
     carData,
     autoData,
+    setShceduleOrderModal
   } = useShowPriceScreenHook();
 
   const { mapHeight, snapPoints, handleSheetChange } = useBottomSheetConfig(
@@ -130,11 +132,11 @@ const ShowPriceScreen = () => {
           />
         </View>
       </AppBarLayout>
-      <ShceduleOrderModal
-        shceduleOrderModal={shceduleOrderModal}
-        timerSetModalOpen={timerSetModalOpen}
+      {shceduleOrderModal && <ShceduleOrderModal
+        // shceduleOrderModal={shceduleOrderModal}
+        timerSetModalOpen={()=>setShceduleOrderModal(!shceduleOrderModal)}
       />
-
+}
       {offerModalOpen && (
         <OfferModal onClose={() => setOfferModalOpen(false)} />
       )}

@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsSendOrReceiveParcel } from "../../ridebooking/sharedLogics/rideDetailsSlice";
+import { fonts } from "../../../fonts/Fonts";
 
 const ParSendReceiveCard = () => {
   const dispatch = useDispatch();
@@ -125,6 +126,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    fontWeight: "600",
+    fontFamily:fonts.robotoSemiBold
+    // fontWeight: "600",
   },
 });

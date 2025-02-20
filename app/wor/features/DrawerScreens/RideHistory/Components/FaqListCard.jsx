@@ -1,15 +1,10 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Feather from "@expo/vector-icons/Feather";
-import {faqData} from "../../../../../../Constants/FaqData";
-
+import { faqData } from "../../../../../../Constants/FaqData";
 
 import { useNavigation } from "@react-navigation/native";
-
-
-
-
-
+import { fonts } from "../../../../fonts/Fonts";
 
 export default function FaqListCard({ orderId }) {
   const navigation = useNavigation();
@@ -27,10 +22,8 @@ export default function FaqListCard({ orderId }) {
             style={style.card}
             onPress={() => handleNavigation(e.maintitle)}
           >
-            <View
-              style={{ flexDirection: "row", gap: 10, alignItems: "center" }}
-            >
-              <Image source={e.icon} style={style.icon}/>
+            <View style={style.iconContainer}>
+              <Image source={e.icon} style={style.icon} />
               <Text style={style.text}>{e?.maintitle}</Text>
             </View>
             <Feather name="chevron-right" size={30} color="#B0B0B0" />
@@ -60,12 +53,13 @@ const style = StyleSheet.create({
     paddingVertical: 10,
   },
   text: {
-    fontWeight: "bold",
+    fontFamily: fonts.robotoBold,
     fontSize: 16,
   },
-  icon:{
-    height:30,
-    width:30,
-    resizeMode:"contain"
-  }
+  iconContainer: { flexDirection: "row", gap: 10, alignItems: "center" },
+  icon: {
+    height: 30,
+    width: 30,
+    resizeMode: "contain",
+  },
 });

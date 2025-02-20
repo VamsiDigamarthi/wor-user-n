@@ -155,6 +155,7 @@ export const useShowPriceScreenHook = () => {
     scootyData,
     carData,
     autoData,
+    setShceduleOrderModal
   };
 };
 

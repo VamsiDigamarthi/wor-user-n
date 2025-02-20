@@ -1,18 +1,26 @@
 import { StyleSheet, Text, View } from "react-native";
 
+import {MaterialCommunityIcons , AntDesign, FontAwesome6} from '@expo/vector-icons';
+import { fonts } from "../../../fonts/Fonts";
+
 const ParcelSpecification = () => {
   let data = [
     {
-      name: "Max Parcel Weight : 10 KG",
+      name: "Parcel weights 10Kg or less",
+      icon : <MaterialCommunityIcons name="weight-kilogram" size={24} color="white" />
     },
     {
-      name: "Max Dimensions : Should fit in Standard Bagpack",
+      name: "No illgeal,alcohol or restricted items",
+      icon : <AntDesign name="warning" size={24} color="white" />
     },
     {
-      name: "Shape : No sharp Edges",
+      name: "Item should fit in a Bagpack",
+      icon :<MaterialCommunityIcons name="bag-personal" size={24} color="white" />
     },
+    
     {
-      name: "Secure packaging required",
+      name: "Avoid Sending High Value and Fragile Items",
+      icon : <FontAwesome6 name="wine-glass-empty" size={24} color="white" />
     },
   ];
 
@@ -21,7 +29,9 @@ const ParcelSpecification = () => {
       <Text style={styles.text}>Fit these specifications:</Text>
       {data?.map((eachItem, index) => (
         <View key={index} style={styles.itemContainer}>
-          <View style={styles.innerCard}></View>
+          <View style={styles.innerCard}>
+            {eachItem.icon}
+          </View>
           <Text style={styles.itemText}>{eachItem?.name}</Text>
         </View>
       ))}
@@ -42,7 +52,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    fontWeight: "600",
+    fontFamily:fonts.robotoSemiBold
   },
   itemContainer: {
     flexDirection: "row",
@@ -59,7 +69,7 @@ const styles = StyleSheet.create({
   },
   itemText: {
     fontSize: 13,
-    fontWeight: "500",
+    fontFamily:fonts.robotoMedium,
     flex: 1,
     flexWrap: "wrap",
   },

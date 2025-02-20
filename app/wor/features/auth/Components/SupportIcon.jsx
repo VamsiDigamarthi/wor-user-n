@@ -1,13 +1,22 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { SupportIcons } from "../../../Icons/Icons";
+import { useNavigation } from "@react-navigation/native";
 
-const SupportIcon = () => {
+const SupportIcon = ({supportNavigate}) => {
+
+  const navigation = useNavigation()
+
+  const handlenavigateSupport = () =>{
+    // navigation.navigate("")
+    navigation.navigate("ChatBot", { caterogy:supportNavigate });
+  }
+
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={handlenavigateSupport}>
       <SupportIcons size={20} color="black" />
       <Text>Support</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 

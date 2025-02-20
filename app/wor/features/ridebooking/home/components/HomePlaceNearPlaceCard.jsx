@@ -25,7 +25,7 @@ const HomePlaceNearPlaceCard = ({ nearByRandomItems }) => {
     navigation.navigate("ShowPrice");
   };
 
-  // console.log("homePlace",homePlace);
+
 
   const renderLocationItem = ({
     place,

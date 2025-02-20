@@ -9,6 +9,7 @@ import CustomBtn from "../../../../utiles/CustomBtn";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { cancelRide } from "../../LookingforRide/services/lookingForRideServices";
+import { fonts } from "../../../../fonts/Fonts";
 
 const CancelRideModal = ({
   openCancelModal,
@@ -78,7 +79,7 @@ const CancelRideModal = ({
         </View>
 
         {errMsg && (
-          <Text style={{ fontSize: 11, fontWeight: "500", color: "red", textAlign:"center" }}>
+          <Text style={styles.err}>
             {errMsg}
           </Text>
         )}
@@ -117,10 +118,12 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 20,
-    fontWeight: "600",
+    fontFamily:fonts.robotoSemiBold
   },
   subHeading: {
     fontSize: 14,
     color: "gray",
+    fontFamily:fonts.robotoRegular
   },
+  err:{ fontSize: 11, fontFamily:fonts.robotoMedium, color: "red", textAlign:"center" }
 });
