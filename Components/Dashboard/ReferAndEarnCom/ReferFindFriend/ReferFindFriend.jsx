@@ -12,10 +12,10 @@ const ReferFindFriend = () => {
         btnColor="#000"
         btnBg="white"
         borderWidth={1}
-        borderColor="#e02e88"
+        borderColor="#EA4C89"
       />
 
-      <CustomBtn title="Refer Now" btnBg="#e02e88" btnColor="#fff" />
+      <CustomBtn title="Refer Now" btnBg="#EA4C89" btnColor="#fff" />
     </View>
   );
 };

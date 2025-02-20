@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import LocationItem from "../../../../utiles/LocationItem";
 import { getCoordinatesFromPlaceId } from "../../../../../../Constants/displaylocationmap";
 import { onAddedHomePlace } from "../Services/WhereToGoServ";
@@ -27,6 +27,8 @@ const LocationList = ({
 
   const handleToNavigateShowPriceScreen = async ({ place }) => {
     let newDropLocation = null;
+
+    // Handle favorite places
     if (isFavoritePlaces) {
       newDropLocation = {
         ...place,
@@ -37,30 +39,32 @@ const LocationList = ({
       };
     }
 
+    // Handle places with placeId
     if (place?.placeId) {
-      let location = await getCoordinatesFromPlaceId(place?.placeId);
+      const location = await getCoordinatesFromPlaceId(place?.placeId);
       newDropLocation = {
         ...place,
         location,
       };
     }
 
+    // Handle home/work place type
     if (homeOrWorkPlacetype) {
-      const data = await onAddedHomePlace({
+      const response = await onAddedHomePlace({
         token,
         name: place.name,
         vicinity: place.vicinity,
         location: newDropLocation ? newDropLocation.location : place.location,
         type: homeOrWorkPlacetype,
       });
-
-      if (data) {
+      if (response) {
         dispatch(clearHomeOrWorkPlace());
         dispatch(homePlace({ token }));
       }
       return;
     }
 
+    // Handle drop details for navigation
     if (isDisplayAddHomePlace) {
       dispatch(setDropDetails(newDropLocation ?? place));
       if (isParcScreen) {
@@ -72,17 +76,19 @@ const LocationList = ({
       return;
     }
 
-    // this function return place to change destination modal to change destination place after ride accept
+    // Return place name for destination change
     handleReturnPlaceName(newDropLocation ?? place);
   };
-
-  // console.log("data", data);
 
   return (
     <FlatList
       data={data}
-      keyExtractor={(item, index) =>
-        isFavoritePlaces ? `${item._id}-${index}` : `${item.id}-${index}`
+      ItemSeparatorComponent={<View style={{height:8}} />}
+      keyExtractor={
+        (item, index) =>
+          isFavoritePlaces
+            ? `${item._id || item.id}-${index}` // Use _id or id for favorites
+            : `${item.id || item.placeId}-${index}` // Use id or placeId for other items
       }
       renderItem={({ item }) => (
         <LocationItem

@@ -33,7 +33,7 @@ const Wallet = () => {
       </ScrollView>
       <View style={styles.addWalletBtncard}>
         <CustomBtn
-          btnBg="#e02e88"
+          btnBg="#EA4C89"
           btnColor="#fff"
           title="Add Money to Wallet"
         />

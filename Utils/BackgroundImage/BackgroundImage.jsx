@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   goTitle: {
-    color: "#e02e88",
+    color: "#EA4C89",
     fontSize: 30,
     fontWeight: "bold",
   },

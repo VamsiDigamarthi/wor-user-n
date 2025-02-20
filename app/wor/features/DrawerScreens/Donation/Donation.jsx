@@ -18,6 +18,7 @@ import { useState } from "react";
 import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
 import { usePayments } from "../../../Payments/useRazorpay";
 import { useSelector } from "react-redux";
+import { fonts } from "../../../fonts/Fonts";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -37,14 +38,7 @@ const Donation = () => {
       <CustomeAppbar title="Donation" onBack={() => navigation.goBack()} />
 
       <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          gap: 15,
-          paddingBottom: 80,
-          paddingHorizontal: 15,
-          // backgroundColor: "#fff",
-          gap: 15,
-        }}
+        contentContainerStyle={styles.conatiner}
         showsVerticalScrollIndicator={false}
       >
         <DonationImage />
@@ -64,12 +58,12 @@ const Donation = () => {
         <View style={{ flexDirection: "row", gap: 10 }}>
           <View style={styles.ruppesCard}>
             <Pressable onPress={() => onChangeDonationAmount(10)}>
-              <Text style={{ fontWeight: "bold" }}>10 Rs</Text>
+              <Text style={styles.rupeeChip}>10 Rs</Text>
             </Pressable>
           </View>
           <View style={styles.ruppesCard}>
             <Pressable onPress={() => onChangeDonationAmount(20)}>
-              <Text style={{ fontWeight: "bold" }}>20 Rs</Text>
+              <Text style={styles.rupeeChip}>20 Rs</Text>
             </Pressable>
           </View>
         </View>
@@ -86,7 +80,7 @@ const Donation = () => {
       <View style={styles.positionCard}>
         <CustomBtn
           title="Donate Now"
-          btnBg="#e02e88"
+          btnBg="#EA4C89"
           btnColor="#fff"
           onPress={() => {
             makeDonation();
@@ -101,12 +95,15 @@ export default Donation;
 
 const styles = StyleSheet.create({
   conatiner: {
-    flex: 1,
-    // paddingVertical: 10,
-    // paddingHorizontal: 26,
-    gap: 20,
-    position: "relative",
+    flexGrow: 1,
+    gap: 15,
+    paddingBottom: 80,
+    paddingHorizontal: 15,
+    // backgroundColor: "#fff",
+    gap: 15,
   },
+
+  rupeeChip: { fontFamily: fonts.robotoBold },
   positionCard: {
     width: screenWidth,
     position: "absolute",
@@ -120,7 +117,8 @@ const styles = StyleSheet.create({
   },
   mainText: {
     fontSize: 20,
-    fontWeight: "600",
+    // fontWeight: "600",
+    fontFamily: fonts.robotoSemiBold,
     borderBottomColor: "#ffe2e6",
     borderBottomWidth: 2,
   },
@@ -128,6 +126,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 18,
     textAlign: "justify",
+    fontFamily: fonts.robotoSemiBold,
   },
   pickerContainer: {
     backgroundColor: "#fff",
@@ -140,12 +139,13 @@ const styles = StyleSheet.create({
   womenRiderText: {
     fontSize: 14,
     lineHeight: 20,
+    fontFamily: fonts.robotoRegular,
   },
   ruppesCard: {
     flexDirection: "row",
     gap: 5,
     borderWidth: 2,
-    borderColor: "#e02e88",
+    borderColor: "#EA4C89",
     borderRadius: 25,
     paddingVertical: 6,
     paddingHorizontal: 15,

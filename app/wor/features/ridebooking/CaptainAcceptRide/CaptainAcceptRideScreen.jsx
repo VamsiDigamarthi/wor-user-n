@@ -17,9 +17,12 @@ const androidSnapPoints = [0.4, 0.6].map((p) => screenHeight * p);
 const iosSnapPoints = [0.4, 0.6].map((p) => screenHeight * p);
 
 const CaptainAcceptRideScreen = () => {
-  
-  const { mapHeight, snapPoints, handleSheetChange, trackMeTranslateY, } =
-    useBottomSheetConfig(androidSnapPoints, iosSnapPoints,kownBotSheetChangeUpOrDown);
+  const { mapHeight, snapPoints, handleSheetChange, trackMeTranslateY } =
+    useBottomSheetConfig(
+      androidSnapPoints,
+      iosSnapPoints,
+      kownBotSheetChangeUpOrDown
+    );
 
   const {
     otpVerified,
@@ -28,7 +31,7 @@ const CaptainAcceptRideScreen = () => {
     disFromCaptainLocToPick,
     disFromPickToDrop,
     liveCoordinates,
-    kownBotSheetChangeUpOrDown
+    kownBotSheetChangeUpOrDown,
   } = useCaptainAcceptRideScreenHook();
 
   let captainCoordinates = {
@@ -42,8 +45,14 @@ const CaptainAcceptRideScreen = () => {
   };
 
   let dropCoordinates = {
-    lat: completeRideDetails?.drop?.coordinates?.[1],
-    lng: completeRideDetails?.drop?.coordinates?.[0],
+    lat:
+      completeRideDetails?.newDesitionOrderStatus === "accept"
+        ? completeRideDetails?.newDropLocation?.coordinates?.[1]
+        : completeRideDetails?.drop?.coordinates?.[1],
+    lng:
+      completeRideDetails?.newDesitionOrderStatus === "accept"
+        ? completeRideDetails?.newDropLocation?.coordinates?.[0]
+        : completeRideDetails?.drop?.coordinates?.[0],
   };
 
   return (
@@ -51,14 +60,18 @@ const CaptainAcceptRideScreen = () => {
       isDrawerIcon={true}
       title={
         otpVerified
-          ? completeRideDetails?.dropAddress
+          ? completeRideDetails?.newDesitionOrderStatus === "accept"
+            ? completeRideDetails?.newDropAddress
+            : completeRideDetails?.dropAddress
           : isArrived
           ? "Rider has arrived"
           : "Ride On the way"
       }
       vicinity={
         otpVerified
-          ? completeRideDetails?.dropVicinity
+          ? completeRideDetails?.newDesitionOrderStatus === "accept"
+            ? completeRideDetails?.newDropVicinity
+            : completeRideDetails?.dropVicinity
           : isArrived && "Your 3m free waiting Timer has started"
       }
       isPositionAppbar={true}
@@ -109,7 +122,7 @@ const styles = StyleSheet.create({
   mapContainer: {
     width: "100%",
     height: "100%",
-    backgroundColor: "red",
+    backgroundColor: "rgba(0,0,0,0.1)",
   },
   innerCard: {
     gap: 10,

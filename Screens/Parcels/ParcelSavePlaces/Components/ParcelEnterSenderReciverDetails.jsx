@@ -77,7 +77,7 @@ const ParcelEnterSenderReciverDetails = ({
             errors?.landmark?.length === 0 &&
             errors?.address?.length === 0) ||
           Object.keys(errors).length === 0
-            ? "#e02e88"
+            ? "#EA4C89"
             : "#fdfdfd"
         }
         btnColor={
@@ -87,9 +87,9 @@ const ParcelEnterSenderReciverDetails = ({
             errors?.address?.length === 0) ||
           Object.keys(errors).length === 0
             ? "#fdfdfd"
-            : "#e02e88"
+            : "#EA4C89"
         }
-        borderColor="#e02e88"
+        borderColor="#EA4C89"
         borderWidth={1}
         onPress={onHandlerContinueNext}
       />
@@ -138,7 +138,7 @@ const SingleInput = ({
         <Icon
           name={iconName}
           size={20}
-          color={isValid ? "#fc0303" : "#e02e88"}
+          color={isValid ? "#fc0303" : "#EA4C89"}
         />
       </View>
       <View style={{ gap: 0 }}>

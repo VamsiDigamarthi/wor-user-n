@@ -8,6 +8,7 @@ import {
   Upi,
 } from "../../../../Images/Payment";
 import { useSelector } from "react-redux";
+import { fonts } from "../../../../fonts/Fonts";
 
 const OfferCouponCard = ({ onOfferPress, onPaymentPress }) => {
   const { paymentMethod } = useSelector((state) => state.allRideDetails);
@@ -15,7 +16,7 @@ const OfferCouponCard = ({ onOfferPress, onPaymentPress }) => {
   return (
     <View style={styles.couponTextCard}>
       <TouchableOpacity style={styles.offersCard} onPress={onOfferPress}>
-        <View style={{ flexDirection: "row", gap: 9, alignItems: "center" }}>
+        <View style={styles.offerInnerCard}>
           <OfferImg height={15} width={15} />
           <Text style={styles.couponText}>Offers</Text>
         </View>
@@ -24,7 +25,7 @@ const OfferCouponCard = ({ onOfferPress, onPaymentPress }) => {
 
       <Text style={styles.textLine}></Text>
       <View style={styles.offersCard}>
-        <View style={{ flexDirection: "row", gap: 9, alignItems: "center" }}>
+        <View style={styles.offerInnerCard}>
           {paymentMethod === "wallet" ? (
             <WalletImg height={30} width={30} />
           ) : paymentMethod === "cash" ? (
@@ -38,20 +39,18 @@ const OfferCouponCard = ({ onOfferPress, onPaymentPress }) => {
             style={{ flexDirection: "column" }}
             onPress={onPaymentPress}
           >
-            <Text
-              style={[styles.couponText, { color: "#e02e88", fontSize: 14 }]}
-            >
+            <Text style={[styles.couponText, styles.offerText]}>
               {paymentMethod?.charAt(0).toUpperCase() + paymentMethod?.slice(1)}
             </Text>
 
             {paymentMethod === "wallet" && (
-              <Text style={{ fontSize: 10, color: "gray" }}>
+              <Text style={styles.walletBalance}>
                 Available Rs. {profile?.walletBalance}/-
               </Text>
             )}
           </TouchableOpacity>
         </View>
-        <ForwardArrowIcon size={14} color="#e02e88" />
+        <ForwardArrowIcon size={14} color="#EA4C89" />
       </View>
     </View>
   );
@@ -76,8 +75,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   couponText: {
-    fontWeight: "600",
+    fontFamily: fonts.robotoSemiBold,
     color: "#f98600",
     fontSize: 14,
+  },
+
+  offerText: {
+    color: "#EA4C89",
+  },
+  offerInnerCard: { flexDirection: "row", gap: 9, alignItems: "center" },
+  walletBalance: {
+    fontSize: 10,
+    color: "gray",
+    fontFamily: fonts.robotoRegular,
   },
 });

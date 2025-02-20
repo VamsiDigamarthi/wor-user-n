@@ -48,9 +48,9 @@ export default function Suggestions() {
             onPress={() => {
               SendData();
             }}
-            btnColor={text ? "#fff" : "#e02e88"}
-            btnBg={text ? "#e02e88" : "#fff"}
-            borderColor={!text && "#e02e88"}
+            btnColor={text ? "#fff" : "#EA4C89"}
+            btnBg={text ? "#EA4C89" : "#fff"}
+            borderColor={!text && "#EA4C89"}
             borderWidth={1}
           />
         </View>

@@ -48,7 +48,7 @@ const MapPreview = ({ navigation }) => {
     navigation.setOptions({
       headerRight: ({ tintColor }) => (
         <TouchableOpacity onPress={savePickLocationHandle}>
-          <Ionicons name="save" size={25} color="#e02e88" />
+          <Ionicons name="save" size={25} color="#EA4C89" />
         </TouchableOpacity>
       ),
     });

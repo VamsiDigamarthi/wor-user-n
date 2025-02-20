@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   selectedTypeText: {
-    backgroundColor: "#E02E88",
+    backgroundColor: "#EA4C89",
   },
   selectedTypeTextColor: {
     color: "#fff",

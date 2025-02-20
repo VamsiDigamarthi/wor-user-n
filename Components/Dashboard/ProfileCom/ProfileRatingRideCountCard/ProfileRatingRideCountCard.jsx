@@ -33,7 +33,7 @@ export default ProfileRatingRideCountCard;
 
 const styles = StyleSheet.create({
   constainer: {
-    borderBottomColor: "#e02e88",
+    borderBottomColor: "#EA4C89",
     // borderBottomWidth: 1,
     // paddingVertical: 5,
     // flexDirection: "row",
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     // flexDirection: "row",
     // justifyContent: "center",
     // alignItems: "center",
-    // borderRightColor: "#e02e88",
+    // borderRightColor: "#EA4C89",
     // borderRightWidth: 1,
     gap: 5,
   },

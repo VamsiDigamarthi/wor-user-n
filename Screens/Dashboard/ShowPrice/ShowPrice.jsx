@@ -243,7 +243,7 @@ const ShowPrice = () => {
                   <Text
                     style={[
                       styles.couponText,
-                      { color: "#e02e88", fontSize: 14 },
+                      { color: "#EA4C89", fontSize: 14 },
                     ]}
                   >
                     Wor Wallet
@@ -256,7 +256,7 @@ const ShowPrice = () => {
               <MaterialIcons
                 name="arrow-forward-ios"
                 size={20}
-                color="#e02e88"
+                color="#EA4C89"
               />
             </View>
           </View>
@@ -268,8 +268,8 @@ const ShowPrice = () => {
           {normalDateFormat && <Text>Your pickup on {normalDateFormat}</Text>}
           <CustomBtn
             width="100%"
-            btnBg={selectedVehicle ? "#e02e88" : "#fff"}
-            btnColor={selectedVehicle ? "#fff" : "#e02e88"}
+            btnBg={selectedVehicle ? "#EA4C89" : "#fff"}
+            btnColor={selectedVehicle ? "#fff" : "#EA4C89"}
             title={
               selectedVehicle
                 ? `Book ${selectedVehicle} `
@@ -277,7 +277,7 @@ const ShowPrice = () => {
             }
             onPress={onPlaceTheOrder}
             disabled={true}
-            borderColor="#e02e88"
+            borderColor="#EA4C89"
             borderWidth={1}
           />
         </View>

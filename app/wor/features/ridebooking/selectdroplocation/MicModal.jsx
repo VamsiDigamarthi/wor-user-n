@@ -7,25 +7,24 @@ import {
   View,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import { useMicModalHook } from "./Hooks/MicModal.hook";
-
+import { useNewMicHook } from "./Hooks/MicNewHook";
 const MicModal = ({
   isMicModalOpenClose,
   setIsMicModalOpenClose,
   setMicVoiceText,
   micVoiceText,
 }) => {
-  const { handleMicPress, isListening } = useMicModalHook({
+  const { handleMicPress, isListening , stopListening } = useNewMicHook({
     setMicVoiceText,
     setIsMicModalOpenClose,
+    isMicModalOpenClose
   });
-
   return (
     <Modal
-      animationType="fade" // You can also use 'fade' or 'none'
-      transparent={true} // Whether the modal should have a transparent background
-      visible={isMicModalOpenClose} // Control the visibility of the modal
-      onRequestClose={() => setIsMicModalOpenClose(false)} // Required for Android back button
+      animationType="fade"
+      transparent={true}
+      visible={isMicModalOpenClose}
+      onRequestClose={() => {stopListening(); setIsMicModalOpenClose(false)}}
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
@@ -52,9 +51,7 @@ const MicModal = ({
     </Modal>
   );
 };
-
 export default MicModal;
-
 const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
@@ -73,7 +70,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     gap: 10,
   },
-
   micCard: {
     width: 80,
     height: 80,
@@ -83,7 +79,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-
   micButton: {
     width: 100,
     height: 100,

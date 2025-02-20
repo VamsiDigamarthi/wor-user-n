@@ -61,7 +61,7 @@ const PickLocation = () => {
               style={{ width: "75%", height: "100%" }}
             />
             <Pressable onPress={() => setIsMicModalOpenClose(true)}>
-              <FontAwesome5 name="microphone" size={20} color="#e02e88" />
+              <FontAwesome5 name="microphone" size={20} color="#EA4C89" />
             </Pressable>
           </View>
           <View style={styles.mapFavoriteCard}>
@@ -94,7 +94,7 @@ const PickLocation = () => {
               alignItems: "center",
             }}
           >
-            <ActivityIndicator color="#e02e88" size={30} />
+            <ActivityIndicator color="#EA4C89" size={30} />
           </View>
         ) : (
           <FlatList
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
   },
   orText: {
     fontSize: 17,
-    color: "#e02e88",
+    color: "#EA4C89",
     fontWeight: "600",
   },
   noDataText: {
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     width: 35,
     height: 35,
     borderRadius: 30,
-    backgroundColor: "#E02E88",
+    backgroundColor: "#EA4C89",
     justifyContent: "center",
     alignItems: "center",
   },

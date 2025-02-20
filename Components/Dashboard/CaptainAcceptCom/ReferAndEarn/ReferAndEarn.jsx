@@ -8,7 +8,7 @@ const ReferAndEarn = () => {
       <View style={styles.textCard}>
         <Text style={styles.earnText}>Refer & Earn</Text>
         <Text style={styles.useCode}>use code</Text>
-        <CustomBtn title="$UFJB7" btnBg="#e02e88" btnColor="#fff" height={4} />
+        <CustomBtn title="$UFJB7" btnBg="#EA4C89" btnColor="#fff" height={4} />
       </View>
       <Image
         style={styles.image}
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     borderWidth: 1,
-    borderColor: "#e02e88",
+    borderColor: "#EA4C89",
     borderRadius: 10,
     padding: 10,
     flexDirection: "row",
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   earnText: {
-    color: "#e02e88",
+    color: "#EA4C89",
     fontSize: 15,
     fontWeight: "600",
   },

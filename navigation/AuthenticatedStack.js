@@ -97,25 +97,20 @@ const DrawerNavigator = ({ route }) => {
 
   const takeOwnUser = async () => {
     const isOwnUser = await AsyncStorage.getItem("ownUser");
-    console.log("isOwnUser -------------------", typeof isOwnUser);
-
     setOwnUser(isOwnUser === "true");
-    console.log(isOwnUser, "isOwnUser");
   };
 
   useEffect(() => {
     takeOwnUser();
   }, []);
-  console.log("ownUser", ownUser);
 
   return (
     <>
       <Drawer.Navigator
         drawerContent={(props) => <CustomeDrawer {...props} />} // Use custom drawer
         screenOptions={{
-          header: ({ navigation }) =>
-            <HomeAppBard navigation={navigation} />,
-          
+          header: ({ navigation }) => <HomeAppBard navigation={navigation} />,
+
           sceneContainerStyle: {
             backgroundColor: screenBackgroundColors[route.name] || null, // Fallback to white if no color found
           },

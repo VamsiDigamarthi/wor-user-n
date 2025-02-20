@@ -2,6 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Octicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { COLORS } from "../../../../../Constants/colors";
+import { fonts } from "../../../fonts/Fonts";
 
 const AppBarTitle = ({
   vicinity,
@@ -12,6 +13,8 @@ const AppBarTitle = ({
   const navigation = useNavigation();
 
   const handleBackOrNavigateSelectDropScreen = () => {
+    // console.log(borderStyles,"borderStyles",title);
+
     !borderStyles &&
       navigation.navigate("SelectDropLocation", {
         title,
@@ -55,7 +58,11 @@ const AppBarTitle = ({
             numberOfLines={1}
             style={[
               !borderStyles && { textAlign: "center", width: "100%" },
-              { fontSize: 10, textAlign: "center" },
+              {
+                fontSize: 10,
+                textAlign: "center",
+                fontFamily: fonts.robotoRegular,
+              },
             ]}
             ellipsizeMode="tail"
           >
@@ -82,7 +89,8 @@ const styles = StyleSheet.create({
   text: {
     color: "#000",
     fontSize: 18,
-    fontWeight: "bold",
+    // fontWeight: "bold",
+    fontFamily: fonts.robotoBold,
     textAlign: "center",
   },
   appTitCenStyles: {

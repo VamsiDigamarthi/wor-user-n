@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     left: 0,
     // backgroundColor: "red",
     padding: 10,
-    paddingBottom:20
+    paddingBottom: 20,
   },
   input: {
     width: "100%",
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
 
     borderWidth: 1,
-    borderColor: "#e02e88",
+    borderColor: "#EA4C89",
   },
   inputCard: {
     width: "92%",

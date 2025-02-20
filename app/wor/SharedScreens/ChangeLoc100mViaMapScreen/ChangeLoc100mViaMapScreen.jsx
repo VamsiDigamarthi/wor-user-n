@@ -47,7 +47,7 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
           <CustomBtn
             onPress={onNavigateSavedAddressScreen}
             title="Confirm Location"
-            btnBg="#e02e88"
+            btnBg="#EA4C89"
             btnColor="#fff"
           />
         </ParcelBtnCard>

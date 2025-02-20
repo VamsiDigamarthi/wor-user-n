@@ -138,8 +138,8 @@ const SelectDropLocation = () => {
               <CustomBtn
                 title="Add Home Place"
                 borderWidth={1}
-                borderColor="#e02e88"
-                btnColor="#e02e88"
+                borderColor="#EA4C89"
+                btnColor="#EA4C89"
                 onPress={() => handleAddedHomePlace({ type: "home" })}
               />
             )}
@@ -157,8 +157,8 @@ const SelectDropLocation = () => {
               <CustomBtn
                 title="Add Work Place"
                 borderWidth={1}
-                borderColor="#e02e88"
-                btnColor="#e02e88"
+                borderColor="#EA4C89"
+                btnColor="#EA4C89"
                 onPress={() => handleAddedHomePlace({ type: "work" })}
               />
             )}

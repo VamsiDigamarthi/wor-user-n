@@ -9,7 +9,7 @@ const HomeMap = ({ captainMarkers, toggleCloseSOS }) => {
     <View style={[styles.mapContainer]}>
       {!location || location == null || location == undefined ? (
         <View style={styles.loadingWrapper}>
-          <ActivityIndicator color="#e02e88" size={30} />
+          <ActivityIndicator color="#EA4C89" size={30} />
         </View>
       ) : (
         <>

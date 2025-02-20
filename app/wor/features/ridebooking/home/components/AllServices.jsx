@@ -7,32 +7,11 @@ import { fonts } from "../../../../fonts/Fonts";
 // A reusable service card component
 const ServiceCard = ({ imageSource, label, onPress }) => {
   return (
-    <View
-      style={{
-        alignItems: "center",
-        marginBottom: 8,
-      }}
-    >
-      <Pressable
-        onPress={onPress}
-        style={{
-          backgroundColor: "#F2F0F5",
-          paddingHorizontal: 13,
-          paddingVertical: 10,
-          borderRadius: 15,
-        }}
-      >
+    <View style={styles.serviceBtnContainer}>
+      <Pressable onPress={onPress} style={styles.serviceCardBtn}>
         <Image source={imageSource} style={styles.image} />
       </Pressable>
-      <Text
-        style={{
-          // fontWeight: "bold",
-          color: "#757575",
-          fontFamily: fonts.robotoSemiBold,
-        }}
-      >
-        {label}
-      </Text>
+      <Text style={styles.serviceCardLabel}>{label}</Text>
     </View>
   );
 };
@@ -86,7 +65,7 @@ const AllServices = () => {
   const renderServices2 = () => {
     const services = [
       {
-        label: "Wor Premium",
+        label: "Wor Luxury",
         image: require("../../../../../../assets/images/HomeServiceImages/cab.png"),
         vehicle: "wor-premium",
         // isParcel: true,
@@ -122,7 +101,7 @@ const AllServices = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+        <View>
           <Text style={styles.headerText}>Services</Text>
         </View>
       </View>
@@ -156,14 +135,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   viewAllText: {
-    color: "#E02E88",
+    color: "#EA4C89",
     marginRight: 5,
   },
   headerText: {
     fontSize: 18,
-    // fontWeight: "bold",
+
     fontFamily: fonts.robotoBold,
-    // color: "red",
   },
   serviceGrid: {
     flexDirection: "row",
@@ -190,5 +168,22 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     paddingVertical: 10,
+  },
+
+  serviceCardBtn: {
+    backgroundColor: "#F2F0F5",
+    paddingHorizontal: 13,
+    paddingVertical: 10,
+    borderRadius: 15,
+  },
+
+  serviceCardLabel: {
+    color: "#757575",
+    fontFamily: fonts.robotoSemiBold,
+  },
+
+  serviceBtnContainer: {
+    alignItems: "center",
+    marginBottom: 8,
   },
 });

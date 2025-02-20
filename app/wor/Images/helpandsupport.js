@@ -5,4 +5,4 @@ import account from "../../../assets/helpandsupport/account.png";
 import refer from "../../../assets/helpandsupport/refer.png";
 import payment from "../../../assets/helpandsupport/payment.png";
 
-export { safetyIcon, rideBilling, services, account, refer, payment };
+export { safetyIcon,  rideBilling, services, account, refer, payment };

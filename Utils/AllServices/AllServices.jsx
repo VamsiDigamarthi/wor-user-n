@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   viewAllText: {
-    color: "#E02E88",
+    color: "#EA4C89",
     marginRight: 5,
   },
   headerText: {

@@ -55,7 +55,7 @@ export default function ParcelOrderSummary({
         </Text>
 
         <Pressable>
-          <Text style={{ color: "#e02e88", fontWeight: "bold" }}>
+          <Text style={{ color: "#EA4C89", fontWeight: "bold" }}>
             View Cancellation Policy
           </Text>
         </Pressable>

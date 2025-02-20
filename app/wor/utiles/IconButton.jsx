@@ -27,7 +27,7 @@ const IconButton = ({
     <View style={[styles.container, { width: width }]}>
       <Pressable
         android_ripple={{
-          color: "#E02E88", // Set ripple color
+          color: "#EA4C89", // Set ripple color
           borderless: false, // Ensures ripple stays within the bounds of the button
         }}
         style={({ pressed }) => [
@@ -36,7 +36,7 @@ const IconButton = ({
         ]}
         onPress={onPress}
       >
-        <Icons name={icons} size={20} color="#E02E88" />
+        <Icons name={icons} size={20} color="#EA4C89" />
         <Text style={styles.text}>{title}</Text>
       </Pressable>
     </View>

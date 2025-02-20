@@ -62,7 +62,7 @@ const SingleWallet = ({ isHeightChange, isCheckBox }) => {
         }}
       >
         <View style={{ flexDirection: "row", gap: 10 }}>
-          <Ionicons name="wallet-outline" size={20} color="#e02e88" />
+          <Ionicons name="wallet-outline" size={20} color="#EA4C89" />
           <Text style={{ color: COLORS.heading, fontSize: 17 }}>Wallet</Text>
         </View>
         {isCheckBox && (
@@ -70,7 +70,7 @@ const SingleWallet = ({ isHeightChange, isCheckBox }) => {
             style={{
               fontSize: 17,
               fontWeight: "600",
-              color: "#e02e88",
+              color: "#EA4C89",
               marginLeft: 28,
             }}
           >
@@ -89,7 +89,7 @@ const SingleWallet = ({ isHeightChange, isCheckBox }) => {
           {/* {isChecked && <View style={styles.checkedMark} />} */}
         </TouchableOpacity>
       ) : (
-        <Text style={{ fontSize: 17, fontWeight: "600", color: "#e02e88" }}>
+        <Text style={{ fontSize: 17, fontWeight: "600", color: "#EA4C89" }}>
           $100
         </Text>
       )}

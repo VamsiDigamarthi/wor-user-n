@@ -115,7 +115,7 @@ const CaptainRideComplete = () => {
                 }
               >
                 <Text
-                  style={{ fontSize: 14, fontWeight: "600", color: "#e02e88" }}
+                  style={{ fontSize: 14, fontWeight: "600", color: "#EA4C89" }}
                 >
                   Yes
                 </Text>

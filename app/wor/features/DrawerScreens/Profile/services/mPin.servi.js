@@ -1,6 +1,6 @@
 import Toast from "react-native-toast-message";
 import { API } from "../../../../../../Constants/url";
-
+import DeviceInfo from "react-native-device-info";
 export const setNewmPin = async ({ token, mpin }) => {
   try {
     await API.patch(
@@ -51,9 +51,10 @@ export const sendOtpToMobileNumber = async ({ mobile }) => {
 };
 
 export const onVerifiOtp = async ({ otp, mobile }) => {
+  const deviceId = await DeviceInfo.getUniqueId();
   // console.log(otp, mobile);
   try {
-    await API.post("/auth/verify-otp", { mobile, otp });
+    await API.post("/auth/verify-otp", { mobile, otp, deviceId });
     return true;
   } catch (error) {
     Toast.show({

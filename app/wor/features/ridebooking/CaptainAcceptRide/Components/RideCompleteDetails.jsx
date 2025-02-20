@@ -10,6 +10,7 @@ import {
 import { useSelector } from "react-redux";
 import ChangeDestinationModal from "../Modals/ChangeDestinationModal";
 import ConfirmChangeDestinationModal from "../Modals/ConfirmChangeDestinationModal";
+import { fonts } from "../../../../fonts/Fonts";
 
 const RideCompleteDetails = ({ disFromPickToDrop }) => {
   const { completeRideDetails } = useSelector((state) => state.allRideDetails);
@@ -34,7 +35,11 @@ const RideCompleteDetails = ({ disFromPickToDrop }) => {
       if (fav.name === completeRideDetails?.pickupAddress) {
         setPickupFavorite(true);
       }
-      if (fav.name === completeRideDetails?.dropAddress) {
+      let dropAdd =
+        completeRideDetails?.newDesitionOrderStatus === "accept"
+          ? completeRideDetails?.newDropAddress
+          : completeRideDetails?.dropAddress;
+      if (fav.name === dropAdd) {
         setDropFavorite(true);
       }
     });
@@ -46,7 +51,7 @@ const RideCompleteDetails = ({ disFromPickToDrop }) => {
         <View style={styles.iconsCard}>
           <PickLocationIcon size={25} color="green" />
           <View style={styles.line} />
-          <LocationIcon size={25} color="#e02e88" />
+          <LocationIcon size={25} color="#EA4C89" />
         </View>
 
         <View style={styles.contentCard}>
@@ -57,22 +62,28 @@ const RideCompleteDetails = ({ disFromPickToDrop }) => {
               gap: 5,
             }}
           >
-            <Text
-              style={[styles.orderText, { width: "90%" }]}
-              numberOfLines={2}
-              ellipsizeMode="tail"
-            >
-              {completeRideDetails?.pickupAddress} --{" "}
-              {completeRideDetails?.pickupVicinity}
-            </Text>
+            <View>
+              <Text
+                style={[styles.orderText, { width: "90%" }]}
+                numberOfLines={2}
+                ellipsizeMode="tail"
+              >
+                {completeRideDetails?.pickupAddress}
+              </Text>
+              <Text style={{ fontSize: 10, color: "gray" }} numberOfLines={1}>
+                {completeRideDetails?.pickupVicinity}
+              </Text>
+            </View>
 
             <FavoritesIcons
               size={21}
-              color={pickupFavorite ? "#e02e88" : "gray"}
+              color={pickupFavorite ? "#EA4C89" : "gray"}
             />
           </View>
           <View style={{ flexDirection: "row", gap: 20 }}>
-            <Text>{disFromPickToDrop?.distance}</Text>
+            <Text style={{ fontFamily: fonts.robotoRegular }}>
+              {disFromPickToDrop?.distance}
+            </Text>
             <View
               style={{
                 flexDirection: "row",
@@ -81,7 +92,9 @@ const RideCompleteDetails = ({ disFromPickToDrop }) => {
               }}
             >
               <ClockIcons size={20} color="gray" />
-              <Text>{disFromPickToDrop?.durationInMinutes} M</Text>
+              <Text style={{ fontFamily: fonts.robotoRegular }}>
+                {disFromPickToDrop?.durationInMinutes} M
+              </Text>
             </View>
           </View>
           <View
@@ -96,15 +109,21 @@ const RideCompleteDetails = ({ disFromPickToDrop }) => {
               numberOfLines={2}
               ellipsizeMode="tail"
             >
-              {completeRideDetails?.dropAddress} --{" "}
-              {completeRideDetails?.dropVicinity}
+              {completeRideDetails?.newDesitionOrderStatus === "accept"
+                ? completeRideDetails?.newDropAddress
+                : completeRideDetails?.dropAddress}{" "}
+              <Text style={{ fontSize: 10, color: "gray" }}>
+                {completeRideDetails?.newDesitionOrderStatus === "accept"
+                  ? completeRideDetails?.newDropVicinity
+                  : completeRideDetails?.dropVicinity}
+              </Text>
             </Text>
             <View
               style={{ flexDirection: "row", alignItems: "center", gap: 6 }}
             >
               <FavoritesIcons
                 size={22}
-                color={dropFavorite ? "#e02e88" : "gray"}
+                color={dropFavorite ? "#EA4C89" : "gray"}
               />
               <Pressable onPress={OpenConfirmChangeDestinationModal}>
                 <EditIcons size={21} color="gray" />
@@ -162,6 +181,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   orderText: {
-    fontWeight: "bold",
+    fontFamily: fonts.robotoSemiBold,
   },
 });

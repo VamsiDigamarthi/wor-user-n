@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { useChangePickLocationHook } from "./ChangePickLocation.hook";
 import { EvilIcons } from "@expo/vector-icons";
+import { fonts } from "../../../app/wor/fonts/Fonts";
 
 const ChangePickLocation = () => {
   const { pickUpCoordinated } = useChangePickLocationHook();
@@ -10,10 +11,16 @@ const ChangePickLocation = () => {
     <View style={styles.container}>
       <View style={styles.mapCard}></View>
       <View style={styles.downCard}>
-        <Text style={{ fontWeight: "600", fontSize: 18 }}>
+        <Text style={{ fontFamily: fonts.robotoSemiBold, fontSize: 18 }}>
           Double Check Pickup Point
         </Text>
-        <Text style={{ fontSize: 12, color: "gray" }}>
+        <Text
+          style={{
+            fontSize: 12,
+            color: "gray",
+            fontFamily: fonts.robotoRegular,
+          }}
+        >
           You can change pickup point between 100 meters
         </Text>
         <View style={styles.locCard}>
@@ -32,14 +39,18 @@ const ChangePickLocation = () => {
             <Text
               numberOfLines={1}
               ellipsizeMode="tail"
-              style={{ fontWeight: "600", fontSize: 16 }}
+              style={{ fontFamily: fonts.robotoSemiBold, fontSize: 16 }}
             >
               Current Pickup Point
             </Text>
             <Text
               numberOfLines={1}
               ellipsizeMode="tail"
-              style={{ fontSize: 14, color: "gray" }}
+              style={{
+                fontSize: 14,
+                color: "gray",
+                fontFamily: fonts.robotoRegular,
+              }}
             >
               khg kjh
             </Text>

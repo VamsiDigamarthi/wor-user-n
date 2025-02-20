@@ -6,7 +6,9 @@ import { useSelector } from "react-redux";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 
 const AddHomeAndWorkPlaces = () => {
-  const { homePlace, workPlace } = useSelector((state) => state.homePlaces);
+  const { homePlace, workPlace,otherHomePlace } = useSelector((state) => state.homePlaces);
+  console.log("otherHomePlace",otherHomePlace);
+  
   return (
     <>
       {homePlace && (

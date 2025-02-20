@@ -30,7 +30,7 @@ export default function MapModalUi({ toggle, setToggle, Children }) {
       btnText="Close"
       btnStyles={[
         infoModalStyles.modalCloseBtn,
-        { backgroundColor: "#e02e88" },
+        { backgroundColor: "#EA4C89" },
       ]}
       btnTextStyle={[
         infoModalStyles.btnTextStyle,

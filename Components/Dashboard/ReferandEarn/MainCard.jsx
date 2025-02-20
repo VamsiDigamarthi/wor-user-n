@@ -26,7 +26,7 @@ export default function MainCard() {
 
   return (
     <LinearGradient
-      colors={["#e02e88", "#fff5f9"]} // Gradient colors
+      colors={["#EA4C89", "#fff5f9"]} // Gradient colors
       start={{ x: 0, y: 0 }} // Gradient start point (top-left)
       end={{ x: 0, y: 1 }} // Gradient end point (bottom-right)
       style={styles.card} // Apply styles

@@ -1,4 +1,4 @@
-import { Platform, ScrollView, StyleSheet, } from "react-native";
+import { Platform, ScrollView, StyleSheet } from "react-native";
 import ParSendReceiveCard from "../Components/ParSendReceiveCard";
 import { useParcelHomeScreenHook } from "../Hooks/ParcelHomeScreenHook";
 import ParcSendReceInputCard from "../Components/ParcSendReceInputCard";
@@ -21,7 +21,12 @@ const ParcelHomeScreen = () => {
 
   return (
     <AppBarLayout title="Parcel" isPositionAppbar={true}>
-      <ScrollView contentContainerStyle={[styles.scrollViewContent,{paddingTop : Platform.OS=="ios" ? 110 : 100,}]}>
+      <ScrollView
+        contentContainerStyle={[
+          styles.scrollViewContent,
+          { paddingTop: Platform.OS == "ios" ? 110 : 100 },
+        ]}
+      >
         <ParSendReceiveCard />
         {/* <View style={styles.tripDetailsCard}>
           <Text style={styles.tripDetailsText}>Trip Details: 1234567890</Text>
@@ -46,7 +51,9 @@ const ParcelHomeScreen = () => {
           borderColor={dropDetails ? "#fff" : "#EA4C89"}
           btnBg={dropDetails ? "#EA4C89" : "#f7f7f7"}
           btnColor={dropDetails ? "#fff" : "#EA4C89"}
-          onPress={() => dropDetails ? onNavigateParcelPickUpLocationScreen : null}
+          onPress={() =>
+            dropDetails ? onNavigateParcelPickUpLocationScreen() : null
+          }
         />
       </ParcelBtnCard>
     </AppBarLayout>
@@ -66,7 +73,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingBottom: 120,
     paddingTop: 100,
-    backgroundColor:COLORS.mainBackgroundColor
+    backgroundColor: COLORS.mainBackgroundColor,
   },
   tripDetailsCard: {
     width: "100%",

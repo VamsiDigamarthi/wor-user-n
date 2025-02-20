@@ -5,6 +5,7 @@ import DrawerProfil from "./DrawerProfil";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import CustomDrawerItem from "./CustomDrawerItem";
 import DrawerData from "./DrawerData";
+import { fonts } from "../../fonts/Fonts";
 
 const CustomeDrawer = (props) => {
   const { openLink, handleItemPress } = useCustomerDrawerHook(props);
@@ -31,25 +32,12 @@ const CustomeDrawer = (props) => {
         </View>
       </DrawerContentScrollView>
       <View
-        style={{
-          flexDirection: "row",
-          backgroundColor: "#F7F7F7",
-          width: "100%",
-          paddingBottom: 10,
-          justifyContent: "center",
-          gap: 10,
-          alignItems: "center",
-          padding: 10,
-        }}
+        style={styles.textContainer}
       >
-        <Text>A Product from</Text>
+        <Text style={styles.text}>A Product from</Text>
         <Pressable style={{}} onPress={openLink}>
-          <Text
-            style={{
-              color: "#ff6600",
-            }}
-          >
-            Nuhvin
+          <Text style={[styles.text,{color: "#ff6600"}]} >
+          Nuhvin
           </Text>
         </Pressable>
       </View>
@@ -70,4 +58,20 @@ const styles = StyleSheet.create({
   drawerItemsContainer: {
     marginTop: 0,
   },
+  text: {
+    marginLeft: 10,
+    fontSize: 16,
+    fontFamily: fonts.robotoSemiBold,
+    color: "gray",
+  },
+  textContainer:{
+    flexDirection: "row",
+    backgroundColor: "#F7F7F7",
+    width: "100%",
+    paddingBottom: 10,
+    justifyContent: "center",
+    // gap: 10,
+    alignItems: "center",
+    padding: 10,
+  }
 });

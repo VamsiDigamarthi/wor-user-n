@@ -58,7 +58,7 @@ const RatingCard = ({ rating, setRatingData, handleRatingChange }) => {
               }))
             }
           >
-            <Text style={{ fontSize: 14, fontWeight: "600", color: "#e02e88" }}>
+            <Text style={{ fontSize: 14, fontWeight: "600", color: "#EA4C89" }}>
               Yes
             </Text>
           </Pressable>
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     height: "100%",
     borderRadius: 50,
     borderWidth: 2,
-    borderColor: "#e02e88",
+    borderColor: "#EA4C89",
   },
   bikeImage: {
     position: "absolute",
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 50,
     borderWidth: 1,
-    borderColor: "#e02e88",
+    borderColor: "#EA4C89",
     borderRadius: 10,
     paddingHorizontal: 10,
   },

@@ -134,7 +134,7 @@ const SignUpRelated = ({ mobile }) => {
             errors?.dob?.length === 0 &&
             errors?.email?.length === 0 &&
             errors?.address?.length === 0
-              ? "#E02E88"
+              ? "#EA4C89"
               : "#fdfdfd"
           }
           btnColor={
@@ -143,7 +143,7 @@ const SignUpRelated = ({ mobile }) => {
             errors?.email?.length === 0 &&
             errors?.address?.length === 0
               ? "#FFF"
-              : "#E02E88"
+              : "#EA4C89"
           }
           onPress={handleNavigateToOTP}
           width="100%"

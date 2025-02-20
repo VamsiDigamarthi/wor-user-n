@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     height: 80,
     borderRadius: 40,
     resizeMode: "contain",
-    borderColor: "#e02e88",
+    borderColor: "#EA4C89",
     borderWidth: 2,
     padding: 10,
   },

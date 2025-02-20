@@ -22,7 +22,7 @@ const AreYouSureModal = ({ setDisplayModalType, handleDeleteAcoountModal }) => {
       ))}
       <CustomBtn
         title="Confirm Deletion"
-        btnBg="#e02e88"
+        btnBg="#EA4C89"
         btnColor="#fff"
         height={50}
         onPress={() => setDisplayModalType("accountDelete")}

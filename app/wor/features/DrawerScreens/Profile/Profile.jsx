@@ -11,6 +11,9 @@ import {
 } from "../../../Images/ProfileImages";
 
 const ProfileScreen = () => {
+
+
+  
   return (
     <AppBarLayout title="Profile" isPositionAppbar={true}>
       <View style={[styles.innerContainer, {paddingTop : Platform.OS=="ios" ? 110 : 100}]}>

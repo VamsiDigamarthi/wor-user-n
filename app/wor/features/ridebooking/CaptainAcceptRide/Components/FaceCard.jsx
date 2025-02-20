@@ -24,7 +24,8 @@ const FaceCard = () => {
   let totalPrice =
     +completeRideDetails?.price +
     (isTipAdded ? +tip : +completeRideDetails?.addTip) +
-    +completeRideDetails?.extraCharge;
+    +completeRideDetails?.extraCharge +
+    +completeRideDetails?.changeDesPrice;
 
   return (
     <>
@@ -66,7 +67,7 @@ const FaceCard = () => {
               </Text>
             </Text>
             <Pressable onPress={changePaymentMethodModal}>
-              <Text style={{ color: "#e02e88", fontWeight: "500" }}>
+              <Text style={{ color: "#EA4C89", fontWeight: "500" }}>
                 Change
               </Text>
             </Pressable>

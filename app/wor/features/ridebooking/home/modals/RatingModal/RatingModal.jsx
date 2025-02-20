@@ -35,7 +35,7 @@ const RatingModal = ({
           height={60}
           btnBg={
             ratingData?.reviewTest?.length > 0 && ratingData?.rating > 0
-              ? "#e02e88"
+              ? "#EA4C89"
               : "#f7f7f7"
           }
           btnColor={

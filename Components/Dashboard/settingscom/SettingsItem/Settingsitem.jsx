@@ -51,12 +51,12 @@ const Settingsitem = ({
         <View style={styles.left}>
           {/* {displayIcon && ( // this condition using  about screen
             <View style={styles.circle}>
-              <Icon name={iconName} size={24} color="#e02e88" />
+              <Icon name={iconName} size={24} color="#EA4C89" />
             </View>
           )} */}
           <Text style={styles.text}>{label}</Text>
         </View>
-        <MaterialIcons name="arrow-forward-ios" size={20} color="#e02e88" />
+        <MaterialIcons name="arrow-forward-ios" size={20} color="#EA4C89" />
       </View>
     </Pressable>
   );

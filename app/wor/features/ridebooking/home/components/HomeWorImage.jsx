@@ -9,7 +9,7 @@ const HomeWorImage = () => {
     <ImageBackground source={woriderimg} style={styles.backImage}>
       <View style={styles.overlay}>
         <Text style={styles.goTitle}>#WoRider</Text>
-        <Text style={styles.madeText}>Made in India</Text>
+        <Text style={styles.madeText}>Made at Nuhvin</Text>
         {/* <Text style={styles.madeText}>Crafted in Hyderbad</Text> */}
       </View>
     </ImageBackground>

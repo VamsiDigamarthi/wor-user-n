@@ -130,23 +130,25 @@ export const getTravelDetails = async (
   const [startLon, startLat] = startCoordinates;
   const [endLon, endLat] = endCoordinates;
 
-  let mode;
+  // let mode = vehicleType === "scooty" ? "two-wheeler" : "driving";
+
+  // console.log("moce ", mode);
 
   // Select mode based on vehicle type
-  switch (vehicleType) {
-    case "car":
-      mode = "driving";
-      break;
-    case "scooty":
-      mode = "bicycling";
-      break;
-    case "auto":
-      mode = "driving"; // Use driving but adjust time later
-      break;
-    default:
-      mode = "driving"; // Default to driving
-      break;
-  }
+  // switch (vehicleType) {
+  //   case "car":
+  //     mode = "driving";
+  //     break;
+  //   case "scooty":
+  //     mode = "bicycling";
+  //     break;
+  //   case "auto":
+  //     mode = "driving"; // Use driving but adjust time later
+  //     break;
+  //   default:
+  //     mode = "driving"; // Default to driving
+  //     break;
+  // }
 
   const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${startLat},${startLon}&destinations=${endLat},${endLon}&key=${YOUR_API_KEY}&mode=driving`;
 
@@ -160,10 +162,14 @@ export const getTravelDetails = async (
 
       // Adjust duration for auto-rickshaw
       if (vehicleType === "auto") {
-        duration = adjustTimeForAutoRickshaw(duration);
+        duration = duration * 1.2;
       }
 
-      const durationInMinutes = Math.round(duration / 60); // Convert to minutes
+      if (vehicleType == "scooty") {
+        duration = duration * 0.85;
+      }
+
+      const durationInMinutes = Math.round(duration / 60);
 
       return {
         distance,

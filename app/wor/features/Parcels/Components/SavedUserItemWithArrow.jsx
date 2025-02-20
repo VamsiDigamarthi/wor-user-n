@@ -21,10 +21,28 @@ const SavedUserItemWithArrow = () => {
 
       {showHideSavedAddress && (
         <View style={styles.listContainer}>
-          <FlatList
+          {/* <FlatList
             style={styles.flatList}
             data={savedPlaces}
             keyExtractor={(item) => item?.mobile}
+            renderItem={({ item }) => (
+              <SavedAddressItme
+                item={item}
+                onHandlerClickSaveAddress={onHandlerClickSaveAddress}
+              />
+            )}
+            ItemSeparatorComponent={() => <View style={{ height: 5 }} />}
+            ListEmptyComponent={
+              <View style={styles.emptyComponent}>
+                <Text>Saved Address Not Found</Text>
+              </View>
+            }
+          /> */}
+
+          <FlatList
+            style={styles.flatList}
+            data={savedPlaces}
+            keyExtractor={(item, index) => item?.mobile || `item-${index}`} // Ensure unique keys
             renderItem={({ item }) => (
               <SavedAddressItme
                 item={item}

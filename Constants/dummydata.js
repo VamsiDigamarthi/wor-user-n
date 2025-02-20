@@ -1,17 +1,62 @@
-let nearPlace = {
-  id: "ChIJ9-84wbqRyzsRFscOkuHoOBw",
-  location: { lat: 17.479773, lng: 78.426975 },
-  name: "VSP Industries",
-  photo:
-    "AVzFdbnDU1BGDXHp_kPf3lFSC7Hwpasv1IKbK5f5m4jQh2MGFhHsflgnQKVU0w1WCs8Bco4g0t61WP218zwYMpTk4l9kKVOBlfQITvoVOqdxRkR_pStqPs2CnofCj2Of3Yyvo9tE526Q_vlKjqj3YOzWozxgJyNZ8KE96J6bHetwPIIWBaQy",
-  vicinity:
-    "Shed No: 4-B, Type1, TSIIC, IALA, Besides Daewoong Pharrmsutical, TGIIC Road, Prashanth Nagar, Kukatpally, Hyderabad",
-};
+let priceDetails = [
+  {
+    displayName: "Scooty",
+    distance: "0.4 km",
+    duration: 2,
+    image: 71,
+    isDisplayBeatTheTraffic: true,
+    isDisplayFastTag: true,
+    isDisplayUsericon: true,
+    personCount: 1,
+    vehicleType: "Scooty",
+  },
+  {
+    displayName: "Wor Mini",
+    distance: "0.4 km",
+    duration: 2,
+    image: 72,
+    personCount: 4,
+    vehicleType: "Car",
+  },
+  {
+    displayName: "Book Any",
+    distance: "0.4 km",
+    duration: 2,
+    image: 72,
+    personCount: 4,
+    vehicleType: "bookany",
+  },
+  {
+    displayName: "Auto",
+    distance: "0.4 km",
+    duration: 2,
+    image: 73,
+    personCount: 3,
+    vehicleType: "Auto",
+  },
+  {
+    displayName: "Wor Luxury",
+    distance: "0.4 km",
+    duration: 2,
+    image: 72,
+    personCount: 6,
+    vehicleType: "wor-premium",
+  },
+];
 
-let rideHi = {
-  _id: "67a5637e2036c029d47d6ee7",
-  location: { lat: 17.48273945505065, lng: 78.41902896361806 },
-  name: "5/7/8",
-  vicinity:
-    "5/7/8, Dayarguda, Sangeet Nagar, Kukatpally, Hyderabad, Telangana 500072, India",
+let priceDetailsss = {
+  __v: 0,
+  _id: "67b707ac5f5584b878d0c57d",
+  baseFare: 10,
+  cancellationFree: 10,
+  createdAt: "2025-02-20T10:45:00.853Z",
+  forTwoKm: 24,
+  longPickUpFare: 3.5,
+  nightFarePercentage: [20, 25],
+  platformFee: 2,
+  tenToHunderPrice: 8.2,
+  timeFace: 0.5,
+  twoToTenKmPrice: 7.2,
+  updatedAt: "2025-02-20T10:45:00.853Z",
+  waitingChargerAfter3Min: 1,
 };

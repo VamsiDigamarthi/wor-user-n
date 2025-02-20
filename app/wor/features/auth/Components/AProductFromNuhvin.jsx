@@ -12,7 +12,7 @@ const AProductFromNuhvin = ({ bottom = 0 }) => {
     <View style={[styles.nuhvinProduct, { bottom: bottom }]}>
       <Text style={{ fontSize: 14, fontWeight: "500" }}>A Product From</Text>
       <Pressable onPress={openLink}>
-        <Text style={{ fontSize: 14, fontWeight: "500", color: "#e02e88" }}>
+        <Text style={{ fontSize: 14, fontWeight: "500", color: "#EA4C89" }}>
           Visit NuHvin
         </Text>
       </Pressable>

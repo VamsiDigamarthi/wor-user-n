@@ -26,7 +26,7 @@ export default function PoliceStatons({ onPress }) {
           onPress={() => onPress("main")}
           style={styles.backButton}
         >
-          <FontAwesome name="chevron-left" size={15} color="#e02e88" />
+          <FontAwesome name="chevron-left" size={15} color="#EA4C89" />
           <Text>Back</Text>
         </TouchableOpacity>
       </View>

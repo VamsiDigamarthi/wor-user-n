@@ -4,7 +4,6 @@ import { FavoritesIcons } from "../Icons/Icons";
 import { useLocationItemHook } from "./LocationItem.hook";
 import { useSelector } from "react-redux";
 import { fonts } from "../fonts/Fonts";
-
 import { recentPlaces } from "../Images/DrawerImages";
 const LocationItem = ({
   placeName,
@@ -15,8 +14,10 @@ const LocationItem = ({
   isFavoriteIconDisplay = false,
   onPress = () => {},
   isFavoritePlaces,
-  isHomePlaceOrWork="near"
+  isHomePlaceOrWork = "near",
 }) => {
+  const { homePlace, workPlace } = useSelector((state) => state.homePlaces);
+
   const { favoritePlaces } = useSelector((state) => state.favoritePlaces);
   const { addedFavoritePlace } = useLocationItemHook();
 
@@ -51,17 +52,27 @@ const LocationItem = ({
       >
         {!isFavoritePlaces && (
           <View style={styles.first}>
-            {isHomePlaceOrWork === 'near' &&
+            {isHomePlaceOrWork === "near" && (
               <Image source={recentPlaces} style={styles.icon} />
-            }
-            {isHomePlaceOrWork === "work"   &&
-            <Icon name={iconName} size={20} color="#e02e88"  />
-            }
-            {isHomePlaceOrWork==="home" &&
-            <Icon name={iconName} size={20} color="#e02e88"  />
-            
-            }
-          
+            )}
+            {isHomePlaceOrWork === "work" && (
+              <>
+                {workPlace ? (
+                  <Icon name={iconName} size={20} color="#EA4C89" />
+                ) : (
+                  <Image source={recentPlaces} style={styles.icon} />
+                )}
+              </>
+            )}
+            {isHomePlaceOrWork === "home" && (
+              <>
+                {homePlace ? (
+                  <Icon name={iconName} size={20} color="#EA4C89" />
+                ) : (
+                  <Image source={recentPlaces} style={styles.icon} />
+                )}
+              </>
+            )}
           </View>
         )}
         <View style={styles.second}>
@@ -84,7 +95,7 @@ const LocationItem = ({
         >
           <FavoritesIcons
             size={22}
-            color={isFavorite ? "#e02e88" : "#808080"}
+            color={isFavorite ? "#EA4C89" : "#808080"}
           />
         </Pressable>
       )}
@@ -122,7 +133,8 @@ const styles = StyleSheet.create({
   },
 
   second: {
-    width: "90%",gap:5
+    width: "90%",
+    gap: 5,
   },
   locText: {
     fontSize: 13,

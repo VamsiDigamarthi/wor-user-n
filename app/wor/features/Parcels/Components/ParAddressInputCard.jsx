@@ -13,6 +13,7 @@ const ParAddressInputCard = () => {
     onHandlerSaveAddress,
     errors,
     onHandlerContinueNext,
+    clearFormData,
   } = useParcelSavedAddressHook();
   // console.log(errors);
   return (
@@ -30,11 +31,11 @@ const ParAddressInputCard = () => {
         iconType="Feather"
         iconName="phone"
         placeholder="Mobile Number"
-        value={formData.senderPhone}
+        value={formData.mobile}
         onChangeText={(text) => handleInputChange("mobile", text)}
         keyboardType="number-pad"
         maxLength={10}
-        isValid={errors?.senderPhone?.length > 0 ? true : false}
+        isValid={errors?.mobile?.length > 0 ? true : false}
       />
       <ParAddressInputItem
         iconType="Entypo"
@@ -73,6 +74,7 @@ const ParAddressInputCard = () => {
           btnColor={"#757575"}
           borderColor="#757575"
           borderWidth={1}
+          onPress={clearFormData}
         />
         <CustomBtn
           width={100}
@@ -83,7 +85,7 @@ const ParAddressInputCard = () => {
               errors?.landmark?.length === 0 &&
               errors?.address?.length === 0) ||
             Object.keys(errors).length === 0
-              ? "#e02e88"
+              ? "#EA4C89"
               : "#fdfdfd"
           }
           btnColor={
@@ -93,9 +95,9 @@ const ParAddressInputCard = () => {
               errors?.address?.length === 0) ||
             Object.keys(errors).length === 0
               ? "#fdfdfd"
-              : "#e02e88"
+              : "#EA4C89"
           }
-          borderColor="#e02e88"
+          borderColor="#EA4C89"
           borderWidth={1}
           onPress={onHandlerContinueNext}
         />

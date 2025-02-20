@@ -17,7 +17,7 @@ const RatingMsgCall = ({ otpVerified, orderId, captainDetails }) => {
     <View style={styles.container}>
       {/* <View style={styles.ratingCard}>
         <Text style={styles.ratingText}>4.3</Text>
-        <Ionicons name="star" size={20} color="#e02e88" />
+        <Ionicons name="star" size={20} color="#EA4C89" />
       </View> */}
       {!otpVerified && (
         <View style={styles.messageCard}>
@@ -36,17 +36,17 @@ const RatingMsgCall = ({ otpVerified, orderId, captainDetails }) => {
       )}
       {!otpVerified && (
         <View style={styles.callCard}>
-          <Ionicons name="call" size={20} color="#e02e88" />
+          <Ionicons name="call" size={20} color="#EA4C89" />
         </View>
       )}
       {/* {otpVerified && (
         <View style={styles.supportCard}>
           <View style={styles.supportSingleCard}>
-            <MaterialIcons name="support-agent" size={20} color="#e02e88" />
+            <MaterialIcons name="support-agent" size={20} color="#EA4C89" />
             <Text style={{ fontSize: 14, fontWeight: "600" }}>Support</Text>
           </View>
           <View style={styles.supportSingleCard}>
-            <FontAwesome name="share-square-o" size={20} color="#e02e88" />
+            <FontAwesome name="share-square-o" size={20} color="#EA4C89" />
             <Text style={{ fontSize: 14, fontWeight: "600" }}>
               Share Live Location
             </Text>
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     width: "25%",
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: "#e02e88",
+    borderColor: "#EA4C89",
     justifyContent: "space-around",
     alignItems: "center",
     padding: 4,
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     width: "85%",
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "#e02e88",
+    borderColor: "#EA4C89",
     // padding: 4,
 
     paddingHorizontal: 10,
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   callCard: {
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "#e02e88",
+    borderColor: "#EA4C89",
     paddingHorizontal: 7,
     justifyContent: "center",
     alignItems: "center",

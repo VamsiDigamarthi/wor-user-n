@@ -39,7 +39,7 @@ const ParAddressInputItem = ({
         <Icon
           name={iconName}
           size={20}
-          color={isValid ? "#fc0303" : "#e02e88"}
+          color={isValid ? "#fc0303" : "#EA4C89"}
         />
       </View>
       <View

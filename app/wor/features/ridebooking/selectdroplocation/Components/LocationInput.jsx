@@ -9,12 +9,14 @@ const LocationInput = ({
   handleInputChange,
   setIsMicModalOpenClose,
   passParams,
+  title = "",
 }) => {
   const ref = useRef();
 
   useEffect(() => {
     if (passParams && ref.current) {
       ref.current.focus();
+      handleInputChange(title);
     }
   }, [passParams]);
 
@@ -33,7 +35,7 @@ const LocationInput = ({
         onPress={() => setIsMicModalOpenClose(true)}
         style={styles.micIcons}
       >
-        <MicIcon size={22} color="#e02e88" />
+        <MicIcon size={22} color="#EA4C89" />
       </Pressable>
     </View>
   );

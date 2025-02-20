@@ -8,11 +8,14 @@ import {
 } from "../../sharedLogics/rideDetailsSlice";
 import { calculatePriceDetails, vehicles } from "../vehicleData";
 import { useNavigation } from "@react-navigation/native";
+import { getTravelDetails } from "../../../../../../Constants/displaylocationmap";
 
 export const useShowPriceScreenHook = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const { profile } = useSelector((state) => state.profileSlice);
+
+  const { priceDetails } = useSelector((state) => state.priceDetails); // this is complete price details from admin panel
 
   const { location } = useSelector((state) => state.location);
   const { dropDetails, selectedVehicleType, isParcScreen, time } = useSelector(
@@ -24,6 +27,9 @@ export const useShowPriceScreenHook = () => {
   const [storedSelectedVehicle, setStoredSelectedVehicle] = useState(null);
   const [knowMoveDownOrUp, setKnowMoveDonwOrUp] = useState("moved up");
 
+  const [vehicleInfoWithDistanceDura, setVehicleInfoWithDistanceDura] =
+    useState(null);
+
   // shcedule order state
   const [shceduleOrderModal, setShceduleOrderModal] = useState(false);
   const timerSetModalOpen = () => {
@@ -32,24 +38,12 @@ export const useShowPriceScreenHook = () => {
 
   const handlePriceCalculation = () => {
     if (!location || !dropDetails?.location) return;
-
     const distance = haversineDistance(location, dropDetails.location);
     const calculatedPriceDetails = calculatePriceDetails(Math.ceil(distance));
     let price = calculatedPriceDetails[selectedVehicleType];
-
-    // if (profile?.donationActive) {
-    //   Object.keys(calculatedPriceDetails).forEach((vehicleType) => {
-    //     calculatedPriceDetails[vehicleType] =
-    //       +calculatedPriceDetails[vehicleType] + 2;
-    //   });
-    //   price += 2;
-    // }
-
     dispatch(setPrice(price));
     dispatch(setPriceDetails(calculatedPriceDetails));
-
     let paymentMethod = price >= profile?.walletBalance ? "cash" : "wallet";
-
     dispatch(setPaymentMethod(paymentMethod));
   };
 
@@ -57,17 +51,6 @@ export const useShowPriceScreenHook = () => {
     handlePriceCalculation();
   }, [location, dropDetails]);
 
-  useEffect(() => {
-    const filteredVehicles = isParcScreen
-      ? vehicles.filter((vehicle) => vehicle.vehicleType === "Scooty")
-      : time
-      ? vehicles.filter((vehicle) => vehicle.vehicleType === "Car")
-      : vehicles;
-
-    setFilteredVehicles(filteredVehicles);
-  }, [isParcScreen, time]);
-
-  // console.log("dropDetails", dropDetails);
   const onNavigateConfirmLocationScreen = () => {
     navigation.navigate("ChangeLoc100mViaMap");
   };
@@ -76,14 +59,111 @@ export const useShowPriceScreenHook = () => {
     setKnowMoveDonwOrUp(changedValue);
   };
 
+  // calculate price details
+
   useEffect(() => {
-    const filterVichle = vehicles.filter(
+    calcPriceDetails();
+  }, [location, dropDetails]);
+
+  useEffect(() => {
+    const filteredVehicles = isParcScreen
+      ? vehicleInfoWithDistanceDura?.filter(
+          (vehicle) => vehicle.vehicleType === "Scooty"
+        )
+      : time
+      ? vehicleInfoWithDistanceDura?.filter(
+          (vehicle) => vehicle.vehicleType === "Car"
+        )
+      : vehicleInfoWithDistanceDura;
+
+    setFilteredVehicles(filteredVehicles);
+  }, [isParcScreen, time, vehicleInfoWithDistanceDura]);
+
+  useEffect(() => {
+    const filterVichle = vehicleInfoWithDistanceDura?.filter(
       (vehicle) =>
         vehicle.vehicleType?.toLowerCase() ===
         selectedVehicleType?.toLowerCase()
     );
     setStoredSelectedVehicle(filterVichle);
-  }, [selectedVehicleType]);
+  }, [vehicleInfoWithDistanceDura, selectedVehicleType]);
+
+  const calcPriceDetails = async () => {
+    try {
+      const results = await Promise.all(
+        vehicles.map(async (vehicle) => {
+          const result = await calDisFromPickToDrop(vehicle.vehicleType);
+
+          const newPrice = handleCalculatePrices(result);
+
+          return {
+            ...vehicle,
+            distance: result?.distance || "N/A",
+            duration: result?.duration || "N/A",
+          };
+        })
+      );
+
+      setVehicleInfoWithDistanceDura(results);
+    } catch (error) {
+      console.error("Error fetching travel details:", error);
+    }
+  };
+
+  const calDisFromPickToDrop = async (vehicleType) => {
+    try {
+      if (location && dropDetails?.location) {
+        const data = await getTravelDetails(
+          [(startLon = location?.lng), (startLat = location?.lat)],
+          [
+            (endLon = dropDetails?.location?.lng),
+            (endLat = dropDetails?.location?.lat),
+          ],
+          vehicleType
+        );
+
+        const newData = {
+          distance: data?.distance,
+          duration: data?.durationInMinutes,
+        };
+
+        return newData;
+      } else {
+        console.warn("Incomplete pickup or drop details");
+        return null;
+      }
+    } catch (error) {
+      console.error("Error calculating distance from pickup to drop:", error);
+      return null;
+    }
+  };
+
+  const handleCalculatePrices = (result) => {
+    // distance = 0.4 km this is formate
+    const checkDistance = result?.distance?.split(" ");
+    const duration = result?.duration;
+
+    let price;
+    if (checkDistance <= 2) {
+      price = 24 + +priceDetails?.baseFare - 5;
+    } else {
+      if (checkDistance > 2 && checkDistance <= 10) {
+        if (checkDistance <= 5) {
+          price = +checkDistance * 7.2 + +priceDetails?.baseFare - 5;
+        } else {
+          price = +checkDistance * 7.2 + +priceDetails?.baseFare;
+        }
+      } else {
+        price = +checkDistance * 8.2 + +priceDetails?.baseFare;
+      }
+    }
+
+    let timeFace = +duration * 0.5;
+
+    return price + timeFace + +priceDetails?.platformFee;
+  };
+
+  console.log("priceDetails", priceDetails);
 
   return {
     location,
@@ -99,12 +179,6 @@ export const useShowPriceScreenHook = () => {
     shceduleOrderModal,
     time,
     profile,
+    setShceduleOrderModal,
   };
 };
-
-// const vehicles = useMemo(() => {
-//   return VEHICLES.map((vehicle) => ({
-//     ...vehicle,
-//     price: priceDetails?.[vehicle.vehicleType.toLowerCase()],
-//   }));
-// }, [priceDetails]);

@@ -42,7 +42,7 @@ const DisplayLocationName = ({ locationName }) => (
           alignItems: "center",
         }}
       >
-        <Entypo size={25} color="#e02e88" name="location-pin" />
+        <Entypo size={25} color="#EA4C89" name="location-pin" />
       </View>
       <Text
         style={{
@@ -65,7 +65,7 @@ const FixedBtn = ({ onPress }) => (
     <CustomBtn
       onPress={onPress}
       title="Confirm Location"
-      btnBg="#e02e88"
+      btnBg="#EA4C89"
       btnColor="#fff"
     />
     <Text style={{ fontSize: 13, color: "#000", fontWeight: "600" }}>

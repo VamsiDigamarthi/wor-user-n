@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { imageUrl } from "../../../../../../Constants/url";
 
 import defaultImg from "../../../../../../assets/images/profile/Services.png";
+import { fonts } from "../../../../fonts/Fonts";
 
 const UserCard = ({ captainDetails, vehcleType }) => {
   const imageSrc = captainDetails?.profilePic
@@ -51,22 +52,57 @@ const UserCard = ({ captainDetails, vehcleType }) => {
       </View>
       <View style={styles.userInfo}>
         <View style={styles.nameWithRating}>
-          <Text style={{ fontWeight: "500", fontSize: 15, color: "gray" }}>
+          <Text
+            style={{
+              fontFamily: fonts.robotoMedium,
+              fontSize: 15,
+              color: "gray",
+            }}
+          >
             {captainDetails?.name}
           </Text>
-          <Text style={{ fontSize: 12, color: "gray" }}>4.3</Text>
+          <Text
+            style={{
+              fontSize: 12,
+              color: "gray",
+              fontFamily: fonts.robotoRegular,
+            }}
+          >
+            4.3
+          </Text>
         </View>
-        <Text style={{ fontSize: 16, fontWeight: "600" }}>
+        <Text style={{ fontSize: 16, fontFamily: fonts.robotoSemiBold }}>
           {captainDetails?.vehicleNumber}
         </Text>
-        <Text style={{ fontSize: 14, color: "gray" }}>
+        <Text
+          style={{
+            fontSize: 14,
+            color: "gray",
+            fontFamily: fonts.robotoRegular,
+          }}
+        >
           {captainDetails?.vehicleName}
         </Text>
         {captainDetails?.languages?.length > 0 && (
           <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
-            <Text style={{ fontSize: 11, color: "gray" }}>Speaks in</Text>
+            <Text
+              style={{
+                fontSize: 11,
+                color: "gray",
+                fontFamily: fonts.robotoRegular,
+              }}
+            >
+              Speaks in
+            </Text>
             {captainDetails?.languages?.map((each, index) => (
-              <Text key={index} style={{ fontSize: 11, color: "gray" }}>
+              <Text
+                key={index}
+                style={{
+                  fontSize: 11,
+                  color: "gray",
+                  fontFamily: fonts.robotoRegular,
+                }}
+              >
                 {each}
               </Text>
             ))}
@@ -97,7 +133,7 @@ const styles = StyleSheet.create({
     height: "100%",
     borderRadius: 50,
     borderWidth: 1,
-    borderColor: "#e02e88",
+    borderColor: "#EA4C89",
   },
   bikeImage: {
     position: "absolute",

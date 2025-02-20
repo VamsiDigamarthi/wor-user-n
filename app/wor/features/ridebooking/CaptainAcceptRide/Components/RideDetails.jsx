@@ -5,6 +5,7 @@ import FaceCard from "./FaceCard";
 import { useSelector } from "react-redux";
 import RideButtonCard from "./RideButtonCard";
 import RideCompleteDetails from "./RideCompleteDetails";
+import { fonts } from "../../../../fonts/Fonts";
 
 const RideDetails = ({ disFromPickToDrop }) => {
   const [showHidden, setShowHidden] = useState(false);
@@ -21,7 +22,9 @@ const RideDetails = ({ disFromPickToDrop }) => {
           }}
           onPress={() => setShowHidden(!showHidden)}
         >
-          <Text style={{ fontSize: 13, fontWeight: "600" }}>Ride Details</Text>
+          <Text style={{ fontSize: 13, fontFamily: fonts.robotoSemiBold }}>
+            Ride Details
+          </Text>
           {showHidden ? (
             <ArrowUpIcons size={30} color="#e02e88" />
           ) : (

@@ -61,7 +61,7 @@ export default function TopCard({
               </TouchableOpacity>
             ) : (
               <TouchableOpacity>
-                <AntDesign name="hearto" size={24} color="#e02e88" />
+                <AntDesign name="hearto" size={24} color="#EA4C89" />
               </TouchableOpacity>
             )}
           </View>

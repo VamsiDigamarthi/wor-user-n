@@ -16,7 +16,7 @@ export default function FaqBtnCard({ title, onclick }) {
 const styles = StyleSheet.create({
   FaqBtnCard: {
     // borderColor: "#FFE2E6",
-    // borderColor: "#e02e88",
+    // borderColor: "#EA4C89",
     borderBottomWidth: 1,
     borderRadius: 10,
     borderBottomColor: "#B0B0B0",

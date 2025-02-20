@@ -87,64 +87,6 @@ export const usePayments = () => {
     }
   }
 
-  const makeDonation = async (amount, email, mobile) => {
-    if (!amount) {
-      Toast.show({
-        text1: "Please Enter Valid Amount !",
-        type: "error",
-        position: "top",
-      });
-
-      return;
-    }
-
-    try {
-      const response = await API.post("/payment/create-order", {
-        amount: amount,
-        currency: "INR",
-      });
-
-      const { order_id } = response.data;
-
-      const options = {
-        key: "rzp_live_zbmR4QaoePLouz",
-        amount: amount,
-        currency: "INR",
-        name: "Donation to Women Rider Foundation",
-        description: `Add ₹${amount} to wallet`,
-        order_id: order_id,
-        prefill: {
-          email: email || "donation@gmail.com",
-          contact: mobile,
-        },
-
-        theme: {
-          color: "#ea4c89",
-        },
-      };
-
-      RazorpayCheckout.open(options)
-        .then((data) => {
-          Alert.alert(`Thank You for Your Donation`);
-          // Toast.show({
-          //   text1: "Payment Success",
-          //   position: "top",
-          //   type: "success",
-          // });
-        })
-        .catch((error) => {
-          Toast.show({
-            text1: error?.message || "Payment Failed",
-            position: "top",
-            type: "error",
-          });
-          // Alert.alert("Error", `Payment failed: ${error.description}`);
-        });
-    } catch (error) {
-      Alert.alert("Error", "Failed to initiate payment.");
-    }
-  };
-
   const addToWallet = async (amount) => {
     if (!amount) {
       Toast.show({
@@ -198,6 +140,64 @@ export const usePayments = () => {
             amount
           );
 
+          // Toast.show({
+          //   text1: "Payment Success",
+          //   position: "top",
+          //   type: "success",
+          // });
+        })
+        .catch((error) => {
+          Toast.show({
+            text1: error?.message || "Payment Failed",
+            position: "top",
+            type: "error",
+          });
+          // Alert.alert("Error", `Payment failed: ${error.description}`);
+        });
+    } catch (error) {
+      Alert.alert("Error", "Failed to initiate payment.");
+    }
+  };
+
+  const makeDonation = async (amount, email, mobile) => {
+    if (!amount) {
+      Toast.show({
+        text1: "Please Enter Valid Amount !",
+        type: "error",
+        position: "top",
+      });
+
+      return;
+    }
+
+    try {
+      const response = await API.post("/payment/create-order", {
+        amount: amount,
+        currency: "INR",
+      });
+
+      const { order_id } = response.data;
+
+      const options = {
+        key: "rzp_live_zbmR4QaoePLouz",
+        amount: amount,
+        currency: "INR",
+        name: "Donation to Women Rider Foundation",
+        description: `Add ₹${amount} to wallet`,
+        order_id: order_id,
+        prefill: {
+          email: email || "donation@gmail.com",
+          contact: mobile,
+        },
+
+        theme: {
+          color: "#ea4c89",
+        },
+      };
+
+      RazorpayCheckout.open(options)
+        .then((data) => {
+          Alert.alert(`Thank You for Your Donation`);
           // Toast.show({
           //   text1: "Payment Success",
           //   position: "top",

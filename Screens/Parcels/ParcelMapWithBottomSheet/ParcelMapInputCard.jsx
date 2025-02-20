@@ -202,9 +202,9 @@ const ParcelMapInputCard = ({ pickUpLocationCoorWithName, typeOfLocation }) => {
         <CustomBtn
           title="Continue"
           btnBg="#fff"
-          btnColor="#e02e88"
+          btnColor="#EA4C89"
           borderWidth={1}
-          borderColor="#e02e88"
+          borderColor="#EA4C89"
           // You can handle form submission here
           onPress={onAddDetailsAdded} // Log form data on button press
         />

@@ -1,4 +1,11 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { imageUrl } from "../../../../Constants/url";
@@ -6,6 +13,7 @@ import { FontAwesome, Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 import defaultImg from "../../../../assets/images/profile/Services.png";
 import { useNavigation } from "@react-navigation/native";
+import { fonts } from "../../fonts/Fonts";
 
 const DrawerProfil = () => {
   const navigation = useNavigation();
@@ -18,9 +26,16 @@ const DrawerProfil = () => {
   const [avgRating, setAvgRating] = useState("");
   const [verifyText, setVerifyText] = useState(null);
 
-  const imageSrc = profile?.profilePic
-    ? { uri: `${imageUrl}/${profile.profilePic}` }
-    : defaultImg;
+  // const imageSrc = profile?.profilePic
+  //   ? { uri: `${imageUrl}/${profile.profilePic}` }
+  //   : defaultImg;
+
+  // Sanitize the image URL to replace backslashes with forward slashes
+  const sanitizedImageUrl = profile?.profilePic
+    ? `${imageUrl}/${profile.profilePic}`.replace(/\\/g, "/")
+    : null;
+
+  const imageSrc = sanitizedImageUrl ? { uri: sanitizedImageUrl } : defaultImg;
 
   const onNavigateRatingScreen = () => {
     navigation.navigate("Rating", {
@@ -42,7 +57,11 @@ const DrawerProfil = () => {
   useEffect(() => {
     if (profile) {
       // console.log(profile);
-      setAvgRating(calculateAverageRating(profile?.reviews)?.toFixed(1));
+
+      // console.log(profile);
+
+      // setAvgRating(calculateAverageRating(profile?.reviews)?.toFixed(1));
+      setAvgRating(profile?.averageRating);
     }
   }, [profile]);
 
@@ -54,45 +73,47 @@ const DrawerProfil = () => {
     }
   };
 
+  const handleVericationNavigation = () => {
+    if (isDisplayAadharModal) {
+      navigation.navigate("ProfileDocumentScreen");
+    } else {
+      navigation.navigate("SetNewMpin");
+    }
+  };
+
   useEffect(() => {
     renderContext();
   }, [isDisplayMPinModal, isDisplayAadharModal]);
 
-
-  
-
   return (
     <View style={styles.container}>
       <View style={styles.image}>
-        <Image
-          source={imageSrc}
-          style={{ width: "100%", height: "100%", resizeMode: "contain" }}
-        />
+        <TouchableWithoutFeedback onPress={() => handleItemPress("Profile")}>
+          <Image
+            source={imageSrc}
+            style={{ width: "100%", height: "100%", resizeMode: "contain" }}
+          />
+        </TouchableWithoutFeedback>
       </View>
       <View style={styles.rightSideCard}>
         <Pressable
           onPress={() => handleItemPress("Profile")}
           style={styles.rowCard}
         >
-          <Text
-            style={{
-              fontSize: 14,
-              fontWeight: "600",
-              width: "90%",
-            }}
-            numberOfLines={1}
-            ellipsizeMode="tail"
-          >
+          <Text style={styles.name} numberOfLines={1} ellipsizeMode="tail">
             {profile?.name}
           </Text>
           <FontAwesome name="chevron-right" size={15} color="#B0B0B0" />
         </Pressable>
         <Pressable style={styles.starRating} onPress={onNavigateRatingScreen}>
           <FontAwesome name="star" size={14} color="gold" />
-          <Text style={styles.profileEmail}>{avgRating}</Text>
+          <Text style={styles.ratingNumber}>{avgRating}</Text>
         </Pressable>
         {verifyText && (
-          <Pressable style={styles.rowCard}>
+          <Pressable
+            style={styles.rowCard}
+            onPress={handleVericationNavigation}
+          >
             <Ionicons name="warning" size={15} color="red" />
             <Text style={{ fontSize: 11 }}>{verifyText}</Text>
             <MaterialIcons name="chevron-right" size={18} color="red" />
@@ -143,4 +164,12 @@ const styles = StyleSheet.create({
     width: 50,
     justifyContent: "center",
   },
+  name: {
+    width: "90%",
+    fontFamily: fonts.robotoSemiBold,
+  },
+
+  ratingNumber:{
+    fontFamily: fonts.robotoSemiBold,
+  }
 });

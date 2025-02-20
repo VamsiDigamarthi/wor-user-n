@@ -12,6 +12,7 @@ import { COLORS } from "../../../../../Constants/colors";
 import Entypo from "@expo/vector-icons/Entypo";
 import CustomBtn from "../../../utiles/CustomBtn";
 import { useNavigation } from "@react-navigation/native";
+import { fonts } from "../../../fonts/Fonts";
 
 const CheckMPinModal = ({
   isOpenEnterConfirmMPinModal,
@@ -44,7 +45,8 @@ const CheckMPinModal = ({
       closebtn={false}
     >
       <View style={styles.mainContainer}>
-        <Text style={{ fontWeight: "bold" }}>Enter M-PIN</Text>
+        <Text style={styles.heading}>Enter WoR-PIN</Text>
+        <Text style={styles.text}>WoR-PIN is a secure 4 digit code for safe account access and ride protection</Text>
         <View style={styles.inputContainer}>
           {mPin.map((digit, index) => (
             <TextInput
@@ -79,9 +81,9 @@ const CheckMPinModal = ({
         </View>
 
         <View style={{ flexDirection: "row", gap: 10 }}>
-          <Text>Having Trouble</Text>
+          <Text style={styles.text}>Having Trouble</Text>
           <TouchableOpacity onPress={() => navigation.navigate("SetNewMpinj")}>
-            <Text style={{ color: "blue" }}>Forgot Mpin ?</Text>
+            <Text style={[styles.text , { color: "blue" }]}>Forgot Mpin ?</Text>
           </TouchableOpacity>
         </View>
 
@@ -122,4 +124,7 @@ const styles = StyleSheet.create({
     elevation: 1,
     width:20
   },
+
+  heading : { fontFamily:fonts.robotoSemiBold, fontSize:16},
+  text:{fontFamily:fonts.robotoRegular}
 });

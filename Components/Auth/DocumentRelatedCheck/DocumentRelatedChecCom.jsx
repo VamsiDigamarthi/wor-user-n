@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   secondCard: {
     width: "20%",
     height: "100%",
-    backgroundColor: "#E02E88",
+    backgroundColor: "#EA4C89",
     justifyContent: "center",
     alignItems: "center",
   },

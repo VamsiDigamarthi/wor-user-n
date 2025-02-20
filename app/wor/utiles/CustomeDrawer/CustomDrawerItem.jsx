@@ -1,6 +1,7 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { FontAwesome } from "@expo/vector-icons";
+import { fonts } from "../../fonts/Fonts";
 
 const CustomDrawerItem = ({ label, onPress, icon }) => {
   return (
@@ -41,7 +42,6 @@ const styles = StyleSheet.create({
     paddingRight: 15,
   },
   text: {
-    fontSize: 14,
-    fontWeight: "600",
+    fontFamily:fonts.robotoSemiBold,
   },
 });

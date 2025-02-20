@@ -8,7 +8,7 @@ const ProfileNavigationCard = ({ title, navigateTo }) => {
     <Pressable onPress={() => navigation.navigate(navigateTo)}>
       <View style={styles.container}>
         <Text style={styles.text}>{title}</Text>
-        <MaterialIcons name="keyboard-arrow-right" size={25} color="#e02e88" />
+        <MaterialIcons name="keyboard-arrow-right" size={25} color="#EA4C89" />
       </View>
     </Pressable>
   );

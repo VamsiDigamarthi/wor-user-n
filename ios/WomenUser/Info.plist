@@ -43,6 +43,11 @@
 		<true/>
 	</dict>
 	
+
+
+
+	<key>NSContactsUsageDescription</key>
+	<string>We need access to your contacts to allow you to add emergency contacts.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Allow $(PRODUCT_NAME) to access your camera</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
@@ -53,11 +58,10 @@
 	<string>Allow $(PRODUCT_NAME) to access your location</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Allow $(PRODUCT_NAME) to access your microphone</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>We need access to speech recognition to process your voice input.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Allow $(PRODUCT_NAME) to access your photos</string>
-	<key>NSContactsUsageDescription</key>
-	<string>We need access to your contacts to allow you to add emergency contacts.</string>
-
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

@@ -86,15 +86,15 @@ const ParcelHome = ({ navigation }) => {
           title="Continue"
           btnBg={
             pickUpLocation && dropLocation && selecteParcelType
-              ? "#e02e88"
+              ? "#EA4C89"
               : "#fff"
           }
           btnColor={
             pickUpLocation && dropLocation && selecteParcelType
               ? "#fff"
-              : "#e02e88"
+              : "#EA4C89"
           }
-          borderColor="#e02e88"
+          borderColor="#EA4C89"
           borderWidth={1}
           onPress={
             pickUpLocation &&

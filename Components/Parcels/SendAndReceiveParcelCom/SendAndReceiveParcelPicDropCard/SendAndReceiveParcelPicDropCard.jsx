@@ -31,7 +31,7 @@ const SendAndReceiveParcelPicDropCard = ({
           title="Delivery To:"
           subTitle="Add receiver address"
           iconName="location-arrow"
-          iconColor="#e02e88"
+          iconColor="#EA4C89"
           onPress={() => onNavigateToPickLocationScreen("Drop")}
           dataFromPickLocation={dropLocationCoorWithName}
         />

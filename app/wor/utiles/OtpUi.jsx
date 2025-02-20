@@ -33,7 +33,7 @@ const OtpUi = ({ otp, setOtp, handelPassOtpToParent = () => {}, style }) => {
     <View
       style={[
         styles.inputCard,
-        { borderColor: isFocused && "#e02e88", borderWidth: 1 },
+        { borderColor: isFocused && "#EA4C89", borderWidth: 1 },
         style,
       ]}
     >
@@ -59,13 +59,13 @@ const OtpUi = ({ otp, setOtp, handelPassOtpToParent = () => {}, style }) => {
           textAlign="center"
           onFocus={() => {
             inputs.current[index].setNativeProps({
-              // style: { borderColor: "#E02E88" }, // Change border color to pink on focus
+              // style: { borderColor: "#EA4C89" }, // Change border color to pink on focus
             });
             setIsFocused(true);
           }}
           onBlur={() => {
             inputs.current[index].setNativeProps({
-              // style: { borderColor: value ? "#E02E88" : "#A9A9A9" }, // Revert based on value
+              // style: { borderColor: value ? "#EA4C89" : "#A9A9A9" }, // Revert based on value
             });
             setIsFocused(true);
           }}

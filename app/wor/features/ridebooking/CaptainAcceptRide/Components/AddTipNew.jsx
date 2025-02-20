@@ -90,7 +90,8 @@ const styles = StyleSheet.create({
     width: "80%",
     color: "#111111",
     fontSize: 14,
-    fontWeight: "600",
+    // fontWeight: "600",
+    fontFamily: fonts.robotoSemiBold,
   },
   moneyCard: {
     borderRadius: 5,
@@ -125,6 +126,6 @@ const styles = StyleSheet.create({
   },
   insideText: {
     fontSize: 30,
-    fontWeight: "600",
+    fontFamily: fonts.robotoSemiBold,
   },
 });

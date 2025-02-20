@@ -18,7 +18,7 @@
 // //     <View style={styles.container}>
 // //       <Pressable
 // //         android_ripple={{
-// //           color: "#E02E88",
+// //           color: "#EA4C89",
 // //           borderless: false,
 // //         }}
 // //         style={({ pressed }) => [
@@ -70,10 +70,10 @@
 //     setBtnBgColor("#ed61a8");
 //   };
 //   const handlePressOut = () => {
-//     if (btnBg?.toUpperCase() !== "#E02E88") {
+//     if (btnBg?.toUpperCase() !== "#EA4C89") {
 //       setBtnBgColor("#fdfdfd");
 //     } else {
-//       setBtnBgColor("#E02E88");
+//       setBtnBgColor("#EA4C89");
 //     }
 //   };
 //   const handleLongPress = () => {
@@ -115,7 +115,7 @@
 //     // borderWidth: 0.5,
 //     // borderColor: "#fff",
 //     width: "100%",
-//     shadowColor: "#e02e88",
+//     shadowColor: "#EA4C89",
 //   },
 
 //   btn: {
@@ -161,7 +161,7 @@ const CustomBtn = ({
     >
       <Pressable
         android_ripple={{
-          color: "#E02E88", // Set ripple color
+          color: "#EA4C89", // Set ripple color
           borderless: false, // Ensures ripple stays within the bounds of the button
         }}
         style={({ pressed }) => [
@@ -176,7 +176,7 @@ const CustomBtn = ({
         onPress={onPress}
       >
         {isLoding ? (
-          <ActivityIndicator color={isLoding ? "#fff" : "#e02e88"} size={30} />
+          <ActivityIndicator color={isLoding ? "#fff" : "#EA4C89"} size={30} />
         ) : (
           <Text style={[styles.buttonText, { color: btnColor }]}>{title}</Text>
         )}

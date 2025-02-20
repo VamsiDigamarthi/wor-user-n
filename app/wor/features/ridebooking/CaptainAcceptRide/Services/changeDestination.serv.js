@@ -13,6 +13,11 @@ export const changeDestinaton = async ({ token, orderId, place }) => {
         },
       }
     );
+    Toast.show({
+      text1: "Please Wait untill your riding partner accept the your request",
+      type: "success",
+      position: "bottom",
+    });
     return response?.data?.order;
   } catch (error) {
     console.log("change destination failed");

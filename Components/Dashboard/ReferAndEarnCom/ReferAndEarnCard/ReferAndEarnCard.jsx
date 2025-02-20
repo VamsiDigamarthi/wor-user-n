@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   constainer: {
     width: "100%",
     height: 130,
-    backgroundColor: "#e02e88",
+    backgroundColor: "#EA4C89",
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     flexDirection: "row",

@@ -6,6 +6,7 @@ import MPinMobileNumber from "./MPinMobileNumber";
 import AadharOtp from "../AadharModal/AadharOtp";
 import { onVerifiOtp } from "../../services/mPin.servi";
 import { fonts } from "../../../../../fonts/Fonts";
+import { useAadharModalHook } from "../AadharModal/AadharModal.hook";
 
 const MPinMobileNumberModal = ({
   openModal,
@@ -17,10 +18,14 @@ const MPinMobileNumberModal = ({
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const { resendAvailable, handleResendOtp , timer} = useAadharModalHook();
+
   const handleSubmitOtp = async () => {
     setIsLoading(true);
     // console.log("iugf");
     const data = await onVerifiOtp({ otp: otp?.join(""), mobile });
+    console.log(data);
+
     setIsLoading(false);
     if (!data) return;
     handleChangeSetMpin();
@@ -37,10 +42,13 @@ const MPinMobileNumberModal = ({
     >
       {isMobileOrOtp ? (
         <AadharOtp
+        resendAvailable={resendAvailable}
+        handleResendOtp={handleResendOtp}
           otp={otp}
           setOtp={setOtp}
           handleSubmitOtp={handleSubmitOtp}
           isLoading={isLoading}
+          timer={timer}
         />
       ) : (
         <MPinMobileNumber

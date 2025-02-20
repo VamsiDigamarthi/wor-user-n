@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   slide: {
-    backgroundColor: "#e02e88",
+    backgroundColor: "#EA4C89",
     flex: 1,
     justifyContent: "center",
     // alignItems: "center",

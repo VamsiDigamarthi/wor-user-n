@@ -1,6 +1,7 @@
 import { Animated, Easing, StyleSheet, Text, View } from "react-native";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import { useEffect, useRef, useState } from "react";
+import { fonts } from "../../../../fonts/Fonts";
 
 const RideVerified = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -70,7 +71,7 @@ const RideVerified = () => {
           />
         )}
 
-        <Text style={{ fontSize: 15, fontWeight: "600" }}>
+        <Text style={{ fontSize: 15, fontFamily: fonts.robotoSemiBold }}>
           {texts[currentIndex]?.title}
         </Text>
       </Animated.View>

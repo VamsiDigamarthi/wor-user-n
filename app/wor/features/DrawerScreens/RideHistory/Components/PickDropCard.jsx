@@ -15,7 +15,7 @@ const PickDropCard = ({
         <View style={styles.left}>
           <PickLocationIcon size={25} color="#17a773" />
           <View style={[styles.line, { height: 42 }]} />
-          <LocationIcon size={25} color="#e02e88" />
+          <LocationIcon size={25} color="#EA4C89" />
         </View>
         <View style={[styles.locationCard, { gap: 10 }]}>
           <View>

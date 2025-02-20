@@ -53,7 +53,7 @@ const RideHistoryDetailsViewFirst = ({ ride }) => {
           subLocation={ride.dropVicinity ?? "No Location "}
           iconType="FontAwesome"
           iconName="location-arrow"
-          iconColor="#e02e88"
+          iconColor="#EA4C89"
         />
       </View>
       <View style={{ height: 3 }} />

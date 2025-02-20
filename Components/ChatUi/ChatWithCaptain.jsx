@@ -73,14 +73,14 @@ export default function ChatWithCaptain() {
           <BottomSheetView style={{ flex: 1 }}>
             {/* Chat Header */}
             <View style={styles.chatHeader}>
-              <Entypo name="chevron-left" size={30} color="#e02e88" />
+              <Entypo name="chevron-left" size={30} color="#EA4C89" />
 
               <View style={{ gap: 1, alignItems: "center" }}>
                 <Text style={styles.headerSmallText}>Dharani B</Text>
                 <Text style={styles.headerBigText}>TS07 AB 1234</Text>
               </View>
 
-              <Entypo name="phone" size={30} color="#e02e88" />
+              <Entypo name="phone" size={30} color="#EA4C89" />
             </View>
 
             {/* Messages */}
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f9f9f9",
   },
   sendButton: {
-    backgroundColor: "#e02e88",
+    backgroundColor: "#EA4C89",
     borderRadius: 20,
     padding: 10,
     marginLeft: 10,

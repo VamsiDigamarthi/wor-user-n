@@ -13,8 +13,8 @@ const ChatMessage = ({ text, type }) => {
         style={[
           styles.text,
           {
-            backgroundColor: type === "user" ? "#e02e88" : "#fff",
-            color: type === "user" ? "#fff" : "#e02e88",
+            backgroundColor: type === "user" ? "#EA4C89" : "#fff",
+            color: type === "user" ? "#fff" : "#EA4C89",
           },
         ]}
       >
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     // textAlign: "center",
     paddingHorizontal: 15,
     // borderRadius: 20,
-    color: "#e02e88",
+    color: "#EA4C89",
     lineHeight: 20,
   },
 });

@@ -15,7 +15,7 @@ const SavedAdressPlaceName = ({
   return (
     <View style={styles.container}>
       <View style={styles.centerStyle}>
-        <Entypo name="location-pin" size={30} color="#e02e88" />
+        <Entypo name="location-pin" size={30} color="#EA4C89" />
       </View>
       <View style={styles.innerCard}>
         <Text

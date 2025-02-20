@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsSendOrReceiveParcel } from "../../ridebooking/sharedLogics/rideDetailsSlice";
+import { fonts } from "../../../fonts/Fonts";
 
 const ParSendReceiveCard = () => {
   const dispatch = useDispatch();
@@ -47,7 +48,7 @@ const ParSendReceiveCard = () => {
   // Interpolate background and text color based on animation values
   const sendBackgroundColor = sendBackground.interpolate({
     inputRange: [0, 1],
-    outputRange: ["#e02e88", "#f7f7f7"],
+    outputRange: ["#EA4C89", "#f7f7f7"],
   });
   const sendTextColor = sendBackground.interpolate({
     inputRange: [0, 1],
@@ -56,7 +57,7 @@ const ParSendReceiveCard = () => {
 
   const receiveBackgroundColor = receiveBackground.interpolate({
     inputRange: [0, 1],
-    outputRange: ["#e02e88", "#f7f7f7"],
+    outputRange: ["#EA4C89", "#f7f7f7"],
   });
   const receiveTextColor = receiveBackground.interpolate({
     inputRange: [0, 1],
@@ -125,6 +126,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    fontWeight: "600",
+    fontFamily: fonts.robotoSemiBold,
+    // fontWeight: "600",
   },
 });

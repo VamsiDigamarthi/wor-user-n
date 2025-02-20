@@ -156,12 +156,22 @@ export const useParcelSavedAddressHook = () => {
     }
   };
 
+  const clearFormData = () => {
+    setFormData({
+      senderName: "",
+      mobile: "",
+      landmark: "",
+      address: "",
+    });
+  };
+
   return {
     handleInputChange,
     formData,
     saveAddressChecked,
     onHandlerSaveAddress,
     onHandlerContinueNext,
+    clearFormData,
     errors, // Expose the errors to display on the UI
   };
 };

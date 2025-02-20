@@ -75,7 +75,6 @@ const DocumentRelatedCheck = () => {
             isBackground={profile?.mpin}
           />
         )}
-
       </View>
       <ModalUI
         openCloseState={isInfoModalOpen}
@@ -107,7 +106,7 @@ const OnAddharVerification = ({ idTitle, title, onPress, isBackground }) => {
             style={{
               width: 40,
               height: 40,
-              backgroundColor: "#e02e88",
+              backgroundColor: "#EA4C89",
               borderRadius: 25,
               justifyContent: "center",
               alignItems: "center",

@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
         </View>
         <View style={styles.rowWithGap}>
           <View style={styles.iconContainer}>
-            <FontAwesome size={25} name="location-arrow" color="#e02e88" />
+            <FontAwesome size={25} name="location-arrow" color="#EA4C89" />
           </View>
           <View style={styles.textContainer}>
             <Text
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
             <MaterialIcons
               name={isFavoriteOrRideHistory ? "arrow-forward-ios" : "favorite"}
               size={20}
-              color="#e02e88"
+              color="#EA4C89"
             />
           </View>
         </View>

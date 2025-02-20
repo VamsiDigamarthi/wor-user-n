@@ -1,14 +1,13 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { fonts } from "../../../fonts/Fonts";
 
 const ParProtectDelivery = ({ isChecked, handleProtectedParcel }) => {
   return (
     <View style={styles.container}>
       <View style={styles.innerCard}>
-        <Text style={{ fontSize: 15, fontWeight: "600" }}>
-          Protect Your Delivery
-        </Text>
-        <Text style={{ fontSize: 12, color: "gray" }}>
+        <Text style={styles.title}>Protect Your Delivery</Text>
+        <Text style={styles.text}>
           Recipients will receive a 4 digits PIN once the package is on its way
         </Text>
       </View>
@@ -16,7 +15,7 @@ const ParProtectDelivery = ({ isChecked, handleProtectedParcel }) => {
         <View
           style={[
             styles.checkbox,
-            isChecked && { backgroundColor: "#E02E88", borderColor: "#fff5f9" }, // Changes background when checked
+            isChecked && { backgroundColor: "#EA4C89", borderColor: "#fff5f9" }, // Changes background when checked
           ]}
         >
           {isChecked && <Ionicons name="checkmark" size={20} color="white" />}
@@ -61,4 +60,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
+
+  title: { fontSize: 15, fontFamily: fonts.robotoSemiBold },
+  text: { fontSize: 12, color: "gray", fontFamily: fonts.robotoRegular },
 });

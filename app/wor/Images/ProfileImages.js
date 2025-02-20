@@ -24,3 +24,12 @@ export {
   locationpin,
   mobile,
 };
+
+
+// calendar,
+// clock,
+// email,
+// locationpin,
+// mobile,
+// genderidentity,
+// personalInfo,

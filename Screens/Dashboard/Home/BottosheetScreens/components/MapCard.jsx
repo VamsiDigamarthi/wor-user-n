@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     gap: 5,
     elevation: 2,
     // borderWidth: 1,
-    // borderColor: "#e02e88",
+    // borderColor: "#EA4C89",
     backgroundColor: "#fdfdfd",
     padding: 8,
     borderRadius: 8,

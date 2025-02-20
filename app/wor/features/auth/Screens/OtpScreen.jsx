@@ -41,7 +41,7 @@ const OtpScreen = ({}) => {
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.container}>
-          <AuthAppBar isLoginScreen={false} />
+          <AuthAppBar isLoginScreen={false} supportNavigate="Otp" />
           <View style={styles.loginInnerCard}>
             <View style={{ width: "100%", gap: 10 }}>
               <Text style={{ fontWeight: "600", fontSize: 24 }}>
@@ -63,7 +63,7 @@ const OtpScreen = ({}) => {
               <View
                 style={[
                   styles.inputCard,
-                  { borderColor: isFocused && "#e02e88", borderWidth: 1 },
+                  { borderColor: isFocused && "#EA4C89", borderWidth: 1 },
                 ]}
               >
                 {otp?.map((value, index) => (
@@ -84,13 +84,13 @@ const OtpScreen = ({}) => {
                     textAlign="center"
                     onFocus={() => {
                       inputs.current[index].setNativeProps({
-                        style: { borderColor: "#E02E88" },
+                        style: { borderColor: "#EA4C89" },
                       });
                       setIsFocused(true);
                     }}
                     onBlur={() => {
                       inputs.current[index].setNativeProps({
-                        style: { borderColor: value ? "#E02E88" : "#A9A9A9" },
+                        style: { borderColor: value ? "#EA4C89" : "#A9A9A9" },
                       });
                       setIsFocused(false);
                     }}
@@ -120,8 +120,8 @@ const OtpScreen = ({}) => {
             )}
             <CustomBtn
               title="continue"
-              btnBg={otp[5]?.length <= 0 ? "#f7f7f7" : "#e02e88"}
-              btnColor={otp[5]?.length <= 0 ? "#e02e88" : "#fff"}
+              btnBg={otp[5]?.length <= 0 ? "#f7f7f7" : "#EA4C89"}
+              btnColor={otp[5]?.length <= 0 ? "#EA4C89" : "#fff"}
               onPress={justLog}
               width="100%"
               isLoding={isLoading}

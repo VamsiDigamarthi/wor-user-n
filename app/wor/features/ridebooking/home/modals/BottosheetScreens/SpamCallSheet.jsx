@@ -27,7 +27,7 @@ export default function SpamCallSheet({ onPress }) {
               gap: 8,
             }}
           >
-            <FontAwesome name="chevron-left" size={15} color="#e02e88" />
+            <FontAwesome name="chevron-left" size={15} color="#EA4C89" />
             <Text>back</Text>
           </TouchableOpacity>
         </View>
@@ -74,7 +74,7 @@ export default function SpamCallSheet({ onPress }) {
                 style={{
                   height: 60,
                   width: 60,
-                  backgroundColor: "#e02e88",
+                  backgroundColor: "#EA4C89",
                   alignItems: "center",
                   justifyContent: "center",
                   borderRadius: 20,
@@ -86,7 +86,7 @@ export default function SpamCallSheet({ onPress }) {
           )}
         </View>
       </View>
-      {/* <CustomBtn title="Continue" btnBg="#e02e88" btnColor="#fff" /> */}
+      {/* <CustomBtn title="Continue" btnBg="#EA4C89" btnColor="#fff" /> */}
     </>
   );
 }

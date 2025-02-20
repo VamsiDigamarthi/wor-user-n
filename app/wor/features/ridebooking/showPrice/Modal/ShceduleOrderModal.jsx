@@ -6,6 +6,7 @@ import { CalendarIcons } from "../../../../Icons/Icons";
 import CustomBtn from "../../../../utiles/CustomBtn";
 import DatePicker from "react-native-date-picker";
 import { DateFormatModal } from "../Hooks/DateFormatInModal.hook";
+import { fonts } from "../../../../fonts/Fonts";
 
 const ShceduleOrderModal = ({ shceduleOrderModal, timerSetModalOpen }) => {
   const {
@@ -19,7 +20,7 @@ const ShceduleOrderModal = ({ shceduleOrderModal, timerSetModalOpen }) => {
 
   return (
     <ModalUI
-      openCloseState={shceduleOrderModal}
+      // openCloseState={shceduleOrderModal}
       closeModalFun={timerSetModalOpen}
       style={infoModalStyles.aadharModalStyles}
       insideCardStyle={infoModalStyles.insideCardStyle}
@@ -58,6 +59,7 @@ const ShceduleOrderModal = ({ shceduleOrderModal, timerSetModalOpen }) => {
               title="Select Future Time"
               cancelText="Cancel"
               confirmText="Confirm"
+              // textColor="#EA4C89"
               minimumDate={minimumDate} // Dynamically set to the next valid time
               maximumDate={maximumDate}
               minuteInterval={15} // Enforce 15-minute intervals
@@ -73,7 +75,7 @@ const ShceduleOrderModal = ({ shceduleOrderModal, timerSetModalOpen }) => {
           </View>
           <CustomBtn
             title="Confirm Pickup Time"
-            btnBg="#e02e88"
+            btnBg="#EA4C89"
             btnColor="#fff"
             // onPress={onPlaceTheOrder}
             onPress={handleAddedScheduleTime}
@@ -107,7 +109,7 @@ const styles = StyleSheet.create({
   },
   heding: {
     fontSize: 20,
-    fontWeight: "600",
+    fontFamily: fonts.robotoBold,
   },
   innerCard: {
     paddingHorizontal: 20,
@@ -118,6 +120,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "gray",
     lineHeight: 20,
+    fontFamily: fonts.robotoRegular,
   },
   pickUpcard: {
     width: "100%",

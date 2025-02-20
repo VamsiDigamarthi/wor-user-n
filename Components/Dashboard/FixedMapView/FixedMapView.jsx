@@ -112,7 +112,7 @@ const MapWithFixedMarker = ({ navigation }) => {
           <CustomBtn
             title="Save"
             // borderRadius={10}
-            btnBg="#e02e88"
+            btnBg="#EA4C89"
             btnColor="#fff"
             onPress={onNavigateShowPriceScreen}
           />

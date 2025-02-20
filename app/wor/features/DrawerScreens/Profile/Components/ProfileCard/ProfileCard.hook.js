@@ -11,26 +11,27 @@ export const useProfileCardHook = () => {
   const { token } = useSelector((state) => state.token);
   const { profile } = useSelector((state) => state.profileSlice);
   const dispatch = useDispatch();
+
+  // Sanitize the image URL to replace backslashes with forward slashes
+  const sanitizedImageUrl = profile?.profilePic
+    ? `${imageUrl}/${profile.profilePic}`.replace(/\\/g, "/")
+    : null;
+
   const [imageSource, setImageSource] = useState(
-    profile?.profilePic
-      ? { uri: `${imageUrl}/${profile.profilePic}` }
-      : servicespng
+    sanitizedImageUrl ? { uri: sanitizedImageUrl } : servicespng
   );
 
   // Function to open the gallery
   const pickImage = async () => {
     try {
-      // Open the image library with cropping enabled
       const selectedImage = await ImagePicker.openPicker({
-        width: 300, // Crop width
-        height: 300, // Crop height
-        cropping: true, // Enable cropping
-        mediaType: "photo", // Allow only photos
+        width: 300,
+        height: 300,
+        cropping: true,
+        mediaType: "photo",
       });
-
-      // Update the image source
       setImageSource({ uri: selectedImage.path });
-      onProfilePicChange(selectedImage.path); // Send the image path for upload
+      onProfilePicChange(selectedImage.path);
     } catch (error) {
       if (error.code !== "E_PICKER_CANCELLED") {
         console.log("Image selection error:", error);
@@ -52,7 +53,6 @@ export const useProfileCardHook = () => {
       type: mimeType,
       name: `profilePic.${mimeType.split("/")[1]}`,
     });
-
     try {
       const response = await API.patch("/auth/edit-profile", formData, {
         headers: {
@@ -60,7 +60,6 @@ export const useProfileCardHook = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-
       dispatch(onProfileSection({ token }));
       Toast.show({
         text1: response?.data?.message,
@@ -69,7 +68,6 @@ export const useProfileCardHook = () => {
       });
     } catch (error) {
       console.log(error);
-
       console.log(error?.response?.data?.message);
       Toast.show({
         text1: "Profile update failed, please try again",
@@ -82,6 +80,6 @@ export const useProfileCardHook = () => {
   return {
     profile,
     imageSource,
-    pickImage, // Expose the function to trigger image picker
+    pickImage,
   };
 };

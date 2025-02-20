@@ -13,14 +13,7 @@ const RideHistoryItem = ({ ride, isFavoriteOrRideHistory = true }) => {
 
   return (
     <Pressable style={styles.mainCont} onPress={onNavigateToRideDetailScreen}>
-      <View
-        style={{
-          flexDirection: "row",
-          gap: 10,
-          alignItems: "center",
-          width: "80%",
-        }}
-      >
+      <View style={styles.imageContainer}>
         <Image
           source={
             ride?.vehicleType == "car"
@@ -72,6 +65,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: 10,
     borderBottomWidth: 1,
+  },
+  imageContainer: {
+    flexDirection: "row",
+    gap: 10,
+    alignItems: "center",
+    width: "80%",
   },
   Image: {
     height: 50,

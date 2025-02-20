@@ -45,7 +45,7 @@ const PriceDetailsModal = ({
               </Text>
               <Text style={{ fontSize: 14, color: "gray" }}>Including Tax</Text>
             </View>
-            <Text style={{ fontSize: 18, fontWeight: "600", color: "#e02e88" }}>
+            <Text style={{ fontSize: 18, fontWeight: "600", color: "#EA4C89" }}>
               ₹{totalPrice}
             </Text>
           </View>
@@ -53,6 +53,14 @@ const PriceDetailsModal = ({
             <Text style={{ fontSize: 17, fontWeight: "600" }}>Your Tip</Text>
             <Text>₹{tip}</Text>
           </View>
+          {completeRideDetails?.newDesitionOrderStatus === "accept" && (
+            <View style={styles.priceSecond}>
+              <Text style={{ fontSize: 17, fontWeight: "600" }}>
+                Change Destination Price
+              </Text>
+              <Text>₹{completeRideDetails?.changeDesPrice}</Text>
+            </View>
+          )}
           <Text style={{ fontSize: 14, color: "gray" }}>
             Total fare may change if toll, route or destination changes or if
             your ride takes longer due to traffic or other factors.

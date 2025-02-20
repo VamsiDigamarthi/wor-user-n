@@ -12,7 +12,7 @@ const ProfileNavigationCard = ({ title, navigateTo, icon }) => {
           <Image source={icon} style={styles.img} />
           <Text style={styles.text}>{title}</Text>
         </View>
-        <MaterialIcons name="keyboard-arrow-right" size={25} color="#e02e88" />
+        <MaterialIcons name="keyboard-arrow-right" size={25} color="#EA4C89" />
       </View>
     </Pressable>
   );

@@ -5,7 +5,7 @@ export default function FaqAnswerCard({ question, answer }) {
   return (
     <View style={styles.FaqAnswerCard}>
       <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-        {/* <AntDesign name="questioncircleo" size={20} color="#e02e88" /> */}
+        {/* <AntDesign name="questioncircleo" size={20} color="#EA4C89" /> */}
         <Text style={{ fontWeight: "bold" }}>{question}</Text>
       </View>
 

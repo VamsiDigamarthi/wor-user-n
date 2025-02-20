@@ -39,11 +39,11 @@ const ProfileDocumentScreen = () => {
           btnBg={
             profile?.adhar === null && profile?.adharBack === null
               ? "#fff"
-              : "#e02e88"
+              : "#EA4C89"
           }
           btnColor={
             profile?.adhar === null && profile?.adharBack === null
-              ? "#e02e88"
+              ? "#EA4C89"
               : "#fff"
           }
         />

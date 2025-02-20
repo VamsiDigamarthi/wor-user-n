@@ -1,6 +1,17 @@
-[
+import {
+  safetyIcon,
+  rideBilling,
+  account,
+  payment,
+  refer,
+  services,
+} from "../app/wor/Images/helpandsupport";
+
+
+export const faqData = [
   {
     "maintitle": "Safety And Security",
+    icon:safetyIcon,
     "data": [
       {
         "What is the time duration at which the insurance starts working?": "Your insurance cover begins with your seating on a Women Rider ride and continues until you reach the destination. The insurance can be claimed for a maximum of 24 hours."
@@ -21,6 +32,7 @@
   },
 
   {
+    icon:rideBilling,
     "maintitle": "Ride And Billing",
     "data": [
       {
@@ -46,6 +58,7 @@
   },
 
   {
+    icon:services,
     "maintitle": "Services",
     "data": [
       {
@@ -62,6 +75,7 @@
   },
 
   {
+    icon:account,
     "maintitle": "Account And App",
     "data": [
       {
@@ -78,6 +92,7 @@
   },
 
   {
+    icon:refer,
     "maintitle": "Referrals",
     "data": [
       {
@@ -90,6 +105,7 @@
   },
 
   {
+    icon:payment,
     "maintitle": "Payment And Wallets",
     "data": [
       {

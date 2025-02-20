@@ -9,6 +9,7 @@ import MPin from "../Screens/Auth/MPin/MPin";
 import LoginScreen from "../app/wor/features/auth/Screens/LoginScreen";
 import OtpScreen from "../app/wor/features/auth/Screens/OtpScreen";
 import SignupScreen from "../app/wor/features/auth/Screens/SignupScreen";
+import ChatBot from "../app/wor/features/DrawerScreens/RideHistory/Screens/ChatBot";
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +47,12 @@ const AuthStack = ({ initialRouteName = "login" }) => {
       <Stack.Screen
         name="MPin"
         component={MPin}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="ChatBot"
+        component={ChatBot}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

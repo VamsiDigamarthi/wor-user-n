@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { COLORS } from "../../../../../Constants/colors";
 import { useDispatch } from "react-redux";
 import { setParcelType } from "../../ridebooking/sharedLogics/rideDetailsSlice";
+import { fonts } from "../../../fonts/Fonts";
 
 const SelectParcelType = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,8 @@ const SelectParcelType = () => {
   const handlePress = (item) => {
     if (item === "Others") {
       setIsOtherOpenTextField(true);
+    } else {
+      setIsOtherOpenTextField(false);
     }
     dispatch(setParcelType(item));
 
@@ -93,7 +96,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    fontWeight: "600",
+    fontFamily: fonts.robotoSemiBold,
   },
   itemsContainer: {
     flexWrap: "wrap",
@@ -108,13 +111,15 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   selectedTypeText: {
-    backgroundColor: "#E02E88",
+    backgroundColor: "#EA4C89",
+    fontFamily: fonts.robotoMedium,
   },
   selectedTypeTextColor: {
     color: "#fff",
   },
   typeTextText: {
     color: "#000",
+    fontFamily: fonts.robotoRegular,
   },
   input: {
     width: "100%",
@@ -123,5 +128,6 @@ const styles = StyleSheet.create({
     borderColor: COLORS.borderColor,
     borderRadius: 10,
     paddingHorizontal: 10,
+    fontFamily: fonts.robotoRegular,
   },
 });

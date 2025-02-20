@@ -1,11 +1,4 @@
-import {
-  Dimensions,
-  ImageBackground,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-} from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import React, { useState } from "react";
 import AppBarLayout from "../sharedLogics/AppBarLayout";
 import { useShowPriceScreenHook } from "./Hooks/ShowPriceScreen.hook";
@@ -37,7 +30,8 @@ const ShowPriceScreen = () => {
     timerSetModalOpen,
     shceduleOrderModal,
     time,
-    
+
+    setShceduleOrderModal,
   } = useShowPriceScreenHook();
 
   const { mapHeight, snapPoints, handleSheetChange } = useBottomSheetConfig(
@@ -48,7 +42,6 @@ const ShowPriceScreen = () => {
 
   const [offerModalOpen, setOfferModalOpen] = useState(false);
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
-console.log("time",time);
 
   return (
     <>
@@ -110,11 +103,12 @@ console.log("time",time);
           />
         </View>
       </AppBarLayout>
-      <ShceduleOrderModal
-        shceduleOrderModal={shceduleOrderModal}
-        timerSetModalOpen={timerSetModalOpen}
-      />
-
+      {shceduleOrderModal && (
+        <ShceduleOrderModal
+          // shceduleOrderModal={shceduleOrderModal}
+          timerSetModalOpen={() => setShceduleOrderModal(!shceduleOrderModal)}
+        />
+      )}
       {offerModalOpen && (
         <OfferModal onClose={() => setOfferModalOpen(false)} />
       )}

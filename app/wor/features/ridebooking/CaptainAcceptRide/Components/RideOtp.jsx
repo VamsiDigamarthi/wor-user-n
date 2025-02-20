@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { fonts } from "../../../../fonts/Fonts";
 
 const RideOtp = ({ otp }) => {
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 15, fontWeight: "600" }}>
+      <Text style={{ fontSize: 15, fontFamily: fonts.robotoSemiBold }}>
         Start your ride with PIN
       </Text>
       <View style={styles.otp}>
@@ -13,7 +14,11 @@ const RideOtp = ({ otp }) => {
           ?.map((digit, index) => (
             <Text
               key={index}
-              style={{ fontSize: 15, fontWeight: "600", color: "#e02e88" }}
+              style={{
+                fontSize: 15,
+                fontFamily: fonts.robotoSemiBold,
+                color: "#EA4C89",
+              }}
             >
               {digit}
             </Text>

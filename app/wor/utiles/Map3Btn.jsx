@@ -42,15 +42,15 @@ const Map3Btns = ({
           onPress={handleOpenSafetyModal}
           style={styles.zoomButton}
         >
-          <AntDesign name="Safety" size={20} color="#e02e88" />
+          <AntDesign name="Safety" size={20} color="#EA4C89" />
         </TouchableOpacity>
       </View> */}
 
-      <View style={[styles.singleIconsCard, styles.zoomContainer]}>
-        <TouchableOpacity onPress={handleZoomToggle} style={styles.zoomButton}>
+      <TouchableOpacity onPress={handleZoomToggle} style={styles.zoomButton}>
+        <View style={[styles.singleIconsCard, styles.zoomContainer]}>
           <MaterialIcons name="my-location" size={25} color="#fff" />
-        </TouchableOpacity>
-      </View>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };

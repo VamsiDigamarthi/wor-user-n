@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import React from "react";
 import CustomBtn from "../../../../../utiles/CustomBtn";
 import { AntDesign } from "@expo/vector-icons";
@@ -12,6 +12,9 @@ const AadharOtp = ({
   text = "Linked to your Aadhar +91 1234567890",
   isLoading,
   otpError,
+  resendAvailable,
+  handleResendOtp,
+  timer,
 }) => {
   return (
     <View style={styles.bottomCardContainer}>
@@ -27,9 +30,16 @@ const AadharOtp = ({
       )}
       <OtpUi otp={otp} setOtp={setOtp} />
       <View>
-        <Text style={styles.subText}>
-          Having trouble ? Request new OTP in 00:52
-        </Text>
+        {resendAvailable ? (
+          <Pressable onPress={handleResendOtp}>
+            <Text style={{ color: "blue", fontSize: 13 }}>Resend OTP</Text>
+          </Pressable>
+        ) : (
+          <Text style={{ color: "gray", fontSize: 13 }}>
+            Requested new OTP in {Math.floor(timer / 60)}:
+            {String(timer % 60).padStart(2, "0")}
+          </Text>
+        )}
       </View>
 
       <View style={styles.rowCard}>
@@ -42,8 +52,8 @@ const AadharOtp = ({
       <CustomBtn
         title="continue"
         onPress={handleSubmitOtp}
-        btnBg={otp[5]?.length <= 0 ? "#f7f7f7" : "#e02e88"}
-        btnColor={otp[5]?.length <= 0 ? "#e02e88" : "#fff"}
+        btnBg={otp[5]?.length <= 0 ? "#f7f7f7" : "#EA4C89"}
+        btnColor={otp[5]?.length <= 0 ? "#EA4C89" : "#fff"}
         isLoading={isLoading}
       />
     </View>
