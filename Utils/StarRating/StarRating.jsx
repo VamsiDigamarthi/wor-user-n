@@ -11,17 +11,17 @@ const StarRating = ({ rating }) => {
       {Array(fullStars)
         .fill()
         .map((_, i) => (
-          <FontAwesome key={i} name="star" color="#e02e88" size={20} />
+          <FontAwesome key={i} name="star" color="#EA4C89" size={20} />
         ))}
 
       {halfStar && (
-        <FontAwesome name="star-half-full" size={20} color="#e02e88" />
+        <FontAwesome name="star-half-full" size={20} color="#EA4C89" />
       )}
 
       {Array(emptyStars)
         .fill()
         .map((_, i) => (
-          <FontAwesome key={i} name="star-o" size={20} color="#e02e88" />
+          <FontAwesome key={i} name="star-o" size={20} color="#EA4C89" />
         ))}
     </View>
   );

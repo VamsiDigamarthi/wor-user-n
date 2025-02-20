@@ -11,7 +11,7 @@ const ProfileCard = () => {
         <Image style={styles.image} source={imageSource} />
         <View style={styles.editCard}>
           <Pressable onPress={pickImage}>
-            <FontAwesome name="edit" size={25} color="#e02e88" />
+            <FontAwesome name="edit" size={25} color="#EA4C89" />
           </Pressable>
         </View>
       </View>

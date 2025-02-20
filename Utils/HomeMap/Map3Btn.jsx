@@ -37,7 +37,7 @@ const Map3Btns = ({ handleZoomToggle, handleOpenSafetyModal, height }) => {
           onPress={handleOpenSafetyModal}
           style={styles.zoomButton}
         >
-          <AntDesign name="Safety" size={20} color="#e02e88" />
+          <AntDesign name="Safety" size={20} color="#EA4C89" />
           
         </TouchableOpacity>
       </View> */}

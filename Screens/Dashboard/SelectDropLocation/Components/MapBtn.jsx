@@ -6,7 +6,7 @@ const MapBtn = ({ onNavigateToMapPreviewScreen }) => {
   return (
     <View style={styles.mapCard}>
       <Pressable style={styles.innerMap} onPress={onNavigateToMapPreviewScreen}>
-        <EvilIcons size={25} name="location" color="#e02e88" />
+        <EvilIcons size={25} name="location" color="#EA4C89" />
         <Text style={styles.text}>Select on Map</Text>
       </Pressable>
     </View>
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 17,
-    color: "#e02e88",
+    color: "#EA4C89",
     fontWeight: "600",
   },
 });

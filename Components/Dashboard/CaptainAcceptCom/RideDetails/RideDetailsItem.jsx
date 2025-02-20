@@ -15,7 +15,7 @@ const RideDetailsItem = ({ orderDetails, travellingTimeAndDistnace }) => {
         <View style={styles.iconsCard}>
           <Ionicons name="location-sharp" size={25} color="green" />
           <View style={styles.line} />
-          <FontAwesome name="location-arrow" size={25} color="#e02e88" />
+          <FontAwesome name="location-arrow" size={25} color="#EA4C89" />
         </View>
 
         <View style={styles.contentCard}>

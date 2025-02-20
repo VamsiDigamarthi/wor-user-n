@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   text: {
-    color: "#e02e88",
+    color: "#EA4C89",
     fontWeight: "600",
     fontSize: 15,
   },
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   checked: {
-    backgroundColor: "#e02e88",
+    backgroundColor: "#EA4C89",
   },
   checkedMark: {
     width: 12,

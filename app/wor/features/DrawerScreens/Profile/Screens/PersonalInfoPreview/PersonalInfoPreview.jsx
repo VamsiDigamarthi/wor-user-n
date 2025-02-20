@@ -106,7 +106,7 @@ const PersonalInfoPreview = () => {
             style={infoModalStyles.aadharModalStyles}
             insideCardStyle={infoModalStyles.insideCardStyle}
             closebtn={false}
-              closeModalFun={() => openModalToEdit("name")}
+            closeModalFun={() => openModalToEdit("name")}
           >
             <View style={styles.btContainer}>
               {current == "name" && (
@@ -158,8 +158,8 @@ const PersonalInfoPreview = () => {
                 <CustomBtn
                   width="50%"
                   title="update"
-                  borderColor={"#e02e88"}
-                  btnColor={"#e02e88"}
+                  borderColor={"#EA4C89"}
+                  btnColor={"#EA4C89"}
                   borderWidth={1}
                   onPress={updateData}
                 />
@@ -264,6 +264,6 @@ const styles = StyleSheet.create({
   icon: {
     height: 20,
     width: 20,
-    resizeMode:"contain"
+    resizeMode: "contain",
   },
 });

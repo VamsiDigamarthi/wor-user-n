@@ -45,7 +45,7 @@ const PriceDetailsModal = ({
               </Text>
               <Text style={{ fontSize: 14, color: "gray" }}>Including Tax</Text>
             </View>
-            <Text style={{ fontSize: 18, fontWeight: "600", color: "#e02e88" }}>
+            <Text style={{ fontSize: 18, fontWeight: "600", color: "#EA4C89" }}>
               ₹{totalPrice}
             </Text>
           </View>

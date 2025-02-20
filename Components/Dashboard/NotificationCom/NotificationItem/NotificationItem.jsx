@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     height: 10,
     borderRadius: 5,
     marginTop: 5,
-    backgroundColor: "#e02e88",
+    backgroundColor: "#EA4C89",
   },
   notificationCard: {
     width: "92%",

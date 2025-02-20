@@ -20,7 +20,7 @@ import { useNavigation } from "@react-navigation/native";
 import { setIsBeforeBook } from "../../ridebooking/sharedLogics/rideDetailsSlice";
 
 const RideHistory = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const { token } = useSelector((state) => state.token);
   const dispatch = useDispatch();
 
@@ -29,13 +29,11 @@ const RideHistory = () => {
   useEffect(() => {
     dispatch(rideHistoryAsyc({ token }));
   }, []);
-  
-  
-  
-  const dispatchAndNavigate = () =>{
+
+  const dispatchAndNavigate = () => {
     dispatch(setIsBeforeBook(true));
-    navigation.navigate("SelectDropLocation" , { isMic: false })
-  }
+    navigation.navigate("SelectDropLocation", { isMic: false });
+  };
 
   return (
     <AppBarLayout title="Ride History" isPositionAppbar>
@@ -88,7 +86,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     paddingTop: 90,
     backgroundColor: "#f3f2f7",
-    zIndex:-1
+    zIndex: -1,
   },
   itemSeparator: {
     height: 10,
@@ -107,7 +105,7 @@ const styles = StyleSheet.create({
   rideStart: {
     width: 200,
     height: 50,
-    backgroundColor: "#e02e88",
+    backgroundColor: "#EA4C89",
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
@@ -115,6 +113,6 @@ const styles = StyleSheet.create({
   start: {
     fontSize: 18,
     fontWeight: "600",
-    color:"#fff"
+    color: "#fff",
   },
 });

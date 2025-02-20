@@ -49,11 +49,10 @@ const DropLocation = ({
           onPress={handleNavigate.bind(this, true)}
           style={[styles.miceIconcard]}
         >
-          <FontAwesome size={22} color="#e02e88" name="microphone" />
+          <FontAwesome size={22} color="#EA4C89" name="microphone" />
         </Pressable>
       </View>
       <View style={[styles.innerCard]}>
-
         <DropLocationItem
           mainPlace={nearByRandomItems?.[0]?.name}
           subPlace={nearByRandomItems?.[0]?.vicinity}
@@ -87,7 +86,6 @@ const DropLocation = ({
           iconType={workLocation ? "MaterialIcons" : "Ionicons"}
           iconName={workLocation ? "work" : "location-sharp"}
         />
-
       </View>
     </View>
   );

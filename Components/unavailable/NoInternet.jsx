@@ -18,7 +18,7 @@ export default function NoInternet({ onclick }) {
       <CustomBtn
         onPress={onclick}
         title="Try Again"
-        btnBg="#e02e88"
+        btnBg="#EA4C89"
         btnColor="white"
       />
       <StatusBar backgroundColor="black" />
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   mainText: {
     fontWeight: "bold",
     fontSize: 50,
-    color: "#e02e88", // Retained original color
+    color: "#EA4C89", // Retained original color
     marginBottom: 10,
   },
   subText: {

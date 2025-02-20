@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 const HelpSearchCard = () => {
   return (
     <View style={styles.container}>
-      <Ionicons name="search" size={25} color="#E02E88" />
+      <Ionicons name="search" size={25} color="#EA4C89" />
       <TextInput style={styles.inputCard} placeholder="Search Help Topics" />
     </View>
   );
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     // width: "100%",
     borderRadius: 10,
     // borderWidth: 1,
-    borderColor: "#e02e88",
+    borderColor: "#EA4C89",
     height: 50,
     justifyContent: "space-between",
     alignItems: "center",

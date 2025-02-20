@@ -12,7 +12,7 @@ const SelectOnMap = () => {
   return (
     <View style={styles.mapCard}>
       <Pressable style={styles.innerMap} onPress={onNavigateToMapPreviewScreen}>
-        <LocationIcon size={25} color="#e02e88" />
+        <LocationIcon size={25} color="#EA4C89" />
         <Text style={styles.text}>Select on Map</Text>
       </Pressable>
     </View>
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 17,
-    color: "#e02e88",
+    color: "#EA4C89",
     fontWeight: "600",
   },
 });

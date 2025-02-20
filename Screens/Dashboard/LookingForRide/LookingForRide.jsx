@@ -65,7 +65,7 @@ const LookingForRide = () => {
           <View>
             {futureTime ? (
               <View style={styles.loadingContainer}>
-                <Chase size={60} color="#e02e88" />
+                <Chase size={60} color="#EA4C89" />
               </View>
             ) : (
               <ProgressBar progressWidth={progressWidth} />
@@ -81,7 +81,7 @@ const LookingForRide = () => {
                     showCancelWithReOrderBtn ? "Cancel Ride" : "Re-Place Ride"
                   }
                   btnBg="#F7F7F7"
-                  btnColor="#e02e88"
+                  btnColor="#EA4C89"
                   borderRadius={10}
                   width="100%"
                   onPress={
@@ -142,15 +142,15 @@ const CancelRideModalScreen = ({
       onPress={onConfirmCancelRide}
       title="Cancel my ride"
       btnColor="#fff"
-      btnBg="#e02e88"
+      btnBg="#EA4C89"
     />
     <CustomBtn
       onPress={onOpenCancelOrderInfoHandle}
       title="Keep Searching"
-      btnColor="#e02e88"
+      btnColor="#EA4C89"
       btnBg="#fff"
       borderWidth={1}
-      borderColor="#e02e88"
+      borderColor="#EA4C89"
     />
   </View>
 );

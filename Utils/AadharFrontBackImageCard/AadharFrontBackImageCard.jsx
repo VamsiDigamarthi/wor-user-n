@@ -47,8 +47,8 @@ const AadharFrontBackImageCard = ({ otpVerified, isPriceScreen }) => {
       )}
       <CustomBtn
         title="continue"
-        btnBg={frontImage && backImage ? "#e02e88" : "#fff"}
-        btnColor={frontImage && backImage ? "#fff" : "#e02e88"}
+        btnBg={frontImage && backImage ? "#EA4C89" : "#fff"}
+        btnColor={frontImage && backImage ? "#fff" : "#EA4C89"}
         onPress={handleSubmit}
         isLoding={isLoading}
       />
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     elevation: 3, // For Android shadow
   },
   frontBox: {
-    backgroundColor: "#E02E88", // Pink background for front
+    backgroundColor: "#EA4C89", // Pink background for front
   },
   backBox: {
     backgroundColor: "#A9A9A9", // Gray background for back

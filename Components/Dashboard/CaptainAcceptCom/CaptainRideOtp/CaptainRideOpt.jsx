@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f5f5f5",
   },
   otp: {
-    color: "#e02e88",
+    color: "#EA4C89",
     fontWeight: "bold",
   },
 });

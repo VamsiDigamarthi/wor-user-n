@@ -2,6 +2,7 @@ import { Animated, Pressable, StyleSheet, Text, View } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { useState } from "react";
 import EmergencyContactModal from "../Modals/EmergencyContactModal";
+import { fonts } from "../../../../fonts/Fonts";
 
 const TrackMe = ({ trackMeTranslateY }) => {
   const [openContactModal, setOpenContactModal] = useState(false);
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
   trackMeText: {
     color: "#000",
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: fonts.robotoBold,
     color: "#fff",
   },
   rowCard: {
@@ -61,6 +62,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 20,
-    backgroundColor: "#e02e88",
+    backgroundColor: "#EA4C89",
   },
 });

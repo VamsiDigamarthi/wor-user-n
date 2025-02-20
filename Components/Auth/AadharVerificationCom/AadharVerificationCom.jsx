@@ -85,7 +85,7 @@ const AadharVerificationCom = ({ isPriceScreen }) => {
             <CustomBtn
               title="Verify OTP"
               btnBg="#fff"
-              btnColor="#E02E88"
+              btnColor="#EA4C89"
               onPress={onVerifyAddharOtp}
             /> */}
             <OTPFiled
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   },
   checkingOtpHighlight: {
     fontWeight: "bold",
-    color: "#E02E88",
+    color: "#EA4C89",
   },
   uploadAddarText: {
     fontSize: 14,
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
   secondCard: {
     width: "30%",
     height: "100%",
-    backgroundColor: "#E02E88",
+    backgroundColor: "#EA4C89",
     justifyContent: "center",
     alignItems: "center",
   },

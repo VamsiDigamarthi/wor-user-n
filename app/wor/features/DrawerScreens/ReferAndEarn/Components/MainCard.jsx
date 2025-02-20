@@ -26,7 +26,7 @@ export default function MainCard() {
 
   return (
     <LinearGradient
-      colors={["#e02e88", "#fff5f9"]} // Gradient colors
+      colors={["#EA4C89", "#fff5f9"]} // Gradient colors
       start={{ x: 0, y: 0 }} // Gradient start point (top-left)
       end={{ x: 0, y: 1 }} // Gradient end point (bottom-right)
       style={styles.card} // Apply styles
@@ -36,7 +36,7 @@ export default function MainCard() {
         <Text style={styles.mainText}>25% off for them</Text>
 
         <TouchableOpacity onPress={copyToClipboard} style={styles.copyBtn}>
-          <Text style={{ fontFamily:fonts.robotoSemiBold }}>GOWOR</Text>
+          <Text style={{ fontFamily: fonts.robotoSemiBold }}>GOWOR</Text>
           <MaterialCommunityIcons name="content-copy" size={24} color="#000" />
         </TouchableOpacity>
       </View>
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 14,
     // fontWeight: "bold",
-    fontFamily:fonts.robotoSemiBold
+    fontFamily: fonts.robotoSemiBold,
   },
 
   copyBtn: {
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: 120,
     justifyContent: "space-between",
-    alignItems:"center"
+    alignItems: "center",
   },
 
   image: {

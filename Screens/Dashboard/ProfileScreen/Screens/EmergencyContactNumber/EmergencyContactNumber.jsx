@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
   mobileText: { color: "#757575", fontWeight: "bold", fontSize: 14 },
   addContactContainer: { flexDirection: "row", alignItems: "center", gap: 10 },
   addContactText: { fontSize: 14, fontWeight: "bold", color: "#757575" },
-  separator: { backgroundColor: "#e02e88", height: 2, marginTop: 2 },
+  separator: { backgroundColor: "#EA4C89", height: 2, marginTop: 2 },
   topCard: { flexDirection: "row", padding: 12, marginTop: 10, height: 200 },
   topImg: { height: 120, width: 150, resizeMode: "contain" },
   sectionTitle: { fontWeight: "bold", fontSize: 14 },

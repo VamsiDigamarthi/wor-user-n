@@ -17,9 +17,12 @@ const androidSnapPoints = [0.4, 0.6].map((p) => screenHeight * p);
 const iosSnapPoints = [0.4, 0.6].map((p) => screenHeight * p);
 
 const CaptainAcceptRideScreen = () => {
-  
-  const { mapHeight, snapPoints, handleSheetChange, trackMeTranslateY, } =
-    useBottomSheetConfig(androidSnapPoints, iosSnapPoints,kownBotSheetChangeUpOrDown);
+  const { mapHeight, snapPoints, handleSheetChange, trackMeTranslateY } =
+    useBottomSheetConfig(
+      androidSnapPoints,
+      iosSnapPoints,
+      kownBotSheetChangeUpOrDown
+    );
 
   const {
     otpVerified,
@@ -28,7 +31,7 @@ const CaptainAcceptRideScreen = () => {
     disFromCaptainLocToPick,
     disFromPickToDrop,
     liveCoordinates,
-    kownBotSheetChangeUpOrDown
+    kownBotSheetChangeUpOrDown,
   } = useCaptainAcceptRideScreenHook();
 
   let captainCoordinates = {

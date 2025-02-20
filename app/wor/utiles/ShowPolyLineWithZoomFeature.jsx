@@ -95,8 +95,14 @@ const ShowPollyLine = ({
       } else {
         // Zoom out to fit the entire route
         const coordinates = [
-          { latitude: adjustedOrigin.latitude, longitude: adjustedOrigin.longitude },
-          { latitude: adjustedDestination.latitude, longitude: adjustedDestination.longitude },
+          {
+            latitude: adjustedOrigin.latitude,
+            longitude: adjustedOrigin.longitude,
+          },
+          {
+            latitude: adjustedDestination.latitude,
+            longitude: adjustedDestination.longitude,
+          },
         ];
         mapRef.current.fitToCoordinates(coordinates, {
           edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
@@ -125,7 +131,7 @@ const ShowPollyLine = ({
       >
         {/* Markers */}
         <Marker coordinate={adjustedOrigin} title="Start Point">
-          <FontAwesome name="map-pin" size={20} color="#e02e88" />
+          <FontAwesome name="map-pin" size={20} color="#EA4C89" />
         </Marker>
         <Marker coordinate={adjustedDestination} title="End Point">
           <FontAwesome name="map-pin" size={20} color="#4caf50" />
@@ -145,7 +151,7 @@ const ShowPollyLine = ({
         {/* Polyline */}
         <Polyline
           coordinates={routeCoordinates}
-          strokeColor="#e02e88"
+          strokeColor="#EA4C89"
           strokeWidth={2}
         />
       </MapView>

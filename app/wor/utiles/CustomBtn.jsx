@@ -23,7 +23,7 @@ const CustomBtn = ({
     <View style={[styles.container, { width: width, height: height }]}>
       <Pressable
         android_ripple={{
-          color: "#E02E88", // Set ripple color
+          color: "#EA4C89", // Set ripple color
           borderless: false, // Ensures ripple stays within the bounds of the button
         }}
         style={({ pressed }) => [
@@ -37,7 +37,7 @@ const CustomBtn = ({
         onPress={onPress}
       >
         {isLoding ? (
-          <ActivityIndicator color={isLoding ? "#fff" : "#e02e88"} size={30} />
+          <ActivityIndicator color={isLoding ? "#fff" : "#EA4C89"} size={30} />
         ) : (
           <Text style={[styles.buttonText, { color: btnColor }]}>{title}</Text>
         )}

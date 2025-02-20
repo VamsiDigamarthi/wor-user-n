@@ -33,10 +33,10 @@ const RideDetails = () => {
         <RideDetailAmount orderDetails={orderDetails} />
         <View style={{ width: "100%" }}>
           <CustomBtn
-            borderColor="#e02e88"
+            borderColor="#EA4C89"
             borderWidth={1}
             btnBg="#fff"
-            btnColor="#e02e88"
+            btnColor="#EA4C89"
             title="Cancel Ride"
             onPress={onRideComplete}
           />

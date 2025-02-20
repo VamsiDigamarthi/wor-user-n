@@ -52,7 +52,7 @@ const BottomLayout = ({
         <Text style={styles.subText}>{subTitle}</Text>
         {displayChangeNumber && (
           <Pressable onPress={onHandleChangeLogin} style={styles.changeNumber}>
-            <Text style={{ fontSize: 11, color: "#E02e88" }}>
+            <Text style={{ fontSize: 11, color: "#EA4C89" }}>
               Change Number
             </Text>
           </Pressable>
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   text: {
     width: 120,
     height: 4,
-    backgroundColor: "#E02E88",
+    backgroundColor: "#EA4C89",
     borderRadius: 100,
   },
   sibTextCard: {

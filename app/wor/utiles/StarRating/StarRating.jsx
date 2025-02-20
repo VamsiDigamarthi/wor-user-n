@@ -4,13 +4,12 @@ import { useState } from "react";
 
 const StarRating = ({
   initialRating = 0,
-  color = "#e02e88",
+  color = "#EA4C89",
   width = "100%",
   iconSize = 20,
   gap = 2,
   onRatingChange, // callback to pass the new rating
   isFunCallable = true,
-
 }) => {
   const [rating, setRating] = useState(initialRating);
 
@@ -41,7 +40,6 @@ const StarRating = ({
               onPress={
                 isFunCallable ? (event) => handleStarPress(i, event) : null
               } // Pass index and event to calculate rating
-
             >
               {isFullStar ? (
                 <FontAwesome name="star" color={color} size={iconSize} />

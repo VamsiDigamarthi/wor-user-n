@@ -49,15 +49,15 @@ const TabBtns = ({
   <View style={styles.tabBtns}>
     <CustomBtn
       title="Rides"
-      btnBg={!isFavoriteOrParcelAddress ? "#E02E88" : "#fff"}
-      btnColor={!isFavoriteOrParcelAddress ? "#fff" : "#E02E88"}
+      btnBg={!isFavoriteOrParcelAddress ? "#EA4C89" : "#fff"}
+      btnColor={!isFavoriteOrParcelAddress ? "#fff" : "#EA4C89"}
       width="40%"
       onPress={onChangeFavoriteToParcelAddress}
     />
     <CustomBtn
       title="Parcel Address"
-      btnBg={isFavoriteOrParcelAddress ? "#E02E88" : "#fff"}
-      btnColor={isFavoriteOrParcelAddress ? "#fff" : "#E02E88"}
+      btnBg={isFavoriteOrParcelAddress ? "#EA4C89" : "#fff"}
+      btnColor={isFavoriteOrParcelAddress ? "#fff" : "#EA4C89"}
       width="40%"
       onPress={onChangeToParcelAddress}
     />

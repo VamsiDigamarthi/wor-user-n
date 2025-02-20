@@ -94,7 +94,7 @@ const Preference = ({ navigation }) => {
             onPress={handleOpenSafetySheet}
           >
             <Text>Delete Account</Text>
-            <Entypo name="chevron-right" size={24} color="#e02e88" />
+            <Entypo name="chevron-right" size={24} color="#EA4C89" />
           </TouchableOpacity>
         </ScrollView>
 
@@ -170,14 +170,14 @@ const styles = StyleSheet.create({
     height: 30,
     borderWidth: 2,
     borderRadius: 15,
-    borderColor: "#e02e88",
+    borderColor: "#EA4C89",
     justifyContent: "center",
     alignItems: "center",
   },
   radioSelected: {
     width: 15,
     height: 15,
-    backgroundColor: "#e02e88",
+    backgroundColor: "#EA4C89",
     borderRadius: 7.5,
   },
 });

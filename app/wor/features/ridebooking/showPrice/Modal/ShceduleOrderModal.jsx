@@ -55,12 +55,11 @@ const ShceduleOrderModal = ({ shceduleOrderModal, timerSetModalOpen }) => {
               // modal
               // open={timerSetModalOpen}
               date={date}
-              
               theme="light"
               title="Select Future Time"
               cancelText="Cancel"
               confirmText="Confirm"
-              // textColor="#EA4C89" 
+              // textColor="#EA4C89"
               minimumDate={minimumDate} // Dynamically set to the next valid time
               maximumDate={maximumDate}
               minuteInterval={15} // Enforce 15-minute intervals
@@ -76,7 +75,7 @@ const ShceduleOrderModal = ({ shceduleOrderModal, timerSetModalOpen }) => {
           </View>
           <CustomBtn
             title="Confirm Pickup Time"
-            btnBg="#e02e88"
+            btnBg="#EA4C89"
             btnColor="#fff"
             // onPress={onPlaceTheOrder}
             onPress={handleAddedScheduleTime}
@@ -121,7 +120,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "gray",
     lineHeight: 20,
-    fontFamily:fonts.robotoRegular
+    fontFamily: fonts.robotoRegular,
   },
   pickUpcard: {
     width: "100%",

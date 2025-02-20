@@ -52,8 +52,8 @@ const AadharOtp = ({
       <CustomBtn
         title="continue"
         onPress={handleSubmitOtp}
-        btnBg={otp[5]?.length <= 0 ? "#f7f7f7" : "#e02e88"}
-        btnColor={otp[5]?.length <= 0 ? "#e02e88" : "#fff"}
+        btnBg={otp[5]?.length <= 0 ? "#f7f7f7" : "#EA4C89"}
+        btnColor={otp[5]?.length <= 0 ? "#EA4C89" : "#fff"}
         isLoading={isLoading}
       />
     </View>

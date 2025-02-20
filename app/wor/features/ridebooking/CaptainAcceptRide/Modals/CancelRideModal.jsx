@@ -30,7 +30,7 @@ const CancelRideModal = ({
   const handleCancelBtn = async () => {
     if (!selectedValue) {
       setErrMsg("Please Select Reason");
-      return
+      return;
     }
 
     const data = await cancelRide({
@@ -40,9 +40,9 @@ const CancelRideModal = ({
     });
 
     if (data) {
-      if(isLookingForRideScreen){
-        navigation.goBack()
-        return
+      if (isLookingForRideScreen) {
+        navigation.goBack();
+        return;
       }
       navigation.reset({
         index: 0,
@@ -78,11 +78,7 @@ const CancelRideModal = ({
           ))}
         </View>
 
-        {errMsg && (
-          <Text style={styles.err}>
-            {errMsg}
-          </Text>
-        )}
+        {errMsg && <Text style={styles.err}>{errMsg}</Text>}
         <View style={{ paddingHorizontal: 20, paddingVertical: 15, gap: 10 }}>
           <CustomBtn
             title="Okay, Cancel"
@@ -92,7 +88,7 @@ const CancelRideModal = ({
           />
           <CustomBtn
             title="Keep Waiting"
-            btnBg="#e02e88"
+            btnBg="#EA4C89"
             btnColor="#fff"
             onPress={closeCancelModal}
           />
@@ -118,12 +114,17 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 20,
-    fontFamily:fonts.robotoSemiBold
+    fontFamily: fonts.robotoSemiBold,
   },
   subHeading: {
     fontSize: 14,
     color: "gray",
-    fontFamily:fonts.robotoRegular
+    fontFamily: fonts.robotoRegular,
   },
-  err:{ fontSize: 11, fontFamily:fonts.robotoMedium, color: "red", textAlign:"center" }
+  err: {
+    fontSize: 11,
+    fontFamily: fonts.robotoMedium,
+    color: "red",
+    textAlign: "center",
+  },
 });

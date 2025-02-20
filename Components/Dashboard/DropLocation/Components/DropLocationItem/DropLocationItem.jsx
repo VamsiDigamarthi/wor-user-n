@@ -1,6 +1,6 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
-
+import { fonts } from "../../../../../app/wor/fonts/Fonts";
 import {
   Ionicons,
   FontAwesome,
@@ -54,7 +54,7 @@ const DropLocationItem = ({
       >
         <View style={styles.first}>
           {/* <FontAwesome name="location-arrow" size={25} color="#fff" /> */}
-          <Icon name={iconName} size={25} color="#e02e88" />
+          <Icon name={iconName} size={25} color="#EA4C89" />
           {/* <Image
             style={styles.firstImage}
             source={require("../../../../../assets/images/locationIcons/pin locator 2.png")}
@@ -75,7 +75,7 @@ const DropLocationItem = ({
                 name="heart"
                 size={23}
                 color="gray"
-                style={{ color: isFavorite ? "#e02e88" : "#808080" }}
+                style={{ color: isFavorite ? "#EA4C89" : "#808080" }}
                 onPress={() =>
                   onAddPlaceToFavoriteHandler(
                     eachPlace,
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     width: 35,
     height: 35,
     borderRadius: 30,
-    // backgroundColor: "#E02E88",
+    // backgroundColor: "#EA4C89",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -134,13 +134,14 @@ const styles = StyleSheet.create({
   },
   locText: {
     fontSize: 13,
-    fontWeight: "600",
+    fontFamily: fonts.robotoSemiBold,
   },
   subLocText: {
     fontSize: 11,
     color: "#666666",
     overflow: "hidden", // Ensure any overflow is hidden
     whiteSpace: "nowrap",
+    fontFamily: fonts.robotoRegular,
   },
   third: {
     position: "absolute",

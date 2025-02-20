@@ -22,9 +22,8 @@ const SelectParcelType = () => {
   const handlePress = (item) => {
     if (item === "Others") {
       setIsOtherOpenTextField(true);
-    }
-    else{
-      setIsOtherOpenTextField(false)
+    } else {
+      setIsOtherOpenTextField(false);
     }
     dispatch(setParcelType(item));
 
@@ -97,7 +96,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    fontFamily:fonts.robotoSemiBold
+    fontFamily: fonts.robotoSemiBold,
   },
   itemsContainer: {
     flexWrap: "wrap",
@@ -112,15 +111,15 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   selectedTypeText: {
-    backgroundColor: "#E02E88",
-    fontFamily:fonts.robotoMedium
+    backgroundColor: "#EA4C89",
+    fontFamily: fonts.robotoMedium,
   },
   selectedTypeTextColor: {
     color: "#fff",
   },
   typeTextText: {
     color: "#000",
-    fontFamily:fonts.robotoRegular
+    fontFamily: fonts.robotoRegular,
   },
   input: {
     width: "100%",
@@ -129,6 +128,6 @@ const styles = StyleSheet.create({
     borderColor: COLORS.borderColor,
     borderRadius: 10,
     paddingHorizontal: 10,
-    fontFamily:fonts.robotoRegular
+    fontFamily: fonts.robotoRegular,
   },
 });

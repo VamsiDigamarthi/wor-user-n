@@ -22,7 +22,7 @@ const RideHistoryFirst = ({ ride }) => {
       {isDisplayRideDetails && (
         <>
           <View style={styles.iconWithLocationCard}>
-            <Ionicons name="locate-outline" size={18} color="#E02E88" />
+            <Ionicons name="locate-outline" size={18} color="#EA4C89" />
             <Text
               numberOfLines={1}
               ellipsizeMode="tail"
@@ -32,7 +32,7 @@ const RideHistoryFirst = ({ ride }) => {
             </Text>
           </View>
           <View style={styles.iconWithLocationCardSeond}>
-            <Ionicons name="lock-closed" size={18} color="#E02E88" />
+            <Ionicons name="lock-closed" size={18} color="#EA4C89" />
             <Text
               numberOfLines={1}
               ellipsizeMode="tail"
@@ -46,9 +46,9 @@ const RideHistoryFirst = ({ ride }) => {
       <View style={styles.iconsCard}>
         <Pressable onPress={toggleRideDetails}>
           {isDisplayRideDetails ? (
-            <AntDesign name="arrowup" size={20} color="#e02e88" />
+            <AntDesign name="arrowup" size={20} color="#EA4C89" />
           ) : (
-            <Ionicons name="arrow-down" size={20} color="#e02e88" />
+            <Ionicons name="arrow-down" size={20} color="#EA4C89" />
           )}
         </Pressable>
       </View>
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     gap: 10,
     alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#e02e88",
+    borderBottomColor: "#EA4C89",
     padding: 10,
   },
   iconWithLocationCardSeond: {

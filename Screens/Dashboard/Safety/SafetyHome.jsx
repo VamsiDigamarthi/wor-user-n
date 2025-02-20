@@ -28,7 +28,7 @@ export default function SafetyHome() {
         >
           <SecondText />
           <SafetyThird />
-          <Text style={{ color: "#e02e88", fontWeight: "600", fontSize: 15 }}>
+          <Text style={{ color: "#EA4C89", fontWeight: "600", fontSize: 15 }}>
             Please note, all these safety features only work in case of an
             online ride through our app. Do not accept offline rides.
           </Text>
@@ -71,7 +71,7 @@ export default function SafetyHome() {
                 <Ionicons
                   name="chatbubbles-outline"
                   size={20}
-                  color="#e02e88"
+                  color="#EA4C89"
                 />
               </View>
               <Text

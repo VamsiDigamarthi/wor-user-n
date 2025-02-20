@@ -72,7 +72,7 @@ const SingleParcelAddres = ({
           justifyContent: "center",
         }}
       >
-        <Icon name={iconName} size={25} color="#e02e88" />
+        <Icon name={iconName} size={25} color="#EA4C89" />
       </View>
       <View style={{ width: "85%" }}>
         <Text style={{ fontSize: 11, color: COLORS.subHeading }}>{title}</Text>

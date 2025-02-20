@@ -41,7 +41,7 @@ const PaymnetItems = ({
         {imageSource ? (
           <Image source={imageSource} style={styles.image} />
         ) : (
-          <Icon name={iconName} size={20} color="#e02e88" />
+          <Icon name={iconName} size={20} color="#EA4C89" />
         )}
         <Text style={{ fontSize: 13, fontWeight: "600" }}>{title}</Text>
       </View>
@@ -49,12 +49,12 @@ const PaymnetItems = ({
         <>
           {isMoney ? (
             <Text
-              style={{ fontSize: 16, color: "#e02e88", fontWeight: "bold" }}
+              style={{ fontSize: 16, color: "#EA4C89", fontWeight: "bold" }}
             >
               ₹78
             </Text>
           ) : (
-            <MaterialIcons name="arrow-forward-ios" color="#e02e88" size={18} />
+            <MaterialIcons name="arrow-forward-ios" color="#EA4C89" size={18} />
           )}
         </>
       ) : (
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   checked: {
-    backgroundColor: "#e02e88",
+    backgroundColor: "#EA4C89",
   },
   checkedMark: {
     width: 12,

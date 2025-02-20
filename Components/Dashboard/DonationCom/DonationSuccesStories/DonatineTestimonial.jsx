@@ -27,7 +27,7 @@ const DonatineTestimonial = () => {
         </View>
       </View>
       <View style={styles.iconTextCard}>
-        <FontAwesome6 name="creative-commons-share" size={20} color="#e02e88" />
+        <FontAwesome6 name="creative-commons-share" size={20} color="#EA4C89" />
         <Text style={styles.iconText}>Verified Purchase</Text>
       </View>
       <Text style={styles.lorem} numberOfLines={4} ellipsizeMode="tail">
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
   iconTextCard: {
     borderWidth: 1,
-    borderColor: "#e02e88",
+    borderColor: "#EA4C89",
     width: "auto",
     padding: 5,
     borderRadius: 5,
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   },
   iconText: {
     fontSize: 14,
-    color: "#e02e88",
+    color: "#EA4C89",
     fontWeight: "600",
   },
   lorem: {

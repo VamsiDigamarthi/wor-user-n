@@ -7,40 +7,35 @@ import { setIsParcScreen } from "../../ridebooking/sharedLogics/rideDetailsSlice
 import { fonts } from "../../../fonts/Fonts";
 
 const ParSendRecDetailsDisplayCard = ({ parcelDetails }) => {
-
-
-  const navigation = useNavigation()
-  const dispatch = useDispatch()
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
   //   console.log(parcelDetails);
   const { isSendOrReceiveParcel } = useSelector(
     (state) => state.allRideDetails
   );
 
-  const handleEditLocation = ()=>{
-        dispatch(setIsParcScreen(true));
-        navigation.navigate("SelectDropLocation", {
-          isMic:false,
-          title:parcelDetails?.name,
-          passParams:true
-        });
-  }
-
+  const handleEditLocation = () => {
+    dispatch(setIsParcScreen(true));
+    navigation.navigate("SelectDropLocation", {
+      isMic: false,
+      title: parcelDetails?.name,
+      passParams: true,
+    });
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.firstCard}>
-        <LocationIcon size={20} color="#e02e88" />
+        <LocationIcon size={20} color="#EA4C89" />
         <Text style={styles.sendRecieveText}>
           Add {isSendOrReceiveParcel === "send" ? "Recevier" : "Sender"} Details
         </Text>
         <View style={styles.favoriteIconcard}>
           {/* <FavoritesIcons size={24} color="grey" /> */}
-          
 
-        <TouchableOpacity onPress={handleEditLocation}>
+          <TouchableOpacity onPress={handleEditLocation}>
             <EditIcons size={21} color="black" />
-        </TouchableOpacity>
-
+          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.secondCard}>
@@ -67,7 +62,7 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "#e02e88",
+    borderColor: "#EA4C89",
     padding: 10,
     backgroundColor: "#fff7fb",
   },
@@ -80,7 +75,7 @@ const styles = StyleSheet.create({
     width: 60,
     flexDirection: "row",
     justifyContent: "flex-end",
-    gap:20,
+    gap: 20,
     alignItems: "center",
   },
   secondCard: {
@@ -90,10 +85,10 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 16,
-    fontFamily:fonts.robotoSemiBold,
+    fontFamily: fonts.robotoSemiBold,
     color: "#000",
   },
-  number:{fontFamily:fonts.robotoSemiBold},
-  sendRecieveText:{ fontSize: 16, fontFamily:fonts.robotoSemiBold, flex: 1 },
-  addressVicinity:{fontFamily:fonts.robotoRegular}
+  number: { fontFamily: fonts.robotoSemiBold },
+  sendRecieveText: { fontSize: 16, fontFamily: fonts.robotoSemiBold, flex: 1 },
+  addressVicinity: { fontFamily: fonts.robotoRegular },
 });

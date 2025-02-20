@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   switchTrackOn: {
-    backgroundColor: "#e02e88",
+    backgroundColor: "#EA4C89",
   },
   switchTrackOff: {
     backgroundColor: "#767577",

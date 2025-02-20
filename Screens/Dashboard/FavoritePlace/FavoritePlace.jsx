@@ -5,6 +5,7 @@ import DropLocationItem from "../../../Components/Dashboard/DropLocation/Compone
 import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/native";
 import CustomeAppbar from "../../../Utils/CustomeAppbar/CustomeAppbar";
+import { fonts } from "../../../app/wor/fonts/Fonts";
 const FavoritePlace = () => {
   const { favoritePlace, onNavigateToDirectPriceScreen } =
     useFavoritePlaceHook();
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
   },
   noFavoriteText: {
     fontSize: 18,
-    fontWeight: "600",
-    color: "#e02e88",
+    fontFamily: fonts.robotoSemiBold,
+    color: "#EA4C89",
   },
 });

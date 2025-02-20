@@ -83,7 +83,7 @@ const Donation = () => {
       <View style={styles.positionCard}>
         <CustomBtn
           title="Donate Now"
-          btnBg="#e02e88"
+          btnBg="#EA4C89"
           btnColor="#fff"
           onPress={() => {
             navigation.navigate("Coins");
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 5,
     borderWidth: 2,
-    borderColor: "#e02e88",
+    borderColor: "#EA4C89",
     borderRadius: 25,
     paddingVertical: 6,
     paddingHorizontal: 15,

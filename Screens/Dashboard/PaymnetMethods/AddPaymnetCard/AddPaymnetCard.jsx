@@ -5,7 +5,7 @@ const AddPaymnetCard = ({ title }) => {
   return (
     <View style={styles.container}>
       <View style={styles.card}>
-        <AntDesign name="plus" size={17} color="#e02e88" />
+        <AntDesign name="plus" size={17} color="#EA4C89" />
       </View>
       <Text style={styles.text}>{title}</Text>
     </View>

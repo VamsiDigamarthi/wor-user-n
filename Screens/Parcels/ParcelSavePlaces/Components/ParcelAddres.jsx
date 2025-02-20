@@ -39,8 +39,8 @@ const ParcelAddres = ({ item, onHandlerClickSaveAddress }) => {
       <CustomBtn
         title="Delete"
         btnBg="#fff"
-        btnColor="#e02e88"
-        borderColor="#e02e88"
+        btnColor="#EA4C89"
+        borderColor="#EA4C89"
         borderWidth={1}
       /> */}
     </View>
@@ -82,7 +82,7 @@ const SingleParcelAddres = ({
           justifyContent: "center",
         }}
       >
-        <Icon name={iconName} size={25} color="#e02e88" />
+        <Icon name={iconName} size={25} color="#EA4C89" />
       </View>
       <View style={{ width: "85%" }}>
         <Text style={{ fontSize: 11, color: COLORS.subHeading }}>{title}</Text>
@@ -109,8 +109,8 @@ const SingleParcelAddres = ({
 
 const BtnCard = () => (
   <View style={styles.btnCard}>
-    <CustomBtn title="Delete" btnBg="#fff" btnColor="#e02e88" width="40%" />
-    <CustomBtn title="Delete" btnBg="#e02e88" btnColor="#fff" width="40%" />
+    <CustomBtn title="Delete" btnBg="#fff" btnColor="#EA4C89" width="40%" />
+    <CustomBtn title="Delete" btnBg="#EA4C89" btnColor="#fff" width="40%" />
   </View>
 );
 

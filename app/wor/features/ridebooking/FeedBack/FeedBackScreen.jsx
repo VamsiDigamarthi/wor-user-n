@@ -101,7 +101,7 @@ const FeedBackScreen = () => {
             title="Submit & Proceed"
             btnBg={
               ratingData?.reviewTest?.length > 0 && ratingData?.rating > 0
-                ? "#e02e88"
+                ? "#EA4C89"
                 : "#fff"
             }
             btnColor={

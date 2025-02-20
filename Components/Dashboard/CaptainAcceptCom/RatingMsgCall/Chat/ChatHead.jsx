@@ -42,7 +42,7 @@ const ChatHead = ({ captainDetails }) => {
           height: 40,
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "#e02e88",
+          backgroundColor: "#EA4C89",
           borderRadius: 20,
           position: "relative",
           overflow: "hidden",

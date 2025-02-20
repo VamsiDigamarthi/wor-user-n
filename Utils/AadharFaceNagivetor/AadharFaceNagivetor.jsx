@@ -44,7 +44,7 @@ const AadharFaceNavigator = ({
             width: textWidth,
             backgroundColor:
               !displayOtpBox && pressBtnOrText
-                ? "#e02e88" // When displayOtpBox is false and pressBtnOrText is true
+                ? "#EA4C89" // When displayOtpBox is false and pressBtnOrText is true
                 : displayOtpBox && pressBtnOrText
                 ? "#ede6e6" // When displayOtpBox is true and pressBtnOrText is true
                 : displayOtpBox && pressBtnOrText && "#e691bb", // When displayOtpBox is true and pressBtnOrText is false
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   secondCard: {
     width: "20%",
     height: "100%",
-    backgroundColor: "#E02E88",
+    backgroundColor: "#EA4C89",
     justifyContent: "center",
     alignItems: "center",
   },

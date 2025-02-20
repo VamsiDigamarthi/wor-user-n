@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     // shadowColor: "red",
   },
   pinkText: {
-    color: "#e02e88",
+    color: "#EA4C89",
     fontWeight: "600",
     fontSize: 16,
   },

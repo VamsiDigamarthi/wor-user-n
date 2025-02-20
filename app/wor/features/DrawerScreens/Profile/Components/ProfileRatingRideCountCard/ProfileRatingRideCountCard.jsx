@@ -6,14 +6,12 @@ import star from "../../../../../../../assets/profileicons/star.png";
 import { useSelector } from "react-redux";
 
 const ProfileRatingRideCountCard = () => {
-
   const { profile } = useSelector((state) => state.profileSlice);
-
 
   return (
     <View style={styles.constainer}>
       <View style={styles.singleCard}>
-        <View style={{ flexDirection: "row", gap: 5 , alignItems:"center"}}>
+        <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
           <Text style={styles.text}>{profile?.averageRating}</Text>
           <Image source={star} style={{ height: 20, width: 20 }} />
         </View>
@@ -41,7 +39,7 @@ export default ProfileRatingRideCountCard;
 
 const styles = StyleSheet.create({
   constainer: {
-    borderBottomColor: "#e02e88",
+    borderBottomColor: "#EA4C89",
     // borderBottomWidth: 1,
     // paddingVertical: 5,
     // flexDirection: "row",
@@ -55,7 +53,7 @@ const styles = StyleSheet.create({
     // flexDirection: "row",
     // justifyContent: "center",
     // alignItems: "center",
-    // borderRightColor: "#e02e88",
+    // borderRightColor: "#EA4C89",
     // borderRightWidth: 1,
     gap: 5,
   },

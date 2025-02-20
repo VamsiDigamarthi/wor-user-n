@@ -48,7 +48,7 @@ const ParSendReceiveCard = () => {
   // Interpolate background and text color based on animation values
   const sendBackgroundColor = sendBackground.interpolate({
     inputRange: [0, 1],
-    outputRange: ["#e02e88", "#f7f7f7"],
+    outputRange: ["#EA4C89", "#f7f7f7"],
   });
   const sendTextColor = sendBackground.interpolate({
     inputRange: [0, 1],
@@ -57,7 +57,7 @@ const ParSendReceiveCard = () => {
 
   const receiveBackgroundColor = receiveBackground.interpolate({
     inputRange: [0, 1],
-    outputRange: ["#e02e88", "#f7f7f7"],
+    outputRange: ["#EA4C89", "#f7f7f7"],
   });
   const receiveTextColor = receiveBackground.interpolate({
     inputRange: [0, 1],
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    fontFamily:fonts.robotoSemiBold
+    fontFamily: fonts.robotoSemiBold,
     // fontWeight: "600",
   },
 });

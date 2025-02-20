@@ -55,7 +55,7 @@ const ShowPickDropItem = ({
 
   return (
     <View style={[styles.constainer, border]}>
-      <Topicons name={icons} size={25} color="#E02E88" />
+      <Topicons name={icons} size={25} color="#EA4C89" />
       {isInputShow ? (
         <TextInput
           placeholder="Enter Destination"
@@ -77,7 +77,7 @@ const ShowPickDropItem = ({
             onPress={onTimeModalOpenCloseHandler}
             style={{ flexDirection: "row", gap: 5, alignItems: "center" }}
           >
-            <Ionicons name="time-outline" size={18} color="#E02E88" />
+            <Ionicons name="time-outline" size={18} color="#EA4C89" />
             <Text style={styles.timeText}>Time</Text>
           </Pressable>
         </View>
@@ -85,7 +85,7 @@ const ShowPickDropItem = ({
       {showRightIcon && (
         <View style={styles.favMicCard}>
           <Pressable onPress={iconsName === "microphone" ? onMiceOpen : null}>
-            <Icons name={iconsName} color="#e02e88" size={25} />
+            <Icons name={iconsName} color="#EA4C89" size={25} />
           </Pressable>
         </View>
       )}

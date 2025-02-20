@@ -18,7 +18,7 @@ const NewAadharOtpCard = ({
   aadharVerified,
   otpLoader,
   onPress,
-  placeholder
+  placeholder,
 }) => {
   return (
     <View style={styles.mainCard}>
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   secondCard: {
     width: "30%",
     height: "100%",
-    backgroundColor: "#E02E88",
+    backgroundColor: "#EA4C89",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     color: COLORS.subHeading,
   },
   resendOTPText: {
-    color: "#e02e88",
+    color: "#EA4C89",
     fontSize: 11,
   },
 });

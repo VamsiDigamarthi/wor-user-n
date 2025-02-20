@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
   pinkBar: {
     height: "100%",
-    backgroundColor: "#E02E88", // Pink progress bar
+    backgroundColor: "#EA4C89", // Pink progress bar
   },
 });
 

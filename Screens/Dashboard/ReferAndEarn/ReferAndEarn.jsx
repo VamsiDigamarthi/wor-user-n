@@ -19,14 +19,14 @@ const ReferAndEarn = () => {
           btnColor="#fff"
           title="Find Friends to Refer"
           borderWidth={1}
-          btnBg="#E02e88"
-          borderColor="#e02e88"
+          btnBg="#EA4C89"
+          borderColor="#EA4C89"
         />
         <CustomBtn
         title="Refer Now"
         borderWidth={1}
           btnBg="#fff"
-          borderColor="#e02e88"
+          borderColor="#EA4C89"
         />
       </View> */}
       </View>

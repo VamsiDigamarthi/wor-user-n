@@ -17,7 +17,7 @@ const RatingSliderCard = ({ title, subtitle, icon }) => {
           backgroundColor: "#f5f5f5",
         }}
       >
-        <Entypo name={icon} color="#e02e88" size={20} />
+        <Entypo name={icon} color="#EA4C89" size={20} />
       </View>
 
       <View style={{ flex: 1 }}>
