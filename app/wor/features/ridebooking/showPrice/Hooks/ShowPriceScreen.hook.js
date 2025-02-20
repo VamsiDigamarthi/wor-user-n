@@ -15,6 +15,8 @@ export const useShowPriceScreenHook = () => {
   const navigation = useNavigation();
   const { profile } = useSelector((state) => state.profileSlice);
 
+  const { priceDetails } = useSelector((state) => state.priceDetails); // this is complete price details from admin panel
+
   const { location } = useSelector((state) => state.location);
   const { dropDetails, selectedVehicleType, isParcScreen, time } = useSelector(
     (state) => state.allRideDetails
@@ -25,11 +27,88 @@ export const useShowPriceScreenHook = () => {
   const [storedSelectedVehicle, setStoredSelectedVehicle] = useState(null);
   const [knowMoveDownOrUp, setKnowMoveDonwOrUp] = useState("moved up");
 
-  const [scootyData, setScootyData] = useState(null);
+  const [vehicleInfoWithDistanceDura, setVehicleInfoWithDistanceDura] =
+    useState(null);
 
-  const [carData, setCarData] = useState(null);
+  // shcedule order state
+  const [shceduleOrderModal, setShceduleOrderModal] = useState(false);
+  const timerSetModalOpen = () => {
+    setShceduleOrderModal(!shceduleOrderModal);
+  };
 
-  const [autoData, setAutoData] = useState(null);
+  const handlePriceCalculation = () => {
+    if (!location || !dropDetails?.location) return;
+    const distance = haversineDistance(location, dropDetails.location);
+    const calculatedPriceDetails = calculatePriceDetails(Math.ceil(distance));
+    let price = calculatedPriceDetails[selectedVehicleType];
+    dispatch(setPrice(price));
+    dispatch(setPriceDetails(calculatedPriceDetails));
+    let paymentMethod = price >= profile?.walletBalance ? "cash" : "wallet";
+    dispatch(setPaymentMethod(paymentMethod));
+  };
+
+  useEffect(() => {
+    handlePriceCalculation();
+  }, [location, dropDetails]);
+
+  const onNavigateConfirmLocationScreen = () => {
+    navigation.navigate("ChangeLoc100mViaMap");
+  };
+
+  const kownBotSheetChangeUpOrDown = (changedValue) => {
+    setKnowMoveDonwOrUp(changedValue);
+  };
+
+  // calculate price details
+
+  useEffect(() => {
+    calcPriceDetails();
+  }, [location, dropDetails]);
+
+  useEffect(() => {
+    const filteredVehicles = isParcScreen
+      ? vehicleInfoWithDistanceDura?.filter(
+          (vehicle) => vehicle.vehicleType === "Scooty"
+        )
+      : time
+      ? vehicleInfoWithDistanceDura?.filter(
+          (vehicle) => vehicle.vehicleType === "Car"
+        )
+      : vehicleInfoWithDistanceDura;
+
+    setFilteredVehicles(filteredVehicles);
+  }, [isParcScreen, time, vehicleInfoWithDistanceDura]);
+
+  useEffect(() => {
+    const filterVichle = vehicleInfoWithDistanceDura?.filter(
+      (vehicle) =>
+        vehicle.vehicleType?.toLowerCase() ===
+        selectedVehicleType?.toLowerCase()
+    );
+    setStoredSelectedVehicle(filterVichle);
+  }, [vehicleInfoWithDistanceDura, selectedVehicleType]);
+
+  const calcPriceDetails = async () => {
+    try {
+      const results = await Promise.all(
+        vehicles.map(async (vehicle) => {
+          const result = await calDisFromPickToDrop(vehicle.vehicleType);
+
+          const newPrice = handleCalculatePrices(result);
+
+          return {
+            ...vehicle,
+            distance: result?.distance || "N/A",
+            duration: result?.duration || "N/A",
+          };
+        })
+      );
+
+      setVehicleInfoWithDistanceDura(results);
+    } catch (error) {
+      console.error("Error fetching travel details:", error);
+    }
+  };
 
   const calDisFromPickToDrop = async (vehicleType) => {
     try {
@@ -43,11 +122,9 @@ export const useShowPriceScreenHook = () => {
           vehicleType
         );
 
-        // console.log(data?.distance, data?.durationInMinutes, vehicleType);
-
         const newData = {
-          distance: data?.distance?.toString(),
-          duration: data?.durationInMinutes?.toString(),
+          distance: data?.distance,
+          duration: data?.durationInMinutes,
         };
 
         return newData;
@@ -61,82 +138,32 @@ export const useShowPriceScreenHook = () => {
     }
   };
 
-  async function getAll() {
-    let scooty = await calDisFromPickToDrop("scooty");
-    setScootyData(scooty);
-    let car = await calDisFromPickToDrop("car");
-    setCarData(car);
+  const handleCalculatePrices = (result) => {
+    // distance = 0.4 km this is formate
+    const checkDistance = result?.distance?.split(" ");
+    const duration = result?.duration;
 
-    let auto = await calDisFromPickToDrop("auto");
-    setAutoData(auto);
-  }
+    let price;
+    if (checkDistance <= 2) {
+      price = 24 + +priceDetails?.baseFare - 5;
+    } else {
+      if (checkDistance > 2 && checkDistance <= 10) {
+        if (checkDistance <= 5) {
+          price = +checkDistance * 7.2 + +priceDetails?.baseFare - 5;
+        } else {
+          price = +checkDistance * 7.2 + +priceDetails?.baseFare;
+        }
+      } else {
+        price = +checkDistance * 8.2 + +priceDetails?.baseFare;
+      }
+    }
 
-  useEffect(() => {
-    getAll();
-  }, [selectedVehicleType, location]);
+    let timeFace = +duration * 0.5;
 
-  // shcedule order state
-  const [shceduleOrderModal, setShceduleOrderModal] = useState(false);
-  const timerSetModalOpen = () => {
-    setShceduleOrderModal(!shceduleOrderModal);
+    return price + timeFace + +priceDetails?.platformFee;
   };
 
-  const handlePriceCalculation = () => {
-    if (!location || !dropDetails?.location) return;
-
-    const distance = haversineDistance(location, dropDetails.location);
-    const calculatedPriceDetails = calculatePriceDetails(Math.ceil(distance));
-    let price = calculatedPriceDetails[selectedVehicleType];
-
-    // if (profile?.donationActive) {
-    //   Object.keys(calculatedPriceDetails).forEach((vehicleType) => {
-    //     calculatedPriceDetails[vehicleType] =
-    //       +calculatedPriceDetails[vehicleType] + 2;
-    //   });
-    //   price += 2;
-    // }
-
-    dispatch(setPrice(price));
-    dispatch(setPriceDetails(calculatedPriceDetails));
-
-    let paymentMethod = price >= profile?.walletBalance ? "cash" : "wallet";
-
-    dispatch(setPaymentMethod(paymentMethod));
-  };
-
-  useEffect(() => {
-    // console.log("from useefects");
-
-    handlePriceCalculation();
-  }, [location, dropDetails]);
-
-  useEffect(() => {
-    const filteredVehicles = isParcScreen
-      ? vehicles.filter((vehicle) => vehicle.vehicleType === "Scooty")
-      : time
-      ? vehicles.filter((vehicle) => vehicle.vehicleType === "Car")
-      : vehicles;
-
-    setFilteredVehicles(filteredVehicles);
-  }, [isParcScreen, time]);
-
-  // console.log("dropDetails", dropDetails);
-  const onNavigateConfirmLocationScreen = () => {
-    navigation.navigate("ChangeLoc100mViaMap");
-  };
-
-  const kownBotSheetChangeUpOrDown = (changedValue) => {
-    setKnowMoveDonwOrUp(changedValue);
-  };
-
-  useEffect(() => {
-    const filterVichle = vehicles.filter(
-      (vehicle) =>
-        vehicle.vehicleType?.toLowerCase() ===
-        selectedVehicleType?.toLowerCase()
-    );
-    setStoredSelectedVehicle(filterVichle);
-  }, [selectedVehicleType]);
+  console.log("priceDetails", priceDetails);
 
   return {
     location,
@@ -152,16 +179,6 @@ export const useShowPriceScreenHook = () => {
     shceduleOrderModal,
     time,
     profile,
-    scootyData,
-    carData,
-    autoData,
-    setShceduleOrderModal
+    setShceduleOrderModal,
   };
 };
-
-// const vehicles = useMemo(() => {
-//   return VEHICLES.map((vehicle) => ({
-//     ...vehicle,
-//     price: priceDetails?.[vehicle.vehicleType.toLowerCase()],
-//   }));
-// }, [priceDetails]);

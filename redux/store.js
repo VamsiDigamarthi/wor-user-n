@@ -19,6 +19,8 @@ import homeOrWorkPlace from "../app/wor/features/ridebooking/selectdroplocation/
 
 import parcelSavedPlace from "../app/wor/features/Parcels/redux/parcelSavedPlace.slice";
 
+import priceDetails from "../app/wor/features/ridebooking/home/redux/priceDetailSlice";
+
 const store = configureStore({
   reducer: {
     token,
@@ -34,6 +36,7 @@ const store = configureStore({
     homeOrWorkPlace,
     parcelSavedPlace,
     initialModals,
+    priceDetails,
   },
 });
 
