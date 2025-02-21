@@ -8,6 +8,8 @@ import { vehicles } from "../vehicleData";
 import { useNavigation } from "@react-navigation/native";
 import { getTravelDetails } from "../../../../../../Constants/displaylocationmap";
 
+import moment from "moment-timezone";
+
 export const useShowPriceScreenHook = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -90,6 +92,7 @@ export const useShowPriceScreenHook = () => {
             vehicle.vehicleType?.toLowerCase()
           ) {
             dispatch(setPrice(newPrice));
+
             let paymentMethod =
               +newPrice >= +profile?.walletBalance ? "cash" : "wallet";
             dispatch(setPaymentMethod(paymentMethod));
@@ -140,27 +143,56 @@ export const useShowPriceScreenHook = () => {
   };
 
   const handleCalculatePrices = (result, vehicleType) => {
-    // distance = 0.4 km this is formate
-    const checkDistance = result?.distance?.split(" ");
-    const duration = result?.duration;
+    const { distance = "0.0 km", duration = 0 } = result || {};
 
-    let price;
-    if (checkDistance[0] <= 2) {
-      price = 24 + +priceDetails?.baseFare - 5;
-    } else {
-      if (checkDistance[0] > 2 && checkDistance[0] <= 10) {
-        if (checkDistance[0] <= 5) {
-          price = +checkDistance[0] * 7.2 + +priceDetails?.baseFare - 5;
-        } else {
-          price = +checkDistance[0] * 7.2 + +priceDetails?.baseFare;
-        }
-      } else {
-        price = +checkDistance[0] * 8.2 + +priceDetails?.baseFare;
-      }
+    const [distanceValue] = distance.split(" ").map(Number);
+    const baseFare = +priceDetails?.baseFare || 5;
+    // const nightFare = +priceDetails?.nightFare || 0;
+    const platFormPrice = +priceDetails?.platformFee;
+
+    const price = calculateDistanceFare(distanceValue, baseFare);
+    const timeFare = calculateTimeFare(duration);
+
+    const isNightTime = checkNightTime();
+    const finalPrice = isNightTime
+      ? applyNightFare(price, timeFare, platFormPrice, baseFare)
+      : Math.ceil(price + timeFare + baseFare + platFormPrice);
+
+    return finalPrice;
+  };
+
+  const calculateDistanceFare = (distance, baseFare) => {
+    if (distance <= 2) {
+      return 24 + baseFare - 5;
     }
+    if (distance > 2 && distance <= 5) {
+      return distance * 7.2 + baseFare - 5;
+    }
+    if (distance > 5 && distance <= 10) {
+      return distance * 7.2 + baseFare;
+    }
+    return distance * 8.2 + baseFare;
+  };
 
-    let timeFare = +duration * 0.5;
-    return Math.ceil(price + timeFare + +priceDetails?.platformFee);
+  const calculateTimeFare = (duration) => {
+    return +duration * 0.5;
+  };
+
+  const checkNightTime = () => {
+    const currentHour = moment().tz("Asia/Kolkata").hour();
+    return currentHour >= 23 || currentHour < 6;
+  };
+
+  const applyNightFare = (price, timeFare, platFormPrice, baseFare) => {
+    const totalPrice = Math.ceil(price + timeFare + platFormPrice, baseFare);
+    const randomPerc = getRandomNightFare();
+    const increasedAmount = Math.ceil((randomPerc / 100) * totalPrice);
+    return totalPrice + increasedAmount;
+  };
+
+  const getRandomNightFare = () => {
+    const [min, max] = priceDetails.nightFarePercentage || [0, 0];
+    return Math.ceil(Math.random() * (max - min) + min);
   };
 
   return {
