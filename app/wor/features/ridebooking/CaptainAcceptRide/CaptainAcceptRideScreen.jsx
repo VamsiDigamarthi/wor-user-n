@@ -11,6 +11,7 @@ import AddTipNew from "./Components/AddTipNew";
 import CopyBox from "../../../utiles/CopyBox";
 import { useCaptainAcceptRideScreenHook } from "./Hooks/CaptainAcceptRideScreen.hook";
 import TrackMe from "./Components/TrackMe";
+import SocketCancelRide from "./Modals/SocketCancelRide";
 
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.4, 0.6].map((p) => screenHeight * p);
@@ -31,6 +32,8 @@ const CaptainAcceptRideScreen = () => {
     disFromCaptainLocToPick,
     disFromPickToDrop,
     liveCoordinates,
+    cancelOrderByUseSt,
+    setCancelOrderByUseSt,
     kownBotSheetChangeUpOrDown,
   } = useCaptainAcceptRideScreenHook();
 
@@ -45,8 +48,14 @@ const CaptainAcceptRideScreen = () => {
   };
 
   let dropCoordinates = {
-    lat: completeRideDetails?.drop?.coordinates?.[1],
-    lng: completeRideDetails?.drop?.coordinates?.[0],
+    lat:
+      completeRideDetails?.newDesitionOrderStatus === "accept"
+        ? completeRideDetails?.newDropLocation?.coordinates?.[1]
+        : completeRideDetails?.drop?.coordinates?.[1],
+    lng:
+      completeRideDetails?.newDesitionOrderStatus === "accept"
+        ? completeRideDetails?.newDropLocation?.coordinates?.[0]
+        : completeRideDetails?.drop?.coordinates?.[0],
   };
 
   return (
@@ -54,14 +63,18 @@ const CaptainAcceptRideScreen = () => {
       isDrawerIcon={true}
       title={
         otpVerified
-          ? completeRideDetails?.dropAddress
+          ? completeRideDetails?.newDesitionOrderStatus === "accept"
+            ? completeRideDetails?.newDropAddress
+            : completeRideDetails?.dropAddress
           : isArrived
           ? "Rider has arrived"
           : "Ride On the way"
       }
       vicinity={
         otpVerified
-          ? completeRideDetails?.dropVicinity
+          ? completeRideDetails?.newDesitionOrderStatus === "accept"
+            ? completeRideDetails?.newDropVicinity
+            : completeRideDetails?.dropVicinity
           : isArrived && "Your 3m free waiting Timer has started"
       }
       isPositionAppbar={true}
@@ -102,6 +115,12 @@ const CaptainAcceptRideScreen = () => {
           <CopyBox backgroundColor="#fff" />
         </View>
       </BottomSheetComponent>
+      {/* calcel ride modal */}
+
+      <SocketCancelRide
+        cancelOrderByUseSt={cancelOrderByUseSt}
+        setCancelOrderByUseSt={setCancelOrderByUseSt}
+      />
     </AppBarLayout>
   );
 };

@@ -34,7 +34,11 @@ const RideCompleteDetails = ({ disFromPickToDrop }) => {
       if (fav.name === completeRideDetails?.pickupAddress) {
         setPickupFavorite(true);
       }
-      if (fav.name === completeRideDetails?.dropAddress) {
+      let dropAdd =
+        completeRideDetails?.newDesitionOrderStatus === "accept"
+          ? completeRideDetails?.newDropAddress
+          : completeRideDetails?.dropAddress;
+      if (fav.name === dropAdd) {
         setDropFavorite(true);
       }
     });
@@ -50,15 +54,27 @@ const RideCompleteDetails = ({ disFromPickToDrop }) => {
         </View>
 
         <View style={styles.contentCard}>
-          <View>
-            <Text
-              style={styles.addressText}
-              numberOfLines={2}
-              ellipsizeMode="tail"
-            >
-              {completeRideDetails?.pickupAddress} -
-              {completeRideDetails?.pickupVicinity}
-            </Text>
+
+          <View
+            style={{
+              width: "100%",
+              flexDirection: "row",
+              gap: 5,
+            }}
+          >
+            <View>
+              <Text
+                style={[styles.orderText, { width: "90%" }]}
+                numberOfLines={2}
+                ellipsizeMode="tail"
+              >
+                {completeRideDetails?.pickupAddress}
+              </Text>
+              <Text style={{ fontSize: 10, color: "gray" }} numberOfLines={1}>
+                {completeRideDetails?.pickupVicinity}
+              </Text>
+            </View>
+
 
             <View style={styles.distanceTimeContainer}>
               <Text style={styles.distanceText}>
@@ -79,8 +95,16 @@ const RideCompleteDetails = ({ disFromPickToDrop }) => {
               numberOfLines={2}
               ellipsizeMode="tail"
             >
-              {completeRideDetails?.dropAddress} -
-              {completeRideDetails?.dropVicinity}
+
+              {completeRideDetails?.newDesitionOrderStatus === "accept"
+                ? completeRideDetails?.newDropAddress
+                : completeRideDetails?.dropAddress}{" "}
+              <Text style={{ fontSize: 10, color: "gray" }}>
+                {completeRideDetails?.newDesitionOrderStatus === "accept"
+                  ? completeRideDetails?.newDropVicinity
+                  : completeRideDetails?.dropVicinity}
+              </Text>
+
             </Text>
             <Pressable onPress={OpenConfirmChangeDestinationModal}>
               <EditIcons size={18} color="gray" />

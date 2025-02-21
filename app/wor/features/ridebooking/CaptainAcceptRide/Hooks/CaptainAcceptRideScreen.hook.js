@@ -4,6 +4,7 @@ import { useSocket } from "../../../../../../SocketContext";
 import { getTravelDetails } from "../../../../../../Constants/displaylocationmap";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 import { setCompleteRideDetails } from "../../sharedLogics/rideDetailsSlice";
+import Toast from "react-native-toast-message";
 
 export const useCaptainAcceptRideScreenHook = () => {
   const navigation = useNavigation();
@@ -21,10 +22,13 @@ export const useCaptainAcceptRideScreenHook = () => {
 
   const [disFromCaptainLocToPick, setDisFromCaptainLocPick] = useState(null);
   const [disFromPickToDrop, setDisFromPickToDrop] = useState(null);
+
   const [liveCoordinates, setLiveCoordinates] = useState({
     lat: null,
     lng: null,
   });
+
+  const [cancelOrderByUseSt, setCancelOrderByUseSt] = useState(false);
 
   const onVerifiedOtp = ({ status, order }) => {
     console.log("--------------verified ----------------", status);
@@ -54,18 +58,45 @@ export const useCaptainAcceptRideScreenHook = () => {
     );
   };
 
+  const handleChangeDestCaptainResponse = (newOrderDetails) => {
+    if (newOrderDetails?.newDesitionOrderStatus === "accept") {
+      dispatch(setCompleteRideDetails(newOrderDetails));
+
+      Toast.show({
+        text1: "Captain  accept your request",
+        type: "success",
+        position: "bottom",
+      });
+    } else {
+      Toast.show({
+        text1: "Captain not accept your request",
+        type: "success",
+        position: "bottom",
+      });
+    }
+  };
+
+  const cancelOrderByUser = (status) => {
+    console.log("--- order cancel socket---");
+    setCancelOrderByUseSt(status ?? false);
+  };
+
   useEffect(() => {
     if (socket && isConnected) {
       socket.on("order-otp-verified", onVerifiedOtp);
       socket.on("order-arrived", onOrderArrived);
       socket.on("order-completed", handleCompleteRide);
       socket.on("new-receive-coordinates", handleLiveCoordinates);
+      socket.on("change-destination-status", handleChangeDestCaptainResponse);
+      socket.on("accept-order-cancelled", cancelOrderByUser);
     }
     return () => {
       socket.off("order-otp-verified", onVerifiedOtp);
       socket.off("order-arrived", onOrderArrived);
       socket.off("order-completed", handleCompleteRide);
       socket.off("new-receive-coordinates", handleLiveCoordinates);
+      socket.off("change-destination-status", handleChangeDestCaptainResponse);
+      socket.on("accept-order-cancelled", cancelOrderByUser);
     };
   }, [socket, isConnected]);
 
@@ -106,7 +137,9 @@ export const useCaptainAcceptRideScreenHook = () => {
       ) {
         const data = await getTravelDetails(
           completeRideDetails.pickup.coordinates,
-          completeRideDetails.drop.coordinates,
+          completeRideDetails?.newDesitionOrderStatus === "accept"
+            ? completeRideDetails?.newDropLocation?.coordinates
+            : completeRideDetails.drop.coordinates,
           completeRideDetails.vehicleType
         );
         setDisFromPickToDrop(data);
@@ -130,5 +163,7 @@ export const useCaptainAcceptRideScreenHook = () => {
     disFromPickToDrop,
     liveCoordinates,
     kownBotSheetChangeUpOrDown,
+    cancelOrderByUseSt,
+    setCancelOrderByUseSt,
   };
 };

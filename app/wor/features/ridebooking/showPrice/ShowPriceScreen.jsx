@@ -1,12 +1,5 @@
-import {
-  Dimensions,
-  ImageBackground,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-} from "react-native";
-import React, { useEffect, useState } from "react";
+import { Dimensions, StyleSheet, View } from "react-native";
+import React, { useState } from "react";
 import AppBarLayout from "../sharedLogics/AppBarLayout";
 import { useShowPriceScreenHook } from "./Hooks/ShowPriceScreen.hook";
 import ShowPollyLine from "../../../utiles/ShowPollyLine";
@@ -18,7 +11,6 @@ import CustomBtn from "../../../utiles/CustomBtn";
 import ShceduleOrderModal from "./Modal/ShceduleOrderModal";
 import OfferModal from "./Modal/OfferModal";
 import PaymentModal from "./Modal/PaymentModal";
-import { useSelector } from "react-redux";
 
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.35, 0.7].map((p) => screenHeight * p); // Example snap points for Android
@@ -38,9 +30,7 @@ const ShowPriceScreen = () => {
     timerSetModalOpen,
     shceduleOrderModal,
     time,
-    scootyData,
-    carData,
-    autoData,
+
     setShceduleOrderModal,
   } = useShowPriceScreenHook();
 
@@ -74,13 +64,7 @@ const ShowPriceScreen = () => {
           {filteredVehicles?.length === 1 ? (
             <View style={{ paddingHorizontal: 15, paddingVertical: 20 }}>
               {filteredVehicles?.map((vehicle, index) => (
-                <DisplayVehicle
-                  key={index}
-                  vehicle={vehicle}
-                  carData={carData}
-                  scootyData={scootyData}
-                  autoData={autoData}
-                />
+                <DisplayVehicle key={index} vehicle={vehicle} />
               ))}
               <View style={{ height: 150, width: "100%" }} />
             </View>
@@ -89,25 +73,13 @@ const ShowPriceScreen = () => {
               {knowMoveDownOrUp === "moved down" && !time ? (
                 <View style={styles.singleFilterStyle}>
                   {storedSelectedVehicle?.map((vehicle, index) => (
-                    <DisplayVehicle
-                      key={index}
-                      vehicle={vehicle}
-                      carData={carData}
-                      scootyData={scootyData}
-                      autoData={autoData}
-                    />
+                    <DisplayVehicle key={index} vehicle={vehicle} />
                   ))}
                 </View>
               ) : (
                 <View style={{ paddingHorizontal: 15, paddingVertical: 20 }}>
                   {filteredVehicles?.map((vehicle, index) => (
-                    <DisplayVehicle
-                      key={index}
-                      vehicle={vehicle}
-                      carData={carData}
-                      scootyData={scootyData}
-                      autoData={autoData}
-                    />
+                    <DisplayVehicle key={index} vehicle={vehicle} />
                   ))}
                 </View>
               )}
@@ -121,12 +93,12 @@ const ShowPriceScreen = () => {
           />
           <CustomBtn
             width="100%"
-            btnBg={selectedVehicleType ? "#EA4C89" : "#fff"}
-            btnColor={selectedVehicleType ? "#fff" : "#EA4C89"}
+            btnBg={selectedVehicleType ? "#e02e88" : "#fff"}
+            btnColor={selectedVehicleType ? "#fff" : "#e02e88"}
             title={`Book ${selectedVehicleType} `}
             onPress={onNavigateConfirmLocationScreen}
             disabled={true}
-            borderColor="#EA4C89"
+            borderColor="#e02e88"
             borderWidth={1}
           />
         </View>

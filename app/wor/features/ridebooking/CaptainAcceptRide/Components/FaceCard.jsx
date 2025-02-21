@@ -24,7 +24,8 @@ const FaceCard = () => {
   let totalPrice =
     +completeRideDetails?.price +
     (isTipAdded ? +tip : +completeRideDetails?.addTip) +
-    +completeRideDetails?.extraCharge;
+    +completeRideDetails?.extraCharge +
+    +completeRideDetails?.changeDesPrice;
 
   return (
     <>

@@ -21,6 +21,7 @@ import {
   setDisplayMPinModal,
 } from "../redux/initialModals";
 import { rideHistoryAsyc } from "../../../DrawerScreens/RideHistory/rideHistory.slice";
+import { fetchPriceDetails } from "../redux/priceDetailSlice";
 
 // Split into smaller utility functions for readability
 const useFirebaseToken = (token) => {
@@ -146,7 +147,6 @@ export const useHomeScreenHook = () => {
     dispatch(fetchLocation());
     dispatch(onProfileSection({ token }));
     dispatch(homePlace({ token }));
-
   }, [dispatch, token]);
 
   // Fetch nearby places
@@ -172,7 +172,8 @@ export const useHomeScreenHook = () => {
       dispatch(clearDropData());
       fetchPendingOrderRating();
       dispatch(clearHomeOrWorkPlace());
-      dispatch(rideHistoryAsyc({token}))
+      dispatch(rideHistoryAsyc({ token }));
+      dispatch(fetchPriceDetails({}));
     }
   }, [isFocused, dispatch, fetchPendingOrderRating]);
 

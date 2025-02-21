@@ -4,6 +4,12 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectVehicleType } from "../../sharedLogics/rideDetailsSlice";
 import { fonts } from "../../../../fonts/Fonts";
+import {
+  autoImg,
+  parcelImg,
+  scrootyImg,
+  worMiniImg,
+} from "../../../../Images/Home";
 // A reusable service card component
 const ServiceCard = ({ imageSource, label, onPress }) => {
   return (
@@ -33,17 +39,17 @@ const AllServices = () => {
     const services = [
       {
         label: "Scooty",
-        image: require("../../../../../../assets/images/HomeServiceImages/scooty.png"),
+        image: scrootyImg,
         vehicle: "scooty",
       },
       {
         label: "Wor Mini",
-        image: require("../../../../../../assets/images/HomeServiceImages/cab.png"),
+        image: worMiniImg,
         vehicle: "car",
       },
       {
         label: "Auto",
-        image: require("../../../../../../assets/images/HomeServiceImages/auto.png"),
+        image: autoImg,
         vehicle: "auto",
       },
     ];
@@ -66,19 +72,19 @@ const AllServices = () => {
     const services = [
       {
         label: "Wor Luxury",
-        image: require("../../../../../../assets/images/HomeServiceImages/cab.png"),
+        image: worMiniImg,
         vehicle: "wor-premium",
         // isParcel: true,
       },
       {
         label: "Parcel",
-        image: require("../../../../../../assets/images/HomeServiceImages/gift.png"),
+        image: parcelImg,
         vehicle: null,
         isParcel: true,
       },
       {
         label: "Parcel",
-        image: require("../../../../../../assets/images/HomeServiceImages/scooty.png"),
+        image: scrootyImg,
         vehicle: null,
         isParcel: true,
       },

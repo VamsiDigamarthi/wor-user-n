@@ -13,8 +13,8 @@ const AppBarTitle = ({
   const navigation = useNavigation();
 
   const handleBackOrNavigateSelectDropScreen = () => {
-    console.log(borderStyles,"borderStyles",title);
-    
+    // console.log(borderStyles,"borderStyles",title);
+
     !borderStyles &&
       navigation.navigate("SelectDropLocation", {
         title,
@@ -58,7 +58,11 @@ const AppBarTitle = ({
             numberOfLines={1}
             style={[
               !borderStyles && { textAlign: "center", width: "100%" },
-              { fontSize: 10, textAlign: "center" , fontFamily:fonts.robotoRegular},
+              {
+                fontSize: 10,
+                textAlign: "center",
+                fontFamily: fonts.robotoRegular,
+              },
             ]}
             ellipsizeMode="tail"
           >
@@ -86,7 +90,7 @@ const styles = StyleSheet.create({
     color: "#000",
     fontSize: 18,
     // fontWeight: "bold",
-    fontFamily:fonts.robotoBold,
+    fontFamily: fonts.robotoBold,
     textAlign: "center",
   },
   appTitCenStyles: {
