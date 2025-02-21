@@ -6,9 +6,18 @@ import defaultImg from "../../../../../../assets/images/profile/Services.png";
 import { fonts } from "../../../../fonts/Fonts";
 
 const UserCard = ({ captainDetails, vehcleType }) => {
-  const imageSrc = captainDetails?.profilePic
-    ? { uri: `${imageUrl}/${captainDetails.profilePic}` }
-    : defaultImg;
+  // const imageSrc = captainDetails?.profilePic
+  //   ? { uri: `${imageUrl}/${captainDetails.profilePic}` }
+  //   : defaultImg;
+
+  const sanitizedImageUrl = captainDetails?.profilePic
+    ? `${imageUrl}/${captainDetails.profilePic}`.replace(/\\/g, "/")
+    : null;
+
+  const [imageSource, setImageSource] = useState(
+    sanitizedImageUrl ? { uri: sanitizedImageUrl } : defaultImg
+  );
+
   const [vehImage, setVehImage] = useState(null);
 
   const returnVehicleImage = (imageName) => {
@@ -42,7 +51,7 @@ const UserCard = ({ captainDetails, vehcleType }) => {
   return (
     <View style={styles.container}>
       <View style={styles.userImageCard}>
-        <Image style={styles.userImage} source={imageSrc} />
+        <Image style={styles.userImage} source={imageSource} />
         <View style={styles.bikeImage}>
           <Image
             style={{ width: "100%", height: "100%", resizeMode: "contain" }}

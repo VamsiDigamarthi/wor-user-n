@@ -52,6 +52,7 @@ const MainNavigation = () => {
                 "Content-Type": "application/json",
               },
             });
+            console.log("previousOrders: " + previousOrders?.data);
 
             const checkReady = setInterval(() => {
               if (
@@ -214,7 +215,6 @@ const MainNavigation = () => {
             newOrder = JSON.parse(order);
             dispatch(setCompleteRideDetails(newOrder));
 
-
             navigationRef.current?.navigate("AuthenticatedStack", {
               // screen: "Chat",
               params: {
@@ -222,7 +222,6 @@ const MainNavigation = () => {
                 orderId: newOrder._id,
                 captainDetails: newOrder?.acceptCaptain,
               },
-
             });
           }
         } else {
