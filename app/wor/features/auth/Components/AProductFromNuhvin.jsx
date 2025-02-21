@@ -1,5 +1,6 @@
 import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { fonts } from "../../../fonts/Fonts";
 
 const AProductFromNuhvin = ({ bottom = 0 }) => {
   const openLink = () => {
@@ -10,9 +11,9 @@ const AProductFromNuhvin = ({ bottom = 0 }) => {
   };
   return (
     <View style={[styles.nuhvinProduct, { bottom: bottom }]}>
-      <Text style={{ fontSize: 14, fontWeight: "500" }}>A Product From</Text>
+      <Text style={{ fontSize: 14, fontFamily:fonts.robotoMedium }}>A Product From</Text>
       <Pressable onPress={openLink}>
-        <Text style={{ fontSize: 14, fontWeight: "500", color: "#EA4C89" }}>
+        <Text style={{ fontSize: 14, fontFamily:fonts.robotoMedium, color: "#EA4C89" }}>
           Visit NuHvin
         </Text>
       </Pressable>

@@ -4,6 +4,7 @@ import ModalUI from "../../../../utiles/Modal/Modal";
 import { infoModalStyles } from "../../../../../../Components/InfoUi/Styles/InfoModalStyles";
 import { useSelector } from "react-redux";
 import CustomBtn from "../../../../utiles/CustomBtn";
+import { fonts } from "../../../../fonts/Fonts";
 
 const PriceDetailsModal = ({
   openPriceModal,
@@ -40,24 +41,24 @@ const PriceDetailsModal = ({
         <View style={styles.priceCard}>
           <View style={styles.priceFirst}>
             <View style={{ gap: 2 }}>
-              <Text style={{ fontSize: 17, fontWeight: "600" }}>
+              <Text style={styles.innerHeading}>
                 Total Details
               </Text>
-              <Text style={{ fontSize: 14, color: "gray" }}>Including Tax</Text>
+              <Text style={styles.para}>Including Tax</Text>
             </View>
-            <Text style={{ fontSize: 18, fontWeight: "600", color: "#EA4C89" }}>
+            <Text style={styles.priceText}>
               ₹{totalPrice}
             </Text>
           </View>
           <View style={styles.priceSecond}>
-            <Text style={{ fontSize: 17, fontWeight: "600" }}>Your Tip</Text>
+            <Text style={styles.innerHeading}>Your Tip</Text>
             <Text>₹{tip}</Text>
           </View>
-          <Text style={{ fontSize: 14, color: "gray" }}>
+          <Text style={styles.para}>
             Total fare may change if toll, route or destination changes or if
             your ride takes longer due to traffic or other factors.
           </Text>
-          <Text style={{ fontSize: 14, color: "gray" }}>
+          <Text style={styles.para}>
             You may be charged a Cancellation fee of ₹50, if a trip is canceled
             after 3 (three) minutes or later from the time of acceptance of
             booking by the Driver or if the driver cancels after reaching your
@@ -83,7 +84,7 @@ const WalletFriendly = ({ text = "Comfy Hatch" }) => (
       style={{ width: 30, height: 30, resizeMode: "contain" }}
       source={require("../../../../../../assets/dummyWallet.png")}
     />
-    <Text style={{ fontSize: 14, fontWeight: "600", color: "gray" }}>
+    <Text style={{ fontSize: 14, fontFamily:fonts.robotoSemiBold, color: "gray"  }}>
       {text}
     </Text>
   </View>
@@ -110,7 +111,8 @@ const styles = StyleSheet.create({
   },
   mainHeading: {
     fontSize: 24,
-    fontWeight: "600",
+    // fontWeight: "600",
+    fontFamily:fonts.robotoSemiBold
   },
   firstSubCard: {
     width: "80%",
@@ -146,4 +148,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
   },
+
+  innerHeading:{ fontSize: 17, fontFamily:fonts.robotoSemiBold},
+  priceText:{ fontSize: 18, fontFamily:fonts.robotoBold, color: "#EA4C89" },
+  para:{ fontSize: 14, color: "gray" , fontFamily:fonts.robotoRegular }
 });

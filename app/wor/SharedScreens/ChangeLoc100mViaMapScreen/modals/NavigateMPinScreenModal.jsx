@@ -4,6 +4,7 @@ import ModalUI from "../../../utiles/Modal/Modal";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import CustomBtn from "../../../utiles/CustomBtn";
+import { fonts } from "../../../fonts/Fonts";
 
 const NavigateMPinScreenModal = ({
   rideBookBeforeCheckMPinAddhar,
@@ -85,7 +86,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    fontWeight: "500",
+    fontFamily:fonts.robotoMedium,
+    
     textAlign: "center",
     lineHeight: 22,
   },

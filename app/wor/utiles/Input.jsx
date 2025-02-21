@@ -13,6 +13,7 @@ import {
   Zocial,
 } from "@expo/vector-icons";
 import { useEffect, useRef, useState } from "react";
+import { fonts } from "../fonts/Fonts";
 
 // Mapping icon type to component
 const ICONS = {
@@ -109,6 +110,7 @@ const styles = StyleSheet.create({
     height: "100%",
     paddingHorizontal: 5,
     zIndex: 88,
+    fontFamily:fonts.robotoRegular
   },
   inputFocused: {
     borderColor: "#EA4C89", // Change border color when focused
@@ -123,5 +125,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingHorizontal: 5,
     zIndex: 2,
+    fontFamily:fonts.robotoRegular
   },
 });

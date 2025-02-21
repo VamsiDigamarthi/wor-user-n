@@ -61,7 +61,7 @@ const DrawerProfil = () => {
       // console.log(profile);
 
       // setAvgRating(calculateAverageRating(profile?.reviews)?.toFixed(1));
-      setAvgRating(profile?.averageRating);
+      setAvgRating(profile?.averageRating?.toFixed(1));
     }
   }, [profile]);
 
@@ -70,14 +70,18 @@ const DrawerProfil = () => {
       setVerifyText("Verify your gender Identify");
     } else if (isDisplayMPinModal) {
       setVerifyText("Set Your M-Pin");
+    } else {
+      setVerifyText("");
     }
   };
 
   const handleVericationNavigation = () => {
     if (isDisplayAadharModal) {
       navigation.navigate("ProfileDocumentScreen");
-    } else {
+    } else if (isDisplayMPinModal) {
       navigation.navigate("SetNewMpin");
+    } else {
+      setVerifyText("");
     }
   };
 
@@ -115,7 +119,9 @@ const DrawerProfil = () => {
             onPress={handleVericationNavigation}
           >
             <Ionicons name="warning" size={15} color="red" />
-            <Text style={{ fontSize: 11 }}>{verifyText}</Text>
+            <Text style={{ fontSize: 11, fontFamily: fonts.robotoRegular }}>
+              {verifyText}
+            </Text>
             <MaterialIcons name="chevron-right" size={18} color="red" />
           </Pressable>
         )}
@@ -169,7 +175,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.robotoSemiBold,
   },
 
-  ratingNumber:{
+  ratingNumber: {
     fontFamily: fonts.robotoSemiBold,
-  }
+  },
 });
