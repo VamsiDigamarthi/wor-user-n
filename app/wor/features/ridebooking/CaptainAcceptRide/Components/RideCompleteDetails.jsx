@@ -54,11 +54,10 @@ const RideCompleteDetails = ({ disFromPickToDrop }) => {
         </View>
 
         <View style={styles.contentCard}>
-
           <View
             style={{
               width: "100%",
-              flexDirection: "row",
+              // flexDirection: "row",
               gap: 5,
             }}
           >
@@ -74,7 +73,6 @@ const RideCompleteDetails = ({ disFromPickToDrop }) => {
                 {completeRideDetails?.pickupVicinity}
               </Text>
             </View>
-
 
             <View style={styles.distanceTimeContainer}>
               <Text style={styles.distanceText}>
@@ -95,7 +93,6 @@ const RideCompleteDetails = ({ disFromPickToDrop }) => {
               numberOfLines={2}
               ellipsizeMode="tail"
             >
-
               {completeRideDetails?.newDesitionOrderStatus === "accept"
                 ? completeRideDetails?.newDropAddress
                 : completeRideDetails?.dropAddress}{" "}
@@ -104,7 +101,6 @@ const RideCompleteDetails = ({ disFromPickToDrop }) => {
                   ? completeRideDetails?.newDropVicinity
                   : completeRideDetails?.dropVicinity}
               </Text>
-
             </Text>
             <Pressable onPress={OpenConfirmChangeDestinationModal}>
               <EditIcons size={18} color="gray" />
