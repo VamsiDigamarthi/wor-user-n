@@ -125,7 +125,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     backgroundColor: "#fff",
     // elevation: 1,
-    width: 20,
+
+    fontFamily:fonts.robotoRegular
+
   },
 
   heading: { fontFamily: fonts.robotoSemiBold, fontSize: 16 },

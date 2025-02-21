@@ -12,7 +12,7 @@ const ProfileRatingRideCountCard = () => {
     <View style={styles.constainer}>
       <View style={styles.singleCard}>
         <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
-          <Text style={styles.text}>{profile?.averageRating}</Text>
+          <Text style={styles.text}>{profile?.averageRating?.toFixed(1)}</Text>
           <Image source={star} style={{ height: 20, width: 20 }} />
         </View>
         <Text style={styles.ratingNewText}>Rating</Text>

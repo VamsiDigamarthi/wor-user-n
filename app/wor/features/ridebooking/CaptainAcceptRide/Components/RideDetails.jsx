@@ -14,15 +14,10 @@ const RideDetails = ({ disFromPickToDrop }) => {
     <View style={styles.container}>
       <View style={styles.arrowCard}>
         <Pressable
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            width: "100%",
-          }}
+          style={styles.accordionBtn}
           onPress={() => setShowHidden(!showHidden)}
         >
-          <Text style={{ fontSize: 13, fontFamily: fonts.robotoSemiBold }}>
+          <Text style={styles.text}>
             Ride Details
           </Text>
           {showHidden ? (
@@ -56,4 +51,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
+  accordionBtn:{
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+  },
+  text:{ fontSize: 13, fontFamily: fonts.robotoSemiBold }
 });

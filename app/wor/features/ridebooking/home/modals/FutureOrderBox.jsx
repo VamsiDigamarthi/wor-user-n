@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { useSelector } from "react-redux";
 import { COLORS } from "../../../../../../Constants/colors";
+import { fonts } from "../../../../fonts/Fonts";
 
 const { height } = Dimensions.get("window");
 
@@ -30,7 +31,7 @@ export default function FutureOrderBox() {
                 style={styles.popCircle}
                 onPress={() => setModalVisible(true)}
               >
-                <Text>+ {previousOrders.length - 1} More ^</Text>
+                <Text style={{fontFamily:fonts.robotoRegular}}>+ {previousOrders.length - 1} More ^</Text>
               </TouchableOpacity>
             )}
 
@@ -94,7 +95,7 @@ const SingleCard = ({ prevOrder }) => {
           numberOfLines={1}
           style={{
             fontSize: 15,
-            fontWeight: "600",
+            fontFamily:fonts.robotoSemiBold,
             color: COLORS.heading,
           }}
         >
@@ -102,14 +103,14 @@ const SingleCard = ({ prevOrder }) => {
         </Text>
         <Text
           numberOfLines={1}
-          style={{ fontSize: 12, color: COLORS.subHeading }}
+          style={{ fontSize: 12, color: COLORS.subHeading , fontFamily:fonts.robotoRegular }}
         >
           {prevOrder.dropAddress}
         </Text>
       </View>
       <View style={styles.dataShow}>
-        <Text>{prevOrder.time?.split("T")?.[0]}</Text>
-        <Text>{prevOrder.time?.split("T")?.[1]}</Text>
+        <Text style={{fontFamily:fonts.robotoRegular}}>{prevOrder.time?.split("T")?.[0]}</Text>
+        <Text style={{fontFamily:fonts.robotoRegular}}>{prevOrder.time?.split("T")?.[1]}</Text>
       </View>
     </View>
   );

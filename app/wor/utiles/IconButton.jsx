@@ -1,5 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Ionicons, MaterialIcons, Entypo } from "@expo/vector-icons";
+import { fonts } from "../fonts/Fonts";
 const IconButton = ({
   iconsName,
   icons,
@@ -64,6 +65,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 12,
-    fontWeight: "600",
+    fontFamily:fonts.robotoSemiBold
   },
 });

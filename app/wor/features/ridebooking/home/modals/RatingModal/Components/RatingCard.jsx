@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import StarRating from "../../../../../../utiles/StarRating/StarRating";
+import {RatingLady} from "../../../../../../Images/Rating"
 
 const RatingCard = ({ rating, setRatingData, handleRatingChange }) => {
   const handleRatingChangeStar = (newRating) => {
@@ -31,9 +32,7 @@ const RatingCard = ({ rating, setRatingData, handleRatingChange }) => {
       <View style={styles.userImageCard}>
         <Image
           style={styles.userImage}
-          source={{
-            uri: "https://png.pngtree.com/png-clipart/20231019/original/pngtree-user-profile-avatar-png-image_13369988.png",
-          }}
+          source={RatingLady}
         />
         <View style={styles.bikeImage}></View>
       </View>
