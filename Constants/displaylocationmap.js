@@ -161,11 +161,11 @@ export const getTravelDetails = async (
       let duration = data.rows[0].elements[0].duration.value; // Duration in seconds
 
       // Adjust duration for auto-rickshaw
-      if (vehicleType === "auto") {
+      if (vehicleType?.toLowerCase() === "auto") {
         duration = duration * 1.2;
       }
 
-      if (vehicleType == "scooty") {
+      if (vehicleType?.toLowerCase() == "scooty") {
         duration = duration * 0.85;
       }
 

@@ -26,7 +26,7 @@ const RideHistoryDetailsViewFirst = ({ ride }) => {
     const filterRides = rideHistory?.filter((each) => each._id !== ride._id);
     dispatch(deletRideItme(filterRides));
   };
-  console.log("rating", ride?.ratings?.rating);
+  // console.log("rating", ride?.ratings?.rating);
 
   return (
     <>
@@ -34,7 +34,7 @@ const RideHistoryDetailsViewFirst = ({ ride }) => {
         <View style={styles.topCard}>
           <Image source={ScootyImg} style={styles.img} />
 
-          <View style={{gap:4}}>
+          <View style={{ gap: 4 }}>
             <Text style={styles.boldText}>{ride?.orderPlaceDate}</Text>
             <Text style={styles.semiBoldText}>Id : {ride?._id}</Text>
 
@@ -64,11 +64,7 @@ const RideHistoryDetailsViewFirst = ({ ride }) => {
                 }}
               >
                 <Pressable onPress={handleRideDeleteRequest}>
-                  <MaterialIcons
-                    name="delete-outline"
-                    size={24}
-                    color="#fff"
-                  />
+                  <MaterialIcons name="delete-outline" size={24} color="#fff" />
                 </Pressable>
               </View>
             </View>
@@ -149,7 +145,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderStyle: "dashed",
     borderColor: "#E8E8E8",
-    gap:4
+    gap: 4,
   },
 
   priceCard: {

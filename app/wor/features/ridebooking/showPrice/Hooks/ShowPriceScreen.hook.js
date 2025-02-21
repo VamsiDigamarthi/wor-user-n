@@ -1,12 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { haversineDistance } from "../../../../../../Constants/calculateKM";
 import {
   setPaymentMethod,
   setPrice,
-  setPriceDetails,
 } from "../../sharedLogics/rideDetailsSlice";
-import { calculatePriceDetails, vehicles } from "../vehicleData";
+import { vehicles } from "../vehicleData";
 import { useNavigation } from "@react-navigation/native";
 import { getTravelDetails } from "../../../../../../Constants/displaylocationmap";
 
@@ -32,24 +30,10 @@ export const useShowPriceScreenHook = () => {
 
   // shcedule order state
   const [shceduleOrderModal, setShceduleOrderModal] = useState(false);
+
   const timerSetModalOpen = () => {
     setShceduleOrderModal(!shceduleOrderModal);
   };
-
-  const handlePriceCalculation = () => {
-    if (!location || !dropDetails?.location) return;
-    const distance = haversineDistance(location, dropDetails.location);
-    const calculatedPriceDetails = calculatePriceDetails(Math.ceil(distance));
-    let price = calculatedPriceDetails[selectedVehicleType];
-    dispatch(setPrice(price));
-    dispatch(setPriceDetails(calculatedPriceDetails));
-    let paymentMethod = price >= profile?.walletBalance ? "cash" : "wallet";
-    dispatch(setPaymentMethod(paymentMethod));
-  };
-
-  useEffect(() => {
-    handlePriceCalculation();
-  }, [location, dropDetails]);
 
   const onNavigateConfirmLocationScreen = () => {
     navigation.navigate("ChangeLoc100mViaMap");
@@ -65,19 +49,24 @@ export const useShowPriceScreenHook = () => {
     calcPriceDetails();
   }, [location, dropDetails]);
 
-  useEffect(() => {
-    const filteredVehicles = isParcScreen
-      ? vehicleInfoWithDistanceDura?.filter(
+  const filteredVehicleList = useMemo(() => {
+    if (!vehicleInfoWithDistanceDura) return [];
+
+    // console.log("sderftgh", vehicleInfoWithDistanceDura);
+    return isParcScreen
+      ? vehicleInfoWithDistanceDura.filter(
           (vehicle) => vehicle.vehicleType === "Scooty"
         )
       : time
-      ? vehicleInfoWithDistanceDura?.filter(
+      ? vehicleInfoWithDistanceDura.filter(
           (vehicle) => vehicle.vehicleType === "Car"
         )
       : vehicleInfoWithDistanceDura;
+  }, [vehicleInfoWithDistanceDura, isParcScreen, time]);
 
-    setFilteredVehicles(filteredVehicles);
-  }, [isParcScreen, time, vehicleInfoWithDistanceDura]);
+  useEffect(() => {
+    setFilteredVehicles(filteredVehicleList);
+  }, [filteredVehicleList, vehicleInfoWithDistanceDura]);
 
   useEffect(() => {
     const filterVichle = vehicleInfoWithDistanceDura?.filter(
@@ -94,15 +83,27 @@ export const useShowPriceScreenHook = () => {
         vehicles.map(async (vehicle) => {
           const result = await calDisFromPickToDrop(vehicle.vehicleType);
 
-          const newPrice = handleCalculatePrices(result);
+          const newPrice = handleCalculatePrices(result, vehicle?.vehicleType);
+
+          if (
+            selectedVehicleType?.toLowerCase() ===
+            vehicle.vehicleType?.toLowerCase()
+          ) {
+            dispatch(setPrice(newPrice));
+            let paymentMethod =
+              +newPrice >= +profile?.walletBalance ? "cash" : "wallet";
+            dispatch(setPaymentMethod(paymentMethod));
+          }
 
           return {
             ...vehicle,
             distance: result?.distance || "N/A",
             duration: result?.duration || "N/A",
+            price: newPrice,
           };
         })
       );
+      // console.log("result: " + JSON.stringify(results));
 
       setVehicleInfoWithDistanceDura(results);
     } catch (error) {
@@ -138,32 +139,29 @@ export const useShowPriceScreenHook = () => {
     }
   };
 
-  const handleCalculatePrices = (result) => {
+  const handleCalculatePrices = (result, vehicleType) => {
     // distance = 0.4 km this is formate
     const checkDistance = result?.distance?.split(" ");
     const duration = result?.duration;
 
     let price;
-    if (checkDistance <= 2) {
+    if (checkDistance[0] <= 2) {
       price = 24 + +priceDetails?.baseFare - 5;
     } else {
-      if (checkDistance > 2 && checkDistance <= 10) {
-        if (checkDistance <= 5) {
-          price = +checkDistance * 7.2 + +priceDetails?.baseFare - 5;
+      if (checkDistance[0] > 2 && checkDistance[0] <= 10) {
+        if (checkDistance[0] <= 5) {
+          price = +checkDistance[0] * 7.2 + +priceDetails?.baseFare - 5;
         } else {
-          price = +checkDistance * 7.2 + +priceDetails?.baseFare;
+          price = +checkDistance[0] * 7.2 + +priceDetails?.baseFare;
         }
       } else {
-        price = +checkDistance * 8.2 + +priceDetails?.baseFare;
+        price = +checkDistance[0] * 8.2 + +priceDetails?.baseFare;
       }
     }
 
-    let timeFace = +duration * 0.5;
-
-    return price + timeFace + +priceDetails?.platformFee;
+    let timeFare = +duration * 0.5;
+    return Math.ceil(price + timeFare + +priceDetails?.platformFee);
   };
-
-  console.log("priceDetails", priceDetails);
 
   return {
     location,
