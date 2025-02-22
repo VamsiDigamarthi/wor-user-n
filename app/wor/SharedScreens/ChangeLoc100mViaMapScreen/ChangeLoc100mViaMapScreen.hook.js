@@ -126,7 +126,6 @@ console.log(lat, lng  ,"lat, lng >>>>>>>>>>>>>>>>>>>>>>>>");
     }
   };
 
-  // console.log("placeName", placeName);
 
   return {
     onNavigateSavedAddressScreen,
