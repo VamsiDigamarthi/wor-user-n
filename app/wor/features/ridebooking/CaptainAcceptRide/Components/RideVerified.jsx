@@ -10,13 +10,16 @@ const RideVerified = () => {
   const texts = [
     {
       title: "Your ride has been verified",
-      iconName: "emoji-happy",
-      Icon: Entypo,
+      iconName: "verified",
+      Icon: MaterialIcons,
+      color:"green"
     },
     {
       title: "Happy journey with women rider",
-      iconName: "verified",
-      Icon: MaterialIcons,
+      iconName: "emoji-happy",
+      Icon: Entypo,
+      color:"#EA4C89"
+      
     },
   ];
 
@@ -67,7 +70,7 @@ const RideVerified = () => {
           <CurrentIcon
             name={texts[currentIndex].iconName}
             size={24}
-            color="black"
+            color={texts[currentIndex].color}
           />
         )}
 

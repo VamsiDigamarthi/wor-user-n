@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 18,
     backgroundColor: "#fff",
+    width:20,
     // elevation: 1,
 
     fontFamily:fonts.robotoRegular

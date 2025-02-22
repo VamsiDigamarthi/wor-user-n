@@ -54,38 +54,29 @@ const RideCompleteDetails = ({ disFromPickToDrop }) => {
         </View>
 
         <View style={styles.contentCard}>
-          <View
-            style={{
-              width: "100%",
-              // flexDirection: "row",
-              gap: 5,
-            }}
-          >
-            <View>
-              <Text
-                style={[styles.orderText, { width: "90%" }]}
-                numberOfLines={2}
-                ellipsizeMode="tail"
-              >
-                {completeRideDetails?.pickupAddress}
-              </Text>
-              <Text style={{ fontSize: 10, color: "gray" }} numberOfLines={1}>
-                {completeRideDetails?.pickupVicinity}
-              </Text>
-            </View>
-
+          <View style={styles.pickupContainer}>
+            <Text
+              style={styles.orderText}
+              numberOfLines={2}
+              ellipsizeMode="tail"
+            >
+              {completeRideDetails?.pickupAddress}
+            </Text>
+            <Text style={styles.vicinityText} numberOfLines={1}>
+              {completeRideDetails?.pickupVicinity}
+            </Text>
+          </View>
             <View style={styles.distanceTimeContainer}>
               <Text style={styles.distanceText}>
                 {disFromPickToDrop?.distance}
               </Text>
               <View style={styles.timeContainer}>
-                <ClockIcons size={16} color="gray" />
+                <ClockIcons size={12} color="gray" />
                 <Text style={styles.timeText}>
-                  {disFromPickToDrop?.durationInMinutes} M
+                  {disFromPickToDrop?.durationInMinutes} Min
                 </Text>
               </View>
             </View>
-          </View>
 
           <View style={styles.dropContainer}>
             <Text
@@ -96,14 +87,14 @@ const RideCompleteDetails = ({ disFromPickToDrop }) => {
               {completeRideDetails?.newDesitionOrderStatus === "accept"
                 ? completeRideDetails?.newDropAddress
                 : completeRideDetails?.dropAddress}{" "}
-              <Text style={{ fontSize: 10, color: "gray" }}>
+              <Text style={styles.vicinityText}>
                 {completeRideDetails?.newDesitionOrderStatus === "accept"
                   ? completeRideDetails?.newDropVicinity
                   : completeRideDetails?.dropVicinity}
               </Text>
             </Text>
             <Pressable onPress={OpenConfirmChangeDestinationModal}>
-              <EditIcons size={18} color="gray" />
+              <EditIcons size={16} color="gray" />
             </Pressable>
           </View>
         </View>
@@ -133,10 +124,12 @@ const styles = StyleSheet.create({
   mainCard: {
     flexDirection: "row",
     gap: 10,
-    padding: 10,
+    padding: 16,
     borderRadius: 8,
     backgroundColor: "#fff",
-    elevation: 2, // subtle shadow for depth
+    elevation: 2,
+    // marginHorizontal: 5, // Added horizontal margin for better spacing
+    marginVertical: 8, // Added vertical margin for better spacing
   },
   iconsCard: {
     justifyContent: "space-between",
@@ -153,35 +146,50 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between",
   },
-  addressText: {
+  pickupContainer: {
+    // marginBottom: 8, // Added margin to separate pickup and drop sections
+  },
+  orderText: {
     fontFamily: fonts.robotoMedium,
     fontSize: 12,
     color: "#333",
+    // marginBottom: 4, // Added margin for better spacing
+  },
+  vicinityText: {
+    fontSize: 12,
+    color: "gray",
+    // marginBottom: 4, // Added margin for better spacing
   },
   distanceTimeContainer: {
     flexDirection: "row",
     gap: 10,
     alignItems: "center",
-    marginVertical: 4, // small vertical spacing
+    // marginTop: 4, // Adjusted margin to align with the top text
   },
   distanceText: {
     fontFamily: fonts.robotoRegular,
-    fontSize: 12,
+    fontSize: 10,
     color: "#666",
   },
   timeContainer: {
     flexDirection: "row",
-    gap: 4,
+    gap: 2,
     alignItems: "center",
   },
   timeText: {
     fontFamily: fonts.robotoRegular,
-    fontSize: 12,
+    fontSize: 10,
     color: "#666",
   },
   dropContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+  },
+  addressText: {
+    fontFamily: fonts.robotoMedium,
+    fontSize: 12,
+    color: "#333",
+    flex: 1, // Added flex to ensure text takes available space
   },
 });

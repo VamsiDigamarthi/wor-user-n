@@ -44,7 +44,7 @@ export default function AddTipNew() {
             {completeRideDetails?.addTip === 0 && (
               <Pressable onPress={decrement} style={styles.Pressable}>
                 <Text style={styles.insideText}>-</Text>
-              </Pressable>
+              </Pressable>  
             )}
             <Text style={styles.addedText}>
               ₹
@@ -95,14 +95,16 @@ const styles = StyleSheet.create({
   },
   moneyCard: {
     borderRadius: 5,
-    borderWidth: 1,
+    // borderWidth: 1,
     borderColor: "gray",
-    borderStyle: "dashed",
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    height:30,
+    // borderStyle: "dashed", 
+    // paddingHorizontal: 10,
+    // paddingVertical: 5,
     flexDirection: "row",
     alignItems: "center",
     gap: 20,
+    backgroundColor:"#F5F5F5",
     width: 100,
     justifyContent: "center",
   },
@@ -115,17 +117,20 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   addedText: {
-    fontSize: 12,
+    fontSize: 10,
     fontFamily: fonts.robotoSemiBold,
     color: "#111111",
   },
   Pressable: {
-    width: 30,
+    // width: 30,
     justifyContent: "center",
     alignItems: "center",
+    height:"100%",
+    // backgroundColor:"red ",
+
   },
   insideText: {
-    fontSize: 30,
+    fontSize: 20,
     fontFamily: fonts.robotoSemiBold,
   },
 });
