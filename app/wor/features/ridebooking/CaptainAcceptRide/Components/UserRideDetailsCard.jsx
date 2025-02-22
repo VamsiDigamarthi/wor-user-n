@@ -11,6 +11,7 @@ const UserRideDetailsCard = ({
   disFromPickToDrop,
 }) => {
   
+// console.log(completeRideDetails);
 
   
   return (

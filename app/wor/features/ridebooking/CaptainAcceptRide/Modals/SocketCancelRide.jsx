@@ -23,14 +23,15 @@ const SocketCancelRide = ({ cancelOrderByUseSt, setCancelOrderByUseSt }) => {
     >
       <View style={styles.modalContainer}>
         <View style={styles.container}>
-          <Text style={styles.sorryText}>We're sorry, </Text>
+          <Text style={styles.sorryText}>We're sorry</Text>
           <Text style={styles.but}>
-            but the user has canceled the ride. Thank you for your understanding
-            and patience. Please stay ready for the next ride request.
+            But the Captain has canceled the ride. {"\n"}
+            Thank you for your understanding
+            and patience.{"\n"} Please be ready for the next ride.
           </Text>
           <Text style={styles.have}>Have a great day!</Text>
           <Pressable style={styles.okBtn} onPress={handleOpenCloseCancelModal}>
-            <Text style={styles.okay}>Okay,</Text>
+            <Text style={styles.okay}>Okay</Text>
           </Pressable>
         </View>
       </View>

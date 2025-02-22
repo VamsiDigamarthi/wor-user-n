@@ -31,6 +31,11 @@ import {
 const PersonalInfoPreview = () => {
   const { onChangeProfile, handleInputChange, userData, profile } =
     usePersonalInfoHook();
+
+  console.log(profile);
+  
+
+
   const navigation = useNavigation();
   const [open, setOpen] = useState(false);
   const [current, setCurrent] = useState("name");
@@ -79,7 +84,7 @@ const PersonalInfoPreview = () => {
             icon={mobile}
           />
           <ProfileTextCard
-            text={profile?.dateOfBirth}
+            text={profile?.docsNumber?.dob}
             title="Date of Birth"
             icon={calendar}
           />
