@@ -17,9 +17,8 @@ const androidSnapPoints = [0.48, 0.5].map((p) => screenHeight * p); // Example s
 const iosSnapPoints = [0.42, 0.42].map((p) => screenHeight * p); // Example snap points for iOS
 
 const LookingForRideScreen = () => {
-  const { dropDetails, isSendOrReceiveParcel, pickUpDetails , price} = useSelector(
-    (state) => state.allRideDetails
-  );
+  const { dropDetails, isSendOrReceiveParcel, pickUpDetails , price,selectedVehicleType} = useSelector((state) => state.allRideDetails);
+console.log(useSelector((state) => state.allRideDetails),"useSelector((state) => state.allRideDetails);");
 
 
   const {
@@ -46,6 +45,7 @@ const LookingForRideScreen = () => {
       <View style={styles.mapContainer}>
         <ShowPollyLine
           height={mapHeight}
+          selectedVehicleType={selectedVehicleType}
           origin={
             isSendOrReceiveParcel === "send"
               ? pickUpDetails?.location

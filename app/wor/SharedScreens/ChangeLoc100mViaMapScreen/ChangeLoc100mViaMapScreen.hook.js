@@ -1,5 +1,5 @@
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { computeDestinationPoint, getCompassDirection } from "geolib";
+import { useNavigation } from "@react-navigation/native";
+import { computeDestinationPoint, getCompassDirection, getDistance } from "geolib";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchNameAndVicinity } from "../../../../Constants/displaylocationmap";
@@ -8,48 +8,84 @@ import {
   setPickUpDetails,
 } from "../../features/ridebooking/sharedLogics/rideDetailsSlice";
 
+// Function to generate dashed circle coordinates
+const generateDashedCircleCoordinates = (lat, lng, radius, numberOfDashes) => {
+  const dashes = [];
+  const angleIncrement = (2 * Math.PI) / numberOfDashes;
+
+  for (let i = 0; i < numberOfDashes; i++) {
+    const startAngle = i * angleIncrement;
+    const endAngle = startAngle + angleIncrement / 2;
+
+    const startLat = lat + (radius / 111320) * Math.cos(startAngle);
+    const startLng =
+      lng +
+      (radius / (111320 * Math.cos((lat * Math.PI) / 180))) *
+        Math.sin(startAngle);
+
+    const endLat = lat + (radius / 111320) * Math.cos(endAngle);
+    const endLng =
+      lng +
+      (radius / (111320 * Math.cos((lat * Math.PI) / 180))) *
+        Math.sin(endAngle);
+
+    dashes.push([
+      { latitude: startLat, longitude: startLng },
+      { latitude: endLat, longitude: endLng },
+    ]);
+  }
+
+  return dashes;
+};
+
+// Restricts marker movement within 100 meters
+const limitMarkerToCircle = (lat, lng, newLat, newLng, radius) => {
+  const distance = getDistance(
+    { latitude: lat, longitude: lng },
+    { latitude: newLat, longitude: newLng }
+  );
+
+  if (distance <= radius) {
+    return { latitude: newLat, longitude: newLng };
+  } else {
+    const angle = Math.atan2(newLng - lng, newLat - lat);
+    const limitedPosition = computeDestinationPoint(
+      { latitude: lat, longitude: lng },
+      radius,
+      (angle * 180) / Math.PI
+    );
+    return {
+      latitude: limitedPosition.latitude,
+      longitude: limitedPosition.longitude,
+    };
+  }
+};
+
 export const useChangeLoc100mViaMapScreenHook = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const {
-    location,
-    placeName: pick,
-    placeVicinity,
-  } = useSelector((state) => state.location);
-
-  const { initialDropDetails, isBeforeBook, isParcScreen } = useSelector(
-    (state) => state.allRideDetails
-  );
-
+  const { location, placeName: pick, placeVicinity } = useSelector((state) => state.location);
+  const { initialDropDetails, isBeforeBook } = useSelector((state) => state.allRideDetails);
   const { profile } = useSelector((state) => state.profileSlice);
-  const { token } = useSelector((state) => state.token);
 
-  const { lat, lng } = isBeforeBook
-    ? location
-    : initialDropDetails?.location || {};
+  const { lat, lng } = isBeforeBook ? location : initialDropDetails?.location || {};
 
-  // const [howManyMans, setHowManyMans] = useState(0);
-console.log(lat, lng  ,"lat, lng >>>>>>>>>>>>>>>>>>>>>>>>");
-
+  const dashedCircleCoordinates = generateDashedCircleCoordinates(lat, lng, 100, 60);
   const [newMarker, setNewMarker] = useState({ latitude: lat, longitude: lng });
 
-  // if change location 100 meter new coordinates place name stored in this state
+  // If changed, update location name
   const [placeName, setPlaceName] = useState({
     placeName: isBeforeBook ? pick : initialDropDetails?.name,
     placeVicinity: isBeforeBook ? placeVicinity : initialDropDetails?.vicinity,
   });
 
-  // ride booking state
-  const [rideBookBeforeCheckMPinAddhar, setRideBookBeforeCheckPinAddhar] =
-    useState(false);
-
+  // Ride booking state
+  const [rideBookBeforeCheckMPinAddhar, setRideBookBeforeCheckPinAddhar] = useState(false);
   const onChangeRideBookBeforeCheckPinAddharHandler = () => {
     setRideBookBeforeCheckPinAddhar(!rideBookBeforeCheckMPinAddhar);
   };
 
-  const [isOpenEnterConfirmMPinModal, setIsOpenEnterConfirmMPinModal] =
-    useState(false);
-
+  const [isOpenEnterConfirmMPinModal, setIsOpenEnterConfirmMPinModal] = useState(false);
   const onOpenIsEnterConfirmPinModal = () => {
     setIsOpenEnterConfirmMPinModal(!isOpenEnterConfirmMPinModal);
   };
@@ -57,35 +93,13 @@ console.log(lat, lng  ,"lat, lng >>>>>>>>>>>>>>>>>>>>>>>>");
   // Function to handle the drag end of the marker
   const handleMarkerDragEnd = (e) => {
     const { latitude, longitude } = e.nativeEvent.coordinate;
-    const distance = getDistanceFromLatLonInKm(lat, lng, latitude, longitude);
-
-    // Only update the marker if it's within the 100-meter radius (0.1 km)
-    if (distance <= 0.1) {
-      setNewMarker({ latitude, longitude });
-    } else {
-      const newPosition = computeDestinationPoint(
-        { latitude: lat, longitude: lng },
-        100, // 100 meters
-        getCompassDirection(
-          { latitude: Number(lat), longitude: Number(lng) },
-          { latitude:Number(latitude), longitude:Number(longitude) }
-        )
-      );
-
-      setNewMarker({
-        latitude: newPosition.latitude,
-        longitude: newPosition.longitude,
-      });
-    }
+    const validPosition = limitMarkerToCircle(lat, lng, latitude, longitude, 100);
+    setNewMarker(validPosition);
   };
 
   useEffect(() => {
     const fetchNewPlaceName = async () => {
-      const data = await fetchNameAndVicinity(
-        newMarker.latitude,
-        newMarker.longitude
-      );
-
+      const data = await fetchNameAndVicinity(newMarker.latitude, newMarker.longitude);
       dispatch(
         setPickUpDetails({
           location: { lat: newMarker.latitude, lng: newMarker.longitude },
@@ -95,12 +109,10 @@ console.log(lat, lng  ,"lat, lng >>>>>>>>>>>>>>>>>>>>>>>>");
       );
       setPlaceName({ placeName: data?.name, placeVicinity: data?.vicinity });
     };
-    // lat !== newMarker.latitude && fetchNewPlaceName();
     fetchNewPlaceName();
   }, [newMarker]);
 
   const onNavigateSavedAddressScreen = () => {
-    // places the order
     if (isBeforeBook) {
       handleCheckMPinSetOrNot();
     } else {
@@ -126,8 +138,6 @@ console.log(lat, lng  ,"lat, lng >>>>>>>>>>>>>>>>>>>>>>>>");
     }
   };
 
-  // console.log("placeName", placeName);
-
   return {
     onNavigateSavedAddressScreen,
     handleMarkerDragEnd,
@@ -138,20 +148,8 @@ console.log(lat, lng  ,"lat, lng >>>>>>>>>>>>>>>>>>>>>>>>");
     onChangeRideBookBeforeCheckPinAddharHandler,
     isOpenEnterConfirmMPinModal,
     onOpenIsEnterConfirmPinModal,
+    dashedCircleCoordinates,
+    lat,
+    lng,
   };
-};
-
-const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
-  const R = 6371; // Radius of the Earth in km
-  const dLat = (lat2 - lat1) * (Math.PI / 180);
-  const dLon = (lon2 - lon1) * (Math.PI / 180);
-  const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(lat1 * (Math.PI / 180)) *
-      Math.cos(lat2 * (Math.PI / 180)) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  const distance = R * c; // Distance in km
-  return distance;
 };

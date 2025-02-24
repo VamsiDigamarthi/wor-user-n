@@ -67,8 +67,8 @@ const CaptainAcceptRideScreen = () => {
             ? completeRideDetails?.newDropAddress
             : completeRideDetails?.dropAddress
           : isArrived
-          ? "Rider has arrived"
-          : "Ride On the way"
+            ? "Rider has arrived"
+            : "Ride On the way"
       }
       vicinity={
         otpVerified
@@ -85,6 +85,7 @@ const CaptainAcceptRideScreen = () => {
     >
       <View style={styles.mapContainer}>
         <ShowPollyLine
+          selectedVehicleType={completeRideDetails?.vehicleType}
           origin={otpVerified ? pickUpCoordinates : captainCoordinates}
           destination={otpVerified ? dropCoordinates : pickUpCoordinates}
           liveCoordinates={liveCoordinates}

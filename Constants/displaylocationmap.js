@@ -303,3 +303,6 @@ export const calculateBearing = (startCoords, endCoords) => {
   const bearing = toDegrees(Math.atan2(y, x));
   return (bearing + 360) % 360; // Normalize to 0-360 degrees
 };
+
+
+

@@ -105,7 +105,9 @@ export const useCaptainAcceptRideScreenHook = () => {
       calculatePickUpDistance();
       calDisFromPickToDrop();
     }
+
   }, [completeRideDetails]);
+  
 
   const calculatePickUpDistance = async () => {
     try {

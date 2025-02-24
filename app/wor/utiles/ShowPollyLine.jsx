@@ -20,7 +20,7 @@ const ShowPollyLine = ({
   destination,
   height,
   liveCoordinates,
-  handleOpenSafetySheet,
+  handleOpenSafetySheet, selectedVehicleType
 }) => {
   const [currentPosition, setCurrentPosition] = useState({
     latitude: liveCoordinates?.lat,
@@ -124,6 +124,22 @@ const ShowPollyLine = ({
         <Marker coordinate={adjustedDestination} title="End Point">
           <FontAwesome name="map-pin" size={20} color="#4caf50" />
         </Marker>
+        {/* <Marker coordinate={adjustedDestination} title="End Point">
+
+          <Image
+            style={{
+              width: 30,
+              height: 30,
+              resizeMode: "contain",
+              // transform: [{ rotate: `${heading}deg` }], // Rotate the bike image
+            }}
+            source={selectedVehicleType === "car" ? require("../../../assets/images/HomeServiceImages/cab.png")
+              : selectedVehicleType === "bookany" ? require("../../../assets/images/HomeServiceImages/cab.png")
+                : selectedVehicleType === "auto" ? require("../../../assets/images/HomeServiceImages/auto.png")
+                  : selectedVehicleType === "wor-premium" ? require("../../../assets/images/HomeServiceImages/cab.png")
+                    : require("../../../assets/images/HomeServiceImages/scooty.png")}
+          />
+        </Marker> */}
         {currentPosition?.latitude && (
           <Marker coordinate={currentPosition} title="Live Position">
             <Image
@@ -133,7 +149,12 @@ const ShowPollyLine = ({
                 resizeMode: "contain",
                 // transform: [{ rotate: `${heading}deg` }], // Rotate the bike image
               }}
-              source={require("../../../assets/images/markers/BIKE-removebg-preview.png")}
+              // source={require("../../../assets/images/markers/BIKE-removebg-preview.png")}
+              source={selectedVehicleType === "car" ? require("../../../assets/images/HomeServiceImages/cab.png")
+                : selectedVehicleType === "bookany" ? require("../../../assets/images/HomeServiceImages/cab.png")
+                  : selectedVehicleType === "auto" ? require("../../../assets/images/HomeServiceImages/auto.png")
+                    : selectedVehicleType === "wor-premium" ? require("../../../assets/images/HomeServiceImages/cab.png")
+                      : require("../../../assets/images/HomeServiceImages/scooty.png")}
             />
           </Marker>
         )}
