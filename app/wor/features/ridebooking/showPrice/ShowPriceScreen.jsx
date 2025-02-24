@@ -54,7 +54,7 @@ const ShowPriceScreen = () => {
         borderStyles={false}
       >
         <View style={styles.mapContainer}>
-          <ShowPollyLine origin={location} destination={dropDetails.location} />
+          <ShowPollyLine selectedVehicleType={selectedVehicleType} origin={location} destination={dropDetails.location} />
         </View>
         <BottomSheetComponent
           style={{ marginBottom: isParcScreen ? 150 : 100 }}
