@@ -83,7 +83,7 @@ const LocationList = ({
   return (
     <FlatList
       data={data}
-      ItemSeparatorComponent={<View style={{height:8}} />}
+      ItemSeparatorComponent={<View style={{ height: 8 }} />}
       keyExtractor={
         (item, index) =>
           isFavoritePlaces

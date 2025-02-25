@@ -24,10 +24,7 @@ const SignupScreen = () => {
     formData,
     errors,
     isLoading,
-    onOpenTextBasedLocationModal,
-    storeNearLocation,
     handleInputChange,
-    onAddressSelect,
     handleNavigateToOTP,
   } = useSignupForm({ mobile });
 
@@ -66,32 +63,6 @@ const SignupScreen = () => {
                 onChangeText={(value) => handleInputChange("email", value)}
                 isValid={!errors?.email}
               />
-
-              {/* <View style={styles.googleNearMapLocationCard}>
-                <Input
-                  label={errors?.address ? errors?.address : "Current Address "}
-                  icon="location-outline"
-                  placeholder="Enter your address"
-                  multiline={true}
-                  numberOfLines={3}
-                  textAlignVertical="top"
-                  value={formData.address?.split("|")[0]}
-                  onChangeText={(value) => handleInputChange("address", value)}
-                  isValid={!errors?.address}
-                />
-                {onOpenTextBasedLocationModal && (
-                  <View style={styles.nearAddress}>
-                    {storeNearLocation?.map((each, index) => (
-                      <SignUpLocationTextCard
-                        key={index}
-                        mainPlace={each?.name}
-                        subPlace={each?.vicinity}
-                        onPress={() => onAddressSelect(each)}
-                      />
-                    ))}
-                  </View>
-                )}
-              </View> */}
 
               <Input
                 label="Referral Code (optional)"

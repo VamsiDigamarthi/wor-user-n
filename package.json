@@ -19,6 +19,7 @@
     "@react-native-community/voice": "^1.1.9",
     "@react-native-firebase/app": "^21.7.1",
     "@react-native-firebase/messaging": "^21.7.1",
+    "@react-native-picker/picker": "^2.11.0",
     "@react-navigation/drawer": "^6.7.2",
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/native-stack": "^6.11.0",

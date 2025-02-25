@@ -16,11 +16,18 @@ const HomeWorkPlaceCard = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const { homePlace, workPlace } = useSelector((state) => state.homePlaces);
+  const { homePlace, workPlace, otherHomePlace } = useSelector(
+    (state) => state.homePlaces
+  );
   const { isParcScreen } = useSelector((state) => state.allRideDetails);
 
   const onNavigateShowPriceScreen = (type) => {
-    let place = type === "home" ? homePlace : workPlace;
+    let place =
+      type === "home"
+        ? homePlace
+        : type === "second-home"
+        ? otherHomePlace
+        : workPlace;
     dispatch(setIsBeforeBook(true));
     dispatch(setDropDetails(place));
 
@@ -67,6 +74,13 @@ const HomeWorkPlaceCard = () => {
           title="Work"
           subTitle="Add Work Place"
           onPress={() => handleSetHomeOrWorkPlace({ type: "work" })}
+        />
+      )}
+      {otherHomePlace && (
+        <HomeLocationCard
+          onPress={() => onNavigateShowPriceScreen("second-home")}
+          location="Another Home Place"
+          vicinity={otherHomePlace?.vicinity}
         />
       )}
       {/* <HomeLocationCard

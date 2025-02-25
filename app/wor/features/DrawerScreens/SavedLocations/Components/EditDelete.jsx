@@ -6,26 +6,42 @@ import { useDispatch, useSelector } from "react-redux";
 import { homePlace } from "../../../ridebooking/home/redux/homePlace";
 import { deleteSavedAddress } from "../../../Parcels/services/parSavedAddressServices";
 import { fetchSavedPlace } from "../../../Parcels/redux/parcelSavedPlace.slice";
+import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
+import ModalUI from "../../../../utiles/Modal/Modal";
+import { infoModalStyles } from "../../../../../../Components/InfoUi/Styles/InfoModalStyles";
+import SavedPlacesChangeModal from "../modals/SavedPlacesChangeModal";
 
 const EditDelete = ({ place, editDeleteType }) => {
-  // console.log(place);
+  const [openSavedPlacesModal, setOpenSavedPlacesModal] = useState(false);
+
+  const handleModalSavedPlaces = () => {
+    setOpenSavedPlacesModal(!openSavedPlacesModal);
+  };
 
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.token);
 
-  const handleEditPlace = () => {};
+  const handleEditPlace = () => {
+    if (editDeleteType === "home" || editDeleteType === "work") {
+    } else if (editDeleteType === "savedAddress") {
+      // navigation.navigate("ParSavedUsers", {})
+      handleModalSavedPlaces();
+    }
+  };
 
   const handleDeletePlace = async () => {
     if (editDeleteType === "home" || editDeleteType === "work") {
       try {
         await onDeleteSavedPlaces({ token: token, id: place._id });
+        dispatch(homePlace({ token }));
       } catch (error) {
         console.log(error);
       }
     } else if (editDeleteType === "savedAddress") {
       try {
         await deleteSavedAddress({ token: token, id: place?._id });
-
+        console.log("editDeleteType", editDeleteType);
         dispatch(fetchSavedPlace({ token }));
       } catch (error) {
         console.log(error);
@@ -34,22 +50,29 @@ const EditDelete = ({ place, editDeleteType }) => {
   };
 
   return (
-    <View style={styles.editBox}>
-      <TouchableOpacity
-        style={styles.editDeleteButton}
-        onPress={handleEditPlace}
-      >
-        <FontAwesome name="pencil-square-o" size={20} color="green" />
-        <Text style={{ fontFamily: fonts.robotoRegular }}>Edit</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.editDeleteButton}
-        onPress={handleDeletePlace}
-      >
-        <MaterialIcons name="delete-outline" size={20} color="red" />
-        <Text style={{ fontFamily: fonts.robotoRegular }}>Delete</Text>
-      </TouchableOpacity>
-    </View>
+    <>
+      <View style={styles.editBox}>
+        <TouchableOpacity
+          style={styles.editDeleteButton}
+          onPress={handleEditPlace}
+        >
+          <FontAwesome name="pencil-square-o" size={20} color="green" />
+          <Text style={{ fontFamily: fonts.robotoRegular }}>Edit</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.editDeleteButton}
+          onPress={handleDeletePlace}
+        >
+          <MaterialIcons name="delete-outline" size={20} color="red" />
+          <Text style={{ fontFamily: fonts.robotoRegular }}>Delete</Text>
+        </TouchableOpacity>
+      </View>
+      <SavedPlacesChangeModal
+        handleModalSavedPlaces={handleModalSavedPlaces}
+        openSavedPlacesModal={openSavedPlacesModal}
+        place={place}
+      />
+    </>
   );
 };
 

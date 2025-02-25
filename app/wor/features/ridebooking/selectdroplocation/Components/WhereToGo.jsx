@@ -12,7 +12,7 @@ const WhereToGo = ({
   micVoiceText,
   setMicVoiceText,
   setIsMicModalOpenClose,
-  isMicModalOpenClose,
+
   title = "",
   passParams,
   isDisplayAddHomePlace = true, // this display home places card default and || this prop used change drop location after ride accept to hidden the home place card

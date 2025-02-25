@@ -60,3 +60,9 @@ let priceDetailsss = {
   updatedAt: "2025-02-20T10:45:00.853Z",
   waitingChargerAfter3Min: 1,
 };
+
+let homePlacePrev = {
+  location: { lat: 17.4584134, lng: 78.3725586 },
+  name: "Google Hyderabad - DivyaSree Omega",
+  vicinity: "Block 1, DivyaSree Omega Survey No 13, Kothaguda",
+};
