@@ -21,6 +21,7 @@ import RobotoBold from "./assets/fonts/Roboto/Roboto-Bold.ttf";
 import RobotoSemiBold from "./assets/fonts/Roboto/Roboto-SemiBold.ttf";
 import RobotoMedium from "./assets/fonts/Roboto/Roboto-Medium.ttf";
 
+
 LogBox.ignoreLogs([
   "`new NativeEventEmitter()` was called with a non-null argument without the required `addListener` method",
   "`new NativeEventEmitter()` was called with a non-null argument without the required `removeListeners` method",
@@ -118,6 +119,8 @@ initializeNotifications();
 export default function App() {
   const [isConnected, setIsConnected] = useState(true);
 
+
+
   const [loaded, error] = useFonts({
     "roboto-regular": RobotoRegular,
     "roboto-thin": RobotoThin,
@@ -155,6 +158,12 @@ export default function App() {
   if (!loaded && !error) {
     return null;
   }
+
+
+
+
+
+
   return (
     <Provider store={store}>
       <SocketProvider>
