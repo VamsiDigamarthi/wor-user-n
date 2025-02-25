@@ -28,6 +28,9 @@ const HomeWorkPlaceCard = () => {
         : type === "second-home"
         ? otherHomePlace
         : workPlace;
+
+    console.log(place, "HOME WORK PLACE CLICKED");
+
     dispatch(setIsBeforeBook(true));
     dispatch(setDropDetails(place));
 

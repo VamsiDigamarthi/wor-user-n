@@ -44,20 +44,27 @@ export default function PaymentModal({ onClose, isRideBookingScreen }) {
   };
 
   const handleChangePaymentMethodApi = async () => {
-    console.log("Selected payment method:", selectedMethod);
+    // console.log("Selected payment method:", selectedMethod);
+    // console.log(completeRideDetails?._id, "---id");
+    // console.log(token, "---id");
+
     const data = await onChangePaymentMethod({
-      token,
+      token: token,
       orderId: completeRideDetails?._id,
       paymentMethod: selectedMethod,
     });
+
+    // console.log(data?.order, "==========================");
+
     onClose();
     if (!data?.status) return;
-    dispatch(setCompleteRideDetails(data?.order));
+    const order = data?.order;
+    dispatch(setCompleteRideDetails(order));
   };
 
-  console.log("profile?.walletBalance", profile?.walletBalance);
-  console.log("price", price);
-  console.log("completeRideDetails", completeRideDetails);
+  // console.log("profile?.walletBalance", profile?.walletBalance);
+  // console.log("price", price);
+  // console.log("completeRideDetails", completeRideDetails);
 
   return (
     <View style={styles.container}>

@@ -81,7 +81,7 @@ const FaceCard = () => {
         tip={isTipAdded ? tip : completeRideDetails?.addTip}
       />
       <PaymentModal
-        onClose={changePaymentMethodModal}
+        onClose={() => changePaymentMethodModal(!paymentMethodsModal)}
         paymentMethodsModal={paymentMethodsModal}
         isRideBookingScreen={true}
       />

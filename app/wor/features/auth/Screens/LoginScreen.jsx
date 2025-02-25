@@ -99,14 +99,10 @@ const LoginScreen = () => {
               { paddingHorizontal: Platform.OS === "ios" && 30 },
             ]}
           >
-            <Text style={styles.linkText}>
-              A Product From
-            </Text>
+            <Text style={styles.linkText}>A Product From</Text>
             <Pressable onPress={openLink}>
-              <Text
-                style={[styles.linkText , { color: "#EA4C89" }]}
-              >
-                Visit NuHvin
+              <Text style={[styles.linkText, { color: "#FF6600" }]}>
+                NuHvin
               </Text>
             </Pressable>
           </View>
@@ -158,5 +154,5 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   subHeading: { fontSize: 13, color: "gray", fontFamily: fonts.robotoRegular },
-  linkText:{ fontSize: 14, fontFamily: fonts.robotoRegular  }
+  linkText: { fontSize: 14, fontFamily: fonts.robotoRegular },
 });
