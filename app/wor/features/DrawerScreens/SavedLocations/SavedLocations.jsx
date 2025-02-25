@@ -6,15 +6,17 @@ import { fonts } from "../../../fonts/Fonts";
 import AddNewPlace from "./Components/AddNewPlace";
 import RideParcelList from "./Components/RideParcelList";
 import AddHomeAndWorkPlaces from "./Components/AddHomeAndWorkPlaces";
+import { useSelector } from "react-redux";
 
 export default function SavedLocations() {
+  const { otherHomePlace } = useSelector((state) => state.homePlaces);
   return (
     <AppBarLayout title="Saved Location">
       <View style={styles.container}>
         <Text style={styles.heading}>Saved Places</Text>
 
         <AddHomeAndWorkPlaces />
-        <AddNewPlace />
+        {!otherHomePlace && <AddNewPlace />}
 
         <Text style={styles.heading}>All Saved Places</Text>
         <RideParcelList />

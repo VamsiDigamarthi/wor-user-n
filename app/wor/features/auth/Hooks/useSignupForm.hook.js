@@ -22,7 +22,7 @@ export const useSignupForm = ({ mobile }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [onOpenTextBasedLocationModal, setOnOpenTextBasedLocationModal] =
     useState(false);
-  const [validationCheck, setValidationCheck] = useState({ name: false });
+
   const [storeNearLocation, setStoreNearLocation] = useState([]);
 
   const dispatch = useDispatch();

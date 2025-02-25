@@ -74,3 +74,36 @@ export const deleteSavedAddress = async ({ token, id }) => {
     return null;
   }
 };
+
+// update
+
+export const onUpdateSavedParcelAddress = async ({ token, formData, id }) => {
+  try {
+    await API.patch(
+      `/saved-address/${id}`,
+      {
+        name: formData.senderName,
+        landMark: formData.landmark,
+        address: formData.address,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    Toast.show({
+      text1: "successfully address updated successfuly",
+      type: "success",
+      position: "bottom",
+    });
+    return true;
+  } catch (error) {
+    Toast.show({
+      text1: error?.response?.data?.message ?? "Failed to update saved address",
+      type: "error",
+      position: "bottom",
+    });
+    return false;
+  }
+};
