@@ -35,6 +35,8 @@ const RideHistory = () => {
     navigation.navigate("SelectDropLocation", { isMic: false });
   };
 
+  // console.log("rideHistory", rideHistory);
+
   return (
     <AppBarLayout title="Ride History" isPositionAppbar>
       <View

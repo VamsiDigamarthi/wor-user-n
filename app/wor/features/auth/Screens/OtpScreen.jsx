@@ -15,6 +15,7 @@ import CustomBtn from "../../../utiles/CustomBtn";
 import AProductFromNuhvin from "../Components/AProductFromNuhvin";
 import { useOtpHook } from "../Hooks/Otp.hook";
 import { useNavigation } from "@react-navigation/native";
+import { fonts } from "../../../fonts/Fonts";
 
 const OtpScreen = ({}) => {
   const {
@@ -44,18 +45,18 @@ const OtpScreen = ({}) => {
           <AuthAppBar isLoginScreen={false} supportNavigate="Otp" />
           <View style={styles.loginInnerCard}>
             <View style={{ width: "100%", gap: 10 }}>
-              <Text style={{ fontWeight: "600", fontSize: 24 }}>
+              <Text style={{ fontFamily:fonts.robotoSemiBold, fontSize: 24 }}>
                 Welcome Back {message} !
               </Text>
-              <Text style={{ fontSize: 14, fontWeight: "500" }}>
+              <Text style={{ fontSize: 14, fontFamily:fonts.robotoMedium }}>
                 Please enter your 6-digit OTP
               </Text>
-              <Text style={{ color: "gray", fontSize: 13 }}>
+              <Text style={{ color: "gray", fontSize: 13 , fontFamily:fonts.robotoRegular }}>
                 The OTP will be sent to your mobile number
               </Text>
               <View style={{ flexDirection: "row", gap: 10 }}>
                 <Pressable onPress={() => navigation.goBack()}>
-                  <Text style={{ color: "blue", fontSize: 13 }}>
+                  <Text style={{ color: "blue", fontSize: 13  , fontFamily:fonts.robotoRegular}}>
                     Change Number
                   </Text>
                 </Pressable>
@@ -100,12 +101,12 @@ const OtpScreen = ({}) => {
 
               {isResendAvailable ? (
                 <Pressable onPress={handleResendOtp}>
-                  <Text style={{ color: "blue", fontSize: 13 }}>
+                  <Text style={{ color: "blue", fontSize: 13, fontFamily:fonts.robotoRegular}}>
                     Resend OTP
                   </Text>
                 </Pressable>
               ) : (
-                <Text style={{ color: "gray", fontSize: 13 }}>
+                <Text style={{ color: "gray", fontSize: 13, fontFamily:fonts.robotoRegular }}>
                   Requested new OTP in {timer}s
                 </Text>
               )}
@@ -165,6 +166,7 @@ const styles = StyleSheet.create({
     height: 20,
     borderRadius: 20,
     fontSize: 16,
+    fontFamily:fonts.robotoRegular
   },
   errorCard: {
     width: "100%",
@@ -172,6 +174,7 @@ const styles = StyleSheet.create({
   errorMsg: {
     color: "red",
     fontSize: 14,
+    fontFamily:fonts.robotoRegular
   },
   nuhvinProduct: {
     position: "absolute",

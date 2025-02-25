@@ -11,6 +11,7 @@ import AddTipNew from "./Components/AddTipNew";
 import CopyBox from "../../../utiles/CopyBox";
 import { useCaptainAcceptRideScreenHook } from "./Hooks/CaptainAcceptRideScreen.hook";
 import TrackMe from "./Components/TrackMe";
+import SocketCancelRide from "./Modals/SocketCancelRide";
 
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.4, 0.6].map((p) => screenHeight * p);
@@ -31,6 +32,8 @@ const CaptainAcceptRideScreen = () => {
     disFromCaptainLocToPick,
     disFromPickToDrop,
     liveCoordinates,
+    cancelOrderByUseSt,
+    setCancelOrderByUseSt,
     kownBotSheetChangeUpOrDown,
   } = useCaptainAcceptRideScreenHook();
 
@@ -64,8 +67,8 @@ const CaptainAcceptRideScreen = () => {
             ? completeRideDetails?.newDropAddress
             : completeRideDetails?.dropAddress
           : isArrived
-          ? "Rider has arrived"
-          : "Ride On the way"
+            ? "Rider has arrived"
+            : "Ride On the way"
       }
       vicinity={
         otpVerified
@@ -82,6 +85,7 @@ const CaptainAcceptRideScreen = () => {
     >
       <View style={styles.mapContainer}>
         <ShowPollyLine
+          selectedVehicleType={completeRideDetails?.vehicleType}
           origin={otpVerified ? pickUpCoordinates : captainCoordinates}
           destination={otpVerified ? dropCoordinates : pickUpCoordinates}
           liveCoordinates={liveCoordinates}
@@ -112,6 +116,12 @@ const CaptainAcceptRideScreen = () => {
           <CopyBox backgroundColor="#fff" />
         </View>
       </BottomSheetComponent>
+      {/* calcel ride modal */}
+
+      <SocketCancelRide
+        cancelOrderByUseSt={cancelOrderByUseSt}
+        setCancelOrderByUseSt={setCancelOrderByUseSt}
+      />
     </AppBarLayout>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+
 
 import MapView, { Marker, Polyline } from "react-native-maps";
 import { FontAwesome } from "@expo/vector-icons";
@@ -11,14 +12,15 @@ import { calculateBearing } from "../../../Constants/displaylocationmap";
 import Map3Btns from "./Map3Btn";
 import MapModalUi from "../features/ridebooking/home/modals/MapModalUi";
 
-// import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+
 
 const ShowPollyLine = ({
   origin,
   destination,
   height,
   liveCoordinates,
-  handleOpenSafetySheet,
+  handleOpenSafetySheet, selectedVehicleType
 }) => {
   const [currentPosition, setCurrentPosition] = useState({
     latitude: liveCoordinates?.lat,
@@ -76,6 +78,7 @@ const ShowPollyLine = ({
     }
   }, [liveCoordinates]);
 
+
   useEffect(() => {
     if (mapRef.current) {
       const zoomLevel = height > 600 ? 0.01 : 0.05;
@@ -121,6 +124,22 @@ const ShowPollyLine = ({
         <Marker coordinate={adjustedDestination} title="End Point">
           <FontAwesome name="map-pin" size={20} color="#4caf50" />
         </Marker>
+        {/* <Marker coordinate={adjustedDestination} title="End Point">
+
+          <Image
+            style={{
+              width: 30,
+              height: 30,
+              resizeMode: "contain",
+              // transform: [{ rotate: `${heading}deg` }], // Rotate the bike image
+            }}
+            source={selectedVehicleType === "car" ? require("../../../assets/images/HomeServiceImages/cab.png")
+              : selectedVehicleType === "bookany" ? require("../../../assets/images/HomeServiceImages/cab.png")
+                : selectedVehicleType === "auto" ? require("../../../assets/images/HomeServiceImages/auto.png")
+                  : selectedVehicleType === "wor-premium" ? require("../../../assets/images/HomeServiceImages/cab.png")
+                    : require("../../../assets/images/HomeServiceImages/scooty.png")}
+          />
+        </Marker> */}
         {currentPosition?.latitude && (
           <Marker coordinate={currentPosition} title="Live Position">
             <Image
@@ -130,7 +149,12 @@ const ShowPollyLine = ({
                 resizeMode: "contain",
                 // transform: [{ rotate: `${heading}deg` }], // Rotate the bike image
               }}
-              source={require("../../../assets/images/markers/BIKE-removebg-preview.png")}
+              // source={require("../../../assets/images/markers/BIKE-removebg-preview.png")}
+              source={selectedVehicleType === "car" ? require("../../../assets/images/HomeServiceImages/cab.png")
+                : selectedVehicleType === "bookany" ? require("../../../assets/images/HomeServiceImages/cab.png")
+                  : selectedVehicleType === "auto" ? require("../../../assets/images/HomeServiceImages/auto.png")
+                    : selectedVehicleType === "wor-premium" ? require("../../../assets/images/HomeServiceImages/cab.png")
+                      : require("../../../assets/images/HomeServiceImages/scooty.png")}
             />
           </Marker>
         )}

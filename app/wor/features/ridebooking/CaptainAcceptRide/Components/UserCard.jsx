@@ -6,9 +6,26 @@ import defaultImg from "../../../../../../assets/images/profile/Services.png";
 import { fonts } from "../../../../fonts/Fonts";
 
 const UserCard = ({ captainDetails, vehcleType }) => {
-  const imageSrc = captainDetails?.profilePic
-    ? { uri: `${imageUrl}/${captainDetails.profilePic}` }
-    : defaultImg;
+  // const imageSrc = captainDetails?.profilePic
+  //   ? { uri: `${imageUrl}/${captainDetails.profilePic}` }
+  //   : defaultImg;
+
+  const sanitizedImageUrl = captainDetails?.profilePic
+    ? `${imageUrl}/${captainDetails?.profilePic}`.replace(/\\/g, "/")
+    : null;
+
+
+    // console.log(captainDetails);
+    /*
+    
+     LOG  {"_id": "67b575d859b84c418535b0d7", "activeService": "scooty", "email": "v@gmail.com", "languages": ["Telugu", "English"], "mobile": "9100480805", "name": "Vamsi", "profilePic": "uploads/1740156908399.jpg", "services": [{"_id": "67b575f459b84c418535b0e2", "color": null, "fatherName": null, "fitUpTo": null, "fuelType": null, "makerDescription": null, "makerModel": null, "ownerName": null, "permanentAddress": null, "presentAddress": null, "rcBackImage": "uploads\\1739947170149.jpg", "rcFrontImage": "uploads\\1739947170130.jpg", "rcNumber": "Ts07ev4520", "rcVerificationStatuc": "verified", "registeredAt": null, "registrationDate": null, "serviceType": "scooty"}, {"_id": "67b5b4bdc35096e841bcf616", "color": null, "fatherName": null, "fitUpTo": null, "fuelType": null, "makerDescription": null, "makerModel": null, "ownerName": null, "permanentAddress": null, "presentAddress": null, "rcBackImage": "uploads\\1739962133716.jpg", "rcFrontImage": "uploads\\1739962133708.jpg", "rcNumber": "Ts07ev4530", "rcVerificationStatuc": "verified", "registeredAt": null, "registrationDate": null, "serviceType": "auto"}]}ˀ
+    
+    */
+
+  const [imageSource, setImageSource] = useState(
+    sanitizedImageUrl ? { uri: sanitizedImageUrl } : defaultImg
+  );
+
   const [vehImage, setVehImage] = useState(null);
 
   const returnVehicleImage = (imageName) => {
@@ -42,7 +59,7 @@ const UserCard = ({ captainDetails, vehcleType }) => {
   return (
     <View style={styles.container}>
       <View style={styles.userImageCard}>
-        <Image style={styles.userImage} source={imageSrc} />
+        <Image style={styles.userImage} source={imageSource} />
         <View style={styles.bikeImage}>
           <Image
             style={{ width: "100%", height: "100%", resizeMode: "contain" }}
@@ -68,7 +85,7 @@ const UserCard = ({ captainDetails, vehcleType }) => {
               fontFamily: fonts.robotoRegular,
             }}
           >
-            4.3
+            {captainDetails?.averageRating}
           </Text>
         </View>
         <Text style={{ fontSize: 16, fontFamily: fonts.robotoSemiBold }}>
@@ -81,7 +98,7 @@ const UserCard = ({ captainDetails, vehcleType }) => {
             fontFamily: fonts.robotoRegular,
           }}
         >
-          {captainDetails?.vehicleName}
+          {captainDetails?.services[1]?.rcNumber.toUpperCase()}
         </Text>
         {captainDetails?.languages?.length > 0 && (
           <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>

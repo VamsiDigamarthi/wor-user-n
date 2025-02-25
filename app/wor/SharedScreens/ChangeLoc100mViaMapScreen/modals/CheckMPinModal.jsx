@@ -46,7 +46,10 @@ const CheckMPinModal = ({
     >
       <View style={styles.mainContainer}>
         <Text style={styles.heading}>Enter WoR-PIN</Text>
-        <Text style={styles.text}>WoR-PIN is a secure 4 digit code for safe account access and ride protection</Text>
+        <Text style={styles.text}>
+          WoR-PIN is a secure 4 digit code for safe account access and ride
+          protection
+        </Text>
         <View style={styles.inputContainer}>
           {mPin.map((digit, index) => (
             <TextInput
@@ -83,7 +86,7 @@ const CheckMPinModal = ({
         <View style={{ flexDirection: "row", gap: 10 }}>
           <Text style={styles.text}>Having Trouble</Text>
           <TouchableOpacity onPress={() => navigation.navigate("SetNewMpinj")}>
-            <Text style={[styles.text , { color: "blue" }]}>Forgot Mpin ?</Text>
+            <Text style={[styles.text, { color: "blue" }]}>Forgot Mpin ?</Text>
           </TouchableOpacity>
         </View>
 
@@ -114,17 +117,20 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     // backgroundColor: "red",
   },
-  
+
   inputBox: {
     marginTop: 10,
     borderBottomWidth: 1,
     textAlign: "center",
     fontSize: 18,
     backgroundColor: "#fff",
-    elevation: 1,
-    width:20
+    width:20,
+    // elevation: 1,
+
+    fontFamily:fonts.robotoRegular
+
   },
 
-  heading : { fontFamily:fonts.robotoSemiBold, fontSize:16},
-  text:{fontFamily:fonts.robotoRegular}
+  heading: { fontFamily: fonts.robotoSemiBold, fontSize: 16 },
+  text: { fontFamily: fonts.robotoRegular },
 });

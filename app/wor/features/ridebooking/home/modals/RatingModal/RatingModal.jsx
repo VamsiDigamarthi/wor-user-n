@@ -6,6 +6,7 @@ import { useRatingModalHook } from "./RatingModalHook";
 import RatingCard from "./Components/RatingCard";
 import WhatWeSay from "../../../FeedBack/Components/WhatWeSay";
 import CustomBtn from "../../../../../utiles/CustomBtn";
+import { fonts } from "../../../../../fonts/Fonts";
 
 const RatingModal = ({
   openModal,
@@ -62,12 +63,12 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    fontWeight: "600",
+    fontFamily:fonts.robotoSemiBold
   },
   tankText: {
     textAlign: "center",
     fontSize: 12,
-    fontWeight: "600",
+    fontFamily:fonts.robotoSemiBold,
     color: "gray",
     marginVertical: 5,
   },

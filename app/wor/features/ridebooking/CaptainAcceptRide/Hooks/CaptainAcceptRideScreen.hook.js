@@ -28,6 +28,8 @@ export const useCaptainAcceptRideScreenHook = () => {
     lng: null,
   });
 
+  const [cancelOrderByUseSt, setCancelOrderByUseSt] = useState(false);
+
   const onVerifiedOtp = ({ status, order }) => {
     console.log("--------------verified ----------------", status);
     setOtpVerified(status ?? false);
@@ -74,6 +76,11 @@ export const useCaptainAcceptRideScreenHook = () => {
     }
   };
 
+  const cancelOrderByUser = (status) => {
+    console.log("--- order cancel socket---");
+    setCancelOrderByUseSt(status ?? false);
+  };
+
   useEffect(() => {
     if (socket && isConnected) {
       socket.on("order-otp-verified", onVerifiedOtp);
@@ -81,6 +88,7 @@ export const useCaptainAcceptRideScreenHook = () => {
       socket.on("order-completed", handleCompleteRide);
       socket.on("new-receive-coordinates", handleLiveCoordinates);
       socket.on("change-destination-status", handleChangeDestCaptainResponse);
+      socket.on("accept-order-cancelled", cancelOrderByUser);
     }
     return () => {
       socket.off("order-otp-verified", onVerifiedOtp);
@@ -88,6 +96,7 @@ export const useCaptainAcceptRideScreenHook = () => {
       socket.off("order-completed", handleCompleteRide);
       socket.off("new-receive-coordinates", handleLiveCoordinates);
       socket.off("change-destination-status", handleChangeDestCaptainResponse);
+      socket.on("accept-order-cancelled", cancelOrderByUser);
     };
   }, [socket, isConnected]);
 
@@ -96,7 +105,9 @@ export const useCaptainAcceptRideScreenHook = () => {
       calculatePickUpDistance();
       calDisFromPickToDrop();
     }
+
   }, [completeRideDetails]);
+  
 
   const calculatePickUpDistance = async () => {
     try {
@@ -154,5 +165,7 @@ export const useCaptainAcceptRideScreenHook = () => {
     disFromPickToDrop,
     liveCoordinates,
     kownBotSheetChangeUpOrDown,
+    cancelOrderByUseSt,
+    setCancelOrderByUseSt,
   };
 };

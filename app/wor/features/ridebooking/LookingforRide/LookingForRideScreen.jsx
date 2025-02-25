@@ -9,15 +9,17 @@ import CustomBtn from "../../../utiles/CustomBtn";
 import { useNavigation } from "@react-navigation/native";
 import { Chase } from "react-native-animated-spinkit";
 import CancelRideModal from "../CaptainAcceptRide/Modals/CancelRideModal";
+import { Entypo, AntDesign } from "@expo/vector-icons";
+import { fonts } from "../../../fonts/Fonts";
 
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.48, 0.5].map((p) => screenHeight * p); // Example snap points for Android
 const iosSnapPoints = [0.42, 0.42].map((p) => screenHeight * p); // Example snap points for iOS
 
 const LookingForRideScreen = () => {
-  const { dropDetails, isSendOrReceiveParcel, pickUpDetails } = useSelector(
-    (state) => state.allRideDetails
-  );
+  const { dropDetails, isSendOrReceiveParcel, pickUpDetails , price,selectedVehicleType} = useSelector((state) => state.allRideDetails);
+console.log(useSelector((state) => state.allRideDetails),"useSelector((state) => state.allRideDetails);");
+
 
   const {
     progressWidth,
@@ -43,6 +45,7 @@ const LookingForRideScreen = () => {
       <View style={styles.mapContainer}>
         <ShowPollyLine
           height={mapHeight}
+          selectedVehicleType={selectedVehicleType}
           origin={
             isSendOrReceiveParcel === "send"
               ? pickUpDetails?.location
@@ -73,6 +76,7 @@ const LookingForRideScreen = () => {
               source={require("../../../../../assets/images/loadingbg.png")}
             />
           </View>
+
           <View style={styles.cancelBtn}>
             <CustomBtn
               title={showCancelWithReOrderBtn ? "Cancel Ride" : "Re-Place Ride"}
@@ -94,6 +98,24 @@ const LookingForRideScreen = () => {
                 onPress={onNewCancelHandle}
               />
             )}
+          </View>
+
+          <View style={styles.rideDetailsContainer}>
+            <Entypo name="location-pin" size={24} color="green" />
+
+            <View style={styles.innerContainer}>
+              <View>
+              <Text style={styles.text}>{dropDetails?.name}</Text>
+              <Text style={styles.text}>{dropDetails?.vicinity}</Text>
+              </View>
+
+              <View style={styles.infoContainer}>
+                <AntDesign name="infocirlceo" size={14} color="#FF6600" />
+                <Text style={styles.text}>Total you pay Rs. {price}</Text>
+              </View>
+            </View>
+
+
           </View>
         </View>
       </BottomSheetComponent>
@@ -123,4 +145,35 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 60,
   },
+  rideDetailsContainer: {
+    backgroundColor: "#F7F7F7",
+    padding: 16,
+    borderRadius: 20,
+    marginTop: 20,
+    flexDirection: "row",
+    width:"100%",
+    gap:10
+    // backgroundColor:"green"
+  },
+
+
+  innerContainer:{
+    width:"100%",
+    gap:10
+  },
+
+  infoContainer: {
+    flexDirection: "row",
+    gap: 10,
+    marginLeft:60
+    // alignItems: "center",
+    // justifyContent:"center",
+    // marginHorizontal: "auto",
+    // width: "100%",
+    // backgroundColor:"red"
+  },
+
+  text:{
+    fontFamily:fonts.robotoRegular
+  }
 });

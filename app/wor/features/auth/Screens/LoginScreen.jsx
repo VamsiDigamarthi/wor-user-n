@@ -13,6 +13,7 @@ import AuthAppBar from "./AuthAppBar";
 import CustomBtn from "../../../utiles/CustomBtn";
 import { useLoginHook } from "../Hooks/Login.hook";
 import Input from "../../../utiles/Input";
+import { fonts } from "../../../fonts/Fonts";
 
 const LoginScreen = () => {
   const {
@@ -36,10 +37,10 @@ const LoginScreen = () => {
           <AuthAppBar />
           <View style={styles.loginInnerCard}>
             <View style={{ width: "100%", gap: 10 }}>
-              <Text style={{ fontSize: 24, fontWeight: "600" }}>
+              <Text style={styles.heading}>
                 Please Enter Your Mobile Number For Verification
               </Text>
-              <Text style={{ fontSize: 13, color: "gray" }}>
+              <Text style={styles.subHeading}>
                 This number is used for all ride related communication. you
                 shall receive and otp for this
               </Text>
@@ -98,12 +99,12 @@ const LoginScreen = () => {
               { paddingHorizontal: Platform.OS === "ios" && 30 },
             ]}
           >
-            <Text style={{ fontSize: 14, fontWeight: "500" }}>
+            <Text style={styles.linkText}>
               A Product From
             </Text>
             <Pressable onPress={openLink}>
               <Text
-                style={{ fontSize: 14, fontWeight: "500", color: "#EA4C89" }}
+                style={[styles.linkText , { color: "#EA4C89" }]}
               >
                 Visit NuHvin
               </Text>
@@ -151,4 +152,11 @@ const styles = StyleSheet.create({
     color: "red",
     fontSize: 11,
   },
+
+  heading: {
+    fontFamily: fonts.robotoSemiBold,
+    fontSize: 24,
+  },
+  subHeading: { fontSize: 13, color: "gray", fontFamily: fonts.robotoRegular },
+  linkText:{ fontSize: 14, fontFamily: fonts.robotoRegular  }
 });

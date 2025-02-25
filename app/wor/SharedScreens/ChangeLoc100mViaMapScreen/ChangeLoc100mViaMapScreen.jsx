@@ -22,10 +22,6 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
   } = useChangeLoc100mViaMapScreenHook();
 
   return (
-    // <AppBarLayout
-    //   title={"Check Pick Up Location Again"}
-    //   isPositionAppbar={true}
-    // >
     <View style={{ flex: 1 }}>
       <TouchableOpacity
         style={styles.backbtn}
@@ -69,29 +65,23 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
     </View>
   );
 };
-//
+
 export default ChangeLoc100mViaMapScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    position: "relative",
-    bottom: 10,
   },
   mapContainer: {
     flex: 1,
   },
-
   backbtn: {
     position: "absolute",
     top: 39,
     left: 10,
     padding: 5,
     borderRadius: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    // backgroundColor:
     backgroundColor: "#fff",
     elevation: 4,
     zIndex: 100,

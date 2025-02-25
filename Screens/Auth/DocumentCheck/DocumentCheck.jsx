@@ -5,6 +5,7 @@ import AuthScreenLayout from "../../../Layouts/AuthScreenLayout";
 import BottomSheet from "../../../Utils/BottomSheet/BottomSheet";
 import DocumentRelatedCheck from "../../../Components/Auth/DocumentRelatedCheck/DocumentRelatedCheck";
 import { TouchableOpacity } from "react-native-web";
+import { fonts } from "../../../app/wor/fonts/Fonts";
 
 const DocumentCheck = () => {
   return (
@@ -24,7 +25,7 @@ const DocumentCheck = () => {
                 navigation.navigate("AuthenticatedStack");
               }}
             >
-              <Text style={{ fontSize: 14, fontWeight: "600" }}>Skip</Text>
+              <Text style={{ fontSize: 14, fontFamily:fonts.robotoSemiBold}}>Skip</Text>
             </Pressable>
           </View>
           <Image

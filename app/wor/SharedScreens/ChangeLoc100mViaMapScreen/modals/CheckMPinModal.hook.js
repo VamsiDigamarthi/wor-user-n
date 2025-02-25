@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { useSocket } from "../../../../../SocketContext";
 
-
 export const useCheckMPinModalHook = ({ onOpenIsEnterConfirmPinModal }) => {
   const {
     isParcScreen,
@@ -59,7 +58,6 @@ export const useCheckMPinModalHook = ({ onOpenIsEnterConfirmPinModal }) => {
 
     if (!data) return;
 
-    
     const { formattedDate, formattedTime } = getFormattedDateTime();
 
     const orderDetails = createOrderDetails({

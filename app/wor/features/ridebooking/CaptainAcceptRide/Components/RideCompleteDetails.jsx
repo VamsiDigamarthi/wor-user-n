@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import {
   ClockIcons,
   EditIcons,
-  FavoritesIcons,
   LocationIcon,
   PickLocationIcon,
 } from "../../../../Icons/Icons";
@@ -49,90 +48,59 @@ const RideCompleteDetails = ({ disFromPickToDrop }) => {
     <>
       <View style={styles.mainCard}>
         <View style={styles.iconsCard}>
-          <PickLocationIcon size={25} color="green" />
+          <PickLocationIcon size={20} color="green" />
           <View style={styles.line} />
-          <LocationIcon size={25} color="#EA4C89" />
+          <LocationIcon size={20} color="#EA4C89" />
         </View>
 
         <View style={styles.contentCard}>
-          <View
-            style={{
-              width: "100%",
-              flexDirection: "row",
-              gap: 5,
-            }}
-          >
-            <View>
-              <Text
-                style={[styles.orderText, { width: "90%" }]}
-                numberOfLines={2}
-                ellipsizeMode="tail"
-              >
-                {completeRideDetails?.pickupAddress}
+          <View style={styles.pickupContainer}>
+            <Text
+              style={styles.orderText}
+              numberOfLines={2}
+              ellipsizeMode="tail"
+            >
+              {completeRideDetails?.pickupAddress}
+            </Text>
+            <Text style={styles.vicinityText} numberOfLines={1}>
+              {completeRideDetails?.pickupVicinity}
+            </Text>
+          </View>
+            <View style={styles.distanceTimeContainer}>
+              <Text style={styles.distanceText}>
+                {disFromPickToDrop?.distance}
               </Text>
-              <Text style={{ fontSize: 10, color: "gray" }} numberOfLines={1}>
-                {completeRideDetails?.pickupVicinity}
-              </Text>
+              <View style={styles.timeContainer}>
+                <ClockIcons size={12} color="gray" />
+                <Text style={styles.timeText}>
+                  {disFromPickToDrop?.durationInMinutes} Min
+                </Text>
+              </View>
             </View>
 
-            <FavoritesIcons
-              size={21}
-              color={pickupFavorite ? "#EA4C89" : "gray"}
-            />
-          </View>
-          <View style={{ flexDirection: "row", gap: 20 }}>
-            <Text style={{ fontFamily: fonts.robotoRegular }}>
-              {disFromPickToDrop?.distance}
-            </Text>
-            <View
-              style={{
-                flexDirection: "row",
-                gap: 5,
-                alignItems: "center",
-              }}
-            >
-              <ClockIcons size={20} color="gray" />
-              <Text style={{ fontFamily: fonts.robotoRegular }}>
-                {disFromPickToDrop?.durationInMinutes} M
-              </Text>
-            </View>
-          </View>
-          <View
-            style={{
-              width: "100%",
-              flexDirection: "row",
-              gap: 5,
-            }}
-          >
+          <View style={styles.dropContainer}>
             <Text
-              style={[styles.orderText, { width: "80%" }]}
+              style={styles.addressText}
               numberOfLines={2}
               ellipsizeMode="tail"
             >
               {completeRideDetails?.newDesitionOrderStatus === "accept"
                 ? completeRideDetails?.newDropAddress
                 : completeRideDetails?.dropAddress}{" "}
-              <Text style={{ fontSize: 10, color: "gray" }}>
+              <Text style={styles.vicinityText}>
                 {completeRideDetails?.newDesitionOrderStatus === "accept"
                   ? completeRideDetails?.newDropVicinity
                   : completeRideDetails?.dropVicinity}
               </Text>
             </Text>
-            <View
-              style={{ flexDirection: "row", alignItems: "center", gap: 6 }}
-            >
-              <FavoritesIcons
-                size={22}
-                color={dropFavorite ? "#EA4C89" : "gray"}
-              />
-              <Pressable onPress={OpenConfirmChangeDestinationModal}>
-                <EditIcons size={21} color="gray" />
-              </Pressable>
-            </View>
+            <Pressable onPress={OpenConfirmChangeDestinationModal}>
+              <EditIcons size={16} color="gray" />
+            </Pressable>
           </View>
         </View>
       </View>
-      {/* change destination modal */}
+
+      {/* Modals */}
       <ChangeDestinationModal
         closeDestinationModal={handleChangeDestinationModal}
         openDestinationModal={changeDestinationModal}
@@ -154,33 +122,74 @@ export default RideCompleteDetails;
 
 const styles = StyleSheet.create({
   mainCard: {
-    position: "relative",
     flexDirection: "row",
     gap: 10,
-    paddingBottom: 10,
-    borderBottomColor: "black",
-    borderBottomWidth: 1,
-    borderStyle: "dashed",
+    padding: 16,
+    borderRadius: 8,
+    backgroundColor: "#fff",
+    elevation: 2,
+    // marginHorizontal: 5, // Added horizontal margin for better spacing
+    marginVertical: 8, // Added vertical margin for better spacing
   },
   iconsCard: {
-    height: 100,
     justifyContent: "space-between",
     alignItems: "center",
-    gap: 5,
   },
   line: {
     borderWidth: 1,
     borderStyle: "dashed",
     borderColor: "#000",
     width: 1,
-    height: "43%",
+    height: 64, // fixed height for the line
   },
   contentCard: {
-    height: 100,
-    width: "90%",
+    flex: 1,
     justifyContent: "space-between",
   },
+  pickupContainer: {
+    // marginBottom: 8, // Added margin to separate pickup and drop sections
+  },
   orderText: {
-    fontFamily: fonts.robotoSemiBold,
+    fontFamily: fonts.robotoMedium,
+    fontSize: 12,
+    color: "#333",
+    // marginBottom: 4, // Added margin for better spacing
+  },
+  vicinityText: {
+    fontSize: 12,
+    color: "gray",
+    // marginBottom: 4, // Added margin for better spacing
+  },
+  distanceTimeContainer: {
+    flexDirection: "row",
+    gap: 10,
+    alignItems: "center",
+    // marginTop: 4, // Adjusted margin to align with the top text
+  },
+  distanceText: {
+    fontFamily: fonts.robotoRegular,
+    fontSize: 10,
+    color: "#666",
+  },
+  timeContainer: {
+    flexDirection: "row",
+    gap: 2,
+    alignItems: "center",
+  },
+  timeText: {
+    fontFamily: fonts.robotoRegular,
+    fontSize: 10,
+    color: "#666",
+  },
+  dropContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  addressText: {
+    fontFamily: fonts.robotoMedium,
+    fontSize: 12,
+    color: "#333",
+    flex: 1, // Added flex to ensure text takes available space
   },
 });

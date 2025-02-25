@@ -10,15 +10,14 @@ import { nearPlacesByText } from "../../../../../Constants/displaylocationmap";
 export const useSignupForm = ({ mobile }) => {
   const [errors, setErrors] = useState({ name: "" });
   const [apiError, setApiError] = useState("");
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    address: "",
+    // address: "",
     role: "user",
     referalCode: "",
     mobile,
-    longitude: "76.978987",
-    latitude: "17.8765678",
   });
   const [isLoading, setIsLoading] = useState(false);
   const [onOpenTextBasedLocationModal, setOnOpenTextBasedLocationModal] =

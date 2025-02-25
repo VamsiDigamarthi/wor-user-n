@@ -16,6 +16,7 @@ import AProductFromNuhvin from "../Components/AProductFromNuhvin";
 import SignUpLocationTextCard from "../Components/SignUpLocationTextCard";
 import { useSignupForm } from "../Hooks/useSignupForm.hook";
 import { useRoute } from "@react-navigation/native";
+import { fonts } from "../../../fonts/Fonts";
 
 const SignupScreen = () => {
   const { mobile } = useRoute().params || {};
@@ -38,10 +39,10 @@ const SignupScreen = () => {
           <AuthAppBar isLoginScreen={false} />
           <View style={styles.loginInnerCard}>
             <View style={{ width: "100%", gap: 10 }}>
-              <Text style={{ fontSize: 13, color: "gray" }}>
+              <Text style={{ fontSize: 13, color: "gray", fontFamily:fonts.robotoRegular }}>
                 Please Fill Your
               </Text>
-              <Text style={{ fontSize: 22, fontWeight: "600" }}>
+              <Text style={{ fontSize: 22, fontFamily:fonts.robotoSemiBold}}>
                 Basic Information
               </Text>
 
@@ -76,13 +77,13 @@ const SignupScreen = () => {
             </View>
           </View>
 
-          <View style={{ gap: 30, height: 100, backgroundColor: "#fff" }}>
+          <View style={{ gap: 30, height: 100, backgroundColor: "#fff", alignItems:"center" }}>
             <CustomBtn
               title="continue"
               btnBg={formData.name ? "#EA4C89" : "#f7f7f7"}
               btnColor={formData.name ? "#FFF" : "#EA4C89"}
               onPress={handleNavigateToOTP}
-              width="100%"
+              width="95%"
               isLoading={isLoading}
             />
             <AProductFromNuhvin bottom={-20} />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Fontisto, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,12 +7,22 @@ import {
   setSelectVehicleType,
 } from "../../sharedLogics/rideDetailsSlice";
 import { fonts } from "../../../../fonts/Fonts";
+import ShowPriceDetailsModal from "../Modal/ShowPriceDetailsModal";
 
 const DisplayVehicle = ({ vehicle }) => {
   const dispatch = useDispatch();
   const { selectedVehicleType, priceDetails } = useSelector(
     (state) => state.allRideDetails
   );
+
+  const [openPriceDetailsModal, setOpenPriceDetailsModal] = useState(false);
+
+  const handlePriceDetailsModal = () => {
+    setOpenPriceDetailsModal(!openPriceDetailsModal);
+  };
+
+  const [lastPress, setLastPress] = useState(0);
+  const DOUBLE_PRESS_DELAY = 300; // 300ms for double press detection
 
   const getDestinationTime = (durationInMinutes) => {
     const now = new Date();
@@ -30,69 +40,82 @@ const DisplayVehicle = ({ vehicle }) => {
     return `${hours}:${formattedMinutes} ${ampm}`;
   };
 
-  const handelSelectVehicle = (vehicle) => {
-    dispatch(setPrice(priceDetails[vehicle]));
-    dispatch(setSelectVehicleType(vehicle));
+  const handelSelectVehicle = () => {
+    dispatch(setPrice(vehicle?.price));
+    dispatch(setSelectVehicleType(vehicle?.vehicleType?.toLowerCase()));
+  };
+
+  const handleDoublePress = () => {
+    handlePriceDetailsModal();
+  };
+
+  const handlePress = () => {
+    const time = new Date().getTime();
+    const delta = time - lastPress;
+
+    delta < DOUBLE_PRESS_DELAY ? handleDoublePress() : handelSelectVehicle();
+
+    setLastPress(time);
   };
 
   return (
-    <Pressable
-      style={[
-        styles.pressContainer,
-        vehicle?.vehicleType?.toLowerCase() ===
-          selectedVehicleType?.toLowerCase() && styles.pressedContainer,
-      ]}
-      onPress={() => handelSelectVehicle(vehicle?.vehicleType?.toLowerCase())}
-    >
-      <View style={[styles.container]}>
-        <Image style={styles.image} source={vehicle?.image} />
-        <View style={styles.textCard}>
-          <View style={styles.textWithPersonCard}>
-            <Text style={styles.vehicleType}>{vehicle?.displayName}</Text>
-            {vehicle?.isDisplayFastTag && <FastCard />}
-            {vehicle?.vehicleType?.toLowerCase() === selectedVehicleType && (
-              <View
-                style={{ flexDirection: "row", gap: 2, alignItems: "center" }}
-              >
-                <Fontisto name="female" size={15} color="black" />
-                <Text style={{ fontSize: 15, color: "gray" }}>
-                  {vehicle?.personCount}
-                </Text>
-              </View>
+    <>
+      <Pressable
+        style={[
+          styles.pressContainer,
+          vehicle?.vehicleType?.toLowerCase() ===
+            selectedVehicleType?.toLowerCase() && styles.pressedContainer,
+        ]}
+        onPress={handlePress} // Using handlePress to detect double press
+      >
+        <View style={[styles.container]}>
+          <Image style={styles.image} source={vehicle?.image} />
+          <View style={styles.textCard}>
+            <View style={styles.textWithPersonCard}>
+              <Text style={styles.vehicleType}>{vehicle?.displayName}</Text>
+              {vehicle?.isDisplayFastTag && <FastCard />}
+              {vehicle?.vehicleType?.toLowerCase() === selectedVehicleType && (
+                <View
+                  style={{ flexDirection: "row", gap: 2, alignItems: "center" }}
+                >
+                  <Fontisto name="female" size={15} color="black" />
+                  <Text style={{ fontSize: 15, color: "gray" }}>
+                    {vehicle?.personCount}
+                  </Text>
+                </View>
+              )}
+            </View>
+            <Text
+              style={[
+                styles.captionText,
+                { fontSize: 14, color: "#888", fontWeight: "600" },
+              ]}
+            >
+              {vehicle?.duration} Minutes away drop{" "}
+              {getDestinationTime(vehicle?.duration)}
+            </Text>
+            {vehicle?.isDisplayBeatTheTraffic && (
+              <Text style={styles.captionText}>
+                Beat the traffic & Pay less
+              </Text>
             )}
           </View>
-          <Text
-            style={[
-              styles.captionText,
-              { fontSize: 14, color: "#888", fontWeight: "600" },
-            ]}
-          >
-            {/* {vehicle?.vehicleType.toLowerCase() == "scooty"
-              ? `${scootyData?.duration} Minutes away drop ${getDestinationTime(
-                  scootyData?.duration
-                )}`
-              : vehicle?.vehicleType.toLowerCase() == "auto"
-              ? `${autoData?.duration} Minutes away drop ${getDestinationTime(
-                  autoData?.duration
-                )}`
-              : `${carData?.duration} Minutes away drop ${getDestinationTime(
-                  carData?.duration
-                )}`} */}
-          </Text>
-          {vehicle?.isDisplayBeatTheTraffic && (
-            <Text style={styles.captionText}>Beat the traffic & Pay less</Text>
-          )}
+          <View>
+            <Text style={styles.price}>₹{vehicle?.price}</Text>
+            <Text style={[styles.priceStrike]}>
+              {/* ₹{priceDetails?.[vehicle?.vehicleType?.toLowerCase()]} */}
+            </Text>
+          </View>
         </View>
-        <View>
-          <Text style={styles.price}>
-            ₹{priceDetails?.[vehicle?.vehicleType?.toLowerCase()]}
-          </Text>
-          <Text style={[styles.priceStrike]}>
-            ₹{priceDetails?.[vehicle?.vehicleType?.toLowerCase()]}
-          </Text>
-        </View>
-      </View>
-    </Pressable>
+      </Pressable>
+      {/* price details modal */}
+      <ShowPriceDetailsModal
+        closeCancelModal={handlePriceDetailsModal}
+        openCancelModal={openPriceDetailsModal}
+        vehicleType={vehicle?.vehicleType?.toLowerCase()}
+        price={vehicle?.price}
+      />
+    </>
   );
 };
 

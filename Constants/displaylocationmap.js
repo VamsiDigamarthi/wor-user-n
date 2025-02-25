@@ -161,11 +161,11 @@ export const getTravelDetails = async (
       let duration = data.rows[0].elements[0].duration.value; // Duration in seconds
 
       // Adjust duration for auto-rickshaw
-      if (vehicleType === "auto") {
+      if (vehicleType?.toLowerCase() === "auto") {
         duration = duration * 1.2;
       }
 
-      if (vehicleType == "scooty") {
+      if (vehicleType?.toLowerCase() == "scooty") {
         duration = duration * 0.85;
       }
 
@@ -303,3 +303,6 @@ export const calculateBearing = (startCoords, endCoords) => {
   const bearing = toDegrees(Math.atan2(y, x));
   return (bearing + 360) % 360; // Normalize to 0-360 degrees
 };
+
+
+
