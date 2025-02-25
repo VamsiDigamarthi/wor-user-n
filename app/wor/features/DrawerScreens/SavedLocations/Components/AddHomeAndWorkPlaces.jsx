@@ -6,9 +6,10 @@ import { useSelector } from "react-redux";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 
 const AddHomeAndWorkPlaces = () => {
-  const { homePlace, workPlace,otherHomePlace } = useSelector((state) => state.homePlaces);
-  console.log("otherHomePlace",otherHomePlace);
-  
+  const { homePlace, workPlace, otherHomePlace } = useSelector(
+    (state) => state.homePlaces
+  );
+
   return (
     <>
       {homePlace && (
@@ -28,6 +29,15 @@ const AddHomeAndWorkPlaces = () => {
           icon={<MaterialIcons name="work" size={24} color="#EA4C89" />}
           editDeleteType="work"
           entireItem={workPlace}
+        />
+      )}
+      {otherHomePlace && (
+        <TopCard
+          title="Work"
+          subtitle={otherHomePlace?.name}
+          icon={<Entypo name="home" size={24} color="#EA4C89" />}
+          editDeleteType="home"
+          entireItem={otherHomePlace}
         />
       )}
     </>

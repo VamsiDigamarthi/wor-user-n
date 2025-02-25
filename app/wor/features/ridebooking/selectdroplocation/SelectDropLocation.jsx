@@ -13,7 +13,6 @@ import { useSelectDropLocationHook } from "./Hooks/SelectDropLocation.hook";
 import MicModal from "./MicModal";
 import { useRoute } from "@react-navigation/native";
 import { COLORS } from "../../../../../Constants/colors";
-import { useEffect, useState } from "react";
 
 const SelectDropLocation = () => {
   const {
@@ -23,18 +22,7 @@ const SelectDropLocation = () => {
     setMicVoiceText,
   } = useSelectDropLocationHook();
 
-  // const [titleSt, setTitleSt] = useState(null)
-  // const [paramsSt, setParamsSt] = useState(null)
   const { title, passParams } = useRoute().params || {};
-
-  // useEffect(() => {
-  //   if (title) {
-  //     setTitleSt(title);
-  //   }
-  //   if (passParams) {
-  //     setParamsSt(passParams);
-  //   }
-  // }, [title, passParams]);
 
   return (
     <>

@@ -7,24 +7,23 @@ import { setHomeOrWorkPlaceType } from "../../../ridebooking/selectdroplocation/
 import { useDispatch } from "react-redux";
 
 const AddNewPlace = () => {
+  const navigation = useNavigation();
 
-  const navigation = useNavigation()
+  const dispatch = useDispatch();
 
-const dispatch = useDispatch()
-  const handleNavigateToSelectDropLocation =()=>{
+  const handleNavigateToSelectDropLocation = () => {
     dispatch(setHomeOrWorkPlaceType("second-homeplace"));
-    navigation.navigate("SelectDropLocation" , {
-      isMic:false,
-      
-    })
-  } 
-
+    navigation.navigate("SelectDropLocation", {
+      isMic: false,
+    });
+  };
 
   return (
-    <View
-      style={styles.addPlaceBtn}
-    >
-      <TouchableOpacity style={{ backgroundColor: "#e0e0e0", borderRadius: 7 }} onPress={handleNavigateToSelectDropLocation}>
+    <View style={styles.addPlaceBtn}>
+      <TouchableOpacity
+        style={{ backgroundColor: "#e0e0e0", borderRadius: 7 }}
+        onPress={handleNavigateToSelectDropLocation}
+      >
         <MaterialIcons name="add" size={24} color="#EA4C89" />
       </TouchableOpacity>
       <Text style={{ fontFamily: fonts.robotoRegular }}>Add New Place</Text>
@@ -35,12 +34,12 @@ const dispatch = useDispatch()
 export default AddNewPlace;
 
 const styles = StyleSheet.create({
-  addPlaceBtn:{
+  addPlaceBtn: {
     flexDirection: "row",
-    alignItems:"center",
+    alignItems: "center",
     gap: 10,
     borderBottomWidth: 1,
     borderStyle: "dashed",
     paddingBottom: 15,
-  }
+  },
 });

@@ -8,13 +8,18 @@ import {
   setDropDetails,
   setInitialDropDetails,
 } from "../../sharedLogics/rideDetailsSlice";
+import { onAddedHomePlace } from "../../selectdroplocation/Services/WhereToGoServ";
+import { clearHomeOrWorkPlace } from "../../selectdroplocation/redux/homePlaceType.slice";
+import { homePlace } from "../../home/redux/homePlace";
 
 const MapBottomDetails = ({ dragLocation }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const { isParcScreen } = useSelector((state) => state.allRideDetails);
+  const { homeOrWorkPlacetype } = useSelector((state) => state.homeOrWorkPlace);
+  const { token } = useSelector((state) => state.token);
 
-  const onNavigateShowPriceScreen = () => {
+  const onNavigateShowPriceScreen = async () => {
     let newPlace = {
       ...dragLocation,
       name: dragLocation?.name?.split(",")?.[0],
@@ -25,6 +30,23 @@ const MapBottomDetails = ({ dragLocation }) => {
     if (isParcScreen) {
       dispatch(setInitialDropDetails(newPlace));
       navigation.navigate("ChangeLoc100mViaMap");
+      return;
+    }
+
+    if (homeOrWorkPlacetype) {
+      const response = await onAddedHomePlace({
+        token,
+        name: dragLocation?.name?.split(",")?.[0],
+        vicinity: dragLocation?.name?.split(",")?.slice(1)?.join(""),
+        location: dragLocation?.location,
+        type: homeOrWorkPlacetype,
+      });
+
+      if (response) {
+        dispatch(clearHomeOrWorkPlace());
+        dispatch(homePlace({ token }));
+        navigation.pop(2);
+      }
       return;
     }
 

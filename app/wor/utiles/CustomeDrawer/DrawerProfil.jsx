@@ -19,6 +19,7 @@ const DrawerProfil = () => {
   const navigation = useNavigation();
 
   const { profile } = useSelector((state) => state.profileSlice);
+
   const { isDisplayMPinModal, isDisplayAadharModal } = useSelector(
     (state) => state.initialModals
   );
@@ -58,7 +59,7 @@ const DrawerProfil = () => {
     if (profile) {
       // console.log(profile);
 
-      // console.log(profile);
+      console.log(profile?.averageRating?.toFixed(1));
 
       // setAvgRating(calculateAverageRating(profile?.reviews)?.toFixed(1));
       setAvgRating(profile?.averageRating?.toFixed(1));
