@@ -7,6 +7,7 @@ import ShowPickLocation from "./ShowPickLocation";
 import NavigateMPinScreenModal from "./modals/NavigateMPinScreenModal";
 import CheckMPinModal from "./modals/CheckMPinModal";
 import Entypo from "@expo/vector-icons/Entypo";
+import NotInLocation from "../../NotInLocation";
 
 const ChangeLoc100mViaMapScreen = ({ navigation }) => {
   const {
@@ -62,6 +63,11 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
         pickUpPlace={placeName}
         newMarker={{ lat: newMarker.latitude, lng: newMarker.longitude }}
       />
+
+
+      {
+        false && <NotInLocation />
+      }
     </View>
   );
 };

@@ -84,6 +84,7 @@ import CustomeDrawer from "../app/wor/utiles/CustomeDrawer/CustomeDrawer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ad from "../app/wor/Ad";
 import { useEffect, useState } from "react";
+// import LocationGet from "../app/wor/LocationGetTest";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -133,11 +134,12 @@ const DrawerNavigator = ({ route }) => {
 const AuthenticatedStack = ({ initialRoute, params }) => {
   return (
     <Stack.Navigator initialRouteName={initialRoute}>
-      <Stack.Screen
-        name="DrawerNavigator"
-        component={DrawerNavigator}
-        options={{ headerShown: false }}
-      />
+        <Stack.Screen
+          name="DrawerNavigator"
+          component={DrawerNavigator}
+          options={{ headerShown: false }}
+        />
+
 
       <Stack.Screen
         name="Safety"
