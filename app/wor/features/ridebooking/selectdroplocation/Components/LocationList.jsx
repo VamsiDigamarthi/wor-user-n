@@ -1,7 +1,7 @@
 import { FlatList, StyleSheet, View } from "react-native";
 import LocationItem from "../../../../utiles/LocationItem";
 import { getCoordinatesFromPlaceId } from "../../../../../../Constants/displaylocationmap";
-import { onAddedHomePlace } from "../Services/WhereToGoServ";
+import { onAddedHomePlace, onEditHomePlace } from "../Services/WhereToGoServ";
 import {
   setDropDetails,
   setInitialDropDetails,
@@ -19,7 +19,9 @@ const LocationList = ({
   isDisplayAddHomePlace, // this prop initially true || and this props used for change destination location after ride accept
   handleReturnPlaceName, // this is function return place name to change destination modal
 }) => {
-  const { homeOrWorkPlacetype } = useSelector((state) => state.homeOrWorkPlace);
+  const { homeOrWorkPlacetype, isEditHomePlaces, editPlaceId } = useSelector(
+    (state) => state.homeOrWorkPlace
+  );
   const { token } = useSelector((state) => state.token);
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -27,6 +29,7 @@ const LocationList = ({
 
   const handleToNavigateShowPriceScreen = async ({ place }) => {
     let newDropLocation = null;
+    console.log("place", place);
 
     // Handle favorite places
     if (isFavoritePlaces) {
@@ -50,13 +53,25 @@ const LocationList = ({
 
     // Handle home/work place type
     if (homeOrWorkPlacetype) {
-      const response = await onAddedHomePlace({
-        token,
-        name: place.name,
-        vicinity: place.vicinity,
-        location: newDropLocation ? newDropLocation.location : place.location,
-        type: homeOrWorkPlacetype,
-      });
+      let response;
+      if (isEditHomePlaces) {
+        response = await onEditHomePlace({
+          token,
+          name: place.name,
+          vicinity: place.vicinity,
+          location: newDropLocation ? newDropLocation.location : place.location,
+          type: homeOrWorkPlacetype,
+          editPlaceId: editPlaceId,
+        });
+      } else {
+        response = await onAddedHomePlace({
+          token,
+          name: place.name,
+          vicinity: place.vicinity,
+          location: newDropLocation ? newDropLocation.location : place.location,
+          type: homeOrWorkPlacetype,
+        });
+      }
       if (response) {
         dispatch(clearHomeOrWorkPlace());
         dispatch(homePlace({ token }));

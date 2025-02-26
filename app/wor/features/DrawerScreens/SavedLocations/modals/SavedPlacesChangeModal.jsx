@@ -17,11 +17,20 @@ const SavedPlacesChangeModal = ({
   const { token } = useSelector((state) => state.token);
 
   const [formData, setFormData] = useState({
-    senderName: place.senderName,
-    mobile: place.mobile,
-    landmark: place.landMark,
-    address: place.address,
+    senderName: place?.senderName,
+    mobile: place?.mobile,
+    landmark: place?.landMark,
+    address: place?.address,
   });
+
+  useEffect(() => {
+    setFormData({
+      senderName: place?.senderName,
+      mobile: place?.mobile,
+      landmark: place?.landMark,
+      address: place?.address,
+    });
+  }, [place]);
 
   const [errors, setErrors] = useState({ senderName: "" });
   const [validationCheck, setValidationCheck] = useState({
@@ -37,12 +46,13 @@ const SavedPlacesChangeModal = ({
       [name]: value,
     }));
   };
+
   const validateInputs = () => {
     let valid = true;
     let validationErrors = {};
 
     // Validation for each field
-    if (!formData.senderName.trim()) {
+    if (!formData?.senderName?.trim()) {
       validationErrors.senderName = "Sender name is required.";
       valid = false;
     }
@@ -70,7 +80,7 @@ const SavedPlacesChangeModal = ({
   };
 
   useEffect(() => {
-    if (formData.senderName.trim()) {
+    if (formData?.senderName?.trim()) {
       setErrors((prevState) => ({
         ...prevState,
         senderName: "",
@@ -88,30 +98,7 @@ const SavedPlacesChangeModal = ({
     }
     // mobile number
 
-    // if (formData.mobile.trim() && /^\d{10}$/.test(formData.mobile)) {
-    //   setErrors((prevState) => ({
-    //     ...prevState,
-    //     mobile: "",
-    //   }));
-    //   setValidationCheck((prev) => ({
-    //     ...prev,
-    //     mobile: true,
-    //   }));
-    // }
-
-    //   if (!formData.mobile && validationCheck.mobile) {
-    //     setErrors((prev) => ({
-    //       ...prev,
-    //       mobile: "Mobile number is required.",
-    //     }));
-    //   } else if (!/^\d{10}$/.test(formData.mobile) && validationCheck.mobile) {
-    //     setErrors((prev) => ({
-    //       ...prev,
-    //       mobile: "Invalid mobile number. Please enter 10 digits.",
-    //     }));
-    //   }
-
-    if (formData.landmark.trim()) {
+    if (formData?.landmark?.trim()) {
       setErrors((prevState) => ({
         ...prevState,
         landmark: "",
@@ -122,14 +109,14 @@ const SavedPlacesChangeModal = ({
       }));
     }
 
-    if (!formData.landmark && validationCheck.landmark) {
+    if (!formData?.landmark && validationCheck?.landmark) {
       setErrors((prev) => ({
         ...prev,
         landmark: "Landmark is required.",
       }));
     }
 
-    if (formData.address.trim()) {
+    if (formData?.address?.trim()) {
       setErrors((prevState) => ({
         ...prevState,
         address: "",
@@ -139,7 +126,7 @@ const SavedPlacesChangeModal = ({
         address: true,
       }));
     }
-    if (!formData.address && validationCheck.address) {
+    if (!formData?.address && validationCheck?.address) {
       setErrors((prev) => ({
         ...prev,
         address: "Address is required.",
@@ -182,16 +169,7 @@ const SavedPlacesChangeModal = ({
           onChangeText={(text) => handleInputChange("senderName", text)}
           isValid={errors?.senderName?.length > 0 ? true : false}
         />
-        {/* <ParAddressInputItem
-          iconType="Feather"
-          iconName="phone"
-          placeholder="Mobile Number"
-          value={formData.mobile}
-          onChangeText={(text) => handleInputChange("mobile", text)}
-          keyboardType="number-pad"
-          maxLength={10}
-          // isValid={errors?.mobile?.length > 0 ? true : false}
-        /> */}
+
         <ParAddressInputItem
           iconType="Entypo"
           iconName="pin"

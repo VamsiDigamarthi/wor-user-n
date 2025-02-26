@@ -26,6 +26,7 @@ const LocationItem = ({
   );
 
   let Icon;
+
   switch (iconType) {
     case "Ionicons":
       Icon = Ionicons;

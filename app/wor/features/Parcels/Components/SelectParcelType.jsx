@@ -34,7 +34,7 @@ const SelectParcelType = () => {
     if (text?.length === 0) {
       dispatch(setParcelType(item));
     }
-    dispatch(setParcelType(item));
+    dispatch(setParcelType(text));
   };
 
   return (

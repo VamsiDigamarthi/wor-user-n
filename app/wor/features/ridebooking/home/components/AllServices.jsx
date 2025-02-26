@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectVehicleType } from "../../sharedLogics/rideDetailsSlice";
+import {
+  setIsBeforeBook,
+  setSelectVehicleType,
+} from "../../sharedLogics/rideDetailsSlice";
 import { fonts } from "../../../../fonts/Fonts";
 import {
   autoImg,
@@ -31,6 +34,7 @@ const AllServices = () => {
   };
 
   const navigateToPickLocationScreen = (vehicle) => {
+    dispatch(setIsBeforeBook(true));
     dispatch(setSelectVehicleType(vehicle));
     navigation.navigate("SelectDropLocation");
   };

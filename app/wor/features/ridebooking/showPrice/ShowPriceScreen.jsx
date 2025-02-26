@@ -49,12 +49,16 @@ const ShowPriceScreen = () => {
         title={dropDetails?.name}
         vicinity={dropDetails?.vicinity}
         isPositionAppbar={true}
-        isTimer={true}
+        // isTimer={true}
         timerFunction={timerSetModalOpen}
         borderStyles={false}
       >
         <View style={styles.mapContainer}>
-          <ShowPollyLine selectedVehicleType={selectedVehicleType} origin={location} destination={dropDetails.location} />
+          <ShowPollyLine
+            selectedVehicleType={selectedVehicleType}
+            origin={location}
+            destination={dropDetails.location}
+          />
         </View>
         <BottomSheetComponent
           style={{ marginBottom: isParcScreen ? 150 : 100 }}

@@ -8,7 +8,9 @@ import {
 import { chatBot } from "../data/chatBotData";
 
 export const useChatBotHook = () => {
-  const { caterogy, orderId } = useRoute()?.params || {};
+  const { caterogy, orderId, isRideHistorySreen } = useRoute()?.params || {};
+
+  const { profile } = useSelector((state) => state.profileSlice);
 
   const { token } = useSelector((state) => state.token);
 
@@ -26,7 +28,7 @@ export const useChatBotHook = () => {
 
     const success = await savedNewMessageApi({
       token,
-      orderId,
+      orderId: isRideHistorySreen ? orderId : profile._id,
       caterogy: caterogy?.split(" ")?.join(""),
       message: newMessage,
     });
@@ -36,7 +38,7 @@ export const useChatBotHook = () => {
 
     await savedNewMessageApi({
       token,
-      orderId,
+      orderId: isRideHistorySreen ? orderId : profile._id,
       caterogy: caterogy?.split(" ")?.join(""),
       message: botMessage,
     });
@@ -51,7 +53,7 @@ export const useChatBotHook = () => {
   const fetchPreviousMeg = async () => {
     const data = await fetchChatbotMessage({
       token,
-      orderId,
+      orderId: isRideHistorySreen ? orderId : profile._id,
       caterogy: caterogy?.split(" ")?.join(""),
     });
     if (!data) return;

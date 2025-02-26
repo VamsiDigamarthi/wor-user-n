@@ -11,10 +11,17 @@ import { useState } from "react";
 import ModalUI from "../../../../utiles/Modal/Modal";
 import { infoModalStyles } from "../../../../../../Components/InfoUi/Styles/InfoModalStyles";
 import SavedPlacesChangeModal from "../modals/SavedPlacesChangeModal";
+import EditHomePlaceModal from "../modals/EditHomePlaceModal";
+import {
+  setEditHomePlaces,
+  setEditPlaceId,
+  setHomeOrWorkPlaceType,
+} from "../../../ridebooking/selectdroplocation/redux/homePlaceType.slice";
 
 const EditDelete = ({ place, editDeleteType }) => {
-  const [openSavedPlacesModal, setOpenSavedPlacesModal] = useState(false);
+  const navigation = useNavigation();
 
+  const [openSavedPlacesModal, setOpenSavedPlacesModal] = useState(false);
   const handleModalSavedPlaces = () => {
     setOpenSavedPlacesModal(!openSavedPlacesModal);
   };
@@ -24,6 +31,15 @@ const EditDelete = ({ place, editDeleteType }) => {
 
   const handleEditPlace = () => {
     if (editDeleteType === "home" || editDeleteType === "work") {
+      dispatch(setHomeOrWorkPlaceType(editDeleteType));
+
+      dispatch(setEditHomePlaces(true));
+      dispatch(setEditPlaceId(place?._id));
+
+      navigation.navigate("SelectDropLocation", {
+        title: place.name,
+        passParams: true,
+      });
     } else if (editDeleteType === "savedAddress") {
       // navigation.navigate("ParSavedUsers", {})
       handleModalSavedPlaces();

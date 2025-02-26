@@ -17,9 +17,7 @@ const RideDetails = ({ disFromPickToDrop }) => {
           style={styles.accordionBtn}
           onPress={() => setShowHidden(!showHidden)}
         >
-          <Text style={styles.text}>
-            Ride Details
-          </Text>
+          <Text style={styles.text}>Ride Details</Text>
           {showHidden ? (
             <ArrowUpIcons size={30} color="#e02e88" />
           ) : (
@@ -51,11 +49,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
-  accordionBtn:{
+  accordionBtn: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
   },
-  text:{ fontSize: 13, fontFamily: fonts.robotoSemiBold }
+  text: { fontSize: 13, fontFamily: fonts.robotoSemiBold },
 });

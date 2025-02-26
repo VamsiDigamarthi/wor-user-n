@@ -31,7 +31,9 @@ const WhereToGo = ({
     favoritePlaces,
   } = useWhereToGoHook({ micVoiceText, setMicVoiceText, title });
 
-  const { homeOrWorkPlacetype } = useSelector((state) => state.homeOrWorkPlace);
+  const { homeOrWorkPlacetype, isEditHomePlaces } = useSelector(
+    (state) => state.homeOrWorkPlace
+  );
   const { isParcScreen } = useSelector((state) => state.allRideDetails);
   return (
     <>
@@ -39,7 +41,9 @@ const WhereToGo = ({
         <View style={styles.pickDropBtnCard}>
           <Text style={{ fontSize: 20, fontWeight: "bold" }}>
             {homeOrWorkPlacetype
-              ? `${homeOrWorkPlacetype?.toUpperCase()} Place`
+              ? ` ${
+                  isEditHomePlaces ? "Edit" : ""
+                }  ${homeOrWorkPlacetype?.toUpperCase()} Place`
               : isParcScreen
               ? "Where to Send Parcel ?"
               : "Where to go ?"}
