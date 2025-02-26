@@ -1116,6 +1116,8 @@ PODS:
     - React-debug
   - react-native-background-actions (4.0.1):
     - React-Core
+  - react-native-background-timer (2.4.1):
+    - React-Core
   - react-native-contact-pick (0.1.2):
     - React-Core
   - react-native-contacts (8.0.4):
@@ -1367,6 +1369,8 @@ PODS:
     - React-utils (= 0.74.5)
   - RNCAsyncStorage (1.23.1):
     - React-Core
+  - RNCPicker (2.11.0):
+    - React-Core
   - RNDateTimePicker (8.0.1):
     - React-Core
   - RNDeviceInfo (14.0.4):
@@ -1609,6 +1613,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
   - react-native-background-actions (from `../node_modules/react-native-background-actions`)
+  - react-native-background-timer (from `../node_modules/react-native-background-timer`)
   - react-native-contact-pick (from `../node_modules/react-native-contact-pick`)
   - react-native-contacts (from `../node_modules/react-native-contacts`)
   - react-native-date-picker (from `../node_modules/react-native-date-picker`)
@@ -1642,6 +1647,7 @@ DEPENDENCIES:
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
@@ -1774,6 +1780,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   react-native-background-actions:
     :path: "../node_modules/react-native-background-actions"
+  react-native-background-timer:
+    :path: "../node_modules/react-native-background-timer"
   react-native-contact-pick:
     :path: "../node_modules/react-native-contact-pick"
   react-native-contacts:
@@ -1840,6 +1848,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNCPicker:
+    :path: "../node_modules/@react-native-picker/picker"
   RNDateTimePicker:
     :path: "../node_modules/@react-native-community/datetimepicker"
   RNDeviceInfo:
@@ -1932,6 +1942,7 @@ SPEC CHECKSUMS:
   React-logger: 780b9ee9cec7d44eabc4093de90107c379078cb6
   React-Mapbuffer: f544f00b98dbdd8cbae96dd2bdb8b47f719976e0
   react-native-background-actions: 48e6bad9e2a47e3b04858634c5a05ea11062f680
+  react-native-background-timer: 4638ae3bee00320753647900b21260b10587b6f7
   react-native-contact-pick: 7be564b83b2f6a96664d91fc74818a4f462e2d55
   react-native-contacts: 9f23a0a9576903468ad885f99d6d19a16bce266b
   react-native-date-picker: 5ddb34db03afc527bc07777952c2ac72fa384411
@@ -1965,6 +1976,7 @@ SPEC CHECKSUMS:
   React-utils: 9fa4e5d0b5e6c6c85c958f19d6ef854337886417
   ReactCommon: 9f285823dbe955099978d9bff65a7653ca029256
   RNCAsyncStorage: aa75595c1aefa18f868452091fa0c411a516ce11
+  RNCPicker: 124b4fb5859ba1a3fd53a91e16d1e7a0fc016e59
   RNDateTimePicker: dde7ca9005d716f3efa9a63004b441679bca9a41
   RNDeviceInfo: d863506092aef7e7af3a1c350c913d867d795047
   RNFBApp: 6ea10ef8a45c43cd75d580599484c0931e6c3683

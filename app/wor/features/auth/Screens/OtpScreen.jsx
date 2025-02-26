@@ -42,7 +42,7 @@ const OtpScreen = ({}) => {
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.container}>
-          <AuthAppBar isLoginScreen={false} supportNavigate="Otp" />
+          <AuthAppBar faqs="OTP" isLoginScreen={false} supportNavigate="Otp" />
           <View style={styles.loginInnerCard}>
             <View style={{ width: "100%", gap: 10 }}>
               <Text style={{ fontFamily:fonts.robotoSemiBold, fontSize: 24 }}>

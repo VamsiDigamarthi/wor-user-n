@@ -3,8 +3,9 @@ import React from "react";
 import { BackIcon } from "../../../Icons/Icons";
 import SupportIcon from "../Components/SupportIcon";
 import { useNavigation } from "@react-navigation/native";
+import FQs from "../Components/F&Qa";
 
-const AuthAppBar = ({ isLoginScreen = true , supportNavigate}) => {
+const AuthAppBar = ({ isLoginScreen = true , supportNavigate,faqs}) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -24,7 +25,8 @@ const AuthAppBar = ({ isLoginScreen = true , supportNavigate}) => {
               source={require("./../../../../../assets/images/logo.png")}
             />
           </View>
-          <SupportIcon supportNavigate={supportNavigate}/>
+          <FQs faqs={faqs} />
+          {/* <SupportIcon supportNavigate={supportNavigate}/> */}
         </View>
       )}
     </View>

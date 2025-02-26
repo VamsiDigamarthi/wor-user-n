@@ -10,6 +10,8 @@ import LoginScreen from "../app/wor/features/auth/Screens/LoginScreen";
 import OtpScreen from "../app/wor/features/auth/Screens/OtpScreen";
 import SignupScreen from "../app/wor/features/auth/Screens/SignupScreen";
 import ChatBot from "../app/wor/features/DrawerScreens/RideHistory/Screens/ChatBot";
+import FQs from "../app/wor/features/auth/Components/F&Qa";
+import FandQsScreen from "../app/wor/features/auth/Screens/FandQsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -55,6 +57,14 @@ const AuthStack = ({ initialRouteName = "login" }) => {
         component={ChatBot}
         options={{ headerShown: false }}
       />
+
+<Stack.Screen
+        name="FQs"
+        component={FandQsScreen}
+        options={{ headerShown: false }}
+      />
+
+
     </Stack.Navigator>
   );
 };
