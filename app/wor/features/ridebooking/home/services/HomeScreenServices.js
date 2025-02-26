@@ -52,11 +52,11 @@ const onAddFbTokenToServer = async (token, fbToken) => {
         },
       }
     );
-    Toast.show({
-      text1: "fb-token-added successfully",
-      type: "success",
-      position: "bottom",
-    });
+    // Toast.show({
+    //   text1: "fb-token-added successfully",
+    //   type: "success",
+    //   position: "bottom",
+    // });
   } catch (error) {
     console.log(error?.response?.data?.message);
     Toast.show({

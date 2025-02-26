@@ -6,11 +6,15 @@ import { faqData } from "../../../../../../Constants/FaqData";
 import { useNavigation } from "@react-navigation/native";
 import { fonts } from "../../../../fonts/Fonts";
 
-export default function FaqListCard({ orderId }) {
+export default function FaqListCard({ orderId, isRideHistorySreen = true }) {
   const navigation = useNavigation();
 
   function handleNavigation(caterogy) {
-    navigation.navigate("ChatBot", { caterogy, orderId });
+    navigation.navigate("ChatBot", {
+      caterogy,
+      orderId,
+      isRideHistorySreen: isRideHistorySreen,
+    });
   }
 
   return (

@@ -19,13 +19,12 @@ const HomePlaceNearPlaceCard = ({ nearByRandomItems }) => {
   // console.log(rideHistory[0]);
 
   const navigateShowPriceScreen = (place) => {
+    console.log(place, "place");
     dispatch(setIsBeforeBook(true));
     dispatch(setDropDetails(place));
 
     navigation.navigate("ShowPrice");
   };
-
-
 
   const renderLocationItem = ({
     place,

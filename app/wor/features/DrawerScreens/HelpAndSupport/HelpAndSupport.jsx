@@ -22,7 +22,12 @@ function HelpAndSupport() {
 
   return (
     <AppBarLayout title="Help & WoR Support" isPositionAppbar={true}>
-      <View style={[styles.container, {paddingTop : Platform.OS=="ios" ? 110 : 100}]}>
+      <View
+        style={[
+          styles.container,
+          { paddingTop: Platform.OS == "ios" ? 110 : 100 },
+        ]}
+      >
         <View style={styles.topContainer}>
           <Text style={styles.heading}>My Rides</Text>
           <Pressable
@@ -42,7 +47,7 @@ function HelpAndSupport() {
 
         <View style={styles.supportContainer}>
           <Text style={styles.heading}>Help & WoR Support</Text>
-          <FaqListCard />
+          <FaqListCard isRideHistorySreen={false} />
         </View>
       </View>
     </AppBarLayout>
@@ -77,6 +82,6 @@ const styles = StyleSheet.create({
   },
   supportContainer: {
     marginTop: 10,
-    gap:10
+    gap: 10,
   },
 });
