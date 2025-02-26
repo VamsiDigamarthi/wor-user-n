@@ -20,14 +20,13 @@ const ShowPollyLine = ({
   destination,
   height,
   liveCoordinates,
-  handleOpenSafetySheet, selectedVehicleType
+  selectedVehicleType
 }) => {
   const [currentPosition, setCurrentPosition] = useState({
     latitude: liveCoordinates?.lat,
     longitude: liveCoordinates?.lng,
   });
-  const [heading, setHeading] = useState(0); // Add a state for heading
-
+  
   const mapRef = useRef(null);
   const [toggle, setToggle] = useState(false);
 

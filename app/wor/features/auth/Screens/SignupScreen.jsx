@@ -36,7 +36,7 @@ const SignupScreen = () => {
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <ScrollView contentContainerStyle={styles.innerContainer}>
-          <AuthAppBar isLoginScreen={false} />
+          <AuthAppBar faqs="Signup" isLoginScreen={false} />
           <View style={styles.loginInnerCard}>
             <View style={{ width: "100%", gap: 10 }}>
               <Text style={{ fontSize: 13, color: "gray", fontFamily:fonts.robotoRegular }}>
