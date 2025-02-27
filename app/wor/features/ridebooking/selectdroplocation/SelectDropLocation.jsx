@@ -14,15 +14,17 @@ import MicModal from "./MicModal";
 import { useRoute } from "@react-navigation/native";
 import { COLORS } from "../../../../../Constants/colors";
 
+
+
 const SelectDropLocation = () => {
+  const route = useRoute();
+  const { title, passParams } = route.params || {};
   const {
     isMicModalOpenClose,
     setIsMicModalOpenClose,
     micVoiceText,
     setMicVoiceText,
   } = useSelectDropLocationHook();
-
-  const { title, passParams } = useRoute().params || {};
 
   return (
     <>
@@ -72,6 +74,5 @@ const styles = StyleSheet.create({
     gap: 10,
     backgroundColor: COLORS.mainBackgroundColor,
     paddingTop: 100,
-    // backgroundColor: "blue",
   },
 });

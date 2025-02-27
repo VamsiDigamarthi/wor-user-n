@@ -47,6 +47,10 @@ export const useShowPriceScreenHook = () => {
 
   // calculate price details
 
+
+
+  
+
   useEffect(() => {
     calcPriceDetails();
   }, [location, dropDetails]);
@@ -85,17 +89,24 @@ export const useShowPriceScreenHook = () => {
         vehicles.map(async (vehicle) => {
           const result = await calDisFromPickToDrop(vehicle.vehicleType);
 
+
+          // console.log(result , "-----");
+          
+
           const newPrice = handleCalculatePrices(result, vehicle?.vehicleType);
+
+          console.log(newPrice);
+          
 
           if (
             selectedVehicleType?.toLowerCase() ===
             vehicle.vehicleType?.toLowerCase()
           ) {
-            dispatch(setPrice(newPrice));
+            await dispatch(setPrice(newPrice));
 
             let paymentMethod =
               +newPrice >= +profile?.walletBalance ? "cash" : "wallet";
-            dispatch(setPaymentMethod(paymentMethod));
+            await dispatch(setPaymentMethod(paymentMethod));
           }
 
           return {
@@ -143,10 +154,18 @@ export const useShowPriceScreenHook = () => {
   };
 
   const handleCalculatePrices = (result, vehicleType) => {
+
+    console.log(result , "----inside -----");
+    
+
     const { distance = "0.0 km", duration = 0 } = result || {};
 
-    const [distanceValue] = distance.split(" ").map(Number);
+    const [distanceValue] = distance?.split(" ").map(Number);
     const baseFare = +priceDetails?.baseFare || 5;
+
+    // console.log(priceDetails ,"----priceDetails=====");
+    
+
     // const nightFare = +priceDetails?.nightFare || 0;
     const platFormPrice = +priceDetails?.platformFee;
 
@@ -181,6 +200,8 @@ export const useShowPriceScreenHook = () => {
   const checkNightTime = () => {
     const currentHour = moment().tz("Asia/Kolkata").hour();
     return currentHour >= 23 || currentHour < 6;
+
+    // return false
   };
 
   const applyNightFare = (price, timeFare, platFormPrice, baseFare) => {
@@ -191,7 +212,11 @@ export const useShowPriceScreenHook = () => {
   };
 
   const getRandomNightFare = () => {
-    const [min, max] = priceDetails.nightFarePercentage || [0, 0];
+
+    
+    
+
+    const [min, max] = priceDetails?.nightFarePercentage || [0, 0];
     return Math.ceil(Math.random() * (max - min) + min);
   };
 
