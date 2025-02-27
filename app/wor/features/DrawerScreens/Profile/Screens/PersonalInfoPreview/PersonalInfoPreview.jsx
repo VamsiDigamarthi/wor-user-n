@@ -6,7 +6,7 @@ import {
   View,
   Image,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import CustomeAppbar from "../../../../../../../Utils/CustomeAppbar/CustomeAppbar";
 import { useNavigation } from "@react-navigation/native";
@@ -32,13 +32,10 @@ const PersonalInfoPreview = () => {
   const { onChangeProfile, handleInputChange, userData, profile } =
     usePersonalInfoHook();
 
-  console.log(profile);
-  
-
-
   const navigation = useNavigation();
   const [open, setOpen] = useState(false);
   const [current, setCurrent] = useState("name");
+  const [noOfDays, setnoOfDays] = useState(null);
 
   function openModalToEdit(type) {
     setOpen(!open);
@@ -46,12 +43,26 @@ const PersonalInfoPreview = () => {
   }
 
   function updateData() {
-    console.log("pressed");
+    // console.log("pressed");
 
     onChangeProfile();
     setOpen(!open);
     setCurrent("name");
   }
+
+  useEffect(() => {
+    const signUpDate = new Date(profile?.signUpDateAndTime);
+    const currentDate = new Date();
+
+    // Calculate the difference in milliseconds
+    const diffInMs = currentDate - signUpDate;
+
+    // Convert milliseconds to days
+    const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+    setnoOfDays(diffInDays);
+  });
+
+  // console.log(diffInDays);
 
   return (
     <View style={{ flex: 1, backgroundColor: "#F7F7F7" }}>
@@ -95,7 +106,11 @@ const PersonalInfoPreview = () => {
             onclick={() => openModalToEdit("email")}
             icon={email}
           />
-          <ProfileTextCard text={"20 days"} title="Member Since" icon={clock} />
+          <ProfileTextCard
+            text={`${noOfDays} days`}
+            title="Member Since"
+            icon={clock}
+          />
           <ProfileTextCard
             text={profile?.address}
             title="Address"

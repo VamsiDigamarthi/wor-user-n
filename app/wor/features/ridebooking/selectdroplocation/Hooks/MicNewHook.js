@@ -3,7 +3,11 @@ import { Alert, Platform } from "react-native";
 import { check, request, PERMISSIONS, RESULTS } from "react-native-permissions";
 import Voice from "@react-native-community/voice";
 
-export const useNewMicHook = ({ setMicVoiceText, setIsMicModalOpenClose, isMicModalOpenClose }) => {
+export const useNewMicHook = ({
+  setMicVoiceText,
+  setIsMicModalOpenClose,
+  isMicModalOpenClose,
+}) => {
   const [isListening, setIsListening] = useState(false);
 
   useEffect(() => {
@@ -55,14 +59,13 @@ export const useNewMicHook = ({ setMicVoiceText, setIsMicModalOpenClose, isMicMo
   // Set up Voice event listeners
   useEffect(() => {
     const onSpeechStartHandler = () => {
-        setIsListening(true);
+      setIsListening(true);
     };
 
     let timeoutId; // To track the timeout for delayed stopping
     const onSpeechEndHandler = () => {
       timeoutId = setTimeout(() => {
         setIsListening(false);
- 
       }, 2000); // Wait 2 seconds before stopping
     };
 
@@ -73,8 +76,7 @@ export const useNewMicHook = ({ setMicVoiceText, setIsMicModalOpenClose, isMicMo
     };
 
     const onSpeechErrorHandler = (event) => {
-    
-      Alert.alert("Error", "Speech recognition failed.");
+      Alert.alert("Something Went Wrong", "Your voice is not captured");
       setIsListening(false);
     };
 

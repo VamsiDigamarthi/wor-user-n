@@ -5,6 +5,8 @@ export const loginApi = async ({ mobile }) => {
     const response = await API.post("/auth/send-otp", {
       mobile: mobile,
     });
+    console.log(response.data);
+
     return response;
   } catch (error) {
     return false;

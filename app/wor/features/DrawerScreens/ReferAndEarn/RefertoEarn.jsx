@@ -12,7 +12,7 @@ const ReferAndEarn = () => {
       <View style={styles.innerContainer}>
         <MainCard />
         <InviteCard />
-        <RefHistory />
+        {/* <RefHistory /> */}
       </View>
     </AppBarLayout>
   );

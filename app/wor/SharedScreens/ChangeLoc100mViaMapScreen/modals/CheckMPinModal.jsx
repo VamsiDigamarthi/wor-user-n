@@ -85,7 +85,7 @@ const CheckMPinModal = ({
 
         <View style={{ flexDirection: "row", gap: 10 }}>
           <Text style={styles.text}>Having Trouble</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("SetNewMpinj")}>
+          <TouchableOpacity onPress={() => navigation.navigate("SetNewMpin")}>
             <Text style={[styles.text, { color: "blue" }]}>Forgot Mpin ?</Text>
           </TouchableOpacity>
         </View>
@@ -124,11 +124,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 18,
     backgroundColor: "#fff",
-    width:20,
+    width: 20,
     // elevation: 1,
 
-    fontFamily:fonts.robotoRegular
-
+    fontFamily: fonts.robotoRegular,
   },
 
   heading: { fontFamily: fonts.robotoSemiBold, fontSize: 16 },
