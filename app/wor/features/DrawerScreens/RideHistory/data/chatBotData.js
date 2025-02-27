@@ -63,9 +63,6 @@ export const chatBot = [
   },
 ];
 
-
-
-
 let safetyAndSecutyData = [
   {
     message: "Please select the issue that you need support with:",
@@ -79,8 +76,7 @@ let safetyAndSecutyData = [
   },
   {
     message: "I feel unsafe during the ride.",
-    description:
-      "Please select the concern that you need support with:",
+    description: "Please select the concern that you need support with:",
     subQuestion: [
       "I need assistance immediately.",
       "I felt uncomfortable with my driver’s behavior.",
@@ -101,4 +97,76 @@ let safetyAndSecutyData = [
     ],
     isSender: false,
   },
-]
+];
+
+// billng
+
+export let billing = [
+  {
+    message: "Please select the issue that you need support with",
+    subQuestion: [
+      {
+        text: "I have a billing issue",
+        nextIndex: 1,
+      },
+      {
+        text: "I have a problem with my ride",
+        nextIndex: null,
+      },
+      {
+        text: "I need to update my payment method",
+        inputType: "text",
+      },
+      {
+        text: "I need to inquire about my ride charges",
+        nextIndex: null,
+      },
+    ],
+    isSender: false,
+  }, // 0
+  {
+    message: "I have a billing issue",
+    description: "Please select the billing concern that you need support with",
+    subQuestion: [
+      {
+        text: "I’ve been charged incorrectly",
+        nextIndex: "text",
+      },
+      {
+        text: "I need a refund for a canceled ride",
+        nextIndex: "text",
+      },
+      {
+        text: "I need a detailed breakdown of my ride charges",
+        inputType: null,
+      },
+      {
+        text: "I have an issue with my promotional code or discount",
+        inputType: null,
+      },
+    ],
+    isSender: false,
+  }, // 1
+  {
+    message: "I’ve been charged incorrectly",
+    description: "Please provide the following details for us to investigate:",
+    subQuestion: [
+      {
+        text: "Yes",
+        nextIndex: 3,
+      },
+      {
+        text: "No",
+        nextIndex: null,
+      },
+    ],
+    isSender: false,
+  }, // 2
+  {
+    message: "Yes",
+    description:
+      "Please email us at [support@womenrider.com] with the details, and we will prioritize your refund request. You will receive an update within 24 hours.",
+    subQuestion: [],
+    isSender: false,
+  }, // 3
+];

@@ -5,7 +5,7 @@ import {
   fetchChatbotMessage,
   savedNewMessageApi,
 } from "../service/chatBot.serv";
-import { chatBot } from "../data/chatBotData";
+import { billing, chatBot } from "../data/chatBotData";
 
 export const useChatBotHook = () => {
   const { caterogy, orderId, isRideHistorySreen } = useRoute()?.params || {};
@@ -13,6 +13,8 @@ export const useChatBotHook = () => {
   const { profile } = useSelector((state) => state.profileSlice);
 
   const { token } = useSelector((state) => state.token);
+  const [initiallMessage, setInitiallMessage] = useState([]);
+  const [specificCategoryMessages, setSpecificCategoryMessages] = useState([]);
 
   const [chatMessageHistory, setChatMessageHistory] = useState([]);
 
@@ -26,22 +28,24 @@ export const useChatBotHook = () => {
 
     setChatMessageHistory((prevHistory) => [...prevHistory, newMessage]);
 
-    const success = await savedNewMessageApi({
-      token,
-      orderId: isRideHistorySreen ? orderId : profile._id,
-      caterogy: caterogy?.split(" ")?.join(""),
-      message: newMessage,
-    });
-    if (!success) return;
+    // const success = await savedNewMessageApi({
+    //   token,
+    //   orderId: isRideHistorySreen ? orderId : profile._id,
+    //   caterogy: caterogy?.split(" ")?.join(""),
+    //   message: newMessage,
+    // });
+    // if (!success) return;
 
-    const botMessage = chatBot.find((message) => message.message === text);
-
-    await savedNewMessageApi({
-      token,
-      orderId: isRideHistorySreen ? orderId : profile._id,
-      caterogy: caterogy?.split(" ")?.join(""),
-      message: botMessage,
-    });
+    const botMessage = specificCategoryMessages?.find(
+      (message) => message.message === text
+    );
+    console.log(botMessage);
+    // await savedNewMessageApi({
+    //   token,
+    //   orderId: isRideHistorySreen ? orderId : profile._id,
+    //   caterogy: caterogy?.split(" ")?.join(""),
+    //   message: botMessage,
+    // });
 
     if (botMessage) {
       setTimeout(() => {
@@ -60,8 +64,16 @@ export const useChatBotHook = () => {
     setChatMessageHistory(data);
   };
 
+  const handleSetInitiallMessage = () => {
+    if (caterogy === "Ride And Billing") {
+      setInitiallMessage(billing[0]);
+      setSpecificCategoryMessages(billing);
+    }
+  };
+
   useEffect(() => {
     fetchPreviousMeg();
+    handleSetInitiallMessage();
   }, []);
 
   useEffect(() => {
@@ -75,5 +87,6 @@ export const useChatBotHook = () => {
     chatMessageHistory,
     scrollViewRef,
     handleNewQuestion,
+    initiallMessage,
   };
 };

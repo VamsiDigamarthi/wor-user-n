@@ -26,9 +26,9 @@ const ChatBotMessage = ({ chat, handleNewQuestion, isInitially = false }) => {
           {chat?.subQuestion?.map((each, index) => (
             <Pressable
               key={each + index}
-              onPress={() => handleNewQuestion(each)}
+              onPress={() => handleNewQuestion(each.text)}
             >
-              <Text style={styles.subText}>{each}</Text>
+              <Text style={styles.subText}>{each.text}</Text>
             </Pressable>
           ))}
         </View>
@@ -41,7 +41,7 @@ export default ChatBotMessage;
 
 const styles = StyleSheet.create({
   container: {
-    maxWidth: "80%",
+    maxWidth: "90%",
     padding: 10,
     borderRadius: 10,
     marginVertical: 5,

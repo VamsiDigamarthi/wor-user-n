@@ -6,12 +6,24 @@ import ChatBotMessage from "../Components/ChatBotMessage";
 import { chatBot } from "../data/chatBotData";
 
 const ChatBot = () => {
-  const { caterogy, chatMessageHistory, scrollViewRef, handleNewQuestion } =
-    useChatBotHook();
+  const {
+    caterogy,
+    chatMessageHistory,
+    scrollViewRef,
+    handleNewQuestion,
+    initiallMessage,
+  } = useChatBotHook();
+
+  console.log(caterogy, "caterogy");
 
   return (
-    <AppBarLayout title="WoR Support" isPositionAppbar={true} >
-      <View style={[styles.container, {paddingTop : Platform.OS=="ios" ? 110 : 80}]}>
+    <AppBarLayout title="WoR Support" isPositionAppbar={true}>
+      <View
+        style={[
+          styles.container,
+          { paddingTop: Platform.OS == "ios" ? 110 : 80 },
+        ]}
+      >
         <Text style={styles.text}>{caterogy}</Text>
         <ScrollView
           style={styles.messageContainer}
@@ -21,7 +33,7 @@ const ChatBot = () => {
           }
         >
           <ChatBotMessage
-            chat={chatBot?.slice(0, 1)[0]}
+            chat={initiallMessage}
             handleNewQuestion={handleNewQuestion}
             isInitially={true}
           />
