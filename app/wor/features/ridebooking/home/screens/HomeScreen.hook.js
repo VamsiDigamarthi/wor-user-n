@@ -23,24 +23,30 @@ import {
 import { rideHistoryAsyc } from "../../../DrawerScreens/RideHistory/rideHistory.slice";
 import { fetchPriceDetails } from "../redux/priceDetailSlice";
 
+import installations from "@react-native-firebase/installations";
+
 // Split into smaller utility functions for readability
 const useFirebaseToken = (token) => {
   const [fbToken, setFbToken] = useState("");
+  const [fbInstallationId, setFbInstallationId] = useState("");
 
   useEffect(() => {
     // Fetch the Firebase token for the device
     const fetchFbToken = async () => {
       const token = await messaging().getToken();
+      const installationId = await installations().getId();
+
+      setFbInstallationId(installationId);
       setFbToken(token);
     };
     fetchFbToken();
   }, []);
 
   useEffect(() => {
-    if (fbToken) {
-      HomeScreenServices.onAddFbTokenToServer(token, fbToken);
+    if (fbToken && fbInstallationId) {
+      HomeScreenServices.onAddFbTokenToServer(token, fbToken, fbInstallationId);
     }
-  }, [fbToken, token]);
+  }, [fbToken, token, fbInstallationId]);
 
   return fbToken;
 };

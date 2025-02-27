@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
     // paddingRight: 10,
   },
   iconImg: {
-    height: 16,
-    width: 16,
+    height: 24,
+    width: 24,
     resizeMode: "contain",
   },
   textCard: {
