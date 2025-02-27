@@ -7,11 +7,8 @@ import {
   View,
 } from "react-native";
 
-import React, { useEffect, memo, useMemo } from "react";
+import React, { useEffect, memo } from "react";
 import RideHistoryItem from "./Components/RideHistoryItem";
-
-// import RideHistoryItem from "./Components/RideHistoryItem";
-import { useRideHistoryHook } from "./Hooks/RideHistory.hook";
 
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 import { useDispatch, useSelector } from "react-redux";

@@ -60,7 +60,7 @@ export default function Suggestions({ navigation }) {
       btnColor: text ? "#fff" : "#EA4C89",
       btnBg: text ? "#EA4C89" : "#fff",
       borderColor: !text && "#EA4C89",
-      borderWidth: 1,
+      // borderWidth: 1,
     }),
     [text]
   );
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
   },
   sendButton: {
     position: "absolute",
-    bottom: 20,
+    bottom: 40,
     width: "100%",
     left: 10,
   },
@@ -192,6 +192,8 @@ const styles = StyleSheet.create({
   staticText:{
     fontSize:16, lineHeight:20,
     textAlign:"justify",
-    fontFamily:fonts.robotoRegular,
+    fontFamily:fonts.robotoMedium,
+    lineHeight:25,
+    letterSpacing:1
   }
 });

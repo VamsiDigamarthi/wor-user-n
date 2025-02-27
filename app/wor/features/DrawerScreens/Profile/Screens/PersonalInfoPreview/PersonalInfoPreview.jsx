@@ -27,6 +27,7 @@ import {
   genderidentity,
   personalInfo,
 } from "../../../../../Images/ProfileImages";
+import AppBarLayout from "../../../../ridebooking/sharedLogics/AppBarLayout";
 
 const PersonalInfoPreview = () => {
   const { onChangeProfile, handleInputChange, userData, profile } =
@@ -54,16 +55,8 @@ const PersonalInfoPreview = () => {
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#F7F7F7" }}>
-      <CustomeAppbar
-        title="Personal Information"
-        top={25}
-        onBack={() => navigation.goBack()}
-        // rightText="Edit"
-        // showRight
-        // navigationText="PersonalInfo"
-      />
 
+    <AppBarLayout title="Personal Information" isPositionAppbar={true}>
       <View style={styles.container}>
         <View style={styles.cardContainer}>
           <ProfileTextCard
@@ -173,7 +166,7 @@ const PersonalInfoPreview = () => {
           </ModalUI>
         )}
       </View>
-    </View>
+    </AppBarLayout>
   );
 };
 
@@ -235,12 +228,15 @@ function EditTextInp({ value, field, label, handleInputChange }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 10,
+    // paddingHorizontal: 10,
+    marginTop:100,
+
+    backgroundColor: "#f7f7f7",
   },
 
   cardContainer: {
     paddingHorizontal: 10,
-    paddingVertical: 10,
+    paddingVertical: 20,
     elevation: 1,
     // backgroundColor: "#F7F7F7",
     backgroundColor: "#fff",

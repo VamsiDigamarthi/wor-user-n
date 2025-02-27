@@ -10,7 +10,7 @@ const ChatBot = () => {
     useChatBotHook();
 
   return (
-    <AppBarLayout title="WoR Support" isPositionAppbar={true} rightText={true}>
+    <AppBarLayout title="WoR Support" isPositionAppbar={true} >
       <View style={[styles.container, {paddingTop : Platform.OS=="ios" ? 110 : 80}]}>
         <Text style={styles.text}>{caterogy}</Text>
         <ScrollView
