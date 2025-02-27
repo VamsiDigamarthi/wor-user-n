@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet, Pressable, Platform } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useNavigation } from "@react-navigation/native";
-import { useRideHistoryHook } from "../RideHistory/Hooks/RideHistory.hook";
 import RideHistoryItem from "../RideHistory/Components/RideHistoryItem";
 import FaqListCard from "../RideHistory/Components/FaqListCard";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";

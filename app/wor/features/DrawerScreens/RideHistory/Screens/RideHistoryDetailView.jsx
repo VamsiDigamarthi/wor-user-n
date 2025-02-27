@@ -2,7 +2,7 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import React from "react";
 import { useRoute } from "@react-navigation/native";
 import RideHistoryDetailsViewFirst from "../Components/RideHistoryDetailView/RideHistoryDetailsViewFirst";
-import CustomeAppbar from "../../../../../../Utils/CustomeAppbar/CustomeAppbar";
+
 import FaqListCard from "../Components/FaqListCard";
 import AppBarLayout from "../../../ridebooking/sharedLogics/AppBarLayout";
 
@@ -11,7 +11,7 @@ const RideHistoryDetailView = () => {
   const { ride } = route.params;
   return (
     <AppBarLayout title="Ride Details" isPositionAppbar={false}>
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1 ,}}>
         <ScrollView
           contentContainerStyle={styles.scrollContainer}
           showsVerticalScrollIndicator={false}
@@ -42,5 +42,8 @@ const styles = StyleSheet.create({
     // marginTop: 20,
     gap: 10,
     paddingBottom: 30,
+
+    backgroundColor: "#f3f2f7",
+    paddingTop:10
   },
 });
