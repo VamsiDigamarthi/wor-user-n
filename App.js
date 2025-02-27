@@ -20,8 +20,10 @@ import RobotoRegular from "./assets/fonts/Roboto/Roboto-Regular.ttf";
 import RobotoBold from "./assets/fonts/Roboto/Roboto-Bold.ttf";
 import RobotoSemiBold from "./assets/fonts/Roboto/Roboto-SemiBold.ttf";
 import RobotoMedium from "./assets/fonts/Roboto/Roboto-Medium.ttf";
-
-import installations from "@react-native-firebase/installations";
+import inAppMessaging from "@react-native-firebase/in-app-messaging";
+import analytics from "@react-native-firebase/analytics";
+import { PlayInstallReferrer } from "react-native-play-install-referrer";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 LogBox.ignoreLogs([
   "`new NativeEventEmitter()` was called with a non-null argument without the required `addListener` method",
@@ -119,14 +121,63 @@ initializeNotifications();
 
 export default function App() {
   const [isConnected, setIsConnected] = useState(true);
+  const [refData, setRefData] = useState(null);
 
   useEffect(() => {
-    async function getID() {
-      const data = await installations().getId();
-      console.log(data, "sakjdakjshdas");
+    async function getRef() {
+      try {
+        PlayInstallReferrer.getInstallReferrerInfo(
+          (installReferrerInfo, error) => {
+            if (!error) {
+              setRefData(installReferrerInfo); // Update state
+            } else {
+              console.log("Failed to get install referrer info!");
+              console.log("Response code: " + error.responseCode);
+              console.log("Message: " + error.message);
+            }
+          }
+        );
+      } catch (error) {
+        console.log("Play install Error", error);
+      }
     }
+  
+    getRef();
+  }, []);
+  
+  // This useEffect will trigger whenever refData changes
+  useEffect(() => {
+    if (refData) { // Only store if refData is not null
+      async function storeRefData() {
+        try {
+          await AsyncStorage.setItem("refdetails", JSON.stringify(refData));
+          console.log("refData stored successfully:", refData);
+        } catch (error) {
+          console.log("Error storing refData:", error);
+        }
+      }
+  
+      storeRefData();
+    }
+  }, [refData]); // Dependency on refData
 
-    getID();
+
+
+
+  useEffect(() => {
+    async function onInAppMessage() {
+      try {
+        // supress false means to show in app messages
+        inAppMessaging().setMessagesDisplaySuppressed(false);
+
+        // Use this for campaings
+        await analytics().logEvent("message");
+        // console.log("In App Message");
+      } catch (error) {
+        console.log("Firebase inapp messaage error", error.message);
+      }
+    }
+    onInAppMessage();
   }, []);
 
   const [loaded, error] = useFonts({

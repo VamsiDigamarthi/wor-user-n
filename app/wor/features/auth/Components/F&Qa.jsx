@@ -12,7 +12,7 @@ const FQs = ({faqs}) => {
   };
 
   return (
-    <TouchableOpacity style={styles.container} onPress={handlenavigateSupport}>
+    <TouchableOpacity style={[styles.container, {width:faqs==="OTP" ? 76 : 100}]} onPress={handlenavigateSupport}>
       <SupportIcons size={20} color="black" />
       <Text>FAQ's</Text>
     </TouchableOpacity>

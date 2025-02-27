@@ -40,11 +40,11 @@ const fetchPreviousOrdersServ = async (token) => {
   }
 };
 
-const onAddFbTokenToServer = async (token, fbToken) => {
+const onAddFbTokenToServer = async (token, fbToken , fbinstallationId) => {
   try {
     await API.patch(
       "/auth/fbtoken",
-      { fbtoken: fbToken },
+      { fbtoken: fbToken , fbinstallationId:fbinstallationId },
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -66,6 +66,11 @@ const onAddFbTokenToServer = async (token, fbToken) => {
     });
   }
 };
+
+
+
+
+
 
 const generateRandomMarkers = (location) => {
   const types = ["bike", "auto", "car"];

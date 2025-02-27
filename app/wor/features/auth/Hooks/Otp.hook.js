@@ -56,7 +56,7 @@ export const useOtpHook = () => {
       // console.log("deviceId", deviceId);
       const response = await API.post("/auth/verify-otp", {
         mobile: mobile,
-        otp: otp.join(""),
+        otp: otp,
         isUserApp: true,
         deviceId,
       });
@@ -130,5 +130,6 @@ export const useOtpHook = () => {
     timer,
     isResendAvailable,
     handleResendOtp,
+    setOtp
   };
 };

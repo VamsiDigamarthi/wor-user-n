@@ -10,19 +10,50 @@ import { nearPlacesByText } from "../../../../../Constants/displaylocationmap";
 export const useSignupForm = ({ mobile }) => {
   const [errors, setErrors] = useState({ name: "" });
   const [apiError, setApiError] = useState("");
+  const [refDetails, setRefDetails] = useState(null);
 
+  // Fetch refDetails from AsyncStorage
+  useEffect(() => {
+    async function fetchRefData() {
+      try {
+        const storedData = await AsyncStorage.getItem("refdetails");
+        if (storedData) {
+          const parsedData = JSON.parse(storedData);
+          setRefDetails(parsedData); // Update refDetails state
+        } else {
+          console.log("No ref details found in AsyncStorage");
+        }
+      } catch (error) {
+        console.log("Error fetching ref details:", error);
+      }
+    }
+
+    fetchRefData();
+  }, []);
+
+  // Initialize formData
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    // address: "",
     role: "user",
     referalCode: "",
     mobile,
+    refDetails: null, // Initialize refDetails as null
   });
+
+  // Update formData when refDetails changes
+  useEffect(() => {
+    if (refDetails) {
+      setFormData((prevData) => ({
+        ...prevData,
+        refDetails, // Update refDetails in formData
+      }));
+    }
+  }, [refDetails]); // Dependency on refDetails
+
   const [isLoading, setIsLoading] = useState(false);
   const [onOpenTextBasedLocationModal, setOnOpenTextBasedLocationModal] =
     useState(false);
-
   const [storeNearLocation, setStoreNearLocation] = useState([]);
 
   const dispatch = useDispatch();
@@ -77,18 +108,20 @@ export const useSignupForm = ({ mobile }) => {
     try {
       const deviceId = await DeviceInfo.getUniqueId();
 
-      const response = await API.post(
-        "/auth/new-register",
-        { ...formData, deviceId },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      // Include refDetails in the payload
+      const payload = {
+        ...formData,
+        deviceId,
+        refDetails: formData.refDetails, // Ensure refDetails is included
+      };
+
+      const response = await API.post("/auth/new-register", payload, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       await AsyncStorage.setItem("token", JSON.stringify(response.data.token));
-
       await AsyncStorage.setItem(
         "ownUser",
         JSON.stringify(response.data.ownUser)
@@ -99,8 +132,8 @@ export const useSignupForm = ({ mobile }) => {
       dispatch(setToken(response.data.token));
       navigation.dispatch(
         CommonActions.reset({
-          index: 0, // Ensures the specified route is the only route in the stack
-          routes: [{ name: "AuthenticatedStack" }], // Replace 'Home' with your target screen name
+          index: 0,
+          routes: [{ name: "AuthenticatedStack" }],
         })
       );
       return response;
