@@ -70,7 +70,9 @@ export const useLoginHook = () => {
     }
     setIsLoading(true);
 
-    const data = loginApi({ mobile });
+    const data = await loginApi({ mobile });
+    console.log("data", data);
+
     setIsLoading(false);
     if (!data) {
       setApiError(error?.response?.data?.message);

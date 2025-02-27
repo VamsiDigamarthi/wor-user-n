@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-
 import MapView, { Marker, Polyline } from "react-native-maps";
 import { FontAwesome } from "@expo/vector-icons";
 import { customMapStyle } from "../../../Constants/mapData";
@@ -14,21 +13,22 @@ import MapModalUi from "../features/ridebooking/home/modals/MapModalUi";
 
 import { MaterialIcons } from "@expo/vector-icons";
 
-
 const ShowPollyLine = ({
   origin,
   destination,
   height,
   liveCoordinates,
-  selectedVehicleType
+  selectedVehicleType,
 }) => {
   const [currentPosition, setCurrentPosition] = useState({
     latitude: liveCoordinates?.lat,
     longitude: liveCoordinates?.lng,
   });
-  
+
   const mapRef = useRef(null);
   const [toggle, setToggle] = useState(false);
+
+  const [isZoomedOut, setIsZoomedOut] = useState(false); // Track zoom state
 
   const adjustedOrigin = { latitude: origin.lat, longitude: origin.lng };
   const adjustedDestination = {
@@ -77,7 +77,6 @@ const ShowPollyLine = ({
     }
   }, [liveCoordinates]);
 
-
   useEffect(() => {
     if (mapRef.current) {
       const zoomLevel = height > 600 ? 0.01 : 0.05;
@@ -93,12 +92,50 @@ const ShowPollyLine = ({
     }
   }, [height]);
 
-  const handleResetZoom = useCallback(() => {
-    if (mapRef.current && initialRegion) {
-      mapRef.current.animateToRegion(initialRegion, 800);
-    }
-  }, [initialRegion]);
+  // OLD handle reset zoom
+
+  // const handleResetZoom = useCallback(() => {
+  //   if (mapRef.current && initialRegion) {
+  //     mapRef.current.animateToRegion(initialRegion, 800);
+  //   }
+  // }, [initialRegion]);
   // console.log("heading", heading);
+
+  // New Handlereset zoom
+
+  const handleResetZoom = useCallback(() => {
+    if (mapRef.current) {
+      if (isZoomedOut) {
+        // Zoom in to the start point
+        mapRef.current.animateToRegion(
+          {
+            latitude: adjustedOrigin.latitude,
+            longitude: adjustedOrigin.longitude,
+            latitudeDelta: 0.005, // Smaller delta for zoomed-in view
+            longitudeDelta: 0.005,
+          },
+          800
+        );
+      } else {
+        // Zoom out to fit the entire route
+        const coordinates = [
+          {
+            latitude: adjustedOrigin.latitude,
+            longitude: adjustedOrigin.longitude,
+          },
+          {
+            latitude: adjustedDestination.latitude,
+            longitude: adjustedDestination.longitude,
+          },
+        ];
+        mapRef.current.fitToCoordinates(coordinates, {
+          edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
+          animated: true,
+        });
+      }
+      setIsZoomedOut((prev) => !prev); // Toggle the zoom state
+    }
+  }, [isZoomedOut, adjustedOrigin, adjustedDestination]);
 
   return (
     <View style={styles.container}>
@@ -149,11 +186,17 @@ const ShowPollyLine = ({
                 // transform: [{ rotate: `${heading}deg` }], // Rotate the bike image
               }}
               // source={require("../../../assets/images/markers/BIKE-removebg-preview.png")}
-              source={selectedVehicleType === "car" ? require("../../../assets/images/HomeServiceImages/cab.png")
-                : selectedVehicleType === "bookany" ? require("../../../assets/images/HomeServiceImages/cab.png")
-                  : selectedVehicleType === "auto" ? require("../../../assets/images/HomeServiceImages/auto.png")
-                    : selectedVehicleType === "wor-premium" ? require("../../../assets/images/HomeServiceImages/cab.png")
-                      : require("../../../assets/images/HomeServiceImages/scooty.png")}
+              source={
+                selectedVehicleType === "car"
+                  ? require("../../../assets/images/HomeServiceImages/cab.png")
+                  : selectedVehicleType === "bookany"
+                  ? require("../../../assets/images/HomeServiceImages/cab.png")
+                  : selectedVehicleType === "auto"
+                  ? require("../../../assets/images/HomeServiceImages/auto.png")
+                  : selectedVehicleType === "wor-premium"
+                  ? require("../../../assets/images/HomeServiceImages/cab.png")
+                  : require("../../../assets/images/HomeServiceImages/scooty.png")
+              }
             />
           </Marker>
         )}

@@ -21,6 +21,7 @@ import RobotoBold from "./assets/fonts/Roboto/Roboto-Bold.ttf";
 import RobotoSemiBold from "./assets/fonts/Roboto/Roboto-SemiBold.ttf";
 import RobotoMedium from "./assets/fonts/Roboto/Roboto-Medium.ttf";
 
+import installations from "@react-native-firebase/installations";
 
 LogBox.ignoreLogs([
   "`new NativeEventEmitter()` was called with a non-null argument without the required `addListener` method",
@@ -119,7 +120,14 @@ initializeNotifications();
 export default function App() {
   const [isConnected, setIsConnected] = useState(true);
 
+  useEffect(() => {
+    async function getID() {
+      const data = await installations().getId();
+      console.log(data, "sakjdakjshdas");
+    }
 
+    getID();
+  }, []);
 
   const [loaded, error] = useFonts({
     "roboto-regular": RobotoRegular,
@@ -158,11 +166,6 @@ export default function App() {
   if (!loaded && !error) {
     return null;
   }
-
-
-
-
-
 
   return (
     <Provider store={store}>

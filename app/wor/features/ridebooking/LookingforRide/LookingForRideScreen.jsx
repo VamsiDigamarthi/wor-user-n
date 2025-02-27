@@ -17,9 +17,17 @@ const androidSnapPoints = [0.48, 0.5].map((p) => screenHeight * p); // Example s
 const iosSnapPoints = [0.42, 0.42].map((p) => screenHeight * p); // Example snap points for iOS
 
 const LookingForRideScreen = () => {
-  const { dropDetails, isSendOrReceiveParcel, pickUpDetails , price,selectedVehicleType} = useSelector((state) => state.allRideDetails);
-console.log(useSelector((state) => state.allRideDetails),"useSelector((state) => state.allRideDetails);");
-
+  const {
+    dropDetails,
+    isSendOrReceiveParcel,
+    pickUpDetails,
+    price,
+    selectedVehicleType,
+  } = useSelector((state) => state.allRideDetails);
+  console.log(
+    useSelector((state) => state.allRideDetails),
+    "useSelector((state) => state.allRideDetails);"
+  );
 
   const {
     progressWidth,
@@ -105,8 +113,8 @@ console.log(useSelector((state) => state.allRideDetails),"useSelector((state) =>
 
             <View style={styles.innerContainer}>
               <View>
-              <Text style={styles.text}>{dropDetails?.name}</Text>
-              <Text style={styles.text}>{dropDetails?.vicinity}</Text>
+                <Text style={styles.text}>{dropDetails?.name}</Text>
+                <Text style={styles.text}>{dropDetails?.vicinity}</Text>
               </View>
 
               <View style={styles.infoContainer}>
@@ -114,8 +122,6 @@ console.log(useSelector((state) => state.allRideDetails),"useSelector((state) =>
                 <Text style={styles.text}>Total you pay Rs. {price}</Text>
               </View>
             </View>
-
-
           </View>
         </View>
       </BottomSheetComponent>
@@ -151,29 +157,29 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginTop: 20,
     flexDirection: "row",
-    width:"100%",
-    gap:10
+    width: "100%",
+    gap: 10,
     // backgroundColor:"green"
   },
 
-
-  innerContainer:{
-    width:"100%",
-    gap:10
+  innerContainer: {
+    width: "100%",
+    gap: 10,
   },
 
   infoContainer: {
     flexDirection: "row",
     gap: 10,
-    marginLeft:60
-    // alignItems: "center",
+    marginLeft: 60,
+
+    alignItems: "center",
     // justifyContent:"center",
     // marginHorizontal: "auto",
     // width: "100%",
     // backgroundColor:"red"
   },
 
-  text:{
-    fontFamily:fonts.robotoRegular
-  }
+  text: {
+    fontFamily: fonts.robotoRegular,
+  },
 });
