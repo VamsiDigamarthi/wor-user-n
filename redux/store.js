@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { applyMiddleware, configureStore } from "@reduxjs/toolkit";
 
 import token from "./Features/Auth/LoginSlice";
 // import profileSlice from "./Features/Auth/ProfileSlice";
@@ -21,6 +21,9 @@ import parcelSavedPlace from "../app/wor/features/Parcels/redux/parcelSavedPlace
 
 import priceDetails from "../app/wor/features/ridebooking/home/redux/priceDetailSlice";
 
+
+const reduxFlipper = require("redux-flipper").default;
+
 const store = configureStore({
   reducer: {
     token,
@@ -38,6 +41,9 @@ const store = configureStore({
     initialModals,
     priceDetails,
   },
-});
+  
+},
+applyMiddleware( reduxFlipper())
+);
 
 export default store;
