@@ -42,7 +42,7 @@ const RideParcelList = () => {
         />
       </View>
 
-      <View style={{ height: 380 }}>
+      <View style={{ flex:1 }}>
         {selectedList == "rides" && (
           <FlatList
             data={favoritePlaces}

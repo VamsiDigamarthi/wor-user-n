@@ -63,3 +63,42 @@ export const chatBot = [
   },
 ];
 
+
+
+
+let safetyAndSecutyData = [
+  {
+    message: "Please select the issue that you need support with:",
+    subQuestion: [
+      "I feel unsafe during the ride.",
+      "I need to report an incident during my ride.",
+      "I need to share my ride details with someone.",
+      "I need assistance with the SOS button.",
+    ],
+    isSender: false,
+  },
+  {
+    message: "I feel unsafe during the ride.",
+    description:
+      "Please select the concern that you need support with:",
+    subQuestion: [
+      "I need assistance immediately.",
+      "I felt uncomfortable with my driver’s behavior.",
+      "I had an emergency and need help.",
+      "I would like to report an issue with my ride.",
+    ],
+    isSender: false,
+  },
+  {
+    message: "I need assistance immediately",
+    description:
+      "We understand your concern. Please provide the following details:",
+    subQuestion: [
+      "Ride ID: [Enter your ride ID]",
+      "I felt uncomfortable with my driver’s behavior.",
+      "I had an emergency and need help.",
+      "I would like to report an issue with my ride.",
+    ],
+    isSender: false,
+  },
+]

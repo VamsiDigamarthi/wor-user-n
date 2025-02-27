@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 export default function SavedLocations() {
   const { otherHomePlace } = useSelector((state) => state.homePlaces);
   return (
-    <AppBarLayout title="Saved Location">
+    <AppBarLayout title="Saved Location" isPositionAppbar={true}>
       <View style={styles.container}>
         <Text style={styles.heading}>Saved Places</Text>
 
@@ -30,6 +30,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 10,
     gap: 16,
+    flex: 1,
+    backgroundColor: "#f3f2f7",
+    paddingTop: 120,
   },
   heading: {
     fontSize: 16,
