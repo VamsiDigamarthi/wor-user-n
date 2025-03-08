@@ -1,5 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
-import { computeDestinationPoint, getCompassDirection, getDistance } from "geolib";
+import {
+  computeDestinationPoint,
+  getCompassDirection,
+  getDistance,
+} from "geolib";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchNameAndVicinity } from "../../../../Constants/displaylocationmap";
@@ -64,13 +68,26 @@ const limitMarkerToCircle = (lat, lng, newLat, newLng, radius) => {
 export const useChangeLoc100mViaMapScreenHook = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const { location, placeName: pick, placeVicinity } = useSelector((state) => state.location);
-  const { initialDropDetails, isBeforeBook } = useSelector((state) => state.allRideDetails);
+  const {
+    location,
+    placeName: pick,
+    placeVicinity,
+  } = useSelector((state) => state.location);
+  const { initialDropDetails, isBeforeBook } = useSelector(
+    (state) => state.allRideDetails
+  );
   const { profile } = useSelector((state) => state.profileSlice);
 
-  const { lat, lng } = isBeforeBook ? location : initialDropDetails?.location || {};
+  const { lat, lng } = isBeforeBook
+    ? location
+    : initialDropDetails?.location || {};
 
-  const dashedCircleCoordinates = generateDashedCircleCoordinates(lat, lng, 100, 60);
+  const dashedCircleCoordinates = generateDashedCircleCoordinates(
+    lat,
+    lng,
+    100,
+    60
+  );
   const [newMarker, setNewMarker] = useState({ latitude: lat, longitude: lng });
 
   // If changed, update location name
@@ -80,12 +97,14 @@ export const useChangeLoc100mViaMapScreenHook = () => {
   });
 
   // Ride booking state
-  const [rideBookBeforeCheckMPinAddhar, setRideBookBeforeCheckPinAddhar] = useState(false);
+  const [rideBookBeforeCheckMPinAddhar, setRideBookBeforeCheckPinAddhar] =
+    useState(false);
   const onChangeRideBookBeforeCheckPinAddharHandler = () => {
     setRideBookBeforeCheckPinAddhar(!rideBookBeforeCheckMPinAddhar);
   };
 
-  const [isOpenEnterConfirmMPinModal, setIsOpenEnterConfirmMPinModal] = useState(false);
+  const [isOpenEnterConfirmMPinModal, setIsOpenEnterConfirmMPinModal] =
+    useState(false);
   const onOpenIsEnterConfirmPinModal = () => {
     setIsOpenEnterConfirmMPinModal(!isOpenEnterConfirmMPinModal);
   };
@@ -93,13 +112,22 @@ export const useChangeLoc100mViaMapScreenHook = () => {
   // Function to handle the drag end of the marker
   const handleMarkerDragEnd = (e) => {
     const { latitude, longitude } = e.nativeEvent.coordinate;
-    const validPosition = limitMarkerToCircle(lat, lng, latitude, longitude, 100);
+    const validPosition = limitMarkerToCircle(
+      lat,
+      lng,
+      latitude,
+      longitude,
+      100
+    );
     setNewMarker(validPosition);
   };
 
   useEffect(() => {
     const fetchNewPlaceName = async () => {
-      const data = await fetchNameAndVicinity(newMarker.latitude, newMarker.longitude);
+      const data = await fetchNameAndVicinity(
+        newMarker.latitude,
+        newMarker.longitude
+      );
       dispatch(
         setPickUpDetails({
           location: { lat: newMarker.latitude, lng: newMarker.longitude },
@@ -113,12 +141,6 @@ export const useChangeLoc100mViaMapScreenHook = () => {
   }, [newMarker]);
 
   const onNavigateSavedAddressScreen = () => {
-
-
-    
-
-
-
     if (isBeforeBook) {
       handleCheckMPinSetOrNot();
     } else {

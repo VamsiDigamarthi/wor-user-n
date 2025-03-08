@@ -102,7 +102,7 @@ const LoginScreen = () => {
             <Text style={styles.linkText}>A Product From</Text>
             <Pressable onPress={openLink}>
               <Text style={[styles.linkText, { color: "#FF6600" }]}>
-                NuHvin
+                Nuhvin
               </Text>
             </Pressable>
           </View>
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   nuhvinProduct: {
     position: "absolute",
     width: "100%",
-    height: 40,
+    height: 50,
     backgroundColor: "#f7f7f7",
     bottom: 0,
     left: 0,
@@ -139,7 +139,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 10,
     alignItems: "center",
-    paddingHorizontal: 20,
+    paddingHorizontal: 50,
+    paddingLeft: 30,
   },
   errorCard: {
     width: "100%",

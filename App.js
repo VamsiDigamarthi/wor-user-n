@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet } from "react-native";
+import { Linking, StyleSheet, Alert } from "react-native";
 import MainNavigation from "./navigation/MainNavigation";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Provider } from "react-redux";
@@ -141,13 +141,14 @@ export default function App() {
         console.log("Play install Error", error);
       }
     }
-  
+
     getRef();
   }, []);
-  
+
   // This useEffect will trigger whenever refData changes
   useEffect(() => {
-    if (refData) { // Only store if refData is not null
+    if (refData) {
+      // Only store if refData is not null
       async function storeRefData() {
         try {
           await AsyncStorage.setItem("refdetails", JSON.stringify(refData));
@@ -156,13 +157,10 @@ export default function App() {
           console.log("Error storing refData:", error);
         }
       }
-  
+
       storeRefData();
     }
   }, [refData]); // Dependency on refData
-
-
-
 
   useEffect(() => {
     async function onInAppMessage() {

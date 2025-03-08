@@ -40,11 +40,11 @@ const fetchPreviousOrdersServ = async (token) => {
   }
 };
 
-const onAddFbTokenToServer = async (token, fbToken , fbinstallationId) => {
+const onAddFbTokenToServer = async (token, fbToken, fbinstallationId) => {
   try {
     await API.patch(
       "/auth/fbtoken",
-      { fbtoken: fbToken , fbinstallationId:fbinstallationId },
+      { fbtoken: fbToken, fbinstallationId: fbinstallationId },
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -66,11 +66,6 @@ const onAddFbTokenToServer = async (token, fbToken , fbinstallationId) => {
     });
   }
 };
-
-
-
-
-
 
 const generateRandomMarkers = (location) => {
   const types = ["bike", "auto", "car"];
@@ -114,7 +109,7 @@ export const onFetchRideRating = async ({ token }) => {
     });
     return response?.data;
   } catch (error) {
-    console.log("failed to fetch ride rating ");
+    // console.log("failed to fetch ride rating ");
     return null;
   }
 };

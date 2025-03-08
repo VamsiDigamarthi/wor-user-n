@@ -54,9 +54,10 @@ export const useOtpHook = () => {
     try {
       const deviceId = await DeviceInfo.getUniqueId();
       // console.log("deviceId", deviceId);
+      console.log("otp?.replace(/s/g", otp?.replace(/\s/g, ""));
       const response = await API.post("/auth/verify-otp", {
         mobile: mobile,
-        otp: otp,
+        otp: otp?.replace(/\s/g, ""),
         isUserApp: true,
         deviceId,
       });
@@ -116,6 +117,13 @@ export const useOtpHook = () => {
     loginApi({ mobile });
   };
 
+  const handleSetOtpChange = (value) => {
+    // Remove existing spaces and insert a space between each character
+    const formattedValue = value.replace(/\s/g, "").split("").join(" ");
+    setOtp(formattedValue);
+  };
+  console.log(otp);
+
   return {
     message,
     mobile,
@@ -130,6 +138,7 @@ export const useOtpHook = () => {
     timer,
     isResendAvailable,
     handleResendOtp,
-    setOtp
+    setOtp,
+    handleSetOtpChange,
   };
 };

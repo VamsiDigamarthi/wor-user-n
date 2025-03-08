@@ -31,14 +31,10 @@ const CustomeDrawer = (props) => {
           })}
         </View>
       </DrawerContentScrollView>
-      <View
-        style={styles.textContainer}
-      >
+      <View style={styles.textContainer}>
         <Text style={styles.text}>A Product from</Text>
         <Pressable style={{}} onPress={openLink}>
-          <Text style={[styles.text,{color: "#ff6600"}]} >
-          Nuhvin
-          </Text>
+          <Text style={[styles.text, { color: "#ff6600" }]}>Nuhvin</Text>
         </Pressable>
       </View>
     </View>
@@ -64,14 +60,15 @@ const styles = StyleSheet.create({
     fontFamily: fonts.robotoSemiBold,
     color: "gray",
   },
-  textContainer:{
+  textContainer: {
     flexDirection: "row",
     backgroundColor: "#F7F7F7",
     width: "100%",
     paddingBottom: 10,
-    justifyContent: "center",
+    // justifyContent: "center",
     // gap: 10,
-    alignItems: "center",
+    // alignItems: "center",
     padding: 10,
-  }
+    paddingLeft: 20,
+  },
 });

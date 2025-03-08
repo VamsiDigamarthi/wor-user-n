@@ -11,10 +11,18 @@ const AProductFromNuhvin = ({ bottom = 0 }) => {
   };
   return (
     <View style={[styles.nuhvinProduct, { bottom: bottom }]}>
-      <Text style={{ fontSize: 14, fontFamily:fonts.robotoMedium }}>A Product From</Text>
+      <Text style={{ fontSize: 14, fontFamily: fonts.robotoMedium }}>
+        A Product From
+      </Text>
       <Pressable onPress={openLink}>
-        <Text style={{ fontSize: 14, fontFamily:fonts.robotoMedium, color: "#EA4C89" }}>
-          Visit NuHvin
+        <Text
+          style={{
+            fontSize: 14,
+            fontFamily: fonts.robotoMedium,
+            color: "#ff6600",
+          }}
+        >
+          Nuhvin
         </Text>
       </Pressable>
     </View>
@@ -27,7 +35,7 @@ const styles = StyleSheet.create({
   nuhvinProduct: {
     position: "absolute",
     width: "100%",
-    height: 40,
+    height: 50,
     backgroundColor: "#f7f7f7",
     // bottom: 0,
     left: 0,
@@ -35,6 +43,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 10,
     alignItems: "center",
-    paddingHorizontal: 20,
+    paddingHorizontal: 30,
+    marginTop: 10,
   },
 });

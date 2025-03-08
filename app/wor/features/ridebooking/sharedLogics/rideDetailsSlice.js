@@ -129,6 +129,7 @@ export const {
   setCompleteRideDetails,
   setTime,
   setPaymentMethod,
+  pickUpDetails,
 } = allRideDetails.actions;
 
 export default allRideDetails.reducer;

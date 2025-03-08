@@ -17,6 +17,8 @@ export const fetchLocation = createAsyncThunk(
       currentLocation.coords.longitude
     );
 
+    console.log("currentLocation", currentLocation);
+
     return {
       location: {
         lat: currentLocation.coords.latitude,
