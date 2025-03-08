@@ -30,15 +30,15 @@ const ShowPollyLine = ({
 
   const [isZoomedOut, setIsZoomedOut] = useState(false); // Track zoom state
 
-  const adjustedOrigin = { latitude: origin.lat, longitude: origin.lng };
+  const adjustedOrigin = { latitude: origin?.lat, longitude: origin?.lng };
   const adjustedDestination = {
-    latitude: destination.lat,
-    longitude: destination.lng,
+    latitude: destination?.lat,
+    longitude: destination?.lng,
   };
 
   const initialRegion = {
-    latitude: adjustedOrigin.latitude,
-    longitude: adjustedOrigin.longitude,
+    latitude: adjustedOrigin?.latitude,
+    longitude: adjustedOrigin?.longitude,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   };

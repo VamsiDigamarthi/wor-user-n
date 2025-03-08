@@ -65,6 +65,26 @@
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:scheme="com.nuhvin.womenrider"/>
       </intent-filter>
+    
+      <!-- Intent Filter for https://maps.google.com links -->
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="https" android:host="maps.google.com" />
+      </intent-filter>
+
+      <!-- Intent Filter for geo: links -->
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="geo" />
+      </intent-filter>
+      <!-- *************** END OF ADDED INTENT FILTERS *************** -->
+
+  
+
     </activity>
     <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" android:exported="false"/>
 

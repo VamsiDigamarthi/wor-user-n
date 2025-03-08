@@ -18,9 +18,14 @@ export const useShowPriceScreenHook = () => {
   const { priceDetails } = useSelector((state) => state.priceDetails); // this is complete price details from admin panel
 
   const { location } = useSelector((state) => state.location);
+
   const { dropDetails, selectedVehicleType, isParcScreen, time } = useSelector(
     (state) => state.allRideDetails
   );
+
+  console.log("dropDetails", dropDetails);
+  console.log("selectedVehicleType", selectedVehicleType);
+
   const [filteredVehicles, setFilteredVehicles] = useState([]);
 
   // this state stored selected vehicle is bottom sheet down display at top this selected vehicle
@@ -46,10 +51,6 @@ export const useShowPriceScreenHook = () => {
   };
 
   // calculate price details
-
-
-
-  
 
   useEffect(() => {
     calcPriceDetails();
@@ -89,14 +90,11 @@ export const useShowPriceScreenHook = () => {
         vehicles.map(async (vehicle) => {
           const result = await calDisFromPickToDrop(vehicle.vehicleType);
 
-
           // console.log(result , "-----");
-          
 
           const newPrice = handleCalculatePrices(result, vehicle?.vehicleType);
 
           console.log(newPrice);
-          
 
           if (
             selectedVehicleType?.toLowerCase() ===
@@ -154,9 +152,7 @@ export const useShowPriceScreenHook = () => {
   };
 
   const handleCalculatePrices = (result, vehicleType) => {
-
-    console.log(result , "----inside -----");
-    
+    console.log(result, "----inside -----");
 
     const { distance = "0.0 km", duration = 0 } = result || {};
 
@@ -164,7 +160,6 @@ export const useShowPriceScreenHook = () => {
     const baseFare = +priceDetails?.baseFare || 5;
 
     // console.log(priceDetails ,"----priceDetails=====");
-    
 
     // const nightFare = +priceDetails?.nightFare || 0;
     const platFormPrice = +priceDetails?.platformFee;
@@ -212,10 +207,6 @@ export const useShowPriceScreenHook = () => {
   };
 
   const getRandomNightFare = () => {
-
-    
-    
-
     const [min, max] = priceDetails?.nightFarePercentage || [0, 0];
     return Math.ceil(Math.random() * (max - min) + min);
   };

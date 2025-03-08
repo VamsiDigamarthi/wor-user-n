@@ -16,8 +16,8 @@ const ShowPollyLine = ({
 }) => {
   const [routeCoordinates, setRouteCoordinates] = useState([]);
   const [currentPosition, setCurrentPosition] = useState({
-    latitude: origin.lat,
-    longitude: origin.lng,
+    latitude: origin?.lat,
+    longitude: origin?.lng,
   });
   const [error, setError] = useState(null);
 
@@ -28,18 +28,18 @@ const ShowPollyLine = ({
 
   // Adjust the origin and destination to match MapView expectations
   const adjustedOrigin = {
-    latitude: origin.lat,
-    longitude: origin.lng,
+    latitude: origin?.lat,
+    longitude: origin?.lng,
   };
 
   const adjustedDestination = {
-    latitude: destination.lat,
-    longitude: destination.lng,
+    latitude: destination?.lat,
+    longitude: destination?.lng,
   };
 
   const initialRegion = {
-    latitude: adjustedOrigin.latitude,
-    longitude: adjustedOrigin.longitude,
+    latitude: adjustedOrigin?.latitude,
+    longitude: adjustedOrigin?.longitude,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   }; // Define the initial region

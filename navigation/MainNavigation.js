@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useRef, useState, useCallback } from "react";
 import AuthenticatedStack from "./AuthenticatedStack";
 import AuthStack from "./AuthStack";
-import { Image, StyleSheet, View } from "react-native";
+import { Alert, Image, Linking, StyleSheet, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import * as Notifications from "expo-notifications";
 import { AppState } from "react-native";
@@ -16,8 +16,12 @@ import {
   setDropDetails,
   setIsSendOrReceiveParcel,
   setPickUpDetails,
+  pickUpDetails,
+  setIsBeforeBook,
 } from "../app/wor/features/ridebooking/sharedLogics/rideDetailsSlice";
 import { useSocket } from "../SocketContext";
+import { fetchNameAndVicinity } from "../Constants/displaylocationmap";
+import { fetchLocation } from "../redux/Features/Location/LocationSlice";
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +38,88 @@ const MainNavigation = () => {
   const [processedNotifications, setProcessedNotifications] = useState(
     new Set()
   );
+
+  useEffect(() => {
+    const handleDeepLink = (event) => {
+      const url = event.url;
+
+      if (url.includes("maps.google.com") || url.startsWith("geo:")) {
+        // const checkReady = setInterval(async () => {
+
+        const checkReady = async () => {
+          const coordinates = extractCoordinates(url);
+          console.log(`URL: ${JSON.stringify(coordinates)}`);
+          if (coordinates) {
+            // const getLocation = async () => {
+            //   try {
+            //     await dispatch(fetchLocation()).unwrap(); // Wait for the async operation
+            //     // Now you can safely use location data here
+            //     console.log("Location data:", location);
+            //   } catch (error) {
+            //     console.error("Failed to fetch location:", error);
+            //   }
+            // };
+            // // const dataNew =  dispatch(fetchLocation());
+            // getLocation();
+
+            // dispatch(fetchLocation());
+            dispatch(setIsBeforeBook(true));
+            const locationResult = await dispatch(fetchLocation()).unwrap();
+            console.log("Fetched location:", locationResult.location);
+
+            const data = await fetchNameAndVicinity(
+              coordinates?.latitude,
+              coordinates?.longitude
+            );
+
+            // setDropDetails
+            let data2 = await dispatch(
+              setDropDetails({
+                location: {
+                  lat: coordinates.latitude,
+                  lng: coordinates.longitude,
+                },
+                name: data?.name,
+                vicinity: data?.vicinity,
+              })
+            ).payload;
+
+            // console.log(
+            //   data2,
+            //   "=---------------here data2-------==============="
+            // );
+
+            navigationRef?.current?.navigate("ShowPrice");
+          }
+
+          // Alert.alert(
+          //   "Location Detected",
+          //   `URL: ${JSON.stringify(coordinates)}`
+          // );
+          // clearInterval(checkReady);
+
+          // else {
+          //   console.log("navigation not ready");
+          // }
+        };
+
+        checkReady();
+        // }, 100);
+      }
+    };
+
+    // Handle when the app is opened from a deep link
+    Linking.getInitialURL().then((url) => {
+      if (url) handleDeepLink({ url });
+    });
+
+    // Listen for deep link changes
+    const linkingListener = Linking.addEventListener("url", handleDeepLink);
+
+    return () => {
+      linkingListener.remove(); // Cleanup
+    };
+  }, []);
 
   useEffect(() => {
     const checkTokenAndNavigate = async () => {
@@ -261,6 +347,32 @@ const MainNavigation = () => {
       setPendingNotification(null);
     }
   };
+
+  // deep link
+
+  const extractCoordinates = (geoUrl) => {
+    const match = geoUrl.match(
+      /geo:([-+]?[0-9]*\.?[0-9]+),([-+]?[0-9]*\.?[0-9]+)/
+    );
+    if (match) {
+      return {
+        latitude: parseFloat(match[1]),
+        longitude: parseFloat(match[2]),
+      };
+    }
+    return null;
+  };
+
+  // const { dropDetails } = useSelector((state) => state.allRideDetails);
+
+  // useEffect(() => {
+  //   if (dropDetails) {
+  //     setTimeout(() => {
+  //       console.log("✅ dropDetails updated! Navigating...");
+  //       navigationRef.current?.navigate("ShowPrice");
+  //     }, 500); // Adjust delay if necessary
+  //   }
+  // }, [dropDetails]);
 
   if (loading) {
     return (

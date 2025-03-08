@@ -31,7 +31,8 @@ const OtpScreen = ({}) => {
     timer,
     isResendAvailable,
     handleResendOtp,
-    setOtp
+    setOtp,
+    handleSetOtpChange,
   } = useOtpHook();
 
   const [isFocused, setIsFocused] = useState(false);
@@ -113,7 +114,7 @@ const OtpScreen = ({}) => {
                 ))}
               </View> */}
 
-              <Input
+              {/* <Input
                 label={"Enter Otp *"}
                 icon="security"
                 // placeholder="Enter Genr"
@@ -121,8 +122,14 @@ const OtpScreen = ({}) => {
                 keyboardType="numeric"
                 value={otp}
                 onChangeText={setOtp}
-                
-                // isValid={!errors?.name}
+              /> */}
+
+              <TextInput
+                keyboardType="numeric"
+                value={otp}
+                style={styles.inputCard}
+                onChangeText={handleSetOtpChange}
+                maxLength={11}
               />
 
               {isResendAvailable ? (
@@ -190,14 +197,16 @@ const styles = StyleSheet.create({
   },
   inputCard: {
     width: "100%",
-    height: 66,
-    borderWidth: 1,
-    borderColor: "lightgrey",
-    justifyContent: "center",
-    alignItems: "center",
+    height: 60,
     borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#b0b0b0",
     flexDirection: "row",
-    gap: 10,
+    alignItems: "center",
+    paddingHorizontal: 10,
+    position: "relative",
+    textAlign: "center",
+    fontSize: 24,
   },
   input: {
     width: 20,
