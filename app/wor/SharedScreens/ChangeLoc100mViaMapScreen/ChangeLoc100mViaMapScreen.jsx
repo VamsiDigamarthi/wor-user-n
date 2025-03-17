@@ -8,6 +8,8 @@ import NavigateMPinScreenModal from "./modals/NavigateMPinScreenModal";
 import CheckMPinModal from "./modals/CheckMPinModal";
 import Entypo from "@expo/vector-icons/Entypo";
 import NotInLocation from "../../NotInLocation";
+import StartRides from "../../features/ridebooking/home/modals/StartRIdes";
+import { useEffect, useState } from "react";
 
 const ChangeLoc100mViaMapScreen = ({ navigation }) => {
   const {
@@ -21,6 +23,12 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
     isOpenEnterConfirmMPinModal,
     onOpenIsEnterConfirmPinModal,
   } = useChangeLoc100mViaMapScreenHook();
+
+  const [displayStartModal, setDisplayStartModal] = useState(false);
+
+  useEffect(() => {
+    setDisplayStartModal(true);
+  }, []);
 
   return (
     <View style={{ flex: 1 }}>
@@ -64,10 +72,14 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
         newMarker={{ lat: newMarker.latitude, lng: newMarker.longitude }}
       />
 
+      {false && <NotInLocation />}
 
-      {
-        false && <NotInLocation />
-      }
+      {displayStartModal && (
+        <StartRides
+          setDisplayStartModal={() => setDisplayStartModal(!displayStartModal)}
+          isDispalyStartModal={displayStartModal}
+        />
+      )}
     </View>
   );
 };

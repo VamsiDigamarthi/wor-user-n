@@ -10,8 +10,10 @@ import { fonts } from "../../../../fonts/Fonts";
 const HomeInput = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+
   const navigateSelectDestinationScreen = ({ isMic }) => {
     dispatch(setIsBeforeBook(true));
+    // setDisplayStartModal(true);
     navigation.navigate("SelectDropLocation", { isMic: isMic });
   };
   return (
