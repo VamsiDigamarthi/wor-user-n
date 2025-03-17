@@ -3,13 +3,12 @@ import { showMessage } from "react-native-flash-message";
 import { API } from "../../../../../../../Constants/url";
 
 const surePassApiKay =
-  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczOTQzMzM1NCwianRpIjoiNGIxMjZlNzktNDcwNi00Y2U5LTk2YzEtNzJjZmNiMjcwZGIyIiwidHlwZSI6ImFjY2VzcyIsImlkZW50aXR5IjoiZGV2Lm51aHZpbjAyQHN1cmVwYXNzLmlvIiwibmJmIjoxNzM5NDMzMzU0LCJleHAiOjE3Mzk4NjUzNTQsImVtYWlsIjoibnVodmluMDJAc3VyZXBhc3MuaW8iLCJ0ZW5hbnRfaWQiOiJtYWluIiwidXNlcl9jbGFpbXMiOnsic2NvcGVzIjpbInVzZXIiXX19.AOdeTbjcm0OFo74BGVnGY5v4LlFYsxqtfWLs-OYF2H0";
-
+  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczODczOTM2NCwianRpIjoiNDQwNjBkNWMtODA5NC00MTYxLWEyODktMTQ5M2JmOGNhNjQxIiwidHlwZSI6ImFjY2VzcyIsImlkZW50aXR5IjoiZGV2Lm51aHZpbjAyQHN1cmVwYXNzLmlvIiwibmJmIjoxNzM4NzM5MzY0LCJleHAiOjIzNjk0NTkzNjQsImVtYWlsIjoibnVodmluMDJAc3VyZXBhc3MuaW8iLCJ0ZW5hbnRfaWQiOiJtYWluIiwidXNlcl9jbGFpbXMiOnsic2NvcGVzIjpbInVzZXIiXX19.FKrt3pav4Ls7zcOojQ51GijcW-YImN62xNhkx2K_4uY";
 
 export const aadharNumberSendOtp = async ({ aadharNumber }) => {
   try {
     const response = await axios.post(
-      "https://sandbox.surepass.io/api/v1/aadhaar-v2/generate-otp",
+      "https://kyc-api.surepass.io/api/v1/aadhaar-v2/generate-otp",
       {
         id_number: aadharNumber,
       },
@@ -21,13 +20,10 @@ export const aadharNumberSendOtp = async ({ aadharNumber }) => {
       }
     );
 
-    console.log(response, "skgdjsg----");
-
     return {
       status: true,
       clientId: response?.data?.data?.client_id,
     };
-
   } catch (error) {
     console.log("aadhar otp sending failed");
     console.log(error?.response?.data);
@@ -76,7 +72,7 @@ const handleUploadAdharDetailsToServer = async ({ data, token }) => {
 export const aadharCardOtpVerification = async ({ otp, clientId, token }) => {
   try {
     const response = await axios.post(
-      "https://sandbox.surepass.io/api/v1/aadhaar-v2/submit-otp",
+      "https://kyc-api.surepass.io/api/v1/aadhaar-v2/submit-otp",
       {
         otp: otp,
         client_id: clientId,
@@ -100,8 +96,7 @@ export const aadharCardOtpVerification = async ({ otp, clientId, token }) => {
       token,
     });
 
-    console.log("ownServerData",ownServerData);
-    
+    console.log("ownServerData", ownServerData);
 
     if (ownServerData.status) {
       return {

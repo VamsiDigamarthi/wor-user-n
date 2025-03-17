@@ -220,7 +220,7 @@ export default function App() {
     <Provider store={store}>
       <SocketProvider>
         <GestureHandlerRootView style={{ flex: 1 }}>
-          <StatusBar style="auto" />
+          <StatusBar style="dark" />
           <BottomSheetModalProvider>
             <MainNavigation />
           </BottomSheetModalProvider>

@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import { aadharCardOtpVerification, aadharNumberSendOtp } from "./AadharModal.Serv";
+import {
+  aadharCardOtpVerification,
+  aadharNumberSendOtp,
+} from "./AadharModal.Serv";
 import { useDispatch, useSelector } from "react-redux";
 import { onProfileSection } from "../../../../ridebooking/home/redux/profileSlice";
 import { loginApi } from "../../../../auth/services/authServices";
@@ -14,13 +17,17 @@ export const useAadharModalHook = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [otpError, setOtpError] = useState("");
   const [genderFailed, setGenderFailed] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [resendAvailable , setIsResendAvailable] = useState(false)
+  const [resendAvailable, setIsResendAvailable] = useState(false);
+
+  const [otpLoading, setOtpLoading] = useState(false);
 
   const [timer, setTimer] = useState(120); // Timer starts at 60 seconds
 
   const handleSubmitOtp = async () => {
-    setIsLoading(true);
+    console.log("submit verified otp start");
+
+    setOtpLoading(true);
+    console.log("after loading otp");
 
     const data = await aadharCardOtpVerification({
       otp: otp?.join(""),
@@ -28,18 +35,25 @@ export const useAadharModalHook = () => {
       token,
     });
 
-    setIsLoading(false);
+    // console.log("submit verified otp end", data);
+
+    setOtpLoading(false);
 
     if (!data.status) {
       if (data?.gengerFailed) {
         setGenderFailed("Gender");
+        setOtpVerified(true);
+        return;
       } else if (data?.serverError) {
         setGenderFailed("server");
+        setOtpVerified(true);
+        return;
       } else if (data?.ownServerFailed === "Aadhar Number Already Exist....!") {
         setOtpError("Aadhar Number Already Exist....!");
         return;
       } else if (data?.ownServerFailed !== "Aadhar Number Already Exist....!") {
         setGenderFailed("ownServer");
+        return;
       } else {
         setOtpError(data?.otpFailed);
         return;
@@ -47,34 +61,25 @@ export const useAadharModalHook = () => {
     }
 
     dispatch(onProfileSection({ token }));
-    setOtpVerified(true);
   };
 
+  // Timer logic
+  useEffect(() => {
+    if (timer > 0) {
+      const interval = setInterval(() => {
+        setTimer((prevTimer) => prevTimer - 1);
+      }, 1000);
+      return () => clearInterval(interval);
+    } else {
+      setIsResendAvailable(true);
+    }
+  }, [timer]);
 
-
-    // Timer logic
-    useEffect(() => {
-      if (timer > 0) {
-        const interval = setInterval(() => {
-          setTimer((prevTimer) => prevTimer - 1);
-        }, 1000);
-        return () => clearInterval(interval);
-      } else {
-        setIsResendAvailable(true);
-      }
-    }, [timer]);
-  
-    const handleResendOtp = async () => {
-      setTimer(120);
-      setIsResendAvailable(false);
-      aadharNumberSendOtp({ aadharNumber })
-
-      console.log(data , "From otp");
-      
-    };
-
-
-
+  const handleResendOtp = async () => {
+    setTimer(120);
+    setIsResendAvailable(false);
+    aadharNumberSendOtp({ aadharNumber });
+  };
 
   return {
     otpPress,
@@ -87,11 +92,12 @@ export const useAadharModalHook = () => {
     handleSubmitOtp,
     genderFailed,
     otpError,
-    isLoading,
+
     setAadharNumber,
     aadharNumber,
     handleResendOtp,
     resendAvailable,
-    timer
+    timer,
+    otpLoading,
   };
 };
