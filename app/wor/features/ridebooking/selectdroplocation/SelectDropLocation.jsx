@@ -13,12 +13,19 @@ import { useSelectDropLocationHook } from "./Hooks/SelectDropLocation.hook";
 import MicModal from "./MicModal";
 import { useRoute } from "@react-navigation/native";
 import { COLORS } from "../../../../../Constants/colors";
-
-
+import StartRides from "../home/modals/StartRIdes";
+import { useEffect, useState } from "react";
 
 const SelectDropLocation = () => {
   const route = useRoute();
   const { title, passParams } = route.params || {};
+
+  const [displayStartModal, setDisplayStartModal] = useState(false);
+
+  useEffect(() => {
+    setDisplayStartModal(true);
+  }, []);
+
   const {
     isMicModalOpenClose,
     setIsMicModalOpenClose,
@@ -59,6 +66,13 @@ const SelectDropLocation = () => {
         isMicModalOpenClose={isMicModalOpenClose}
         setIsMicModalOpenClose={setIsMicModalOpenClose}
       />
+
+      {displayStartModal && (
+        <StartRides
+          setDisplayStartModal={() => setDisplayStartModal(!displayStartModal)}
+          isDispalyStartModal={displayStartModal}
+        />
+      )}
     </>
   );
 };

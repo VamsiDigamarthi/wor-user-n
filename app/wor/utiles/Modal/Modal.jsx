@@ -23,6 +23,7 @@ const ModalUI = ({
   btnText = "Close",
   btnTextStyle,
   closebtn = true,
+  bgColor = "#fff",
 }) => {
   return (
     <Modal
@@ -41,6 +42,7 @@ const ModalUI = ({
               styles.modalContent,
               insideCardStyle,
               { overflow: "hidden" },
+              { backgroundColor: bgColor },
             ]}
             onPress={(e) => e.stopPropagation()} // Prevent modal content taps from closing
           >

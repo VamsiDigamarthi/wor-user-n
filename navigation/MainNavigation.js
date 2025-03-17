@@ -377,9 +377,14 @@ const MainNavigation = () => {
   if (loading) {
     return (
       <View style={styles.loadingCard}>
-        <Image
+        {/* <Image
           style={styles.loadingImage}
           source={require("../assets/images/logo.png")}
+        /> */}
+
+        <Image
+          style={styles.loadingImage}
+          source={require("../assets/wor user.gif")}
         />
       </View>
     );
@@ -416,8 +421,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   loadingImage: {
-    width: 200,
-    height: 200,
+    width: "90%",
+    height: "90%",
     resizeMode: "contain",
+    // flex: 1,
   },
 });
