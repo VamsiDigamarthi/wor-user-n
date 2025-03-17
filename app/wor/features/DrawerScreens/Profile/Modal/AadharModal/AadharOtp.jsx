@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import CustomBtn from "../../../../../utiles/CustomBtn";
 import { AntDesign } from "@expo/vector-icons";
 import OtpUi from "../../../../../utiles/OtpUi";
@@ -16,6 +16,10 @@ const AadharOtp = ({
   handleResendOtp,
   timer,
 }) => {
+  useEffect(() => {
+    console.log("isLoadin 0000000000000000000000000000g", isLoading);
+  }, [isLoading]);
+
   return (
     <View style={styles.bottomCardContainer}>
       <View style={styles.Card}>
@@ -54,7 +58,7 @@ const AadharOtp = ({
         onPress={handleSubmitOtp}
         btnBg={otp[5]?.length <= 0 ? "#f7f7f7" : "#EA4C89"}
         btnColor={otp[5]?.length <= 0 ? "#EA4C89" : "#fff"}
-        isLoading={isLoading}
+        isLoding={isLoading}
       />
     </View>
   );
