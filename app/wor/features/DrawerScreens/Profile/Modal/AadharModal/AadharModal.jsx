@@ -18,12 +18,13 @@ const AadharModal = ({ openModal, closeModal }) => {
     handleSubmitOtp,
     genderFailed,
     otpError,
-    isLoading,
+
     setAadharNumber,
     aadharNumber,
     resendAvailable,
     handleResendOtp,
     timer,
+    otpLoading,
   } = useAadharModalHook();
 
   // const otpVerified = true;
@@ -56,7 +57,7 @@ const AadharModal = ({ openModal, closeModal }) => {
               otp={otp}
               setOtp={setOtp}
               handleSubmitOtp={handleSubmitOtp}
-              isLoading={isLoading}
+              isLoading={otpLoading}
               handleResendOtp={handleResendOtp}
               resendAvailable={resendAvailable}
               timer={timer}

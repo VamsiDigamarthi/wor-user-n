@@ -5,6 +5,7 @@ import InputBox from "../../../../../utiles/InputCard/InputCard";
 import { AntDesign } from "@expo/vector-icons";
 import { aadharNumberSendOtp } from "./AadharModal.Serv";
 import { fonts } from "../../../../../fonts/Fonts";
+import SurePassErrorMshModal from "./SurePassErrorMshModal";
 
 const AadharCardNumber = ({
   aadharNumber,
@@ -15,6 +16,8 @@ const AadharCardNumber = ({
   const [formattedAadhar, setFormattedAadhar] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");
+  // display another modal for show error
+  const [displaySurepassError, setDisplaySurepassError] = useState(false);
 
   const handleAadharChange = (text) => {
     const numericValue = text.replace(/\D/g, "");
@@ -29,9 +32,9 @@ const AadharCardNumber = ({
   };
 
   const handleSubmitAadharCard = async () => {
-    if(aadharNumber?.length !== 12){
-      setErrMsg("Please Enter Aadhar Number")
-      return
+    if (aadharNumber?.length !== 12) {
+      setErrMsg("Please Enter Aadhar Number");
+      return;
     }
 
     setIsLoading(true);
@@ -43,56 +46,67 @@ const AadharCardNumber = ({
       setOtpPress(true);
       return;
     }
-    setErrMsg(data?.error);
+    setDisplaySurepassError(true);
+    // setErrMsg(data?.error);
+  };
+
+  const handleCloseSurepasErrModal = () => {
+    setDisplaySurepassError(!displaySurepassError);
   };
 
   return (
-    <View style={styles.bottomCardContainer}>
-      <Text style={styles.heading}>Aadhaar Details</Text>
-      <InputBox
-        keyboardType="numeric"
-        maxLength={14} // Includes spaces
-        placeholder="XXXX XXXX XXXX"
-        label="Enter Aadhar Number"
-        isIconsNotText={true}
-        icon={"id-card-o"}
-        iconType="FontAwesome"
-        value={formattedAadhar} // Use formatted value for display
-        onChangeText={handleAadharChange}
+    <>
+      <View style={styles.bottomCardContainer}>
+        <Text style={styles.heading}>Aadhaar Details</Text>
+        <InputBox
+          keyboardType="numeric"
+          maxLength={14} // Includes spaces
+          placeholder="XXXX XXXX XXXX"
+          label="Enter Aadhar Number"
+          isIconsNotText={true}
+          icon={"id-card-o"}
+          iconType="FontAwesome"
+          value={formattedAadhar} // Use formatted value for display
+          onChangeText={handleAadharChange}
+        />
+
+        <View style={styles.rowCard}>
+          <View style={styles.dot}></View>
+          <Text style={styles.listText}>
+            we prioritize your safety and privacy. Aadhaar is used only for
+            verification to keep our services secure.
+          </Text>
+        </View>
+
+        <View style={styles.rowCard}>
+          <View style={styles.dot}></View>
+          <Text style={styles.listText}>
+            We handle Aadhaar data carefully and never misuse or share it. Your
+            security is our top concern.
+          </Text>
+        </View>
+
+        <View style={styles.verifiicons}>
+          <AntDesign name="Safety" size={20} color="#036413" />
+          <Text style={{ color: "#757575", fontFamily: fonts.robotoRegular }}>
+            Your Data is 100% Safe and Secure
+          </Text>
+        </View>
+        {errMsg && <Text style={{ fontSize: 11, color: "red" }}>{errMsg}</Text>}
+        <CustomBtn
+          width="100%"
+          onPress={handleSubmitAadharCard}
+          title="Continue"
+          btnBg={aadharNumber.length === 12 ? "#EA4C89" : "#F7F7F7"}
+          btnColor={aadharNumber.length === 12 ? "#fff" : "#000"}
+          isLoding={isLoading}
+        />
+      </View>
+      <SurePassErrorMshModal
+        closeModal={handleCloseSurepasErrModal}
+        openModal={displaySurepassError}
       />
-
-      <View style={styles.rowCard}>
-        <View style={styles.dot}></View>
-        <Text style={styles.listText}>
-          we prioritize your safety and privacy. Aadhaar is used only for
-          verification to keep our services secure.
-        </Text>
-      </View>
-
-      <View style={styles.rowCard}>
-        <View style={styles.dot}></View>
-        <Text style={styles.listText}>
-          We handle Aadhaar data carefully and never misuse or share it. Your
-          security is our top concern.
-        </Text>
-      </View>
-
-      <View style={styles.verifiicons}>
-        <AntDesign name="Safety" size={20} color="#036413" />
-        <Text style={{ color: "#757575", fontFamily: fonts.robotoRegular }}>
-          Your Data is 100% Safe and Secure
-        </Text>
-      </View>
-      {errMsg && <Text style={{ fontSize: 11, color: "red" }}>{errMsg}</Text>}
-      <CustomBtn
-        width="100%"
-        onPress={handleSubmitAadharCard}
-        title="Continue"
-        btnBg={aadharNumber.length === 12 ? "#EA4C89" : "#F7F7F7"}
-        btnColor={aadharNumber.length === 12 ? "#fff" : "#000"}
-        isLoding={isLoading}
-      />
-    </View>
+    </>
   );
 };
 
