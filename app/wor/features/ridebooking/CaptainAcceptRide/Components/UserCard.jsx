@@ -43,8 +43,9 @@ const UserCard = ({ captainDetails, vehcleType }) => {
       const data = returnVehicleImage(vehcleType);
       setVehImage(data);
       const filterActiveService = captainDetails?.services?.find(
-        (ser) => ser.serviceType?.toLowerCase() === activeService?.toLowerCase()
+        (ser) => ser.serviceType?.toLowerCase() === vehcleType?.toLowerCase()
       );
+
       setActiveService(filterActiveService ?? {});
     }
   }, [vehcleType]);

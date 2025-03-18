@@ -1,16 +1,41 @@
-let dropDetails = {
-  id: "ChIJ31MJbaOQyzsR3SvCCW2ETPA",
-  location: { lat: 17.4578021, lng: 78.36884549999999 },
-  name: "Kensium Solutions Pvt. Ltd.",
-  photo:
-    "AUy1YQ2kheU91SyY71_ZNytfXYpPcHgnl66jmw5tX5ZaHGpUf7Tf0wWww91MsIRLoKYSRCpCp65ypFVddlQUmzHnRYWkKFeyaaRzC1owWW2wZ7EY-zF5cnqfje01svjUHmL6SEOIwSdfOLqxyEc0hCGihlZi7UfhuM_gIzoSbUMKXQQe2fo2BhTpX0du",
-  vicinity:
-    "4th Floor, Jyothi Pinnacle, Hitech City Road, Laxmi Cyber City, Whitefields, Kondapur",
-};
-
-let homeScreenDropDetails = {
-  _id: "67bebd8eabcf73f19d1a95bc",
-  location: { lat: 17.4851155, lng: 78.4115577 },
-  name: "Kukatpally Metro Station",
-  vicinity: "APHB Colony, Kukatpally, Hyderabad, Telangana, India",
+let v = {
+  _id: "67d0060e5690f688f361492c",
+  activeService: "scooty",
+  email: "",
+  languages: [],
+  mobile: "8978106223",
+  name: "Narasimha",
+  services: [
+    {
+      _id: "67d006105690f688f3614937",
+      color: "SPK FL RED",
+      fatherName: "V BHASKAR RAO LATE",
+      fitUpTo: "2031-01-18",
+      fitnessCer: null,
+      fuelType: "PETROL",
+      insuranceImg: null,
+      insuranceVerification: "initial",
+      makerDescription: "TVS MOTOR COMPANY LTD",
+      makerModel: "TVS SPORT CVTI BSIII",
+      ownerName: "V MAHESH KUMAR MAHESH KUMAR   VAIDYA ",
+      permanentAddress:
+        "S-9 BLOCK-1, RBR COMPLEX, MIYAPUR, RANGAREDDY, RANGA REDDY, SERILINGAMPALLY, 500049",
+      presentAddress:
+        "S-9 BLOCK-1, RBR COMPLEX, MIYAPUR, RANGAREDDY, RANGA REDDY, SERILINGAMPALLY, 500049",
+      rcBackImage: "uploads\\1741686374511.jpg",
+      rcFrontImage: "uploads\\1741686374489.jpg",
+      rcNumber: "Ts07ev4530",
+      rcVerificationStatuc: "verified",
+      registeredAt: "RTA RANGAREDDY",
+      registrationDate: "2016-01-19T00:00:00.000Z",
+      serviceType: "scooty",
+      vehicleBackImage: "uploads\\1741686402284.jpg",
+      vehicleFrontImage: "uploads\\1741686402167.jpg",
+      vehicleHelmetImage: "uploads\\1741686402544.jpg",
+      vehicleImageVerification: "verified",
+      vehicleLeftImage: "uploads\\1741686402437.jpg",
+      vehicleNumberPlate: "uploads\\1741686402453.jpg",
+      vehicleRightImage: "uploads\\1741686402355.jpg",
+    },
+  ],
 };
