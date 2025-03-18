@@ -21,29 +21,31 @@ import parcelSavedPlace from "../app/wor/features/Parcels/redux/parcelSavedPlace
 
 import priceDetails from "../app/wor/features/ridebooking/home/redux/priceDetailSlice";
 
+import locationBarrier from "../HOC/redux/locationBarrierSlice";
 
 const reduxFlipper = require("redux-flipper").default;
 
-const store = configureStore({
-  reducer: {
-    token,
-    profileSlice,
-    previewOrders,
-    location,
-    nearPlaces,
-    homePlaces,
-    allRideDetails,
-    favoritePlaces,
-    tipSlice,
-    rideHistory,
-    homeOrWorkPlace,
-    parcelSavedPlace,
-    initialModals,
-    priceDetails,
+const store = configureStore(
+  {
+    reducer: {
+      token,
+      profileSlice,
+      previewOrders,
+      location,
+      nearPlaces,
+      homePlaces,
+      allRideDetails,
+      favoritePlaces,
+      tipSlice,
+      rideHistory,
+      homeOrWorkPlace,
+      parcelSavedPlace,
+      initialModals,
+      priceDetails,
+      locationBarrier,
+    },
   },
-  
-},
-applyMiddleware( reduxFlipper())
+  applyMiddleware(reduxFlipper())
 );
 
 export default store;

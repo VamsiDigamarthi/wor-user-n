@@ -11,6 +11,7 @@ import CustomBtn from "../../../utiles/CustomBtn";
 import ShceduleOrderModal from "./Modal/ShceduleOrderModal";
 import OfferModal from "./Modal/OfferModal";
 import PaymentModal from "./Modal/PaymentModal";
+// import { withLocationBarrierHoc } from "../../../../../HOC/withLocationBarrier";
 
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.35, 0.7].map((p) => screenHeight * p); // Example snap points for Android

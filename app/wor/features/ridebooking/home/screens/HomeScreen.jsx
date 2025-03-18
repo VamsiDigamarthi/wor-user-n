@@ -15,6 +15,7 @@ import RatingModal from "../modals/RatingModal/RatingModal";
 import AadharNotVerifiedModal from "../modals/InitialModals/AadharNotVerifiedModal";
 import MpinNotAvailableModal from "../modals/InitialModals/MpinNotAvailableModal";
 import FutureOrderBox from "../modals/FutureOrderBox";
+import { withLocationBarrierHoc } from "../../../../../../HOC/withLocationBarrier";
 
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.54, 0.6].map((p) => screenHeight * p); // Example snap points for Android
@@ -73,7 +74,7 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default withLocationBarrierHoc(HomeScreen);
 
 const styles = StyleSheet.create({
   bottomSheet: {

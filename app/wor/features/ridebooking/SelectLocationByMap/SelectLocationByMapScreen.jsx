@@ -8,8 +8,12 @@ import { useNavigation } from "@react-navigation/native";
 
 const SelectLocationByMapScreen = () => {
   const navigation = useNavigation();
-  const { mapRegion, onRegionChangeComplete, dragLocation } =
-    useSelectLocationByMapScreenHook();
+  const {
+    mapRegion,
+    onRegionChangeComplete,
+    dragLocation,
+    isDisplayContinueBtn,
+  } = useSelectLocationByMapScreenHook();
   return (
     <View style={styles.container}>
       <Pressable style={[styles.backBtn]} onPress={() => navigation.goBack()}>
@@ -23,7 +27,10 @@ const SelectLocationByMapScreen = () => {
       ) : (
         <Text>Loading...</Text>
       )}
-      <MapBottomDetails dragLocation={dragLocation} />
+      <MapBottomDetails
+        dragLocation={dragLocation}
+        isDisplayContinueBtn={isDisplayContinueBtn}
+      />
     </View>
   );
 };
