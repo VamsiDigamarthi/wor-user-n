@@ -1,24 +1,8 @@
-let fav = {
-  __v: 0,
-  _id: "6799abb6d52c92a6c971458c",
-  head: "677cc42947aac41f9ff808f9",
-  location: { coordinates: [78.36523609999999, 17.4535649], type: "Point" },
-  name: "Monday Hotels Hitec City",
-  vicinity: "#2-91/14/8, White Fields, Kondapur, Hitech City, Kondapur",
-};
-
-let homePlace = {
-  _id: undefined,
-  location: undefined,
+let place = {
+  id: "ChIJSRuNtd2TyzsRyeFsL3etzs8",
+  location: { lat: 17.4584134, lng: 78.3725586 },
   name: "Google Hyderabad - DivyaSree Omega",
-  vicinity: "Block 1, DivyaSree Omega Survey No 13, Kothaguda",
-};
-
-let nearPlace = {
-  id: "ChIJax1ZWYyRyzsRZVJVl2JOpjI",
-  location: { lat: 17.4535649, lng: 78.36523609999999 },
-  name: "Monday Hotels Hitec City",
   photo:
-    "AUy1YQ3wblhO1upiaDaayThB5Hh7ZLXmMUWPa8Aspxu4fzQ3u08Os_0aeQnZVMNXWKm99BEfIxdu7cla0uxDWJfn4wapbWYcGm4De3_uWvYQZV6-0cQTbp9REdnmcJ4bamakIEXQUEAdzYz15NsWWeKRarojog-jNKP3Dh3bCI2vaQE90L5laHxEqsyn",
-  vicinity: "#2-91/14/8, White Fields, Kondapur, Hitech City, Kondapur",
+    "AUy1YQ3tHeakz7EA3BXCmAQ79AwAPN16cp8-7C12ewL44UUVxp3G1zd1nxRBy-Q2Yws0qumFkb-kylnSShn1VQFvpZQEojUMmfSKMSq_oWAjxeKvpA_gaeR-7B4U1MgwaOcvkO_8PDjh-s5oQWqgT0qHIVvMzAANFmnt4Vctof-b4Ddw24fH68-s7JaFlNmW5UxvnVBiU4D9wArXx65-LX2DYNBx5pNg1vmdRTirxLpAgudmy8_GB2oOHcu1JI6Czs7DXEo6gbc_jctqc3-W9yHe1n_RYmJ_7l-zLfNvvkSs2_wS4SXiX-fxqRleFKBTbi4iY2ZkVGhSu34",
+  vicinity: "Block 1, DivyaSree Omega Survey No 13, Kothaguda",
 };

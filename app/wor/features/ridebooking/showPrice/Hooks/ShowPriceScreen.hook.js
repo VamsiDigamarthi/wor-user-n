@@ -23,8 +23,8 @@ export const useShowPriceScreenHook = () => {
     (state) => state.allRideDetails
   );
 
-  console.log("dropDetails", dropDetails);
-  console.log("selectedVehicleType", selectedVehicleType);
+  // console.log("dropDetails", dropDetails);
+  // console.log("selectedVehicleType", selectedVehicleType);
 
   const [filteredVehicles, setFilteredVehicles] = useState([]);
 

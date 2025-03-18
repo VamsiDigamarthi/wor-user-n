@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     elevation: 0.5,
     gap: 10,
+    // backgroundColor: "red",
   },
   pickDropBtnCard: {
     gap: 10,
