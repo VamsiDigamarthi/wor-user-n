@@ -8,33 +8,27 @@ import {
 import React, { useState } from "react";
 import ModalUI from "../../../utiles/Modal/Modal";
 import { useCheckMPinModalHook } from "./CheckMPinModal.hook";
-import { COLORS } from "../../../../../Constants/colors";
 import Entypo from "@expo/vector-icons/Entypo";
-import CustomBtn from "../../../utiles/CustomBtn";
 import { useNavigation } from "@react-navigation/native";
 import { fonts } from "../../../fonts/Fonts";
 
 const CheckMPinModal = ({
   isOpenEnterConfirmMPinModal,
   onOpenIsEnterConfirmPinModal,
-  pickUpPlace,
-  newMarker,
 }) => {
   const { mPin, inputRefs, handleChange } = useCheckMPinModalHook({
-    pickUpPlace,
-    newMarker,
     onOpenIsEnterConfirmPinModal,
   });
 
-  const [hide, setHide] = useState(true); // Default to hiding M-PIN
+  const [hide, setHide] = useState(true);
   const navigation = useNavigation();
 
   const handleBackspace = (index) => {
     if (index > 0) {
-      handleChange("", index); // Clear the current input
-      inputRefs.current[index - 1]?.focus(); // Focus on the previous input
+      handleChange("", index);
+      inputRefs.current[index - 1]?.focus(); // Move focus to previous input
     } else {
-      handleChange("", index); // Clear the first input if no previous input exists
+      handleChange("", index);
     }
   };
 
@@ -43,36 +37,34 @@ const CheckMPinModal = ({
       openCloseState={isOpenEnterConfirmMPinModal}
       closeModalFun={onOpenIsEnterConfirmPinModal}
       closebtn={false}
+      padding={0}
     >
       <View style={styles.mainContainer}>
-        <Text style={styles.heading}>Enter WoR-PIN</Text>
-        <Text style={styles.text}>
-          WoR-PIN is a secure 4 digit code for safe account access and ride
-          protection
-        </Text>
+        <Text style={styles.heading}>Enter WoR Verification PIN</Text>
         <View style={styles.inputContainer}>
-          {mPin.map((digit, index) => (
-            <TextInput
-              key={index}
-              style={styles.inputBox}
-              maxLength={1}
-              secureTextEntry={hide} // Controlled by the `hide` state
-              keyboardType="numeric"
-              value={digit}
-              onChangeText={(value) => handleChange(value, index)}
-              ref={(el) => (inputRefs.current[index] = el)} // Assign refs to inputs
-              onKeyPress={({ nativeEvent }) => {
-                if (nativeEvent.key === "Backspace") {
-                  handleBackspace(index); // Handle backspace logic
-                }
-              }}
-            />
-          ))}
-
-          {/* Eye Icon with Press-and-Hold Functionality */}
+          <View style={styles.inputCard}>
+            {mPin.map((digit, index) => (
+              <TextInput
+                key={index}
+                style={styles.inputBox}
+                maxLength={1}
+                keyboardType="numeric"
+                value={hide ? (digit ? "*" : "") : digit} // Show '*' or actual digit based on hide state
+                onChangeText={(value) => handleChange(value, index)}
+                ref={(el) => (inputRefs.current[index] = el)}
+                onKeyPress={({ nativeEvent }) => {
+                  if (nativeEvent.key === "Backspace") {
+                    handleBackspace(index); // Handle backspace to move to previous input
+                  }
+                }}
+                placeholder="*"
+                placeholderTextColor="#000"
+              />
+            ))}
+          </View>
           <TouchableOpacity
-            onPressIn={() => setHide(false)} // Show M-PIN when pressed
-            onPressOut={() => setHide(true)} // Hide M-PIN when released
+            onPressIn={() => setHide(false)}
+            onPressOut={() => setHide(true)}
             style={{ alignItems: "center" }}
           >
             <Entypo
@@ -82,20 +74,17 @@ const CheckMPinModal = ({
             />
           </TouchableOpacity>
         </View>
-
-        <View style={{ flexDirection: "row", gap: 10 }}>
-          <Text style={styles.text}>Having Trouble</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("SetNewMpin")}>
-            <Text style={[styles.text, { color: "blue" }]}>Forgot Mpin ?</Text>
-          </TouchableOpacity>
+        <View style={styles.forgotText}>
+          <Text numberOfLines={2} style={styles.infoText}>
+            You will be asked for it periodically to help you remember it.{" "}
+            <Text
+              onPress={() => navigation.navigate("SetNewMpin")}
+              style={styles.forgotPinText}
+            >
+              Forgot PIN?
+            </Text>
+          </Text>
         </View>
-
-        <CustomBtn
-          title="Close"
-          borderColor={"#EA4C89"}
-          onPress={onOpenIsEnterConfirmPinModal}
-          borderWidth={1}
-        />
       </View>
     </ModalUI>
   );
@@ -109,27 +98,63 @@ const styles = StyleSheet.create({
     width: "100%",
   },
 
+  heading: {
+    backgroundColor: "#e02e88",
+    padding: 20,
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "600",
+  },
+
   inputContainer: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
     marginBottom: 20,
     width: "100%",
-    alignItems: "flex-end",
-    // backgroundColor: "red",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 10,
+  },
+
+  inputCard: {
+    borderColor: "#ccc",
+    borderWidth: 1,
+    borderRadius: 10,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 4,
+    paddingHorizontal: 15,
+    paddingVertical: 5,
+  },
+
+  forgotText: {
+    paddingHorizontal: 10,
+    flexDirection: "row",
+    width: "100%",
+    paddingBottom: 20,
+  },
+
+  infoText: {
+    fontSize: 14,
+    color: "gray",
+    flex: 1,
+    textAlign: "center",
+    lineHeight: 22,
+  },
+
+  forgotPinText: {
+    fontSize: 14,
+    color: "#4CAF50",
+    fontWeight: "bold",
   },
 
   inputBox: {
-    marginTop: 10,
-    borderBottomWidth: 1,
     textAlign: "center",
     fontSize: 18,
     backgroundColor: "#fff",
-    width: 20,
-    // elevation: 1,
-
     fontFamily: fonts.robotoRegular,
+    justifyContent: "center",
+    borderRadius: 5,
+    borderColor: "#ccc",
   },
-
-  heading: { fontFamily: fonts.robotoSemiBold, fontSize: 16 },
-  text: { fontFamily: fonts.robotoRegular },
 });

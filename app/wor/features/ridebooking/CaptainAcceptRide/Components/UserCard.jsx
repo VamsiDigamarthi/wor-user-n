@@ -85,7 +85,7 @@ const UserCard = ({ captainDetails, vehcleType }) => {
           </Text>
         </View>
         <Text style={{ fontSize: 16, fontFamily: fonts.robotoSemiBold }}>
-          {activeService?.makerModel}
+          {activeService?.makerModel?.slice(0, 20)}
         </Text>
         <Text
           style={{
