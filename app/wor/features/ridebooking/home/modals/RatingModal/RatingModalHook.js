@@ -23,6 +23,9 @@ export const useRatingModalHook = ({
   };
 
   const handleGivenRating = () => {
+    if (!ratingData?.rating) {
+      return;
+    }
     try {
       API.post(
         "/rating",

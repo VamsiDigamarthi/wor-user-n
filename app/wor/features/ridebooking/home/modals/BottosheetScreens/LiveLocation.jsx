@@ -71,8 +71,9 @@ export default function LiveLocation({ onPress }) {
             flexDirection: "row",
             gap: 30,
             flexWrap: "wrap",
-            justifyContent: "space-between",
+            // justifyContent: "space-between",
             padding: 10,
+            paddingBottom: 60,
           }}
         >
           {profile?.emergencyContact?.map((each, index) => (
@@ -114,7 +115,7 @@ export default function LiveLocation({ onPress }) {
       </View>
 
       <View style={{ marginTop: 10, gap: 20, width: "100%", padding: 20 }}>
-        <Text style={{ textAlign: "center" }}>Live Location Duration</Text>
+        {/* <Text style={{ textAlign: "center" }}>Live Location Duration</Text>
         <View
           style={{
             flexDirection: "row",
@@ -137,7 +138,7 @@ export default function LiveLocation({ onPress }) {
               </View>
             </Pressable>
           ))}
-        </View>
+        </View> */}
 
         <CustomBtn
           onPress={sendToOtherApps}

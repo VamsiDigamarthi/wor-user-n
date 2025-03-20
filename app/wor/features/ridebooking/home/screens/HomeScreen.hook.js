@@ -111,6 +111,8 @@ const usePendingOrderRating = (token) => {
 
   const fetchPendingOrderRating = async () => {
     const data = await onFetchRideRating({ token });
+    console.log("rating, data", data);
+
     if (data) {
       setOpenRatingModal(true);
       setPenRatOrderIdCaptainID(data);
@@ -175,16 +177,17 @@ export const useHomeScreenHook = () => {
 
   useEffect(() => {
     if (isFocused) {
+      console.log("============", isFocused);
+
       dispatch(clearDropData());
       fetchPendingOrderRating();
       dispatch(clearHomeOrWorkPlace());
       dispatch(rideHistoryAsyc({ token }));
       dispatch(fetchPriceDetails({}));
     }
-  }, [isFocused, dispatch, fetchPendingOrderRating]);
+  }, [isFocused, dispatch]);
 
   useVerificationCheck(profile);
-  // Check profile verification status (e.g., aadhar and MPIN)
 
   return {
     captainMarkers,

@@ -62,6 +62,7 @@
     "react-native-image-crop-picker": "^0.41.6",
     "react-native-linear-gradient": "^2.8.3",
     "react-native-maps": "1.14.0",
+    "react-native-maps-directions": "^1.9.0",
     "react-native-modal-datetime-picker": "^18.0.0",
     "react-native-modalize": "^2.1.1",
     "react-native-permissions": "^5.2.5",

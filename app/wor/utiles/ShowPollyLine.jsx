@@ -218,7 +218,7 @@ const ShowPollyLine = ({
       <Map3Btns
         handleOpenSafetyModal={() => setToggle((prev) => !prev)}
         handleZoomToggle={handleResetZoom}
-        mapIconsTop={200}
+        // mapIconsTop={0}
       />
 
       {toggle && <MapModalUi toggle={toggle} setToggle={setToggle} />}

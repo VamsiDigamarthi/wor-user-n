@@ -1,5 +1,10 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { FontAwesome, AntDesign, MaterialIcons } from "@expo/vector-icons";
+import {
+  FontAwesome,
+  AntDesign,
+  MaterialIcons,
+  Feather,
+} from "@expo/vector-icons";
 import { Linking } from "react-native";
 
 const openDialer = (phoneNumber) => {
@@ -37,14 +42,14 @@ const Map3Btns = ({
         </TouchableOpacity>
       </View> */}
 
-      {/* <View style={styles.singleIconsCard}>
-        <TouchableOpacity
-          onPress={handleOpenSafetyModal}
-          style={styles.zoomButton}
-        >
-          <AntDesign name="Safety" size={20} color="#EA4C89" />
-        </TouchableOpacity>
-      </View> */}
+      <TouchableOpacity
+        onPress={handleOpenSafetyModal}
+        style={styles.zoomButton}
+      >
+        <View style={[styles.singleIconsCard, styles.zoomContainer]}>
+          <Feather name="shield" size={20} color="#FFF" />
+        </View>
+      </TouchableOpacity>
 
       <TouchableOpacity onPress={handleZoomToggle} style={styles.zoomButton}>
         <View style={[styles.singleIconsCard, styles.zoomContainer]}>

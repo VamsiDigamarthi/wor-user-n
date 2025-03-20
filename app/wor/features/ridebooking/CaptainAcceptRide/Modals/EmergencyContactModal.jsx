@@ -27,7 +27,7 @@ const EmergencyContactModal = ({ openModal, closeModal }) => {
   const [isLiveTrackingEnabled, setIsLiveTrackingEnabled] = useState(false); // State to control live tracking
 
   const { locationRef } = useLocationTracking(
-    completeRideDetails._id,
+    completeRideDetails?._id,
     socket,
     isConnected,
     isLiveTrackingEnabled
@@ -56,7 +56,7 @@ const EmergencyContactModal = ({ openModal, closeModal }) => {
   const checkStoredLiveTracking = async () => {
     try {
       const storedRideId = await AsyncStorage.getItem("liveTrackingRideId");
-      if (storedRideId === completeRideDetails._id) {
+      if (storedRideId === completeRideDetails?._id) {
         setIsLiveTrackingEnabled(true); // Continue live tracking
       } else {
         await AsyncStorage.removeItem("liveTrackingRideId"); // Remove if different
@@ -87,7 +87,10 @@ const EmergencyContactModal = ({ openModal, closeModal }) => {
 
     // Store the ride ID for live tracking
     try {
-      await AsyncStorage.setItem("liveTrackingRideId", completeRideDetails._id);
+      await AsyncStorage.setItem(
+        "liveTrackingRideId",
+        completeRideDetails?._id
+      );
     } catch (error) {
       console.error("Error storing live tracking state:", error);
     }

@@ -24,8 +24,9 @@ export const useCaptainAcceptRideScreenHook = () => {
   const [disFromPickToDrop, setDisFromPickToDrop] = useState(null);
 
   const [liveCoordinates, setLiveCoordinates] = useState({
-    lat: null,
-    lng: null,
+    lat: 0,
+    lng: 0,
+    heading: 0,
   });
 
   const [cancelOrderByUseSt, setCancelOrderByUseSt] = useState(false);
@@ -44,7 +45,9 @@ export const useCaptainAcceptRideScreenHook = () => {
 
   const handleLiveCoordinates = (coordinates) => {
     console.log("coordinates", coordinates);
-    setLiveCoordinates(coordinates);
+    if (!otpVerified) {
+      setLiveCoordinates(coordinates);
+    }
   };
 
   const handleCompleteRide = () => {
@@ -86,7 +89,10 @@ export const useCaptainAcceptRideScreenHook = () => {
       socket.on("order-otp-verified", onVerifiedOtp);
       socket.on("order-arrived", onOrderArrived);
       socket.on("order-completed", handleCompleteRide);
-      socket.on("new-receive-coordinates", handleLiveCoordinates);
+
+      if (!otpVerified)
+        socket.on("new-receive-coordinates", handleLiveCoordinates);
+
       socket.on("change-destination-status", handleChangeDestCaptainResponse);
       socket.on("accept-order-cancelled", cancelOrderByUser);
     }
@@ -105,9 +111,7 @@ export const useCaptainAcceptRideScreenHook = () => {
       calculatePickUpDistance();
       calDisFromPickToDrop();
     }
-
   }, [completeRideDetails]);
-  
 
   const calculatePickUpDistance = async () => {
     try {

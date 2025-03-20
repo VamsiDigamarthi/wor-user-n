@@ -8,15 +8,34 @@ import {
 } from "react-native";
 import React from "react";
 import StarRating from "../../../../../../utiles/StarRating/StarRating";
-import {RatingLady} from "../../../../../../Images/Rating"
+import { RatingLady } from "../../../../../../Images/Rating";
+import { imageUrl } from "../../../../../../../../Constants/url";
 
-const RatingCard = ({ rating, setRatingData, handleRatingChange }) => {
+const RatingCard = ({
+  rating,
+  setRatingData,
+  handleRatingChange,
+  penRatOrderIdCaptainId,
+}) => {
   const handleRatingChangeStar = (newRating) => {
     setRatingData((prev) => ({
       ...prev,
       rating: newRating,
     }));
   };
+
+  const sanitizedImageUrl = penRatOrderIdCaptainId?.userId?.profilePic
+    ? `${imageUrl}/${penRatOrderIdCaptainId?.userId.profilePic}`.replace(
+        /\\/g,
+        "/"
+      )
+    : null;
+
+  const imageSrc = sanitizedImageUrl
+    ? { uri: sanitizedImageUrl }
+    : require("../../../../../../../../assets/images/profile/Services.png");
+
+  // console.log("penRatOrderIdCaptainId", penRatOrderIdCaptainId);
 
   return (
     <View style={styles.container}>
@@ -30,13 +49,12 @@ const RatingCard = ({ rating, setRatingData, handleRatingChange }) => {
         <Text style={{ fontWeight: "600", fontSize: 16 }}>Ride Details</Text>
       </View>
       <View style={styles.userImageCard}>
-        <Image
-          style={styles.userImage}
-          source={RatingLady}
-        />
+        <Image style={styles.userImage} source={imageSrc} />
         <View style={styles.bikeImage}></View>
       </View>
-      <Text>Shared Ride Experience with Dharani </Text>
+      <Text style={{ textAlign: "center", lineHeight: 22 }}>
+        Shared Ride Experience with {penRatOrderIdCaptainId?.userId?.name}{" "}
+      </Text>
       <StarRating
         initialRating={rating}
         width="50%"
