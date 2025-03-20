@@ -11,6 +11,7 @@ import CustomBtn from "../../../utiles/CustomBtn";
 import ShceduleOrderModal from "./Modal/ShceduleOrderModal";
 import OfferModal from "./Modal/OfferModal";
 import PaymentModal from "./Modal/PaymentModal";
+import PollyLineNew from "../../../utiles/PollyLineNew";
 
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.35, 0.7].map((p) => screenHeight * p); // Example snap points for Android
@@ -54,10 +55,16 @@ const ShowPriceScreen = () => {
         borderStyles={false}
       >
         <View style={styles.mapContainer}>
-          <ShowPollyLine
+          {/* <ShowPollyLine
             selectedVehicleType={selectedVehicleType}
             origin={location}
             destination={dropDetails.location}
+          /> */}
+          <PollyLineNew
+            selectedVehicleType={selectedVehicleType}
+            origin={location}
+            destination={dropDetails.location}
+            otpVerified={null}
           />
         </View>
         <BottomSheetComponent

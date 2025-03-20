@@ -12,6 +12,7 @@ import CopyBox from "../../../utiles/CopyBox";
 import { useCaptainAcceptRideScreenHook } from "./Hooks/CaptainAcceptRideScreen.hook";
 import TrackMe from "./Components/TrackMe";
 import SocketCancelRide from "./Modals/SocketCancelRide";
+import PollyLineNew from "../../../utiles/PollyLineNew";
 
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.4, 0.6].map((p) => screenHeight * p);
@@ -38,8 +39,8 @@ const CaptainAcceptRideScreen = () => {
   } = useCaptainAcceptRideScreenHook();
 
   let captainCoordinates = {
-    lat: completeRideDetails.captainCoor[1],
-    lng: completeRideDetails.captainCoor[0],
+    lat: completeRideDetails?.captainCoor?.[1],
+    lng: completeRideDetails?.captainCoor?.[0],
   };
 
   let pickUpCoordinates = {
@@ -67,8 +68,8 @@ const CaptainAcceptRideScreen = () => {
             ? completeRideDetails?.newDropAddress
             : completeRideDetails?.dropAddress
           : isArrived
-            ? "Rider has arrived"
-            : "Ride On the way"
+          ? "Rider has arrived"
+          : "Ride On the way"
       }
       vicinity={
         otpVerified
@@ -84,12 +85,21 @@ const CaptainAcceptRideScreen = () => {
       isRideBookingScree={true}
     >
       <View style={styles.mapContainer}>
-        <ShowPollyLine
+        {/* <ShowPollyLine
           selectedVehicleType={completeRideDetails?.vehicleType}
           origin={otpVerified ? pickUpCoordinates : captainCoordinates}
           destination={otpVerified ? dropCoordinates : pickUpCoordinates}
           liveCoordinates={liveCoordinates}
           height={mapHeight}
+        /> */}
+
+        <PollyLineNew
+          selectedVehicleType={completeRideDetails?.vehicleType}
+          origin={otpVerified ? pickUpCoordinates : captainCoordinates}
+          destination={otpVerified ? dropCoordinates : pickUpCoordinates}
+          liveCoordinates={liveCoordinates}
+          height={mapHeight}
+          otpVerified={otpVerified}
         />
       </View>
 

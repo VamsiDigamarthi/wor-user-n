@@ -145,7 +145,7 @@ const MainNavigation = () => {
                 navigationRef.current?.isReady() &&
                 previousOrders?.data?.length
               ) {
-                previousOrders?.data?.forEach((singleOrder) => {
+                previousOrders?.data?.forEach(async (singleOrder) => {
                   // console.log(singleOrder);
                   console.log("before sockets ---------------------------");
                   if (isConnected) {
@@ -186,7 +186,17 @@ const MainNavigation = () => {
                       orderPlaceTime: singleOrder.orderPlaceTime,
                     });
                   } else if (singleOrder.status === "accept") {
-                    dispatch(setCompleteRideDetails(singleOrder));
+                    // let data2 = await dispatch(
+                    //   setDropDetails({
+                    //     location: {
+                    //       lat: coordinates.latitude,
+                    //       lng: coordinates.longitude,
+                    //     },
+                    //     name: data?.name,
+                    //     vicinity: data?.vicinity,
+                    //   })
+                    // ).payload;
+                    await dispatch(setCompleteRideDetails(singleOrder)).payload;
                     navigationRef.current?.navigate("captaineacceptride");
                   } else if (singleOrder.status === "waiting") {
                     console.log(

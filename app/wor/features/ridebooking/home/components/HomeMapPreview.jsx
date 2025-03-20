@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState, useMemo } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
+} from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { FontAwesome } from "@expo/vector-icons";
@@ -16,8 +22,8 @@ const HomeMapPreview = ({
 }) => {
   const mapRef = useRef(null);
   const [region, setRegion] = useState({
-    latitude: 37.78825,
-    longitude: -122.4324,
+    latitude: 0,
+    longitude: 0,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
@@ -58,7 +64,9 @@ const HomeMapPreview = ({
     setInitialRegion(newRegion);
     setNewLocation(location);
 
-    const coordinatesArray = [{ latitude: location.lat, longitude: location.lng }];
+    const coordinatesArray = [
+      { latitude: location.lat, longitude: location.lng },
+    ];
 
     if (mapRef.current) {
       mapRef.current.fitToCoordinates(coordinatesArray, {
@@ -86,7 +94,11 @@ const HomeMapPreview = ({
         showsMyLocationButton={false}
         onRegionChangeComplete={(region) => setRegion(region)}
       >
-        <Marker coordinate={adjustedOrigin} title="Start Point" anchor={{ x: 0.5, y: 0.5 }}>
+        <Marker
+          coordinate={adjustedOrigin}
+          title="Start Point"
+          anchor={{ x: 0.5, y: 0.5 }}
+        >
           <Image source={pinkpin} style={styles.pin} />
         </Marker>
         {captainMarkers?.map((marker, index) => (

@@ -20,7 +20,7 @@ const UserRideDetailsCard = ({
       />
       {!otpVerified && (
         <MessageCall
-          orderId={completeRideDetails._id}
+          orderId={completeRideDetails?._id}
           captainDetails={completeRideDetails?.acceptCaptain}
         />
       )}

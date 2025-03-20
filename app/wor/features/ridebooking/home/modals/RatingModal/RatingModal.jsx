@@ -16,6 +16,7 @@ const RatingModal = ({
 }) => {
   const { ratingData, setRatingData, handleRatingChange, handleGivenRating } =
     useRatingModalHook({ penRatOrderIdCaptainId, setOpenRatingModal });
+
   return (
     <ModalUI
       openCloseState={openModal}
@@ -30,6 +31,7 @@ const RatingModal = ({
           rating={ratingData?.rating}
           setRatingData={setRatingData}
           handleRatingChange={handleRatingChange}
+          penRatOrderIdCaptainId={penRatOrderIdCaptainId}
         />
         <CustomBtn
           title="Submit & Proceed"
@@ -63,12 +65,12 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    fontFamily:fonts.robotoSemiBold
+    fontFamily: fonts.robotoSemiBold,
   },
   tankText: {
     textAlign: "center",
     fontSize: 12,
-    fontFamily:fonts.robotoSemiBold,
+    fontFamily: fonts.robotoSemiBold,
     color: "gray",
     marginVertical: 5,
   },
