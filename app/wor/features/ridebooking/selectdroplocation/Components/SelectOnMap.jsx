@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   mapCard: {
     width: "100%",
     position: "absolute",
-    bottom: 0,
+    bottom: 5,
     left: 0,
     right: 0,
     height: 50,

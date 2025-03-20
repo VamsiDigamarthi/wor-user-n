@@ -12,7 +12,7 @@ import { onAddedHomePlace } from "../../selectdroplocation/Services/WhereToGoSer
 import { clearHomeOrWorkPlace } from "../../selectdroplocation/redux/homePlaceType.slice";
 import { homePlace } from "../../home/redux/homePlace";
 
-const MapBottomDetails = ({ dragLocation }) => {
+const MapBottomDetails = ({ dragLocation, isDisplayContinueBtn }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const { isParcScreen } = useSelector((state) => state.allRideDetails);
@@ -70,13 +70,14 @@ const MapBottomDetails = ({ dragLocation }) => {
           </Text>
         </View>
       </View>
-
-      <CustomBtn
-        title="Save"
-        btnBg="#EA4C89"
-        btnColor="#fff"
-        onPress={onNavigateShowPriceScreen}
-      />
+      {isDisplayContinueBtn && (
+        <CustomBtn
+          title="Save"
+          btnBg="#EA4C89"
+          btnColor="#fff"
+          onPress={onNavigateShowPriceScreen}
+        />
+      )}
     </View>
   );
 };

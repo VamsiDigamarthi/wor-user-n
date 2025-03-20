@@ -15,6 +15,7 @@ import { useRoute } from "@react-navigation/native";
 import { COLORS } from "../../../../../Constants/colors";
 import StartRides from "../home/modals/StartRIdes";
 import { useEffect, useState } from "react";
+import { withLocationBarrierHoc } from "../../../../../HOC/withLocationBarrier";
 
 const SelectDropLocation = () => {
   const route = useRoute();
@@ -77,7 +78,7 @@ const SelectDropLocation = () => {
   );
 };
 
-export default SelectDropLocation;
+export default withLocationBarrierHoc(SelectDropLocation);
 
 const styles = StyleSheet.create({
   container: {

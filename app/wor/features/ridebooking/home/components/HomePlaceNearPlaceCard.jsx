@@ -9,6 +9,8 @@ import {
 import SkeletonLoader from "../../../../utiles/Loaders/SingleLoader";
 import { View, StyleSheet } from "react-native";
 import { fonts } from "../../../../fonts/Fonts";
+import { setLocationBarrierModal } from "../../../../../../HOC/redux/locationBarrierSlice";
+import { checkUserLocation } from "../../../../../../HOC/redux/LocationBarrier";
 
 const HomePlaceNearPlaceCard = ({ nearByRandomItems }) => {
   const { homePlace, workPlace } = useSelector((state) => state.homePlaces);
@@ -18,8 +20,20 @@ const HomePlaceNearPlaceCard = ({ nearByRandomItems }) => {
   const dispatch = useDispatch();
   // console.log(rideHistory[0]);
 
-  const navigateShowPriceScreen = (place) => {
-    console.log(place, "place");
+  const navigateShowPriceScreen = async (place) => {
+    let locationBarrier = await checkUserLocation({
+      location: place?.location,
+    });
+
+    // let currentLocationBarrier = await checkUserLocation({
+    //   location: location,
+    // });
+
+    if (!locationBarrier) {
+      dispatch(setLocationBarrierModal(true));
+      return;
+    }
+
     dispatch(setIsBeforeBook(true));
     dispatch(setDropDetails(place));
 

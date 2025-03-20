@@ -11,6 +11,8 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { homePlace } from "../../home/redux/homePlace";
 import { clearHomeOrWorkPlace } from "../redux/homePlaceType.slice";
+import { checkUserLocation } from "../../../../../../HOC/redux/LocationBarrier";
+import { setLocationBarrierModal } from "../../../../../../HOC/redux/locationBarrierSlice";
 
 const LocationList = ({
   data,
@@ -75,8 +77,20 @@ const LocationList = ({
         return;
       }
 
-    // Handle drop details for navigation
+      // Handle drop details for navigation
       if (isDisplayAddHomePlace) {
+        // check location barrier
+
+        let locationBarrier = await checkUserLocation({
+          location: location,
+        });
+
+        if (!locationBarrier) {
+          dispatch(setLocationBarrierModal(true));
+          return;
+        }
+        // check location barrier end
+
         dispatch(setDropDetails(newDropLocation ?? place));
         if (isParcScreen) {
           dispatch(setInitialDropDetails(newDropLocation ?? place));
@@ -86,7 +100,7 @@ const LocationList = ({
         navigation.navigate("ShowPrice");
         return;
       }
-    // Return place name for destination change
+      // Return place name for destination change
       handleReturnPlaceName(newDropLocation ?? place);
     } catch (error) {
       console.error("Error handling location selection:", error);
@@ -104,18 +118,20 @@ const LocationList = ({
 
   // Memoized renderItem to avoid inline functions
   const renderItem = useMemo(
-    () => ({ item }) => (
-      <LocationItem
-        placeName={item?.name}
-        placeVicinity={item.vicinity}
-        eachPlace={item}
-        isFavoriteIconDisplay={true}
-        iconName={iconname}
-        iconType={icontype}
-        isFavoritePlaces={isFavoritePlaces}
-        onPress={() => handleToNavigateShowPriceScreen({ place: item })}
-      />
-    ),
+    () =>
+      ({ item }) =>
+        (
+          <LocationItem
+            placeName={item?.name}
+            placeVicinity={item.vicinity}
+            eachPlace={item}
+            isFavoriteIconDisplay={true}
+            iconName={iconname}
+            iconType={icontype}
+            isFavoritePlaces={isFavoritePlaces}
+            onPress={() => handleToNavigateShowPriceScreen({ place: item })}
+          />
+        ),
     [iconname, icontype, isFavoritePlaces]
   );
 
