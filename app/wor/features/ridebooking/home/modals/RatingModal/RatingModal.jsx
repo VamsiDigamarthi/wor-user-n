@@ -36,16 +36,8 @@ const RatingModal = ({
         <CustomBtn
           title="Submit & Proceed"
           height={60}
-          btnBg={
-            ratingData?.reviewTest?.length > 0 && ratingData?.rating > 0
-              ? "#EA4C89"
-              : "#f7f7f7"
-          }
-          btnColor={
-            ratingData?.reviewTest?.length > 0 && ratingData?.rating > 0
-              ? "#fff"
-              : "#000"
-          }
+          btnBg={ratingData?.rating > 0 ? "#EA4C89" : "#f7f7f7"}
+          btnColor={ratingData?.rating > 0 ? "#fff" : "#000"}
           onPress={handleGivenRating}
         />
         <Text style={styles.tankText}>Thanks for choosing Women Rider</Text>

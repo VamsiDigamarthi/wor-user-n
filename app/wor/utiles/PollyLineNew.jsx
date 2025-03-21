@@ -1,3 +1,4 @@
+import React, { useCallback, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -7,7 +8,6 @@ import {
   Platform,
   Button,
 } from "react-native";
-import React, { useCallback, useEffect, useRef, useState } from "react";
 import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import bikeImg from "../../../assets/bike.png";
@@ -17,89 +17,34 @@ import { FontAwesome } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import Map3Btns from "./Map3Btn";
 import MapModalUi from "../features/ridebooking/home/modals/MapModalUi";
+import { useSelector } from "react-redux";
+
 export default function PollyLineNew({
   selectedVehicleType,
   origin,
   destination,
-  liveCoordinates,
   height,
   otpVerified,
+  newLiveCoordinates,
+  markerRef,
 }) {
   const mapref = useRef(null);
-  const markerRef = useRef(null);
-
-  console.log(otpVerified, "---------------------");
 
   const [isZoomedOut, setIsZoomedOut] = useState(false); // Track zoom state
 
   const startPoint = {
-    latitude: origin.lat || 0,
-    longitude: origin.lng || 0,
+    latitude: origin?.lat || 0,
+    longitude: origin?.lng || 0,
     latitudeDelta: 0.05,
     longitudeDelta: 0.05,
   };
 
   const endPoint = {
-    latitude: destination.lat || 0,
-    longitude: destination.lng || 0,
+    latitude: destination?.lat || 0,
+    longitude: destination?.lng || 0,
     latitudeDelta: 0.05,
     longitudeDelta: 0.05,
   };
-
-  const [liveLoc, setLiveloc] = useState({
-    latitude: 0,
-    longitude: 0,
-    latitudeDelta: 0.05,
-    longitudeDelta: 0.05,
-    heading: 0,
-  });
-
-  const captainLive = {
-    latitude: liveCoordinates?.lat || 0,
-    longitude: liveCoordinates?.lng || 0,
-    latitudeDelta: 0.05,
-    longitudeDelta: 0.05,
-    heading: 0,
-  };
-
-  const getLiveLocation = async () => {
-    if (otpVerified) {
-      console.log(otpVerified, "---------otpveri");
-      const currentLocation = await Location.getCurrentPositionAsync({});
-      console.log(currentLocation, "-------------currentLocation");
-
-      animateTheMarker(
-        currentLocation.coords.latitude,
-        currentLocation.coords.longitude
-      );
-
-      setLiveloc({
-        ...liveLoc,
-        latitude: currentLocation.coords.latitude,
-        longitude: currentLocation.coords.longitude,
-        heading: currentLocation.coords.heading,
-      });
-    }
-  };
-
-  const animateTheMarker = (latitude, longitude) => {
-    const newCoordinate = { latitude, longitude };
-
-    if (markerRef.current) {
-      if (Platform.OS === "android") {
-        // Android-specific smooth animation
-        markerRef.current.animateMarkerToCoordinate(newCoordinate, 4500);
-      }
-    }
-  };
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      getLiveLocation();
-    }, 3000);
-
-    return () => clearInterval(id);
-  });
 
   const handleResetZoom = useCallback(() => {
     if (mapref.current) {
@@ -107,8 +52,12 @@ export default function PollyLineNew({
         // Zoom in to the start point
         mapref.current.animateToRegion(
           {
-            latitude: startPoint.latitude,
-            longitude: startPoint.longitude,
+            latitude: newLiveCoordinates
+              ? newLiveCoordinates.latitude
+              : startPoint.latitude,
+            longitude: newLiveCoordinates
+              ? newLiveCoordinates.longitude
+              : startPoint.longitude,
             latitudeDelta: 0.015, // Smaller delta for zoomed-in view
             longitudeDelta: 0.015,
           },
@@ -120,14 +69,10 @@ export default function PollyLineNew({
           {
             latitude: startPoint.latitude,
             longitude: startPoint.longitude,
-            latitudeDelta: 0.005, // Smaller delta for zoomed-out
-            longitudeDelta: 0.005, // Smaller delta for zoomed
           },
           {
             latitude: endPoint.latitude,
             longitude: endPoint.longitude,
-            latitudeDelta: 0.005, // Smaller delta for zoomed-out
-            longitudeDelta: 0.005, // Smaller delta for zoomed
           },
         ];
         mapref.current.fitToCoordinates(coordinates, {
@@ -148,34 +93,54 @@ export default function PollyLineNew({
         initialRegion={startPoint}
         ref={mapref}
       >
-        <Marker coordinate={startPoint} title="Start Point">
-          <FontAwesome name="map-pin" size={15} color="#EA4C89" />
-        </Marker>
+        {/* Start Point Marker */}
+        {!newLiveCoordinates && (
+          <Marker coordinate={startPoint} title="Start Point">
+            <FontAwesome name="map-pin" size={15} color="#EA4C89" />
+          </Marker>
+        )}
 
+        {/* End Point Marker */}
         <Marker coordinate={endPoint} title="End Point">
           <FontAwesome name="map-pin" size={15} color="green" />
         </Marker>
 
-        <Marker.Animated
-          coordinate={otpVerified ? liveLoc : captainLive}
-          ref={markerRef}
-        >
-          <Image
-            source={bikeImg}
-            style={[
-              style.icon,
-              {
-                transform: `rotate(${
-                  otpVerified ? liveLoc.heading : captainLive.heading || 0
-                }deg)`,
-              },
-            ]}
-          />
-        </Marker.Animated>
+        {/* Animated Marker for Live Coordinates */}
+        {newLiveCoordinates &&
+          typeof newLiveCoordinates.latitude === "number" &&
+          typeof newLiveCoordinates.longitude === "number" && (
+            <Marker.Animated
+              coordinate={
+                newLiveCoordinates || startPoint // Fallback to startPoint if invalid
+              }
+              ref={markerRef}
+            >
+              <Image
+                source={bikeImg}
+                style={[
+                  styles.icon,
+                  {
+                    transform: [
+                      {
+                        rotate: `${
+                          typeof newLiveCoordinates.heading === "number"
+                            ? newLiveCoordinates.heading
+                            : 0
+                        }deg`,
+                      },
+                    ],
+                  },
+                ]}
+              />
+            </Marker.Animated>
+          )}
 
+        {/* Directions Polyline */}
         <MapViewDirections
           apikey={GOOGLE_MAPS_APIKEY}
-          origin={otpVerified ? liveLoc : startPoint}
+          origin={
+            newLiveCoordinates?.latitude ? newLiveCoordinates : startPoint
+          }
           destination={endPoint}
           strokeWidth={2}
           strokeColor="#EA4C89"
@@ -194,12 +159,11 @@ export default function PollyLineNew({
   );
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   icon: {
     height: 30,
     width: 30,
     resizeMode: "contain",
-    // backgroundColor: "red",
   },
   btn: {
     position: "absolute",

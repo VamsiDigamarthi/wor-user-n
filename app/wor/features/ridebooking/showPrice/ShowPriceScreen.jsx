@@ -16,7 +16,6 @@ import PollyLineNew from "../../../utiles/PollyLineNew";
 
 // import { withLocationBarrierHoc } from "../../../../../HOC/withLocationBarrier";
 
-
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.35, 0.7].map((p) => screenHeight * p); // Example snap points for Android
 const iosSnapPoints = [0.3, 0.65].map((p) => screenHeight * p); // Example snap points for iOS
@@ -68,7 +67,9 @@ const ShowPriceScreen = () => {
             selectedVehicleType={selectedVehicleType}
             origin={location}
             destination={dropDetails.location}
-            otpVerified={null}
+            otpVerified={false}
+            rideStarted={false}
+            // newLiveCoordinates={location}
           />
         </View>
         <BottomSheetComponent
