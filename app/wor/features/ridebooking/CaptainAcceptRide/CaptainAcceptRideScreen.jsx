@@ -36,6 +36,8 @@ const CaptainAcceptRideScreen = () => {
     cancelOrderByUseSt,
     setCancelOrderByUseSt,
     kownBotSheetChangeUpOrDown,
+    newLiveCoordinates,
+    markerRef,
   } = useCaptainAcceptRideScreenHook();
 
   let captainCoordinates = {
@@ -100,6 +102,8 @@ const CaptainAcceptRideScreen = () => {
           liveCoordinates={liveCoordinates}
           height={mapHeight}
           otpVerified={otpVerified}
+          newLiveCoordinates={newLiveCoordinates}
+          markerRef={markerRef}
         />
       </View>
 

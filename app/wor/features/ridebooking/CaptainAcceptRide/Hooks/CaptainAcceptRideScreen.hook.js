@@ -1,16 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSocket } from "../../../../../../SocketContext";
 import { getTravelDetails } from "../../../../../../Constants/displaylocationmap";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 import { setCompleteRideDetails } from "../../sharedLogics/rideDetailsSlice";
 import Toast from "react-native-toast-message";
+import * as Location from "expo-location";
+import { Platform } from "react-native";
 
 export const useCaptainAcceptRideScreenHook = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const { socket, isConnected } = useSocket();
   const { completeRideDetails } = useSelector((state) => state.allRideDetails);
+  const markerRef = useRef(null);
 
   const [otpVerified, setOtpVerified] = useState(
     completeRideDetails?.orderOtpVerified ?? false
@@ -29,6 +32,14 @@ export const useCaptainAcceptRideScreenHook = () => {
     heading: 0,
   });
 
+  const [newLiveCoordinates, setNewLiveCoordinates] = useState({
+    latitude: completeRideDetails?.captainCoor?.[1] ?? 0,
+    longitude: completeRideDetails?.captainCoor?.[0] ?? 0,
+    heading: 0,
+    latitudeDelta: 0,
+    longitudeDelta: 0,
+  });
+
   const [cancelOrderByUseSt, setCancelOrderByUseSt] = useState(false);
 
   const onVerifiedOtp = ({ status, order }) => {
@@ -44,9 +55,15 @@ export const useCaptainAcceptRideScreenHook = () => {
   };
 
   const handleLiveCoordinates = (coordinates) => {
-    console.log("coordinates", coordinates);
     if (!otpVerified) {
-      setLiveCoordinates(coordinates);
+      animateTheMarker(coordinates?.lat, coordinates?.lng);
+      setLiveCoordinates(coordinates, "----------from captain --------------");
+      setNewLiveCoordinates({
+        ...newLiveCoordinates,
+        latitude: coordinates?.lat,
+        longitude: coordinates?.lng,
+        heading: coordinates?.heading,
+      });
     }
   };
 
@@ -83,6 +100,53 @@ export const useCaptainAcceptRideScreenHook = () => {
     console.log("--- order cancel socket---");
     setCancelOrderByUseSt(status ?? false);
   };
+
+  // console.log(newLiveCoordinates, "-------------------");
+
+  const animateTheMarker = (latitude, longitude) => {
+    const newCoordinate = { latitude, longitude };
+
+    if (markerRef.current) {
+      if (Platform.OS === "android") {
+        // Android-specific smooth animation
+        console.log("marker animated", newCoordinate);
+
+        markerRef.current.animateMarkerToCoordinate(newCoordinate, 4500);
+      }
+    }
+  };
+
+  const getLiveLocation = async () => {
+    if (otpVerified) {
+      console.log(otpVerified, "---------otpveri");
+      const currentLocation = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.High,
+      });
+      console.log(currentLocation, "-------------currentLocation");
+
+      animateTheMarker(
+        currentLocation.coords.latitude,
+        currentLocation.coords.longitude
+      );
+
+      setNewLiveCoordinates({
+        ...newLiveCoordinates,
+        latitude: currentLocation.coords.latitude,
+        longitude: currentLocation.coords.longitude,
+        heading: currentLocation.coords.heading,
+      });
+    }
+  };
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      if (otpVerified) {
+        getLiveLocation();
+      }
+    }, 3000);
+
+    return () => clearInterval(id);
+  });
 
   useEffect(() => {
     if (socket && isConnected) {
@@ -171,5 +235,8 @@ export const useCaptainAcceptRideScreenHook = () => {
     kownBotSheetChangeUpOrDown,
     cancelOrderByUseSt,
     setCancelOrderByUseSt,
+
+    newLiveCoordinates,
+    markerRef,
   };
 };
