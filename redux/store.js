@@ -23,6 +23,8 @@ import priceDetails from "../app/wor/features/ridebooking/home/redux/priceDetail
 
 import locationBarrier from "../HOC/redux/locationBarrierSlice";
 
+import chat from "../app/wor/features/ridebooking/home/redux/chatSlice";
+
 const reduxFlipper = require("redux-flipper").default;
 
 const store = configureStore(
@@ -43,6 +45,7 @@ const store = configureStore(
       initialModals,
       priceDetails,
       locationBarrier,
+      chat,
     },
   },
   applyMiddleware(reduxFlipper())

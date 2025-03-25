@@ -1,22 +1,20 @@
 import { useRoute } from "@react-navigation/native";
 import { useState } from "react";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-export const useSelectDropLocationHook = () => {
-  const { isMic } = useRoute().params || {};
+export const useAddHomeWorkPlace = () => {
+  const { isMic, type, title, passParams } = useRoute().params || {};
   const [isMicModalOpenClose, setIsMicModalOpenClose] = useState(
     isMic ?? false
   );
   const [micVoiceText, setMicVoiceText] = useState("");
-  const insets = useSafeAreaInsets();
-
-  const hasSoftwareNavigationBar = insets.bottom > 0;
 
   return {
     isMicModalOpenClose,
     setIsMicModalOpenClose,
     micVoiceText,
     setMicVoiceText,
-    hasSoftwareNavigationBar,
+    type,
+    title,
+    passParams,
   };
 };

@@ -11,6 +11,8 @@ import NotInLocation from "../../NotInLocation";
 import StartRides from "../../features/ridebooking/home/modals/StartRIdes";
 import { useEffect, useState } from "react";
 
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
 const ChangeLoc100mViaMapScreen = ({ navigation }) => {
   const {
     onNavigateSavedAddressScreen,
@@ -30,6 +32,10 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
     setDisplayStartModal(true);
   }, []);
 
+  const insets = useSafeAreaInsets();
+
+  const hasSoftwareNavigationBar = insets.bottom > 0;
+
   return (
     <View style={{ flex: 1 }}>
       <TouchableOpacity
@@ -46,7 +52,7 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
             handleMarkerDragEnd={handleMarkerDragEnd}
           />
         </View>
-        <ParcelBtnCard>
+        <ParcelBtnCard hasSoftwareNavigationBar={hasSoftwareNavigationBar}>
           {isBeforeBook && <ShowPickLocation place={placeName} />}
 
           <CustomBtn

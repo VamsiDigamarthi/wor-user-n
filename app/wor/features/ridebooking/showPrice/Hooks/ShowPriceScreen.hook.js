@@ -8,6 +8,8 @@ import { vehicles } from "../vehicleData";
 import { useNavigation } from "@react-navigation/native";
 import { getTravelDetails } from "../../../../../../Constants/displaylocationmap";
 
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
 import moment from "moment-timezone";
 
 export const useShowPriceScreenHook = () => {
@@ -23,8 +25,9 @@ export const useShowPriceScreenHook = () => {
     (state) => state.allRideDetails
   );
 
-  // console.log("dropDetails", dropDetails);
-  // console.log("selectedVehicleType", selectedVehicleType);
+  const insets = useSafeAreaInsets();
+
+  const hasSoftwareNavigationBar = insets.bottom > 0;
 
   const [filteredVehicles, setFilteredVehicles] = useState([]);
 
@@ -226,5 +229,6 @@ export const useShowPriceScreenHook = () => {
     time,
     profile,
     setShceduleOrderModal,
+    hasSoftwareNavigationBar,
   };
 };

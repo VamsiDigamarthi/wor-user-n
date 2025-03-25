@@ -73,7 +73,7 @@ const MainNavigation = () => {
             );
 
             // setDropDetails
-            let data2 = await dispatch(
+            await dispatch(
               setDropDetails({
                 location: {
                   lat: coordinates.latitude,

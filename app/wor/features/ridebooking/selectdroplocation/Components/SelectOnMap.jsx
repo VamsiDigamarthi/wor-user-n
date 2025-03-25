@@ -3,14 +3,16 @@ import React from "react";
 import { LocationIcon } from "../../../../Icons/Icons";
 import { useNavigation } from "@react-navigation/native";
 
-const SelectOnMap = () => {
+const SelectOnMap = ({ hasSoftwareNavigationBar }) => {
   const navigation = useNavigation();
 
   const onNavigateToMapPreviewScreen = () => {
     navigation.navigate("FixMapPreview");
   };
   return (
-    <View style={styles.mapCard}>
+    <View
+      style={[styles.mapCard, { bottom: hasSoftwareNavigationBar ? 40 : 0 }]}
+    >
       <Pressable style={styles.innerMap} onPress={onNavigateToMapPreviewScreen}>
         <LocationIcon size={25} color="#EA4C89" />
         <Text style={styles.text}>Select on Map</Text>

@@ -1,8 +1,16 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const ParcelBtnCard = ({ children }) => {
-  return <View style={styles.container}>{children}</View>;
+const ParcelBtnCard = ({ children, hasSoftwareNavigationBar }) => {
+  console.log("hasSoftwareNavigationBar", hasSoftwareNavigationBar);
+
+  return (
+    <View
+      style={[styles.container, { bottom: hasSoftwareNavigationBar ? 30 : 0 }]}
+    >
+      {children}
+    </View>
+  );
 };
 
 export default ParcelBtnCard;

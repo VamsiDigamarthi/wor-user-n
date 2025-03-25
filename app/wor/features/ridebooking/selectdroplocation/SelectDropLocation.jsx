@@ -32,6 +32,7 @@ const SelectDropLocation = () => {
     setIsMicModalOpenClose,
     micVoiceText,
     setMicVoiceText,
+    hasSoftwareNavigationBar,
   } = useSelectDropLocationHook();
 
   return (
@@ -57,7 +58,7 @@ const SelectDropLocation = () => {
                 setIsMicModalOpenClose={setIsMicModalOpenClose}
               />
             </View>
-            <SelectOnMap />
+            <SelectOnMap hasSoftwareNavigationBar={hasSoftwareNavigationBar} />
           </AppBarLayout>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>

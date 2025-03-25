@@ -17,6 +17,7 @@ const ParcelHomeScreen = () => {
     handleProtectedParcel,
     isProtectedParcel,
     onNavigateParcelPickUpLocationScreen,
+    hasSoftwareNavigationBar,
   } = useParcelHomeScreenHook();
 
   return (
@@ -45,7 +46,7 @@ const ParcelHomeScreen = () => {
         <SelectParcelType />
         <ParcelSpecification />
       </ScrollView>
-      <ParcelBtnCard>
+      <ParcelBtnCard hasSoftwareNavigationBar={hasSoftwareNavigationBar}>
         <CustomBtn
           title="Continue"
           borderColor={dropDetails ? "#fff" : "#EA4C89"}

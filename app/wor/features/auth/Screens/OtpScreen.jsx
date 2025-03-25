@@ -76,53 +76,6 @@ const OtpScreen = ({}) => {
                   </Text>
                 </Pressable>
               </View>
-              {/* <View
-                style={[
-                  styles.inputCard,
-                  { borderColor: isFocused && "#EA4C89", borderWidth: 1 },
-                ]}
-              >
-                {otp?.map((value, index) => (
-                  <TextInput
-                    key={index}
-                    ref={(input) => (inputs.current[index] = input)}
-                    maxLength={1}
-                    keyboardType="numeric"
-                    style={[
-                      styles.input,
-                      {
-                        backgroundColor: value ? "transparent" : "#f7f7f7",
-                      },
-                    ]}
-                    onChangeText={(text) => handleChange(text, index)}
-                    onKeyPress={(e) => handleKeyPress(e, index)}
-                    value={value}
-                    textAlign="center"
-                    onFocus={() => {
-                      inputs.current[index].setNativeProps({
-                        style: { borderColor: "#EA4C89" },
-                      });
-                      setIsFocused(true);
-                    }}
-                    onBlur={() => {
-                      inputs.current[index].setNativeProps({
-                        style: { borderColor: value ? "#EA4C89" : "#A9A9A9" },
-                      });
-                      setIsFocused(false);
-                    }}
-                  />
-                ))}
-              </View> */}
-
-              {/* <Input
-                label={"Enter Otp *"}
-                icon="security"
-                // placeholder="Enter Genr"
-                iconType="MaterialIcons"
-                keyboardType="numeric"
-                value={otp}
-                onChangeText={setOtp}
-              /> */}
 
               <TextInput
                 keyboardType="numeric"

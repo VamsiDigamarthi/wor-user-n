@@ -85,6 +85,11 @@ export const aadharCardOtpVerification = async ({ otp, clientId, token }) => {
       }
     );
 
+    console.log(
+      response.data,
+      "-------------here in aadhar ----------------------------"
+    );
+
     if (response?.data?.data?.gender === "M") {
       return {
         status: false,

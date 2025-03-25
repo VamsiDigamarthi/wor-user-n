@@ -21,11 +21,16 @@ import { infoModalStyles } from "../../../../../Components/InfoUi/Styles/InfoMod
 import TickBig from "../../../../../assets/tickBig.png";
 import { COLORS } from "../../../../../Constants/colors";
 
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
 export default function Suggestions({ navigation }) {
   const { token } = useSelector((state) => state.token);
   const [text, setText] = useState("");
   const [openModal, setOpenModal] = useState(false);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
+
+  const insets = useSafeAreaInsets();
+  const hasSoftwareNavigationBar = insets.bottom > 0;
 
   const handleChangeText = useCallback((value) => {
     setText(value);
@@ -33,7 +38,7 @@ export default function Suggestions({ navigation }) {
 
   const SendData = useCallback(async () => {
     if (!text.trim()) return;
-    setIsLoading(true)
+    setIsLoading(true);
     try {
       const response = await API.post(
         "/saved-address/suggestToWor",
@@ -43,7 +48,7 @@ export default function Suggestions({ navigation }) {
 
       setText("");
       setOpenModal(true);
-      setIsLoading(false)
+      setIsLoading(false);
     } catch (error) {
       Toast.show({
         text1: "Something went wrong!",
@@ -51,7 +56,7 @@ export default function Suggestions({ navigation }) {
         position: "top",
         type: "error",
       });
-      setIsLoading(false)
+      setIsLoading(false);
     }
   }, [text, token]);
 
@@ -70,7 +75,6 @@ export default function Suggestions({ navigation }) {
       style={styles.flexContainer}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <AppBarLayout title="Suggestion" isPositionAppbar={true}>
           <View
@@ -104,7 +108,12 @@ export default function Suggestions({ navigation }) {
               part of this journey-we're excited ro hear from you and keep
               improving for your
             </Text>
-            <View style={styles.sendButton}>
+            <View
+              style={[
+                styles.sendButton,
+                { bottom: hasSoftwareNavigationBar ? 50 : 40 },
+              ]}
+            >
               <CustomBtn title="Send" onPress={SendData} {...buttonStyles} />
             </View>
           </View>
@@ -189,11 +198,12 @@ const styles = StyleSheet.create({
     fontFamily: fonts.robotoSemiBold,
     fontSize: 26,
   },
-  staticText:{
-    fontSize:16, lineHeight:20,
-    textAlign:"justify",
-    fontFamily:fonts.robotoMedium,
-    lineHeight:25,
-    letterSpacing:1
-  }
+  staticText: {
+    fontSize: 16,
+    lineHeight: 20,
+    textAlign: "justify",
+    fontFamily: fonts.robotoMedium,
+    lineHeight: 25,
+    letterSpacing: 1,
+  },
 });

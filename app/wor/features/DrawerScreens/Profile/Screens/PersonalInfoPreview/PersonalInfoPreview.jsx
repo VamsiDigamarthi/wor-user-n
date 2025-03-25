@@ -66,7 +66,6 @@ const PersonalInfoPreview = () => {
   // console.log(diffInDays);
 
   return (
-
     <AppBarLayout title="Personal Information" isPositionAppbar={true}>
       <View style={styles.container}>
         <View style={styles.cardContainer}>
@@ -88,7 +87,7 @@ const PersonalInfoPreview = () => {
             icon={mobile}
           />
           <ProfileTextCard
-            text={profile?.docsNumber?.dob}
+            text={profile?.aadharCardDetails?.dob}
             title="Date of Birth"
             icon={calendar}
           />
@@ -105,7 +104,10 @@ const PersonalInfoPreview = () => {
             icon={clock}
           />
           <ProfileTextCard
-            text={profile?.address}
+            text={
+              profile?.address ||
+              `${profile?.aadharCardDetails?.address?.house} , ${profile?.aadharCardDetails?.address?.village} , ${profile?.aadharCardDetails?.address?.village}`
+            }
             title="Address"
             edit={true}
             onclick={() => openModalToEdit("address")}
@@ -244,7 +246,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // paddingHorizontal: 10,
-    marginTop:100,
+    marginTop: 100,
 
     backgroundColor: "#f7f7f7",
   },

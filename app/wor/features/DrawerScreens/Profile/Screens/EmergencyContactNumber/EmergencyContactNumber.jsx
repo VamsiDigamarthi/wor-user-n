@@ -26,7 +26,6 @@ import AppBarLayout from "../../../../ridebooking/sharedLogics/AppBarLayout";
 // import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 // import reactNativeContacts from "react-native-contacts";
 
-
 const ProfileEmergencyContact = () => {
   const navigation = useNavigation();
   const routes = useRoute();
@@ -65,30 +64,36 @@ const ProfileEmergencyContact = () => {
       Platform.OS === "android"
         ? PERMISSIONS.ANDROID.READ_CONTACTS
         : PERMISSIONS.IOS.CONTACTS;
-  
+
     try {
       const permissionStatus = await check(permissionType);
-      console.log('Permission Status:', permissionStatus); // Add this line for debugging
-  
+      console.log("Permission Status:", permissionStatus); // Add this line for debugging
+
       if (permissionStatus === RESULTS.GRANTED) {
         openContactPicker();
       } else if (permissionStatus === RESULTS.DENIED) {
         const requestStatus = await request(permissionType);
-        console.log('Request Status:', requestStatus); // Add this line for debugging
-        
+        console.log("Request Status:", requestStatus); // Add this line for debugging
+
         if (requestStatus === RESULTS.GRANTED) {
           openContactPicker();
         } else {
-          Alert.alert("Permission Denied", "We need contact access to proceed.");
+          Alert.alert(
+            "Permission Denied",
+            "We need contact access to proceed."
+          );
         }
       } else if (permissionStatus === RESULTS.UNAVAILABLE) {
-        Alert.alert("Permission Unavailable", "Contacts permission is unavailable on this device.");
+        Alert.alert(
+          "Permission Unavailable",
+          "Contacts permission is unavailable on this device."
+        );
       }
     } catch (error) {
       console.error("Permission error:", error);
     }
   };
-  
+
   // Open Contact Picker and handle selection
   const openContactPicker = async () => {
     try {
@@ -138,7 +143,7 @@ const ProfileEmergencyContact = () => {
         type: "success",
         icon: "auto",
       });
-      
+
       if (isHomeSafetyScreen) navigation.goBack();
     } catch (error) {
       console.error("Save contact error:", error);
@@ -203,10 +208,13 @@ const ProfileEmergencyContact = () => {
   );
 
   return (
-
-     <AppBarLayout title="Gender Identity" isPositionAppbar={true}>
-      
-      <View style={[styles.container, {paddingTop : Platform.OS=="ios" ? 100 : 80}]}>
+    <AppBarLayout title="Emergency Contact Number" isPositionAppbar={true}>
+      <View
+        style={[
+          styles.container,
+          { paddingTop: Platform.OS == "ios" ? 100 : 80 },
+        ]}
+      >
         {/* <AddTrusted /> */}
         <View style={styles.bottomCard}>
           <Text style={styles.text}>

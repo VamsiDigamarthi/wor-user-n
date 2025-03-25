@@ -36,7 +36,7 @@ const EditDelete = ({ place, editDeleteType }) => {
       dispatch(setEditHomePlaces(true));
       dispatch(setEditPlaceId(place?._id));
 
-      navigation.navigate("SelectDropLocation", {
+      navigation.navigate("AddHomeAndWorkPlace", {
         title: place.name,
         passParams: true,
       });
@@ -57,7 +57,7 @@ const EditDelete = ({ place, editDeleteType }) => {
     } else if (editDeleteType === "savedAddress") {
       try {
         await deleteSavedAddress({ token: token, id: place?._id });
-        console.log("editDeleteType", editDeleteType);
+
         dispatch(fetchSavedPlace({ token }));
       } catch (error) {
         console.log(error);

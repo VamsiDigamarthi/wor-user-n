@@ -45,6 +45,7 @@ const HomeWorkPlaceCard = () => {
 
   const handleSetHomeOrWorkPlace = ({ type }) => {
     dispatch(setHomeOrWorkPlaceType(type));
+    navigation.navigate("AddHomeAndWorkPlace", { type });
   };
 
   return (

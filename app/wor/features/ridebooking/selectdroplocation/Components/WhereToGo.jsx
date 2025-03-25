@@ -17,6 +17,7 @@ const WhereToGo = React.memo(
     isDisplayAddHomePlace = true, // this display home places card default and || this prop used change drop location after ride accept to hidden the home place card
     height = "70%",
     handleReturnPlaceName, // this function return place to change destination modal
+    isDisplayHomeOrWorkPlace = false, // this prop comming from add select drop screen to navigate home place added
   }) => {
     const { nearPlaces } = useSelector((state) => state.nearPlaces);
     const {
@@ -34,7 +35,7 @@ const WhereToGo = React.memo(
 
     // Memoize the header text to avoid recalculating it on every render
     const headerText = useMemo(() => {
-      if (homeOrWorkPlacetype) {
+      if (homeOrWorkPlacetype && isDisplayHomeOrWorkPlace) {
         return `${
           isEditHomePlaces ? "Edit" : ""
         } ${homeOrWorkPlacetype?.toUpperCase()} Place`;

@@ -35,42 +35,31 @@ const ChatHead = ({ captainDetails, isWorSupport }) => {
           </View>
         </Pressable>
         <View style={styles.nameCard}>
-          {isWorSupport ? (
-            <Text
-              style={{ fontSize: 17, fontWeight: "600", color: COLORS.heading }}
-            >
-              Wor Support
-            </Text>
-          ) : (
-            <>
-              <Text
-                style={{
-                  width: "70%",
-                  fontSize: 17,
-                  fontWeight: "600",
-                  color: COLORS.heading,
-                }}
-              >
-                {captainDetails?.name}
-              </Text>
-              <Text>{captainDetails?.vehicleNumber}</Text>
-            </>
-          )}
+          <Text
+            style={{
+              width: "70%",
+              fontSize: 17,
+              fontWeight: "600",
+              color: COLORS.heading,
+            }}
+          >
+            {captainDetails?.name}
+          </Text>
+          <Text>{captainDetails?.vehicleNumber}</Text>
         </View>
       </View>
-      {!isWorSupport && (
-        <View
-          style={{
-            width: 40,
-            height: 40,
-            justifyContent: "center",
-            alignItems: "center",
-            overflow: "hidden",
-          }}
-        >
-          <PhoneIcon size={25} color="#EA4C89" />
-        </View>
-      )}
+
+      <View
+        style={{
+          width: 40,
+          height: 40,
+          justifyContent: "center",
+          alignItems: "center",
+          overflow: "hidden",
+        }}
+      >
+        <PhoneIcon size={25} color="#EA4C89" />
+      </View>
     </View>
   );
 };

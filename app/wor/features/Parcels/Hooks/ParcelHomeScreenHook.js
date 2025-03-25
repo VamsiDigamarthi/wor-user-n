@@ -7,7 +7,13 @@ import {
   setIsParcScreen,
 } from "../../ridebooking/sharedLogics/rideDetailsSlice";
 
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
 export const useParcelHomeScreenHook = () => {
+  const insets = useSafeAreaInsets();
+
+  const hasSoftwareNavigationBar = insets.bottom > 0;
+
   const { location, placeName, placeVicinity } = useSelector(
     (state) => state.location
   );
@@ -33,5 +39,6 @@ export const useParcelHomeScreenHook = () => {
     handleProtectedParcel,
     isProtectedParcel,
     onNavigateParcelPickUpLocationScreen,
+    hasSoftwareNavigationBar,
   };
 };
