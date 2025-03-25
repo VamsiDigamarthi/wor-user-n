@@ -14,7 +14,6 @@ import {
 } from "../../../../app/wor/Images/DrawerImages";
 
 export default data = [
-
   {
     label: "Help & WoR Support",
     screenName: "HelpAndSupport",
@@ -74,6 +73,11 @@ export default data = [
   {
     label: "Settings",
     screenName: "About",
+    icon: setting,
+  },
+  {
+    label: "Cal",
+    screenName: "Xcall",
     icon: setting,
   },
 ];

@@ -11,7 +11,7 @@ const RideHistoryDetailView = () => {
   const { ride } = route.params;
   return (
     <AppBarLayout title="Ride Details" isPositionAppbar={false}>
-      <View style={{ flex: 1 ,}}>
+      <View style={{ flex: 1 }}>
         <ScrollView
           contentContainerStyle={styles.scrollContainer}
           showsVerticalScrollIndicator={false}
@@ -30,20 +30,17 @@ export default RideHistoryDetailView;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: "#fff5f9",
-    // paddingHorizontal: 10,
-    // paddingVertical: 12,
+
     gap: 20,
   },
   scrollContainer: {
     width: "100%",
     paddingHorizontal: 10,
-    // paddingVertical: 10,
-    // marginTop: 20,
+
     gap: 10,
     paddingBottom: 30,
 
     backgroundColor: "#f3f2f7",
-    paddingTop:10
+    paddingTop: 10,
   },
 });

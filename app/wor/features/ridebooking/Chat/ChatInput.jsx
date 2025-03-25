@@ -1,9 +1,16 @@
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const ChatInput = ({ setMessage, message, handleSendMessage }) => {
+const ChatInput = ({
+  setMessage,
+  message,
+  handleSendMessage,
+  hasSoftwareNavigationBar,
+}) => {
   return (
-    <View style={styles.container}>
+    <View
+      style={[styles.container, { bottom: hasSoftwareNavigationBar ? 30 : 10 }]}
+    >
       <View style={styles.input}>
         <TextInput
           placeholder="Send message..!"

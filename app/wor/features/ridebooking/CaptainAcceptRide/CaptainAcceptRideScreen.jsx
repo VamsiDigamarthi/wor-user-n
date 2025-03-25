@@ -13,6 +13,7 @@ import { useCaptainAcceptRideScreenHook } from "./Hooks/CaptainAcceptRideScreen.
 import TrackMe from "./Components/TrackMe";
 import SocketCancelRide from "./Modals/SocketCancelRide";
 import PollyLineNew from "../../../utiles/PollyLineNew";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.4, 0.6].map((p) => screenHeight * p);
@@ -61,6 +62,10 @@ const CaptainAcceptRideScreen = () => {
         : completeRideDetails?.drop?.coordinates?.[0],
   };
 
+  const insets = useSafeAreaInsets();
+
+  const hasSoftwareNavigationBar = insets.bottom > 0;
+
   return (
     <AppBarLayout
       isDrawerIcon={true}
@@ -87,14 +92,6 @@ const CaptainAcceptRideScreen = () => {
       isRideBookingScree={true}
     >
       <View style={styles.mapContainer}>
-        {/* <ShowPollyLine
-          selectedVehicleType={completeRideDetails?.vehicleType}
-          origin={otpVerified ? pickUpCoordinates : captainCoordinates}
-          destination={otpVerified ? dropCoordinates : pickUpCoordinates}
-          liveCoordinates={liveCoordinates}
-          height={mapHeight}
-        /> */}
-
         <PollyLineNew
           selectedVehicleType={completeRideDetails?.vehicleType}
           origin={otpVerified ? pickUpCoordinates : captainCoordinates}
@@ -114,7 +111,12 @@ const CaptainAcceptRideScreen = () => {
         snapPoints={snapPoints}
         handleSheetChange={handleSheetChange}
       >
-        <View style={styles.innerCard}>
+        <View
+          style={[
+            styles.innerCard,
+            { paddingBottom: hasSoftwareNavigationBar ? 50 : 0 },
+          ]}
+        >
           {otpVerified ? (
             <RideVerified />
           ) : (

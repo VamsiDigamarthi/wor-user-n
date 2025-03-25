@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import LocationItem from "../../../../utiles/LocationItem";
 import { getCoordinatesFromPlaceId } from "../../../../../../Constants/displaylocationmap";
@@ -22,12 +22,13 @@ const LocationList = ({
   isDisplayAddHomePlace, // this prop initially true || and this props used for change destination location after ride accept
   handleReturnPlaceName, // this is function return place name to change destination modal
 }) => {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+
   const { homeOrWorkPlacetype, isEditHomePlaces, editPlaceId } = useSelector(
     (state) => state.homeOrWorkPlace
   );
   const { token } = useSelector((state) => state.token);
-  const navigation = useNavigation();
-  const dispatch = useDispatch();
   const { isParcScreen } = useSelector((state) => state.allRideDetails);
 
   // Helper function to handle navigation and drop location updates
@@ -51,6 +52,7 @@ const LocationList = ({
       }
 
       const location = newDropLocation?.location || place.location;
+      console.log("homeOrWorkPlacetype", homeOrWorkPlacetype);
 
       if (homeOrWorkPlacetype) {
         const response = isEditHomePlaces
@@ -73,6 +75,7 @@ const LocationList = ({
         if (response) {
           dispatch(clearHomeOrWorkPlace());
           dispatch(homePlace({ token }));
+          navigation.goBack();
         }
         return;
       }

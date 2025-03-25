@@ -15,6 +15,8 @@ import io from "socket.io-client";
 import { useRoute } from "@react-navigation/native";
 import { API, imageUrl } from "../../../../../Constants/url";
 import { COLORS } from "../../../../../Constants/colors";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
 const ChatScreen = () => {
   const route = useRoute();
   const { token } = useSelector((state) => state.token);
@@ -26,6 +28,10 @@ const ChatScreen = () => {
   const { orderId, captainDetails, isWorSupport } = route.params || {};
 
   const mref = useRef(null);
+
+  const insets = useSafeAreaInsets();
+
+  const hasSoftwareNavigationBar = insets.bottom > 0;
 
   const fetchPreviousMessage = async () => {
     try {
@@ -41,44 +47,44 @@ const ChatScreen = () => {
     }
   };
 
-  const fetchSupportMessage = async () => {
-    try {
-      const response = await API.get("/support-chat", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setMessages(response?.data);
-    } catch (error) {
-      console.log("fetch previous messages failed");
-    }
-  };
+  // const fetchSupportMessage = async () => {
+  //   try {
+  //     const response = await API.get("/support-chat", {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
+  //     setMessages(response?.data);
+  //   } catch (error) {
+  //     console.log("fetch previous messages failed");
+  //   }
+  // };
 
   useEffect(() => {
-    isWorSupport
-      ? (socketRef.current = io(`${imageUrl}/support`))
-      : (socketRef.current = io(`${imageUrl}/ride-chat`));
+    // isWorSupport
+    //   ? (socketRef.current = io(`${imageUrl}/support`))
+    //   :
+    socketRef.current = io(`${imageUrl}/ride-chat`);
 
-    isWorSupport ? fetchSupportMessage() : fetchPreviousMessage();
+    // isWorSupport ? fetchSupportMessage() :
+    fetchPreviousMessage();
 
-    if (isWorSupport) {
-      if (profile?._id) {
-        socketRef.current.emit("join", { userId: profile._id });
-      }
-    } else {
-      if (orderId) {
-        socketRef.current.emit("ride-chat-connected", {
-          orderId: orderId,
-          userId: profile?._id,
-          userType: "user",
-        });
-      }
+    // if (isWorSupport) {
+    //   if (profile?._id) {
+    //     socketRef.current.emit("join", { userId: profile._id });
+    //   }
+    // } else {
+    if (orderId) {
+      socketRef.current.emit("ride-chat-connected", {
+        orderId: orderId,
+        userId: profile?._id,
+        userType: "user",
+      });
     }
+    // }
 
     socketRef.current.off("newMessage");
     socketRef.current.on("newMessage", (message) => {
-      console.log("Received message:", message);
-      // Append the new message to the messages array
       setMessages((prevMessages) => [...prevMessages, message]);
     });
 
@@ -91,20 +97,20 @@ const ChatScreen = () => {
     if (message.trim() === "") return;
 
     let newMessage;
-    if (isWorSupport) {
-      newMessage = {
-        userId: profile?._id,
-        text: message,
-        sender: "user",
-      };
-    } else {
-      newMessage = {
-        orderId: orderId,
-        text: message,
-        sender: "user",
-        userId: profile._id,
-      };
-    }
+    // if (isWorSupport) {
+    //   newMessage = {
+    //     userId: profile?._id,
+    //     text: message,
+    //     sender: "user",
+    //   };
+    // } else {
+    newMessage = {
+      orderId: orderId,
+      text: message,
+      sender: "user",
+      userId: profile._id,
+    };
+    // }
 
     socketRef.current.emit("message", newMessage);
 
@@ -126,7 +132,7 @@ const ChatScreen = () => {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
-        <StatusBar style="dark" />
+        {/* <StatusBar style="dark" /> */}
 
         <ChatHead captainDetails={captainDetails} isWorSupport={isWorSupport} />
         <View style={{ padding: 10, marginBottom: 170 }}>
@@ -148,6 +154,7 @@ const ChatScreen = () => {
           setMessage={setMessage}
           message={message}
           handleSendMessage={handleSendMessage}
+          hasSoftwareNavigationBar={hasSoftwareNavigationBar}
         />
       </View>
     </TouchableWithoutFeedback>
@@ -160,6 +167,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     position: "relative",
-    backgroundColor:COLORS.mainBackgroundColor
+    backgroundColor: COLORS.mainBackgroundColor,
   },
 });

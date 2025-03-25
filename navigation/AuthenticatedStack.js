@@ -82,8 +82,11 @@ import ChatBot from "../app/wor/features/DrawerScreens/RideHistory/Screens/ChatB
 import HomeAppBard from "../app/wor/utiles/HomeAppBard";
 import CustomeDrawer from "../app/wor/utiles/CustomeDrawer/CustomeDrawer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import XCalltest from "../app/wor/features/DrawerScreens/XCalltest";
 import Ad from "../app/wor/Ad";
 import { useEffect, useState } from "react";
+import AddHomeWorkPlaces from "../app/wor/features/ridebooking/selectdroplocation/AddHomeWorkPlaces";
+import SupportChat from "../app/wor/features/supportChat/SupportChat";
 // import LocationGet from "../app/wor/LocationGetTest";
 
 const Drawer = createDrawerNavigator();
@@ -134,12 +137,11 @@ const DrawerNavigator = ({ route }) => {
 const AuthenticatedStack = ({ initialRoute, params }) => {
   return (
     <Stack.Navigator initialRouteName={initialRoute}>
-        <Stack.Screen
-          name="DrawerNavigator"
-          component={DrawerNavigator}
-          options={{ headerShown: false }}
-        />
-
+      <Stack.Screen
+        name="DrawerNavigator"
+        component={DrawerNavigator}
+        options={{ headerShown: false }}
+      />
 
       <Stack.Screen
         name="Safety"
@@ -159,6 +161,13 @@ const AuthenticatedStack = ({ initialRoute, params }) => {
         component={SelectDropLocation}
         options={{ headerShown: false }}
       />
+
+      <Stack.Screen
+        name="AddHomeAndWorkPlace"
+        component={AddHomeWorkPlaces}
+        options={{ headerShown: false }}
+      />
+
       <Stack.Screen
         name="ShowPrice"
         component={ShowPriceScreen}
@@ -257,6 +266,12 @@ const AuthenticatedStack = ({ initialRoute, params }) => {
       <Stack.Screen
         name="About"
         component={AboutScreen}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="SupportChat"
+        component={SupportChat}
         options={{ headerShown: false }}
       />
       <Stack.Screen
@@ -401,6 +416,11 @@ const AuthenticatedStack = ({ initialRoute, params }) => {
       <Stack.Screen
         name="PaymentMethodNew"
         component={PaymentMethod}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Xcall"
+        component={XCalltest}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

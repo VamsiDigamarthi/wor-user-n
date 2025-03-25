@@ -24,6 +24,7 @@ import { rideHistoryAsyc } from "../../../DrawerScreens/RideHistory/rideHistory.
 import { fetchPriceDetails } from "../redux/priceDetailSlice";
 
 import installations from "@react-native-firebase/installations";
+import { supportChat } from "../redux/chatSlice";
 
 // Split into smaller utility functions for readability
 const useFirebaseToken = (token) => {
@@ -155,6 +156,7 @@ export const useHomeScreenHook = () => {
     dispatch(fetchLocation());
     dispatch(onProfileSection({ token }));
     dispatch(homePlace({ token }));
+    dispatch(supportChat({ token }));
   }, [dispatch, token]);
 
   // Fetch nearby places

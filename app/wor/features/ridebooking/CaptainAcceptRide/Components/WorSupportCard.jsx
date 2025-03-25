@@ -8,9 +8,7 @@ const WorSupportCard = () => {
   const navigation = useNavigation();
 
   const handelNavigateWorSupport = () => {
-    navigation.navigate("Chat", {
-      isWorSupport: true,
-    });
+    navigation.navigate("SupportChat");
   };
 
   return (

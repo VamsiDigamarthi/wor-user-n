@@ -17,7 +17,7 @@ import PollyLineNew from "../../../utiles/PollyLineNew";
 // import { withLocationBarrierHoc } from "../../../../../HOC/withLocationBarrier";
 
 const screenHeight = Dimensions.get("window").height;
-const androidSnapPoints = [0.35, 0.7].map((p) => screenHeight * p); // Example snap points for Android
+const androidSnapPoints = [0.35, 0.74].map((p) => screenHeight * p); // Example snap points for Android
 const iosSnapPoints = [0.3, 0.65].map((p) => screenHeight * p); // Example snap points for iOS
 
 const ShowPriceScreen = () => {
@@ -34,8 +34,8 @@ const ShowPriceScreen = () => {
     timerSetModalOpen,
     shceduleOrderModal,
     time,
-
     setShceduleOrderModal,
+    hasSoftwareNavigationBar,
   } = useShowPriceScreenHook();
 
   const { mapHeight, snapPoints, handleSheetChange } = useBottomSheetConfig(
@@ -102,7 +102,12 @@ const ShowPriceScreen = () => {
             </>
           )}
         </BottomSheetComponent>
-        <View style={styles.coupneWithBtn}>
+        <View
+          style={[
+            styles.coupneWithBtn,
+            { bottom: hasSoftwareNavigationBar ? 18 : 0 },
+          ]}
+        >
           <OfferCouponCard
             onPaymentPress={() => setPaymentModalOpen(true)}
             onOfferPress={() => setOfferModalOpen(true)}
