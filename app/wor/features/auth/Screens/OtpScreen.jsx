@@ -49,7 +49,7 @@ const OtpScreen = ({}) => {
           <View style={styles.loginInnerCard}>
             <View style={{ width: "100%", gap: 10 }}>
               <Text style={{ fontFamily: fonts.robotoSemiBold, fontSize: 24 }}>
-                Welcome Back {message} !
+                Welcome Back {message}!
               </Text>
               <Text style={{ fontSize: 14, fontFamily: fonts.robotoMedium }}>
                 Please enter your 6-digit OTP

@@ -1,4 +1,10 @@
-import { Dimensions, StyleSheet, View } from "react-native";
+import {
+  ActivityIndicator,
+  Dimensions,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React, { useState } from "react";
 import AppBarLayout from "../sharedLogics/AppBarLayout";
 import { useShowPriceScreenHook } from "./Hooks/ShowPriceScreen.hook";
@@ -13,8 +19,6 @@ import OfferModal from "./Modal/OfferModal";
 import PaymentModal from "./Modal/PaymentModal";
 
 import PollyLineNew from "../../../utiles/PollyLineNew";
-
-// import { withLocationBarrierHoc } from "../../../../../HOC/withLocationBarrier";
 
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.35, 0.74].map((p) => screenHeight * p); // Example snap points for Android
@@ -47,29 +51,33 @@ const ShowPriceScreen = () => {
   const [offerModalOpen, setOfferModalOpen] = useState(false);
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
 
+  const btnTitle =
+    selectedVehicleType === "scooty"
+      ? "Book Scooty"
+      : selectedVehicleType === "car"
+      ? "Book WoR Mini"
+      : selectedVehicleType === "bookany"
+      ? "Book Any"
+      : selectedVehicleType === "wor-premium"
+      ? "Book WoR Luxury"
+      : "Book Auto";
+
   return (
     <>
       <AppBarLayout
         title={dropDetails?.name}
         vicinity={dropDetails?.vicinity}
         isPositionAppbar={true}
-        // isTimer={true}
         timerFunction={timerSetModalOpen}
         borderStyles={false}
       >
         <View style={styles.mapContainer}>
-          {/* <ShowPollyLine
-            selectedVehicleType={selectedVehicleType}
-            origin={location}
-            destination={dropDetails.location}
-          /> */}
           <PollyLineNew
             selectedVehicleType={selectedVehicleType}
             origin={location}
             destination={dropDetails.location}
             otpVerified={false}
             rideStarted={false}
-            // newLiveCoordinates={location}
           />
         </View>
         <BottomSheetComponent
@@ -77,27 +85,39 @@ const ShowPriceScreen = () => {
           snapPoints={snapPoints}
           handleSheetChange={handleSheetChange}
         >
-          {filteredVehicles?.length === 1 ? (
-            <View style={{ paddingHorizontal: 15, paddingVertical: 20 }}>
-              {filteredVehicles?.map((vehicle, index) => (
-                <DisplayVehicle key={index} vehicle={vehicle} />
-              ))}
-              <View style={{ height: 150, width: "100%" }} />
+          {/* Conditional Rendering Based on filteredVehicles */}
+          {!filteredVehicles || filteredVehicles.length === 0 ? (
+            <View style={styles.loaderContainer}>
+              <Text style={styles.loadingText}>Fetching Prices...</Text>
+              <ActivityIndicator size="large" color="#e02e88" />
             </View>
           ) : (
             <>
-              {knowMoveDownOrUp === "moved down" && !time ? (
-                <View style={styles.singleFilterStyle}>
-                  {storedSelectedVehicle?.map((vehicle, index) => (
-                    <DisplayVehicle key={index} vehicle={vehicle} />
-                  ))}
-                </View>
-              ) : (
+              {filteredVehicles?.length === 1 ? (
                 <View style={{ paddingHorizontal: 15, paddingVertical: 20 }}>
                   {filteredVehicles?.map((vehicle, index) => (
                     <DisplayVehicle key={index} vehicle={vehicle} />
                   ))}
+                  <View style={{ height: 150, width: "100%" }} />
                 </View>
+              ) : (
+                <>
+                  {knowMoveDownOrUp === "moved down" && !time ? (
+                    <View style={styles.singleFilterStyle}>
+                      {storedSelectedVehicle?.map((vehicle, index) => (
+                        <DisplayVehicle key={index} vehicle={vehicle} />
+                      ))}
+                    </View>
+                  ) : (
+                    <View
+                      style={{ paddingHorizontal: 15, paddingVertical: 20 }}
+                    >
+                      {filteredVehicles?.map((vehicle, index) => (
+                        <DisplayVehicle key={index} vehicle={vehicle} />
+                      ))}
+                    </View>
+                  )}
+                </>
               )}
             </>
           )}
@@ -116,9 +136,9 @@ const ShowPriceScreen = () => {
             width="100%"
             btnBg={selectedVehicleType ? "#e02e88" : "#fff"}
             btnColor={selectedVehicleType ? "#fff" : "#e02e88"}
-            title={`Book ${selectedVehicleType} `}
+            title={btnTitle}
             onPress={onNavigateConfirmLocationScreen}
-            disabled={true}
+            disabled={!selectedVehicleType}
             borderColor="#e02e88"
             borderWidth={1}
           />
@@ -126,7 +146,6 @@ const ShowPriceScreen = () => {
       </AppBarLayout>
       {shceduleOrderModal && (
         <ShceduleOrderModal
-          // shceduleOrderModal={shceduleOrderModal}
           timerSetModalOpen={() => setShceduleOrderModal(!shceduleOrderModal)}
         />
       )}
@@ -168,5 +187,16 @@ const styles = StyleSheet.create({
     height: 300,
     paddingHorizontal: 15,
     paddingVertical: 20,
+  },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 20,
+  },
+  loadingText: {
+    fontSize: 16,
+    color: "#666",
+    marginBottom: 10,
   },
 });

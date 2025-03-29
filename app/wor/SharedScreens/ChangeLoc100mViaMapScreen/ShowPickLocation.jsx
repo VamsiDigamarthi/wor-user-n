@@ -20,9 +20,18 @@ export default function ShowPickLocation({ place }) {
     if (selectedVehicleType === "auto" && howManyMens >= 2) {
       return;
     }
-    if (selectedVehicleType === "car" && howManyMens >= 3) {
+
+    if (
+      (selectedVehicleType === "car" || selectedVehicleType === "bookany") &&
+      howManyMens >= 3
+    ) {
       return;
     }
+
+    if (selectedVehicleType === "wor-premium" && howManyMens >= 4) {
+      return;
+    }
+
     dispatch(setHowManyMens(howManyMens + 1));
   };
 
@@ -86,9 +95,17 @@ export default function ShowPickLocation({ place }) {
       </View>
       {selectedVehicleType !== "scooty" && (
         <View style={pickLocStyles.mensProblem}>
-          <Text style={{ fontSize: 20, fontFamily:fonts.robotoSemiBold}}>Mention mens</Text>
+          <Text style={{ fontSize: 20, fontFamily: fonts.robotoSemiBold }}>
+            Mention mens
+          </Text>
           <View style={pickLocStyles.meninnercard}>
-            <Text style={{ fontSize: 13, color: "gray", fontFamily:fonts.robotoRegular }}>
+            <Text
+              style={{
+                fontSize: 13,
+                color: "gray",
+                fontFamily: fonts.robotoRegular,
+              }}
+            >
               Enter the number of mens
             </Text>
             <View style={pickLocStyles.iconsCard}>
@@ -100,9 +117,13 @@ export default function ShowPickLocation({ place }) {
                 }}
                 onPress={onDecrementMens}
               >
-                <Text style={{ fontSize: 22, fontFamily:fonts.robotoSemiBold }}>-</Text>
+                <Text
+                  style={{ fontSize: 22, fontFamily: fonts.robotoSemiBold }}
+                >
+                  -
+                </Text>
               </Pressable>
-              <Text style={{ fontSize: 18, fontFamily:fonts.robotoSemiBold }}>
+              <Text style={{ fontSize: 18, fontFamily: fonts.robotoSemiBold }}>
                 {howManyMens}
               </Text>
               <Pressable
@@ -113,7 +134,11 @@ export default function ShowPickLocation({ place }) {
                 }}
                 onPress={onIncrementMens}
               >
-                <Text style={{ fontSize: 20, fontFamily:fonts.robotoSemiBold }}>+</Text>
+                <Text
+                  style={{ fontSize: 20, fontFamily: fonts.robotoSemiBold }}
+                >
+                  +
+                </Text>
               </Pressable>
             </View>
           </View>
@@ -132,12 +157,12 @@ const pickLocStyles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontFamily:fonts.robotoSemiBold
+    fontFamily: fonts.robotoSemiBold,
   },
   subTitle: {
     fontSize: 11,
     color: "gray",
-    fontFamily:fonts.robotoRegular,
+    fontFamily: fonts.robotoRegular,
   },
   card: {
     flexDirection: "row",
@@ -154,12 +179,12 @@ const pickLocStyles = StyleSheet.create({
   },
   placeName: {
     fontSize: 15,
-    fontFamily:fonts.robotoMedium
+    fontFamily: fonts.robotoMedium,
   },
   placeVicinity: {
     fontSize: 13,
     color: "gray",
-    fontFamily:fonts.robotoRegular
+    fontFamily: fonts.robotoRegular,
   },
   mensProblem: {
     // flexDirection:"row",

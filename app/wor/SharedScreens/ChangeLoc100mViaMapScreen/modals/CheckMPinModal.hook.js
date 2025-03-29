@@ -86,6 +86,19 @@ export const useCheckMPinModalHook = ({ onOpenIsEnterConfirmPinModal }) => {
     navigation.navigate("lookingforride", {
       orderId,
     });
+
+    // navigation.reset({
+    //   index: 1, // Make captaineacceptride the active screen
+    //   routes: [
+    //     {
+    //       name: "lookingforride",
+    //       params: { orderId },
+    //     },
+    //     {
+    //       name: "captaineacceptride",
+    //     },
+    //   ],
+    // });
   };
 
   return {

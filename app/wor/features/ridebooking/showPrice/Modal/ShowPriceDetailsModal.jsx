@@ -86,6 +86,7 @@ const ShowPriceDetailsModal = ({
           btnBg="#fff"
           borderWidth={1}
           borderColor="gray"
+          onPress={closeCancelModal}
         />
       </View>
     </ModalUI>

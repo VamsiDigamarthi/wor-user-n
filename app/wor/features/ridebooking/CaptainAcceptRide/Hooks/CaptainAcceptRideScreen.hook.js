@@ -6,9 +6,27 @@ import { CommonActions, useNavigation } from "@react-navigation/native";
 import { setCompleteRideDetails } from "../../sharedLogics/rideDetailsSlice";
 import Toast from "react-native-toast-message";
 import * as Location from "expo-location";
-import { Platform } from "react-native";
+import { AppState, BackHandler, Platform } from "react-native";
 
 export const useCaptainAcceptRideScreenHook = () => {
+  const handleBackButtonPress = () => {
+    // Move the app to the background (minimize it)
+    AppState.currentState === "active" && BackHandler.exitApp();
+    return true; // Prevent default back button behavior
+  };
+
+  useEffect(() => {
+    // Add event listener for hardware back button
+    BackHandler.addEventListener("hardwareBackPress", handleBackButtonPress);
+
+    // Cleanup the event listener on component unmount
+    return () =>
+      BackHandler.removeEventListener(
+        "hardwareBackPress",
+        handleBackButtonPress
+      );
+  }, []);
+
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const { socket, isConnected } = useSocket();

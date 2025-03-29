@@ -85,12 +85,12 @@ export default function PaymentModal({ onClose, isRideBookingScreen }) {
         setSelected={() => handleChangePaymentMethod("upi")}
       />
 
-      <CommonCard
+      {/* <CommonCard
         selected={selectedMethod === "card"}
         setSelected={() => handleChangePaymentMethod("card")}
         title="Credit / Debit Cards"
         icon={<CreditCard height={30} width={30} />}
-      />
+      /> */}
 
       <CommonCard
         selected={selectedMethod === "cash"}

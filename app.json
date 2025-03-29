@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Women User",
-    "slug": "Women User",
+    "slug": "Women-User",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -42,7 +42,10 @@
       [
         "react-native-permissions",
         {
-          "ios": ["SPEECH_RECOGNITION", "MICROPHONE"],
+          "ios": [
+            "SPEECH_RECOGNITION",
+            "MICROPHONE"
+          ],
           "android": []
         }
       ],
@@ -53,7 +56,8 @@
             "useFrameworks": "static"
           }
         }
-      ]
+      ],
+      "expo-font"
     ],
     "extra": {
       "eas": {

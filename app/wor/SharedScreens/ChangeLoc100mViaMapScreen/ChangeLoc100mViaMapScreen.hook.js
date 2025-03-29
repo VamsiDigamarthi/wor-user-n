@@ -109,6 +109,8 @@ export const useChangeLoc100mViaMapScreenHook = () => {
     setIsOpenEnterConfirmMPinModal(!isOpenEnterConfirmMPinModal);
   };
 
+  console.log("ref");
+
   // Function to handle the drag end of the marker
   const handleMarkerDragEnd = (e) => {
     const { latitude, longitude } = e.nativeEvent.coordinate;
