@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { StatusBar, StyleSheet, TouchableOpacity, View } from "react-native";
 import ParcelBtnCard from "../../features/Parcels/Components/ParcelBtnCard";
 import { useChangeLoc100mViaMapScreenHook } from "./ChangeLoc100mViaMapScreen.hook";
 import ChangeLocMapView from "./ChangeLocMapView";
@@ -12,6 +12,8 @@ import StartRides from "../../features/ridebooking/home/modals/StartRIdes";
 import { useEffect, useState } from "react";
 
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useDispatch } from "react-redux";
+import { setHowManyMens } from "../../features/ridebooking/sharedLogics/rideDetailsSlice";
 
 const ChangeLoc100mViaMapScreen = ({ navigation }) => {
   const {
@@ -27,66 +29,75 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
   } = useChangeLoc100mViaMapScreenHook();
 
   const [displayStartModal, setDisplayStartModal] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setDisplayStartModal(true);
-  }, []);
+
+    return () => {
+      dispatch(setHowManyMens(0));
+    };
+  }, [dispatch]);
 
   const insets = useSafeAreaInsets();
 
   const hasSoftwareNavigationBar = insets.bottom > 0;
 
   return (
-    <View style={{ flex: 1 }}>
-      <TouchableOpacity
-        style={styles.backbtn}
-        onPress={() => navigation.goBack()}
-      >
-        <Entypo name="chevron-left" size={24} color="black" />
-      </TouchableOpacity>
+    <>
+      <View style={{ flex: 1 }}>
+        <TouchableOpacity
+          style={styles.backbtn}
+          onPress={() => navigation.goBack()}
+        >
+          <Entypo name="chevron-left" size={24} color="black" />
+        </TouchableOpacity>
 
-      <View style={styles.container}>
-        <View style={styles.mapContainer}>
-          <ChangeLocMapView
-            newMarker={newMarker}
-            handleMarkerDragEnd={handleMarkerDragEnd}
-          />
+        <View style={styles.container}>
+          <View style={styles.mapContainer}>
+            <ChangeLocMapView
+              newMarker={newMarker}
+              handleMarkerDragEnd={handleMarkerDragEnd}
+            />
+          </View>
+          <ParcelBtnCard hasSoftwareNavigationBar={hasSoftwareNavigationBar}>
+            {isBeforeBook && <ShowPickLocation place={placeName} />}
+
+            <CustomBtn
+              onPress={onNavigateSavedAddressScreen}
+              title="Confirm Location"
+              btnBg="#EA4C89"
+              btnColor="#fff"
+            />
+          </ParcelBtnCard>
         </View>
-        <ParcelBtnCard hasSoftwareNavigationBar={hasSoftwareNavigationBar}>
-          {isBeforeBook && <ShowPickLocation place={placeName} />}
-
-          <CustomBtn
-            onPress={onNavigateSavedAddressScreen}
-            title="Confirm Location"
-            btnBg="#EA4C89"
-            btnColor="#fff"
-          />
-        </ParcelBtnCard>
-      </View>
-      {/* before booking check m-pin set or not */}
-      <NavigateMPinScreenModal
-        rideBookBeforeCheckMPinAddhar={rideBookBeforeCheckMPinAddhar}
-        onChangeRideBookBeforeCheckPinAddharHandler={
-          onChangeRideBookBeforeCheckPinAddharHandler
-        }
-      />
-      {/* check m-pin modal */}
-      <CheckMPinModal
-        isOpenEnterConfirmMPinModal={isOpenEnterConfirmMPinModal}
-        onOpenIsEnterConfirmPinModal={onOpenIsEnterConfirmPinModal}
-        pickUpPlace={placeName}
-        newMarker={{ lat: newMarker.latitude, lng: newMarker.longitude }}
-      />
-
-      {false && <NotInLocation />}
-
-      {displayStartModal && (
-        <StartRides
-          setDisplayStartModal={() => setDisplayStartModal(!displayStartModal)}
-          isDispalyStartModal={displayStartModal}
+        {/* before booking check m-pin set or not */}
+        <NavigateMPinScreenModal
+          rideBookBeforeCheckMPinAddhar={rideBookBeforeCheckMPinAddhar}
+          onChangeRideBookBeforeCheckPinAddharHandler={
+            onChangeRideBookBeforeCheckPinAddharHandler
+          }
         />
-      )}
-    </View>
+        {/* check m-pin modal */}
+        <CheckMPinModal
+          isOpenEnterConfirmMPinModal={isOpenEnterConfirmMPinModal}
+          onOpenIsEnterConfirmPinModal={onOpenIsEnterConfirmPinModal}
+          pickUpPlace={placeName}
+          newMarker={{ lat: newMarker.latitude, lng: newMarker.longitude }}
+        />
+
+        {false && <NotInLocation />}
+
+        {displayStartModal && (
+          <StartRides
+            setDisplayStartModal={() =>
+              setDisplayStartModal(!displayStartModal)
+            }
+            isDispalyStartModal={displayStartModal}
+          />
+        )}
+      </View>
+    </>
   );
 };
 
@@ -99,6 +110,8 @@ const styles = StyleSheet.create({
   },
   mapContainer: {
     flex: 1,
+    position: "relative",
+    bottom: 50,
   },
   backbtn: {
     position: "absolute",

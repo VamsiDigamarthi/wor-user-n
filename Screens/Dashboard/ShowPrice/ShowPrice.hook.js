@@ -3,13 +3,12 @@ import {
   useNavigation,
   useRoute,
 } from "@react-navigation/native";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   formatToIndiaISO,
   haversineDistance,
 } from "../../../Constants/calculateKM";
 import { useDispatch, useSelector } from "react-redux";
-import { API } from "../../../Constants/url";
 import { onProfileSection } from "../../../redux/Features/Auth/ProfileSlice";
 
 export const useShowPriceHook = () => {
@@ -48,6 +47,7 @@ export const useShowPriceHook = () => {
     scooty: 0,
     car: 0,
     auto: 0,
+    worPreminum: 0,
   });
 
   const [selectedVehicle, setSelectedVehicle] = useState(
@@ -82,7 +82,7 @@ export const useShowPriceHook = () => {
         scooty: scootyPrice,
         car: carPrice,
         auto: authPrice,
-        worPreminum,
+        worPreminum: worPreminum,
       });
       setBeforeOrder({
         vehicleType: "scooty",
@@ -118,17 +118,19 @@ export const useShowPriceHook = () => {
   // my default ini
 
   const onPlaceTheOrder = () => {
-    navigation.navigate("ChangeLoc100mViaMap", {
-      place: { name: placeName, location: pickUpCoordinated },
-      isRideBookingScreen: isPickLocationFromParc ? false : true,
-      rideDropDetails: dropDetails,
-      selectedVehicle,
-      ridePrice: beforeOrder.price,
-      time: isDateTimeData ?? null,
-      parcelDetails,
-      selectedCard,
-      isPickLocationFromParc: isPickLocationFromParc,
-    });
+    // navigation.navigate("ChangeLoc100mViaMap", {
+    //   place: { name: placeName, location: pickUpCoordinated },
+    //   isRideBookingScreen: isPickLocationFromParc ? false : true,
+    //   rideDropDetails: dropDetails,
+    //   selectedVehicle,
+    //   ridePrice: beforeOrder.price,
+    //   time: isDateTimeData ?? null,
+    //   parcelDetails,
+    //   selectedCard,
+    //   isPickLocationFromParc: isPickLocationFromParc,
+    // });
+
+    navigation.navigate("ChangeLoc100mViaMap");
   };
 
   const onHandleTimeValueHandler = (date) => {

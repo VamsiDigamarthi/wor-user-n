@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, useRef } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setHowManyMens,
@@ -14,8 +14,6 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import moment from "moment-timezone";
 
 export const useShowPriceScreenHook = () => {
-  const travelDetailsCache = useRef({});
-
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const { profile } = useSelector((state) => state.profileSlice);
@@ -69,6 +67,7 @@ export const useShowPriceScreenHook = () => {
   const filteredVehicleList = useMemo(() => {
     if (!vehicleInfoWithDistanceDura) return [];
 
+    // console.log("sderftgh", vehicleInfoWithDistanceDura);
     return isParcScreen
       ? vehicleInfoWithDistanceDura.filter(
           (vehicle) => vehicle.vehicleType === "Scooty"
@@ -79,10 +78,6 @@ export const useShowPriceScreenHook = () => {
         )
       : vehicleInfoWithDistanceDura;
   }, [vehicleInfoWithDistanceDura, isParcScreen, time]);
-
-  useEffect(() => {
-    setFilteredVehicles(filteredVehicleList);
-  }, [filteredVehicleList]);
 
   useEffect(() => {
     setFilteredVehicles(filteredVehicleList);
@@ -99,66 +94,65 @@ export const useShowPriceScreenHook = () => {
 
   const calcPriceDetails = async () => {
     try {
-      // Fetch travel details for all vehicles in parallel
-      const travelDetails = await Promise.all(
+      const results = await Promise.all(
         vehicles.map(async (vehicle) => {
           const result = await calDisFromPickToDrop(vehicle.vehicleType);
+
+          // console.log(result , "-----");
+
+          const newPrice = handleCalculatePrices(result, vehicle?.vehicleType);
+
+          console.log(newPrice);
+
+          if (
+            selectedVehicleType?.toLowerCase() ===
+            vehicle.vehicleType?.toLowerCase()
+          ) {
+            await dispatch(setPrice(newPrice));
+
+            let paymentMethod =
+              +newPrice >= +profile?.walletBalance ? "cash" : "wallet";
+            await dispatch(setPaymentMethod(paymentMethod));
+          }
+
           return {
             ...vehicle,
             distance: result?.distance || "N/A",
             duration: result?.duration || "N/A",
+            price: newPrice,
           };
         })
       );
-
-      // Calculate prices for all vehicles
-      const results = travelDetails.map((vehicle) => {
-        const newPrice = handleCalculatePrices(vehicle, vehicle.vehicleType);
-
-        if (
-          selectedVehicleType?.toLowerCase() ===
-          vehicle.vehicleType?.toLowerCase()
-        ) {
-          dispatch(setPrice(newPrice));
-          let paymentMethod =
-            +newPrice >= +profile?.walletBalance ? "cash" : "wallet";
-          dispatch(setPaymentMethod(paymentMethod));
-        }
-
-        return {
-          ...vehicle,
-          price: newPrice,
-        };
-      });
+      // console.log("result: " + JSON.stringify(results));
 
       setVehicleInfoWithDistanceDura(results);
     } catch (error) {
       console.error("Error fetching travel details:", error);
     }
   };
+
   const calDisFromPickToDrop = async (vehicleType) => {
     try {
-      const cacheKey = `${location?.lat}-${location?.lng}-${dropDetails?.location?.lat}-${dropDetails?.location?.lng}-${vehicleType}`;
-      if (travelDetailsCache.current[cacheKey]) {
-        return travelDetailsCache.current[cacheKey];
+      if (location && dropDetails?.location) {
+        const data = await getTravelDetails(
+          [(startLon = location?.lng), (startLat = location?.lat)],
+          [
+            (endLon = dropDetails?.location?.lng),
+            (endLat = dropDetails?.location?.lat),
+          ],
+          vehicleType
+        );
+
+        const newData = {
+          distance: data?.distance,
+          duration: data?.durationInMinutes,
+        };
+
+        return newData;
+      } else {
+        console.warn("Incomplete pickup or drop details");
+        return null;
       }
-
-      const data = await getTravelDetails(
-        [(startLon = location?.lng), (startLat = location?.lat)],
-        [
-          (endLon = dropDetails?.location?.lng),
-          (endLat = dropDetails?.location?.lat),
-        ],
-        vehicleType
-      );
-
-      const newData = {
-        distance: data?.distance,
-        duration: data?.durationInMinutes,
-      };
-
-      travelDetailsCache.current[cacheKey] = newData;
-      return newData;
     } catch (error) {
       console.error("Error calculating distance from pickup to drop:", error);
       return null;

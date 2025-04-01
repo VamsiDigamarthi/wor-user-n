@@ -11,6 +11,7 @@ import { Chase } from "react-native-animated-spinkit";
 import CancelRideModal from "../CaptainAcceptRide/Modals/CancelRideModal";
 import { Entypo, AntDesign } from "@expo/vector-icons";
 import { fonts } from "../../../fonts/Fonts";
+import PollyLineNew from "../../../utiles/PollyLineNew";
 
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.48, 0.5].map((p) => screenHeight * p); // Example snap points for Android
@@ -24,10 +25,10 @@ const LookingForRideScreen = () => {
     price,
     selectedVehicleType,
   } = useSelector((state) => state.allRideDetails);
-  console.log(
-    useSelector((state) => state.allRideDetails),
-    "useSelector((state) => state.allRideDetails);"
-  );
+  // console.log(
+  //   useSelector((state) => state.allRideDetails),
+  //   "useSelector((state) => state.allRideDetails);"
+  // );
 
   const {
     progressWidth,
@@ -51,8 +52,7 @@ const LookingForRideScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.mapContainer}>
-        <ShowPollyLine
-          height={mapHeight}
+        <PollyLineNew
           selectedVehicleType={selectedVehicleType}
           origin={
             isSendOrReceiveParcel === "send"
@@ -64,6 +64,8 @@ const LookingForRideScreen = () => {
               ? dropDetails?.location
               : pickUpDetails?.location
           }
+          otpVerified={false}
+          rideStarted={false}
         />
       </View>
       <BottomSheetComponent

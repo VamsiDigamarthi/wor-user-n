@@ -2,14 +2,33 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { cancelRide, rePlaceOrder } from "./services/lookingForRideServices";
 import { useEffect, useRef, useState } from "react";
-import { Animated } from "react-native";
+import { Animated, AppState, BackHandler } from "react-native";
 import { useSocket } from "../../../../../SocketContext";
 import { setCompleteRideDetails } from "../sharedLogics/rideDetailsSlice";
 
 export const useLookingForRideScreenHook = () => {
+  const handleBackButtonPress = () => {
+    // Move the app to the background (minimize it)
+    AppState.currentState === "active" && BackHandler.exitApp();
+    return true; // Prevent default back button behavior
+  };
+
+  useEffect(() => {
+    // Add event listener for hardware back button
+    BackHandler.addEventListener("hardwareBackPress", handleBackButtonPress);
+
+    // Cleanup the event listener on component unmount
+    return () =>
+      BackHandler.removeEventListener(
+        "hardwareBackPress",
+        handleBackButtonPress
+      );
+  }, []);
+
   const dispatch = useDispatch();
   const { socket, isConnected } = useSocket();
   const { token } = useSelector((state) => state.token);
+
   const {
     orderId,
     orderPlaceTime,
@@ -130,16 +149,18 @@ export const useLookingForRideScreenHook = () => {
   };
 
   const onNewCancelHandle = () => {
-    if (isDirectNavigation) {
-      navigation.reset([
-        {
-          index: 0,
-          routes: [{ name: "AuthenticatedStack" }],
-        },
-      ]);
-    } else {
-      navigation.goBack();
-    }
+    // if (isDirectNavigation) {
+    navigation.reset([
+      {
+        index: 0,
+        routes: [{ name: "AuthenticatedStack" }],
+      },
+    ]);
+    // }
+
+    // else {
+    //   navigation.goBack();
+    // }
   };
 
   const orderCancelledListener = (orderId) => {
@@ -155,6 +176,7 @@ export const useLookingForRideScreenHook = () => {
     dispatch(setCompleteRideDetails(order));
     progress.stopAnimation();
     navigation.navigate("captaineacceptride");
+    // navigation.replace("captaineacceptride");
   };
 
   useEffect(() => {

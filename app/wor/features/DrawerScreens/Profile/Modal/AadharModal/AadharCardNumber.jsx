@@ -96,7 +96,7 @@ const AadharCardNumber = ({
         <CustomBtn
           width="100%"
           onPress={handleSubmitAadharCard}
-          title="Continue"
+          title="Identify Yourself"
           btnBg={aadharNumber.length === 12 ? "#EA4C89" : "#F7F7F7"}
           btnColor={aadharNumber.length === 12 ? "#fff" : "#000"}
           isLoding={isLoading}
