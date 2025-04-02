@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
-import bikeImg from "../../../assets/bike.png";
+import bikeImg from "../../../assets/images/markers/BIKE-removebg-preview.png";
 import MapViewDirections from "react-native-maps-directions";
 const GOOGLE_MAPS_APIKEY = "AIzaSyAvJUZ3vsynRkQhXSdZL-BIFo26bXH-Al8";
 import { FontAwesome } from "@expo/vector-icons";

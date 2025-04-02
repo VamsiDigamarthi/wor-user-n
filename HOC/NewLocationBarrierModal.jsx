@@ -1,39 +1,15 @@
 import { Image, StyleSheet, Text, View } from "react-native";
-import React, { useEffect } from "react";
+import React from "react";
 import ModalUI from "../app/wor/utiles/Modal/Modal";
 import { infoModalStyles } from "../Components/InfoUi/Styles/InfoModalStyles";
-import { useDispatch, useSelector } from "react-redux";
-import { setLocationBarrierModal } from "./redux/locationBarrierSlice";
-import { useNavigation } from "@react-navigation/native";
 
-const LocationBarrierModal = () => {
-  const dispatch = useDispatch();
-  const navigation = useNavigation();
-
-  const { isDisplayLocationBarrierModal } = useSelector(
-    (state) => state.locationBarrier
-  );
-
-  const handleCloseModal = () => {
-    dispatch(setLocationBarrierModal(false));
-  };
-
-  console.log("isDisplayLocationBarrierModal", isDisplayLocationBarrierModal);
-
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {
-      // Reset modal state when screen comes into focus
-      if (isDisplayLocationBarrierModal) {
-        dispatch(setLocationBarrierModal(false));
-      }
-    });
-
-    return unsubscribe;
-  }, [navigation]);
-
+const NewLocationBarrierModal = ({
+  handleCloseModal,
+  isOpenLocationBarrierModal,
+}) => {
   return (
     <ModalUI
-      openCloseState={isDisplayLocationBarrierModal}
+      openCloseState={isOpenLocationBarrierModal}
       closeModalFun={handleCloseModal}
       modalStyle="slide"
       closebtn={false}
@@ -57,7 +33,7 @@ const LocationBarrierModal = () => {
   );
 };
 
-export default LocationBarrierModal;
+export default NewLocationBarrierModal;
 
 const styles = StyleSheet.create({
   container: {

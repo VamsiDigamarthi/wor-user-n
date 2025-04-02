@@ -10,8 +10,6 @@ const UserRideDetailsCard = ({
   completeRideDetails,
   disFromPickToDrop,
 }) => {
-  // console.log(completeRideDetails);
-
   return (
     <View style={styles.container}>
       <UserCard

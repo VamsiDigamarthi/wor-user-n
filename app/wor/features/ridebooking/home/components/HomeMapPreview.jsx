@@ -90,7 +90,7 @@ const HomeMapPreview = ({
         ref={mapRef}
         style={StyleSheet.absoluteFillObject}
         region={region}
-        customMapStyle={customMapStyle}
+        // customMapStyle={customMapStyle}
         showsMyLocationButton={false}
         onRegionChangeComplete={(region) => setRegion(region)}
       >

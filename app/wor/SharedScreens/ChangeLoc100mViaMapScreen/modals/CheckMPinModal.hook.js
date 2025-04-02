@@ -76,6 +76,8 @@ export const useCheckMPinModalHook = ({ onOpenIsEnterConfirmPinModal }) => {
       paymentMethod,
     });
 
+    console.log("orderDetails", orderDetails);
+
     const orderId = await bookingRide({ token, orderDetails });
     if (!orderId) return;
 

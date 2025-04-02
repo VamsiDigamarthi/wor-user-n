@@ -52,7 +52,6 @@ const LocationList = ({
       }
 
       const location = newDropLocation?.location || place.location;
-      console.log("homeOrWorkPlacetype", homeOrWorkPlacetype);
 
       if (homeOrWorkPlacetype) {
         const response = isEditHomePlaces
