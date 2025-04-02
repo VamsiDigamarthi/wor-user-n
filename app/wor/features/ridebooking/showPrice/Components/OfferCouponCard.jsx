@@ -1,4 +1,11 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { ForwardArrowIcon } from "../../../../Icons/Icons";
 import {
   OfferImg,
@@ -24,7 +31,7 @@ const OfferCouponCard = ({ onOfferPress, onPaymentPress }) => {
       </TouchableOpacity>
 
       <Text style={styles.textLine}></Text>
-      <View style={styles.offersCard}>
+      <Pressable onPress={onPaymentPress} style={styles.offersCard}>
         <View style={styles.offerInnerCard}>
           {paymentMethod === "wallet" ? (
             <WalletImg height={30} width={30} />
@@ -35,10 +42,7 @@ const OfferCouponCard = ({ onOfferPress, onPaymentPress }) => {
           ) : (
             <CreditCard height={30} width={30} />
           )}
-          <TouchableOpacity
-            style={{ flexDirection: "column" }}
-            onPress={onPaymentPress}
-          >
+          <View style={{ flexDirection: "column" }}>
             <Text style={[styles.couponText, styles.offerText]}>
               {paymentMethod?.charAt(0).toUpperCase() + paymentMethod?.slice(1)}
             </Text>
@@ -48,10 +52,10 @@ const OfferCouponCard = ({ onOfferPress, onPaymentPress }) => {
                 Available Rs. {profile?.walletBalance}/-
               </Text>
             )}
-          </TouchableOpacity>
+          </View>
         </View>
         <ForwardArrowIcon size={14} color="#EA4C89" />
-      </View>
+      </Pressable>
     </View>
   );
 };
@@ -88,5 +92,10 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: "gray",
     fontFamily: fonts.robotoRegular,
+  },
+  textLine: {
+    width: 1,
+    height: 20,
+    backgroundColor: "lightgray",
   },
 });

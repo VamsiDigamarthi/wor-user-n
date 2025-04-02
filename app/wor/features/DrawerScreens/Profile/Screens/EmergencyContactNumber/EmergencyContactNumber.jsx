@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   Alert,
   FlatList,
-  Image,
   Platform,
   Pressable,
 } from "react-native";
@@ -235,14 +234,22 @@ const ProfileEmergencyContact = () => {
           />
         </View>
         {userBackendContactNumber?.length < 5 && (
-          <View style={styles.addContactContainer}>
-            <Ionicons name="add-circle-outline" size={30} color="black" />
-            <TouchableOpacity onPress={handlerOpenContactNumber}>
+          <TouchableOpacity
+            onPress={handlerOpenContactNumber}
+            style={styles.addContactContainer}
+          >
+            <Ionicons
+              name="add-circle-outline"
+              style={{ marginTop: 2 }}
+              size={24}
+              color="black"
+            />
+            <View>
               <Text style={styles.addContactText}>
                 Add {5 - userBackendContactNumber?.length} more contacts
               </Text>
-            </TouchableOpacity>
-          </View>
+            </View>
+          </TouchableOpacity>
         )}
       </View>
     </AppBarLayout>
@@ -298,7 +305,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.robotoBold,
     fontSize: 14,
   },
-  addContactContainer: { flexDirection: "row", alignItems: "center", gap: 10 },
+  addContactContainer: { flexDirection: "row", alignItems: "center", gap: 2 },
   addContactText: {
     fontSize: 14,
     fontFamily: fonts.robotoSemiBold,

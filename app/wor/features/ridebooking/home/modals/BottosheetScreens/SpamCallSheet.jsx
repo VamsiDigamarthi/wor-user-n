@@ -47,6 +47,7 @@ export default function SpamCallSheet({ onPress }) {
             flexWrap: "wrap",
             justifyContent: "space-between",
             padding: 10,
+            paddingBottom: 60,
           }}
         >
           {profile?.emergencyContact?.map((each, index) => (
@@ -58,13 +59,12 @@ export default function SpamCallSheet({ onPress }) {
             />
           ))}
 
-          {/* Conditionally render the 'Add' button based on the number of contacts */}
           {profile?.emergencyContact?.length < 5 && (
             <View
               style={{
                 position: "absolute",
                 right: 10,
-                bottom: 10,
+                bottom: -10,
                 display:
                   profile?.emergencyContact?.length < 5 ? "flex" : "none", // Make sure it's hidden after 5 contacts
               }}
@@ -86,7 +86,6 @@ export default function SpamCallSheet({ onPress }) {
           )}
         </View>
       </View>
-      {/* <CustomBtn title="Continue" btnBg="#EA4C89" btnColor="#fff" /> */}
     </>
   );
 }
@@ -97,11 +96,6 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 10,
     borderRadius: 5,
-    // shadowColor: "#000",
-    // shadowOffset: { width: 0, height: 2 },
-    // shadowOpacity: 0.8,
-    // shadowRadius: 2,
-    // elevation: 2,
     gap: 8,
     marginBottom: 10,
   },

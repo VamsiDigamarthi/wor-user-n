@@ -7,6 +7,7 @@ import callimage from "../../../../../../../assets/images/sosimages/call.png";
 import policestation from "../../../../../../../assets/images/sosimages/policestation.png";
 
 import { Linking } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const openDialer = (phoneNumber) => {
   const url = `tel:${phoneNumber}`;
@@ -22,6 +23,7 @@ const openDialer = (phoneNumber) => {
 };
 
 export default function MainSelectingScreens({ onPress }) {
+  const navigation = useNavigation();
   return (
     <>
       <CustomImageComp
@@ -38,7 +40,7 @@ export default function MainSelectingScreens({ onPress }) {
         text1="Fake Calls"
         text2="WoR Support"
         click1={() => onPress("spam")}
-        click2={() => onPress("chat")}
+        click2={() => onPress(navigation.navigate("SupportChat"))}
       />
       {/* <CustomImageComp
         image1={callimage}

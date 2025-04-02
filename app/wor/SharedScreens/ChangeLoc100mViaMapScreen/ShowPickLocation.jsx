@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { PickLocationIcon } from "../../Icons/Icons";
 import { setHowManyMens } from "../../features/ridebooking/sharedLogics/rideDetailsSlice";
@@ -28,7 +28,7 @@ export default function ShowPickLocation({ place }) {
       return;
     }
 
-    if (selectedVehicleType === "wor-premium" && howManyMens >= 4) {
+    if (selectedVehicleType === "wor-premium" && howManyMens >= 6) {
       return;
     }
 
@@ -41,6 +41,12 @@ export default function ShowPickLocation({ place }) {
     }
     dispatch(setHowManyMens(howManyMens - 1));
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(setHowManyMens(0));
+    };
+  }, []);
 
   return (
     <View style={pickLocStyles.container}>
@@ -189,7 +195,7 @@ const pickLocStyles = StyleSheet.create({
   mensProblem: {
     // flexDirection:"row",
     width: "100%",
-    gap: 5,
+    // gap: 5,
   },
   meninnercard: {
     flexDirection: "row",

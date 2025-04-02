@@ -1,3 +1,4 @@
+globalThis.RNFB_SILENCE_MODULAR_DEPRECATION_WARNINGS = true;
 import { StatusBar } from "expo-status-bar";
 import { Linking, StyleSheet, Alert } from "react-native";
 import MainNavigation from "./navigation/MainNavigation";

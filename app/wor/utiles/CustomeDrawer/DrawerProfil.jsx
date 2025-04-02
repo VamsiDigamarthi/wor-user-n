@@ -108,7 +108,12 @@ const DrawerProfil = () => {
           <Text style={styles.name} numberOfLines={1} ellipsizeMode="tail">
             {profile?.name}
           </Text>
-          <FontAwesome name="chevron-right" size={15} color="#B0B0B0" />
+          <FontAwesome
+            style={{ marginTop: 3 }}
+            name="chevron-right"
+            size={15}
+            color="#B0B0B0"
+          />
         </Pressable>
         <Pressable style={styles.starRating} onPress={onNavigateRatingScreen}>
           <FontAwesome name="star" size={14} color="gold" />
