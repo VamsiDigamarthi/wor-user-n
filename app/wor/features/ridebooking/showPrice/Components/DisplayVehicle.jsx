@@ -103,7 +103,7 @@ const DisplayVehicle = ({ vehicle }) => {
               <Text
                 style={[
                   styles.captionText,
-                  { fontSize: 14, color: "#888", fontWeight: "600" },
+                  { fontSize: 13, color: "#888", fontWeight: "600" },
                 ]}
               >
                 {vehicle?.duration} Minutes away drop{" "}
@@ -141,7 +141,7 @@ const FastCard = () => (
   <View
     style={{
       width: 80,
-      height: 22,
+      height: 20,
       backgroundColor: "#dcfce7",
       justifyContent: "space-around",
       alignItems: "center",
@@ -174,6 +174,7 @@ const styles = StyleSheet.create({
     borderColor: "#EA4C89",
     backgroundColor: "#ffedf4",
   },
+
   container: {
     width: "100%",
     borderRadius: 8,
@@ -199,10 +200,12 @@ const styles = StyleSheet.create({
     gap: 10,
     alignItems: "center",
   },
-  vehicleType: { fontWeight: "bold", fontSize: 18, color: "#000" },
+
+  vehicleType: { fontWeight: "bold", fontSize: 16, color: "#000" },
+
   captionText: {
     color: "#888",
-    fontSize: 13,
+    fontSize: 12,
   },
   price: {
     fontFamily: fonts.robotoSemiBold,

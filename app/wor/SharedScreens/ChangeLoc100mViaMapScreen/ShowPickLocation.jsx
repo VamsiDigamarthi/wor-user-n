@@ -17,18 +17,24 @@ export default function ShowPickLocation({ place }) {
   const dispatch = useDispatch();
 
   const onIncrementMens = () => {
+    // console.log("selectedVehicleType", selectedVehicleType);
+
     if (selectedVehicleType === "auto" && howManyMens >= 2) {
       return;
     }
 
-    if (
-      (selectedVehicleType === "car" || selectedVehicleType === "bookany") &&
-      howManyMens >= 3
-    ) {
+    if (selectedVehicleType === "car" && howManyMens >= 3) {
       return;
     }
 
-    if (selectedVehicleType === "wor-premium" && howManyMens >= 6) {
+    if (selectedVehicleType === "bookany" && howManyMens >= 3) {
+      return;
+    }
+
+    if (selectedVehicleType === "wor-premium" && howManyMens >= 3) {
+      return;
+    }
+    if (selectedVehicleType === "promax" && howManyMens >= 4) {
       return;
     }
 
