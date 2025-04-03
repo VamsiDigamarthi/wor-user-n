@@ -30,10 +30,10 @@ const LoginScreen = () => {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === "ios" ? "padding" : "height"} // Adjust for iOS and Android
+      // behavior={Platform.OS === "ios" ? "padding" : "height"} // Adjust for iOS and Android
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View style={styles.container}>
+        <View style={styles.containers}>
           <AuthAppBar />
           <View style={styles.loginInnerCard}>
             <View style={{ width: "100%", gap: 10 }}>
@@ -119,6 +119,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     position: "relative",
+    // backgroundColor: "blue",
+  },
+  containers: {
+    flex: 1,
+    backgroundColor: "#fff",
+    position: "relative",
+    // backgroundColor: "red",
   },
   loginInnerCard: {
     // width: "100%",

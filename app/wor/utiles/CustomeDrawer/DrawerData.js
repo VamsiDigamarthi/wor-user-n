@@ -75,9 +75,9 @@ export default data = [
     screenName: "About",
     icon: setting,
   },
-  {
-    label: "Cal",
-    screenName: "Xcall",
-    icon: setting,
-  },
+  // {
+  //   label: "Cal",
+  //   screenName: "Xcall",
+  //   icon: setting,
+  // },
 ];

@@ -2,12 +2,15 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { COLORS } from "../../../../../Constants/colors";
-import { SupportIcons } from "../../../Icons/Icons";
+import { BackIcon, SupportIcons } from "../../../Icons/Icons";
 
 const SupportChatHeader = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
+      <Pressable onPress={() => navigation.goBack()}>
+        <BackIcon color={"#757575"} size={24} />
+      </Pressable>
       <Pressable onPress={() => navigation.goBack()}>
         <View style={styles.iconStyle}>
           <SupportIcons size={20} color="#fff" />

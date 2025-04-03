@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -17,7 +17,11 @@ import { FontAwesome } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import Map3Btns from "./Map3Btn";
 import MapModalUi from "../features/ridebooking/home/modals/MapModalUi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import RouteChangeAlertModal from "./RouteChangeAlertModal/RouteChangeAlertModal";
+import { getDistance } from "geolib";
+import { wrongRouteSafeAndSecure } from "./RouteChangeAlertModal/RouteChangeAlertModal.services";
+import { setPollylineCoordinates } from "../features/ridebooking/sharedLogics/rideDetailsSlice";
 
 export default function PollyLineNew({
   selectedVehicleType,
@@ -29,8 +33,28 @@ export default function PollyLineNew({
   markerRef,
 }) {
   const mapref = useRef(null);
+  const dispatch = useDispatch();
 
+  const { completeRideDetails } = useSelector((state) => state.allRideDetails);
+  const { token } = useSelector((state) => state.token);
+  const { profile } = useSelector((state) => state.profileSlice);
+
+  const [toggle, setToggle] = useState(false);
   const [isZoomedOut, setIsZoomedOut] = useState(false); // Track zoom state
+
+  const [routeMapToggle, setRouteMapToggle] = useState(false);
+
+  const lastPositionRef = useRef(null);
+  const stationaryTimerRef = useRef(null);
+
+  useEffect(() => {
+    if (completeRideDetails) {
+      let findUser = completeRideDetails?.changeRoute?.find(
+        (user) => user.user === profile?._id
+      );
+      setRouteMapToggle(findUser?.change ?? false);
+    }
+  }, [completeRideDetails]);
 
   const startPoint = {
     latitude: origin?.lat || 0,
@@ -84,78 +108,169 @@ export default function PollyLineNew({
     }
   }, [isZoomedOut, startPoint, endPoint]);
 
-  const [toggle, setToggle] = useState(false);
+  const handleSetPollyLineCoordinates = (coordinates) => {
+    if (completeRideDetails?.pollyLineCoordinates?.length > 0) return;
+    dispatch(setPollylineCoordinates(coordinates));
+  };
+
+  const isOffRoute = (userLocation, polylineCoords, threshold = 50) => {
+    let minDistance = Infinity;
+
+    polylineCoords?.forEach((coord) => {
+      const distance = getDistance(
+        { latitude: userLocation.latitude, longitude: userLocation.longitude },
+        { latitude: coord.latitude, longitude: coord.longitude }
+      );
+      minDistance = Math.min(minDistance, distance);
+    });
+
+    return minDistance > threshold; // Returns true if user is off-route
+  };
+
+  const checkWrongRoute = async () => {
+    if (
+      newLiveCoordinates &&
+      completeRideDetails?.polltLineCoordinates?.length > 0 &&
+      completeRideDetails
+    ) {
+      if (
+        isOffRoute(
+          newLiveCoordinates,
+          completeRideDetails?.polltLineCoordinates
+        )
+      ) {
+        setRouteMapToggle(true);
+        const data = await wrongRouteSafeAndSecure({
+          orderId: completeRideDetails?._id,
+          token: token,
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    checkWrongRoute();
+  }, [newLiveCoordinates, completeRideDetails]);
+
+  // useEffect(() => {
+  //   if (newLiveCoordinates && otpVerified && completeRideDetails) {
+  //     const { latitude, longitude } = newLiveCoordinates;
+
+  //     if (!lastPositionRef.current) {
+  //       lastPositionRef.current = {
+  //         latitude,
+  //         longitude,
+  //         timestamp: Date.now(),
+  //       };
+  //       return;
+  //     }
+
+  //     const distance = getDistance(
+  //       { latitude, longitude },
+  //       {
+  //         latitude: lastPositionRef.current.latitude,
+  //         longitude: lastPositionRef.current.longitude,
+  //       }
+  //     );
+
+  //     if (distance <= 5) {
+  //       if (!stationaryTimerRef.current) {
+  //         stationaryTimerRef.current = setTimeout(() => {
+  //           setRouteMapToggle(true);
+  //         }, 5 * 60 * 1000); // 5 minutes
+  //       }
+  //     } else {
+  //       lastPositionRef.current = {
+  //         latitude,
+  //         longitude,
+  //         timestamp: Date.now(),
+  //       };
+  //       clearTimeout(stationaryTimerRef.current);
+  //       stationaryTimerRef.current = null;
+  //       setRouteMapToggle(false);
+  //     }
+  //   }
+
+  //   return () => clearTimeout(stationaryTimerRef.current);
+  // }, [newLiveCoordinates, otpVerified, completeRideDetails]);
 
   return (
-    <View style={{ flex: 1 }}>
-      <MapView
-        style={StyleSheet.absoluteFill}
-        initialRegion={startPoint}
-        ref={mapref}
-      >
-        {/* Start Point Marker */}
-        {!newLiveCoordinates && (
-          <Marker coordinate={startPoint} title="Start Point">
-            <FontAwesome name="map-pin" size={15} color="#EA4C89" />
-          </Marker>
-        )}
-
-        {/* End Point Marker */}
-        <Marker coordinate={endPoint} title="End Point">
-          <FontAwesome name="map-pin" size={15} color="green" />
-        </Marker>
-
-        {/* Animated Marker for Live Coordinates */}
-        {newLiveCoordinates &&
-          typeof newLiveCoordinates.latitude === "number" &&
-          typeof newLiveCoordinates.longitude === "number" && (
-            <Marker.Animated
-              coordinate={
-                newLiveCoordinates || startPoint // Fallback to startPoint if invalid
-              }
-              ref={markerRef}
-            >
-              <Image
-                source={bikeImg}
-                style={[
-                  styles.icon,
-                  {
-                    transform: [
-                      {
-                        rotate: `${
-                          typeof newLiveCoordinates.heading === "number"
-                            ? newLiveCoordinates.heading
-                            : 0
-                        }deg`,
-                      },
-                    ],
-                  },
-                ]}
-              />
-            </Marker.Animated>
+    <>
+      <View style={{ flex: 1 }}>
+        <MapView
+          style={StyleSheet.absoluteFill}
+          initialRegion={startPoint}
+          ref={mapref}
+        >
+          {!newLiveCoordinates && (
+            <Marker coordinate={startPoint} title="Start Point">
+              <FontAwesome name="map-pin" size={15} color="#EA4C89" />
+            </Marker>
           )}
 
-        {/* Directions Polyline */}
-        <MapViewDirections
-          apikey={GOOGLE_MAPS_APIKEY}
-          origin={
-            newLiveCoordinates?.latitude ? newLiveCoordinates : startPoint
-          }
-          destination={endPoint}
-          strokeWidth={2}
-          strokeColor="#EA4C89"
-          optimizeWaypoints={true}
+          <Marker coordinate={endPoint} title="End Point">
+            <FontAwesome name="map-pin" size={15} color="green" />
+          </Marker>
+
+          {newLiveCoordinates &&
+            typeof newLiveCoordinates.latitude === "number" &&
+            typeof newLiveCoordinates.longitude === "number" && (
+              <Marker.Animated
+                coordinate={
+                  newLiveCoordinates || startPoint // Fallback to startPoint if invalid
+                }
+                ref={markerRef}
+              >
+                <Image
+                  source={bikeImg}
+                  style={[
+                    styles.icon,
+                    {
+                      transform: [
+                        {
+                          rotate: `${
+                            typeof newLiveCoordinates.heading === "number"
+                              ? newLiveCoordinates.heading
+                              : 0
+                          }deg`,
+                        },
+                      ],
+                    },
+                  ]}
+                />
+              </Marker.Animated>
+            )}
+
+          <MapViewDirections
+            apikey={GOOGLE_MAPS_APIKEY}
+            origin={
+              newLiveCoordinates?.latitude ? newLiveCoordinates : startPoint
+            }
+            destination={endPoint}
+            strokeWidth={2}
+            strokeColor="#EA4C89"
+            optimizeWaypoints={true}
+            onReady={(result) => {
+              // setRouteCoordinates(result.coordinates);
+              handleSetPollyLineCoordinates(result.coordinates);
+            }}
+          />
+        </MapView>
+        <Map3Btns
+          handleOpenSafetyModal={() => {
+            setToggle(!toggle);
+          }}
+          handleZoomToggle={handleResetZoom}
+          mapIconsTop={200}
         />
-      </MapView>
-      <Map3Btns
-        handleOpenSafetyModal={() => {
-          setToggle(!toggle);
-        }}
-        handleZoomToggle={handleResetZoom}
-        mapIconsTop={200}
+        {toggle && <MapModalUi setToggle={setToggle} toggle={toggle} />}
+      </View>
+      <RouteChangeAlertModal
+        openCloseState={routeMapToggle && otpVerified}
+        // openCloseState={true}
+        setRouteMapTToggle={setRouteMapToggle}
       />
-      {toggle && <MapModalUi setToggle={setToggle} toggle={toggle} />}
-    </View>
+    </>
   );
 }
 

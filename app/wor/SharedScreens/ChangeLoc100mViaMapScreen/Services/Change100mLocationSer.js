@@ -1,6 +1,6 @@
 import Toast from "react-native-toast-message";
 import { API } from "../../../../../Constants/url";
-import moment from 'moment-timezone';
+import moment from "moment-timezone";
 
 export const onCheckMPin = async ({ token, mpin }) => {
   try {
@@ -57,18 +57,16 @@ export const bookingRide = async ({ token, orderDetails }) => {
   }
 };
 
-
 export const getFormattedDateTime = () => {
-  const indiaDateTime = moment().tz('Asia/Kolkata');
+  const indiaDateTime = moment().tz("Asia/Kolkata");
 
-    const formattedDate = indiaDateTime.format('DD-MM-YYYY');
+  const formattedDate = indiaDateTime.format("DD-MM-YYYY");
 
-    let formattedTime = indiaDateTime.format('h:mm:ss A');
-    formattedTime = formattedTime.toLowerCase(); 
+  let formattedTime = indiaDateTime.format("h:mm:ss A");
+  formattedTime = formattedTime.toLowerCase();
 
   return { formattedDate, formattedTime };
 };
-
 
 // Utility function to create order details for both parcel and ride screens
 export const createOrderDetails = ({
@@ -85,6 +83,7 @@ export const createOrderDetails = ({
   isSendOrReceiveParcel,
   time,
   paymentMethod,
+  pollyLineCoordinates,
 }) => {
   return isParcel
     ? {
@@ -127,6 +126,7 @@ export const createOrderDetails = ({
             : pickUpDetails?.vicinity,
         isSendOrReceiveParcel,
         paymentMethod,
+        pollyLineCoordinates,
         sendReceiverData: [
           {
             personName: profile?.name,
@@ -159,5 +159,6 @@ export const createOrderDetails = ({
         isSendOrReceiveParcel,
         time,
         paymentMethod,
+        pollyLineCoordinates,
       };
 };

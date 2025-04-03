@@ -40,7 +40,7 @@ const RideHistory = () => {
         <FlatList
           scrollEnabled
           data={rideHistory}
-          keyExtractor={(item) => item._id}
+          keyExtractor={(item) => `${item._id}-${item?.createdAt}`}
           renderItem={({ item }) => <RideHistoryItem ride={item} />}
           ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
           showsVerticalScrollIndicator={false}

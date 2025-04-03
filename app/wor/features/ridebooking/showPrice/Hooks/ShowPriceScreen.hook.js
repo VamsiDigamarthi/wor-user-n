@@ -62,10 +62,6 @@ export const useShowPriceScreenHook = () => {
     dispatch(setHowManyMens(0));
   }, []);
 
-  useEffect(() => {
-    calcPriceDetails();
-  }, [location, dropDetails]);
-
   const filteredVehicleList = useMemo(() => {
     if (!vehicleInfoWithDistanceDura) return [];
 
@@ -97,6 +93,10 @@ export const useShowPriceScreenHook = () => {
     setStoredSelectedVehicle(filterVichle);
   }, [vehicleInfoWithDistanceDura, selectedVehicleType]);
 
+  useEffect(() => {
+    calcPriceDetails();
+  }, [location, dropDetails]);
+
   const calcPriceDetails = async () => {
     try {
       // Fetch travel details for all vehicles in parallel
@@ -113,7 +113,22 @@ export const useShowPriceScreenHook = () => {
 
       // Calculate prices for all vehicles
       const results = travelDetails.map((vehicle) => {
-        const newPrice = handleCalculatePrices(vehicle, vehicle.vehicleType);
+        // console.log("priceDetails", priceDetails);
+
+        let vehcilePrices = priceDetails?.find(
+          (priceDe) =>
+            priceDe.vehicleType?.toLowerCase() ===
+            vehicle.vehicleType?.toLowerCase()
+        );
+
+        // console.log("vehcilePrices", vehcilePrices);
+
+        const newPrice = handleCalculatePrices(
+          vehicle,
+          vehicle.vehicleType,
+          vehcilePrices
+        );
+        // console.log("newPrice", newPrice);
 
         if (
           selectedVehicleType?.toLowerCase() ===
@@ -131,11 +146,44 @@ export const useShowPriceScreenHook = () => {
         };
       });
 
-      setVehicleInfoWithDistanceDura(results);
+      const carPrice = results.find(
+        (v) => v.vehicleType.toLowerCase() === "car"
+      )?.price;
+
+      const worPremiumPrice = results.find(
+        (v) => v.vehicleType.toLowerCase() === "wor-premium"
+      )?.price;
+
+      const updatedResults = results.map((vehicle) => {
+        if (vehicle.vehicleType.toLowerCase() === "bookany") {
+          //
+          let price =
+            carPrice && worPremiumPrice
+              ? `${carPrice}-${worPremiumPrice}`
+              : "N/A";
+
+          if (selectedVehicleType?.toLowerCase() === "bookany") {
+            dispatch(setPrice(price));
+            let paymentMethod =
+              +worPremiumPrice >= +profile?.walletBalance ? "cash" : "wallet";
+
+            dispatch(setPaymentMethod(paymentMethod));
+          }
+          return {
+            ...vehicle,
+            price: price,
+          };
+        }
+        return vehicle;
+      });
+
+      setVehicleInfoWithDistanceDura(updatedResults);
     } catch (error) {
       console.error("Error fetching travel details:", error);
     }
   };
+
+  // completed
   const calDisFromPickToDrop = async (vehicleType) => {
     try {
       const cacheKey = `${location?.lat}-${location?.lng}-${dropDetails?.location?.lat}-${dropDetails?.location?.lng}-${vehicleType}`;
@@ -165,45 +213,124 @@ export const useShowPriceScreenHook = () => {
     }
   };
 
-  const handleCalculatePrices = (result, vehicleType) => {
-    console.log(result, "----inside -----");
-
+  const handleCalculatePrices = (result, vehicleType, vehcilePrices) => {
     const { distance = "0.0 km", duration = 0 } = result || {};
 
     const [distanceValue] = distance?.split(" ").map(Number);
-    const baseFare = +priceDetails?.baseFare || 5;
 
-    // console.log(priceDetails ,"----priceDetails=====");
+    const baseFare =
+      vehcilePrices?.vehicleType === "scooty"
+        ? +vehcilePrices?.baseFare || 5
+        : +vehcilePrices?.baseFare * 1.14 || 10;
 
-    // const nightFare = +priceDetails?.nightFare || 0;
-    const platFormPrice = +priceDetails?.platformFee;
+    const platFormPrice = +vehcilePrices?.platformFee;
 
-    const price = calculateDistanceFare(distanceValue, baseFare);
-    const timeFare = calculateTimeFare(duration);
+    const price = calculateDistanceFare(
+      distanceValue,
+      baseFare,
+      vehcilePrices,
+      vehicleType
+    );
+
+    const timeFare = calculateTimeFare(duration, vehcilePrices);
 
     const isNightTime = checkNightTime();
-    const finalPrice = isNightTime
-      ? applyNightFare(price, timeFare, platFormPrice, baseFare)
-      : Math.ceil(price + timeFare + baseFare + platFormPrice);
+    let finalPrice;
+    const beforeNightSurgePrice = Math.ceil(price + timeFare + platFormPrice);
+
+    if (isNightTime) {
+      finalPrice = applyNightFare(beforeNightSurgePrice, vehcilePrices);
+    } else {
+      finalPrice = surgeFare(beforeNightSurgePrice, vehcilePrices);
+    }
+
+    // const finalPrice = isNightTime
+    //   ? applyNightFare(price, timeFare, platFormPrice, baseFare)
+    //   : Math.ceil(price + timeFare + baseFare + platFormPrice);
 
     return finalPrice;
   };
 
-  const calculateDistanceFare = (distance, baseFare) => {
-    if (distance <= 2) {
-      return 24 + baseFare - 5;
+  const calculateDistanceFare = (
+    distance,
+    baseFare,
+    vehcilePrices,
+    vehicleType
+  ) => {
+    if (
+      vehcilePrices?.vehicleType?.toLowerCase() === vehicleType?.toLowerCase()
+    ) {
+      console.log("distance", distance);
+
+      if (distance <= 2) {
+        return +vehcilePrices?.forTwoKm + baseFare - 5;
+      }
+      if (distance > 2 && distance <= 10) {
+        return distance * +vehcilePrices?.twoToTenKmPrice + baseFare;
+      }
+      return distance * +vehcilePrices?.tenToHunderPrice + baseFare;
+    } else if (
+      vehcilePrices?.vehicleType?.toLowerCase() === vehicleType?.toLowerCase()
+    ) {
+      if (distance <= 2) {
+        return +vehcilePrices?.forTwoKm + baseFare - 5;
+      }
+      if (distance > 2 && distance <= 20) {
+        return distance * +vehcilePrices?.twoToTenKmPrice + baseFare;
+      }
+      return distance * +vehcilePrices?.tenToHunderPrice + baseFare;
+    } else if (
+      vehcilePrices?.vehicleType?.toLowerCase() === vehicleType?.toLowerCase()
+    ) {
+      if (distance <= 2) {
+        return +vehcilePrices?.forTwoKm + baseFare - 5;
+      }
+      if (distance > 2 && distance <= 20) {
+        return distance * +vehcilePrices?.twoToTenKmPrice + baseFare;
+      }
+      return distance * +vehcilePrices?.tenToHunderPrice + baseFare;
+    } else if (
+      vehcilePrices?.vehicleType?.toLowerCase() === vehicleType?.toLowerCase()
+    ) {
+      if (distance <= 2) {
+        return +vehcilePrices?.forTwoKm + baseFare - 5;
+      }
+      if (distance > 2 && distance <= 20) {
+        return distance * +vehcilePrices?.twoToTenKmPrice + baseFare;
+      }
+      return distance * +vehcilePrices?.tenToHunderPrice + baseFare;
+    } else if (
+      vehcilePrices?.vehicleType?.toLowerCase() === vehicleType?.toLowerCase()
+    ) {
+      if (distance <= 2) {
+        return +vehcilePrices?.forTwoKm + baseFare - 5;
+      }
+      if (distance > 2 && distance <= 20) {
+        return distance * +vehcilePrices?.twoToTenKmPrice + baseFare;
+      }
+      return distance * +vehcilePrices?.tenToHunderPrice + baseFare;
+    } else if (
+      vehcilePrices?.vehicleType?.toLowerCase() ===
+        vehicleType?.toLowerCase() ||
+      "bookany"
+    ) {
+      return 56;
     }
-    if (distance > 2 && distance <= 5) {
-      return distance * 7.2 + baseFare - 5;
-    }
-    if (distance > 5 && distance <= 10) {
-      return distance * 7.2 + baseFare;
-    }
-    return distance * 8.2 + baseFare;
+
+    // if (distance <= 2) {
+    //   return 24 + baseFare - 5;
+    // }
+    // if (distance > 2 && distance <= 10) {
+    //   return distance * +priceDetails?.twoToTenKmPrice + baseFare;
+    // }
+    // // if (distance > 5 && distance <= 10) {
+    // //   return distance * 7.2 + baseFare;
+    // // }
+    // return distance * +priceDetails?.tenToHunderPrice + baseFare;
   };
 
-  const calculateTimeFare = (duration) => {
-    return +duration * 0.5;
+  const calculateTimeFare = (duration, vehcilePrices) => {
+    return +duration * +vehcilePrices?.timeFace;
   };
 
   const checkNightTime = () => {
@@ -213,15 +340,30 @@ export const useShowPriceScreenHook = () => {
     // return false
   };
 
-  const applyNightFare = (price, timeFare, platFormPrice, baseFare) => {
-    const totalPrice = Math.ceil(price + timeFare + platFormPrice, baseFare);
-    const randomPerc = getRandomNightFare();
-    const increasedAmount = Math.ceil((randomPerc / 100) * totalPrice);
-    return totalPrice + increasedAmount;
+  const applyNightFare = (beforeNightSurgePrice, vehcilePrices) => {
+    // const totalPrice = Math.ceil(price + timeFare + platFormPrice, baseFare);
+    const randomPerc = getRandomNightFare(vehcilePrices);
+    const increasedAmount = Math.ceil(
+      (randomPerc / 100) * beforeNightSurgePrice
+    );
+    return beforeNightSurgePrice + increasedAmount;
   };
 
-  const getRandomNightFare = () => {
-    const [min, max] = priceDetails?.nightFarePercentage || [0, 0];
+  const surgeFare = (beforeNightSurgePrice, vehcilePrices) => {
+    const randomPerc = getRandomSurgeFare(vehcilePrices);
+    const increasedAmount = Math.ceil(
+      (randomPerc / 100) * beforeNightSurgePrice
+    );
+    return beforeNightSurgePrice + increasedAmount;
+  };
+
+  const getRandomNightFare = (vehcilePrices) => {
+    const [min, max] = vehcilePrices?.nightFarePercentage || [0, 0];
+    return Math.ceil(Math.random() * (max - min) + min);
+  };
+
+  const getRandomSurgeFare = (vehcilePrices) => {
+    const [min, max] = vehcilePrices?.surgePricePercentage || [0, 0];
     return Math.ceil(Math.random() * (max - min) + min);
   };
 

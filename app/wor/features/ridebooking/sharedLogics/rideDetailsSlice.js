@@ -17,6 +17,7 @@ const initialState = {
   formateTime: null,
   completeRideDetails: null, // this will store entire ride data after captain accept the ride -- socket will listening and stored and snnd to otp verification screen
   paymentMethod: "wallet",
+  pollineCoordinates: [],
 };
 
 const allRideDetails = createSlice({
@@ -90,6 +91,10 @@ const allRideDetails = createSlice({
       state.paymentMethod = action.payload;
     },
 
+    setPollylineCoordinates: (state, action) => {
+      state.pollineCoordinates = action.payload;
+    },
+
     clearDropData: (state) => {
       state.initialDropDetails = null; // {}
       state.dropDetails = null; // {}
@@ -106,6 +111,7 @@ const allRideDetails = createSlice({
       state.time = null;
       state.formateTime = null;
       state.paymentMethod = "wallet";
+      state.pollineCoordinates = [];
     },
   },
 });
@@ -130,6 +136,7 @@ export const {
   setTime,
   setPaymentMethod,
   pickUpDetails,
+  setPollylineCoordinates,
 } = allRideDetails.actions;
 
 export default allRideDetails.reducer;

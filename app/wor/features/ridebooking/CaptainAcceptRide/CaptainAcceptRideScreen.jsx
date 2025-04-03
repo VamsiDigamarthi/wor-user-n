@@ -33,7 +33,6 @@ const CaptainAcceptRideScreen = () => {
     completeRideDetails,
     disFromCaptainLocToPick,
     disFromPickToDrop,
-    liveCoordinates,
     cancelOrderByUseSt,
     setCancelOrderByUseSt,
     kownBotSheetChangeUpOrDown,
@@ -96,7 +95,6 @@ const CaptainAcceptRideScreen = () => {
           selectedVehicleType={completeRideDetails?.vehicleType}
           origin={otpVerified ? pickUpCoordinates : captainCoordinates}
           destination={otpVerified ? dropCoordinates : pickUpCoordinates}
-          liveCoordinates={liveCoordinates}
           height={mapHeight}
           otpVerified={otpVerified}
           newLiveCoordinates={newLiveCoordinates}
