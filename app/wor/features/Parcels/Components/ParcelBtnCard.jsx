@@ -6,7 +6,7 @@ const ParcelBtnCard = ({ children, hasSoftwareNavigationBar }) => {
 
   return (
     <View
-      style={[styles.container, { bottom: hasSoftwareNavigationBar ? 30 : 0 }]}
+      style={[styles.container, { bottom: hasSoftwareNavigationBar ? 10 : 0 }]}
     >
       {children}
     </View>

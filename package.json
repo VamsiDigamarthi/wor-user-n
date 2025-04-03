@@ -83,6 +83,7 @@
     "react-native-webrtc": "^124.0.5",
     "react-redux": "^9.1.2",
     "redux-flipper": "^2.0.3",
+    "rn-swipe-button": "^3.0.1",
     "socket.io-client": "^4.8.1"
   },
   "devDependencies": {

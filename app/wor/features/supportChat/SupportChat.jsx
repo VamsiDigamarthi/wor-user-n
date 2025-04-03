@@ -29,8 +29,6 @@ const SupportChat = () => {
     handleScroll,
   } = useSupportChatHook();
 
-  console.log("imageSource", imageSource);
-
   return (
     <View style={styles.container}>
       <SupportChatHeader />

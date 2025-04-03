@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   mapContainer: {
     flex: 1,
     position: "relative",
-    bottom: 50,
+    // bottom: 50,
   },
   backbtn: {
     position: "absolute",

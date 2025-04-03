@@ -73,10 +73,10 @@ const ShowPriceDetailsModal = ({
         <Text style={styles.subText}>
           *Price may vary if you change pickup or drop location, toll areas,
         </Text>
-        <Text style={styles.subText}>
+        {/* <Text style={styles.subText}>
           {priceDetails?.twoToTenKmPrice} Rs/km till 10km,{" "}
           {priceDetails?.tenToHunderPrice} Rs/km post 10km
-        </Text>
+        </Text> */}
         <Text style={styles.subText}>
           Waiting charges after 3 mins of captain arrival is ₹1/min
         </Text>

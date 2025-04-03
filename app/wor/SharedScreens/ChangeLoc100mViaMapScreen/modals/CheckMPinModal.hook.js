@@ -21,6 +21,7 @@ export const useCheckMPinModalHook = ({ onOpenIsEnterConfirmPinModal }) => {
     howManyMens,
     time,
     paymentMethod,
+    pollineCoordinates,
   } = useSelector((state) => state.allRideDetails);
 
   const { socket, isConnected } = useSocket();
@@ -74,9 +75,8 @@ export const useCheckMPinModalHook = ({ onOpenIsEnterConfirmPinModal }) => {
       isSendOrReceiveParcel,
       time,
       paymentMethod,
+      pollyLineCoordinates: pollineCoordinates,
     });
-
-    console.log("orderDetails", orderDetails);
 
     const orderId = await bookingRide({ token, orderDetails });
     if (!orderId) return;

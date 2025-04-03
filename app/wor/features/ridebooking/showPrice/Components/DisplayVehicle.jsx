@@ -63,42 +63,58 @@ const DisplayVehicle = ({ vehicle }) => {
       <Pressable
         style={[
           styles.pressContainer,
+          // { backgroundColor: "red" },
           vehicle?.vehicleType?.toLowerCase() ===
             selectedVehicleType?.toLowerCase() && styles.pressedContainer,
         ]}
         onPress={handlePress} // Using handlePress to detect double press
       >
         <View style={[styles.container]}>
-          <Image style={styles.image} source={vehicle?.image} />
-          <View style={styles.textCard}>
-            <View style={styles.textWithPersonCard}>
-              <Text style={styles.vehicleType}>{vehicle?.displayName}</Text>
-              {vehicle?.isDisplayFastTag && <FastCard />}
-              {vehicle?.vehicleType?.toLowerCase() === selectedVehicleType && (
-                <View
-                  style={{ flexDirection: "row", gap: 2, alignItems: "center" }}
-                >
-                  <Fontisto name="female" size={15} color="black" />
-                  <Text style={{ fontSize: 15, color: "gray" }}>
-                    {vehicle?.personCount}
-                  </Text>
-                </View>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 10,
+              // backgroundColor: "yellow",
+              width: "82%",
+            }}
+          >
+            <Image style={styles.image} source={vehicle?.image} />
+            <View style={styles.textCard}>
+              <View style={styles.textWithPersonCard}>
+                <Text style={styles.vehicleType}>{vehicle?.displayName}</Text>
+                {vehicle?.isDisplayFastTag && <FastCard />}
+                {vehicle?.vehicleType?.toLowerCase() ===
+                  selectedVehicleType && (
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      gap: 2,
+                      alignItems: "center",
+                    }}
+                  >
+                    <Fontisto name="female" size={15} color="black" />
+                    <Text style={{ fontSize: 15, color: "gray" }}>
+                      {vehicle?.personCount}
+                    </Text>
+                  </View>
+                )}
+              </View>
+              <Text
+                style={[
+                  styles.captionText,
+                  { fontSize: 14, color: "#888", fontWeight: "600" },
+                ]}
+              >
+                {vehicle?.duration} Minutes away drop{" "}
+                {getDestinationTime(vehicle?.duration)}
+              </Text>
+              {vehicle?.isDisplayBeatTheTraffic && (
+                <Text style={styles.captionText}>
+                  Beat the traffic & Pay less
+                </Text>
               )}
             </View>
-            <Text
-              style={[
-                styles.captionText,
-                { fontSize: 14, color: "#888", fontWeight: "600" },
-              ]}
-            >
-              {vehicle?.duration} Minutes away drop{" "}
-              {getDestinationTime(vehicle?.duration)}
-            </Text>
-            {vehicle?.isDisplayBeatTheTraffic && (
-              <Text style={styles.captionText}>
-                Beat the traffic & Pay less
-              </Text>
-            )}
           </View>
           <View>
             <Text style={styles.price}>₹{vehicle?.price}</Text>
@@ -174,7 +190,7 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   textCard: {
-    width: "68%",
+    width: "64%",
     gap: 1,
   },
   textWithPersonCard: {

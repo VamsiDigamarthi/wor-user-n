@@ -52,9 +52,9 @@ const AllServices = () => {
         vehicle: "car",
       },
       {
-        label: "Auto",
-        image: autoImg,
-        vehicle: "auto",
+        label: "Book Any",
+        image: worMiniImg,
+        vehicle: "bookany",
       },
     ];
 
@@ -87,10 +87,10 @@ const AllServices = () => {
         isParcel: true,
       },
       {
-        label: "Parcel",
-        image: scrootyImg,
-        vehicle: null,
-        isParcel: true,
+        label: "Pro Max",
+        image: worMiniImg,
+        vehicle: "proMax",
+        isParcel: false,
       },
     ];
 

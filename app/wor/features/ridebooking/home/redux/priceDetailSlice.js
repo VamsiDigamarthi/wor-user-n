@@ -11,7 +11,7 @@ export const fetchPriceDetails = createAsyncThunk(
   "admin/price-details",
   async ({ _ }, { rejectWithValue }) => {
     try {
-      const response = await API.get("/price-details");
+      const response = await API.get("/price/price-details");
 
       return response.data;
     } catch (err) {

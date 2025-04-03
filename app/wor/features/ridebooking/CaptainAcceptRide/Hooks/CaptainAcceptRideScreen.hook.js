@@ -44,11 +44,11 @@ export const useCaptainAcceptRideScreenHook = () => {
   const [disFromCaptainLocToPick, setDisFromCaptainLocPick] = useState(null);
   const [disFromPickToDrop, setDisFromPickToDrop] = useState(null);
 
-  const [liveCoordinates, setLiveCoordinates] = useState({
-    lat: 0,
-    lng: 0,
-    heading: 0,
-  });
+  // const [liveCoordinates, setLiveCoordinates] = useState({
+  //   lat: 0,
+  //   lng: 0,
+  //   heading: 0,
+  // });
 
   const [newLiveCoordinates, setNewLiveCoordinates] = useState({
     latitude: completeRideDetails?.captainCoor?.[1] ?? 0,
@@ -73,21 +73,19 @@ export const useCaptainAcceptRideScreenHook = () => {
   };
 
   const handleLiveCoordinates = (coordinates) => {
-    if (!otpVerified) {
-      animateTheMarker(coordinates?.lat, coordinates?.lng);
-      setLiveCoordinates(coordinates, "----------from captain --------------");
-      setNewLiveCoordinates({
-        ...newLiveCoordinates,
-        latitude: coordinates?.lat,
-        longitude: coordinates?.lng,
-        heading: coordinates?.heading,
-      });
-    }
+    // if (!otpVerified) {
+    animateTheMarker(coordinates?.lat, coordinates?.lng);
+    // setLiveCoordinates(coordinates, "----------from captain --------------");
+    setNewLiveCoordinates({
+      ...newLiveCoordinates,
+      latitude: coordinates?.lat,
+      longitude: coordinates?.lng,
+      heading: coordinates?.heading,
+    });
+    // }
   };
 
   const handleCompleteRide = () => {
-    console.log("--------- ride completed -------------");
-
     navigation.dispatch(
       CommonActions.reset({
         index: 0, // Ensures the specified route is the only route in the stack
@@ -136,11 +134,9 @@ export const useCaptainAcceptRideScreenHook = () => {
 
   const getLiveLocation = async () => {
     if (otpVerified) {
-      console.log(otpVerified, "---------otpveri");
       const currentLocation = await Location.getCurrentPositionAsync({
         accuracy: Location.Accuracy.High,
       });
-      console.log(currentLocation, "-------------currentLocation");
 
       animateTheMarker(
         currentLocation.coords.latitude,
@@ -156,15 +152,15 @@ export const useCaptainAcceptRideScreenHook = () => {
     }
   };
 
-  useEffect(() => {
-    const id = setInterval(() => {
-      if (otpVerified) {
-        getLiveLocation();
-      }
-    }, 3000);
+  // useEffect(() => {
+  //   const id = setInterval(() => {
+  //     if (otpVerified) {
+  //       getLiveLocation();
+  //     }
+  //   }, 3000);
 
-    return () => clearInterval(id);
-  });
+  //   return () => clearInterval(id);
+  // });
 
   useEffect(() => {
     if (socket && isConnected) {
@@ -172,8 +168,8 @@ export const useCaptainAcceptRideScreenHook = () => {
       socket.on("order-arrived", onOrderArrived);
       socket.on("order-completed", handleCompleteRide);
 
-      if (!otpVerified)
-        socket.on("new-receive-coordinates", handleLiveCoordinates);
+      // if (!otpVerified)
+      socket.on("new-receive-coordinates", handleLiveCoordinates);
 
       socket.on("change-destination-status", handleChangeDestCaptainResponse);
       socket.on("accept-order-cancelled", cancelOrderByUser);
@@ -249,7 +245,7 @@ export const useCaptainAcceptRideScreenHook = () => {
     completeRideDetails,
     disFromCaptainLocToPick,
     disFromPickToDrop,
-    liveCoordinates,
+    // liveCoordinates,
     kownBotSheetChangeUpOrDown,
     cancelOrderByUseSt,
     setCancelOrderByUseSt,

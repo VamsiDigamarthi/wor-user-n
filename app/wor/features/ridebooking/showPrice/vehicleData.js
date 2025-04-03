@@ -21,6 +21,19 @@ export const vehicles = [
     vehicleType: "Car",
     displayName: "Wor Mini",
   },
+
+  // {
+  //   image: require("../../../../../assets/images/HomeServiceImages/auto.png"),
+  //   personCount: 3,
+  //   vehicleType: "Auto",
+  //   displayName: "Auto",
+  // },
+  {
+    image: require("../../../../../assets/images/HomeServiceImages/cab.png"),
+    personCount: 6,
+    vehicleType: "wor-premium",
+    displayName: "Wor Luxury",
+  },
   {
     image: require("../../../../../assets/images/HomeServiceImages/cab.png"),
     personCount: 4,
@@ -28,16 +41,10 @@ export const vehicles = [
     displayName: "Book Any",
   },
   {
-    image: require("../../../../../assets/images/HomeServiceImages/auto.png"),
-    personCount: 3,
-    vehicleType: "Auto",
-    displayName: "Auto",
-  },
-  {
     image: require("../../../../../assets/images/HomeServiceImages/cab.png"),
     personCount: 6,
-    vehicleType: "wor-premium",
-    displayName: "Wor Luxury",
+    vehicleType: "proMax",
+    displayName: "Pro Max",
   },
 ];
 
