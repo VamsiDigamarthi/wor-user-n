@@ -5,25 +5,10 @@ import ModalUI from "../../../../utiles/Modal/Modal";
 
 const StartRides = ({ setDisplayStartModal, isDispalyStartModal }) => {
   return (
-    // <Modal onRequestClose={setDisplayStartModal} animationType="slide">
-    //   <View style={[styles.modalContainer]}>
-    //     <View style={[styles.modalContent]}>
-    //       <Pressable style={styles.cross} onPress={setDisplayStartModal}>
-    //         <Entypo size={40} name="circle-with-cross" color="#fff" />
-    //       </Pressable>
-    //       <Image
-    //         source={require("../../../../../../assets/Ride Starts from.png")}
-    //         style={{ width: "100%", height: 500, resizeMode: "contain" }}
-    //       />
-    //     </View>
-    //   </View>
-    // </Modal>
     <ModalUI
       openCloseState={isDispalyStartModal}
       closeModalFun={setDisplayStartModal}
       modalStyle="slide"
-      // style={infoModalStyles.aadharModalStyles}
-      // insideCardStyle={[infoModalStyles.insideCardStyle]}
       closebtn={false}
       bgColor="transparent"
     >
@@ -31,8 +16,13 @@ const StartRides = ({ setDisplayStartModal, isDispalyStartModal }) => {
         <Pressable style={styles.cross} onPress={setDisplayStartModal}>
           <Entypo size={40} name="circle-with-cross" color="#fff" />
         </Pressable>
-        <Image
+        {/* <Image
           source={require("../../../../../../assets/Ride Starts from.png")}
+          style={{ width: "100%", height: 500, resizeMode: "contain" }}
+        /> */}
+
+        <Image
+          source={require("../../../../../../assets/1080_1350 Potrait 1.png")}
           style={{ width: "100%", height: 500, resizeMode: "contain" }}
         />
       </View>
@@ -54,7 +44,7 @@ const styles = StyleSheet.create({
   modalContent: {
     width: "100%",
     padding: 10,
-    // backgroundColor: "white",
+    // backgroundColor: "#fff",
     borderRadius: 10,
     alignItems: "flex-end",
     justifyContent: "flex-end",
@@ -63,8 +53,8 @@ const styles = StyleSheet.create({
   },
   cross: {
     position: "absolute",
-    top: 55,
-    right: -15,
+    top: 65,
+    right: -10,
     zIndex: 99,
   },
 });

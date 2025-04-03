@@ -58,7 +58,7 @@ export const useOtpHook = () => {
       const response = await API.post("/auth/verify-otp", {
         mobile: mobile,
         otp: otp?.replace(/\s/g, ""),
-        isUserApp: true,
+        isUserApp: false,
         deviceId,
       });
       setIsLoading(false);

@@ -13,9 +13,17 @@ export const useCustomerDrawerHook = () => {
   const handleItemPress = (itemName) => {
     navigation.navigate(itemName); // Navigate to the corresponding screen
   };
+  const worUserAppOpen = () => {
+    const url =
+      "https://play.google.com/store/apps/details?id=com.nuhvin.worcaptain"; // Replace with your desired URL
+    Linking.openURL(url).catch((err) =>
+      console.error("Failed to open URL:", err)
+    );
+  };
 
   return {
     openLink,
     handleItemPress,
+    worUserAppOpen,
   };
 };
