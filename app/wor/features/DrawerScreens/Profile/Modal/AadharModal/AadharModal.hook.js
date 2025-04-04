@@ -63,7 +63,7 @@ export const useAadharModalHook = () => {
     dispatch(onProfileSection({ token }));
   };
 
-  // Timer logic
+  // // Timer logic
   useEffect(() => {
     if (timer > 0) {
       const interval = setInterval(() => {

@@ -11,7 +11,10 @@ import Toast from "react-native-toast-message";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { fonts } from "../fonts/Fonts";
 import { CopyBoxImg } from "../Images/Home";
+import { useSelector } from "react-redux";
 export default function CopyBox() {
+  const { profile } = useSelector((state) => state.profileSlice);
+
   const copyToClipboard = (text) => {
     if (text) {
       Clipboard.setStringAsync(text);
@@ -28,9 +31,11 @@ export default function CopyBox() {
       </Text>
       <TouchableOpacity
         style={styles.copyBtn}
-        onPress={() => copyToClipboard("GOWOR")}
+        onPress={() => copyToClipboard(profile.ownRefCode)}
       >
-        <Text style={{ fontFamily: fonts.robotoBold }}>Code : GOWOR</Text>
+        <Text style={{ fontFamily: fonts.robotoBold }}>
+          Code : {profile?.ownRefCode}
+        </Text>
         <MaterialCommunityIcons name="content-copy" size={24} color="black" />
       </TouchableOpacity>
     </ImageBackground>

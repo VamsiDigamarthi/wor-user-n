@@ -2,12 +2,15 @@ import RazorpayCheckout from "react-native-razorpay";
 import { API } from "../../../Constants/url";
 import Toast from "react-native-toast-message";
 import { Alert } from "react-native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { onProfileSection } from "../features/ridebooking/home/redux/profileSlice";
 
 export const usePayments = () => {
   const { token, loading } = useSelector((state) => state.token);
 
   const { profile } = useSelector((state) => state.profileSlice);
+
+  const dispatch = useDispatch();
 
   async function addMoney(amount) {
     try {
@@ -26,6 +29,8 @@ export const usePayments = () => {
       );
 
       if (response.data.message == "Funds added successfully") {
+        dispatch(onProfileSection({ token }));
+
         Toast.show({
           text1: "Added Money Successful",
           text2: `Available Balance ${response?.data?.totalWalletBalance}`,

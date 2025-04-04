@@ -5,14 +5,16 @@ import MainCard from "./Components/MainCard";
 import InviteCard from "./Components/InviteCard";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 import RefHistory from "./Components/RefHistory";
+import { useSelector } from "react-redux";
 
 const ReferAndEarn = () => {
+  const { profile } = useSelector((state) => state.profileSlice);
   return (
     <AppBarLayout title="Refer And Earn" isPositionAppbar={true}>
       <View style={styles.innerContainer}>
-        <MainCard />
-        <InviteCard />
-        {/* <RefHistory /> */}
+        <MainCard refCode={profile?.ownRefCode} />
+        <InviteCard refCode={profile?.ownRefCode} />
+        <RefHistory />
       </View>
     </AppBarLayout>
   );

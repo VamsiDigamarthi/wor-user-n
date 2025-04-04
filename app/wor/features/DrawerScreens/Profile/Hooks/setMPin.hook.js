@@ -12,6 +12,9 @@ export const useSetMPinHook = ({ handleChangeSetMpin }) => {
   const [pin, setPin] = useState(["", "", "", ""]);
   const [newPin, setNewPin] = useState(["", "", "", ""]);
 
+  // const [mpinSuccessmodal, setMpinSuccessModal] = useState(true);
+  const [successModal, setSuccessModal] = useState(false);
+
   const isValidMPin = (pinArray) => {
     // Check if all fields are filled and no digits are repeated
     const uniqueDigits = new Set(pinArray);
@@ -70,10 +73,18 @@ export const useSetMPinHook = ({ handleChangeSetMpin }) => {
     if (validatePins()) {
       const data = await setNewmPin({ token, mpin: pin.join("") });
       if (!data) return;
+      // console.log("data", data);
+
       handleChangeSetMpin();
       setPin[("", "", "", "")];
       setNewPin(["", "", "", ""]);
+
+      setSuccessModal(true);
+
       dispatch(onProfileSection({ token }));
+      console.log(
+        "----------------------------------------------------------------------------------------"
+      );
     } else {
       console.log("Validation failed.");
     }
@@ -87,5 +98,8 @@ export const useSetMPinHook = ({ handleChangeSetMpin }) => {
     newPin,
     error,
     reEnterError,
+
+    successModal,
+    setSuccessModal,
   };
 };

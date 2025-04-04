@@ -6,29 +6,37 @@ import { useDispatch } from "react-redux";
 import { setToken } from "../../../../../redux/Features/Auth/LoginSlice";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 import { nearPlacesByText } from "../../../../../Constants/displaylocationmap";
+import { PlayInstallReferrer } from "react-native-play-install-referrer";
 
 export const useSignupForm = ({ mobile }) => {
   const [errors, setErrors] = useState({ name: "" });
   const [apiError, setApiError] = useState("");
-  const [refDetails, setRefDetails] = useState(null);
+  const [refCode, setRefCode] = useState("");
 
-  // Fetch refDetails from AsyncStorage
   useEffect(() => {
-    async function fetchRefData() {
-      try {
-        const storedData = await AsyncStorage.getItem("refdetails");
-        if (storedData) {
-          const parsedData = JSON.parse(storedData);
-          setRefDetails(parsedData); // Update refDetails state
-        } else {
-          console.log("No ref details found in AsyncStorage");
-        }
-      } catch (error) {
-        console.log("Error fetching ref details:", error);
-      }
-    }
+    PlayInstallReferrer.getInstallReferrerInfo((installReferrerInfo, error) => {
+      if (!error) {
+        console.log(
+          "Install referrer = " + installReferrerInfo.installReferrer
+        );
 
-    fetchRefData();
+        setRefCode(installReferrerInfo.installReferrer || "");
+        const referrerParams = new URLSearchParams(
+          installReferrerInfo.installReferrer
+        );
+        const referrerId = referrerParams.get("utm_content");
+        console.log("Referrer ID = " + referrerId);
+
+        console.log("UTM Source = " + referrerParams.get("utm_source"));
+        console.log("UTM Medium = " + referrerParams.get("utm_medium"));
+        console.log("UTM Campaign = " + referrerParams.get("utm_campaign"));
+        console.log("UTM Content = " + referrerParams.get("utm_content"));
+      } else {
+        console.log("Failed to get install referrer info!");
+        console.log("Response code: " + error.responseCode);
+        console.log("Message: " + error.message);
+      }
+    });
   }, []);
 
   // Initialize formData
@@ -36,20 +44,10 @@ export const useSignupForm = ({ mobile }) => {
     name: "",
     email: "",
     role: "user",
-    referalCode: "",
+    referalCode: refCode,
     mobile,
     refDetails: null, // Initialize refDetails as null
   });
-
-  // Update formData when refDetails changes
-  useEffect(() => {
-    if (refDetails) {
-      setFormData((prevData) => ({
-        ...prevData,
-        refDetails, // Update refDetails in formData
-      }));
-    }
-  }, [refDetails]); // Dependency on refDetails
 
   const [isLoading, setIsLoading] = useState(false);
   const [onOpenTextBasedLocationModal, setOnOpenTextBasedLocationModal] =

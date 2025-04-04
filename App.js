@@ -122,47 +122,30 @@ initializeNotifications();
 
 export default function App() {
   const [isConnected, setIsConnected] = useState(true);
-  const [refData, setRefData] = useState(null);
 
   useEffect(() => {
-    async function getRef() {
-      try {
-        PlayInstallReferrer.getInstallReferrerInfo(
-          (installReferrerInfo, error) => {
-            if (!error) {
-              setRefData(installReferrerInfo); // Update state
-            } else {
-              console.log("Failed to get install referrer info!");
-              console.log("Response code: " + error.responseCode);
-              console.log("Message: " + error.message);
-            }
-          }
+    PlayInstallReferrer.getInstallReferrerInfo((installReferrerInfo, error) => {
+      if (!error) {
+        console.log(
+          "Install referrer = " + installReferrerInfo.installReferrer
         );
-      } catch (error) {
-        console.log("Play install Error", error);
-      }
-    }
+        const referrerParams = new URLSearchParams(
+          installReferrerInfo.installReferrer
+        );
+        const referrerId = referrerParams.get("utm_content");
+        console.log("Referrer ID = " + referrerId);
 
-    getRef();
+        console.log("UTM Source = " + referrerParams.get("utm_source"));
+        console.log("UTM Medium = " + referrerParams.get("utm_medium"));
+        console.log("UTM Campaign = " + referrerParams.get("utm_campaign"));
+        console.log("UTM Content = " + referrerParams.get("utm_content"));
+      } else {
+        console.log("Failed to get install referrer info!");
+        console.log("Response code: " + error.responseCode);
+        console.log("Message: " + error.message);
+      }
+    });
   }, []);
-
-  // This useEffect will trigger whenever refData changes
-  useEffect(() => {
-    if (refData) {
-      // Only store if refData is not null
-      async function storeRefData() {
-        try {
-          await AsyncStorage.setItem("refdetails", JSON.stringify(refData));
-          console.log("refData stored successfully:", refData);
-        } catch (error) {
-          console.log("Error storing refData:", error);
-        }
-      }
-
-      storeRefData();
-    }
-  }, [refData]); // Dependency on refData
-
   useEffect(() => {
     async function onInAppMessage() {
       try {

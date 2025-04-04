@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.robotoSemiBold,
   },
   btContainer: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     paddingVertical: 30,
     width: "100%",
     gap: 10,

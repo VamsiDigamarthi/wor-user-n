@@ -39,10 +39,16 @@ const SignupScreen = () => {
           <AuthAppBar faqs="Signup" isLoginScreen={false} />
           <View style={styles.loginInnerCard}>
             <View style={{ width: "100%", gap: 10 }}>
-              <Text style={{ fontSize: 13, color: "gray", fontFamily:fonts.robotoRegular }}>
+              <Text
+                style={{
+                  fontSize: 13,
+                  color: "gray",
+                  fontFamily: fonts.robotoRegular,
+                }}
+              >
                 Please Fill Your
               </Text>
-              <Text style={{ fontSize: 22, fontFamily:fonts.robotoSemiBold}}>
+              <Text style={{ fontSize: 22, fontFamily: fonts.robotoSemiBold }}>
                 Basic Information
               </Text>
 
@@ -77,7 +83,14 @@ const SignupScreen = () => {
             </View>
           </View>
 
-          <View style={{ gap: 30, height: 100, backgroundColor: "#fff", alignItems:"center" }}>
+          <View
+            style={{
+              gap: 30,
+              height: 100,
+              backgroundColor: "#fff",
+              alignItems: "center",
+            }}
+          >
             <CustomBtn
               title="continue"
               btnBg={formData.name ? "#EA4C89" : "#f7f7f7"}

@@ -11,8 +11,10 @@ import AppBarLayout from "../../../ridebooking/sharedLogics/AppBarLayout";
 import AadharModal from "../Modal/AadharModal/AadharModal";
 import { useSelector } from "react-redux";
 import { fonts } from "../../../../fonts/Fonts";
+import AlreadyVerifiedModal from "../Modal/AadharModal/AlreadyVerifiedModal";
 export default function AadharNewScreen() {
   const [modalOpen, setModalOpen] = useState(false);
+  const [alreadyVerifiedModal, setAlreadyVerifiedModal] = useState(false);
 
   const { profile } = useSelector((state) => state.profileSlice);
 
@@ -36,6 +38,7 @@ export default function AadharNewScreen() {
           style={styles.card}
           onPress={() => {
             if (profile?.aadharCarVerificaation) {
+              setAlreadyVerifiedModal(true);
               return;
             }
             setModalOpen(true);
@@ -67,6 +70,11 @@ export default function AadharNewScreen() {
         openModal={modalOpen}
         closeModal={() => setModalOpen(!modalOpen)}
       />
+      {alreadyVerifiedModal && (
+        <AlreadyVerifiedModal
+          closeModal={() => setAlreadyVerifiedModal(!alreadyVerifiedModal)}
+        />
+      )}
     </AppBarLayout>
   );
 }

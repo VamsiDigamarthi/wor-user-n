@@ -1,4 +1,11 @@
-import { FlatList, Image, Pressable, StyleSheet, View } from "react-native";
+import {
+  FlatList,
+  Image,
+  KeyboardAvoidingView,
+  Pressable,
+  StyleSheet,
+  View,
+} from "react-native";
 import React from "react";
 import SupportChatHeader from "./Components/SupportChatHeader";
 import SupportInputCard from "./Components/SupportInputCard";
@@ -30,8 +37,13 @@ const SupportChat = () => {
   } = useSupportChatHook();
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1, position: "relative" }}
+    >
+      {/* <View style={styles.container}> */}
       <SupportChatHeader />
+
       <View style={{ flex: 1, paddingBottom: 100, position: "relative" }}>
         <FlatList
           ref={mref}
@@ -78,7 +90,8 @@ const SupportChat = () => {
           isPlaying={isPlaying}
         />
       )}
-    </View>
+      {/* </View> */}
+    </KeyboardAvoidingView>
   );
 };
 

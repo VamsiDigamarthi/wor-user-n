@@ -12,7 +12,7 @@ import { mainImg } from "../../../../Images/ReferAndEarnImages";
 import * as Clipboard from "expo-clipboard";
 import { useState } from "react";
 import { fonts } from "../../../../fonts/Fonts";
-export default function MainCard() {
+export default function MainCard({ refCode }) {
   const [text, setText] = useState("GOWOR");
 
   const copyToClipboard = () => {
@@ -36,7 +36,7 @@ export default function MainCard() {
         <Text style={styles.mainText}>25% off for them</Text>
 
         <TouchableOpacity onPress={copyToClipboard} style={styles.copyBtn}>
-          <Text style={{ fontFamily: fonts.robotoSemiBold }}>GOWOR</Text>
+          <Text style={{ fontFamily: fonts.robotoSemiBold }}>{refCode}</Text>
           <MaterialCommunityIcons name="content-copy" size={24} color="#000" />
         </TouchableOpacity>
       </View>

@@ -1,5 +1,5 @@
 import { Image, Platform, StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NotificationItem from "./Components/NotificationItem";
 import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
 import { useNavigation } from "@react-navigation/native";
@@ -10,19 +10,41 @@ import {
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 import { fonts } from "../../../fonts/Fonts";
 import { COLORS } from "../../../../../Constants/colors";
+import { API } from "../../../../../Constants/url";
+import { useSelector } from "react-redux";
 
 const Notification = () => {
-
   const navigation = useNavigation();
   const [notification, setNotification] = useState([]);
+  const { token } = useSelector((state) => state.token);
+
+  useEffect(() => {
+    const getNotifications = async () => {
+      const response = await API.get("/user/getnotifications", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setNotification(response.data);
+    };
+
+    getNotifications();
+  }, []);
+
   return (
     <AppBarLayout title="Notification" isPositionAppbar={true}>
-      <View style={[styles.innerContainer,{paddingTop : Platform.OS=="ios" ? 110 : 95}]}>
+      <View
+        style={[
+          styles.innerContainer,
+          { paddingTop: Platform.OS == "ios" ? 110 : 95 },
+        ]}
+      >
         {notification.length > 0 ? (
           <>
-            <NotificationItem />
-            <NotificationItem />
-            <NotificationItem />
+            {notification.map((e, index) => (
+              <NotificationItem key={index} data={e} />
+            ))}
           </>
         ) : (
           <View style={styles.noNotification}>
@@ -49,8 +71,8 @@ const styles = StyleSheet.create({
     gap: 15,
     paddingVertical: 10,
     paddingTop: 90,
-    flex:1,
-    backgroundColor:COLORS.mainBackgroundColor
+    flex: 1,
+    backgroundColor: COLORS.mainBackgroundColor,
   },
   noNotification: {
     justifyContent: "center",
@@ -67,6 +89,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#EA4C89",
     // fontWeight: "600",
-    fontFamily:fonts.robotoSemiBold
+    fontFamily: fonts.robotoSemiBold,
   },
 });

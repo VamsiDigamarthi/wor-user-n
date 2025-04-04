@@ -106,7 +106,8 @@ const PersonalInfoPreview = () => {
           <ProfileTextCard
             text={
               profile?.address ||
-              `${profile?.aadharCardDetails?.address?.house} , ${profile?.aadharCardDetails?.address?.village} , ${profile?.aadharCardDetails?.address?.village}`
+              `${profile?.aadharCardDetails?.address?.house} , ${profile?.aadharCardDetails?.address?.village} , ${profile?.aadharCardDetails?.address?.village}` ||
+              ""
             }
             title="Address"
             edit={true}

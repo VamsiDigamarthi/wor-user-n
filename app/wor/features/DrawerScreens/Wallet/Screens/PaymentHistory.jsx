@@ -35,6 +35,7 @@ export default function PaymentHistory({ navigation }) {
             amount={item?.amount}
             desc={item.description}
             type={item?.type}
+            status={item?.type}
           />
         )}
         ItemSeparatorComponent={() => <View style={{ height: 10 }} />}

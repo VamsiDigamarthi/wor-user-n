@@ -1,4 +1,4 @@
-import { View, StyleSheet,Platform } from "react-native";
+import { View, StyleSheet, Platform } from "react-native";
 import AppBarLayout from "../../../ridebooking/sharedLogics/AppBarLayout";
 import SetMPin from "../Components/SetMPin";
 import ForgotMPin from "../Components/ForgotMPin";
@@ -18,7 +18,12 @@ export default function MpinScreen() {
 
   return (
     <AppBarLayout title="M-Pin" isPositionAppbar={true}>
-      <View style={[styles.container, {paddingTop : Platform.OS=="ios" ? 110 : 100}]}>
+      <View
+        style={[
+          styles.container,
+          { paddingTop: Platform.OS == "ios" ? 110 : 100 },
+        ]}
+      >
         {mPinDisplay ? (
           <SetMPin handleChangeSetMpin={handleChangeSetMpin} />
         ) : (
@@ -36,7 +41,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingTop: 100,
     gap: 10,
-    backgroundColor:"#f7f7f7"
+    backgroundColor: "#f7f7f7",
   },
   heading: {
     fontWeight: "bold",

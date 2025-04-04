@@ -4,6 +4,8 @@ import {
   Keyboard,
   View,
   TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ChatHead from "./ChatHead";
@@ -130,34 +132,42 @@ const ChatScreen = () => {
   }, [messages]);
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.container}>
-        {/* <StatusBar style="dark" /> */}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1 }}
+    >
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.container}>
+          {/* <StatusBar style="dark" /> */}
 
-        <ChatHead captainDetails={captainDetails} isWorSupport={isWorSupport} />
-        <View style={{ padding: 10, marginBottom: 170 }}>
-          <FlatList
-            ref={mref}
-            data={messages}
-            keyExtractor={(item, index) => item.timestamp + index} // Ensure uniqueness by appending index
-            renderItem={({ item }) => (
-              <ChatMessage
-                text={item.text}
-                type={item.sender}
-                captainProfilePic={captainDetails?.profilePic}
-              />
-            )}
-            showsVerticalScrollIndicator={false}
+          <ChatHead
+            captainDetails={captainDetails}
+            isWorSupport={isWorSupport}
+          />
+          <View style={{ padding: 10, marginBottom: 170 }}>
+            <FlatList
+              ref={mref}
+              data={messages}
+              keyExtractor={(item, index) => item.timestamp + index} // Ensure uniqueness by appending index
+              renderItem={({ item }) => (
+                <ChatMessage
+                  text={item.text}
+                  type={item.sender}
+                  captainProfilePic={captainDetails?.profilePic}
+                />
+              )}
+              showsVerticalScrollIndicator={false}
+            />
+          </View>
+          <ChatInput
+            setMessage={setMessage}
+            message={message}
+            handleSendMessage={handleSendMessage}
+            hasSoftwareNavigationBar={hasSoftwareNavigationBar}
           />
         </View>
-        <ChatInput
-          setMessage={setMessage}
-          message={message}
-          handleSendMessage={handleSendMessage}
-          hasSoftwareNavigationBar={hasSoftwareNavigationBar}
-        />
-      </View>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 
