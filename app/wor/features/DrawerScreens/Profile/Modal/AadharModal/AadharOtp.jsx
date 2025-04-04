@@ -9,17 +9,13 @@ const AadharOtp = ({
   otp,
   setOtp,
   handleSubmitOtp,
-  text = "Linked to your Aadhar +91 1234567890",
+  text = "",
   isLoading,
   otpError,
   resendAvailable,
   handleResendOtp,
   timer,
 }) => {
-  useEffect(() => {
-    console.log("isLoadin 0000000000000000000000000000g", isLoading);
-  }, [isLoading]);
-
   return (
     <View style={styles.bottomCardContainer}>
       <View style={styles.Card}>
@@ -69,7 +65,7 @@ export default AadharOtp;
 const styles = StyleSheet.create({
   bottomCardContainer: {
     width: "100%",
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     paddingVertical: 20,
     gap: 15,
   },

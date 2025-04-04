@@ -18,7 +18,7 @@ const MPinMobileNumberModal = ({
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { resendAvailable, handleResendOtp , timer} = useAadharModalHook();
+  const { resendAvailable, handleResendOtp, timer } = useAadharModalHook();
 
   const handleSubmitOtp = async () => {
     setIsLoading(true);
@@ -40,23 +40,29 @@ const MPinMobileNumberModal = ({
       insideCardStyle={infoModalStyles.insideCardStyle}
       closebtn={false}
     >
-      {isMobileOrOtp ? (
-        <AadharOtp
-        resendAvailable={resendAvailable}
-        handleResendOtp={handleResendOtp}
-          otp={otp}
-          setOtp={setOtp}
-          handleSubmitOtp={handleSubmitOtp}
-          isLoading={isLoading}
-          timer={timer}
-        />
-      ) : (
-        <MPinMobileNumber
-          setMobile={setMobile}
-          mobile={mobile}
-          setIsMobileOrOtp={setIsMobileOrOtp}
-        />
-      )}
+      <View style={{ width: "100%" }}>
+        {isMobileOrOtp ? (
+          <>
+            <AadharOtp
+              resendAvailable={resendAvailable}
+              handleResendOtp={handleResendOtp}
+              otp={otp}
+              setOtp={setOtp}
+              handleSubmitOtp={handleSubmitOtp}
+              isLoading={isLoading}
+              timer={timer}
+            />
+          </>
+        ) : (
+          <>
+            <MPinMobileNumber
+              setMobile={setMobile}
+              mobile={mobile}
+              setIsMobileOrOtp={setIsMobileOrOtp}
+            />
+          </>
+        )}
+      </View>
     </ModalUI>
   );
 };

@@ -40,7 +40,7 @@ export default function MainCard({ avgRating }) {
           }}
         >
           <Image source={mainImg} style={styles.img} />
-          <StarRating rating={5} color="#F9D470" width="70%" />
+          {/* <StarRating rating={5} color="#F9D470" width="70%" /> */}
         </View>
       </View>
     </LinearGradient>
@@ -61,15 +61,15 @@ const styles = StyleSheet.create({
 
   heading: {
     // fontWeight: "bold",
-    fontFamily:fonts.robotoSemiBold,
+    fontFamily: fonts.robotoSemiBold,
     fontSize: 20,
     color: "#fff",
   },
 
   subText: {
     color: "#000",
-    fontFamily:fonts.robotoRegular,
-    fontSize:10,
+    fontFamily: fonts.robotoRegular,
+    fontSize: 10,
   },
 
   secondCard: {

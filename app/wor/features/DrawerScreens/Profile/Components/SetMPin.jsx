@@ -12,6 +12,7 @@ import OtpUi from "../../../../utiles/OtpUi";
 import CustomBtn from "../../../../utiles/CustomBtn";
 import { useSetMPinHook } from "../Hooks/setMPin.hook";
 import { fonts } from "../../../../fonts/Fonts";
+import MpinSuccessModal from "../Modal/MPinModal/MpinSuccessModal";
 
 const SetMPin = ({ handleChangeSetMpin }) => {
   const {
@@ -22,6 +23,8 @@ const SetMPin = ({ handleChangeSetMpin }) => {
     newPin,
     error,
     reEnterError,
+    successModal,
+    setSuccessModal,
   } = useSetMPinHook({ handleChangeSetMpin });
 
   return (
@@ -80,6 +83,10 @@ const SetMPin = ({ handleChangeSetMpin }) => {
                 ? "#fff"
                 : "#EA4C89"
             }
+          />
+          <MpinSuccessModal
+            successModal={successModal}
+            closeModal={() => setSuccessModal(!successModal)}
           />
         </View>
       </KeyboardAvoidingView>

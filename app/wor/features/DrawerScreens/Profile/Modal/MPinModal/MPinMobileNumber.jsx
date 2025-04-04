@@ -77,7 +77,7 @@ export default MPinMobileNumber;
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     paddingVertical: 25,
     gap: 10,
     width: "100%",
