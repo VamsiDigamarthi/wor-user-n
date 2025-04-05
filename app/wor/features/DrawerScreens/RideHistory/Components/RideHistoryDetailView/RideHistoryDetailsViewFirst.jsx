@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Image,
   Pressable,
   StyleSheet,
@@ -19,14 +20,18 @@ import PickDropCard from "../PickDropCard";
 import { API } from "../../../../../../../Constants/url";
 import { showMessage } from "react-native-flash-message";
 import Toast from "react-native-toast-message";
+import SendToMailModal from "../../Modals/SendToMailModal";
+import { useState } from "react";
 
 const RideHistoryDetailsViewFirst = ({ ride }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const { token } = useSelector((state) => state.token);
   const { profile } = useSelector((state) => state.profileSlice);
-
+  const [openSendMailModal, setOpenSendMailModal] = useState(false);
   const { rideHistory } = useSelector((state) => state.rideHistory);
+  const [loading, setLoading] = useState(false);
+
   const handleRideDeleteRequest = async () => {
     const data = await rideDeleteRequest({ token, orderId: ride._id });
 
@@ -58,24 +63,23 @@ const RideHistoryDetailsViewFirst = ({ ride }) => {
     }
 
     try {
+      setLoading(true);
       const response = await API.post(`/contact/get-invoice`, {
         orderId: rideId,
         email: profile?.email,
       });
-
-      Toast.show({
-        text1: "Invoice sent to Mail",
-        type: "success",
-        position: "bottom",
-      });
+      setLoading(false);
+      setOpenSendMailModal(true);
     } catch (error) {
       // console.log(error?.message);
-
+      setLoading(false);
       Toast.show({
         text1: "Somthing Went Wrong, Please check your Mail or Try again Later",
         type: "error",
         position: "bottom",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -153,11 +157,26 @@ const RideHistoryDetailsViewFirst = ({ ride }) => {
               <Text style={styles.semiBoldText}>Total Fare Price</Text>
               <Text style={styles.semiBoldText}>₹ {ride?.price}</Text>
             </View>
+            <View style={styles.row}>
+              <Text style={styles.semiBoldText}>Paid Using</Text>
+              <Text style={styles.semiBoldText}>
+                {ride?.paymentMethod === "wallet" ? "Wallet" : "Cash / Upi"}
+              </Text>
+            </View>
           </View>
         )}
 
         {ride?.status !== "cancelled" && (
-          <SendMailCard onclick={() => sendInvoiceToMail(ride?._id)} />
+          <SendMailCard
+            loading={loading}
+            onclick={() => sendInvoiceToMail(ride?._id)}
+          />
+        )}
+
+        {openSendMailModal && (
+          <SendToMailModal
+            closeModal={() => setOpenSendMailModal(!openSendMailModal)}
+          />
         )}
       </View>
     </>
@@ -193,7 +212,7 @@ const styles = StyleSheet.create({
   },
   semiBoldText: {
     // fontWeight: "400",
-    fontFamily: fonts.robotoRegular,
+    fontFamily: fonts.robotoMedium,
   },
 
   ratingCard: {
@@ -230,26 +249,34 @@ const styles = StyleSheet.create({
 
 // LOG  {"__v": 0, "_id": "6789de43b2a38945750b755b", "acceptCaptain": "677baea903ee6a2bce9ba2fc", "attempts": 0, "captainCoor": {"lat": 17.4587204, "lng": 78.3705279}, "createdAt": "2025-01-17T04:36:19.522Z", "drop": {"coordinates": [78.47724389999999, 17.406498], "type": "Point"}, "dropAddress": "Hyderabad", "dropVicinity": "Hyderabad", "extraCharge": 0, "favorite": false, "futureTime": "1970-01-01T00:00:00.000Z", "giveVehicleNumber": true, "head": "6749a9027b55da22a2c3c379", "howManyMans": 0, "isArrived": true, "mensProblem": false, "onNaviagtionChange": false, "orderOtp": 1437, "orderOtpVerified": true, "orderPlaceDate": "17-1-2025", "orderPlaceTime": "10:06:18 am", "pickup": {"coordinates": [78.3705148, 17.4586952], "type": "Point"}, "pickupAddress": "HCL Technologies, G -1, near Google Office, Kothaguda, Hyderabad, Telangana 500084, India", "price": 89, "ratings": [], "receivedAmount": false, "rejectedCaptaine": [], "saved": false, "sendReceiverData": [], "status": "completed", "time": "", "updatedAt": "2025-01-17T04:38:41.202Z", "useScheduleActualTime": null, "userAuthenticationImage": null, "vehicleType": "scooty"}
 
-const SendMailCard = ({ onclick }) => {
-  return (
-    <TouchableOpacity style={styles.sendMailCard} onPress={onclick}>
-      <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
-        <Feather
-          name="mail"
-          size={20}
-          color="#6277e3"
-          style={{ marginTop: 2 }}
-        />
-        <Text style={{ color: "#6277e3", fontSize: 14, fontWeight: "600" }}>
-          Send Via Email
-        </Text>
+const SendMailCard = ({ onclick, loading }) => {
+  return loading ? (
+    <>
+      <View>
+        <ActivityIndicator color={"#EA4C89"} size={30} />
       </View>
-      <FontAwesome6
-        name="share-from-square"
-        size={17}
-        color={COLORS.subHeading}
-        style={{ marginTop: 3 }}
-      />
-    </TouchableOpacity>
+    </>
+  ) : (
+    <>
+      <TouchableOpacity style={styles.sendMailCard} onPress={onclick}>
+        <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
+          <Feather
+            name="mail"
+            size={20}
+            color="#6277e3"
+            style={{ marginTop: 2 }}
+          />
+          <Text style={{ color: "#6277e3", fontSize: 14, fontWeight: "600" }}>
+            Send Via Email
+          </Text>
+        </View>
+        <FontAwesome6
+          name="share-from-square"
+          size={17}
+          color={COLORS.subHeading}
+          style={{ marginTop: 3 }}
+        />
+      </TouchableOpacity>
+    </>
   );
 };

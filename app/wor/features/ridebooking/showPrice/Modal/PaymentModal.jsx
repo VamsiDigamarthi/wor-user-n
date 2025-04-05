@@ -40,6 +40,6 @@ const styles = StyleSheet.create({
     borderColor: "#757575",
   },
   container: {
-    paddingHorizontal: 10,
+    // paddingHorizontal: 10,
   },
 });

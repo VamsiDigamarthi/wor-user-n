@@ -21,7 +21,9 @@ export default function PaymentHistory({ navigation }) {
     getWalletTransactions();
   }, []);
 
-  // console.log(trxns);
+  console.log(trxns, "---------------trancasj-------------------");
+
+  // {"__v": 0, "_id": "67f0ca125c5e0f5f3c47aaa2", "amount": 41, "createdAt": "2025-04-05T06:13:38.209Z", "date": "2025-04-05T06:13:38.208Z", "description": "Deducted for Order", "trxnType": "ride", "type": "debit", "updatedAt": "2025-04-05T06:13:38.209Z", "userId": "677cc42947aac41f9ff808f9"}
 
   return (
     <AppBarLayout title="Payment History" isPositionAppbar={true}>
@@ -31,11 +33,11 @@ export default function PaymentHistory({ navigation }) {
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
           <PaymentHistoryCard
-            date={item.date}
             amount={item?.amount}
+            date={item.date}
             desc={item.description}
-            type={item?.type}
             status={item?.type}
+            trxnType={item?.trxnType}
           />
         )}
         ItemSeparatorComponent={() => <View style={{ height: 10 }} />}

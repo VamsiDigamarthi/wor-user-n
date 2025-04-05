@@ -1,15 +1,20 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-import { Entypo } from "@expo/vector-icons";
+import { Entypo, Fontisto } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { fonts } from "../../../../fonts/Fonts";
-import { ScootyImg, AutoImg, CabImg } from "../../../../Images/Universal";
 
 const RideHistoryItem = ({
-  status = "debit",
-  type = "car",
+  // status = "debit",
+  // type = "car",
   isFavoriteOrRideHistory = true,
-  amount = "",
-  date = "",
+  // amount = "",
+  // date = "",
+
+  amount,
+  date,
+  desc,
+  status,
+  trxnType,
 }) => {
   const navigation = useNavigation();
 
@@ -23,21 +28,28 @@ const RideHistoryItem = ({
           width: "80%",
         }}
       >
-        <Image
-          source={type == "car" ? CabImg : type == "auto" ? AutoImg : ScootyImg}
+        {/* <Image
+          source={trxnType == "ride" ? RideHistoryImg : smallwallet}
           style={styles.Image}
-        />
+        /> */}
+
+        {trxnType === "ride" ? (
+          <Fontisto name="history" size={30} color="#EA4C89" />
+        ) : (
+          <Entypo name="wallet" size={30} color="#EA4C89" />
+        )}
+
         <View style={styles.midContainer}>
           <Text
             style={styles.dropAddress}
             numberOfLines={1}
             ellipsizeMode="tail"
           >
-            Kphb Metro
+            {desc}
           </Text>
-          <Text style={styles.subAddr} numberOfLines={1} ellipsizeMode="tail">
+          {/* <Text style={styles.subAddr} numberOfLines={1} ellipsizeMode="tail">
             UPI
-          </Text>
+          </Text> */}
           <Text style={styles.time}>{new Date(date).toDateString()}</Text>
         </View>
       </View>
@@ -69,8 +81,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   Image: {
-    height: 50,
-    width: 50,
+    height: 36,
+    width: 36,
     resizeMode: "contain",
   },
   midContainer: {
@@ -106,7 +118,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between", // Centers status text
   },
   status: {
-    fontSize: 12,
+    fontSize: 16,
     fontWeight: "bold",
     color: "#4CAF50",
   },

@@ -8,6 +8,8 @@ import { onProfileSection } from "../features/ridebooking/home/redux/profileSlic
 export const usePayments = () => {
   const { token, loading } = useSelector((state) => state.token);
 
+  // console.log(token);
+
   const { profile } = useSelector((state) => state.profileSlice);
 
   const dispatch = useDispatch();
@@ -112,7 +114,7 @@ export const usePayments = () => {
       const { order_id } = response.data;
 
       const options = {
-        key: "rzp_live_zbmR4QaoePLouz",
+        key: "rzp_test_zCMFNwSBlZt1gx",
         amount: amount,
         currency: "INR",
         name: "Adding Money To Wallet",

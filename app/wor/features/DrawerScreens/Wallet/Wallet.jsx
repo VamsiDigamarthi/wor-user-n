@@ -25,6 +25,11 @@ function Wallet() {
   const [amount, setAmount] = useState(0);
   const { addToWallet, profile } = usePayments();
 
+  const handleAddWallet = () => {
+    addToWallet(amount);
+    setOpen(!open);
+  };
+
   return (
     <AppBarLayout title="E-Wallet" isPositionAppbar>
       <View
@@ -97,7 +102,7 @@ function Wallet() {
               </View>
               <CustomBtn
                 width="100%"
-                onPress={() => addToWallet(amount)}
+                onPress={handleAddWallet}
                 title="Continue"
                 btnBg={amount ? "#EA4C89" : "#F7F7F7"}
                 btnColor={amount ? "#fff" : "#000"}

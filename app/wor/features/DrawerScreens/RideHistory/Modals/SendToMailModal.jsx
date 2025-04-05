@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
-import ModalUI from "../../../../../utiles/Modal/Modal";
-import { infoModalStyles } from "../../../../../../../Components/InfoUi/Styles/InfoModalStyles";
-import alreadyVerifiedImage from "../../../../../../../assets/genderVerified.png";
-import CustomBtn from "../../../../../utiles/CustomBtn";
+import ModalUI from "../../../../utiles/Modal/Modal";
+import { infoModalStyles } from "../../../../../../Components/InfoUi/Styles/InfoModalStyles";
+import MailImg from "../../../../../../assets/MailIcon.png";
+import CustomBtn from "../../../../utiles/CustomBtn";
 
-export default function AlreadyVerifiedModal({ closeModal }) {
+export default function SendToMailModal({ closeModal }) {
   return (
     <ModalUI
       closeModalFun={closeModal}
@@ -15,8 +15,11 @@ export default function AlreadyVerifiedModal({ closeModal }) {
       closebtn={false}
     >
       <View style={styles.container}>
-        <Image source={alreadyVerifiedImage} style={styles.image} />
-        <Text style={styles.text}>Gender Identity Already Verified</Text>
+        <Image source={MailImg} style={styles.image} />
+        <Text style={styles.text}>Invoice Sent to Mail</Text>
+        <Text style={{ textAlign: "center" }}>
+          Please check your registered email for the invoice details.
+        </Text>
         <View style={{ width: "100%" }}>
           <CustomBtn
             onPress={closeModal}

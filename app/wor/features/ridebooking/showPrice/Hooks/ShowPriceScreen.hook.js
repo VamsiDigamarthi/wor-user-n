@@ -15,6 +15,7 @@ import moment from "moment-timezone";
 
 export const useShowPriceScreenHook = () => {
   const travelDetailsCache = useRef({});
+  // dispatch(setPaymentMethod(method));
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
