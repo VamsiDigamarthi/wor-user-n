@@ -1,110 +1,156 @@
 // SliderComponent.js
 import React from "react";
-import { StyleSheet, View, Image, Text } from "react-native";
-import Swiper from "react-native-swiper";
-import { fonts } from "../../../../fonts/Fonts";
+import {
+  StyleSheet,
+  View,
+  Image,
+  Dimensions,
+  Animated,
+  Text,
+} from "react-native";
+import Carousel from "react-native-reanimated-carousel";
+import { ExpandingDot } from "react-native-animated-pagination-dots";
 
-const SliderComponent = ({ bottom = 2 }) => {
+const screenWidth = Dimensions.get("window").width;
+
+const SliderComponent = () => {
   const slides = [
     {
       id: 1,
-      image:
-        "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
+      image: require("../../../../../../assets/bannerimages/scootyBanner.png"),
       title: "Scooty",
       desc: "Scooty Prices have been dropped",
     },
     {
       id: 2,
-      image:
-        "https://t3.ftcdn.net/jpg/06/15/49/68/360_F_615496890_W34yB8VDE6n5pehb5QCt1ek5oEvRo9qA.jpg",
+      image: require("../../../../../../assets/bannerimages/cabBanner.png"),
       title: "Cab",
       desc: "Affordable 4 Seaters",
     },
     {
       id: 3,
-      image:
-        "https://t3.ftcdn.net/jpg/06/15/49/68/360_F_615496890_W34yB8VDE6n5pehb5QCt1ek5oEvRo9qA.jpg",
+      image: require("../../../../../../assets/bannerimages/autoBanner.png"),
       title: "Auto",
       desc: "Travel to Local places easily",
     },
+    {
+      id: 4,
+      image: require("../../../../../../assets/bannerimages/parcelBanner.png"),
+      title: "Parcel",
+      desc: "Travel to Local places easily",
+    },
+    {
+      id: 5,
+      image: require("../../../../../../assets/bannerimages/companyBanner.png"),
+      title: "",
+      desc: "",
+    },
   ];
 
+  // Create a scrollX value to track the carousel's scroll position
+  const scrollX = React.useRef(new Animated.Value(0)).current;
+
+  // Configurable opacity for images
+  const [imageOpacity] = React.useState(1); // Adjust this value as needed
+
+  const renderItem = ({ item }) => (
+    <View style={styles.slideContainer}>
+      {/* Image */}
+      <Image
+        source={item.image}
+        style={[styles.image, { opacity: imageOpacity }]}
+      />
+
+      {/* Text Overlay */}
+      <View style={styles.textOverlay}>
+        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.description}>{item.desc}</Text>
+      </View>
+    </View>
+  );
+
   return (
-    <Swiper
-      style={styles.wrapper}
-      showsButtons={false} // Disable arrows
-      autoplay={true} // Enable auto-slide
-      autoplayTimeout={5} // Time interval between slides (3 seconds)
-      paginationStyle={[styles.pagination, { bottom }]} // Reposition the dots
-      dotStyle={styles.dot} // Custom dot style
-      activeDotStyle={styles.activeDot} // Custom active dot style
-      scrollEnabled={true}
-      loop={true}
-    >
-      {slides.map((slide) => (
-        <View style={styles.slide} key={slide.id}>
-          {/* <Image source={{ uri: slide.image }} style={styles.image} /> */}
-          <Text style={styles.title}>{slide.title}</Text>
-          <Text style={styles.desc}>{slide.desc}</Text>
-        </View>
-      ))}
-    </Swiper>
+    <View style={styles.wrapper}>
+      {/* Carousel */}
+      <Carousel
+        loop
+        width={screenWidth}
+        height={250} // Decreased height to 250
+        autoPlay={true}
+        data={slides}
+        scrollAnimationDuration={1000}
+        renderItem={renderItem}
+        onProgressChange={(_, absoluteProgress) => {
+          scrollX.setValue(absoluteProgress * screenWidth);
+        }}
+      />
+
+      {/* Pagination Dots */}
+      <View style={styles.dotsContainer}>
+        <ExpandingDot
+          data={slides}
+          expandingDotWidth={30}
+          scrollX={scrollX}
+          inActiveDotOpacity={0.6}
+          activeDotColor="#EA4C89"
+          dotStyle={{
+            width: 10,
+            height: 10,
+            borderRadius: 5,
+            marginHorizontal: 5,
+            backgroundColor: "red",
+          }}
+          containerStyle={{
+            justifyContent: "center",
+          }}
+        />
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   wrapper: {
-    height: 100,
-    borderRadius: 10,
-    overflow: "hidden",
-  },
-  slide: {
-    backgroundColor: "#EA4C89",
-    flex: 1,
+    height: 200, // Slightly larger than carousel height to accommodate dots
     justifyContent: "center",
-    // alignItems: "center",
-    padding: 10,
-    borderRadius: 10, // Border radius for the container of the image
-    overflow: "hidden", // Clip content inside the View to enforce border radius
+    alignItems: "center",
+    position: "relative", // Required for absolute positioning of dots
+    marginHorizontal: 20,
+    // marginVertical: 20,
+  },
+  slideContainer: {
+    flex: 1,
+    position: "relative", // Required for absolute positioning of text overlay
+    overflow: "hidden", // Ensures rounded corners are clipped
+    borderRadius: 20, // Curved border for the entire slide
+    marginHorizontal: 20,
   },
   image: {
-    width: "100%",
-    height: "100%",
-    borderRadius: 10, // Apply border radius to the image itself
-    resizeMode: "cover",
+    width: "100%", // Full width of the slide
+    height: 200, // Match the carousel height
+    resizeMode: "contain", // Ensure the image covers the entire container
+    borderRadius: 20, // Curved border for the image
+  },
+  textOverlay: {
+    position: "absolute", // Position text absolutely on top of the image
+    bottom: 80, // Distance from the bottom of the image
+    left: 20, // Distance from the left edge of the image
   },
   title: {
-    // position: "absolute",
-    // color: "",
-    color: "#fff",
     fontSize: 24,
-    textAlign: "left",
-    // fontWeight: "bold",
-    fontFamily: fonts.robotoBold,
-    // bottom: 20,
+    fontWeight: "bold",
+    color: "#fff", // White text for better visibility on images
+    marginBottom: 5,
   },
-
-  desc: {
-    color: "#fff",
-    fontFamily: fonts.robotoRegular,
+  description: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#fff", // White text for better visibility on images
   },
-
-  pagination: {
-    bottom: 2, // Position the dots slightly above the bottom
-  },
-  dot: {
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    marginHorizontal: 3,
-  },
-  activeDot: {
-    backgroundColor: "#fff",
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    marginHorizontal: 3,
+  dotsContainer: {
+    position: "absolute", // Position dots absolutely within the wrapper
+    bottom: 10, // Place dots at the bottom
+    alignSelf: "center", // Center-align the dots
   },
 });
 

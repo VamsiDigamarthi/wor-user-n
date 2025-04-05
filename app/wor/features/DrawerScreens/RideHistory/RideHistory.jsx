@@ -27,7 +27,7 @@ const RideHistory = () => {
     dispatch(rideHistoryAsyc({ token }));
   }, []);
 
-  // console.log("rideHistory", rideHistory);
+  console.log("rideHistory", rideHistory);
 
   return (
     <AppBarLayout title="Ride History" isPositionAppbar>

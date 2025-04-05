@@ -16,7 +16,7 @@ export default function OfferModal({ onClose }) {
       insideCardStyle={infoModalStyles.insideCardStyle}
       closebtn={false}
     >
-      <View style={{ width: "100%", padding: 10 }}>
+      <View style={{ width: "100%" }}>
         {coupons.length > 0 && (
           <Text style={{ fontWeight: "bold", fontSize: 20 }}>Offers</Text>
         )}
