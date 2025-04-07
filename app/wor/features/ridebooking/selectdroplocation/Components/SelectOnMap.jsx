@@ -2,16 +2,19 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { LocationIcon } from "../../../../Icons/Icons";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 
 const SelectOnMap = ({ hasSoftwareNavigationBar }) => {
   const navigation = useNavigation();
+  const { location } = useSelector((state) => state.location);
 
   const onNavigateToMapPreviewScreen = () => {
+    if (!location.lat) return;
     navigation.navigate("FixMapPreview");
   };
   return (
     <View
-      style={[styles.mapCard, { bottom: hasSoftwareNavigationBar ? 40 : 0 }]}
+      style={[styles.mapCard, { bottom: hasSoftwareNavigationBar ? 20 : 0 }]}
     >
       <Pressable style={styles.innerMap} onPress={onNavigateToMapPreviewScreen}>
         <LocationIcon size={25} color="#EA4C89" />
@@ -31,7 +34,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: 50,
-    elevation: 1,
+    // elevation: 1,
     backgroundColor: "#fff",
     borderTopColor: "#ebedf0",
     borderTopWidth: 1,

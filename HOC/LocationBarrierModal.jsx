@@ -18,7 +18,7 @@ const LocationBarrierModal = () => {
     dispatch(setLocationBarrierModal(false));
   };
 
-  console.log("isDisplayLocationBarrierModal", isDisplayLocationBarrierModal);
+  // console.log("isDisplayLocationBarrierModal", isDisplayLocationBarrierModal);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {

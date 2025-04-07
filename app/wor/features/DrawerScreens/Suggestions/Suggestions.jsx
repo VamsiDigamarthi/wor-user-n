@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
   staticText: {
     fontSize: 16,
     lineHeight: 20,
-    textAlign: "justify",
+    // textAlign: "justify",
     fontFamily: fonts.robotoMedium,
     lineHeight: 25,
     letterSpacing: 1,

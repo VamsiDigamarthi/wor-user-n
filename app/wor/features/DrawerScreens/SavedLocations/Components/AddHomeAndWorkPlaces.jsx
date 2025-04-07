@@ -9,6 +9,7 @@ const AddHomeAndWorkPlaces = () => {
   const { homePlace, workPlace, otherHomePlace } = useSelector(
     (state) => state.homePlaces
   );
+  // console.log("otherHomePlace", otherHomePlace);
 
   return (
     <>
@@ -31,7 +32,17 @@ const AddHomeAndWorkPlaces = () => {
           entireItem={workPlace}
         />
       )}
-      {otherHomePlace && (
+      {otherHomePlace?.map((eachPlace, index) => (
+        <TopCard
+          key={index}
+          title={eachPlace?.type}
+          subtitle={eachPlace?.name}
+          icon={<MaterialIcons name="place" size={24} color="#EA4C89" />}
+          editDeleteType="home"
+          entireItem={eachPlace}
+        />
+      ))}
+      {/* {otherHomePlace && (
         <TopCard
           title="Work"
           subtitle={otherHomePlace?.name}
@@ -39,7 +50,7 @@ const AddHomeAndWorkPlaces = () => {
           editDeleteType="home"
           entireItem={otherHomePlace}
         />
-      )}
+      )} */}
     </>
   );
 };

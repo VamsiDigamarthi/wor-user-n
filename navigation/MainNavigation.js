@@ -40,76 +40,6 @@ const MainNavigation = () => {
   );
 
   useEffect(() => {
-    // const handleDeepLink = (event) => {
-    //   const url = event.url;
-
-    //   if (url.includes("maps.google.com") || url.startsWith("geo:")) {
-    //     // const checkReady = setInterval(async () => {
-
-    //     const checkReady = async () => {
-    //       const coordinates = extractCoordinates(url);
-    //       console.log(`URL: ${JSON.stringify(coordinates)}`);
-    //       if (coordinates) {
-    //         // const getLocation = async () => {
-    //         //   try {
-    //         //     await dispatch(fetchLocation()).unwrap(); // Wait for the async operation
-    //         //     // Now you can safely use location data here
-    //         //     console.log("Location data:", location);
-    //         //   } catch (error) {
-    //         //     console.error("Failed to fetch location:", error);
-    //         //   }
-    //         // };
-    //         // // const dataNew =  dispatch(fetchLocation());
-    //         // getLocation();
-
-    //         // dispatch(fetchLocation());
-    //         dispatch(setIsBeforeBook(true));
-    //         const locationResult = await dispatch(fetchLocation()).unwrap();
-    //         console.log("Fetched location:", locationResult.location);
-
-    //         const data = await fetchNameAndVicinity(
-    //           coordinates?.latitude,
-    //           coordinates?.longitude
-    //         );
-
-    //         // setDropDetails
-    //         await dispatch(
-    //           setDropDetails({
-    //             location: {
-    //               lat: coordinates.latitude,
-    //               lng: coordinates.longitude,
-    //             },
-    //             name: data?.name,
-    //             vicinity: data?.vicinity,
-    //           })
-    //         ).payload;
-
-    //         // console.log(
-    //         //   data2,
-    //         //   "=---------------here data2-------==============="
-    //         // );
-
-    //         navigationRef?.current?.navigate("ShowPrice");
-    //       }
-
-    //       // Alert.alert(
-    //       //   "Location Detected",
-    //       //   `URL: ${JSON.stringify(coordinates)}`
-    //       // );
-    //       // clearInterval(checkReady);
-
-    //       // else {
-    //       //   console.log("navigation not ready");
-    //       // }
-    //     };
-
-    //     checkReady();
-    //     // }, 100);
-    //   }
-    // };
-
-    // Handle when the app is opened from a deep link
-
     const handleDeepLink = async (event) => {
       const url = event.url;
       if (url.includes("maps.google.com") || url.startsWith("geo:")) {
@@ -162,117 +92,6 @@ const MainNavigation = () => {
   }, []);
 
   useEffect(() => {
-    // const checkTokenAndNavigate = async () => {
-    //   try {
-    //     const storedToken = await AsyncStorage.getItem("token");
-    //     // console.log("storedToken", storedToken);
-    //     if (storedToken) {
-    //       try {
-    //         // console.log("kjhg");
-
-    //         await handleTokenValidation(JSON.parse(storedToken));
-
-    //         const previousOrders = await API.get("/user/all-orders", {
-    //           headers: {
-    //             Authorization: `Bearer ${JSON.parse(storedToken)}`,
-    //             "Content-Type": "application/json",
-    //           },
-    //         });
-    //         console.log("previousOrders: " + previousOrders?.data);
-
-    //         const checkReady = setInterval(() => {
-    //           if (
-    //             navigationRef.current?.isReady() &&
-    //             previousOrders?.data?.length
-    //           ) {
-    //             previousOrders?.data?.forEach(async (singleOrder) => {
-    //               // console.log(singleOrder);
-    //               console.log("before sockets ---------------------------");
-    //               if (isConnected) {
-    //                 console.log("connectd -----------------------------");
-    //                 socket.emit("ride-live-communication", {
-    //                   orderId: singleOrder?._id,
-    //                   userType: "user",
-    //                 });
-    //               }
-    //               if (singleOrder.status === "pending") {
-    //                 let dropDetails = {
-    //                   location: {
-    //                     lat: singleOrder?.drop?.coordinates[1],
-    //                     lng: singleOrder?.drop?.coordinates[0],
-    //                   },
-    //                   name: singleOrder?.dropAddress,
-    //                   vicinity: singleOrder?.dropVicinity,
-    //                 };
-
-    //                 let pickupDetails = {
-    //                   location: {
-    //                     lat: singleOrder?.pickup?.coordinates[1],
-    //                     lng: singleOrder?.pickup?.coordinates[0],
-    //                   },
-    //                   name: singleOrder?.pickupAddress,
-    //                   vicinity: singleOrder?.pickupVicinity,
-    //                 };
-    //                 dispatch(setPickUpDetails(pickupDetails));
-    //                 dispatch(setDropDetails(dropDetails));
-    //                 dispatch(
-    //                   setIsSendOrReceiveParcel(
-    //                     singleOrder?.isSendOrReceiveParcel
-    //                   )
-    //                 );
-
-    //                 navigationRef.current?.navigate("lookingforride", {
-    //                   orderId: singleOrder?._id,
-    //                   orderPlaceTime: singleOrder.orderPlaceTime,
-    //                 });
-    //               } else if (singleOrder.status === "accept") {
-    //                 // let data2 = await dispatch(
-    //                 //   setDropDetails({
-    //                 //     location: {
-    //                 //       lat: coordinates.latitude,
-    //                 //       lng: coordinates.longitude,
-    //                 //     },
-    //                 //     name: data?.name,
-    //                 //     vicinity: data?.vicinity,
-    //                 //   })
-    //                 // ).payload;
-    //                 await dispatch(setCompleteRideDetails(singleOrder)).payload;
-    //                 navigationRef.current?.navigate("captaineacceptride");
-    //               } else if (singleOrder.status === "waiting") {
-    //                 console.log(
-    //                   "----------------waiting order exist--------------"
-    //                 );
-
-    //                 navigationRef.current?.navigate("lookingforride", {
-    //                   orderId: singleOrder?._id,
-    //                   orderPlaceTime: singleOrder.orderPlaceTime,
-    //                   futureTime: singleOrder.futureTime,
-    //                 });
-    //               }
-    //             });
-
-    //             clearInterval(checkReady);
-    //           }
-    //         }, 100);
-    //         // console.log("previous", previousOrders?.data);
-    //         dispatch(setOrders(previousOrders?.data));
-    //         // dispatch(setToken(JSON.parse(storedToken)));
-    //       } catch (error) {
-    //         dispatch(setToken(JSON.parse(storedToken)));
-
-    //         console.log("all order fetch failed in main navogation stack");
-    //         console.log(error);
-    //       }
-    //     } else {
-    //       dispatch(noToken(false));
-    //     }
-
-    //     return () => clearInterval(checkReady);
-    //   } catch (error) {
-    //     console.error("Error reading token or initializing navigation:", error);
-    //   }
-    // };
-
     const checkTokenAndNavigate = async () => {
       try {
         const storedToken = await AsyncStorage.getItem("token");
@@ -367,8 +186,8 @@ const MainNavigation = () => {
   const handleTokenValidation = async (storedToken) => {
     const profile = await checkProfileValidOrNot(storedToken);
     if (!profile) {
-      dispatch(noToken(false));
-      AsyncStorage.removeItem("token");
+      // dispatch(noToken(false));
+      // AsyncStorage.removeItem("token");
       return false;
     } else {
       dispatch(setToken(storedToken));
@@ -387,76 +206,6 @@ const MainNavigation = () => {
       return null;
     }
   };
-
-  // Handle notifications
-  // const handleNotification = useCallback(
-  //   (notification) => {
-  //     const id = notification?.request?.identifier;
-  //     if (!id || processedNotifications.has(id)) return;
-
-  //     const screen = notification?.request?.content?.data?.screen;
-
-  //     // console.log(screen, "-----------------screen--------------------------");
-
-  //     const order = notification?.request?.content?.data?.order;
-
-  //     // console.log(order, "--------------------------------");
-
-  //     if (screen) {
-  //       let newOrder;
-  //       if (navigationRef.current?.isReady()) {
-  //         if (screen === "lookingforride") {
-  //           const newOrder = JSON.parse(order);
-  //           let dropDetails = {
-  //             location: {
-  //               lat: newOrder?.drop?.coordinates[1],
-  //               lng: newOrder?.drop?.coordinates[0],
-  //             },
-  //             name: newOrder?.dropAddress,
-  //             vicinity: newOrder?.dropVicinity,
-  //           };
-
-  //           let pickupDetails = {
-  //             location: {
-  //               lat: newOrder?.pickup?.coordinates[1],
-  //               lng: newOrder?.pickup?.coordinates[0],
-  //             },
-  //             name: newOrder?.pickupAddress,
-  //             vicinity: newOrder?.pickupVicinity,
-  //           };
-  //           dispatch(setPickUpDetails(pickupDetails));
-  //           dispatch(setDropDetails(dropDetails));
-  //           dispatch(setIsSendOrReceiveParcel(newOrder?.isSendOrReceiveParcel));
-
-  //           navigationRef.current.navigate(screen, {
-  //             orderId: newOrder._id,
-  //           });
-  //         } else if (screen === "captaineacceptride") {
-  //           newOrder = JSON.parse(order);
-  //           dispatch(setCompleteRideDetails(newOrder));
-  //           navigationRef.current?.navigate(screen);
-  //         } else if (screen === "Chat") {
-  //           newOrder = JSON.parse(order);
-  //           dispatch(setCompleteRideDetails(newOrder));
-
-  //           navigationRef.current?.navigate("AuthenticatedStack", {
-  //             // screen: "Chat",
-  //             params: {
-  //               screen: "chat",
-  //               orderId: newOrder._id,
-  //               captainDetails: newOrder?.acceptCaptain,
-  //             },
-  //           });
-  //         }
-  //       } else {
-  //         setPendingNotification(screen);
-  //       }
-  //     }
-
-  //     setProcessedNotifications((prev) => new Set(prev).add(id));
-  //   },
-  //   [processedNotifications]
-  // );
 
   const handleNotification = useCallback(
     async (notification) => {
@@ -543,17 +292,6 @@ const MainNavigation = () => {
     }
     return null;
   };
-
-  // const { dropDetails } = useSelector((state) => state.allRideDetails);
-
-  // useEffect(() => {
-  //   if (dropDetails) {
-  //     setTimeout(() => {
-  //       console.log("✅ dropDetails updated! Navigating...");
-  //       navigationRef.current?.navigate("ShowPrice");
-  //     }, 500); // Adjust delay if necessary
-  //   }
-  // }, [dropDetails]);
 
   if (loading) {
     return (

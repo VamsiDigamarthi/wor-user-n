@@ -7,7 +7,7 @@ const AadharSuccessMessage = ({ genderFailed }) => {
     genderFailed === "Gender"
       ? "Sorry Your Gender has not Verified"
       : genderFailed === "server"
-      ? "Try Again after some times"
+      ? "Try Again after some time"
       : genderFailed === "ownServer"
       ? "Wor Server Update Your details failed Please try again later"
       : "Your Gender has been verified successfully";

@@ -27,7 +27,7 @@ const NoRideMessage = () => {
           lineHeight: 21,
         }}
       >
-        Kepp track of your trips anytime, all in one place.
+        Keep track of your trips anytime, all in one place.
       </Text>
       <Pressable onPress={dispatchAndNavigate} style={styles.rideStart}>
         <Text style={styles.start}>Start Your Rides</Text>

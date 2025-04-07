@@ -33,6 +33,7 @@ const OtpScreen = ({}) => {
     handleResendOtp,
     setOtp,
     handleSetOtpChange,
+    mobile,
   } = useOtpHook();
 
   const [isFocused, setIsFocused] = useState(false);
@@ -61,7 +62,7 @@ const OtpScreen = ({}) => {
                   fontFamily: fonts.robotoRegular,
                 }}
               >
-                The OTP will be sent to your mobile number
+                The OTP will be sent to your mobile number +91{mobile}
               </Text>
               <View style={{ flexDirection: "row", gap: 10 }}>
                 <Pressable onPress={() => navigation.goBack()}>
@@ -94,7 +95,7 @@ const OtpScreen = ({}) => {
                       fontFamily: fonts.robotoRegular,
                     }}
                   >
-                    Resend OTP
+                    Resend OTP Timer
                   </Text>
                 </Pressable>
               ) : (

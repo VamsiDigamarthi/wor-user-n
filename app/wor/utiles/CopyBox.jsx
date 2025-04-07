@@ -26,7 +26,13 @@ export default function CopyBox() {
 
   return (
     <ImageBackground style={styles.copyBox} source={CopyBoxImg}>
-      <Text style={{ fontFamily: fonts.robotoRegular }}>
+      <Text
+        style={{
+          fontFamily: fonts.robotoMedium,
+          fontSize: 17,
+          color: "#e02e88",
+        }}
+      >
         Invite Your Friends to women rider
       </Text>
       <TouchableOpacity

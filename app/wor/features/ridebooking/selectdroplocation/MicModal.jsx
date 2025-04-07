@@ -14,17 +14,20 @@ const MicModal = ({
   setMicVoiceText,
   micVoiceText,
 }) => {
-  const { handleMicPress, isListening , stopListening } = useNewMicHook({
+  const { handleMicPress, isListening, stopListening } = useNewMicHook({
     setMicVoiceText,
     setIsMicModalOpenClose,
-    isMicModalOpenClose
+    isMicModalOpenClose,
   });
   return (
     <Modal
       animationType="fade"
       transparent={true}
       visible={isMicModalOpenClose}
-      onRequestClose={() => {stopListening(); setIsMicModalOpenClose(false)}}
+      onRequestClose={() => {
+        stopListening();
+        setIsMicModalOpenClose(false);
+      }}
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
@@ -38,7 +41,7 @@ const MicModal = ({
             </View>
           </TouchableOpacity>
           <Text style={styles.infoText}>
-            {isListening ? micVoiceText : "Tap the mic to start speaking"}
+            {isListening ? micVoiceText : "Tap to speak"}
           </Text>
           <Pressable
             onPress={() => setIsMicModalOpenClose(false)}

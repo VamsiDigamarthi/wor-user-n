@@ -17,7 +17,7 @@ export const vehicles = [
   },
   {
     image: require("../../../../../assets/images/HomeServiceImages/cab.png"),
-    personCount: 3,
+    personCount: 4,
     vehicleType: "Car",
     displayName: "WoR Mini",
   },
@@ -30,7 +30,7 @@ export const vehicles = [
   // },
   {
     image: require("../../../../../assets/images/HomeServiceImages/cab.png"),
-    personCount: 3,
+    personCount: 4,
     vehicleType: "wor-premium",
     displayName: "WoR Luxury",
   },
@@ -42,7 +42,7 @@ export const vehicles = [
   },
   {
     image: require("../../../../../assets/images/HomeServiceImages/cab.png"),
-    personCount: 4,
+    personCount: 6,
     vehicleType: "proMax",
     displayName: "WoR Pro Max",
   },
