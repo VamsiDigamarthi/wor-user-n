@@ -30,6 +30,8 @@ const EditDelete = ({ place, editDeleteType }) => {
   const { token } = useSelector((state) => state.token);
 
   const handleEditPlace = () => {
+    console.log("editDeleteType", editDeleteType);
+
     if (editDeleteType === "home" || editDeleteType === "work") {
       dispatch(setHomeOrWorkPlaceType(editDeleteType));
 
@@ -37,6 +39,7 @@ const EditDelete = ({ place, editDeleteType }) => {
       dispatch(setEditPlaceId(place?._id));
 
       navigation.navigate("AddHomeAndWorkPlace", {
+        type: editDeleteType,
         title: place.name,
         passParams: true,
       });

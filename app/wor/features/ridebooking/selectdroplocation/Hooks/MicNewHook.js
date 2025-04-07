@@ -72,18 +72,19 @@ export const useNewMicHook = ({
     const onSpeechResultsHandler = (event) => {
       if (event.value && event.value.length > 0) {
         setMicVoiceText(event.value[0]); // Update the recognized text
+        setIsMicModalOpenClose(false);
       }
     };
 
-    const onSpeechErrorHandler = (event) => {
-      Alert.alert("Something Went Wrong", "Your voice is not captured");
-      setIsListening(false);
-    };
+    // const onSpeechErrorHandler = (event) => {
+    //   Alert.alert("Something Went Wrong", "Your voice is not captured");
+    //   setIsListening(false);
+    // };
 
     Voice.onSpeechStart = onSpeechStartHandler;
     Voice.onSpeechEnd = onSpeechEndHandler;
     Voice.onSpeechResults = onSpeechResultsHandler;
-    Voice.onSpeechError = onSpeechErrorHandler;
+    // Voice.onSpeechError = onSpeechErrorHandler;
 
     return () => {
       clearTimeout(timeoutId); // Clear any pending timeouts

@@ -130,8 +130,8 @@ const CaptainAcceptRideScreen = () => {
           <CopyBox backgroundColor="#fff" />
         </View>
       </BottomSheetComponent>
-      {/* calcel ride modal */}
 
+      {/* calcel ride modal */}
       <SocketCancelRide
         cancelOrderByUseSt={cancelOrderByUseSt}
         setCancelOrderByUseSt={setCancelOrderByUseSt}

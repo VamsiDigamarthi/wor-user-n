@@ -5,7 +5,7 @@ const initialState = {
   loading: false,
   homePlace: null,
   workPlace: null,
-  otherHomePlace : null,
+  otherHomePlace: null,
   error: "",
 };
 
@@ -18,6 +18,8 @@ export const homePlace = createAsyncThunk(
           Authorization: `Bearer ${token}`, // Pass the token here
         },
       });
+
+      // console.log(response.data);
 
       return response.data;
     } catch (err) {
@@ -42,14 +44,14 @@ const homePlaceSlice = createSlice({
         state.loading = false;
         state.homePlace = action.payload?.home;
         state.workPlace = action.payload?.work;
-        state.otherHomePlace = action.payload?.otherHomePlace
+        state.otherHomePlace = action.payload?.otherHomePlace;
         state.error = "";
       })
       .addCase(homePlace.rejected, (state, action) => {
         state.loading = false;
         state.homePlace = null;
         state.workPlace = null;
-        state.otherHomePlace = null
+        state.otherHomePlace = null;
         state.error = action.payload || action.error.message;
       });
   },

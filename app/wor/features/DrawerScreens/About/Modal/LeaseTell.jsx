@@ -31,7 +31,7 @@ const LeaseTell = ({
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>
-        Lease tell us why you're leaving women rider
+        Please tell us why you're leaving Women Rider
       </Text>
       {items.map((item) => (
         <RadioItem
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     gap: 15,
   },
   heading: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: "600",
   },
 });

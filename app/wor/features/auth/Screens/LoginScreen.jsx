@@ -27,6 +27,7 @@ const LoginScreen = () => {
     isLoading,
     apiError,
   } = useLoginHook();
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -38,11 +39,11 @@ const LoginScreen = () => {
           <View style={styles.loginInnerCard}>
             <View style={{ width: "100%", gap: 10 }}>
               <Text style={styles.heading}>
-                Please Enter Your Mobile Number For Verification
+                Enter Your Mobile Number For Verification
               </Text>
               <Text style={styles.subHeading}>
-                This number is used for all ride related communication. you
-                shall receive and otp for this
+                This number will be used for all ride-related communication. You
+                will receive an OTP via SMS.
               </Text>
               <Input
                 isIconsNotText={false}
@@ -52,6 +53,11 @@ const LoginScreen = () => {
                 value={mobile}
                 onChangeText={handleMobileChange}
               />
+              {errorState?.mobile?.length > 0 && (
+                <Text style={{ fontSize: 10, color: "red", marginTop: -8 }}>
+                  {errorState?.mobile}
+                </Text>
+              )}
             </View>
             <View
               style={{
@@ -62,7 +68,7 @@ const LoginScreen = () => {
               }}
             >
               <View style={{ flexDirection: "row" }}>
-                <Text style={{ fontSize: 11 }}>I agree to women rider's </Text>
+                <Text style={{ fontSize: 11 }}>I agree to Women Rider's </Text>
                 <TouchableOpacity onPress={onNavigateTermsAndConditions}>
                   <Text style={{ fontSize: 11, color: "#0597ff" }}>
                     Terms of Services
@@ -71,7 +77,7 @@ const LoginScreen = () => {
                 <Text style={{ fontSize: 11 }}> and </Text>
                 <TouchableOpacity onPress={handleCheck}>
                   <Text style={{ fontSize: 11, color: "#0597ff" }}>
-                    privacy Policy
+                    Privacy Policy
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -140,7 +146,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 50,
     // backgroundColor: "#f7f7f7",
-    bottom: 0,
+    bottom: 10,
     left: 0,
     zIndex: 10000,
     flexDirection: "row",
@@ -161,6 +167,11 @@ const styles = StyleSheet.create({
     fontFamily: fonts.robotoSemiBold,
     fontSize: 24,
   },
-  subHeading: { fontSize: 13, color: "gray", fontFamily: fonts.robotoRegular },
+  subHeading: {
+    fontSize: 13,
+    color: "gray",
+    fontFamily: fonts.robotoRegular,
+    lineHeight: 21,
+  },
   linkText: { fontSize: 14, fontFamily: fonts.robotoRegular },
 });

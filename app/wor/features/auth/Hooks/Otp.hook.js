@@ -10,7 +10,7 @@ import { API } from "../../../../../Constants/url";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setToken } from "../../../../../redux/Features/Auth/LoginSlice";
 import { Keyboard } from "react-native";
-import { loginApi } from "../services/authServices";
+import { loginApi, removeOtp } from "../services/authServices";
 
 export const useOtpHook = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
@@ -54,7 +54,7 @@ export const useOtpHook = () => {
     try {
       const deviceId = await DeviceInfo.getUniqueId();
       // console.log("deviceId", deviceId);
-      console.log("otp?.replace(/s/g", otp?.replace(/\s/g, ""));
+      // console.log("otp?.replace(/s/g", otp?.replace(/\s/g, ""));
       const response = await API.post("/auth/verify-otp", {
         mobile: mobile,
         otp: otp?.replace(/\s/g, ""),
@@ -122,7 +122,16 @@ export const useOtpHook = () => {
     const formattedValue = value.replace(/\s/g, "").split("").join(" ");
     setOtp(formattedValue);
   };
-  console.log(otp);
+
+  const expireOTP = async () => {
+    if (isResendAvailable && timer === 0) {
+      await removeOtp({ mobile });
+    }
+  };
+
+  useEffect(() => {
+    expireOTP();
+  }, [timer, isResendAvailable]);
 
   return {
     message,

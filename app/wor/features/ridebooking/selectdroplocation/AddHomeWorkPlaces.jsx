@@ -4,6 +4,7 @@ import AppBarLayout from "../sharedLogics/AppBarLayout";
 import { COLORS } from "../../../../../Constants/colors";
 import WhereToGo from "./Components/WhereToGo";
 import { useAddHomeWorkPlace } from "./Hooks/AddHomeWorkPlaces";
+import MicModal from "./MicModal";
 
 const AddHomeWorkPlaces = () => {
   const {
@@ -18,7 +19,9 @@ const AddHomeWorkPlaces = () => {
 
   return (
     <AppBarLayout
-      title={`${type?.slice(0, 1)?.toUpperCase()}${type?.slice(1)} Destination`}
+      title={`${type?.slice(0, 1)?.toUpperCase()}${
+        type?.slice(1) ?? ""
+      } Destination`}
       isPositionAppbar={true}
     >
       <View
@@ -39,6 +42,12 @@ const AddHomeWorkPlaces = () => {
           isDisplayHomeOrWorkPlace={true}
         />
       </View>
+      <MicModal
+        micVoiceText={micVoiceText}
+        setMicVoiceText={setMicVoiceText}
+        isMicModalOpenClose={isMicModalOpenClose}
+        setIsMicModalOpenClose={setIsMicModalOpenClose}
+      />
     </AppBarLayout>
   );
 };

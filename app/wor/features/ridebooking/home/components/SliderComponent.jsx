@@ -27,12 +27,12 @@ const SliderComponent = () => {
       title: "Cab",
       desc: "Affordable 4 Seaters",
     },
-    {
-      id: 3,
-      image: require("../../../../../../assets/bannerimages/autoBanner.png"),
-      title: "Auto",
-      desc: "Travel to Local places easily",
-    },
+    // {
+    //   id: 3,
+    //   image: require("../../../../../../assets/bannerimages/autoBanner.png"),
+    //   title: "Auto",
+    //   desc: "Travel to Local places easily",
+    // },
     {
       id: 4,
       image: require("../../../../../../assets/bannerimages/parcelBanner.png"),

@@ -16,7 +16,7 @@ export default function SavedLocations() {
         <Text style={styles.heading}>Saved Places</Text>
 
         <AddHomeAndWorkPlaces />
-        {!otherHomePlace && <AddNewPlace />}
+        {otherHomePlace?.length <= 3 && <AddNewPlace />}
 
         <Text style={styles.heading}>All Saved Places</Text>
         <RideParcelList />

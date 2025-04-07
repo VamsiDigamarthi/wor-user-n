@@ -12,3 +12,14 @@ export const loginApi = async ({ mobile }) => {
     return false;
   }
 };
+
+export const removeOtp = async ({ mobile }) => {
+  try {
+    await API.patch("/auth/remove-otp", {
+      mobile: mobile,
+    });
+    return true;
+  } catch (error) {
+    return false;
+  }
+};

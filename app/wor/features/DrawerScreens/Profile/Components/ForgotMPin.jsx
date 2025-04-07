@@ -11,7 +11,7 @@ const ForgotMPin = ({ handleChangeSetMpin }) => {
         <View style={{ gap: 15 }}>
           <Text style={styles.heading}>Set new M-Pin</Text>
           <Text style={styles.text}>
-            You'r PIN Can't have repeating (e.g.0000), or consective(e.g.1234)
+            Your PIN Can't have repeating (e.g.0000), or consective(e.g.1234)
             numbers
           </Text>
           <Pressable onPress={() => setOpenModal(true)}>
@@ -24,7 +24,7 @@ const ForgotMPin = ({ handleChangeSetMpin }) => {
       <MPinMobileNumberModal
         handleChangeSetMpin={handleChangeSetMpin}
         openModal={openModal}
-        closeModal={()=>setOpenModal(!openModal)}
+        closeModal={() => setOpenModal(!openModal)}
       />
     </>
   );
