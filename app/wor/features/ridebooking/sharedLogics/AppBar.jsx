@@ -8,6 +8,7 @@ import SupportIcons from "./SupportIcons";
 import AppBarTitle from "./AppBarTitle";
 import { useSelector } from "react-redux";
 import { fonts } from "../../../fonts/Fonts";
+import ChatBotIcons from "./ChatBotIcons";
 
 const Appbar = ({
   title,
@@ -26,6 +27,7 @@ const Appbar = ({
   isRideBookingScree = false,
   // border styles
   borderStyles = { borderStyles },
+  chatBotText,
 }) => {
   const navigation = useNavigation();
   const { formateTime } = useSelector((state) => state.allRideDetails);
@@ -37,7 +39,10 @@ const Appbar = ({
       <View style={[styles.mainContainer]}>
         <View style={[styles.btnContainer]}>
           {isDrawerIcon ? (
-            <Pressable style={styles.menu} onPress={() => navigation.openDrawer()}>
+            <Pressable
+              style={styles.menu}
+              onPress={() => navigation.openDrawer()}
+            >
               <HamborgIcon size={25} color="#000" />
             </Pressable>
           ) : (
@@ -58,7 +63,13 @@ const Appbar = ({
           {isTimer && (
             <Pressable onPress={timerFunction} style={styles.timerCard}>
               <Ionicons size={24} name="timer" color="#f98600" />
-              <Text style={{ fontSize: 10, color: "gray" , fontFamily:fonts.robotoRegular }}>
+              <Text
+                style={{
+                  fontSize: 10,
+                  color: "gray",
+                  fontFamily: fonts.robotoRegular,
+                }}
+              >
                 {formateTime ? formateTime : "Now"}
               </Text>
             </Pressable>
@@ -77,6 +88,7 @@ const Appbar = ({
               rightText={rightText}
             />
           )}
+          {chatBotText && <ChatBotIcons chatBotText={chatBotText} />}
         </View>
       </View>
     </View>
@@ -151,7 +163,7 @@ const styles = StyleSheet.create({
     // paddingLeft: 30,
     // textAlign: "center",
     // backgroundColor: "red",
-    marginTop:3
+    marginTop: 3,
   },
   textinnerCard: {
     flexDirection: "row",
@@ -216,9 +228,9 @@ const styles = StyleSheet.create({
     marginRight: 10,
     // backgroundColor: "red",
   },
-  menu:{
+  menu: {
     // backgroundColor:"red",
-    marginBottom:7,
-    marginRight:6
-  }
+    marginBottom: 7,
+    marginRight: 6,
+  },
 });

@@ -5,7 +5,7 @@ import { COLORS } from "../../../../../Constants/colors";
 
 const SupportIcons = ({ navigationText, rightText }) => {
   const navigation = useNavigation();
-  
+
   const openDrivingSchool = () => {
     const url = "https://drivingschools.nuhvin.com/register"; // Replace with your desired URL
     Linking.openURL(url).catch((err) =>
@@ -13,17 +13,8 @@ const SupportIcons = ({ navigationText, rightText }) => {
     );
   };
   return (
-    <Pressable
-      // onPress={() => navigation.navigate(navigationText)}
-      onPress={openDrivingSchool}
-      style={styles.rightIconCard}
-    >
-      <Ionicons
-        // style={{ marginTop: 1 }}
-        name="add-circle-outline"
-        size={25}
-        color="#0080ff"
-      />
+    <Pressable onPress={openDrivingSchool} style={styles.rightIconCard}>
+      <Ionicons name="add-circle-outline" size={25} color="#0080ff" />
       {rightText && <Text style={styles.supportText}>{rightText}</Text>}
     </Pressable>
   );

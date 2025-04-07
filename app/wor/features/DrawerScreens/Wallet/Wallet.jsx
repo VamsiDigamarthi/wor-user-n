@@ -31,7 +31,7 @@ function Wallet() {
   };
 
   return (
-    <AppBarLayout title="E-Wallet" isPositionAppbar>
+    <AppBarLayout title="E-Wallet" isPositionAppbar chatBotText="wallet">
       <View
         style={[
           styles.container,

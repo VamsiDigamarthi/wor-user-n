@@ -18,7 +18,8 @@ const AppBarLayout = ({
   isRideBookingScree,
   borderStyles,
   rightText,
-  navigationText
+  navigationText,
+  chatBotText,
 }) => {
   return (
     <View style={styles.container}>
@@ -37,6 +38,7 @@ const AppBarLayout = ({
         borderStyles={borderStyles}
         rightText={rightText}
         navigationText={navigationText}
+        chatBotText={chatBotText}
       />
       {children}
     </View>
