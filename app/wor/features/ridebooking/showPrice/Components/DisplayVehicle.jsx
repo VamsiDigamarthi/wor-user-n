@@ -3,6 +3,7 @@ import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Fontisto, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  setPaymentMethod,
   setPrice,
   setSelectVehicleType,
 } from "../../sharedLogics/rideDetailsSlice";
@@ -14,6 +15,7 @@ const DisplayVehicle = ({ vehicle }) => {
   const { selectedVehicleType, priceDetails } = useSelector(
     (state) => state.allRideDetails
   );
+  const { profile } = useSelector((state) => state.profileSlice);
 
   const [openPriceDetailsModal, setOpenPriceDetailsModal] = useState(false);
 
@@ -41,8 +43,18 @@ const DisplayVehicle = ({ vehicle }) => {
   };
 
   const handelSelectVehicle = () => {
-    dispatch(setPrice(vehicle?.price));
+    let price = vehicle?.price;
+
     dispatch(setSelectVehicleType(vehicle?.vehicleType?.toLowerCase()));
+
+    if (vehicle.vehicleType === "bookany") {
+      let splitPrice = vehicle.price?.split("-");
+      price = splitPrice[1];
+    }
+    dispatch(setPrice(price));
+
+    let paymentMethod = +price >= +profile?.walletBalance ? "cash" : "wallet";
+    dispatch(setPaymentMethod(paymentMethod));
   };
 
   const handleDoublePress = () => {

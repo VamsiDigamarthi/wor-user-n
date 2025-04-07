@@ -87,6 +87,7 @@ import Ad from "../app/wor/Ad";
 import { useEffect, useState } from "react";
 import AddHomeWorkPlaces from "../app/wor/features/ridebooking/selectdroplocation/AddHomeWorkPlaces";
 import SupportChat from "../app/wor/features/supportChat/SupportChat";
+import ChatbotScreen from "../app/wor/features/ChatBot/ChatbotScreen";
 // import LocationGet from "../app/wor/LocationGetTest";
 
 const Drawer = createDrawerNavigator();
@@ -323,7 +324,8 @@ const AuthenticatedStack = ({ initialRoute, params }) => {
 
       <Stack.Screen
         name="ChatBot"
-        component={ChatBot}
+        // component={ChatBot}
+        component={ChatbotScreen}
         options={{ headerShown: false }}
       />
 
