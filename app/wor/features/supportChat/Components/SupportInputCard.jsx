@@ -13,7 +13,7 @@ const SupportInputCard = ({
 }) => {
   return (
     <View
-      style={[styles.conainer, { bottom: hasSoftwareNavigationBar ? 39 : 0 }]}
+      style={[styles.conainer, { bottom: hasSoftwareNavigationBar ? 9 : 0 }]}
     >
       <Pressable onPress={pickImage} style={styles.iconContainer}>
         <AntDesign name="paperclip" size={24} color="#e02e88" />

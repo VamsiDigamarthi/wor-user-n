@@ -12,6 +12,7 @@ import { customMapStyle } from "../../../../../../Constants/mapData";
 import { pinkpin } from "../../../../Images/OtherIcons";
 import Map3Btns from "../../../../utiles/Map3Btn";
 import MapModalUi from "../modals/MapModalUi";
+import SafetyToolModals from "../modals/SafetyToolModals/SafetyToolModals";
 
 const HomeMapPreview = ({
   location,
@@ -118,9 +119,9 @@ const HomeMapPreview = ({
                 source={
                   marker.type === "bike"
                     ? require("../../../../../../assets/images/markers/BIKE-removebg-preview.png")
-                    : marker.type === "auto"
-                    ? require("../../../../../../assets/images/markers/auto__1_-removebg-preview.png")
-                    : require("../../../../../../assets/images/markers/CAR__1_-removebg-preview.png")
+                    : // : marker.type === "auto"
+                      // ? require("../../../../../../assets/images/markers/auto__1_-removebg-preview.png")
+                      require("../../../../../../assets/images/markers/CAR__1_-removebg-preview.png")
                 }
               />
             </View>
@@ -132,7 +133,8 @@ const HomeMapPreview = ({
         handleZoomToggle={handleResetZoom}
         bottom={mapIconsTop}
       />
-      {toggle && <MapModalUi toggle={toggle} setToggle={setToggle} />}
+      {toggle && <SafetyToolModals toggle={toggle} setToggle={setToggle} />}
+      {/* {toggle && <MapModalUi toggle={toggle} setToggle={setToggle} />} */}
     </View>
   );
 };

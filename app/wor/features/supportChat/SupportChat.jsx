@@ -2,6 +2,7 @@ import {
   FlatList,
   Image,
   KeyboardAvoidingView,
+  Platform,
   Pressable,
   StyleSheet,
   View,
@@ -44,7 +45,14 @@ const SupportChat = () => {
       {/* <View style={styles.container}> */}
       <SupportChatHeader />
 
-      <View style={{ flex: 1, paddingBottom: 100, position: "relative" }}>
+      <View
+        style={{
+          flex: 1,
+          paddingBottom: 100,
+          position: "relative",
+          paddingTop: 10,
+        }}
+      >
         <FlatList
           ref={mref}
           data={chatMessages}
