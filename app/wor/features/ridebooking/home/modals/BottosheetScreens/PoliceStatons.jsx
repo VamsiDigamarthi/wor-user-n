@@ -14,7 +14,7 @@ import PoliceStationMapItem from "./components/MapCard";
 export default function PoliceStatons({ onPress }) {
   const instructions = [
     "If there is any emergency, you can press the alert button.",
-    "It will automatically inform your live location to the police station.",
+    // "It will automatically inform your live location to the police station.",
   ];
 
   const { policeStation, location } = usePoliceStatonsHook();
