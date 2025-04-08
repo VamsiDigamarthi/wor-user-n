@@ -22,6 +22,7 @@ import RouteChangeAlertModal from "./RouteChangeAlertModal/RouteChangeAlertModal
 import { getDistance } from "geolib";
 import { wrongRouteSafeAndSecure } from "./RouteChangeAlertModal/RouteChangeAlertModal.services";
 import { setPollylineCoordinates } from "../features/ridebooking/sharedLogics/rideDetailsSlice";
+import SafetyToolModals from "../features/ridebooking/home/modals/SafetyToolModals/SafetyToolModals";
 
 export default function PollyLineNew({
   selectedVehicleType,
@@ -221,6 +222,7 @@ export default function PollyLineNew({
                   newLiveCoordinates || startPoint // Fallback to startPoint if invalid
                 }
                 ref={markerRef}
+                anchor={{ x: 0.5, y: 0.5 }}
               >
                 <Image
                   source={bikeImg}
@@ -264,7 +266,8 @@ export default function PollyLineNew({
           handleZoomToggle={handleResetZoom}
           mapIconsTop={200}
         />
-        {toggle && <MapModalUi setToggle={setToggle} toggle={toggle} />}
+        {/* {toggle && <MapModalUi setToggle={setToggle} toggle={toggle} />} */}
+        {toggle && <SafetyToolModals toggle={toggle} setToggle={setToggle} />}
       </View>
       <RouteChangeAlertModal
         openCloseState={routeMapToggle && otpVerified}

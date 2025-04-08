@@ -24,7 +24,7 @@ import ChatWithCaptain from "../Components/ChatUi/ChatWithCaptain";
 
 import Suggestions from "../app/wor/features/DrawerScreens/Suggestions/Suggestions";
 
-import PoliceStationMapCard from "../Screens/Dashboard/Home/BottosheetScreens/components/PoliceStationMapCard/PoliceStationMapCard";
+import PoliceStationMapCard from "../app/wor/features/ridebooking/home/modals/BottosheetScreens/components/PoliceStationMapCard/PoliceStationMapCard";
 
 import FakeCall from "../Utils/FakeCall/FakeCall";
 import ChangePickLocation from "../Screens/Dashboard/ChangePickLocation/ChangePickLocation";
