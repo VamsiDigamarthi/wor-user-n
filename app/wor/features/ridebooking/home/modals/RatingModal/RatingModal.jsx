@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     gap: 14,
-    padding: 20,
+    // padding: 20,
     paddingBottom: 20,
   },
   text: {
