@@ -24,6 +24,7 @@ const PoliceStationMapCard = () => {
     googleMapsApiKey,
     markerRef,
     mapRef,
+    handleZoom,
     directionKey,
   } = usePoliceStationMapCardHook();
 
@@ -103,9 +104,14 @@ const PoliceStationMapCard = () => {
           />
         </MapView>
 
-        <TouchableOpacity style={styles.positionBtn} onPress={openGoogleMaps}>
-          <MaterialIcons name="directions" size={24} color="#FFF" />
-        </TouchableOpacity>
+        <View style={styles.positionBtnContainer}>
+          <TouchableOpacity style={styles.positionBtn} onPress={openGoogleMaps}>
+            <MaterialIcons name="directions" size={24} color="#FFF" />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.positionBtn} onPress={handleZoom}>
+            <MaterialIcons name="my-location" size={25} color="#fff" />
+          </TouchableOpacity>
+        </View>
       </View>
     </AppBarLayout>
   );
@@ -127,12 +133,17 @@ const styles = StyleSheet.create({
     width: 30,
     resizeMode: "contain",
   },
-  positionBtn: {
+
+  positionBtnContainer: {
     position: "absolute",
-    backgroundColor: "rgba(0,0,0,0.5)",
     top: 100,
     right: 10,
+    gap: 10,
+  },
+
+  positionBtn: {
     padding: 10,
+    backgroundColor: "rgba(0,0,0,0.5)",
     borderRadius: 10,
   },
 });

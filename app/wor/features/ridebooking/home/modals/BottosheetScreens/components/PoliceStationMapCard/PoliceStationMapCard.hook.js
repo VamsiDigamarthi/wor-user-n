@@ -1,5 +1,5 @@
 import { useRoute } from "@react-navigation/native";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import * as Location from "expo-location";
@@ -14,6 +14,7 @@ export const usePoliceStationMapCardHook = () => {
   const [directionKey, setDirectionKey] = useState(0);
   const lastDirectionUpdateRef = useRef(Date.now());
   const pendingUpdateRef = useRef(false);
+  const [zoomedIn, setZoomedIN] = useState(false);
 
   // Static coordinates for the police station
   const [policeStationCoordinates, setPoliceStationCoordinates] = useState({
@@ -102,6 +103,48 @@ export const usePoliceStationMapCardHook = () => {
     }
   };
 
+  const handleZoom = useCallback(() => {
+    if (!mapRef?.current || !userCoordinates || !policeStationCoordinates)
+      return;
+
+    if (zoomedIn) {
+      // Zoom OUT: Fit to both points
+      mapRef.current.fitToCoordinates(
+        [
+          {
+            latitude: userCoordinates.latitude,
+            longitude: userCoordinates.longitude,
+          },
+          {
+            latitude: policeStationCoordinates.latitude,
+            longitude: policeStationCoordinates.longitude,
+          },
+        ],
+        {
+          edgePadding: {
+            top: 100,
+            bottom: 100,
+            left: 100,
+            right: 100,
+          },
+        }
+      );
+      setZoomedIN(false);
+    } else {
+      // Zoom IN: Focus on user location
+      mapRef.current.animateToRegion(
+        {
+          latitude: userCoordinates.latitude,
+          longitude: userCoordinates.longitude,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        },
+        800
+      );
+      setZoomedIN(true);
+    }
+  }, [zoomedIn, userCoordinates, policeStationCoordinates]);
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       fetchLiveCoordinatedFromUser();
@@ -120,5 +163,6 @@ export const usePoliceStationMapCardHook = () => {
     googleMapsApiKey,
     mapRef,
     markerRef,
+    handleZoom,
   };
 };
