@@ -75,7 +75,7 @@ export const useCaptainAcceptRideScreenHook = () => {
   const handleLiveCoordinates = (coordinates) => {
     // if (!otpVerified) {
     animateTheMarker(coordinates?.lat, coordinates?.lng);
-    // setLiveCoordinates(coordinates, "----------from captain --------------");
+    setLiveCoordinates(coordinates, "----------from captain --------------");
     setNewLiveCoordinates({
       ...newLiveCoordinates,
       latitude: coordinates?.lat,

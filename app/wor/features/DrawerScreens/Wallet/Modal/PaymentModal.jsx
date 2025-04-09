@@ -18,13 +18,11 @@ export default function PaymentModal({ onClose, isRideBookingScreen }) {
 
   const { installedUpiApps } = useUpiApps();
 
-  // console.log(installedUpiApps);
-
-  // Local state to track the selected payment method during modal interaction
   const [selectedMethod, setSelectedMethod] = useState(null);
 
   const { token } = useSelector((state) => state.token);
   const { profile } = useSelector((state) => state.profileSlice);
+
   const { paymentMethod, price, completeRideDetails } = useSelector(
     (state) => state.allRideDetails
   );
@@ -44,17 +42,11 @@ export default function PaymentModal({ onClose, isRideBookingScreen }) {
   };
 
   const handleChangePaymentMethodApi = async () => {
-    // console.log("Selected payment method:", selectedMethod);
-    // console.log(completeRideDetails?._id, "---id");
-    // console.log(token, "---id");
-
     const data = await onChangePaymentMethod({
       token: token,
       orderId: completeRideDetails?._id,
       paymentMethod: selectedMethod,
     });
-
-    // console.log(data?.order, "==========================");
 
     onClose();
     if (!data?.status) return;
@@ -62,35 +54,32 @@ export default function PaymentModal({ onClose, isRideBookingScreen }) {
     dispatch(setCompleteRideDetails(order));
   };
 
-  // console.log("profile?.walletBalance", profile?.walletBalance);
-  // console.log("price", price);
-  // console.log("completeRideDetails", completeRideDetails);
+  const isWalletSufficient =
+    price <= profile?.walletBalance &&
+    (!completeRideDetails ||
+      completeRideDetails?.price <= profile?.walletBalance);
 
   return (
     <View style={styles.container}>
       {price <= profile?.walletBalance &&
         (!completeRideDetails ||
-          completeRideDetails?.price <= profile?.walletBalance) && (
-          <CommonCard
-            selected={selectedMethod === "wallet"}
-            setSelected={() => handleChangePaymentMethod("wallet")}
-            title="Wallet"
-            icon={<WalletImg height={30} width={30} />}
-          />
-        )}
+          completeRideDetails?.price <= profile?.walletBalance) && <></>}
+
+      <CommonCard
+        selected={selectedMethod === "wallet"}
+        setSelected={
+          isWalletSufficient ? () => handleChangePaymentMethod("wallet") : null
+        }
+        title="Wallet"
+        icon={<WalletImg height={30} width={30} />}
+        disable={!isWalletSufficient}
+      />
 
       <UpiCard
         installedUpiApps={installedUpiApps}
         selected={selectedMethod === "upi"}
         setSelected={() => handleChangePaymentMethod("upi")}
       />
-
-      {/* <CommonCard
-        selected={selectedMethod === "card"}
-        setSelected={() => handleChangePaymentMethod("card")}
-        title="Credit / Debit Cards"
-        icon={<CreditCard height={30} width={30} />}
-      /> */}
 
       <CommonCard
         selected={selectedMethod === "cash"}

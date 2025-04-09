@@ -84,6 +84,7 @@ export const createOrderDetails = ({
   time,
   paymentMethod,
   pollyLineCoordinates,
+  distanceFromPickUpToDrop,
 }) => {
   return isParcel
     ? {
@@ -127,6 +128,7 @@ export const createOrderDetails = ({
         isSendOrReceiveParcel,
         paymentMethod,
         pollyLineCoordinates,
+        distanceFromPickUpToDrop,
         sendReceiverData: [
           {
             personName: profile?.name,
@@ -160,5 +162,6 @@ export const createOrderDetails = ({
         time,
         paymentMethod,
         pollyLineCoordinates,
+        distanceFromPickUpToDrop,
       };
 };

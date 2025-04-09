@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  setDistanceFromPickUpToDrop,
   setHowManyMens,
   setPaymentMethod,
   setPrice,
@@ -143,6 +144,16 @@ export const useShowPriceScreenHook = () => {
           };
         })
       );
+      console.log(
+        "travelDetails?.[0]?.distance",
+        travelDetails?.[0]?.distance?.split(" ")?.[0]
+      );
+
+      dispatch(
+        setDistanceFromPickUpToDrop(
+          travelDetails?.[0]?.distance?.split(" ")?.[0]
+        )
+      );
 
       // Calculate prices for all vehicles
       const results = travelDetails.map((vehicle) => {
@@ -233,10 +244,10 @@ export const useShowPriceScreenHook = () => {
         ? +vehcilePrices?.baseFare || 5
         : +vehcilePrices?.baseFare * 1.14 || 10;
 
-    // console.log("baseFare", baseFare);
+    console.log("baseFare", baseFare);
 
     const platFormPrice = +vehcilePrices?.platformFee;
-    // console.log("platFormPrice", platFormPrice);
+    console.log("platFormPrice", platFormPrice);
 
     const price = calculateDistanceFare(
       distanceValue,
@@ -247,11 +258,13 @@ export const useShowPriceScreenHook = () => {
 
     const timeFare = calculateTimeFare(duration, vehcilePrices);
     console.log("timeFare", timeFare);
+    const otherCharges = otherServicesCharges(vehcilePrices);
+    console.log("otherCharges", otherCharges);
 
     const isNightTime = checkNightTime();
     let finalPrice;
     const beforeNightSurgePrice = Math.ceil(
-      price + timeFare + platFormPrice + baseFare
+      price + timeFare + platFormPrice + baseFare + otherCharges
     );
     console.log("beforeNightSurgePrice", beforeNightSurgePrice);
 
@@ -376,6 +389,11 @@ export const useShowPriceScreenHook = () => {
 
   const getRandomSurgeFare = (vehcilePrices) => {
     const [min, max] = vehcilePrices?.surgePricePercentage || [0, 0];
+    return Math.ceil(Math.random() * (max - min) + min);
+  };
+
+  const otherServicesCharges = (vehcilePrices) => {
+    const [min, max] = vehcilePrices?.otherServices || [0, 0];
     return Math.ceil(Math.random() * (max - min) + min);
   };
 

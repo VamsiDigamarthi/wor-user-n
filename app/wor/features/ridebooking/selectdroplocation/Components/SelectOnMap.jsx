@@ -13,9 +13,7 @@ const SelectOnMap = ({ hasSoftwareNavigationBar }) => {
     navigation.navigate("FixMapPreview");
   };
   return (
-    <View
-      style={[styles.mapCard, { bottom: hasSoftwareNavigationBar ? 20 : 0 }]}
-    >
+    <View style={[styles.mapCard]}>
       <Pressable style={styles.innerMap} onPress={onNavigateToMapPreviewScreen}>
         <LocationIcon size={25} color="#EA4C89" />
         <Text style={styles.text}>Select on Map</Text>

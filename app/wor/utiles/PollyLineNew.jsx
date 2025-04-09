@@ -109,10 +109,10 @@ export default function PollyLineNew({
     }
   }, [isZoomedOut, startPoint, endPoint]);
 
-  // const handleSetPollyLineCoordinates = (coordinates) => {
-  //   if (completeRideDetails?.pollyLineCoordinates?.length > 0) return;
-  //   dispatch(setPollylineCoordinates(coordinates));
-  // };
+  const handleSetPollyLineCoordinates = (coordinates) => {
+    if (completeRideDetails?.pollyLineCoordinates?.length > 0) return;
+    dispatch(setPollylineCoordinates(coordinates));
+  };
 
   const isOffRoute = (userLocation, polylineCoords, threshold = 50) => {
     let minDistance = Infinity;
@@ -255,7 +255,7 @@ export default function PollyLineNew({
             optimizeWaypoints={true}
             onReady={(result) => {
               // setRouteCoordinates(result.coordinates);
-              // handleSetPollyLineCoordinates(result.coordinates);
+              handleSetPollyLineCoordinates(result.coordinates);
             }}
           />
         </MapView>

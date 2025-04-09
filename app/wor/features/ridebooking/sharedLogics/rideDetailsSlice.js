@@ -18,6 +18,7 @@ const initialState = {
   completeRideDetails: null, // this will store entire ride data after captain accept the ride -- socket will listening and stored and snnd to otp verification screen
   paymentMethod: "wallet",
   pollineCoordinates: [],
+  distanceFromPickUpToDrop: 0,
 };
 
 const allRideDetails = createSlice({
@@ -27,6 +28,11 @@ const allRideDetails = createSlice({
     setCompleteRideDetails: (state, action) => {
       state.completeRideDetails = action.payload;
     },
+
+    setDistanceFromPickUpToDrop: (state, action) => {
+      state.distanceFromPickUpToDrop = action.payload;
+    },
+
     setPickUpDetails: (state, action) => {
       state.pickUpDetails = action.payload;
     },
@@ -112,6 +118,7 @@ const allRideDetails = createSlice({
       state.formateTime = null;
       state.paymentMethod = "wallet";
       state.pollineCoordinates = [];
+      state.distanceFromPickUpToDrop = [];
     },
   },
 });
@@ -137,6 +144,7 @@ export const {
   setPaymentMethod,
   pickUpDetails,
   setPollylineCoordinates,
+  setDistanceFromPickUpToDrop,
 } = allRideDetails.actions;
 
 export default allRideDetails.reducer;
