@@ -105,8 +105,8 @@ const DisplayVehicle = ({ vehicle }) => {
                       alignItems: "center",
                     }}
                   >
-                    <Fontisto name="female" size={15} color="black" />
-                    <Text style={{ fontSize: 15, color: "gray" }}>
+                    <Fontisto name="female" size={13} color="black" />
+                    <Text style={{ fontSize: 13, color: "black" }}>
                       {vehicle?.personCount}
                     </Text>
                   </View>
@@ -130,9 +130,23 @@ const DisplayVehicle = ({ vehicle }) => {
           </View>
           <View>
             <Text style={styles.price}>₹{vehicle?.price}</Text>
-            <Text style={[styles.priceStrike]}>
-              {/* ₹{priceDetails?.[vehicle?.vehicleType?.toLowerCase()]} */}
-            </Text>
+            {vehicle?.displayName === "Book Any" ? (
+              <>
+                {vehicle?.price?.split("-")?.[1] <= profile?.walletBalance && (
+                  <Text style={[styles.priceStrike]}>
+                    {vehicle?.discountPrice}
+                  </Text>
+                )}
+              </>
+            ) : (
+              <>
+                {vehicle?.price <= profile?.walletBalance && (
+                  <Text style={[styles.priceStrike]}>
+                    {vehicle?.discountPrice}
+                  </Text>
+                )}
+              </>
+            )}
           </View>
         </View>
       </Pressable>
@@ -152,8 +166,8 @@ export default DisplayVehicle;
 const FastCard = () => (
   <View
     style={{
-      width: 80,
-      height: 20,
+      width: 55,
+      height: 15,
       backgroundColor: "#dcfce7",
       justifyContent: "space-around",
       alignItems: "center",
@@ -163,11 +177,11 @@ const FastCard = () => (
   >
     <MaterialCommunityIcons
       style={{ marginTop: 2 }}
-      size={17}
+      size={13}
       color="#000"
       name="lightning-bolt-outline"
     />
-    <Text style={{ fontSize: 15, fontWeight: "500" }}>Faster</Text>
+    <Text style={{ fontSize: 11, fontWeight: "600" }}>Faster</Text>
   </View>
 );
 
@@ -213,7 +227,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  vehicleType: { fontWeight: "bold", fontSize: 16, color: "#000" },
+  vehicleType: { fontWeight: "600", fontSize: 15, color: "#000" },
 
   captionText: {
     color: "#888",

@@ -6,7 +6,7 @@ import OfferCard from "../Components/OfferCard";
 import UhOhCard from "../Components/UhOhCard";
 
 export default function OfferModal({ onClose }) {
-  const [coupons, setCoupons] = useState([0]);
+  const [coupons, setCoupons] = useState([]);
 
   return (
     <ModalUI

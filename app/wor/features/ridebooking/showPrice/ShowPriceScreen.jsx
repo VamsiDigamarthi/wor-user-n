@@ -8,7 +8,6 @@ import {
 import React, { useState } from "react";
 import AppBarLayout from "../sharedLogics/AppBarLayout";
 import { useShowPriceScreenHook } from "./Hooks/ShowPriceScreen.hook";
-import ShowPollyLine from "../../../utiles/ShowPollyLine";
 import { useBottomSheetConfig } from "../sharedLogics/BottomSheetComponent/useBottomSheetConfig";
 import BottomSheetComponent from "../sharedLogics/BottomSheetComponent/BottomSheetComponent";
 import DisplayVehicle from "./Components/DisplayVehicle";
@@ -21,7 +20,7 @@ import PaymentModal from "./Modal/PaymentModal";
 import PollyLineNew from "../../../utiles/PollyLineNew";
 
 const screenHeight = Dimensions.get("window").height;
-const androidSnapPoints = [0.35, 0.74].map((p) => screenHeight * p); // Example snap points for Android
+const androidSnapPoints = [0.37, 0.78].map((p) => screenHeight * p); // Example snap points for Android
 const iosSnapPoints = [0.3, 0.65].map((p) => screenHeight * p); // Example snap points for iOS
 
 const ShowPriceScreen = () => {
@@ -125,13 +124,14 @@ const ShowPriceScreen = () => {
         <View
           style={[
             styles.coupneWithBtn,
-            { bottom: hasSoftwareNavigationBar ? 18 : 0 },
+            // { bottom: hasSoftwareNavigationBar ? 18 : 0 },
           ]}
         >
           <OfferCouponCard
             onPaymentPress={() => setPaymentModalOpen(true)}
             onOfferPress={() => setOfferModalOpen(true)}
           />
+
           <CustomBtn
             width="100%"
             btnBg={selectedVehicleType ? "#e02e88" : "#fff"}
@@ -142,6 +142,11 @@ const ShowPriceScreen = () => {
             borderColor="#e02e88"
             borderWidth={1}
           />
+          <Text style={styles.payThrough}>
+            Pay through your wallet and get{" "}
+            <Text style={{ fontWeight: "bold", fontSize: 16 }}>₹2</Text>{" "}
+            discount.
+          </Text>
         </View>
       </AppBarLayout>
       {shceduleOrderModal && (
@@ -176,11 +181,12 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     left: 0,
-    paddingBottom: 30,
+    paddingBottom: 20,
     elevation: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     backgroundColor: "#fff",
+    // position: "relative",
   },
   singleFilterStyle: {
     width: "100%",
@@ -198,5 +204,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#666",
     marginBottom: 10,
+  },
+  payThrough: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: -19,
+    backgroundColor: "#169608",
+    padding: 2,
+    color: "#fff",
+    fontWeight: "500",
+    textAlign: "center",
   },
 });
