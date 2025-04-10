@@ -19,6 +19,7 @@ const initialState = {
   paymentMethod: "wallet",
   pollineCoordinates: [],
   distanceFromPickUpToDrop: 0,
+  duration: 0,
 };
 
 const allRideDetails = createSlice({
@@ -35,6 +36,10 @@ const allRideDetails = createSlice({
 
     setPickUpDetails: (state, action) => {
       state.pickUpDetails = action.payload;
+    },
+
+    setDuration: (state, action) => {
+      state.duration = action.payload;
     },
 
     setMergePickUpDetails: (state, action) => {
@@ -119,6 +124,7 @@ const allRideDetails = createSlice({
       state.paymentMethod = "wallet";
       state.pollineCoordinates = [];
       state.distanceFromPickUpToDrop = [];
+      state.duration = 0;
     },
   },
 });
@@ -145,6 +151,7 @@ export const {
   pickUpDetails,
   setPollylineCoordinates,
   setDistanceFromPickUpToDrop,
+  setDuration,
 } = allRideDetails.actions;
 
 export default allRideDetails.reducer;

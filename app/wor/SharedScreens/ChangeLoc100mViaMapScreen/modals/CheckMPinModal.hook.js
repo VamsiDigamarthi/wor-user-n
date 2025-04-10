@@ -23,6 +23,7 @@ export const useCheckMPinModalHook = ({ onOpenIsEnterConfirmPinModal }) => {
     paymentMethod,
     pollineCoordinates,
     distanceFromPickUpToDrop,
+    duration,
   } = useSelector((state) => state.allRideDetails);
 
   const { socket, isConnected } = useSocket();
@@ -78,6 +79,7 @@ export const useCheckMPinModalHook = ({ onOpenIsEnterConfirmPinModal }) => {
       paymentMethod,
       pollyLineCoordinates: pollineCoordinates,
       distanceFromPickUpToDrop,
+      duration,
     });
 
     const orderId = await bookingRide({ token, orderDetails });
