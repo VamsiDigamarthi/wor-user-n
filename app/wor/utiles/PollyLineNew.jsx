@@ -150,51 +150,51 @@ export default function PollyLineNew({
     }
   };
 
-  useEffect(() => {
-    checkWrongRoute();
-  }, [newLiveCoordinates, completeRideDetails, otpVerified]);
+  // useEffect(() => {
+  //   checkWrongRoute();
+  // }, [newLiveCoordinates, completeRideDetails, otpVerified]);
 
-  useEffect(() => {
-    if (newLiveCoordinates && otpVerified && completeRideDetails) {
-      const { latitude, longitude } = newLiveCoordinates;
+  // useEffect(() => {
+  //   if (newLiveCoordinates && otpVerified && completeRideDetails) {
+  //     const { latitude, longitude } = newLiveCoordinates;
 
-      if (!lastPositionRef.current) {
-        lastPositionRef.current = {
-          latitude,
-          longitude,
-          timestamp: Date.now(),
-        };
-        return;
-      }
+  //     if (!lastPositionRef.current) {
+  //       lastPositionRef.current = {
+  //         latitude,
+  //         longitude,
+  //         timestamp: Date.now(),
+  //       };
+  //       return;
+  //     }
 
-      const distance = getDistance(
-        { latitude, longitude },
-        {
-          latitude: lastPositionRef.current.latitude,
-          longitude: lastPositionRef.current.longitude,
-        }
-      );
+  //     const distance = getDistance(
+  //       { latitude, longitude },
+  //       {
+  //         latitude: lastPositionRef.current.latitude,
+  //         longitude: lastPositionRef.current.longitude,
+  //       }
+  //     );
 
-      if (distance <= 5) {
-        if (!stationaryTimerRef.current) {
-          stationaryTimerRef.current = setTimeout(() => {
-            setRouteMapToggle(true);
-          }, 5 * 60 * 1000); // 5 minutes
-        }
-      } else {
-        lastPositionRef.current = {
-          latitude,
-          longitude,
-          timestamp: Date.now(),
-        };
-        clearTimeout(stationaryTimerRef.current);
-        stationaryTimerRef.current = null;
-        setRouteMapToggle(false);
-      }
-    }
+  //     if (distance <= 5) {
+  //       if (!stationaryTimerRef.current) {
+  //         stationaryTimerRef.current = setTimeout(() => {
+  //           setRouteMapToggle(true);
+  //         }, 5 * 60 * 1000); // 5 minutes
+  //       }
+  //     } else {
+  //       lastPositionRef.current = {
+  //         latitude,
+  //         longitude,
+  //         timestamp: Date.now(),
+  //       };
+  //       clearTimeout(stationaryTimerRef.current);
+  //       stationaryTimerRef.current = null;
+  //       setRouteMapToggle(false);
+  //     }
+  //   }
 
-    return () => clearTimeout(stationaryTimerRef.current);
-  }, [newLiveCoordinates, otpVerified, completeRideDetails]);
+  //   return () => clearTimeout(stationaryTimerRef.current);
+  // }, [newLiveCoordinates, otpVerified, completeRideDetails]);
 
   return (
     <>

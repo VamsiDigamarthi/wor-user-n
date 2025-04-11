@@ -61,7 +61,7 @@ const FaceCard = () => {
             }}
           >
             <Text>
-              Payment Mode :{" "}
+              Payment Mode :
               <Text style={{ fontSize: 14, fontWeight: "600" }}>
                 {completeRideDetails?.paymentMethod?.toUpperCase()}
               </Text>

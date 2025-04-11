@@ -13,3 +13,10 @@ export const socketUrl = "http://192.168.1.69:5051";
 export const API = axios.create({
   baseURL: "http://192.168.1.69:5051",
 });
+
+// export const imageUrl = "https://womenridertest.nuhvin.com";
+// export const socketUrl = "http://183.82.10.109:15051";
+
+// export const API = axios.create({
+//   baseURL: "https://womenridertest.nuhvin.com",
+// });

@@ -85,6 +85,25 @@ const LookingForRideScreen = () => {
               style={styles.images}
               source={require("../../../../../assets/images/loadingbg.png")}
             />
+            <View
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: [{ translateX: -100 }, { translateY: -100 }], // half of width & height of content
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{ fontSize: 15, fontWeight: "600", marginBottom: 10 }}
+              >
+                Looking for Captain
+              </Text>
+              <Image
+                style={{ width: 180, height: 180 }}
+                source={require("../../../../../assets/looking-for-ride.gif")}
+              />
+            </View>
           </View>
 
           <View style={styles.cancelBtn}>

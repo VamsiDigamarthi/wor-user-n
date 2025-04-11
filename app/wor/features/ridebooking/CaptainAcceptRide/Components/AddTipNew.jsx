@@ -14,6 +14,7 @@ export default function AddTipNew() {
   const { completeRideDetails } = useSelector((state) => state.allRideDetails);
   const { token } = useSelector((state) => state.token);
   const dispatch = useDispatch();
+
   const { tip, error, isTipAdded, status } = useSelector(
     (state) => state.tipSlice
   );
@@ -44,7 +45,7 @@ export default function AddTipNew() {
             {completeRideDetails?.addTip === 0 && (
               <Pressable onPress={decrement} style={styles.Pressable}>
                 <Text style={styles.insideText}>-</Text>
-              </Pressable>  
+              </Pressable>
             )}
             <Text style={styles.addedText}>
               ₹
@@ -97,14 +98,14 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     // borderWidth: 1,
     borderColor: "gray",
-    height:30,
-    // borderStyle: "dashed", 
+    height: 30,
+    // borderStyle: "dashed",
     // paddingHorizontal: 10,
     // paddingVertical: 5,
     flexDirection: "row",
     alignItems: "center",
     gap: 20,
-    backgroundColor:"#F5F5F5",
+    backgroundColor: "#F5F5F5",
     width: 100,
     justifyContent: "center",
   },
@@ -125,9 +126,8 @@ const styles = StyleSheet.create({
     // width: 30,
     justifyContent: "center",
     alignItems: "center",
-    height:"100%",
+    height: "100%",
     // backgroundColor:"red ",
-
   },
   insideText: {
     fontSize: 20,

@@ -7,7 +7,7 @@ import RideButtonCard from "./RideButtonCard";
 import RideCompleteDetails from "./RideCompleteDetails";
 import { fonts } from "../../../../fonts/Fonts";
 
-const RideDetails = ({ disFromPickToDrop }) => {
+const RideDetails = ({ disFromPickToDrop, otpVerified }) => {
   const [showHidden, setShowHidden] = useState(false);
 
   return (
@@ -30,7 +30,7 @@ const RideDetails = ({ disFromPickToDrop }) => {
         <>
           <RideCompleteDetails disFromPickToDrop={disFromPickToDrop} />
           <FaceCard />
-          <RideButtonCard />
+          {!otpVerified && <RideButtonCard />}
         </>
       )}
     </View>

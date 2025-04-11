@@ -39,7 +39,7 @@ const SelectDropLocation = () => {
     <>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        // behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
           <AppBarLayout title="Select Destination" isPositionAppbar={true}>
@@ -69,12 +69,12 @@ const SelectDropLocation = () => {
         setIsMicModalOpenClose={setIsMicModalOpenClose}
       />
 
-      {displayStartModal && (
+      {/* {displayStartModal && (
         <StartRides
           setDisplayStartModal={() => setDisplayStartModal(!displayStartModal)}
           isDispalyStartModal={displayStartModal}
         />
-      )}
+      )} */}
     </>
   );
 };

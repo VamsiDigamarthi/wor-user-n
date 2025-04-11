@@ -22,7 +22,10 @@ const UserRideDetailsCard = ({
           captainDetails={completeRideDetails?.acceptCaptain}
         />
       )}
-      <RideDetails disFromPickToDrop={disFromPickToDrop} />
+      <RideDetails
+        otpVerified={otpVerified}
+        disFromPickToDrop={disFromPickToDrop}
+      />
     </View>
   );
 };

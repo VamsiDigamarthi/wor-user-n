@@ -88,14 +88,14 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
 
         {false && <NotInLocation />}
 
-        {displayStartModal && (
+        {/* {displayStartModal && (
           <StartRides
             setDisplayStartModal={() =>
               setDisplayStartModal(!displayStartModal)
             }
             isDispalyStartModal={displayStartModal}
           />
-        )}
+        )} */}
       </View>
     </>
   );

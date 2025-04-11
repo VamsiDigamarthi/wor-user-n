@@ -37,6 +37,8 @@ const CancelRideModal = ({
       token,
       orderId: isLookingForRideScreen ? orderId : completeRideDetails?._id,
       reason: selectedValue,
+      afterAcceptCancelRide: true,
+      userType: "user",
     });
 
     if (data) {

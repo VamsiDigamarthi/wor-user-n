@@ -25,13 +25,19 @@ export default function CommonCard({
         <View>
           <Text style={styles.text}>{title}</Text>
           {title === "Wallet" && (
-            <Text style={{ fontSize: 12, fontWeight: "600" }}>
-              ₹{profile?.walletBalance}
+            <Text
+              style={{
+                fontSize: 12,
+                fontWeight: "600",
+                color: disable && "red",
+              }}
+            >
+              {`${disable ? "low balance :" : ""} ₹ ${profile?.walletBalance}`}
             </Text>
           )}
         </View>
       </View>
-      <CustomRadioBtn onPress={setSelected} selected={selected} />
+      {!disable && <CustomRadioBtn onPress={setSelected} selected={selected} />}
     </TouchableOpacity>
   );
 }

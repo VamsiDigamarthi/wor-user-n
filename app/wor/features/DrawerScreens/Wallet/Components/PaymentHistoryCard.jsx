@@ -61,7 +61,9 @@ const RideHistoryItem = ({
             { color: status == "debit" ? "red" : "#1dad07" },
           ]}
         >
-          {amount && status == "debit" ? `- ${amount}` : `+ ${amount}`}
+          {amount && status == "debit"
+            ? `- ${amount?.toFixed(2)}`
+            : `+ ${amount?.toFixed(2)}`}
         </Text>
       </View>
     </Pressable>

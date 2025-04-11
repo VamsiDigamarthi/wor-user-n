@@ -59,6 +59,7 @@ export const useCaptainAcceptRideScreenHook = () => {
   });
 
   const [cancelOrderByUseSt, setCancelOrderByUseSt] = useState(false);
+  const [orderId, setOrderId] = useState(null);
 
   const onVerifiedOtp = ({ status, order }) => {
     console.log("--------------verified ----------------", status);
@@ -112,9 +113,10 @@ export const useCaptainAcceptRideScreenHook = () => {
     }
   };
 
-  const cancelOrderByUser = (status) => {
-    console.log("--- order cancel socket---");
-    setCancelOrderByUseSt(status ?? false);
+  const cancelOrderByUser = (data) => {
+    console.log("--- order cancel socket---", data);
+    setCancelOrderByUseSt(data?.status ?? false);
+    setOrderId(data?.orderId);
   };
 
   // console.log(newLiveCoordinates, "-------------------");
@@ -252,5 +254,6 @@ export const useCaptainAcceptRideScreenHook = () => {
 
     newLiveCoordinates,
     markerRef,
+    orderId,
   };
 };
