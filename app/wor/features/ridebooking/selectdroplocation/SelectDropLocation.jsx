@@ -21,11 +21,11 @@ const SelectDropLocation = () => {
   const route = useRoute();
   const { title, passParams } = route.params || {};
 
-  const [displayStartModal, setDisplayStartModal] = useState(false);
+  // const [displayStartModal, setDisplayStartModal] = useState(false);
 
-  useEffect(() => {
-    setDisplayStartModal(true);
-  }, []);
+  // useEffect(() => {
+  //   setDisplayStartModal(true);
+  // }, []);
 
   const {
     isMicModalOpenClose,
@@ -40,6 +40,7 @@ const SelectDropLocation = () => {
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
       >
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
           <AppBarLayout title="Select Destination" isPositionAppbar={true}>
@@ -69,12 +70,12 @@ const SelectDropLocation = () => {
         setIsMicModalOpenClose={setIsMicModalOpenClose}
       />
 
-      {displayStartModal && (
+      {/* {displayStartModal && (
         <StartRides
           setDisplayStartModal={() => setDisplayStartModal(!displayStartModal)}
           isDispalyStartModal={displayStartModal}
         />
-      )}
+      )} */}
     </>
   );
 };

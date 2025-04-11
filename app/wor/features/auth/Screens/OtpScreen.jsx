@@ -42,7 +42,8 @@ const OtpScreen = ({}) => {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      // behavior={Platform.OS === "ios" ? "padding" : "height"}
+      behavior={Platform.OS === "ios" ? "padding" : "height"} // Adjust for iOS and Android
+      keyboardVerticalOffset={Platform.OS === "ios" ? 64 : -40}
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.container}>

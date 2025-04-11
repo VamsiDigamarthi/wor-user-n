@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 export const useRatingModalHook = ({
   penRatOrderIdCaptainId,
   setOpenRatingModal,
+  vehicleType = "scooty",
 }) => {
   const { token } = useSelector((state) => state.token);
   //   console.log("penRatOrderIdCaptainId", penRatOrderIdCaptainId);

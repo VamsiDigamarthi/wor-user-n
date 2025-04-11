@@ -5,7 +5,7 @@ import SupportIcon from "../Components/SupportIcon";
 import { useNavigation } from "@react-navigation/native";
 import FQs from "../Components/F&Qa";
 
-const AuthAppBar = ({ isLoginScreen = true , supportNavigate,faqs}) => {
+const AuthAppBar = ({ isLoginScreen = true, supportNavigate, faqs }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>

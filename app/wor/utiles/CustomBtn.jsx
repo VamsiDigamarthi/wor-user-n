@@ -18,10 +18,12 @@ const CustomBtn = ({
   borderWidth,
   isLoding = false,
   borderColor,
+  disabled = false,
 }) => {
   return (
     <View style={[styles.container, { width: width, height: height }]}>
       <Pressable
+        disabled={disabled}
         android_ripple={{
           color: "#EA4C89", // Set ripple color
           borderless: false, // Ensures ripple stays within the bounds of the button

@@ -9,14 +9,14 @@ const ForgotMPin = ({ handleChangeSetMpin }) => {
     <>
       <View style={styles.newContainer}>
         <View style={{ gap: 15 }}>
-          <Text style={styles.heading}>Set new M-Pin</Text>
+          <Text style={styles.heading}>Set new Pin</Text>
           <Text style={styles.text}>
             Your PIN Can't have repeating (e.g.0000), or consective(e.g.1234)
             numbers
           </Text>
           <Pressable onPress={() => setOpenModal(true)}>
             <Text style={{ color: "#2066be", fontFamily: fonts.robotoRegular }}>
-              Forgot M-Pin
+              Forgot Pin
             </Text>
           </Pressable>
         </View>

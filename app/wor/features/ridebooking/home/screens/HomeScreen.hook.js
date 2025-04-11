@@ -96,7 +96,7 @@ const useNearbyPlaces = (location) => {
           location.lat,
           location.lng
         );
-        dispatch(setNearPlaces(nearbyPlaces));
+        await dispatch(setNearPlaces(nearbyPlaces)).payload;
       }
     };
     fetchNearby();
