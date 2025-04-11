@@ -17,7 +17,7 @@ export default function MpinScreen() {
   };
 
   return (
-    <AppBarLayout title="M-Pin" isPositionAppbar={true}>
+    <AppBarLayout title="WoR Verification Pin" isPositionAppbar={true}>
       <View
         style={[
           styles.container,

@@ -57,7 +57,7 @@ const CheckMPinModal = ({
                     handleBackspace(index); // Handle backspace to move to previous input
                   }
                 }}
-                placeholder="*"
+                placeholder=""
                 placeholderTextColor="#000"
               />
             ))}

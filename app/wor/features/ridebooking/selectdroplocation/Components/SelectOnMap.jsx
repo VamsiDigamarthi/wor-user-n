@@ -9,7 +9,7 @@ const SelectOnMap = ({ hasSoftwareNavigationBar }) => {
   const { location } = useSelector((state) => state.location);
 
   const onNavigateToMapPreviewScreen = () => {
-    if (!location.lat) return;
+    if (!location?.lat) return;
     navigation.navigate("FixMapPreview");
   };
   return (

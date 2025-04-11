@@ -11,12 +11,14 @@ import {
 } from "../../../Images/ProfileImages";
 
 const ProfileScreen = () => {
-
-
-  
   return (
     <AppBarLayout title="Profile" isPositionAppbar={true}>
-      <View style={[styles.innerContainer, {paddingTop : Platform.OS=="ios" ? 110 : 100}]}>
+      <View
+        style={[
+          styles.innerContainer,
+          { paddingTop: Platform.OS == "ios" ? 110 : 100 },
+        ]}
+      >
         <View style={styles.topContainer}>
           <ProfileCard />
           <ProfileRatingRideCountCard />
@@ -35,7 +37,7 @@ const ProfileScreen = () => {
           />
           <ProfileNavigationCard
             navigateTo="SetNewMpin"
-            title="M-Pin"
+            title="WoR Verification Pin"
             icon={mpin}
           />
 

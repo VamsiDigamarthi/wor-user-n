@@ -24,6 +24,27 @@ const RatingCard = ({
     }));
   };
 
+  const returnVehicleImage = (imageName) => {
+    switch (imageName) {
+      case "scooty":
+        return require("../../../../../../../../assets/images/HomeServiceImages/scooty.png");
+      case "card":
+        return require("../../../../../../../../assets/images/HomeServiceImages/cab.png");
+
+      case "auto":
+        return require("../../../../../../../../assets/images/HomeServiceImages/auto.png");
+
+      case "bookany":
+        return require("../../../../../../../../assets/images/HomeServiceImages/cab.png");
+
+      case "wor-premium":
+        return require("../../../../../../../../assets/images/HomeServiceImages/cab.png");
+
+      default:
+        return null;
+    }
+  };
+
   const sanitizedImageUrl = penRatOrderIdCaptainId?.userId?.profilePic
     ? `${imageUrl}/${penRatOrderIdCaptainId?.userId.profilePic}`.replace(
         /\\/g,
@@ -50,7 +71,12 @@ const RatingCard = ({
       </View>
       <View style={styles.userImageCard}>
         <Image style={styles.userImage} source={imageSrc} />
-        <View style={styles.bikeImage}></View>
+        <View style={styles.bikeImage}>
+          <Image
+            style={styles.img}
+            source={returnVehicleImage(penRatOrderIdCaptainId?.vehicleType)}
+          />
+        </View>
       </View>
       <Text style={{ textAlign: "center", lineHeight: 22 }}>
         Shared Ride Experience with {penRatOrderIdCaptainId?.userId?.name}{" "}
@@ -138,8 +164,13 @@ const styles = StyleSheet.create({
     bottom: -5,
     width: 30,
     height: 30,
-    backgroundColor: "red",
+    // backgroundColor: "red",
     borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "#EA4C89",
+    backgroundColor: "#FFF",
   },
   vehicleConfirm: {
     flexDirection: "row",
@@ -157,5 +188,10 @@ const styles = StyleSheet.create({
     borderColor: "#EA4C89",
     borderRadius: 10,
     paddingHorizontal: 10,
+  },
+
+  img: {
+    height: "80%",
+    width: "80%",
   },
 });

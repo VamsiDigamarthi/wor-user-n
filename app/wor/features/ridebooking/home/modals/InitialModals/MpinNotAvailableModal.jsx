@@ -45,7 +45,7 @@ export default function MpinNotAvailableModal() {
         </View>
 
         <CustomBtn
-          title={"Verify now"}
+          title={"Verify Now"}
           btnBg={"#EA4C89"}
           btnColor={"#fff"}
           width="100%"

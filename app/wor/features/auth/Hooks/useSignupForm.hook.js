@@ -13,6 +13,8 @@ export const useSignupForm = ({ mobile }) => {
   const [apiError, setApiError] = useState("");
   const [refCode, setRefCode] = useState("");
 
+  console.log(refCode, "refCode");
+
   useEffect(() => {
     PlayInstallReferrer.getInstallReferrerInfo((installReferrerInfo, error) => {
       if (!error) {
@@ -20,7 +22,13 @@ export const useSignupForm = ({ mobile }) => {
           "Install referrer = " + installReferrerInfo.installReferrer
         );
 
-        setRefCode(installReferrerInfo.installReferrer || "");
+        if (!installReferrerInfo?.installReferrer.includes("utm")) {
+          setRefCode(installReferrerInfo.installReferrer);
+        } else {
+          setRefCode("");
+        }
+
+        setRefCode(installReferrerInfo.installReferrer);
         const referrerParams = new URLSearchParams(
           installReferrerInfo.installReferrer
         );
@@ -48,6 +56,15 @@ export const useSignupForm = ({ mobile }) => {
     mobile,
     refDetails: null, // Initialize refDetails as null
   });
+
+  useEffect(() => {
+    if (!refCode.includes("utm")) {
+      setFormData({
+        ...formData,
+        referalCode: refCode,
+      });
+    }
+  }, [refCode]);
 
   const [isLoading, setIsLoading] = useState(false);
   const [onOpenTextBasedLocationModal, setOnOpenTextBasedLocationModal] =

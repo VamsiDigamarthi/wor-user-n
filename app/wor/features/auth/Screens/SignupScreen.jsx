@@ -32,7 +32,8 @@ const SignupScreen = () => {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      behavior={Platform.OS === "ios" ? "padding" : "height"} // Adjust for iOS and Android
+      keyboardVerticalOffset={Platform.OS === "ios" ? 64 : -40}
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <ScrollView contentContainerStyle={styles.innerContainer}>
@@ -97,7 +98,8 @@ const SignupScreen = () => {
               btnColor={formData.name ? "#FFF" : "#EA4C89"}
               onPress={handleNavigateToOTP}
               width="95%"
-              isLoading={isLoading}
+              isLoding={isLoading}
+              disabled={isLoading}
             />
             <AProductFromNuhvin bottom={-20} />
           </View>

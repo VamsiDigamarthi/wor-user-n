@@ -28,69 +28,65 @@ const SetMPin = ({ handleChangeSetMpin }) => {
   } = useSetMPinHook({ handleChangeSetMpin });
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS == "ios" ? "padding" : "height"}
-      >
-        <View style={styles.newContainer}>
-          <View style={{ gap: 15 }}>
-            <Text style={styles.heading}>Set new M-Pin</Text>
-            <Text style={styles.text}>
-              You'r PIN Can't have repeating (e.g.0000), or consective(e.g.1234)
-              numbers
-            </Text>
-            <View>
-              {error && (
-                <Text
-                  style={{ fontSize: 10, textAlign: "center", color: "red" }}
-                >
-                  {error}
-                </Text>
-              )}
-              <OtpUi otp={pin} setOtp={setPin} style={styles.borderWidth} />
-            </View>
-            <Text
-              style={{
-                fontSize: 18,
-                fontWeight: "600",
-                fontFamily: fonts.robotoSemiBold,
-              }}
-            >
-              Confirm M-Pin
-            </Text>
-            <View>
-              {reEnterError && (
-                <Text
-                  style={{ fontSize: 10, textAlign: "center", color: "red" }}
-                >
-                  {reEnterError}
-                </Text>
-              )}
-            </View>
-            <OtpUi otp={newPin} setOtp={setNewPin} style={styles.borderWidth} />
+    // <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS == "ios" ? "padding" : "height"}
+    >
+      <View style={styles.newContainer}>
+        <View style={{ gap: 15 }}>
+          <Text style={styles.heading}>Set new Pin</Text>
+          <Text style={styles.text}>
+            You'r PIN Can't have repeating (e.g.0000), or consective(e.g.1234)
+            numbers
+          </Text>
+          <View>
+            {error && (
+              <Text style={{ fontSize: 10, textAlign: "center", color: "red" }}>
+                {error}
+              </Text>
+            )}
+            <OtpUi otp={pin} setOtp={setPin} style={styles.borderWidth} />
           </View>
-          <CustomBtn
-            onPress={handleSubmiteMPin}
-            title="Continue"
-            btnBg={
-              pin.join("")?.length === 4 && newPin.join("")?.length === 4
-                ? "#EA4C89"
-                : "#f7f7f7"
-            }
-            btnColor={
-              pin.join("")?.length === 4 && newPin.join("")?.length === 4
-                ? "#fff"
-                : "#EA4C89"
-            }
-          />
-          <MpinSuccessModal
-            successModal={successModal}
-            closeModal={() => setSuccessModal(!successModal)}
-          />
+          <Text
+            style={{
+              fontSize: 18,
+              fontWeight: "600",
+              fontFamily: fonts.robotoSemiBold,
+            }}
+          >
+            Confirm M-Pin
+          </Text>
+          <View>
+            {reEnterError && (
+              <Text style={{ fontSize: 10, textAlign: "center", color: "red" }}>
+                {reEnterError}
+              </Text>
+            )}
+          </View>
+          <OtpUi otp={newPin} setOtp={setNewPin} style={styles.borderWidth} />
         </View>
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+        <CustomBtn
+          onPress={handleSubmiteMPin}
+          title="Continue"
+          btnBg={
+            pin.join("")?.length === 4 && newPin.join("")?.length === 4
+              ? "#EA4C89"
+              : "#f7f7f7"
+          }
+          btnColor={
+            pin.join("")?.length === 4 && newPin.join("")?.length === 4
+              ? "#fff"
+              : "#EA4C89"
+          }
+        />
+        <MpinSuccessModal
+          successModal={successModal}
+          closeModal={() => setSuccessModal(!successModal)}
+        />
+      </View>
+    </KeyboardAvoidingView>
+    // </TouchableWithoutFeedback>
   );
 };
 
