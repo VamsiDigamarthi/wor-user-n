@@ -2,9 +2,13 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import ModalUI from "../../../../utiles/Modal/Modal";
 import { infoModalStyles } from "../../../../../../Components/InfoUi/Styles/InfoModalStyles";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import CustomBtn from "../../../../utiles/CustomBtn";
 import { fonts } from "../../../../fonts/Fonts";
+import { Pressable } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
+import { removeTip } from "../Services/removeTip.ser";
+import { setCompleteRideDetails } from "../../sharedLogics/rideDetailsSlice";
 
 const PriceDetailsModal = ({
   openPriceModal,
@@ -12,7 +16,22 @@ const PriceDetailsModal = ({
   totalPrice,
   tip,
 }) => {
+  const dispatch = useDispatch();
   const { completeRideDetails } = useSelector((state) => state.allRideDetails);
+  const { token } = useSelector((state) => state.token);
+
+  const handleRemoveTip = async () => {
+    // console.log("remove tip called");
+    const tipDelete = await removeTip({
+      token,
+      orderId: completeRideDetails?._id,
+    });
+    // console.log("tipDelete", tipDelete);
+    if (tipDelete) {
+      dispatch(setCompleteRideDetails(tipDelete));
+    }
+  };
+
   return (
     <ModalUI
       openCloseState={openPriceModal}
@@ -41,21 +60,25 @@ const PriceDetailsModal = ({
         <View style={styles.priceCard}>
           <View style={styles.priceFirst}>
             <View style={{ gap: 2 }}>
-              <Text style={styles.innerHeading}>
-                Total Details
-              </Text>
+              <Text style={styles.innerHeading}>Total Details</Text>
               <Text style={styles.para}>Including Tax</Text>
             </View>
-            <Text style={styles.priceText}>
-              ₹{totalPrice}
-            </Text>
+            <Text style={styles.priceText}>₹{totalPrice}</Text>
           </View>
           <View style={styles.priceSecond}>
             <Text style={styles.innerHeading}>Your Tip</Text>
-            <Text>₹{tip}</Text>
+            <View
+              style={{ flexDirection: "row", alignItems: "center", gap: 4 }}
+            >
+              <Text>₹{tip}</Text>
+              {tip > 0 && (
+                <Pressable onPress={handleRemoveTip}>
+                  <AntDesign name="delete" size={15} color="red" />
+                </Pressable>
+              )}
+            </View>
           </View>
 
-          
           {completeRideDetails?.newDesitionOrderStatus === "accept" && (
             <View style={styles.priceSecond}>
               <Text style={{ fontSize: 17, fontWeight: "600" }}>
@@ -65,7 +88,6 @@ const PriceDetailsModal = ({
             </View>
           )}
           <Text style={{ fontSize: 14, color: "gray" }}>
-
             Total fare may change if toll, route or destination changes or if
             your ride takes longer due to traffic or other factors.
           </Text>
@@ -95,7 +117,9 @@ const WalletFriendly = ({ text = "Comfy Hatch" }) => (
       style={{ width: 30, height: 30, resizeMode: "contain" }}
       source={require("../../../../../../assets/dummyWallet.png")}
     />
-    <Text style={{ fontSize: 14, fontFamily:fonts.robotoSemiBold, color: "gray"  }}>
+    <Text
+      style={{ fontSize: 14, fontFamily: fonts.robotoSemiBold, color: "gray" }}
+    >
       {text}
     </Text>
   </View>
@@ -123,7 +147,7 @@ const styles = StyleSheet.create({
   mainHeading: {
     fontSize: 24,
     // fontWeight: "600",
-    fontFamily:fonts.robotoSemiBold
+    fontFamily: fonts.robotoSemiBold,
   },
   firstSubCard: {
     width: "80%",
@@ -160,7 +184,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
 
-  innerHeading:{ fontSize: 17, fontFamily:fonts.robotoSemiBold},
-  priceText:{ fontSize: 18, fontFamily:fonts.robotoBold, color: "#EA4C89" },
-  para:{ fontSize: 14, color: "gray" , fontFamily:fonts.robotoRegular }
+  innerHeading: { fontSize: 17, fontFamily: fonts.robotoSemiBold },
+  priceText: { fontSize: 18, fontFamily: fonts.robotoBold, color: "#EA4C89" },
+  para: { fontSize: 14, color: "gray", fontFamily: fonts.robotoRegular },
 });

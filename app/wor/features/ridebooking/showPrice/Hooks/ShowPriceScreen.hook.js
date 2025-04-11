@@ -140,8 +140,8 @@ export const useShowPriceScreenHook = () => {
           const result = await calDisFromPickToDrop(vehicle.vehicleType);
           return {
             ...vehicle,
-            distance: result?.distance || "N/A",
-            duration: result?.duration || "N/A",
+            distance: result?.distance || 0,
+            duration: result?.duration || 0,
           };
         })
       );
@@ -168,12 +168,16 @@ export const useShowPriceScreenHook = () => {
 
         // console.log("vehcilePrices", vehcilePrices);
 
-        const newPrice = handleCalculatePrices(
+        let newPrice = handleCalculatePrices(
           vehicle,
           vehicle.vehicleType,
           vehcilePrices
         );
-        // console.log("newPrice", newPrice);
+        console.log("newPrice", newPrice);
+
+        if (profile?.donationActive) {
+          newPrice = newPrice + 2;
+        }
 
         if (
           selectedVehicleType?.toLowerCase() ===
@@ -207,6 +211,10 @@ export const useShowPriceScreenHook = () => {
             carPrice && worPremiumPrice
               ? `${carPrice}-${worPremiumPrice}`
               : "N/A";
+
+          if (profile?.donationActive) {
+            price = price + 2;
+          }
 
           if (selectedVehicleType?.toLowerCase() === "bookany") {
             dispatch(setPrice(price));
@@ -292,6 +300,11 @@ export const useShowPriceScreenHook = () => {
   };
 
   const calculateDistanceFare = (distance, vehcilePrices, vehicleType) => {
+    console.log(
+      "vehcilePrices?.vehicleType?.toLowerCase()",
+      vehcilePrices?.vehicleType?.toLowerCase()
+    );
+
     if (vehcilePrices?.vehicleType?.toLowerCase() === "scooty") {
       if (distance <= 2) {
         return +vehcilePrices?.forTwoKm;
@@ -307,16 +320,16 @@ export const useShowPriceScreenHook = () => {
       }
       return distance * +vehcilePrices?.tenToHunderPrice;
     } else if (vehcilePrices?.vehicleType?.toLowerCase() === "wor-premium") {
-      if (distance <= 2) {
+      if (distance <= 4) {
         return +vehcilePrices?.forTwoKm;
-      } else if (distance > 2 && distance <= 20) {
+      } else if (distance > 4 && distance <= 20) {
         return distance * +vehcilePrices?.twoToTenKmPrice;
       }
       return distance * +vehcilePrices?.tenToHunderPrice;
-    } else if (vehcilePrices?.vehicleType?.toLowerCase() === "proMax") {
-      if (distance <= 2) {
+    } else if (vehcilePrices?.vehicleType?.toLowerCase() === "promax") {
+      if (distance <= 4) {
         return +vehcilePrices?.forTwoKm;
-      } else if (distance > 2 && distance <= 20) {
+      } else if (distance > 4 && distance <= 20) {
         return distance * +vehcilePrices?.twoToTenKmPrice;
       }
       return distance * +vehcilePrices?.tenToHunderPrice;

@@ -51,7 +51,6 @@ const tipSlice = createSlice({
       })
       .addCase(addTipToServer.fulfilled, (state, action) => {
         state.status = "succeeded";
-        // Optionally update state based on the server's response
         state.isTipAdded = true;
       })
       .addCase(addTipToServer.rejected, (state, action) => {

@@ -44,6 +44,8 @@ function DonationNew() {
     console.log(donationAmount);
   }, [donationAmount]);
 
+  console.log("profile?.donationActive", profile?.donationActive);
+
   return (
     <KeyboardAvoidingView
       style={styles.flexContainer}
@@ -51,7 +53,12 @@ function DonationNew() {
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <AppBarLayout title="Donation" isPositionAppbar>
-          <View style={[styles.container,{paddingTop : Platform.OS=="ios" ? 110 : 100}]}>
+          <View
+            style={[
+              styles.container,
+              { paddingTop: Platform.OS == "ios" ? 110 : 100 },
+            ]}
+          >
             <View style={styles.switchContainer}>
               <Text style={styles.heading}>
                 ₹2 per ride to Women Rider Foundation
@@ -127,8 +134,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 10,
     gap: 10,
-    flex:1,
-    backgroundColor:COLORS.mainBackgroundColor
+    flex: 1,
+    backgroundColor: COLORS.mainBackgroundColor,
   },
   heading: {
     fontFamily: fonts.robotoSemiBold,
@@ -170,8 +177,10 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     position: "absolute",
-    bottom: Platform.OS === "ios" ? 24 : 10,
+    bottom: Platform.OS === "ios" ? 24 : -20,
+    // bottom: -10,
     width: "95%",
     left: 10,
+    // backgroundColor: "red",
   },
 });

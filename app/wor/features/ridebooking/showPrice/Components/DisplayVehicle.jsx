@@ -13,7 +13,7 @@ import ShowPriceDetailsModal from "../Modal/ShowPriceDetailsModal";
 
 const DisplayVehicle = ({ vehicle }) => {
   const dispatch = useDispatch();
-  const { selectedVehicleType, priceDetails } = useSelector(
+  const { selectedVehicleType, priceDetails, paymentMethod } = useSelector(
     (state) => state.allRideDetails
   );
   const { profile } = useSelector((state) => state.profileSlice);
@@ -44,14 +44,20 @@ const DisplayVehicle = ({ vehicle }) => {
   };
 
   const handelSelectVehicle = () => {
-    let price = vehicle?.price;
+    let price =
+      paymentMethod === "wallet" && vehicle?.price <= profile?.walletBalance
+        ? +vehicle?.price - 2
+        : vehicle?.price;
     let duration = vehicle?.duration;
 
     dispatch(setSelectVehicleType(vehicle?.vehicleType?.toLowerCase()));
 
     if (vehicle.vehicleType === "bookany") {
       let splitPrice = vehicle.price?.split("-");
-      price = splitPrice[1];
+      price =
+        paymentMethod === "wallet" && vehicle?.price <= profile?.walletBalance
+          ? +splitPrice[1] - 2
+          : splitPrice[1];
     }
 
     dispatch(setPrice(price));
@@ -133,7 +139,14 @@ const DisplayVehicle = ({ vehicle }) => {
             </View>
           </View>
           <View>
-            <Text style={styles.price}>₹{vehicle?.price}</Text>
+            <Text style={styles.price}>
+              ₹
+              {paymentMethod === "wallet"
+                ? vehicle?.displayName === "Book Any"
+                  ? vehicle?.price
+                  : +vehicle?.price - 2
+                : vehicle?.price}
+            </Text>
             {vehicle?.displayName === "Book Any" ? (
               <>
                 {vehicle?.price?.split("-")?.[1] <= profile?.walletBalance && (
@@ -144,11 +157,12 @@ const DisplayVehicle = ({ vehicle }) => {
               </>
             ) : (
               <>
-                {vehicle?.price <= profile?.walletBalance && (
-                  <Text style={[styles.priceStrike]}>
-                    {vehicle?.discountPrice}
-                  </Text>
-                )}
+                {paymentMethod === "wallet" &&
+                  vehicle?.price <= profile?.walletBalance && (
+                    <Text style={[styles.priceStrike]}>
+                      {vehicle?.discountPrice}
+                    </Text>
+                  )}
               </>
             )}
           </View>

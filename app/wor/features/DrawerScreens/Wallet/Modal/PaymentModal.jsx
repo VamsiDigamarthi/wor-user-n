@@ -12,9 +12,11 @@ import {
 import { onChangePaymentMethod } from "../services/changePaymentMethod";
 
 import { useUpiApps } from "./UpiApps.hook";
+import { useNavigation } from "@react-navigation/native";
 
 export default function PaymentModal({ onClose, isRideBookingScreen }) {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const { installedUpiApps } = useUpiApps();
 
@@ -59,6 +61,10 @@ export default function PaymentModal({ onClose, isRideBookingScreen }) {
     (!completeRideDetails ||
       completeRideDetails?.price <= profile?.walletBalance);
 
+  const handleNavigateWalletScreen = () => {
+    navigation.navigate("WalletLoad");
+  };
+
   return (
     <View style={styles.container}>
       {price <= profile?.walletBalance &&
@@ -68,7 +74,9 @@ export default function PaymentModal({ onClose, isRideBookingScreen }) {
       <CommonCard
         selected={selectedMethod === "wallet"}
         setSelected={
-          isWalletSufficient ? () => handleChangePaymentMethod("wallet") : null
+          isWalletSufficient
+            ? () => handleChangePaymentMethod("wallet")
+            : handleNavigateWalletScreen
         }
         title="Wallet"
         icon={<WalletImg height={30} width={30} />}

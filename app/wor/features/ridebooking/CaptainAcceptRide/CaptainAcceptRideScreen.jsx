@@ -38,6 +38,7 @@ const CaptainAcceptRideScreen = () => {
     kownBotSheetChangeUpOrDown,
     newLiveCoordinates,
     markerRef,
+    orderId,
   } = useCaptainAcceptRideScreenHook();
 
   let captainCoordinates = {
@@ -137,6 +138,7 @@ const CaptainAcceptRideScreen = () => {
       <SocketCancelRide
         cancelOrderByUseSt={cancelOrderByUseSt}
         setCancelOrderByUseSt={setCancelOrderByUseSt}
+        orderId={orderId}
       />
     </AppBarLayout>
   );

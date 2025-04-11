@@ -1,17 +1,28 @@
 import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
 import { CommonActions, useNavigation } from "@react-navigation/native";
+import { rePlaceOrder } from "../../LookingforRide/services/lookingForRideServices";
+import { useSelector } from "react-redux";
 
-const SocketCancelRide = ({ cancelOrderByUseSt, setCancelOrderByUseSt }) => {
+const SocketCancelRide = ({
+  cancelOrderByUseSt,
+  setCancelOrderByUseSt,
+  orderId,
+}) => {
   const navigation = useNavigation();
+  const { token } = useSelector((state) => state.token);
 
-  const handleOpenCloseCancelModal = () => {
+  const handleOpenCloseCancelModal = async () => {
     setCancelOrderByUseSt(false);
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 0,
-        routes: [{ name: "AuthenticatedStack" }],
-      })
-    );
+    // navigation.dispatch(
+    //   CommonActions.reset({
+    //     index: 0,
+    //     routes: [{ name: "AuthenticatedStack" }],
+    //   })
+    // );
+    const replaceOrder = await rePlaceOrder({ token, orderId: orderId });
+    if (replaceOrder) {
+      navigation.navigate("lookingforride", { orderId: orderId });
+    }
   };
 
   return (
@@ -26,8 +37,8 @@ const SocketCancelRide = ({ cancelOrderByUseSt, setCancelOrderByUseSt }) => {
           <Text style={styles.sorryText}>We're sorry</Text>
           <Text style={styles.but}>
             But the Captain has canceled the ride. {"\n"}
-            Thank you for your understanding
-            and patience.{"\n"} Please be ready for the next ride.
+            Thank you for your understanding and patience.{"\n"} Please be ready
+            for the next ride.
           </Text>
           <Text style={styles.have}>Have a great day!</Text>
           <Pressable style={styles.okBtn} onPress={handleOpenCloseCancelModal}>

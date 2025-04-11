@@ -49,15 +49,21 @@ const CheckMPinModal = ({
                 style={styles.inputBox}
                 maxLength={1}
                 keyboardType="numeric"
-                value={hide ? (digit ? "*" : "") : digit} // Show '*' or actual digit based on hide state
+                value={hide ? (digit ? "*" : "") : digit}
                 onChangeText={(value) => handleChange(value, index)}
                 ref={(el) => (inputRefs.current[index] = el)}
                 onKeyPress={({ nativeEvent }) => {
                   if (nativeEvent.key === "Backspace") {
-                    handleBackspace(index); // Handle backspace to move to previous input
+                    handleBackspace(index);
                   }
                 }}
-                placeholder=""
+
+                onFocus={() => {
+                  if (index > 0 && !mPin[index - 1]) {
+                    inputRefs.current[index - 1]?.focus();
+                  }
+                }}
+
                 placeholderTextColor="#000"
               />
             ))}
