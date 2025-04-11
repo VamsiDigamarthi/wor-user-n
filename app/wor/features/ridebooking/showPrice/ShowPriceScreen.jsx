@@ -124,7 +124,7 @@ const ShowPriceScreen = () => {
         <View
           style={[
             styles.coupneWithBtn,
-            // { bottom: hasSoftwareNavigationBar ? 18 : 0 },
+            { bottom: hasSoftwareNavigationBar ? 18 : 0 },
           ]}
         >
           <OfferCouponCard

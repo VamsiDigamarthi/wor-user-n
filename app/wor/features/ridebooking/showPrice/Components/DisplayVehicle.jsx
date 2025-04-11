@@ -3,6 +3,7 @@ import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Fontisto, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  setDuration,
   setPaymentMethod,
   setPrice,
   setSelectVehicleType,
@@ -44,6 +45,7 @@ const DisplayVehicle = ({ vehicle }) => {
 
   const handelSelectVehicle = () => {
     let price = vehicle?.price;
+    let duration = vehicle?.duration;
 
     dispatch(setSelectVehicleType(vehicle?.vehicleType?.toLowerCase()));
 
@@ -51,7 +53,9 @@ const DisplayVehicle = ({ vehicle }) => {
       let splitPrice = vehicle.price?.split("-");
       price = splitPrice[1];
     }
+
     dispatch(setPrice(price));
+    dispatch(setDuration(duration));
 
     let paymentMethod = +price >= +profile?.walletBalance ? "cash" : "wallet";
     dispatch(setPaymentMethod(paymentMethod));

@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setDistanceFromPickUpToDrop,
+  setDuration,
   setHowManyMens,
   setPaymentMethod,
   setPrice,
@@ -179,6 +180,7 @@ export const useShowPriceScreenHook = () => {
           vehicle.vehicleType?.toLowerCase()
         ) {
           dispatch(setPrice(newPrice));
+          dispatch(setDuration(vehicle?.duration));
           let paymentMethod =
             +newPrice >= +profile?.walletBalance ? "cash" : "wallet";
           dispatch(setPaymentMethod(paymentMethod));
