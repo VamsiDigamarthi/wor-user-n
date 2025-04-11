@@ -57,12 +57,13 @@ const CheckMPinModal = ({
                     handleBackspace(index);
                   }
                 }}
+
                 onFocus={() => {
                   if (index > 0 && !mPin[index - 1]) {
                     inputRefs.current[index - 1]?.focus();
                   }
                 }}
-                // placeholder="*"
+
                 placeholderTextColor="#000"
               />
             ))}

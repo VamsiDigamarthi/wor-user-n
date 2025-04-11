@@ -28,8 +28,6 @@ const AppBarRideBookingConditions = ({ isArrived, otpVerified, rideTide }) => {
               style={{
                 justifyContent: "center",
                 alignItems: "center",
-                // backgroundColor: "red",
-                marginTop: 6,
               }}
             >
               <Ionicons size={24} name="timer" color="#f98600" />
@@ -38,8 +36,8 @@ const AppBarRideBookingConditions = ({ isArrived, otpVerified, rideTide }) => {
           ) : (
             <>
               <Text style={{ fontSize: 11, fontWeight: "600" }}>ETA</Text>
-              <Text style={{ fontSize: 14, fontWeight: "600" }}>
-                {rideTide?.durationInMinutes}
+              <Text style={{ fontSize: 11, fontWeight: "600" }}>
+                {rideTide?.durationInMinutes} Mins
               </Text>
             </>
           )}

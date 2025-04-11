@@ -28,11 +28,11 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
     onOpenIsEnterConfirmPinModal,
   } = useChangeLoc100mViaMapScreenHook();
 
-  const [displayStartModal, setDisplayStartModal] = useState(false);
+  // const [displayStartModal, setDisplayStartModal] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setDisplayStartModal(true);
+    // setDisplayStartModal(true);
 
     return () => {
       dispatch(setHowManyMens(0));
@@ -86,7 +86,7 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
           newMarker={{ lat: newMarker.latitude, lng: newMarker.longitude }}
         />
 
-        {false && <NotInLocation />}
+        {/* {false && <NotInLocation />} */}
 
         {/* {displayStartModal && (
           <StartRides

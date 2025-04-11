@@ -66,6 +66,8 @@ const CaptainAcceptRideScreen = () => {
 
   const hasSoftwareNavigationBar = insets.bottom > 0;
 
+  // console.log(disFromCaptainLocToPick, disFromPickToDrop, "disFromPickToDrop");
+
   return (
     <AppBarLayout
       isDrawerIcon={true}

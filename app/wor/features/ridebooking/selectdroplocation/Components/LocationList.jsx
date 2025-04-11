@@ -88,14 +88,15 @@ const LocationList = ({
         });
 
         if (!locationBarrier) {
-          dispatch(setLocationBarrierModal(true));
+          await dispatch(setLocationBarrierModal(true)).payload;
           return;
         }
         // check location barrier end
 
-        dispatch(setDropDetails(newDropLocation ?? place));
+        await dispatch(setDropDetails(newDropLocation ?? place)).payload;
         if (isParcScreen) {
-          dispatch(setInitialDropDetails(newDropLocation ?? place));
+          await dispatch(setInitialDropDetails(newDropLocation ?? place))
+            .payload;
           navigation.navigate("ChangeLoc100mViaMap");
           return;
         }

@@ -27,12 +27,16 @@ export default function WaitingCard() {
       const savedExtraTime = await AsyncStorage.getItem("timeAfter3Mins");
 
       if (savedStartTime) {
-        const elapsed = Math.floor((Date.now() - parseInt(savedStartTime)) / 1000);
+        const elapsed = Math.floor(
+          (Date.now() - parseInt(savedStartTime)) / 1000
+        );
         if (elapsed < 180) {
           setTimeLeft(180 - elapsed);
         } else {
           setTimeLeft(0);
-          setTimeAfter3Mins((savedExtraTime ? parseInt(savedExtraTime) : 0) + (elapsed - 180));
+          setTimeAfter3Mins(
+            (savedExtraTime ? parseInt(savedExtraTime) : 0) + (elapsed - 180)
+          );
         }
       }
     };
@@ -45,14 +49,19 @@ export default function WaitingCard() {
       const savedStartTime = await AsyncStorage.getItem("startTime");
       if (!savedStartTime) return;
 
-      const elapsed = Math.floor((Date.now() - parseInt(savedStartTime)) / 1000);
+      const elapsed = Math.floor(
+        (Date.now() - parseInt(savedStartTime)) / 1000
+      );
       if (elapsed < 180) {
         setTimeLeft(180 - elapsed);
         setTimeAfter3Mins(0);
       } else {
         setTimeLeft(0);
         setTimeAfter3Mins(elapsed - 180);
-        await AsyncStorage.setItem("timeAfter3Mins", (elapsed - 180).toString());
+        await AsyncStorage.setItem(
+          "timeAfter3Mins",
+          (elapsed - 180).toString()
+        );
       }
     }, 1000);
 
@@ -65,7 +74,9 @@ export default function WaitingCard() {
         const savedStartTime = await AsyncStorage.getItem("startTime");
         if (!savedStartTime) return;
 
-        const elapsed = Math.floor((Date.now() - parseInt(savedStartTime)) / 1000);
+        const elapsed = Math.floor(
+          (Date.now() - parseInt(savedStartTime)) / 1000
+        );
         if (elapsed < 180) {
           setTimeLeft(180 - elapsed);
           setTimeAfter3Mins(0);
@@ -77,19 +88,27 @@ export default function WaitingCard() {
       setAppState(nextAppState);
     };
 
-    const subscription = AppState.addEventListener("change", handleAppStateChange);
+    const subscription = AppState.addEventListener(
+      "change",
+      handleAppStateChange
+    );
     return () => subscription.remove();
   }, [appState]);
 
   const formatTime = (totalSeconds) => {
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
-    return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+    return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(
+      2,
+      "0"
+    )}`;
   };
 
   return (
     <View style={styles.card}>
-      {timeLeft > 0 && <Text style={styles.timetext}>{formatTime(timeLeft)}</Text>}
+      {timeLeft > 0 && (
+        <Text style={styles.timetext}>{formatTime(timeLeft)}</Text>
+      )}
       {timeLeft === 0 && timeAfter3Mins > 0 && (
         <View style={styles.extraCharge}>
           <Text style={styles.timetext}>{formatTime(timeAfter3Mins)}</Text>
@@ -110,6 +129,6 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   extraCharge: {
-    marginTop: 10,
+    // marginTop: 10,
   },
 });

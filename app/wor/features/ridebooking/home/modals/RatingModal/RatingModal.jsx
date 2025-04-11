@@ -15,7 +15,11 @@ const RatingModal = ({
   penRatOrderIdCaptainId,
 }) => {
   const { ratingData, setRatingData, handleRatingChange, handleGivenRating } =
-    useRatingModalHook({ penRatOrderIdCaptainId, setOpenRatingModal });
+    useRatingModalHook({
+      penRatOrderIdCaptainId,
+      setOpenRatingModal,
+      // vehicleType,
+    });
 
   return (
     <ModalUI

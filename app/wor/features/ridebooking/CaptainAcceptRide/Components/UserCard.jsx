@@ -10,6 +10,8 @@ const UserCard = ({ captainDetails, vehcleType }) => {
     ? `${imageUrl}/${captainDetails?.profilePic}`.replace(/\\/g, "/")
     : null;
 
+  console.log(`${imageUrl}/${captainDetails?.profilePic}`);
+
   const [imageSource, setImageSource] = useState(
     sanitizedImageUrl ? { uri: sanitizedImageUrl } : defaultImg
   );
@@ -107,7 +109,7 @@ const UserCard = ({ captainDetails, vehcleType }) => {
             >
               Speaks in
             </Text>
-            {captainDetails?.languages?.map((each, index) => (
+            {captainDetails?.languages?.slice(0, 3).map((each, index) => (
               <Text
                 key={index}
                 style={{
