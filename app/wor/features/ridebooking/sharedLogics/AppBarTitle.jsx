@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   appTitCenStyles: {
     // backgroundColor: "red",
     width: "90%",
-    marginBottom: 12,
+    // marginBottom: 12,
   },
   appTitCenWidth: {
     width: "100%",

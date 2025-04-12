@@ -13,10 +13,7 @@
     "title": "Late night ride completion check",
     "text": "We check rides that took longer than expected. This helps us find out why they were late, like heavy traffic or not enough drivers. We use this information to make things better, like improving how we find drivers for rides and making sure drivers and riders can easily talk to each other. This helps everyone have a better experience and makes our service more reliable."
   },
-  {
-    "title": "Voice Record",
-    "text": "The Voice Record feature in the WOR app offers a hands-free experience, ensuring convenience and safety for women riders. It lets users record voice messages, commands, or notes without stopping or using their phones, making it ideal while riding."
-  },
+
   {
     "title": "No - Place For MisBehaviour",
     "text": "At WOR, we aim to provide a safe and respectful space for all women riders. Misbehavior, including harassment or abuse, is not allowed. We want every rider to feel safe and valued. Users can report any bad behavior to help keep the community positive and supportive."
@@ -27,7 +24,7 @@
   },
   {
     "title": "Live location sharing",
-    "text": "Share your location with someone you trust. This helps them know where you are and can help you if needed add more for this line"
+    "text": "Share your location with someone you trust. This helps them know where you are and can help you if needed."
   },
   {
     "title": "Your ride. Your rules",

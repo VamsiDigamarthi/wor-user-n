@@ -12,8 +12,8 @@ const FandQsScreen = () => {
   const filterfaQsData = () => {
     if (caterogy?.toLowerCase() === "otp") {
       setData(otpFAQ);
-    }else if (caterogy.toLowerCase() === 'signup'){
-      setData(signUpFAQ)
+    } else if (caterogy.toLowerCase() === "signup") {
+      setData(signUpFAQ);
     }
   };
 
@@ -37,9 +37,12 @@ const FandQsScreen = () => {
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item, index }) => (
             <View style={styles.card}>
-              <Pressable onPress={() => hadleSetIndex(index)} style={styles.innerCard}>
+              <Pressable
+                onPress={() => hadleSetIndex(index)}
+                style={styles.innerCard}
+              >
                 <Text style={styles.text}>{item?.text}</Text>
-                <View >
+                <View>
                   {showText === index ? (
                     <AntDesign color="red" size={20} name="up" />
                   ) : (
@@ -63,7 +66,7 @@ export default FandQsScreen;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    marginTop: 100,
+    marginTop: 80,
     padding: 10,
     flex: 1,
     gap: 20,

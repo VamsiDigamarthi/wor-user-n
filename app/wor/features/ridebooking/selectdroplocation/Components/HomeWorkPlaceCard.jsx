@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import HomeLocationCard from "../../../../utiles/HomeLocationCard";
 import { useDispatch, useSelector } from "react-redux";
@@ -49,7 +49,7 @@ const HomeWorkPlaceCard = () => {
   };
 
   return (
-    <View style={styles.homeWorLocationCard}>
+    <ScrollView contentContainerStyle={styles.homeWorLocationCard}>
       {homePlace ? (
         <HomeLocationCard
           onPress={() => onNavigateShowPriceScreen("home")}
@@ -94,7 +94,7 @@ const HomeWorkPlaceCard = () => {
         iconName="star"
         onPress={() => onNavigateShowPriceScreen("home")}
       /> */}
-    </View>
+    </ScrollView>
   );
 };
 

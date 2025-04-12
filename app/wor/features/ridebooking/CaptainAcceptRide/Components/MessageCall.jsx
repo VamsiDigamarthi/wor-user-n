@@ -3,6 +3,7 @@ import React from "react";
 import { CallIcon } from "../../../../Icons/Icons";
 import { useNavigation } from "@react-navigation/native";
 import { fonts } from "../../../../fonts/Fonts";
+import Toast from "react-native-toast-message";
 
 const MessageCall = ({ orderId, captainDetails }) => {
   const navigation = useNavigation();
@@ -22,7 +23,15 @@ const MessageCall = ({ orderId, captainDetails }) => {
           Message to {captainDetails?.name}
         </Text>
       </Pressable>
-      <Pressable style={styles.call}>
+      <Pressable
+        style={styles.call}
+        onPress={() =>
+          Toast.show({
+            text1: "This Feature is Currently Unavailable",
+            type: "info",
+          })
+        }
+      >
         <CallIcon size={22} color="#EA4C89" />
       </Pressable>
     </View>

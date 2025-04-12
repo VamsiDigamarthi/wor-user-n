@@ -17,6 +17,7 @@ import { useOtpHook } from "../Hooks/Otp.hook";
 import { useNavigation } from "@react-navigation/native";
 import { fonts } from "../../../fonts/Fonts";
 import Input from "../../../utiles/Input";
+import { Feather } from "@expo/vector-icons";
 
 const OtpScreen = ({}) => {
   const {
@@ -43,7 +44,7 @@ const OtpScreen = ({}) => {
     <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : "height"} // Adjust for iOS and Android
-      keyboardVerticalOffset={Platform.OS === "ios" ? 64 : -40}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.container}>
@@ -54,28 +55,23 @@ const OtpScreen = ({}) => {
                 Welcome Back {message}!
               </Text>
               <Text style={{ fontSize: 14, fontFamily: fonts.robotoMedium }}>
-                Please enter your 6-digit OTP
+                Please enter your 6-digit Verification Code
               </Text>
-              <Text
-                style={{
-                  color: "gray",
-                  fontSize: 13,
-                  fontFamily: fonts.robotoRegular,
-                }}
+              <View
+                style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
               >
-                The OTP will be sent to your mobile number +91{mobile}
-              </Text>
-              <View style={{ flexDirection: "row", gap: 10 }}>
+                <Text
+                  style={{
+                    color: "gray",
+                    fontSize: 13,
+                    fontFamily: fonts.robotoRegular,
+                  }}
+                >
+                  The OTP will be sent to +91 {mobile}
+                </Text>
+
                 <Pressable onPress={() => navigation.goBack()}>
-                  <Text
-                    style={{
-                      color: "blue",
-                      fontSize: 13,
-                      fontFamily: fonts.robotoRegular,
-                    }}
-                  >
-                    Change Number
-                  </Text>
+                  <Feather name="edit" size={12} color="#d10423" />
                 </Pressable>
               </View>
 
@@ -96,7 +92,7 @@ const OtpScreen = ({}) => {
                       fontFamily: fonts.robotoRegular,
                     }}
                   >
-                    Resend OTP Timer
+                    Resend OTP
                   </Text>
                 </Pressable>
               ) : (
@@ -113,7 +109,7 @@ const OtpScreen = ({}) => {
             </View>
           </View>
 
-          <View style={{ width: "100%", marginBottom: 40, padding: 20 }}>
+          <View style={{ width: "100%", marginBottom: 30, padding: 20 }}>
             {otpError && (
               <View style={styles.errorCard}>
                 <Text style={styles.errorMsg}>{otpError}</Text>
@@ -126,6 +122,7 @@ const OtpScreen = ({}) => {
               onPress={justLog}
               width="100%"
               isLoding={isLoading}
+              height={55}
             />
           </View>
           <AProductFromNuhvin />

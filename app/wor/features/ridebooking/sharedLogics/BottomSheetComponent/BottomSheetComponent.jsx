@@ -22,7 +22,7 @@ const BottomSheetComponent = ({
       handleIndicatorStyle={styles.handleIndicator} // Customize handle indicator
     >
       <BottomSheetScrollView
-      showsVerticalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={[styles.sheetContent, { backgroundColor }]}
       >
         {children}

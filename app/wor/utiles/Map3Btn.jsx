@@ -27,7 +27,7 @@ const Map3Btns = ({
   mapIconsTop = 400,
 }) => {
   return (
-    <View style={[styles.mainCont, { top: mapIconsTop }]}>
+    <View style={[styles.mainCont, { top: 80 }]}>
       {/* <View style={styles.singleIconsCard}>
         <TouchableOpacity
           onPress={() => openDialer("100")}

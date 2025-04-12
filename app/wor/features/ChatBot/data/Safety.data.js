@@ -13,6 +13,7 @@ export const chatbotData = {
     ],
     isSender: false,
   },
+
   //  completed
   billing_issue: {
     message: "Please select the billing concern that you need support with:",
@@ -231,21 +232,6 @@ export const chatbotData = {
     isSender: false,
   },
 
-  //   dummy check if and api call
-  //   long_route: {
-  //     type: "upload",
-  //     message: "Please upload an image showing the route issue.",
-  //     uploadText: "Upload Image",
-  //     next: "contact_support",
-  //   },
-  //   vehicle_issue: {
-  //     type: "api",
-  //     message: "Fetching vehicle details...",
-  //     endpoint: "https://api.womenrider.com/vehicle_issue",
-  //     method: "GET",
-  //     next: "show_vehicle_data",
-  //   },
-  //   common object
   to_assist_you_further: {
     message:
       "Thank you for your inquiry. We will assist you further in this matter.",

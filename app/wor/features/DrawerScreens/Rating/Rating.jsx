@@ -5,6 +5,7 @@ import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
 import MainCard from "./Components/MainCard";
 import RatingImageCard from "./Components/RatingImageCard";
 import Data from "../../../../../Constants/RatingData.json";
+import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 
 const Rating = () => {
   const route = useRoute();
@@ -13,27 +14,24 @@ const Rating = () => {
   const { avgRating } = route.params;
 
   return (
-    <View style={{ flex: 1 }}>
-      <View style={{ zIndex: 50 }}>
-        <CustomeAppbar title="Ratings" onBack={() => navigation.goBack()} />
-      </View>
+    <AppBarLayout title="Ratings" isPositionAppbar={true}>
+      <View style={{ flex: 1 }}>
+        <View style={styles.container}>
+          <MainCard avgRating={avgRating} />
 
-      <View style={styles.container}>
-        <MainCard avgRating={avgRating} />
+          <ScrollView
+            contentContainerStyle={{
+              paddingHorizontal: 5,
+              gap: 20,
+              paddingVertical: 5,
+            }}
+          >
+            {Data.map((e, index) => (
+              <RatingImageCard key={index} title={e.title} text={e.subTitle} />
+            ))}
+          </ScrollView>
 
-        <ScrollView
-          contentContainerStyle={{
-            paddingHorizontal: 5,
-            gap: 20,
-            paddingVertical: 5,
-          }}
-        >
-          {Data.map((e, index) => (
-            <RatingImageCard key={index} title={e.title} text={e.subTitle} />
-          ))}
-        </ScrollView>
-
-        {/* <ScrollView
+          {/* <ScrollView
           contentContainerStyle={styles.scrollContainer}
           showsVerticalScrollIndicator={false}
         >
@@ -95,8 +93,9 @@ const Rating = () => {
             })}
           </ScrollView>
         </ScrollView> */}
+        </View>
       </View>
-    </View>
+    </AppBarLayout>
   );
 };
 
@@ -108,6 +107,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f7f7f7",
     // gap: 10,
     position: "relative",
+    paddingTop: 70,
   },
   scrollContainer: {
     width: "100%",

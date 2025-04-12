@@ -63,7 +63,12 @@ const About = () => {
 
   return (
     <AppBarLayout title="Settings" isPositionAppbar={true}>
-      <View style={[styles.innerCard,{paddingTop : Platform.OS=="ios" ? 110 : 100}]}>
+      <View
+        style={[
+          styles.innerCard,
+          { paddingTop: Platform.OS == "ios" ? 110 : 80 },
+        ]}
+      >
         {settingsData?.map((each, index) => (
           <SettingIconCard
             key={index}
@@ -82,7 +87,6 @@ const About = () => {
           onCancelPress={handleOpenCloseLogoutModal}
         />
       )}
-
     </AppBarLayout>
   );
 };
@@ -96,7 +100,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     gap: 10,
     flexGrow: 1,
-    backgroundColor:COLORS.mainBackgroundColor,
+    backgroundColor: COLORS.mainBackgroundColor,
     paddingTop: 100,
   },
 });

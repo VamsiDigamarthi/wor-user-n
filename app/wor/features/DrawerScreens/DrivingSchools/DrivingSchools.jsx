@@ -21,7 +21,7 @@ export default function DrivingSchools() {
 
   const [drivingSchools, setDrivingSchools] = useState(null);
 
-  const handleFetchDrivingSchool = async () => {    
+  const handleFetchDrivingSchool = async () => {
     const data = await getDrivingSchool();
     if (data) {
       setDrivingSchools(data);
@@ -34,9 +34,6 @@ export default function DrivingSchools() {
 
   // console.log("drivingSchools",drivingSchools?.length);
 
-    
-  
-
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <AppBarLayout
@@ -48,7 +45,7 @@ export default function DrivingSchools() {
         <View
           style={[
             styles.container,
-            { paddingTop: Platform.OS == "ios" ? 110 : 100 },
+            { paddingTop: Platform.OS == "ios" ? 110 : 80 },
           ]}
         >
           {/* <SliderComponent /> */}
@@ -59,16 +56,16 @@ export default function DrivingSchools() {
           </View>
 
           <FlatList
-          // style={{flex:1, height:400}}
+            // style={{flex:1, height:400}}
             data={drivingSchools}
             keyExtractor={(item) => item._id}
-            renderItem={({ item }) => <Card  item={item} />}
+            renderItem={({ item }) => <Card item={item} />}
             ListEmptyComponent={
-              <View
-                style={styles.emptyContainer}
-              >
+              <View style={styles.emptyContainer}>
                 <Text style={styles.emptyText}>No Data </Text>
-                <Text style={styles.emptyText}>Please click to add business button to added your services  </Text>
+                <Text style={styles.emptyText}>
+                  Please click to add business button to add your services{" "}
+                </Text>
               </View>
             }
           />
@@ -83,7 +80,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 10,
     backgroundColor: COLORS.mainBackgroundColor,
-    gap:12
+    gap: 12,
   },
 
   searchCard: {
@@ -99,14 +96,14 @@ const styles = StyleSheet.create({
     textAlign: "left",
     fontSize: 16,
   },
-  emptyContainer:{
+  emptyContainer: {
     width: "100%",
     height: 400,
     justifyContent: "center",
     alignItems: "center",
   },
 
-  emptyText:{
-    fontFamily:fonts.robotoRegular
-  }
+  emptyText: {
+    fontFamily: fonts.robotoRegular,
+  },
 });

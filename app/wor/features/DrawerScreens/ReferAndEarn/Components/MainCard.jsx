@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     height: 250,
     position: "relative",
     zIndex: -1,
-    top: -15,
+    top: -18,
   },
 
   mainText: {

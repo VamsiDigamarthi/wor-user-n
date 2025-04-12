@@ -41,7 +41,7 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
 
   const insets = useSafeAreaInsets();
 
-  const hasSoftwareNavigationBar = insets.bottom > 0;
+  const hasSoftwareNavigationBar = false;
 
   return (
     <>
@@ -71,31 +71,18 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
             />
           </ParcelBtnCard>
         </View>
-        {/* before booking check m-pin set or not */}
         <NavigateMPinScreenModal
           rideBookBeforeCheckMPinAddhar={rideBookBeforeCheckMPinAddhar}
           onChangeRideBookBeforeCheckPinAddharHandler={
             onChangeRideBookBeforeCheckPinAddharHandler
           }
         />
-        {/* check m-pin modal */}
         <CheckMPinModal
           isOpenEnterConfirmMPinModal={isOpenEnterConfirmMPinModal}
           onOpenIsEnterConfirmPinModal={onOpenIsEnterConfirmPinModal}
           pickUpPlace={placeName}
           newMarker={{ lat: newMarker.latitude, lng: newMarker.longitude }}
         />
-
-        {/* {false && <NotInLocation />} */}
-
-        {/* {displayStartModal && (
-          <StartRides
-            setDisplayStartModal={() =>
-              setDisplayStartModal(!displayStartModal)
-            }
-            isDispalyStartModal={displayStartModal}
-          />
-        )} */}
       </View>
     </>
   );
@@ -115,9 +102,9 @@ const styles = StyleSheet.create({
   },
   backbtn: {
     position: "absolute",
-    top: 39,
+    // top: 39,
     left: 10,
-    padding: 5,
+    padding: 10,
     borderRadius: 50,
     backgroundColor: "#fff",
     elevation: 4,

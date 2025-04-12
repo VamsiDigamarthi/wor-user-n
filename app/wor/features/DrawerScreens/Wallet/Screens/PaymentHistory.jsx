@@ -48,7 +48,7 @@ export default function PaymentHistory({ navigation }) {
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={<EmptyPatmentHistory />}
         contentContainerStyle={{
-          paddingTop: 90,
+          paddingTop: 80,
           paddingBottom: 30, // Increase padding to ensure last item is visible
         }}
         style={{

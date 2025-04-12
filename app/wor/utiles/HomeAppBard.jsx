@@ -129,14 +129,13 @@ const HomeAppBard = ({ navigation }) => {
 export default HomeAppBard;
 const styles = StyleSheet.create({
   superContainer: {
-    height: 100,
+    height: 60,
     backgroundColor: "#fff",
     width: "100%",
     justifyContent: "flex-end",
     alignItems: "flex-end",
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
-  
   },
   appBarContainer: {
     flexDirection: "row",
