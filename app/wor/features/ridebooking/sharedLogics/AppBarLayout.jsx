@@ -53,5 +53,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     gap: 10,
     position: "relative",
+    height: "100%",
   },
 });

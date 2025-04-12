@@ -37,7 +37,12 @@ const AppSettingsScreen = () => {
 
   return (
     <AppBarLayout title="App Settings" isPositionAppbar={true}>
-      <View style={[styles.innerCard,{paddingTop : Platform.OS=="ios" ? 115 : 100}]}>
+      <View
+        style={[
+          styles.innerCard,
+          { paddingTop: Platform.OS == "ios" ? 115 : 80 },
+        ]}
+      >
         {settingsData?.map((each, index) => (
           <SettingIconCard
             key={index}

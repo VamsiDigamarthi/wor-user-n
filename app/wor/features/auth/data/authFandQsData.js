@@ -12,7 +12,7 @@ export const otpFAQ = [
   {
     text: "How long is the OTP valid?",
     subText:
-      "The OTP is valid for 5 minutes. After that, you will need to request a new one.",
+      "The OTP is valid for 1 minute. After that, you will need to request a new one.",
   },
   {
     text: "What if the OTP is incorrect?",
@@ -29,7 +29,8 @@ export const otpFAQ = [
 export const signUpFAQ = [
   {
     text: "Why do I need to provide my full name?",
-    subText: "Your full name is required for account creation, personalized communication, and ensuring a secure experience while using the Women Rider app.",
+    subText:
+      "Your full name is required for account creation, personalized communication, and ensuring a secure experience while using the Women Rider app.",
   },
   {
     text: "Is my email address mandatory?",

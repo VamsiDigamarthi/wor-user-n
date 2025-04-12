@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     gap: 16,
     flex: 1,
     backgroundColor: "#f3f2f7",
-    paddingTop: 120,
+    paddingTop: 80,
   },
   heading: {
     fontSize: 16,

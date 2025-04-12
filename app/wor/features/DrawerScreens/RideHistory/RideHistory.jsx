@@ -34,7 +34,7 @@ const RideHistory = () => {
       <View
         style={[
           styles.innerContainer,
-          { paddingTop: Platform.OS == "ios" ? 110 : 100 },
+          { paddingTop: Platform.OS == "ios" ? 110 : 80 },
         ]}
       >
         <FlatList

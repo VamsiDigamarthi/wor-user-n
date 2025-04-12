@@ -18,15 +18,9 @@ const ChatbotScreen = () => {
 
   return (
     <>
-      <AppBarLayout title={`${caterogy} Chat Bot`} isPositionAppbar={false}>
+      <AppBarLayout title={`${caterogy} Chat Bot`} isPositionAppbar={true}>
         <View style={styles.container}>
-          <ScrollView
-            style={styles.messageContainer}
-            // ref={scrollViewRef}
-            // onContentSizeChange={() =>
-            //   scrollViewRef.current.scrollToEnd({ animated: true })
-            // }
-          >
+          <ScrollView style={styles.messageContainer}>
             {specificChat?.map((chat, index) => (
               <ChatBotMessage
                 key={index}
@@ -57,6 +51,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     backgroundColor: "#f7f7f7",
+    paddingTop: 80,
   },
   messageContainer: {
     flex: 1,

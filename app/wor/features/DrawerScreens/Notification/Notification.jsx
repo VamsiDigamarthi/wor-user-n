@@ -37,10 +37,10 @@ const Notification = () => {
       <View
         style={[
           styles.innerContainer,
-          { paddingTop: Platform.OS == "ios" ? 110 : 95 },
+          { paddingTop: Platform.OS == "ios" ? 110 : 80 },
         ]}
       >
-        {notification.length > 0 ? (
+        {notification.length < 0 ? (
           <>
             {notification.map((e, index) => (
               <NotificationItem key={index} data={e} />

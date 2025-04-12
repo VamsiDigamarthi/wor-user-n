@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     width: "100%",
-    height: Platform.OS === "ios" ? 100 : 85,
+    height: Platform.OS === "ios" ? 100 : 70,
 
     // backgroundColor: "red",
     zIndex: 999,
@@ -126,11 +126,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     borderColor: "#FFE2E6",
     borderRadius: 6,
-    height: 50,
+    height: 60,
     zIndex: 30,
     backgroundColor: "#fff",
     width: "100%",
-    // backgroundColor:"yellow"
+    // backgroundColor: "yellow",
   },
 
   btnContainer: {
@@ -138,15 +138,17 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     width: "12%",
     height: "100%",
-    marginBottom: 5,
+    marginBottom: 15,
     // backgroundColor:"red"
   },
 
   btn: {
     height: 40,
+
     width: 40,
     alignItems: "center",
     justifyContent: "center",
+    // backgroundColor: "red",
   },
 
   textContainer: {
@@ -164,6 +166,7 @@ const styles = StyleSheet.create({
     // textAlign: "center",
     // backgroundColor: "red",
     marginTop: 3,
+    // backgroundColor: "red",
   },
   textinnerCard: {
     flexDirection: "row",

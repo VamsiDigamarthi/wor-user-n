@@ -25,6 +25,7 @@ import inAppMessaging from "@react-native-firebase/in-app-messaging";
 import analytics from "@react-native-firebase/analytics";
 import { PlayInstallReferrer } from "react-native-play-install-referrer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 LogBox.ignoreLogs([
   "`new NativeEventEmitter()` was called with a non-null argument without the required `addListener` method",
@@ -203,13 +204,17 @@ export default function App() {
   return (
     <Provider store={store}>
       <SocketProvider>
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <StatusBar style="dark" />
-          <BottomSheetModalProvider>
-            <MainNavigation />
-          </BottomSheetModalProvider>
-          <Toast />
-        </GestureHandlerRootView>
+        <SafeAreaProvider>
+          <SafeAreaView style={{ flex: 1 }}>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+              <StatusBar style="dark" />
+              <BottomSheetModalProvider>
+                <MainNavigation />
+              </BottomSheetModalProvider>
+              <Toast />
+            </GestureHandlerRootView>
+          </SafeAreaView>
+        </SafeAreaProvider>
       </SocketProvider>
     </Provider>
   );

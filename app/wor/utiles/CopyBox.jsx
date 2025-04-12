@@ -26,24 +26,30 @@ export default function CopyBox() {
 
   return (
     <ImageBackground style={styles.copyBox} source={CopyBoxImg}>
-      <Text
-        style={{
-          fontFamily: fonts.robotoMedium,
-          fontSize: 17,
-          color: "#e02e88",
-        }}
-      >
-        Invite Your Friends to women rider
-      </Text>
-      <TouchableOpacity
-        style={styles.copyBtn}
-        onPress={() => copyToClipboard(profile.ownRefCode)}
-      >
-        <Text style={{ fontFamily: fonts.robotoBold }}>
-          Code : {profile?.ownRefCode}
+      {/* Overlay with opacity */}
+      <View style={styles.overlay} />
+
+      {/* Foreground content */}
+      <View style={styles.content}>
+        <Text
+          style={{
+            fontFamily: fonts.robotoMedium,
+            fontSize: 17,
+            color: "#e02e88",
+          }}
+        >
+          Invite Your Friends to women rider
         </Text>
-        <MaterialCommunityIcons name="content-copy" size={24} color="black" />
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.copyBtn}
+          onPress={() => copyToClipboard(profile.ownRefCode)}
+        >
+          <Text style={{ fontFamily: fonts.robotoBold }}>
+            Code : {profile?.ownRefCode}
+          </Text>
+          <MaterialCommunityIcons name="content-copy" size={24} color="black" />
+        </TouchableOpacity>
+      </View>
     </ImageBackground>
   );
 }
@@ -69,5 +75,18 @@ const styles = StyleSheet.create({
     borderStyle: Platform.OS === "ios" ? "solid" : "dashed",
     alignItems: "center",
     justifyContent: "center",
+  },
+
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(255, 255, 255, 0.6)", // White background with 60% opacity
+    borderRadius: 20, // match parent radius
+  },
+
+  content: {
+    flex: 1,
+    justifyContent: "center",
+    gap: 10,
+    padding: 10,
   },
 });

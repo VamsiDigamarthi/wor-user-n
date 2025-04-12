@@ -28,7 +28,7 @@ export default SupportChatHeader;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    paddingTop: 40,
+    paddingTop: 10,
     backgroundColor: "#fff",
     paddingHorizontal: 15,
     paddingBottom: 10,

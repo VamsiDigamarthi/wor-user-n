@@ -32,7 +32,7 @@ const LoginScreen = () => {
     <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : "height"} // Adjust for iOS and Android
-      keyboardVerticalOffset={Platform.OS === "ios" ? 64 : -40}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.containers}>
@@ -65,7 +65,7 @@ const LoginScreen = () => {
                 width: "100%",
                 gap: 10,
                 alignItems: "center",
-                marginBottom: 40,
+                marginBottom: 20,
               }}
             >
               <View style={{ flexDirection: "row" }}>
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     position: "relative",
-    // backgroundColor: "blue",
+    backgroundColor: "blue",
   },
   containers: {
     flex: 1,
@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 20,
+    // backgroundColor: "pink",
     paddingVertical: 30,
   },
   nuhvinProduct: {
@@ -147,7 +148,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 50,
     // backgroundColor: "#f7f7f7",
-    bottom: 10,
+    bottom: 0,
     left: 0,
     zIndex: 10000,
     flexDirection: "row",

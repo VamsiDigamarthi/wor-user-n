@@ -38,7 +38,7 @@ export default AuthAppBar;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: 110,
+    height: 80,
     justifyContent: "flex-end",
     alignItems: "center",
     backgroundColor: "#fff",

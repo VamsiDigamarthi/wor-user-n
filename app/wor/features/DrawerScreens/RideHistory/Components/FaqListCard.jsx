@@ -10,10 +10,10 @@ export default function FaqListCard({ orderId, isRideHistorySreen = true }) {
   const navigation = useNavigation();
 
   function handleNavigation(caterogy) {
+    console.log("caterogy", caterogy);
+
     navigation.navigate("ChatBot", {
       caterogy,
-      orderId,
-      isRideHistorySreen: isRideHistorySreen,
     });
   }
 

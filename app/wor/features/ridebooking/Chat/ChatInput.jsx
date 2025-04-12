@@ -8,9 +8,7 @@ const ChatInput = ({
   hasSoftwareNavigationBar,
 }) => {
   return (
-    <View
-      style={[styles.container, { bottom: hasSoftwareNavigationBar ? 30 : 10 }]}
-    >
+    <View style={[styles.container, { bottom: 0 }]}>
       <View style={styles.input}>
         <TextInput
           placeholder="Send message..!"
@@ -33,11 +31,12 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     position: "absolute",
-    bottom: 10,
+    // bottom: 10,
     left: 0,
     // backgroundColor: "red",
     padding: 10,
-    paddingBottom: 20,
+    // paddingBottom: 20,
+    // backgroundColor: "red",
   },
   input: {
     width: "100%",

@@ -41,6 +41,7 @@ const SupportChat = () => {
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={{ flex: 1, position: "relative" }}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 20}
     >
       {/* <View style={styles.container}> */}
       <SupportChatHeader />

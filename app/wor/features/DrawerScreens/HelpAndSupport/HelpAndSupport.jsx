@@ -24,7 +24,7 @@ function HelpAndSupport() {
       <View
         style={[
           styles.container,
-          { paddingTop: Platform.OS == "ios" ? 110 : 100 },
+          { paddingTop: Platform.OS == "ios" ? 110 : 80 },
         ]}
       >
         <View style={styles.topContainer}>

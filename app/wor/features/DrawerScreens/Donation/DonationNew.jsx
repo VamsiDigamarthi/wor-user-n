@@ -56,7 +56,7 @@ function DonationNew() {
           <View
             style={[
               styles.container,
-              { paddingTop: Platform.OS == "ios" ? 110 : 100 },
+              { paddingTop: Platform.OS == "ios" ? 110 : 80 },
             ]}
           >
             <View style={styles.switchContainer}>
@@ -96,16 +96,6 @@ function DonationNew() {
               <Text style={styles.listTxt}>
                 Make sure this is a Monthly Donation for the Empower Women
                 Rider.
-              </Text>
-              <Text style={styles.listTxt}>
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat.
-              </Text>
-              <Text style={styles.listTxt}>
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat.
               </Text>
             </View>
           </View>

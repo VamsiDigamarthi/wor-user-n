@@ -20,7 +20,7 @@ export const useChatbotScreenHook = () => {
   const [formData, setFormData] = useState({});
 
   const filterSpecificChat = () => {
-    console.log("caterogy", caterogy);
+    console.log("caterogy---", caterogy);
 
     if (caterogy === "Ride & Billing") {
       setDumyAllMsg(chatbotData);
@@ -31,11 +31,13 @@ export const useChatbotScreenHook = () => {
         },
       ]);
     } else if (caterogy === "Safe & Secure") {
+      console.log("-------------------------------------");
+
       setDumyAllMsg(safetyChatBptData);
       setSpecificChat([
         {
-          message: safetyChatBptData.start.message,
-          options: safetyChatBptData.start.options,
+          message: safetyChatBptData?.start?.message,
+          options: safetyChatBptData?.start?.options,
         },
       ]);
     } else if (caterogy === "Payment & Wallet") {

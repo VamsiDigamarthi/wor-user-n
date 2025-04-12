@@ -127,12 +127,14 @@ const MainNavigation = () => {
 
     const processOrders = (orders) => {
       orders?.forEach((singleOrder) => {
-        if (isConnected && singleOrder.status === "pending") {
+        // if (isConnected && singleOrder.status === "pending") {
+        if (isConnected) {
           socket.emit("ride-live-communication", {
             orderId: singleOrder?._id,
             userType: "user",
           });
         }
+        // }
 
         if (["pending", "accept", "waiting"].includes(singleOrder.status)) {
           handleOrderNavigation(singleOrder);

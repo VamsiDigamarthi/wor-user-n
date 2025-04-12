@@ -10,8 +10,8 @@ const RideHistoryDetailView = () => {
   const route = useRoute();
   const { ride } = route.params;
   return (
-    <AppBarLayout title="Ride Details" isPositionAppbar={false}>
-      <View style={{ flex: 1 }}>
+    <AppBarLayout title="Ride Details" isPositionAppbar={true}>
+      <View style={{ flex: 1, paddingTop: 80 }}>
         <ScrollView
           contentContainerStyle={styles.scrollContainer}
           showsVerticalScrollIndicator={false}

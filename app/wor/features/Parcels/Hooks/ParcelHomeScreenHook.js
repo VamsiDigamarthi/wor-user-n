@@ -12,7 +12,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 export const useParcelHomeScreenHook = () => {
   const insets = useSafeAreaInsets();
 
-  const hasSoftwareNavigationBar = insets.bottom > 0;
+  const hasSoftwareNavigationBar = false;
 
   const { location, placeName, placeVicinity } = useSelector(
     (state) => state.location

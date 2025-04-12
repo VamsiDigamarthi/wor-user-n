@@ -367,7 +367,14 @@ const AuthenticatedStack = ({ initialRoute, params }) => {
       <Stack.Screen
         name="ChangeLoc100mViaMap"
         component={ChangeLoc100mViaMapScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          headerTransparent: true,
+
+          headerStyle: {
+            backgroundColor: "transparent",
+          },
+        }}
       />
 
       <Stack.Screen

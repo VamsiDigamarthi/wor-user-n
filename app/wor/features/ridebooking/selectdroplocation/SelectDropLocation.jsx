@@ -37,17 +37,13 @@ const SelectDropLocation = () => {
 
   return (
     <>
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-
-
-      >
+      <KeyboardAvoidingView style={{ flex: 1 }}>
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
           <AppBarLayout title="Select Destination" isPositionAppbar={true}>
             <View
               style={[
                 styles.container,
-                { paddingTop: Platform.OS == "ios" ? 110 : 100 },
+                { paddingTop: Platform.OS == "ios" ? 110 : 80 },
               ]}
             >
               <WhereToGo
@@ -59,7 +55,7 @@ const SelectDropLocation = () => {
                 setIsMicModalOpenClose={setIsMicModalOpenClose}
               />
             </View>
-            <SelectOnMap hasSoftwareNavigationBar={hasSoftwareNavigationBar} />
+            <SelectOnMap hasSoftwareNavigationBar={false} />
           </AppBarLayout>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
