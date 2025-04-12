@@ -60,6 +60,7 @@ export const useOtpHook = () => {
         otp: otp?.replace(/\s/g, ""),
         isUserApp: false,
         deviceId,
+        userType:"user"
       });
       setIsLoading(false);
 

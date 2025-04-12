@@ -24,7 +24,7 @@ const EmergencyContactModal = ({ openModal, closeModal }) => {
   const { token } = useSelector((state) => state.token);
   const { completeRideDetails } = useSelector((state) => state.allRideDetails);
   const { socket, isConnected } = useSocket();
-  const [isLiveTrackingEnabled, setIsLiveTrackingEnabled] = useState(false); // State to control live tracking
+  const [isLiveTrackingEnabled, setIsLiveTrackingEnabled] = useState(false);
 
   const { locationRef } = useLocationTracking(
     completeRideDetails?._id,
@@ -69,7 +69,7 @@ const EmergencyContactModal = ({ openModal, closeModal }) => {
 
   const shareLocation = async (mobile, link) => {
     setIsLiveTrackingEnabled(true);
-    const locationLink = `http://localhost:3000/live-tracking/${completeRideDetails?._id}?startLat=${completeRideDetails?.pickup?.coordinates[1]}&startLng=${completeRideDetails?.pickup?.coordinates[0]}&destLat=${completeRideDetails?.drop?.coordinates[1]}&destLng=${completeRideDetails?.drop?.coordinates[0]}`; // Replace with dynamic location coordinates
+    const locationLink = `http://localhost:3000/live-tracking/${completeRideDetails?._id}?startLat=${completeRideDetails?.pickup?.coordinates[1]}&startLng=${completeRideDetails?.pickup?.coordinates[0]}&destLat=${completeRideDetails?.drop?.coordinates[1]}&destLng=${completeRideDetails?.drop?.coordinates[0]}`;
 
     const message = `Hi, I am sharing my location: ${locationLink}`;
     let formattedMobile = mobile.split(" ").join("");
