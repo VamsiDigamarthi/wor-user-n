@@ -20,6 +20,10 @@ const initialState = {
   pollineCoordinates: [],
   distanceFromPickUpToDrop: 0,
   duration: 0,
+
+  randomExtraCharges: 0,
+
+  randomExtraChrgesWithVehicle: {},
 };
 
 const allRideDetails = createSlice({
@@ -106,6 +110,16 @@ const allRideDetails = createSlice({
       state.pollineCoordinates = action.payload;
     },
 
+    setRandomExtraCharge: (state, action) => {
+      state.randomExtraCharges = action.payload;
+    },
+
+    setRandomExtraChrgesWithVehicle: (state, action) => {
+      const { vehicleType, otherCharges } = action.payload;
+      console.log(action.payload);
+      state.randomExtraChrgesWithVehicle[vehicleType] = otherCharges;
+    },
+
     clearDropData: (state) => {
       state.initialDropDetails = null; // {}
       state.dropDetails = null; // {}
@@ -125,6 +139,8 @@ const allRideDetails = createSlice({
       state.pollineCoordinates = [];
       state.distanceFromPickUpToDrop = [];
       state.duration = 0;
+      state.randomExtraCharges = 0;
+      state.randomExtraChrgesWithVehicle = {};
     },
   },
 });
@@ -152,6 +168,8 @@ export const {
   setPollylineCoordinates,
   setDistanceFromPickUpToDrop,
   setDuration,
+  setRandomExtraCharge,
+  setRandomExtraChrgesWithVehicle,
 } = allRideDetails.actions;
 
 export default allRideDetails.reducer;

@@ -49,7 +49,7 @@ const OfferCouponCard = ({ onOfferPress, onPaymentPress }) => {
 
             {paymentMethod === "wallet" && (
               <Text style={styles.walletBalance}>
-                Available Rs. {profile?.walletBalance}/-
+                Available Rs. {profile?.userWalletBalance}/-
               </Text>
             )}
           </View>

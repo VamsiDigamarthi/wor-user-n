@@ -1,18 +1,21 @@
 import { useRoute } from "@react-navigation/native";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { chatbotData } from "./data/rideAndBilling.data";
-import { safetyChatBptData } from "./data/Safety.data";
+import { safetyAndSecureData, safetyChatBptData } from "./data/Safety.data";
 import { paymentWalletData } from "./data/paymentWallet.data";
 import { walletData } from "./data/wallet.data";
 import { addedQueryToDb } from "./services/AddedQueryToDb";
 import { savedDetailsSupportData } from "./data/savedDetailsSupport.data";
+import { newPaymentWalletData } from "./data/newPaymentWallet.data";
+import { newReferalAndReward } from "./data/referalAndReward.data";
+import { newAcoountAndApp } from "./data/newAccountAndApp.data";
 
 export const useChatbotScreenHook = () => {
   const { caterogy } = useRoute()?.params || {};
   const { token } = useSelector((state) => state.token);
   const [dumyAllMsg, setDumyAllMsg] = useState(null);
-
+  const scrollViewRef = useRef(null);
   const [specificChat, setSpecificChat] = useState([]);
 
   const [showForm, setShowForm] = useState(null);
@@ -33,19 +36,27 @@ export const useChatbotScreenHook = () => {
     } else if (caterogy === "Safe & Secure") {
       console.log("-------------------------------------");
 
-      setDumyAllMsg(safetyChatBptData);
+      setDumyAllMsg(safetyAndSecureData);
       setSpecificChat([
         {
-          message: safetyChatBptData?.start?.message,
-          options: safetyChatBptData?.start?.options,
+          message: safetyAndSecureData?.start?.message,
+          options: safetyAndSecureData?.start?.options,
+        },
+      ]);
+    } else if (caterogy === "Referrals") {
+      setDumyAllMsg(newReferalAndReward);
+      setSpecificChat([
+        {
+          message: newReferalAndReward?.start?.message,
+          options: newReferalAndReward?.start?.options,
         },
       ]);
     } else if (caterogy === "Payment & Wallet") {
-      setDumyAllMsg(paymentWalletData);
+      setDumyAllMsg(newPaymentWalletData);
       setSpecificChat([
         {
-          message: paymentWalletData.start.message,
-          options: paymentWalletData.start.options,
+          message: newPaymentWalletData.start.message,
+          options: newPaymentWalletData.start.options,
         },
       ]);
     } else if (caterogy === "wallet") {
@@ -64,10 +75,20 @@ export const useChatbotScreenHook = () => {
           options: savedDetailsSupportData.start.options,
         },
       ]);
+    } else if (caterogy === "Account And App") {
+      setDumyAllMsg(newAcoountAndApp);
+      setSpecificChat([
+        {
+          message: newAcoountAndApp.start.message,
+          options: newAcoountAndApp.start.options,
+        },
+      ]);
     } else {
       setSpecificChat([]);
     }
   };
+
+  // newAcoountAndApp
 
   useEffect(() => {
     filterSpecificChat();
@@ -99,6 +120,7 @@ export const useChatbotScreenHook = () => {
 
     if (nextStep.type === "form") {
       setShowForm(nextStep);
+      setFormData((prev) => ({ ...prev, question: newMessage.message }));
     } else {
       setSpecificChat((prev) => [
         ...prev,
@@ -195,5 +217,7 @@ export const useChatbotScreenHook = () => {
     hadleSubmitForm,
     setFormData,
     formData,
+
+    scrollViewRef,
   };
 };

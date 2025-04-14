@@ -24,6 +24,7 @@ export const useCheckMPinModalHook = ({ onOpenIsEnterConfirmPinModal }) => {
     pollineCoordinates,
     distanceFromPickUpToDrop,
     duration,
+    randomExtraCharges,
   } = useSelector((state) => state.allRideDetails);
 
   const { socket, isConnected } = useSocket();
@@ -63,12 +64,14 @@ export const useCheckMPinModalHook = ({ onOpenIsEnterConfirmPinModal }) => {
 
     const { formattedDate, formattedTime } = getFormattedDateTime();
 
+    console.log("randomExtraCharges", randomExtraCharges);
+
     const orderDetails = createOrderDetails({
       isParcel: isParcScreen,
       pickUpDetails,
       dropDetails,
       profile,
-      price,
+      price: (paymentMethod === "wallet" ? +price - 2 : price).toString(),
       selectedVehicleType,
       parcelType,
       formattedDate,
@@ -80,6 +83,7 @@ export const useCheckMPinModalHook = ({ onOpenIsEnterConfirmPinModal }) => {
       pollyLineCoordinates: pollineCoordinates,
       distanceFromPickUpToDrop,
       duration,
+      randomExtraCharges,
     });
 
     const orderId = await bookingRide({ token, orderDetails });
@@ -92,19 +96,6 @@ export const useCheckMPinModalHook = ({ onOpenIsEnterConfirmPinModal }) => {
     navigation.navigate("lookingforride", {
       orderId,
     });
-
-    // navigation.reset({
-    //   index: 1, // Make captaineacceptride the active screen
-    //   routes: [
-    //     {
-    //       name: "lookingforride",
-    //       params: { orderId },
-    //     },
-    //     {
-    //       name: "captaineacceptride",
-    //     },
-    //   ],
-    // });
   };
 
   return {
