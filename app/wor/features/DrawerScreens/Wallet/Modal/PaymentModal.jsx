@@ -57,9 +57,9 @@ export default function PaymentModal({ onClose, isRideBookingScreen }) {
   };
 
   const isWalletSufficient =
-    price <= profile?.walletBalance &&
+    price <= profile?.userWalletBalance &&
     (!completeRideDetails ||
-      completeRideDetails?.price <= profile?.walletBalance);
+      completeRideDetails?.price <= profile?.userWalletBalance);
 
   const handleNavigateWalletScreen = () => {
     navigation.navigate("WalletLoad");
@@ -67,9 +67,9 @@ export default function PaymentModal({ onClose, isRideBookingScreen }) {
 
   return (
     <View style={styles.container}>
-      {price <= profile?.walletBalance &&
+      {price <= profile?.userWalletBalance &&
         (!completeRideDetails ||
-          completeRideDetails?.price <= profile?.walletBalance) && <></>}
+          completeRideDetails?.price <= profile?.userWalletBalance) && <></>}
 
       <CommonCard
         selected={selectedMethod === "wallet"}

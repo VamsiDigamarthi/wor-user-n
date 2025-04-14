@@ -6,6 +6,8 @@ import {
   setHowManyMens,
   setPaymentMethod,
   setPrice,
+  setRandomExtraCharge,
+  setRandomExtraChrgesWithVehicle,
 } from "../../sharedLogics/rideDetailsSlice";
 import { vehicles } from "../vehicleData";
 import { useNavigation } from "@react-navigation/native";
@@ -22,6 +24,8 @@ export const useShowPriceScreenHook = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const { profile } = useSelector((state) => state.profileSlice);
+
+  console.log("profile", profile);
 
   const { priceDetails } = useSelector((state) => state.priceDetails); // this is complete price details from admin panel
 
@@ -185,8 +189,9 @@ export const useShowPriceScreenHook = () => {
         ) {
           dispatch(setPrice(newPrice));
           dispatch(setDuration(vehicle?.duration));
+
           let paymentMethod =
-            +newPrice >= +profile?.walletBalance ? "cash" : "wallet";
+            +newPrice >= +profile?.userWalletBalance ? "cash" : "wallet";
           dispatch(setPaymentMethod(paymentMethod));
         }
 
@@ -211,15 +216,20 @@ export const useShowPriceScreenHook = () => {
             carPrice && worPremiumPrice
               ? `${carPrice}-${worPremiumPrice}`
               : "N/A";
+          console.log("profile?.donationActive", profile?.donationActive);
 
           if (profile?.donationActive) {
-            price = price + 2;
+            carPrice && worPremiumPrice
+              ? `${carPrice + 2}-${worPremiumPrice + 2}`
+              : "N/A";
           }
 
           if (selectedVehicleType?.toLowerCase() === "bookany") {
             dispatch(setPrice(price));
             let paymentMethod =
-              +worPremiumPrice >= +profile?.walletBalance ? "cash" : "wallet";
+              +worPremiumPrice >= +profile?.userWalletBalance
+                ? "cash"
+                : "wallet";
 
             dispatch(setPaymentMethod(paymentMethod));
           }
@@ -270,6 +280,17 @@ export const useShowPriceScreenHook = () => {
     console.log("timeFare", timeFare);
     const otherCharges = otherServicesCharges(vehcilePrices);
     console.log("otherCharges", otherCharges);
+
+    if (selectedVehicleType?.toLowerCase() === vehicleType?.toLowerCase()) {
+      dispatch(setRandomExtraCharge(otherCharges));
+    }
+
+    dispatch(
+      setRandomExtraChrgesWithVehicle({
+        vehicleType: vehicleType?.toLowerCase(),
+        otherCharges,
+      })
+    );
 
     const isNightTime = checkNightTime();
     let finalPrice;

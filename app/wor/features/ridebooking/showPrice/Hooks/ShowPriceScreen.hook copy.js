@@ -111,7 +111,7 @@ export const useShowPriceScreenHook = () => {
             await dispatch(setPrice(newPrice));
 
             let paymentMethod =
-              +newPrice >= +profile?.walletBalance ? "cash" : "wallet";
+              +newPrice >= +profile?.userWalletBalance ? "cash" : "wallet";
             await dispatch(setPaymentMethod(paymentMethod));
           }
 

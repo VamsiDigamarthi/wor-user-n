@@ -32,7 +32,9 @@ export default function CommonCard({
                 color: disable && "red",
               }}
             >
-              {`${disable ? "low balance :" : ""} ₹ ${profile?.walletBalance}`}
+              {`${disable ? "low balance :" : ""} ₹ ${
+                profile?.userWalletBalance
+              }`}
             </Text>
           )}
         </View>

@@ -1,233 +1,169 @@
-export const chatbotData = {
+export const safetyAndSecureData = {
   start: {
     message: "Please select the issue that you need support with:",
     options: [
-      { text: "I have a billing issue.", next: "billing_issue" },
-      { text: "I have a problem with my ride.", next: "ride_problem" },
-      { text: "I need to update my payment method.", next: "update_payment" },
       {
-        text: "I need to inquire about my ride charges.",
-        next: "ride_charges",
+        text: "I feel unsafe during the ride.",
+        next: "feel_unsafe_during_the_ride",
+      },
+      {
+        text: "I need to report an incident during my ride.",
+        next: "need_to_report_an_incident_during_my_ride",
+      },
+      {
+        text: "I need to share my ride details with someone.",
+        next: "need_to_share_my_ride_details_with_someone",
+      },
+      {
+        text: "I need assistance with the SOS button",
+        next: "need_assistance_with_the_sos_button",
         type: "form",
       },
     ],
     isSender: false,
   },
 
-  //  completed
-  billing_issue: {
-    message: "Please select the billing concern that you need support with:",
+  feel_unsafe_during_the_ride: {
+    message: "Please select the concern that you need support with:",
     options: [
       {
-        text: "I’ve been charged incorrectly.",
-        next: "charged_incorrectly",
-        type: "form",
+        text: "1.	I need assistance immediately.",
+        next: "need_assistance_immediately",
       },
       {
-        text: "I need a refund for a canceled ride.",
-        next: "refund_request",
-        type: "form",
+        text: "2.	I felt uncomfortable with my driver’s behavior.",
+        next: "felt_uncomfortable_with_my_driver",
       },
       {
-        text: "I need a detailed breakdown of my ride charges.",
-        next: "breakdown_request",
-        type: "form",
+        text: "3.	I had an emergency and need help.",
+        next: "had_an_emergency_and_need_help",
       },
       {
-        text: "I have an issue with my promotional code or discount.",
-        next: "promo_issue",
+        text: "4.	I would like to report an issue with my ride.",
+        next: "would_like_to_report_an_issue_with_my_ride",
         type: "form",
       },
     ],
-    isSender: false,
-  },
-  // completed
-  charged_incorrectly: {
-    type: "form",
-    message: "Please provide the following details for us to investigate:",
-    fields: [
-      { label: "Ride ID", inputType: "text", key: "rideId" },
-      { label: "Date of Ride", inputType: "date", key: "date" },
-      {
-        label: "Description of the Billing Issue",
-        inputType: "textarea",
-        key: "description",
-      },
-    ],
-    submitText: "Proceed",
-    next: "to_assist_you_further",
-    isSender: false,
   },
 
-  // completed
-  refund_request: {
+  need_assistance_immediately: {
     type: "form",
-    message: "Please provide the following details for us to investigate:",
-    fields: [
-      { label: "Ride ID", inputType: "text", key: "rideId" },
-      { label: "Date of Ride", inputType: "date", key: "date" },
-      {
-        label: "Description of the Billing Issue",
-        inputType: "textarea",
-        key: "description",
-      },
-    ],
-    submitText: "Proceed",
-    next: "to_assist_you_further",
-    isSender: false,
-  },
-  // completed
-  breakdown_request: {
-    type: "form",
-    message: "Please provide the following details for us to investigate:",
-    fields: [
-      { label: "Ride ID", inputType: "text", key: "rideId" },
-      { label: "Date of Ride", inputType: "date", key: "date" },
-      {
-        label: "Description of the Billing Issue",
-        inputType: "textarea",
-        key: "description",
-      },
-    ],
-    submitText: "Proceed",
-    next: "to_assist_you_further",
-    isSender: false,
-  },
-
-  // completed
-  promo_issue: {
-    type: "form",
-    message: "Please provide the following details for us to investigate:",
-    fields: [
-      { label: "Ride ID", inputType: "text", key: "rideId" },
-      { label: "Date of Ride", inputType: "date", key: "date" },
-      {
-        label: "Description of the Billing Issue",
-        inputType: "textarea",
-        key: "description",
-      },
-    ],
-    submitText: "Proceed",
-    next: "to_assist_you_further",
-    isSender: false,
-  },
-  // billing chat bot end
-
-  ride_problem: {
-    message: "Please select the issue related to your ride:",
-    options: [
-      { text: "My ride was delayed.", next: "ride_delayed", type: "form" },
-      {
-        text: "My driver took a longer route.",
-        next: "long_route",
-        // type: "upload",
-        type: "form",
-      },
-      {
-        text: "I had an issue with the vehicle condition.",
-        next: "vehicle_issue",
-        type: "api",
-      },
-      {
-        text: "My ride was canceled without notice.",
-        next: "canceled_ride",
-        type: "form",
-      },
-    ],
-    isSender: false,
-  },
-  // completed
-  ride_delayed: {
-    type: "form",
-    message: "Please provide the following details for us to investigate:",
-    fields: [
-      { label: "Ride ID", inputType: "text", key: "rideId" },
-      { label: "Date of Ride", inputType: "date", key: "date" },
-      {
-        label: "Description of the Delay",
-        inputType: "textarea",
-        key: "description",
-      },
-    ],
-    submitText: "Proceed",
-    next: "to_assist_you_further",
-    isSender: false,
-  },
-  // completd
-  long_route: {
-    type: "form",
-    message: "Please provide the following details for us to investigate:",
-    fields: [
-      { label: "Ride ID", inputType: "text", key: "rideId" },
-      { label: "Date of Ride", inputType: "date", key: "date" },
-      {
-        label: "Description of the Delay",
-        inputType: "textarea",
-        key: "description",
-      },
-    ],
-    submitText: "Proceed",
-    next: "to_assist_you_further",
-    isSender: false,
-  },
-
-  vehicle_issue: {
-    type: "form",
-    message: "Please provide the following details for us to investigate:",
-    fields: [
-      { label: "Ride ID", inputType: "text", key: "rideId" },
-      { label: "Date of Ride", inputType: "date", key: "date" },
-      {
-        label: "Description of the Delay",
-        inputType: "textarea",
-        key: "description",
-      },
-    ],
-    submitText: "Proceed",
-    next: "to_assist_you_further",
-    isSender: false,
-  },
-
-  // completed
-  canceled_ride: {
-    type: "form",
-    message: "Please provide the following details for us to investigate:",
-    fields: [
-      { label: "Ride ID", inputType: "text", key: "rideId" },
-      { label: "Date of Ride", inputType: "date", key: "date" },
-      {
-        label: "Description of the Delay",
-        inputType: "textarea",
-        key: "description",
-      },
-    ],
-    submitText: "Proceed",
-    next: "to_assist_you_further",
-    isSender: false,
-  },
-  //   ride problem end
-
-  //   payment method problem start
-  update_payment: {
     message:
-      "Open the Women Rider app. Go to 'Payment Methods' under your account settings.  Select 'Add Payment Method' and enter your new payment details. Save your updated payment information.",
-    next: "to_assist_you_further",
-    isSender: false,
-  },
+      "We understand your concern. Please provide the following details:",
 
-  ride_charges: {
-    type: "form",
-    message: "Please provide the following details for us to investigate:",
     fields: [
       { label: "Ride ID", inputType: "text", key: "rideId" },
-      { label: "Date of Ride", inputType: "date", key: "date" },
+      { label: "Date & Time of the Ride", inputType: "text", key: "date" },
       {
-        label: "Description of the Billing Issue",
+        label: "Description of the Issue",
         inputType: "textarea",
         key: "description",
       },
     ],
     submitText: "Proceed",
+    next: "to_assist_you_further",
+    isSender: false,
+  },
+
+  felt_uncomfortable_with_my_driver: {
+    type: "form",
+    message: "Please provide details about your discomfort:",
+    fields: [
+      { label: "Ride ID", inputType: "text", key: "rideId" },
+      { label: "Date & Time of the Ride", inputType: "text", key: "date" },
+      {
+        label: "Description of the Issue",
+        inputType: "textarea",
+        key: "description",
+      },
+    ],
+    submitText: "Proceed",
+    next: "to_assist_you_further",
+    isSender: false,
+  },
+
+  had_an_emergency_and_need_help: {
+    message: "Please follow these steps for better assistance:",
+
+    subMessage: [
+      "1.	Open the Women Rider app.",
+      "2.	Go to the Safety icon on the home page.",
+      "3.	Click on WOR Support.",
+      "4.	You can then share your emergency details with our support team.",
+    ],
+
+    next: "to_assist_you_further",
+    isSender: false,
+  },
+
+  would_like_to_report_an_issue_with_my_ride: {
+    type: "form",
+    message: "Please provide details about the issue:",
+
+    fields: [
+      { label: "Ride ID", inputType: "text", key: "rideId" },
+      { label: "Date & Time of the Ride", inputType: "text", key: "date" },
+      {
+        label: "Description of the Issue",
+        inputType: "textarea",
+        key: "description",
+      },
+    ],
+    submitText: "Proceed",
+    next: "to_assist_you_further",
+    isSender: false,
+  },
+
+  need_to_report_an_incident_during_my_ride: {
+    type: "form",
+    message: "Please provide the following details for reporting the incident:",
+
+    fields: [
+      { label: "Ride ID", inputType: "text", key: "rideId" },
+      { label: "Date & Time of the Ride", inputType: "text", key: "date" },
+      {
+        label: "Description of the Issue",
+        inputType: "textarea",
+        key: "description",
+      },
+      {
+        label: "location",
+        inputType: "textarea",
+        key: "location",
+      },
+    ],
+    submitText: "Proceed",
+    next: "to_assist_you_further",
+    isSender: false,
+  },
+
+  need_to_share_my_ride_details_with_someone: {
+    message: "Please follow these steps to share your ride details:",
+
+    subMessage: [
+      "1.	Open the Women Rider app",
+      "2.	Go to the Safety icon on the home page.",
+      "3.	Click on Trusted Contacts.",
+      "4.	Add up to 5 contacts that you want to share your ride details with",
+      "5.	When your ride starts, click on Track Me and share your ride with your preferred contacts.",
+    ],
+
+    next: "to_assist_you_further",
+    isSender: false,
+  },
+
+  need_assistance_with_the_sos_button: {
+    message:
+      "Please follow these steps to activate the SOS feature in the app:",
+
+    subMessage: [
+      "1.	Open the Women Rider app.",
+      "2.	Click on the Safety icon on the home page",
+      "3.	There is an option called SOS Button",
+      "4.	Tap on the SOS button to make a call if necessary",
+      "If you are unable to activate the SOS button, please ensure that your location services are enabled and you have an active internet connection.",
+    ],
+
     next: "to_assist_you_further",
     isSender: false,
   },

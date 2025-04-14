@@ -87,6 +87,8 @@ export const createOrderDetails = ({
 
   distanceFromPickUpToDrop,
   duration,
+
+  randomExtraCharges,
 }) => {
   return isParcel
     ? {
@@ -132,6 +134,7 @@ export const createOrderDetails = ({
         pollyLineCoordinates,
         distanceFromPickUpToDrop,
         duration,
+        randomExtraCharges,
         sendReceiverData: [
           {
             personName: profile?.name,
@@ -167,5 +170,6 @@ export const createOrderDetails = ({
         pollyLineCoordinates,
         distanceFromPickUpToDrop,
         duration,
+        randomExtraCharges,
       };
 };

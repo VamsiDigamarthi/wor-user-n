@@ -14,13 +14,21 @@ const ChatbotScreen = () => {
     hadleSubmitForm,
     setFormData,
     formData,
+    scrollViewRef,
   } = useChatbotScreenHook();
 
   return (
     <>
       <AppBarLayout title={`${caterogy} Chat Bot`} isPositionAppbar={true}>
         <View style={styles.container}>
-          <ScrollView style={styles.messageContainer}>
+          <ScrollView
+            style={styles.messageContainer}
+            ref={scrollViewRef}
+            onContentSizeChange={() =>
+              scrollViewRef.current.scrollToEnd({ animated: true })
+            }
+            showsVerticalScrollIndicator={false}
+          >
             {specificChat?.map((chat, index) => (
               <ChatBotMessage
                 key={index}
