@@ -67,25 +67,25 @@ export const faqData = [
     ],
   },
 
-  {
-    icon: services,
-    maintitle: "Services",
-    data: [
-      {
-        "What is Local Service?":
-          "A same-city parcel delivery service. It has restrictions as follows: item size, weight (under 5 kg), and contents (for instance, not containing alcohol, fragile or expensive items).",
-      },
+  // {
+  //   icon: services,
+  //   maintitle: "Services",
+  //   data: [
+  //     {
+  //       "What is Local Service?":
+  //         "A same-city parcel delivery service. It has restrictions as follows: item size, weight (under 5 kg), and contents (for instance, not containing alcohol, fragile or expensive items).",
+  //     },
 
-      {
-        "How to use the Local Service?":
-          "Tap the Local Service in the app menu > Enter pickup and drop-off details > Give the rider a PIN at both ends to confirm delivery.",
-      },
-      {
-        "How can I share the delivery status?":
-          "Use the Share Status option to send a tracking link and rider details to the recipient.",
-      },
-    ],
-  },
+  //     {
+  //       "How to use the Local Service?":
+  //         "Tap the Local Service in the app menu > Enter pickup and drop-off details > Give the rider a PIN at both ends to confirm delivery.",
+  //     },
+  //     {
+  //       "How can I share the delivery status?":
+  //         "Use the Share Status option to send a tracking link and rider details to the recipient.",
+  //     },
+  //   ],
+  // },
 
   {
     icon: account,

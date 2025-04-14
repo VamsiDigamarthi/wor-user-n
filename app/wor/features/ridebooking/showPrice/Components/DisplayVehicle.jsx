@@ -6,6 +6,7 @@ import {
   setDuration,
   setPaymentMethod,
   setPrice,
+  setRandomExtraCharge,
   setSelectVehicleType,
 } from "../../sharedLogics/rideDetailsSlice";
 import { fonts } from "../../../../fonts/Fonts";
@@ -13,9 +14,8 @@ import ShowPriceDetailsModal from "../Modal/ShowPriceDetailsModal";
 
 const DisplayVehicle = ({ vehicle }) => {
   const dispatch = useDispatch();
-  const { selectedVehicleType, priceDetails, paymentMethod } = useSelector(
-    (state) => state.allRideDetails
-  );
+  const { selectedVehicleType, paymentMethod, randomExtraChrgesWithVehicle } =
+    useSelector((state) => state.allRideDetails);
   const { profile } = useSelector((state) => state.profileSlice);
 
   const [openPriceDetailsModal, setOpenPriceDetailsModal] = useState(false);
@@ -45,7 +45,7 @@ const DisplayVehicle = ({ vehicle }) => {
 
   const handelSelectVehicle = () => {
     let price =
-      paymentMethod === "wallet" && vehicle?.price <= profile?.walletBalance
+      paymentMethod === "wallet" && vehicle?.price <= profile?.userWalletBalance
         ? +vehicle?.price - 2
         : vehicle?.price;
     let duration = vehicle?.duration;
@@ -55,15 +55,19 @@ const DisplayVehicle = ({ vehicle }) => {
     if (vehicle.vehicleType === "bookany") {
       let splitPrice = vehicle.price?.split("-");
       price =
-        paymentMethod === "wallet" && vehicle?.price <= profile?.walletBalance
+        paymentMethod === "wallet" &&
+        vehicle?.price <= profile?.userWalletBalance
           ? +splitPrice[1] - 2
           : splitPrice[1];
     }
 
     dispatch(setPrice(price));
     dispatch(setDuration(duration));
-
-    let paymentMethod = +price >= +profile?.walletBalance ? "cash" : "wallet";
+    dispatch(
+      setRandomExtraCharge(randomExtraChrgesWithVehicle[vehicle?.vehicleType])
+    );
+    let paymentMethod =
+      +price >= +profile?.userWalletBalance ? "cash" : "wallet";
     dispatch(setPaymentMethod(paymentMethod));
   };
 
@@ -143,22 +147,26 @@ const DisplayVehicle = ({ vehicle }) => {
               ₹
               {paymentMethod === "wallet"
                 ? vehicle?.displayName === "Book Any"
-                  ? vehicle?.price
+                  ? `${+vehicle?.price?.split("-")?.[0] - 2}- ${
+                      +vehicle?.price?.split("-")?.[1] - 2
+                    }`
                   : +vehicle?.price - 2
                 : vehicle?.price}
             </Text>
             {vehicle?.displayName === "Book Any" ? (
               <>
-                {vehicle?.price?.split("-")?.[1] <= profile?.walletBalance && (
-                  <Text style={[styles.priceStrike]}>
-                    {vehicle?.discountPrice}
-                  </Text>
-                )}
+                {+vehicle?.price?.split("-")?.[1] <=
+                  profile?.userWalletBalance &&
+                  paymentMethod === "wallet" && (
+                    <Text style={[styles.priceStrike]}>
+                      {vehicle?.discountPrice}
+                    </Text>
+                  )}
               </>
             ) : (
               <>
                 {paymentMethod === "wallet" &&
-                  vehicle?.price <= profile?.walletBalance && (
+                  vehicle?.price <= profile?.userWalletBalance && (
                     <Text style={[styles.priceStrike]}>
                       {vehicle?.discountPrice}
                     </Text>

@@ -26,7 +26,7 @@ const ProfileRatingRideCountCard = () => {
       </View>
       <View style={styles.singleCard}>
         <View style={{ flexDirection: "row", gap: 5 }}>
-          <Text style={styles.text}>₹ {profile?.walletBalance}</Text>
+          <Text style={styles.text}>₹ {profile?.userWalletBalance}</Text>
           {/* <FontAwesome name="calendar" size={20} color="#000" /> */}
         </View>
         <Text style={styles.ratingNewText}>Wallet</Text>

@@ -48,7 +48,7 @@ function Wallet() {
             <Entypo name="wallet" size={30} color="#EA4C89" />
             <Text style={styles.heading}>E-Wallet</Text>
           </View>
-          <Text style={styles.amount}>₹ {profile?.walletBalance}</Text>
+          <Text style={styles.amount}>₹ {profile?.userWalletBalance}</Text>
           <CustomBtn
             onPress={() => setOpen(true)}
             btnBg="#F7F7F7"
