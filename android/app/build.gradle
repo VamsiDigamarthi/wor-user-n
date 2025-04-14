@@ -178,6 +178,7 @@ dependencies {
 
     // Install Referrer added by me , still not working
     implementation 'com.android.installreferrer:installreferrer:2.2'
+    implementation 'com.facebook.android:facebook-android-sdk:latest.release'
 
 
     //Flipper Library for testing added by me

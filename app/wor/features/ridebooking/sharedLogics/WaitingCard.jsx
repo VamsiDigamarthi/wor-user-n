@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import BackgroundTimer from "react-native-background-timer";
 import { useSelector } from "react-redux";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function WaitingCard() {
   const { completeRideDetails } = useSelector((state) => state.allRideDetails);
@@ -105,16 +106,19 @@ export default function WaitingCard() {
   };
 
   return (
-    <View style={styles.card}>
-      {timeLeft > 0 && (
-        <Text style={styles.timetext}>{formatTime(timeLeft)}</Text>
-      )}
-      {timeLeft === 0 && timeAfter3Mins > 0 && (
-        <View style={styles.extraCharge}>
-          <Text style={styles.timetext}>{formatTime(timeAfter3Mins)}</Text>
-        </View>
-      )}
-    </View>
+    <>
+      <Ionicons size={24} name="timer" color={!timeLeft ? "red" : "green"} />
+      <View style={styles.card}>
+        {timeLeft > 0 && (
+          <Text style={styles.timetext}>{formatTime(timeLeft)}</Text>
+        )}
+        {timeLeft === 0 && timeAfter3Mins > 0 && (
+          <View style={styles.extraCharge}>
+            <Text style={styles.timetext}>{formatTime(timeAfter3Mins)}</Text>
+          </View>
+        )}
+      </View>
+    </>
   );
 }
 
