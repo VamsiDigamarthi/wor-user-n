@@ -81,7 +81,7 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
 
 // // Handle foreground notifications// Foreground notifications
 messaging().onMessage(async (remoteMessage) => {
-  console.log("Message received in foreground!", remoteMessage);
+  // console.log("Message received in foreground!", remoteMessage);
 
   if (remoteMessage.notification) {
     // Only schedule notification if not displayed natively
