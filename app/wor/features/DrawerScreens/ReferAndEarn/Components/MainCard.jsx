@@ -13,7 +13,7 @@ import * as Clipboard from "expo-clipboard";
 import { useState } from "react";
 import { fonts } from "../../../../fonts/Fonts";
 export default function MainCard({ refCode }) {
-  const [text, setText] = useState("GOWOR");
+  const [text, setText] = useState(refCode);
 
   const copyToClipboard = () => {
     if (text) {

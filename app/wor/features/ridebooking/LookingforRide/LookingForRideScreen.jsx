@@ -133,12 +133,13 @@ const LookingForRideScreen = () => {
           <View style={styles.rideDetailsContainer}>
             <Entypo name="location-pin" size={24} color="green" />
 
-            <View style={styles.innerContainer}>
-              <View>
-                <Text style={styles.text}>{dropDetails?.name}</Text>
-                <Text style={styles.text}>{dropDetails?.vicinity}</Text>
+            <View style={{ gap: 10 }}>
+              <View style={styles.innerContainer}>
+                <View>
+                  <Text style={styles.text}>{dropDetails?.name}</Text>
+                  <Text style={styles.text}>{dropDetails?.vicinity}</Text>
+                </View>
               </View>
-
               <View style={styles.infoContainer}>
                 <AntDesign name="infocirlceo" size={14} color="#FF6600" />
                 <Text style={styles.text}>Total you pay Rs. {price}</Text>
@@ -185,16 +186,18 @@ const styles = StyleSheet.create({
   },
 
   innerContainer: {
-    width: "100%",
+    width: "90%",
     gap: 10,
   },
 
   infoContainer: {
     flexDirection: "row",
     gap: 10,
-    marginLeft: 60,
-
+    // marginLeft: 60,
+    // backgroundColor: "red",
     alignItems: "center",
+    // width: "90%",
+    marginHorizontal: "auto",
     // justifyContent:"center",
     // marginHorizontal: "auto",
     // width: "100%",

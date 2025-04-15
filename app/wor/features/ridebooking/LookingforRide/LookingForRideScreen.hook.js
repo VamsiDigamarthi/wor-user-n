@@ -150,12 +150,14 @@ export const useLookingForRideScreenHook = () => {
 
   const onNewCancelHandle = () => {
     // if (isDirectNavigation) {
+    // try {
     navigation.reset([
       {
         index: 0,
         routes: [{ name: "AuthenticatedStack" }],
       },
     ]);
+    // }
     // }
 
     // else {
