@@ -116,8 +116,8 @@ android {
         applicationId 'com.nuhvin.womenrider'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 16
-        versionName "1.2.6"
+        versionCode 18
+        versionName "1.2.8"
     }
     signingConfigs {
         debug {
