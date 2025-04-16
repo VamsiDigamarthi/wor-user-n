@@ -3,19 +3,32 @@ import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Fontisto, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  setBaseCharges,
   setDuration,
   setPaymentMethod,
+  setPlatFormValue,
   setPrice,
   setRandomExtraCharge,
   setSelectVehicleType,
+  setSurgeValue,
+  setTimeFareValue,
 } from "../../sharedLogics/rideDetailsSlice";
 import { fonts } from "../../../../fonts/Fonts";
 import ShowPriceDetailsModal from "../Modal/ShowPriceDetailsModal";
 
 const DisplayVehicle = ({ vehicle }) => {
   const dispatch = useDispatch();
-  const { selectedVehicleType, paymentMethod, randomExtraChrgesWithVehicle } =
-    useSelector((state) => state.allRideDetails);
+  const {
+    selectedVehicleType,
+    paymentMethod,
+    randomExtraChrgesWithVehicle,
+
+    baseFareSet,
+    timeFareValueSet,
+    setPlatFormValueSet,
+    surgeValueSet,
+    distanceFareSet,
+  } = useSelector((state) => state.allRideDetails);
   const { profile } = useSelector((state) => state.profileSlice);
 
   const [openPriceDetailsModal, setOpenPriceDetailsModal] = useState(false);
@@ -61,14 +74,43 @@ const DisplayVehicle = ({ vehicle }) => {
           : splitPrice[1];
     }
 
+    let baseFare = baseFareSet[vehicle?.vehicleType];
+
+    let timeFare = timeFareValueSet[vehicle?.vehicleType];
+    let platformFare = setPlatFormValueSet[vehicle?.vehicleType];
+
+    let surFare = surgeValueSet[vehicle?.vehicleType];
+
+    let distaceFare = distanceFareSet[vehicle?.vehicleType];
+
+    if (vehicle.vehicleType === "bookany") {
+      baseFare = baseFareSet["wor-premium"];
+      timeFare = timeFareValueSet["wor-premium"];
+      platformFare = setPlatFormValueSet["wor-premium"];
+      surFare = surgeValueSet["wor-premium"];
+      distaceFare = distanceFareSet["wor-premium"];
+    }
+
     dispatch(setPrice(price));
     dispatch(setDuration(duration));
     dispatch(
       setRandomExtraCharge(randomExtraChrgesWithVehicle[vehicle?.vehicleType])
     );
+
+    dispatch(setBaseCharges(baseFare));
+    dispatch(setTimeFareValue(timeFare));
+    dispatch(setPlatFormValue(platformFare));
+    dispatch(setSurgeValue(surFare));
+
     let paymentMethod =
       +price >= +profile?.userWalletBalance ? "cash" : "wallet";
     dispatch(setPaymentMethod(paymentMethod));
+
+    console.log("baseFareSet", baseFareSet);
+    console.log("timeFareValueSet", timeFareValueSet);
+    console.log("setPlatFormValueSet", setPlatFormValueSet);
+    console.log("surgeValueSet", surgeValueSet);
+    console.log("distanceFare", distanceFareSet);
   };
 
   const handleDoublePress = () => {

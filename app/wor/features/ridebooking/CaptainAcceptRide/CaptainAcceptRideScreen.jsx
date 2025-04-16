@@ -1,4 +1,4 @@
-import { Animated, Dimensions, StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import AppBarLayout from "../sharedLogics/AppBarLayout";
 import { useBottomSheetConfig } from "../sharedLogics/BottomSheetComponent/useBottomSheetConfig";
 import BottomSheetComponent from "../sharedLogics/BottomSheetComponent/BottomSheetComponent";
@@ -6,7 +6,6 @@ import RideOtp from "./Components/RideOtp";
 import UserCard from "./Components/UserRideDetailsCard";
 import WorSupportCard from "./Components/WorSupportCard";
 import RideVerified from "./Components/RideVerified";
-import ShowPollyLine from "../../../utiles/ShowPollyLine";
 import AddTipNew from "./Components/AddTipNew";
 import CopyBox from "../../../utiles/CopyBox";
 import { useCaptainAcceptRideScreenHook } from "./Hooks/CaptainAcceptRideScreen.hook";

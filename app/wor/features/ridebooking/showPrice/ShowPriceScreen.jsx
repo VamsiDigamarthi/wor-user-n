@@ -20,7 +20,7 @@ import PaymentModal from "./Modal/PaymentModal";
 import PollyLineNew from "../../../utiles/PollyLineNew";
 
 const screenHeight = Dimensions.get("window").height;
-const androidSnapPoints = [0.37, 0.78].map((p) => screenHeight * p); // Example snap points for Android
+const androidSnapPoints = [0.38, 0.8].map((p) => screenHeight * p); // Example snap points for Android
 const iosSnapPoints = [0.3, 0.65].map((p) => screenHeight * p); // Example snap points for iOS
 
 const ShowPriceScreen = () => {
@@ -38,7 +38,7 @@ const ShowPriceScreen = () => {
     shceduleOrderModal,
     time,
     setShceduleOrderModal,
-    hasSoftwareNavigationBar,
+    profile,
   } = useShowPriceScreenHook();
 
   const { mapHeight, snapPoints, handleSheetChange } = useBottomSheetConfig(
@@ -77,12 +77,14 @@ const ShowPriceScreen = () => {
             destination={dropDetails.location}
             otpVerified={false}
             rideStarted={false}
+            bottom={knowMoveDownOrUp === "moved down" ? 80 : 200}
           />
         </View>
         <BottomSheetComponent
           style={{ marginBottom: isParcScreen ? 150 : 100 }}
           snapPoints={snapPoints}
           handleSheetChange={handleSheetChange}
+          previousCancelFees={profile?.cancelCharges > 0 ? true : false}
         >
           {/* Conditional Rendering Based on filteredVehicles */}
           {!filteredVehicles || filteredVehicles.length === 0 ? (

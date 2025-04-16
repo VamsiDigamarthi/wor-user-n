@@ -1,14 +1,17 @@
 import React, { useRef } from "react";
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import { useSelector } from "react-redux";
 const BottomSheetComponent = ({
   snapPoints,
   handleSheetChange,
   children,
   style,
   backgroundColor = "#fff",
+  previousCancelFees = false,
 }) => {
   const bottomSheetRef = useRef(null);
+  const { profile } = useSelector((state) => state.profileSlice);
 
   return (
     <BottomSheet
@@ -25,6 +28,16 @@ const BottomSheetComponent = ({
         showsVerticalScrollIndicator={false}
         contentContainerStyle={[styles.sheetContent, { backgroundColor }]}
       >
+        {previousCancelFees && (
+          <View style={styles.previousCancel}>
+            <Text style={{ fontSize: 12, fontWeight: "600", color: "#fff" }}>
+              Previous Cancel Fees
+            </Text>
+            <Text style={{ fontSize: 14, fontWeight: "700", color: "#fff" }}>
+              {profile?.cancelCharges}
+            </Text>
+          </View>
+        )}
         {children}
       </BottomSheetScrollView>
     </BottomSheet>
@@ -53,5 +66,16 @@ const styles = StyleSheet.create({
   sheetContent: {
     backgroundColor: "#fff",
     paddingHorizontal: 5,
+  },
+
+  previousCancel: {
+    marginHorizontal: 20,
+    backgroundColor: "#fa7066",
+    paddingVertical: 5,
+    paddingHorizontal: 5,
+    borderRadius: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 });

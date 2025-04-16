@@ -44,7 +44,7 @@ function DonationNew() {
     console.log(donationAmount);
   }, [donationAmount]);
 
-  console.log("profile?.donationActive", profile?.donationActive);
+  // console.log("profile?.donationActive", profile?.donationActive);
 
   return (
     <KeyboardAvoidingView

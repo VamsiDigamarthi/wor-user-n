@@ -28,7 +28,8 @@ const ParSendRecDetailsDisplayCard = ({ parcelDetails }) => {
       <View style={styles.firstCard}>
         <LocationIcon size={20} color="#EA4C89" />
         <Text style={styles.sendRecieveText}>
-          Add {isSendOrReceiveParcel === "send" ? "Recevier" : "Sender"} Details
+          Add {isSendOrReceiveParcel === "send" ? "Receiving" : "Sender"}{" "}
+          Details
         </Text>
         <View style={styles.favoriteIconcard}>
           {/* <FavoritesIcons size={24} color="grey" /> */}
