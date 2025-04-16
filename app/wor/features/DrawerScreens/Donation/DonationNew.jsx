@@ -38,7 +38,7 @@ function DonationNew() {
     dispatch(onProfileSection({ token }));
   };
 
-  const [donationAmount, setDonationAmount] = useState(0);
+  const [donationAmount, setDonationAmount] = useState("");
 
   useEffect(() => {
     console.log(donationAmount);
@@ -50,63 +50,69 @@ function DonationNew() {
     <KeyboardAvoidingView
       style={styles.flexContainer}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 20 : 25}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <AppBarLayout title="Donation" isPositionAppbar>
+        <AppBarLayout title="Donation" isPositionAppbar={true}>
           <View
             style={[
               styles.container,
               { paddingTop: Platform.OS == "ios" ? 110 : 80 },
             ]}
           >
-            <View style={styles.switchContainer}>
-              <Text style={styles.heading}>
-                ₹2 per ride to Women Rider Foundation
-              </Text>
+            {/* Main Content */}
+            <View style={styles.contentContainer}>
+              <View style={styles.switchContainer}>
+                <Text style={styles.heading}>
+                  ₹2 per ride to Women Rider Foundation
+                </Text>
 
-              <CustomSwitch
-                initialValue={profile?.donationActive}
-                onToggle={handleToggle}
-              />
-            </View>
+                <CustomSwitch
+                  initialValue={profile?.donationActive}
+                  onToggle={handleToggle}
+                />
+              </View>
 
-            <View>
-              <TextInput
-                value={donationAmount}
-                onChangeText={setDonationAmount}
-                style={styles.input}
-                placeholder="Enter Donation Amount"
-                keyboardType="numeric"
-              />
+              <View>
+                <TextInput
+                  value={donationAmount}
+                  onChangeText={setDonationAmount}
+                  style={styles.input}
+                  placeholder="Enter Donation Amount"
+                  keyboardType="numeric"
+                />
 
-              <View style={{ flexDirection: "row", gap: 10, marginTop: 10 }}>
-                {[10, 20].map((amount) => (
-                  <TouchableOpacity
-                    key={amount}
-                    style={styles.smallBtn}
-                    onPress={() => setDonationAmount(amount.toString())}
-                  >
-                    <Text style={styles.btnText}>{amount} rs</Text>
-                  </TouchableOpacity>
-                ))}
+                <View style={{ flexDirection: "row", gap: 10, marginTop: 10 }}>
+                  {[10, 20].map((amount) => (
+                    <TouchableOpacity
+                      key={amount}
+                      style={styles.smallBtn}
+                      onPress={() => setDonationAmount(amount.toString())}
+                    >
+                      <Text style={styles.btnText}>{amount} rs</Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </View>
+
+              <View style={styles.infoContainer}>
+                <Text style={styles.listTxt}>
+                  Make sure this is a Monthly Donation for the Empower Women
+                  Rider.
+                </Text>
               </View>
             </View>
 
-            <View style={styles.infoContainer}>
-              <Text style={styles.listTxt}>
-                Make sure this is a Monthly Donation for the Empower Women
-                Rider.
-              </Text>
+            {/* Button Container */}
+            <View style={styles.buttonContainer}>
+              <CustomBtn
+                title="Continue"
+                width="100%"
+                onPress={() => makeDonation(donationAmount, email, mobile)}
+                btnColor={donationAmount ? "#f7f7f7" : "#ea4c89"}
+                btnBg={donationAmount ? "#ea4c89" : "#f7f7f7"}
+              />
             </View>
-          </View>
-
-          <View style={styles.buttonContainer}>
-            <CustomBtn
-              title="Continue"
-              onPress={() => makeDonation(donationAmount, email, mobile)}
-              btnColor={donationAmount ? "#f7f7f7" : "#ea4c89"}
-              btnBg={donationAmount ? "#ea4c89" : "#f7f7f7"}
-            />
           </View>
         </AppBarLayout>
       </TouchableWithoutFeedback>
@@ -126,6 +132,10 @@ const styles = StyleSheet.create({
     gap: 10,
     flex: 1,
     backgroundColor: COLORS.mainBackgroundColor,
+    width: "100%",
+  },
+  contentContainer: {
+    flex: 1, // Ensures the main content grows to fill available space
   },
   heading: {
     fontFamily: fonts.robotoSemiBold,
@@ -152,25 +162,15 @@ const styles = StyleSheet.create({
   btnText: {
     fontFamily: fonts.robotoRegular,
   },
-
   listTxt: {
     fontFamily: fonts.robotoRegular,
     textAlign: "justify",
   },
-
   infoContainer: {
     gap: 10,
   },
-  listTxt: {
-    fontFamily: fonts.robotoRegular,
-    textAlign: "justify",
-  },
   buttonContainer: {
-    position: "absolute",
-    bottom: Platform.OS === "ios" ? 24 : -20,
-    // bottom: -10,
-    width: "95%",
-    left: 10,
-    // backgroundColor: "red",
+    // padding: 16, // Add padding around the button
+    backgroundColor: COLORS.mainBackgroundColor, // Match the background color
   },
 });
