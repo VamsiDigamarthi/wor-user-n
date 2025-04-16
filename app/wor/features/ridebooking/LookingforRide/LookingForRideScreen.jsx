@@ -1,12 +1,10 @@
 import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 import { useBottomSheetConfig } from "../sharedLogics/BottomSheetComponent/useBottomSheetConfig";
-import ShowPollyLine from "../../../utiles/ShowPollyLine";
 import { useLookingForRideScreenHook } from "./LookingForRideScreen.hook";
 import { useSelector } from "react-redux";
 import BottomSheetComponent from "../sharedLogics/BottomSheetComponent/BottomSheetComponent";
 import ProgressBar from "./components/ProgressBar";
 import CustomBtn from "../../../utiles/CustomBtn";
-import { useNavigation } from "@react-navigation/native";
 import { Chase } from "react-native-animated-spinkit";
 import CancelRideModal from "../CaptainAcceptRide/Modals/CancelRideModal";
 import { Entypo, AntDesign } from "@expo/vector-icons";
@@ -25,10 +23,6 @@ const LookingForRideScreen = () => {
     price,
     selectedVehicleType,
   } = useSelector((state) => state.allRideDetails);
-  // console.log(
-  //   useSelector((state) => state.allRideDetails),
-  //   "useSelector((state) => state.allRideDetails);"
-  // );
 
   const {
     progressWidth,
@@ -37,7 +31,6 @@ const LookingForRideScreen = () => {
     showCancelWithReOrderBtn,
     onNewCancelHandle,
     futureTime,
-    cancelRideModal,
 
     setCancelModal,
     cancelModal,
@@ -101,7 +94,7 @@ const LookingForRideScreen = () => {
               </Text>
               <Image
                 style={{ width: 180, height: 180 }}
-                source={require("../../../../../assets/searching.gif")}
+                source={require("../../../../../assets/looking-for-ride.gif")}
                 resizeMode="contain"
               />
             </View>
@@ -133,13 +126,12 @@ const LookingForRideScreen = () => {
           <View style={styles.rideDetailsContainer}>
             <Entypo name="location-pin" size={24} color="green" />
 
-            <View style={{ gap: 10 }}>
-              <View style={styles.innerContainer}>
-                <View>
-                  <Text style={styles.text}>{dropDetails?.name}</Text>
-                  <Text style={styles.text}>{dropDetails?.vicinity}</Text>
-                </View>
+            <View style={styles.innerContainer}>
+              <View>
+                <Text style={styles.text}>{dropDetails?.name}</Text>
+                <Text style={styles.text}>{dropDetails?.vicinity}</Text>
               </View>
+
               <View style={styles.infoContainer}>
                 <AntDesign name="infocirlceo" size={14} color="#FF6600" />
                 <Text style={styles.text}>Total you pay Rs. {price}</Text>
@@ -188,16 +180,15 @@ const styles = StyleSheet.create({
   innerContainer: {
     width: "90%",
     gap: 10,
+    // backgroundColor: "red",
   },
 
   infoContainer: {
     flexDirection: "row",
     gap: 10,
     // marginLeft: 60,
-    // backgroundColor: "red",
-    alignItems: "center",
-    // width: "90%",
-    marginHorizontal: "auto",
+
+    // alignItems: "center",
     // justifyContent:"center",
     // marginHorizontal: "auto",
     // width: "100%",

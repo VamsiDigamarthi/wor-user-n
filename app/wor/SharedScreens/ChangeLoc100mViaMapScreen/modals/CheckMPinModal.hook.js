@@ -25,6 +25,12 @@ export const useCheckMPinModalHook = ({ onOpenIsEnterConfirmPinModal }) => {
     distanceFromPickUpToDrop,
     duration,
     randomExtraCharges,
+
+    baseFare,
+    timeFareValue,
+    platFormValue,
+    surgeValue,
+    distanceFare,
   } = useSelector((state) => state.allRideDetails);
 
   const { socket, isConnected } = useSocket();
@@ -84,6 +90,13 @@ export const useCheckMPinModalHook = ({ onOpenIsEnterConfirmPinModal }) => {
       distanceFromPickUpToDrop,
       duration,
       randomExtraCharges,
+
+      basePrice: baseFare,
+      timefare: timeFareValue,
+      platFormFare: platFormValue,
+      surgePrice: surgeValue,
+      distanceFare,
+      previousCalceFee: profile?.cancelCharges ?? 0,
     });
 
     const orderId = await bookingRide({ token, orderDetails });

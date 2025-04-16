@@ -30,7 +30,7 @@ import FakeCall from "../Utils/FakeCall/FakeCall";
 import ChangePickLocation from "../Screens/Dashboard/ChangePickLocation/ChangePickLocation";
 import HomeScreen from "../app/wor/features/ridebooking/home/screens/HomeScreen";
 import ParcelHomeScreen from "../app/wor/features/Parcels/screens/ParcelHomeScreen";
-// import ChangeLoc100mViaMap from "../app/wor/utiles/ChangeLoc100mViaMap";
+
 import ParSavedUsers from "../app/wor/features/Parcels/screens/ParSavedUsers";
 
 /* Drawer Screens */

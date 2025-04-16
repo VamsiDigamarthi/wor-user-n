@@ -6,7 +6,7 @@ const initialState = {
   selectedVehicleType: "scooty",
   isRideScreen: false,
   isParcScreen: false,
-  isBeforeBook: false, // this prop checking -- if true check m-pin and book order or parcel if not navigate saved added screen in parcel flow
+  isBeforeBook: false,
   isSendOrReceiveParcel: "send",
   parcelType: "",
   price: 0,
@@ -15,15 +15,30 @@ const initialState = {
   howManyMens: 0,
   time: null,
   formateTime: null,
-  completeRideDetails: null, // this will store entire ride data after captain accept the ride -- socket will listening and stored and snnd to otp verification screen
+  completeRideDetails: null,
   paymentMethod: "wallet",
   pollineCoordinates: [],
   distanceFromPickUpToDrop: 0,
   duration: 0,
 
   randomExtraCharges: 0,
-
   randomExtraChrgesWithVehicle: {},
+
+  // base fare
+  baseFare: 0,
+  baseFareSet: {},
+  // time fare
+  timeFareValue: 0,
+  timeFareValueSet: {},
+  // plat form
+  platFormValue: 0,
+  setPlatFormValueSet: {},
+  // surge price
+  surgeValue: 0,
+  surgeValueSet: {},
+  // distance from pick to drop
+  distanceFare: 0,
+  distanceFareSet: {},
 };
 
 const allRideDetails = createSlice({
@@ -116,8 +131,57 @@ const allRideDetails = createSlice({
 
     setRandomExtraChrgesWithVehicle: (state, action) => {
       const { vehicleType, otherCharges } = action.payload;
-      console.log(action.payload);
       state.randomExtraChrgesWithVehicle[vehicleType] = otherCharges;
+    },
+
+    // base fare
+    setBaseCharges: (state, action) => {
+      state.baseFare = action.payload;
+    },
+
+    setBasefareSet: (state, action) => {
+      const { vehicleType, baseFare } = action.payload;
+      state.baseFareSet[vehicleType] = baseFare;
+    },
+
+    // time fare
+    setTimeFareValue: (state, action) => {
+      state.timeFareValue = action.payload;
+    },
+
+    setTimeFareValueSet: (state, action) => {
+      const { vehicleType, timeFare } = action.payload;
+      state.timeFareValueSet[vehicleType] = timeFare;
+    },
+
+    // platform  fare
+    setPlatFormValue: (state, action) => {
+      state.platFormValue = action.payload;
+    },
+
+    setPlatFormValueSet: (state, action) => {
+      const { vehicleType, platFormPrice } = action.payload;
+      state.setPlatFormValueSet[vehicleType] = platFormPrice;
+    },
+
+    // surge  fare
+    setSurgeValue: (state, action) => {
+      state.surgeValue = action.payload;
+    },
+
+    setSurgeValueSet: (state, action) => {
+      const { vehicleType, surgeValue } = action.payload;
+      state.surgeValueSet[vehicleType] = surgeValue;
+    },
+
+    // distance   fare
+    setDistnaceValue: (state, action) => {
+      state.distanceFare = action.payload;
+    },
+
+    setDistnaceValueSet: (state, action) => {
+      const { vehicleType, price } = action.payload;
+      state.distanceFareSet[vehicleType] = price;
     },
 
     clearDropData: (state) => {
@@ -141,6 +205,16 @@ const allRideDetails = createSlice({
       state.duration = 0;
       state.randomExtraCharges = 0;
       state.randomExtraChrgesWithVehicle = {};
+      state.baseFare = 0;
+      state.baseFareSet = {};
+      state.timeFareValue = 0;
+      state.timeFareValueSet = {};
+      state.platFormValue = 0;
+      state.setPlatFormValueSet = {};
+      state.surgeValue = 0;
+      state.surgeValueSet = {};
+      state.distanceFare = 0;
+      state.distanceFareSet = {};
     },
   },
 });
@@ -170,6 +244,21 @@ export const {
   setDuration,
   setRandomExtraCharge,
   setRandomExtraChrgesWithVehicle,
+  // base fare
+  setBaseCharges,
+  setBasefareSet,
+  // time fare
+  setTimeFareValue,
+  setTimeFareValueSet,
+  // platform
+  setPlatFormValue,
+  setPlatFormValueSet,
+  // surge value
+  setSurgeValue,
+  setSurgeValueSet,
+  // distnace fare
+  setDistnaceValue,
+  setDistnaceValueSet,
 } = allRideDetails.actions;
 
 export default allRideDetails.reducer;

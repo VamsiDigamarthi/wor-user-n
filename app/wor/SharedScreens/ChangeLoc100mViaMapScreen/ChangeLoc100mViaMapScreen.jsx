@@ -1,4 +1,4 @@
-import { StatusBar, StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import ParcelBtnCard from "../../features/Parcels/Components/ParcelBtnCard";
 import { useChangeLoc100mViaMapScreenHook } from "./ChangeLoc100mViaMapScreen.hook";
 import ChangeLocMapView from "./ChangeLocMapView";
@@ -32,8 +32,6 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // setDisplayStartModal(true);
-
     return () => {
       dispatch(setHowManyMens(0));
     };

@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
     gap: 10,
     justifyContent: "center",
     backgroundColor: "#F2F0F5",
+    // opacity: 0.2,
   },
   copyBtn: {
     flexDirection: "row",

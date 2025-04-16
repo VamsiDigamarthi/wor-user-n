@@ -20,7 +20,7 @@ const ParcelSpecification = () => {
       ),
     },
     {
-      name: "No illgeal,alcohol or restricted items",
+      name: "No illegal,alcohol or restricted items",
       icon: <AntDesign name="warning" size={24} color="white" />,
     },
     {

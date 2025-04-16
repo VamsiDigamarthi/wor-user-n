@@ -89,6 +89,12 @@ export const createOrderDetails = ({
   duration,
 
   randomExtraCharges,
+  basePrice,
+  timefare,
+  platFormFare,
+  surgePrice,
+  distanceFare,
+  previousCalceFee,
 }) => {
   return isParcel
     ? {
@@ -135,6 +141,12 @@ export const createOrderDetails = ({
         distanceFromPickUpToDrop,
         duration,
         randomExtraCharges,
+        basePrice,
+        timefare,
+        platFormFare,
+        surgePrice,
+        distanceFare,
+        previousCalceFee,
         sendReceiverData: [
           {
             personName: profile?.name,
@@ -171,5 +183,11 @@ export const createOrderDetails = ({
         distanceFromPickUpToDrop,
         duration,
         randomExtraCharges,
+        basePrice,
+        timefare,
+        platFormFare,
+        surgePrice,
+        distanceFare,
+        previousCalceFee,
       };
 };

@@ -25,7 +25,7 @@ const ParcSendReceInputCard = () => {
       <View style={styles.addDetails}>
         <UserIcons size={22} color="#EA4C89" />
         <Text style={styles.sendRecieveText}>
-          Add {isSendOrReceiveParcel === "send" ? "Recevier" : "Sender"} Details
+          Add {isSendOrReceiveParcel === "send" ? "Receiver" : "Sender"} Details
         </Text>
       </View>
       <View style={styles.inputCard}>
@@ -35,7 +35,7 @@ const ParcSendReceInputCard = () => {
         >
           <SearchIcons size={25} color="gray" />
           <Text style={styles.searchText}>
-            Search {isSendOrReceiveParcel === "send" ? "Recevier" : "Sender"}{" "}
+            Search {isSendOrReceiveParcel === "send" ? "Receiver" : "Sender"}{" "}
             Location
           </Text>
         </Pressable>

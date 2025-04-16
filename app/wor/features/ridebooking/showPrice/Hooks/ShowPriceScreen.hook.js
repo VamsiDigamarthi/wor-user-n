@@ -1,13 +1,23 @@
 import { useEffect, useState, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  setBaseCharges,
+  setBasefareSet,
   setDistanceFromPickUpToDrop,
+  setDistnaceValue,
+  setDistnaceValueSet,
   setDuration,
   setHowManyMens,
   setPaymentMethod,
+  setPlatFormValue,
+  setPlatFormValueSet,
   setPrice,
   setRandomExtraCharge,
   setRandomExtraChrgesWithVehicle,
+  setSurgeValue,
+  setSurgeValueSet,
+  setTimeFareValue,
+  setTimeFareValueSet,
 } from "../../sharedLogics/rideDetailsSlice";
 import { vehicles } from "../vehicleData";
 import { useNavigation } from "@react-navigation/native";
@@ -24,8 +34,6 @@ export const useShowPriceScreenHook = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const { profile } = useSelector((state) => state.profileSlice);
-
-  console.log("profile", profile);
 
   const { priceDetails } = useSelector((state) => state.priceDetails); // this is complete price details from admin panel
 
@@ -149,10 +157,6 @@ export const useShowPriceScreenHook = () => {
           };
         })
       );
-      console.log(
-        "travelDetails?.[0]?.distance",
-        travelDetails?.[0]?.distance?.split(" ")?.[0]
-      );
 
       dispatch(
         setDistanceFromPickUpToDrop(
@@ -162,15 +166,11 @@ export const useShowPriceScreenHook = () => {
 
       // Calculate prices for all vehicles
       const results = travelDetails.map((vehicle) => {
-        // console.log("vehicle", vehicle);
-
         let vehcilePrices = priceDetails?.find(
           (priceDe) =>
             priceDe.vehicleType?.toLowerCase() ===
             vehicle.vehicleType?.toLowerCase()
         );
-
-        // console.log("vehcilePrices", vehcilePrices);
 
         let newPrice = handleCalculatePrices(
           vehicle,
@@ -249,22 +249,62 @@ export const useShowPriceScreenHook = () => {
 
   // completed
 
+  const handleCalBaseFare = ({ vehicleType, distance, newBaseFare }) => {
+    if (vehicleType?.toLowerCase() === "scooty") {
+      if (distance <= 2) {
+        return 0;
+      } else if (distance > 2 && distance <= 10) {
+        return newBaseFare;
+      }
+      return newBaseFare;
+    } else if (vehicleType?.toLowerCase() === "car") {
+      if (distance <= 4) {
+        return 0;
+      } else if (distance > 4 && distance <= 20) {
+        return newBaseFare;
+      }
+      return newBaseFare;
+    } else if (vehicleType?.toLowerCase() === "wor-premium") {
+      if (distance <= 4) {
+        return 0;
+      } else if (distance > 4 && distance <= 20) {
+        return newBaseFare;
+      }
+      return newBaseFare;
+    } else if (vehicleType?.toLowerCase() === "promax") {
+      if (distance <= 4) {
+        return 0;
+      } else if (distance > 4 && distance <= 20) {
+        return newBaseFare;
+      }
+      return newBaseFare;
+    } else if (vehicleType?.toLowerCase() || "bookany") {
+      if (distance <= 4) {
+        return 0;
+      } else if (distance > 4 && distance <= 20) {
+        return newBaseFare;
+      }
+      return newBaseFare;
+    }
+  };
+
   const handleCalculatePrices = (result, vehicleType, vehcilePrices) => {
     const { distance = "0.0 km", duration = 0 } = result || {};
 
     const [distanceValue] = distance?.split(" ").map(Number);
-    console.log("distanceValue", distanceValue);
-    console.log("duration", duration);
+    // console.log("distanceValue", distanceValue);
+    // console.log("duration", duration);
 
-    // console.log("vehicleType", vehicleType);
-    // console.log("vehcilePrices", vehcilePrices);
+    const baseFare = handleCalBaseFare({
+      vehicleType,
+      distance: distanceValue,
+      newBaseFare:
+        vehcilePrices?.vehicleType === "scooty"
+          ? +vehcilePrices?.baseFare
+          : +vehcilePrices?.baseFare * 1.14 || 10,
+    });
 
-    const baseFare =
-      vehcilePrices?.vehicleType === "scooty"
-        ? +vehcilePrices?.baseFare || 5
-        : +vehcilePrices?.baseFare * 1.14 || 10;
-
-    console.log("baseFare", baseFare);
+    console.log("baseFare----", baseFare);
 
     const platFormPrice = +vehcilePrices?.platformFee;
     console.log("platFormPrice", platFormPrice);
@@ -277,12 +317,16 @@ export const useShowPriceScreenHook = () => {
     console.log("price", price);
 
     const timeFare = calculateTimeFare(duration, vehcilePrices);
-    console.log("timeFare", timeFare);
+
     const otherCharges = otherServicesCharges(vehcilePrices);
     console.log("otherCharges", otherCharges);
 
     if (selectedVehicleType?.toLowerCase() === vehicleType?.toLowerCase()) {
       dispatch(setRandomExtraCharge(otherCharges));
+      dispatch(setBaseCharges(baseFare));
+      dispatch(setTimeFareValue(timeFare));
+      dispatch(setPlatFormValue(platFormPrice));
+      dispatch(setDistnaceValue(price));
     }
 
     dispatch(
@@ -292,11 +336,47 @@ export const useShowPriceScreenHook = () => {
       })
     );
 
+    dispatch(
+      setBasefareSet({
+        vehicleType: vehicleType?.toLowerCase(),
+        baseFare,
+      })
+    );
+
+    dispatch(
+      setTimeFareValueSet({
+        vehicleType: vehicleType?.toLowerCase(),
+        timeFare,
+      })
+    );
+
+    dispatch(
+      setPlatFormValueSet({
+        vehicleType: vehicleType?.toLowerCase(),
+        platFormPrice,
+      })
+    );
+
+    dispatch(
+      setDistnaceValueSet({
+        vehicleType: vehicleType?.toLowerCase(),
+        price,
+      })
+    );
+
     const isNightTime = checkNightTime();
     let finalPrice;
+
+    let previousCalcFees = profile?.cancelCharges ?? 0;
     const beforeNightSurgePrice = Math.ceil(
-      price + timeFare + platFormPrice + baseFare + otherCharges
+      price +
+        timeFare +
+        platFormPrice +
+        baseFare +
+        otherCharges +
+        +previousCalcFees
     );
+
     console.log("beforeNightSurgePrice", beforeNightSurgePrice);
 
     if (isNightTime) {
@@ -305,27 +385,23 @@ export const useShowPriceScreenHook = () => {
       if (
         vehcilePrices?.vehicleType?.toLowerCase() === "car" ||
         vehcilePrices?.vehicleType?.toLowerCase() === "wor-premium" ||
-        vehcilePrices?.vehicleType?.toLowerCase() === "proMax"
+        vehcilePrices?.vehicleType?.toLowerCase() === "promax" ||
+        vehcilePrices?.vehicleType?.toLowerCase() === "bookany"
       ) {
         finalPrice = beforeNightSurgePrice;
       } else {
-        finalPrice = surgeFare(beforeNightSurgePrice, vehcilePrices);
+        finalPrice = surgeFare(
+          beforeNightSurgePrice,
+          vehcilePrices,
+          vehicleType
+        );
       }
     }
-
-    // const finalPrice = isNightTime
-    //   ? applyNightFare(price, timeFare, platFormPrice, baseFare)
-    //   : Math.ceil(price + timeFare + baseFare + platFormPrice);
 
     return finalPrice;
   };
 
   const calculateDistanceFare = (distance, vehcilePrices, vehicleType) => {
-    console.log(
-      "vehcilePrices?.vehicleType?.toLowerCase()",
-      vehcilePrices?.vehicleType?.toLowerCase()
-    );
-
     if (vehcilePrices?.vehicleType?.toLowerCase() === "scooty") {
       if (distance <= 2) {
         return +vehcilePrices?.forTwoKm;
@@ -406,13 +482,25 @@ export const useShowPriceScreenHook = () => {
     return beforeNightSurgePrice + increasedAmount;
   };
 
-  const surgeFare = (beforeNightSurgePrice, vehcilePrices) => {
+  const surgeFare = (beforeNightSurgePrice, vehcilePrices, vehicleType) => {
     const randomPerc = getRandomSurgeFare(vehcilePrices);
-    console.log("randomPerc", randomPerc);
+    console.log("randomPerc--", randomPerc);
 
     const increasedAmount = Math.ceil(
       (randomPerc / 100) * beforeNightSurgePrice
     );
+
+    if (selectedVehicleType?.toLowerCase() === vehicleType?.toLowerCase()) {
+      dispatch(setSurgeValue(increasedAmount));
+    }
+
+    dispatch(
+      setSurgeValueSet({
+        vehicleType: vehicleType?.toLowerCase(),
+        surgeValue: increasedAmount,
+      })
+    );
+
     console.log("increasedAmount", increasedAmount);
 
     return beforeNightSurgePrice + increasedAmount;
