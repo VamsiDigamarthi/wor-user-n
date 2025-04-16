@@ -79,8 +79,9 @@ target 'WomenUser' do
   pod 'GoogleUtilities', :modular_headers => true
   pod 'FirebaseCore', :modular_headers => true
   pod 'Firebase/Messaging', :modular_headers => true
-  pod 'FirebaseInAppMessaging', :modular_headers => true
+  pod 'FirebaseInAppMessaging', '~> 11.8.0-beta', :modular_headers => true
   pod 'FirebaseABTesting', :modular_headers => true
+  pod 'FirebaseInstallations', :modular_headers => true
   pod 'nanopb', :modular_headers => true
 
   # Use frameworks if specified in Podfile.properties.json or environment variables
