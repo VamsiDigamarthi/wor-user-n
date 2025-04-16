@@ -127,14 +127,15 @@ const howItWorksData = [
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#fff",
+    backgroundColor: "red",
     padding: 20,
-    gap: 10,
+    // gap: 10,
     borderRadius: 30,
     position: "relative",
     bottom: 70,
     width: "95%",
     left: 8,
+    height: 380,
   },
   title: {
     fontSize: 16,

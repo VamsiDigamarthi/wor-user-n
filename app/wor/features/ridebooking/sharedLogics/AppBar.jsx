@@ -99,7 +99,7 @@ export default Appbar;
 
 const styles = StyleSheet.create({
   superContainer: {
-    height: Platform.OS === "ios" ? 95 : 85,
+    height: Platform.OS === "ios" ? 70 : 85,
 
     backgroundColor: "#fff",
     width: "100%",
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     width: "100%",
-    height: Platform.OS === "ios" ? 100 : 70,
+    height: Platform.OS === "ios" ? 60 : 70,
 
     // backgroundColor: "red",
     zIndex: 999,

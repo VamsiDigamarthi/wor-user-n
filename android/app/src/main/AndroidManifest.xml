@@ -15,7 +15,9 @@
   <uses-permission android:name="com.google.firebase.MESSAGING" />
   <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>  
   <uses-permission android:name="android.permission.READ_CONTACTS" />
- <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+  <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+ 
+  <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
 
 
 
@@ -45,6 +47,9 @@
     <meta-data android:name="expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH" android:value="ALWAYS"/>
     <meta-data android:name="expo.modules.updates.EXPO_UPDATES_LAUNCH_WAIT_MS" android:value="0"/>
     <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAvJUZ3vsynRkQhXSdZL-BIFo26bXH-Al8" />
+    <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+    <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
+   
     
 
     <service

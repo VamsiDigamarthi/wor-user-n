@@ -2,4 +2,7 @@
   <string name="app_name">Women Rider</string>
   <string name="expo_splash_screen_resize_mode" translatable="false">contain</string>
   <string name="expo_splash_screen_status_bar_translucent" translatable="false">false</string>
+
+  <string name="facebook_app_id">9552752411428760</string>
+  <string name="facebook_client_token">f6d2d01c408e929927a7f9b58e805f53</string>
 </resources>

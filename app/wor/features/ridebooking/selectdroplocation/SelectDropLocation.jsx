@@ -43,7 +43,7 @@ const SelectDropLocation = () => {
             <View
               style={[
                 styles.container,
-                { paddingTop: Platform.OS == "ios" ? 110 : 80 },
+                { paddingTop: Platform.OS == "ios" ? 80 : 80 },
               ]}
             >
               <WhereToGo

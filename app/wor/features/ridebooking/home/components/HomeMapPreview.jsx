@@ -128,13 +128,14 @@ const HomeMapPreview = ({
           </Marker>
         ))}
       </MapView>
-      <Map3Btns
-        handleOpenSafetyModal={() => setToggle((prev) => !prev)}
-        handleZoomToggle={handleResetZoom}
-        bottom={mapIconsTop}
-      />
+      <View style={styles.mapCard}>
+        <Map3Btns
+          handleOpenSafetyModal={() => setToggle((prev) => !prev)}
+          handleZoomToggle={handleResetZoom}
+          bottom={mapIconsTop}
+        />
+      </View>
       {toggle && <SafetyToolModals toggle={toggle} setToggle={setToggle} />}
-      {/* {toggle && <MapModalUi toggle={toggle} setToggle={setToggle} />} */}
     </View>
   );
 };
@@ -147,6 +148,7 @@ const styles = StyleSheet.create({
     height: "100%",
     position: "relative",
     bottom: 200,
+    // flex: 1,
   },
   loadingContainer: {
     flex: 1,
@@ -158,5 +160,11 @@ const styles = StyleSheet.create({
     height: 24,
     width: 24,
     resizeMode: "contain",
+  },
+
+  mapCard: {
+    position: "absolute",
+    right: 20,
+    bottom: 340,
   },
 });

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
 import { fonts } from "../../../../fonts/Fonts";
 import { useSelector } from "react-redux";
@@ -43,7 +43,6 @@ export default function RefHistory() {
         setData(response.data);
       } catch (error) {
         console.log(error);
-
         setError(error.message);
       }
     };
@@ -54,11 +53,12 @@ export default function RefHistory() {
     <View style={styles.container}>
       <Text style={styles.heading}>Referral history</Text>
 
-      <ScrollView contentContainerStyle={{ gap: 10 }}>
-        {data?.map((e, index) => (
-          <HistoryCard key={index} data={e} />
-        ))}
-      </ScrollView>
+      <FlatList
+        data={data} // Pass the data array
+        keyExtractor={(item, index) => index.toString()} // Unique key for each item
+        renderItem={({ item }) => <HistoryCard data={item} />} // Render each item
+        contentContainerStyle={styles.flatListContent} // Add spacing between items
+      />
     </View>
   );
 }
@@ -72,7 +72,7 @@ function HistoryCard({ data }) {
       </View>
       <View style={styles.cardContainer}>
         <Text style={styles.smalltext}>
-          {getDayDifferenceFromNow(data.createdAt)}
+          {getDayDifferenceFromNow(data?.createdAt)}
         </Text>
       </View>
     </View>
@@ -81,18 +81,30 @@ function HistoryCard({ data }) {
 
 const styles = StyleSheet.create({
   container: {
-    // backgroundColor: "red",
+    height: 200,
     padding: 8,
+    // backgroundColor: "red",
+    paddingBottom: 70,
     position: "relative",
-    bottom: 80,
-    height: 240,
-    gap: 10,
+    bottom: 60,
   },
-  mainCard: {
-    gap: 5,
+
+  flatListContent: {
+    gap: 10, // Add spacing between items
+    flexGrow: 1,
   },
   heading: {
     fontFamily: fonts.robotoSemiBold,
+    fontSize: 18,
+    marginBottom: 10,
+  },
+  mainCard: {
+    gap: 5,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "#ddd",
+    borderRadius: 8,
+    backgroundColor: "#f9f9f9",
   },
   cardContainer: {
     flexDirection: "row",
@@ -102,9 +114,11 @@ const styles = StyleSheet.create({
   smalltext: {
     fontFamily: fonts.robotoRegular,
     fontSize: 10,
+    color: "#666",
   },
   amount: {
     color: "green",
     fontFamily: fonts.robotoBold,
+    fontSize: 14,
   },
 });

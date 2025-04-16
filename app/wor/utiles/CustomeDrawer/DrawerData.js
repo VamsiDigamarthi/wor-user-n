@@ -49,11 +49,11 @@ export default data = [
     screenName: "SavedLocations",
     icon: location,
   },
-  {
-    label: "Donation",
-    screenName: "Donation",
-    icon: donation,
-  },
+  // {
+  //   label: "Donation",
+  //   screenName: "Donation",
+  //   icon: donation,
+  // },
   {
     label: "Refer to Earn",
     screenName: "ReferAndEarn",
