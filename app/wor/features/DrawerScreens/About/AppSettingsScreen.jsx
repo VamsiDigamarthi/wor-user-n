@@ -40,7 +40,7 @@ const AppSettingsScreen = () => {
       <View
         style={[
           styles.innerCard,
-          { paddingTop: Platform.OS == "ios" ? 115 : 80 },
+          { paddingTop:  80 },
         ]}
       >
         {settingsData?.map((each, index) => (

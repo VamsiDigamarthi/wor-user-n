@@ -1,6 +1,6 @@
 globalThis.RNFB_SILENCE_MODULAR_DEPRECATION_WARNINGS = true;
 import { StatusBar } from "expo-status-bar";
-import { Linking, StyleSheet, Alert } from "react-native";
+import { Linking, StyleSheet, Alert, Platform } from "react-native";
 import MainNavigation from "./navigation/MainNavigation";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Provider } from "react-redux";
@@ -24,13 +24,16 @@ import RobotoMedium from "./assets/fonts/Roboto/Roboto-Medium.ttf";
 import inAppMessaging from "@react-native-firebase/in-app-messaging";
 import analytics from "@react-native-firebase/analytics";
 import { PlayInstallReferrer } from "react-native-play-install-referrer";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { requestTrackingPermissionsAsync } from 'expo-tracking-transparency';
 
 LogBox.ignoreLogs([
   "`new NativeEventEmitter()` was called with a non-null argument without the required `addListener` method",
   "`new NativeEventEmitter()` was called with a non-null argument without the required `removeListeners` method",
 ]);
+
+
+
 
 // Configure foreground notifications for Expo
 Notifications.setNotificationHandler({
@@ -43,14 +46,18 @@ Notifications.setNotificationHandler({
 
 // // Request notification permissions for both Firebase and Expo
 async function requestUserPermission() {
+
   // Firebase Messaging Permissions
   const authStatus = await messaging().requestPermission();
   const enabled =
     authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
     authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+    
 
   if (enabled) {
     console.log("Firebase Messaging: Notification permission granted");
+  
+
   } else {
     console.log("Firebase Messaging: Notification permission denied");
   }
@@ -161,6 +168,18 @@ export default function App() {
       }
     }
     onInAppMessage();
+
+
+    const requestTracking = async () => {
+      try {
+        const { status } = await requestTrackingPermissionsAsync();
+        console.log(`Tracking permission: ${status}`);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    requestTracking();
   }, []);
 
   const [loaded, error] = useFonts({

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Platform } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { mainImg } from "../../../../Images/ReferAndEarnImages";
 import StarRating from "../../../../utiles/StarRating/StarRating";
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     // flexDirection: "row",
     // justifyContent: "space-between",
     position: "relative",
-    top: -15,
+    top: Platform.OS === "android" ? -15 : -30,
     zIndex: -1,
     // height: 320,
     paddingTop: 35,

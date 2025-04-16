@@ -87,6 +87,7 @@ target 'WomenUser' do
   # Use frameworks if specified in Podfile.properties.json or environment variables
   use_frameworks! :linkage => podfile_properties['ios.useFrameworks'].to_sym if podfile_properties['ios.useFrameworks']
   use_frameworks! :linkage => ENV['USE_FRAMEWORKS'].to_sym if ENV['USE_FRAMEWORKS']
+  $RNFirebaseAsStaticFramework = true
 
   # Use React Native with Hermes enabled by default
   use_react_native!(

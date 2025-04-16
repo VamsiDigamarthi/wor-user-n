@@ -66,7 +66,7 @@ const About = () => {
       <View
         style={[
           styles.innerCard,
-          { paddingTop: Platform.OS == "ios" ? 110 : 80 },
+          { paddingTop: 80 },
         ]}
       >
         {settingsData?.map((each, index) => (

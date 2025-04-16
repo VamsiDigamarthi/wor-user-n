@@ -24,10 +24,10 @@ const Map3Btns = ({
   handleZoomToggle,
   handleOpenSafetyModal,
   // height,
-  mapIconsTop = 400,
+  
 }) => {
   return (
-    <View style={[styles.mainCont, { bottom: 80 }]}>
+    <View style={[styles.mainCont]}>
       {/* <View style={styles.singleIconsCard}>
         <TouchableOpacity
           onPress={() => openDialer("100")}

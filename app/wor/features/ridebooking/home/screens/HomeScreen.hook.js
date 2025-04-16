@@ -34,12 +34,16 @@ const useFirebaseToken = (token) => {
   useEffect(() => {
     // Fetch the Firebase token for the device
     const fetchFbToken = async () => {
-      const token = await messaging().getToken();
-      const installationId = await installations().getId();
+      try {
+        const token = await messaging().getToken();
+        const installationId = await installations().getId();
 
-      setFbInstallationId(installationId);
-      setFbToken(token);
-    };
+        setFbInstallationId(installationId);
+        setFbToken(token);
+      } catch (error) {
+        console.log("fberror", error);
+
+      } };
     fetchFbToken();
   }, []);
 

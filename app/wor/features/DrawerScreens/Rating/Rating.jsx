@@ -4,7 +4,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import CustomeAppbar from "../../../../../Utils/CustomeAppbar/CustomeAppbar";
 import MainCard from "./Components/MainCard";
 import RatingImageCard from "./Components/RatingImageCard";
-import Data from "../../../../../Constants/RatingData.json";
+import {Data} from "../../../../../Constants/RatingData.js";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 
 const Rating = () => {
@@ -27,7 +27,7 @@ const Rating = () => {
             }}
           >
             {Data.map((e, index) => (
-              <RatingImageCard key={index} title={e.title} text={e.subTitle} />
+              <RatingImageCard key={index} image={e.image} title={e.title} text={e.subTitle} />
             ))}
           </ScrollView>
 

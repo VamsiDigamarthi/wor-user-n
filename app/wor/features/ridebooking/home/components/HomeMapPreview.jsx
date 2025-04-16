@@ -4,8 +4,9 @@ import React, {
   useRef,
   useState,
   useMemo,
+  
 } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View, Platform } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { FontAwesome } from "@expo/vector-icons";
 import { customMapStyle } from "../../../../../../Constants/mapData";
@@ -164,7 +165,8 @@ const styles = StyleSheet.create({
 
   mapCard: {
     position: "absolute",
-    right: 20,
-    bottom: 340,
+    right: Platform.OS === "android" ? 20 :0,
+    bottom: Platform.OS === "android" && 340,
+    top:Platform.OS === "ios" && 0
   },
 });
