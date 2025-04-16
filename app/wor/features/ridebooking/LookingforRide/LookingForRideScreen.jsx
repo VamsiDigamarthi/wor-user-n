@@ -101,7 +101,7 @@ const LookingForRideScreen = () => {
               </Text>
               <Image
                 style={{ width: 180, height: 180 }}
-                source={require("../../../../../assets/looking-for-ride.gif")}
+                source={require("../../../../../assets/searching.gif")}
                 resizeMode="contain"
               />
             </View>

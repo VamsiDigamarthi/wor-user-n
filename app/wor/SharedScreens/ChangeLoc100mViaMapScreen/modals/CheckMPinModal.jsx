@@ -4,6 +4,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Platform
 } from "react-native";
 import React, { useState } from "react";
 import ModalUI from "../../../utiles/Modal/Modal";
@@ -131,6 +132,7 @@ const styles = StyleSheet.create({
     gap: 4,
     paddingHorizontal: 15,
     paddingVertical: 5,
+    width : Platform.OS === "ios" && 120
   },
 
   forgotText: {
@@ -162,5 +164,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 5,
     borderColor: "#ccc",
+
+    width : Platform.OS === "ios" && 20
+
   },
 });

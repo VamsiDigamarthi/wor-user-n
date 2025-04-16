@@ -281,11 +281,11 @@ const AuthenticatedStack = ({ initialRoute, params }) => {
         options={{ headerShown: false }}
       />
 
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Donation"
         component={Donation}
         options={{ headerShown: false }}
-      />
+      /> */}
 
       <Stack.Screen
         name="PaymentMethod"
