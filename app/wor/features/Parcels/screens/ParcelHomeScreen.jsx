@@ -25,7 +25,7 @@ const ParcelHomeScreen = () => {
       <ScrollView
         contentContainerStyle={[
           styles.scrollViewContent,
-          { paddingTop: Platform.OS == "ios" ? 110 : 80 },
+          { paddingTop:  80 },
         ]}
       >
         <ParSendReceiveCard />

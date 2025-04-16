@@ -16,7 +16,7 @@ const ProfileScreen = () => {
       <View
         style={[
           styles.innerContainer,
-          { paddingTop: Platform.OS == "ios" ? 110 : 80 },
+          { paddingTop:  80 },
         ]}
       >
         <View style={styles.topContainer}>

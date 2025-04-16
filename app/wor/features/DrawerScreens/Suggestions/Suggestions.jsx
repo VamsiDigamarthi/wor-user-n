@@ -84,7 +84,7 @@ export default function Suggestions({ navigation }) {
           <View
             style={[
               styles.container,
-              { paddingTop: Platform.OS == "ios" ? 115 : 80 },
+              { paddingTop:  80 },
             ]}
           >
             <Text style={styles.mainText}>Suggest To Wor</Text>

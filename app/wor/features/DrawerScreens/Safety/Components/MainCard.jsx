@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Platform } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { fonts } from "../../../../fonts/Fonts";
 export default function MainCard({}) {
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     // flexDirection: "row",
     // justifyContent: "space-between",
     position: "relative",
-    top: -30,
+    top: Platform.OS === "android" ? -30 : -40,
     zIndex: -1,
     height: 220,
     paddingTop: 35,

@@ -211,7 +211,7 @@ const ProfileEmergencyContact = () => {
       <View
         style={[
           styles.container,
-          { paddingTop: Platform.OS == "ios" ? 100 : 80 },
+          { paddingTop:  80 },
         ]}
       >
         {/* <AddTrusted /> */}

@@ -10,7 +10,7 @@ import React, { memo } from "react";
 import { useRoute } from "@react-navigation/native";
 import MainCard from "./Components/MainCard";
 import RatingImageCard from "./Components/RatingImageCard";
-import Data from "../../../../../Constants/SafetyData.json";
+import {Data} from "../../../../../Constants/SafetyData";
 import AppBarLayout from "../../ridebooking/sharedLogics/AppBarLayout";
 import { fonts } from "../../../fonts/Fonts";
 
@@ -28,7 +28,7 @@ const Rating = () => {
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <Text style={styles.heading}>What We Offer</Text>
           {Data.map((item, index) => (
-            <RatingImageCard key={index} title={item.title} text={item.text} />
+            <RatingImageCard key={index} title={item.title} image={item.image} text={item.text} />
           ))}
         </ScrollView>
       </KeyboardAvoidingView>

@@ -2,10 +2,10 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { RatingLady } from "../../../../Images/Rating";
 import { fonts } from "../../../../fonts/Fonts";
 
-export default function RatingImageCard({ title, text }) {
+export default function RatingImageCard({ title, text , image }) {
   return (
     <View style={styles.card}>
-      <Image source={RatingLady} style={styles.img} />
+      <Image source={image} style={styles.img} />
       <Text style={styles.mainText}>{title}</Text>
       <Text style={styles.subText}>{text}</Text>
     </View>

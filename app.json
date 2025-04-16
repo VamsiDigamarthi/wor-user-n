@@ -57,7 +57,8 @@
           }
         }
       ],
-      "expo-font"
+      "expo-font",
+      "expo-tracking-transparency"
     ],
     "extra": {
       "eas": {
