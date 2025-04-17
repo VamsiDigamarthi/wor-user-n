@@ -13,7 +13,7 @@ export const wrongRouteSafeAndSecure = async ({ orderId, token }) => {
         },
       }
     );
-    console.log("==========================");
+    // console.log("==========================");
   } catch (error) {
     console.log(error);
 

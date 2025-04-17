@@ -26,8 +26,11 @@ function Wallet() {
   const { addToWallet, profile } = usePayments();
 
   const handleAddWallet = () => {
+    console.log("hit fn");
+    
     addToWallet(amount);
     setOpen(!open);
+    console.log("hit fn");
   };
 
   return (

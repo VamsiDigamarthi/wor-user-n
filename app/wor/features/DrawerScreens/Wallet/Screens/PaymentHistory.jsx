@@ -21,7 +21,7 @@ export default function PaymentHistory({ navigation }) {
     getWalletTransactions();
   }, []);
 
-  console.log(trxns, "---------------trancasj-------------------");
+  // console.log(trxns, "---------------trancasj-------------------");
 
   // {"__v": 0, "_id": "67f0ca125c5e0f5f3c47aaa2", "amount": 41, "createdAt": "2025-04-05T06:13:38.209Z", "date": "2025-04-05T06:13:38.208Z", "description": "Deducted for Order", "trxnType": "ride", "type": "debit", "updatedAt": "2025-04-05T06:13:38.209Z", "userId": "677cc42947aac41f9ff808f9"}
 
