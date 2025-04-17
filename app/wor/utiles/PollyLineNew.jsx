@@ -265,7 +265,7 @@ export default function PollyLineNew({
             setToggle(!toggle);
           }}
           handleZoomToggle={handleResetZoom}
-          mapIconsTop={200}
+          top={220}
           bottom={bottom}
         />
         {/* {toggle && <MapModalUi setToggle={setToggle} toggle={toggle} />} */}

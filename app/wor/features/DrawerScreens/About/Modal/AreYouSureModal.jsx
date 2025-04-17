@@ -6,9 +6,12 @@ import { TickCard } from "../components/TickCard";
 
 const AreYouSureModal = ({ setDisplayModalType, handleDeleteAcoountModal }) => {
   const data = [
-    "You will lose access to all Ola services like Mobility, Cars, Dash and Financial Services.",
-    "If you have or are in the process of availing any Ola Electric product or service, we will not be able to process your deletion request as it will render the product unusable",
-    "Upon receipt of your request for deletion data/your account with Ola, we will be permanently deleting your profile and related information. However, any data that may have to be retained to fulfil our legal and regulatory requirements shall be stored as may be required (mostly until 10 years).",
+    "You will lose access to all Women Rider services, including WOR Scooty, WOR Mini, WOR Luxe, ProMax, Book Any, and Parcel Services.",
+
+    "If you have an ongoing ride, a pending payment, or are in the process of availing any Women Rider feature or support service, we will not be able to process your deletion request as it may disrupt your ongoing activity or service flow.",
+
+    "Upon receipt of your deletion request, your Women Rider account and profile data will be permanently deleted from our systems.",
+    "However, any data that is legally or regulatorily required to be retained will be securely stored as per policy, for up to 10 years, in line with legal compliance.",
   ];
 
   return (

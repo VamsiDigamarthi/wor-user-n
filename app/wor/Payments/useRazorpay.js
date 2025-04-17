@@ -114,7 +114,7 @@ export const usePayments = () => {
       const { order_id } = response.data;
 
       const options = {
-        key: "rzp_live_zbmR4QaoePLouz",
+        key: "rzp_test_zCMFNwSBlZt1gx",
         amount: amount,
         currency: "INR",
         name: "Adding Money To Wallet",

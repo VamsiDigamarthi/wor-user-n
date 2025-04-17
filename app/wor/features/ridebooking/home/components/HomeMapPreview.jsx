@@ -4,7 +4,6 @@ import React, {
   useRef,
   useState,
   useMemo,
-  
 } from "react";
 import { Image, StyleSheet, Text, View, Platform } from "react-native";
 import MapView, { Marker } from "react-native-maps";
@@ -129,13 +128,12 @@ const HomeMapPreview = ({
           </Marker>
         ))}
       </MapView>
-      <View style={styles.mapCard}>
-        <Map3Btns
-          handleOpenSafetyModal={() => setToggle((prev) => !prev)}
-          handleZoomToggle={handleResetZoom}
-          bottom={mapIconsTop}
-        />
-      </View>
+      <Map3Btns
+        handleOpenSafetyModal={() => setToggle((prev) => !prev)}
+        handleZoomToggle={handleResetZoom}
+        top={400}
+      />
+
       {toggle && <SafetyToolModals toggle={toggle} setToggle={setToggle} />}
     </View>
   );
@@ -161,12 +159,5 @@ const styles = StyleSheet.create({
     height: 24,
     width: 24,
     resizeMode: "contain",
-  },
-
-  mapCard: {
-    position: "absolute",
-    right: Platform.OS === "android" ? 20 :0,
-    bottom: Platform.OS === "android" && 340,
-    top:Platform.OS === "ios" && 0
   },
 });

@@ -463,7 +463,9 @@ export const useShowPriceScreenHook = () => {
   };
 
   const calculateTimeFare = (duration, vehcilePrices) => {
-    return +duration * +vehcilePrices?.timeFace;
+    console.log("--timfare---", +(+duration * +vehcilePrices?.timeFace));
+
+    return parseFloat((+duration * +vehcilePrices?.timeFace)?.toFixed(2));
   };
 
   const checkNightTime = () => {

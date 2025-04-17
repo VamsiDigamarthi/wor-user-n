@@ -27,7 +27,7 @@ function Wallet() {
 
   const handleAddWallet = () => {
     console.log("hit fn");
-    
+
     addToWallet(amount);
     setOpen(!open);
     console.log("hit fn");
@@ -35,16 +35,27 @@ function Wallet() {
 
   return (
     <AppBarLayout title="E-Wallet" isPositionAppbar chatBotText="wallet">
-      <View
-        style={[
-          styles.container,
-          { paddingTop:  80 },
-        ]}
-      >
-        <Text style={styles.text}>
+      <View style={[styles.container, { paddingTop: 80 }]}>
+        {/* <Text style={styles.text}>
           The WOR Wallet makes payments easy by adding money ahead of time for
           fast, secure, cashless rides. It’s safe and simple to use.
-        </Text>
+        </Text> */}
+
+        <View style={styles.textCard}>
+          <View
+            style={{
+              width: 10,
+              height: 10,
+              backgroundColor: "red",
+              borderRadius: 10,
+              marginTop: 6,
+            }}
+          ></View>
+          <Text style={styles.dummyText}>
+            Add money to your wallet for immediate transactions, payments
+            without delays. This allows you to make quick, secure payments.
+          </Text>
+        </View>
 
         <View style={styles.card}>
           <View style={styles.walletHeader}>
@@ -182,5 +193,21 @@ const styles = StyleSheet.create({
   },
   safePaymentText: {
     fontFamily: fonts.robotoRegular,
+  },
+  textCard: {
+    backgroundColor: "#fff",
+    elevation: 2,
+    padding: 10,
+    borderRadius: 10,
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 10,
+  },
+
+  dummyText: {
+    fontSize: 14,
+    fontWeight: "600",
+    lineHeight: 22,
+    width: "96%",
   },
 });
