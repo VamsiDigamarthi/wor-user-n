@@ -41,6 +41,10 @@ export const useCaptainAcceptRideScreenHook = () => {
     completeRideDetails?.isArrived ?? false
   );
 
+  const [middleDrop, setMiddleDrop] = useState(
+    completeRideDetails?.middleDrop ?? true
+  );
+
   const [disFromCaptainLocToPick, setDisFromCaptainLocPick] = useState(null);
   const [disFromPickToDrop, setDisFromPickToDrop] = useState(null);
 
@@ -68,6 +72,14 @@ export const useCaptainAcceptRideScreenHook = () => {
       dispatch(setCompleteRideDetails(order));
     }
   };
+
+  const handleMiddleDrop = ({ status, order }) => {
+    setMiddleDrop(status ?? false);
+    if (status) {
+      dispatch(setCompleteRideDetails(order));
+    }
+  };
+
   const onOrderArrived = (value) => {
     console.log("-------- arrived ------------");
     setIsArrived(value);
@@ -175,6 +187,8 @@ export const useCaptainAcceptRideScreenHook = () => {
 
       socket.on("change-destination-status", handleChangeDestCaptainResponse);
       socket.on("accept-order-cancelled", cancelOrderByUser);
+
+      socket.on("middle-drop", handleMiddleDrop);
     }
     return () => {
       socket.off("order-otp-verified", onVerifiedOtp);
@@ -182,7 +196,8 @@ export const useCaptainAcceptRideScreenHook = () => {
       socket.off("order-completed", handleCompleteRide);
       socket.off("new-receive-coordinates", handleLiveCoordinates);
       socket.off("change-destination-status", handleChangeDestCaptainResponse);
-      socket.on("accept-order-cancelled", cancelOrderByUser);
+      socket.off("accept-order-cancelled", cancelOrderByUser);
+      socket.off("middle-drop", handleMiddleDrop);
     };
   }, [socket, isConnected]);
 
@@ -255,5 +270,8 @@ export const useCaptainAcceptRideScreenHook = () => {
     newLiveCoordinates,
     markerRef,
     orderId,
+    // middle drop
+    middleDrop,
+    setMiddleDrop,
   };
 };

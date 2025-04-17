@@ -23,25 +23,11 @@ const openDialer = (phoneNumber) => {
 const Map3Btns = ({
   handleZoomToggle,
   handleOpenSafetyModal,
+  top = 220,
   // height,
-  
 }) => {
   return (
-    <View style={[styles.mainCont]}>
-      {/* <View style={styles.singleIconsCard}>
-        <TouchableOpacity
-          onPress={() => openDialer("100")}
-          style={[
-            styles.zoomButton,
-            { backgroundColor: "#EC1C24", padding: 5, borderRadius: 5 },
-          ]}
-        >
-          <Text style={{ color: "#fff", fontSize: 14, fontWeight: "600" }}>
-            SOS
-          </Text>
-        </TouchableOpacity>
-      </View> */}
-
+    <View style={[styles.mainCont, { top: top }]}>
       <TouchableOpacity
         onPress={handleOpenSafetyModal}
         style={styles.zoomButton}
@@ -92,7 +78,7 @@ const styles = StyleSheet.create({
   mainCont: {
     gap: 10,
     position: "absolute",
-    top: 250,
-    right: 20,
+
+    right: 10,
   },
 });

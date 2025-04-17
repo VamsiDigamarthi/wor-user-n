@@ -70,8 +70,6 @@ export const useCheckMPinModalHook = ({ onOpenIsEnterConfirmPinModal }) => {
 
     const { formattedDate, formattedTime } = getFormattedDateTime();
 
-    console.log("randomExtraCharges", randomExtraCharges);
-
     const orderDetails = createOrderDetails({
       isParcel: isParcScreen,
       pickUpDetails,

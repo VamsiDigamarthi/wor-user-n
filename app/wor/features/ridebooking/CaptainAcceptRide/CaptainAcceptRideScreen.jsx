@@ -13,6 +13,7 @@ import TrackMe from "./Components/TrackMe";
 import SocketCancelRide from "./Modals/SocketCancelRide";
 import PollyLineNew from "../../../utiles/PollyLineNew";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import MiddleDropModal from "./Modals/MiddleDropModal";
 
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.4, 0.6].map((p) => screenHeight * p);
@@ -38,6 +39,9 @@ const CaptainAcceptRideScreen = () => {
     newLiveCoordinates,
     markerRef,
     orderId,
+
+    middleDrop,
+    setMiddleDrop,
   } = useCaptainAcceptRideScreenHook();
 
   let captainCoordinates = {
@@ -139,6 +143,8 @@ const CaptainAcceptRideScreen = () => {
         setCancelOrderByUseSt={setCancelOrderByUseSt}
         orderId={orderId}
       />
+      {/* middle drop modal */}
+      <MiddleDropModal middleDrop={middleDrop} setMiddleDrop={setMiddleDrop} />
     </AppBarLayout>
   );
 };
