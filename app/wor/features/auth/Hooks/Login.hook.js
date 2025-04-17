@@ -71,7 +71,7 @@ export const useLoginHook = () => {
     setIsLoading(true);
 
     const data = await loginApi({ mobile });
-    console.log("data", data);
+    // console.log("data", data);
 
     setIsLoading(false);
     if (!data) {
