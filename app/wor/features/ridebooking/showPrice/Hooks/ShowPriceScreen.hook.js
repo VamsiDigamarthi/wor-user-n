@@ -257,38 +257,75 @@ export const useShowPriceScreenHook = () => {
     if (vehicleType?.toLowerCase() === "scooty") {
       if (distance <= 2) {
         return 0;
-      } else if (distance > 2 && distance <= 10) {
-        return newBaseFare;
       }
+      //  else if (distance > 2 && distance <= 10) {
+      //   return newBaseFare;
+      // }
       return newBaseFare;
     } else if (vehicleType?.toLowerCase() === "car") {
       if (distance <= 4) {
         return 0;
-      } else if (distance > 4 && distance <= 20) {
-        return newBaseFare;
       }
+      //  else if (distance > 4 && distance <= 20) {
+      //   return newBaseFare;
+      // }
       return newBaseFare;
     } else if (vehicleType?.toLowerCase() === "wor-premium") {
       if (distance <= 4) {
         return 0;
-      } else if (distance > 4 && distance <= 20) {
-        return newBaseFare;
       }
+      //  else if (distance > 4 && distance <= 20) {
+      //   return newBaseFare;
+      // }
       return newBaseFare;
     } else if (vehicleType?.toLowerCase() === "promax") {
       if (distance <= 4) {
         return 0;
-      } else if (distance > 4 && distance <= 20) {
-        return newBaseFare;
       }
+      // else if (distance > 4 && distance <= 20) {
+      //   return newBaseFare;
+      // }
       return newBaseFare;
     } else if (vehicleType?.toLowerCase() || "bookany") {
       if (distance <= 4) {
         return 0;
-      } else if (distance > 4 && distance <= 20) {
-        return newBaseFare;
       }
+      //  else if (distance > 4 && distance <= 20) {
+      //   return newBaseFare;
+      // }
       return newBaseFare;
+    }
+  };
+
+  const calcPlatformFeer = ({ vehicleType, distance, platformFee }) => {
+    if (vehicleType?.toLowerCase() === "scooty") {
+      if (distance <= 2) {
+        return 0;
+      }
+      return platformFee;
+    } else if (vehicleType?.toLowerCase() === "car") {
+      if (distance <= 4) {
+        return 0;
+      }
+
+      return platformFee;
+    } else if (vehicleType?.toLowerCase() === "wor-premium") {
+      if (distance <= 4) {
+        return 0;
+      }
+
+      return platformFee;
+    } else if (vehicleType?.toLowerCase() === "promax") {
+      if (distance <= 4) {
+        return 0;
+      }
+
+      return platformFee;
+    } else if (vehicleType?.toLowerCase() || "bookany") {
+      if (distance <= 4) {
+        return 0;
+      }
+      return platformFee;
     }
   };
 
@@ -312,7 +349,12 @@ export const useShowPriceScreenHook = () => {
 
     console.log("vehcilePrices", vehcilePrices);
 
-    const platFormPrice = +vehcilePrices?.platformFee;
+    const platFormPrice = calcPlatformFeer({
+      distance: distanceValue,
+      platformFee: +vehcilePrices?.platformFee,
+      vehicleType,
+    });
+
     console.log("platFormPrice", platFormPrice);
 
     const price = calculateDistanceFare(
@@ -322,9 +364,18 @@ export const useShowPriceScreenHook = () => {
     );
     console.log("price", price);
 
-    const timeFare = calculateTimeFare(duration, vehcilePrices);
+    const timeFare = calculateTimeFare(
+      duration,
+      vehcilePrices,
+      distanceValue,
+      vehicleType
+    );
 
-    const otherCharges = otherServicesCharges(vehcilePrices);
+    const otherCharges = otherServicesCharges(
+      vehcilePrices,
+      distanceValue,
+      vehicleType
+    );
     console.log("otherCharges", otherCharges);
 
     if (selectedVehicleType?.toLowerCase() === vehicleType?.toLowerCase()) {
@@ -374,6 +425,7 @@ export const useShowPriceScreenHook = () => {
     let finalPrice;
 
     let previousCalcFees = profile?.cancelCharges ?? 0;
+
     const beforeNightSurgePrice = Math.ceil(
       price +
         timeFare +
@@ -399,7 +451,8 @@ export const useShowPriceScreenHook = () => {
         finalPrice = surgeFare(
           beforeNightSurgePrice,
           vehcilePrices,
-          vehicleType
+          vehicleType,
+          distanceValue
         );
       }
     }
@@ -470,10 +523,41 @@ export const useShowPriceScreenHook = () => {
     // return distance * +priceDetails?.tenToHunderPrice + baseFare;
   };
 
-  const calculateTimeFare = (duration, vehcilePrices) => {
-    console.log("--timfare---", +(+duration * +vehcilePrices?.timeFace));
+  const calculateTimeFare = (
+    duration,
+    vehcilePrices,
+    distance,
+    vehicleType
+  ) => {
+    if (vehicleType?.toLowerCase() === "scooty") {
+      if (distance <= 2) {
+        return 0;
+      }
+      return parseFloat((+duration * +vehcilePrices?.timeFace)?.toFixed(2));
+    } else if (vehicleType?.toLowerCase() === "car") {
+      if (distance <= 4) {
+        return 0;
+      }
 
-    return parseFloat((+duration * +vehcilePrices?.timeFace)?.toFixed(2));
+      return parseFloat((+duration * +vehcilePrices?.timeFace)?.toFixed(2));
+    } else if (vehicleType?.toLowerCase() === "wor-premium") {
+      if (distance <= 4) {
+        return 0;
+      }
+
+      return parseFloat((+duration * +vehcilePrices?.timeFace)?.toFixed(2));
+    } else if (vehicleType?.toLowerCase() === "promax") {
+      if (distance <= 4) {
+        return 0;
+      }
+
+      return parseFloat((+duration * +vehcilePrices?.timeFace)?.toFixed(2));
+    } else if (vehicleType?.toLowerCase() || "bookany") {
+      if (distance <= 4) {
+        return 0;
+      }
+      return parseFloat((+duration * +vehcilePrices?.timeFace)?.toFixed(2));
+    }
   };
 
   const checkNightTime = () => {
@@ -492,7 +576,15 @@ export const useShowPriceScreenHook = () => {
     return beforeNightSurgePrice + increasedAmount;
   };
 
-  const surgeFare = (beforeNightSurgePrice, vehcilePrices, vehicleType) => {
+  const surgeFare = (
+    beforeNightSurgePrice,
+    vehcilePrices,
+    vehicleType,
+    distance
+  ) => {
+    if (distance <= 2) {
+      return beforeNightSurgePrice;
+    }
     const randomPerc = getRandomSurgeFare(vehcilePrices);
     console.log("randomPerc--", randomPerc);
 
@@ -526,9 +618,39 @@ export const useShowPriceScreenHook = () => {
     return Math.ceil(Math.random() * (max - min) + min);
   };
 
-  const otherServicesCharges = (vehcilePrices) => {
-    const [min, max] = vehcilePrices?.otherServices || [0, 0];
-    return Math.ceil(Math.random() * (max - min) + min);
+  const otherServicesCharges = (vehcilePrices, distance, vehicleType) => {
+    if (vehicleType?.toLowerCase() === "scooty") {
+      if (distance <= 2) {
+        return 0;
+      }
+      const [min, max] = vehcilePrices?.otherServices || [0, 0];
+      return Math.ceil(Math.random() * (max - min) + min);
+    } else if (vehicleType?.toLowerCase() === "car") {
+      if (distance <= 4) {
+        return 0;
+      }
+
+      const [min, max] = vehcilePrices?.otherServices || [0, 0];
+      return Math.ceil(Math.random() * (max - min) + min);
+    } else if (vehicleType?.toLowerCase() === "wor-premium") {
+      if (distance <= 4) {
+        return 0;
+      }
+      const [min, max] = vehcilePrices?.otherServices || [0, 0];
+      return Math.ceil(Math.random() * (max - min) + min);
+    } else if (vehicleType?.toLowerCase() === "promax") {
+      if (distance <= 4) {
+        return 0;
+      }
+      const [min, max] = vehcilePrices?.otherServices || [0, 0];
+      return Math.ceil(Math.random() * (max - min) + min);
+    } else if (vehicleType?.toLowerCase() || "bookany") {
+      if (distance <= 4) {
+        return 0;
+      }
+      const [min, max] = vehcilePrices?.otherServices || [0, 0];
+      return Math.ceil(Math.random() * (max - min) + min);
+    }
   };
 
   return {
