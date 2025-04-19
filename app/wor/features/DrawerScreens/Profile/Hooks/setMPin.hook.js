@@ -32,10 +32,12 @@ export const useSetMPinHook = ({ handleChangeSetMpin }) => {
     if (pin.includes("")) {
       setError("Please enter a complete M-PIN.");
       valid = false;
-    } else if (!isValidMPin(pin)) {
-      setError("M-PIN must contain unique digits.");
-      valid = false;
-    } else if (hasConsecutiveNumbers(pin)) {
+    }
+    // else if (!isValidMPin(pin)) {
+    //   setError("M-PIN must contain unique digits.");
+    //   valid = false;
+    // }
+    else if (hasConsecutiveNumbers(pin)) {
       setError("M-PIN must not contain consecutive numbers.");
       valid = false;
     }
@@ -44,10 +46,12 @@ export const useSetMPinHook = ({ handleChangeSetMpin }) => {
     if (newPin.includes("")) {
       setReEnterError("Please re-enter the M-PIN.");
       valid = false;
-    } else if (!isValidMPin(newPin)) {
-      setReEnterError("Re-entered M-PIN must contain unique digits.");
-      valid = false;
-    } else if (pin.join("") !== newPin.join("")) {
+    }
+    // else if (!isValidMPin(newPin)) {
+    //   setReEnterError("Re-entered M-PIN must contain unique digits.");
+    //   valid = false;
+    // }
+    else if (pin.join("") !== newPin.join("")) {
       setReEnterError("M-PINs do not match.");
       valid = false;
     } else if (hasConsecutiveNumbers(newPin)) {
@@ -60,13 +64,20 @@ export const useSetMPinHook = ({ handleChangeSetMpin }) => {
 
   // Function to check if the pin contains consecutive numbers
   const hasConsecutiveNumbers = (pinArray) => {
-    const numbers = pinArray.map(Number); // Convert strings to numbers
-    for (let i = 0; i < numbers.length - 1; i++) {
-      if (numbers[i] + 1 !== numbers[i + 1]) {
-        return false; // Not consecutive
+    // const numbers = pinArray.map(Number); // Convert strings to numbers
+    // for (let i = 0; i < numbers.length - 1; i++) {
+    //   if (numbers[i] + 1 !== numbers[i + 1]) {
+    //     return false; // Not consecutive
+    //   }
+    // }
+    // return true; // Consecutive numbers found
+    const firstDigit = pinArray[0];
+    for (let i = 1; i < pinArray.length; i++) {
+      if (pinArray[i] !== firstDigit) {
+        return false;
       }
     }
-    return true; // Consecutive numbers found
+    return true;
   };
 
   const handleSubmiteMPin = async () => {

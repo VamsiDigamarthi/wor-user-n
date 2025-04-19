@@ -12,13 +12,15 @@ import { mainImg } from "../../../../Images/ReferAndEarnImages";
 import * as Clipboard from "expo-clipboard";
 import { useState } from "react";
 import { fonts } from "../../../../fonts/Fonts";
-export default function MainCard({ refCode }) {
+import { AntDesign } from "@expo/vector-icons";
+
+export default function MainCard({ refCode, onClickInfo }) {
   const [text, setText] = useState(refCode);
 
   const copyToClipboard = () => {
     if (text) {
       Clipboard.setStringAsync(text);
-      Alert.alert("Copied to Clipboard", text);
+      // Alert.alert("Copied to Clipboard", text);
     } else {
       Alert.alert("Error", "Something went wrong");
     }
@@ -26,18 +28,27 @@ export default function MainCard({ refCode }) {
 
   return (
     <LinearGradient
-      colors={["#EA4C89", "#fff5f9"]} // Gradient colors
+      colors={["#e02e88", "#fff5f9"]} // Gradient colors
       start={{ x: 0, y: 0 }} // Gradient start point (top-left)
       end={{ x: 0, y: 1 }} // Gradient end point (bottom-right)
       style={styles.card} // Apply styles
     >
       <View style={styles.innerCard}>
-        <Text style={styles.mainText}>25% off for you</Text>
-        <Text style={styles.mainText}>25% off for them</Text>
+        <View>
+          <Text style={styles.bigText}>Refer and Earn ₹ 100</Text>
+          <Text style={styles.mainText}>
+            Refer 10 Users and Earn ₹ 100 In your Wallet
+          </Text>
+        </View>
 
         <TouchableOpacity onPress={copyToClipboard} style={styles.copyBtn}>
-          <Text style={{ fontFamily: fonts.robotoSemiBold }}>{refCode}</Text>
+          <Text style={{ fontWeight: "bold", color: "#000" }}>{refCode}</Text>
           <MaterialCommunityIcons name="content-copy" size={24} color="#000" />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.termsBtn} onPress={onClickInfo}>
+          <Text style={styles.termsText}>Terms of Refer and Earn</Text>
+          <AntDesign name="infocirlceo" size={14} color="#FFF" />
         </TouchableOpacity>
       </View>
 
@@ -52,17 +63,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     // borderRadius: 10,
-    height: 250,
+    height: 280,
     position: "relative",
     zIndex: -1,
-    top: -18,
+    top: -15,
   },
 
   mainText: {
     color: "#fff",
-    fontSize: 14,
-    // fontWeight: "bold",
-    fontFamily: fonts.robotoSemiBold,
+    fontSize: 12,
+    fontWeight: "600",
   },
 
   copyBtn: {
@@ -71,8 +81,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 8,
     borderRadius: 10,
-    width: 120,
-    justifyContent: "space-between",
+    width: 140,
+    justifyContent: "space-evenly",
     alignItems: "center",
   },
 
@@ -91,6 +101,22 @@ const styles = StyleSheet.create({
     width: "60%",
     gap: 10,
     position: "relative",
-    top: 50,
+    top: 30,
+  },
+  bigText: {
+    fontSize: 22,
+    color: "#FFF",
+    fontWeight: "bold",
+  },
+
+  termsBtn: {
+    flexDirection: "row",
+    gap: 10,
+    alignItems: "center",
+  },
+  termsText: {
+    fontSize: 12,
+    color: "white",
+    fontWeight: "bold",
   },
 });

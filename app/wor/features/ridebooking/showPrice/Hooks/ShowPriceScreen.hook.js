@@ -80,6 +80,8 @@ export const useShowPriceScreenHook = () => {
   const filteredVehicleList = useMemo(() => {
     if (!vehicleInfoWithDistanceDura) return [];
 
+    console.log(isParcScreen, "isParcScreen");
+
     return isParcScreen
       ? vehicleInfoWithDistanceDura.filter(
           (vehicle) => vehicle.vehicleType === "Scooty"
@@ -171,6 +173,8 @@ export const useShowPriceScreenHook = () => {
             priceDe.vehicleType?.toLowerCase() ===
             vehicle.vehicleType?.toLowerCase()
         );
+
+        console.log("vehcilePrices", vehcilePrices);
 
         let newPrice = handleCalculatePrices(
           vehicle,
@@ -306,6 +310,8 @@ export const useShowPriceScreenHook = () => {
 
     console.log("baseFare----", baseFare);
 
+    console.log("vehcilePrices", vehcilePrices);
+
     const platFormPrice = +vehcilePrices?.platformFee;
     console.log("platFormPrice", platFormPrice);
 
@@ -403,6 +409,8 @@ export const useShowPriceScreenHook = () => {
 
   const calculateDistanceFare = (distance, vehcilePrices, vehicleType) => {
     if (vehcilePrices?.vehicleType?.toLowerCase() === "scooty") {
+      console.log("distance in calculateDistanceFare", distance);
+
       if (distance <= 2) {
         return +vehcilePrices?.forTwoKm;
       } else if (distance > 2 && distance <= 10) {

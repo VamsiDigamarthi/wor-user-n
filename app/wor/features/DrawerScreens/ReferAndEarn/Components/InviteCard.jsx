@@ -116,12 +116,12 @@ const howItWorksData = [
   {
     icon: FontAwesome,
     iconName: "shopping-bag",
-    text: "After your friend places their first order, you get 20% off up to 200 on your next order.",
+    text: "After your friend completes 3 orders Your referal count will increase by one.",
   },
   {
     icon: FontAwesome,
     iconName: "rupee",
-    text: "Upon 10 successful referrals, you earn 500.",
+    text: "Upon 10 successful referrals, you earn 100.",
   },
 ];
 
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     // gap: 10,
     borderRadius: 30,
     position: "relative",
-    bottom: 70,
+    bottom: 90,
     width: "95%",
     left: 8,
     height: 380,
