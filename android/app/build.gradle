@@ -110,14 +110,14 @@ android {
 
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
-
+        
     namespace 'com.nuhvin.womenrider'
     defaultConfig {
         applicationId 'com.nuhvin.womenrider'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 18
-        versionName "1.2.8"
+        versionCode 19
+        versionName "1.2.9"
     }
     signingConfigs {
         debug {

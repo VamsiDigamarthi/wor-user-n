@@ -18,12 +18,7 @@ export default function MpinScreen() {
 
   return (
     <AppBarLayout title="WoR Verification Pin" isPositionAppbar={true}>
-      <View
-        style={[
-          styles.container,
-          { paddingTop:  80 },
-        ]}
-      >
+      <View style={[styles.container, { paddingTop: 80 }]}>
         {mPinDisplay ? (
           <SetMPin handleChangeSetMpin={handleChangeSetMpin} />
         ) : (
