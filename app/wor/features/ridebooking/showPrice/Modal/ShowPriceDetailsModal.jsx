@@ -13,6 +13,8 @@ const ShowPriceDetailsModal = ({
   price,
 }) => {
   const { priceDetails } = useSelector((state) => state.priceDetails); // this is complete price details from admin panel
+  const { profile } = useSelector((state) => state.profileSlice);
+  // console.log(profile);
 
   let imageUrl;
   switch (vehicleType?.toLowerCase()) {
@@ -32,6 +34,8 @@ const ShowPriceDetailsModal = ({
       imageUrl = scrootyImg;
       break;
   }
+
+  // profile?.cancelCharges
 
   return (
     <ModalUI
@@ -64,14 +68,20 @@ const ShowPriceDetailsModal = ({
         </View>
         <View style={styles.rowDirection}>
           <Text style={styles.grayColorText}>Ride Fare</Text>
-          <Text style={styles.grayColorText}>₹103.0</Text>
+          <Text style={styles.grayColorText}>₹ 103.0</Text>
         </View>
         <View style={styles.rowDirection}>
           <Text style={styles.grayColorText}>Surcharge</Text>
-          <Text style={styles.grayColorText}>₹103.0</Text>
+          <Text style={styles.grayColorText}>₹ 0.0</Text>
         </View>
+        {profile?.cancelCharges > 0 && (
+          <View style={styles.rowDirection}>
+            <Text style={styles.grayColorText}>Previous Cancellation Fee</Text>
+            <Text style={styles.grayColorText}>₹ {profile?.cancelCharges}</Text>
+          </View>
+        )}
         <Text style={styles.subText}>
-          *Price may vary if you change pickup or drop location, toll areas,
+          Price may vary if you change pickup or drop location, toll areas,
         </Text>
         {/* <Text style={styles.subText}>
           {priceDetails?.twoToTenKmPrice} Rs/km till 10km,{" "}

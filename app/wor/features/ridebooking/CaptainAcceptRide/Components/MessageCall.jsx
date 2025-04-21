@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { CallIcon } from "../../../../Icons/Icons";
 import { useNavigation } from "@react-navigation/native";
@@ -26,9 +26,8 @@ const MessageCall = ({ orderId, captainDetails }) => {
       <Pressable
         style={styles.call}
         onPress={() =>
-          Toast.show({
-            text1: "This Feature is Currently Unavailable",
-            type: "info",
+          Linking.openURL(`tel:${captainDetails?.mobile}`).catch(() => {
+            alert("Mobile Number Not Available");
           })
         }
       >
