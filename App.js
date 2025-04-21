@@ -25,15 +25,12 @@ import inAppMessaging from "@react-native-firebase/in-app-messaging";
 import analytics from "@react-native-firebase/analytics";
 import { PlayInstallReferrer } from "react-native-play-install-referrer";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { requestTrackingPermissionsAsync } from 'expo-tracking-transparency';
+import { requestTrackingPermissionsAsync } from "expo-tracking-transparency";
 
 LogBox.ignoreLogs([
   "`new NativeEventEmitter()` was called with a non-null argument without the required `addListener` method",
   "`new NativeEventEmitter()` was called with a non-null argument without the required `removeListeners` method",
 ]);
-
-
-
 
 // Configure foreground notifications for Expo
 Notifications.setNotificationHandler({
@@ -46,18 +43,14 @@ Notifications.setNotificationHandler({
 
 // // Request notification permissions for both Firebase and Expo
 async function requestUserPermission() {
-
   // Firebase Messaging Permissions
   const authStatus = await messaging().requestPermission();
   const enabled =
     authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
     authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-    
 
   if (enabled) {
     console.log("Firebase Messaging: Notification permission granted");
-  
-
   } else {
     console.log("Firebase Messaging: Notification permission denied");
   }
@@ -168,7 +161,6 @@ export default function App() {
       }
     }
     onInAppMessage();
-
 
     const requestTracking = async () => {
       try {

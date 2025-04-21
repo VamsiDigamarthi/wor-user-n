@@ -1,24 +1,30 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { COLORS } from "../../../../../Constants/colors";
 import { BackIcon, SupportIcons } from "../../../Icons/Icons";
+import { Ionicons } from "@expo/vector-icons";
 
 const SupportChatHeader = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <Pressable onPress={() => navigation.goBack()}>
-        <BackIcon color={"#757575"} size={24} />
+      <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+        <Pressable onPress={() => navigation.goBack()}>
+          <View style={styles.iconStyle}>
+            <SupportIcons size={20} color="#fff" />
+          </View>
+        </Pressable>
+        <Text
+          style={{ fontSize: 17, fontWeight: "600", color: COLORS.heading }}
+        >
+          Wor Support
+        </Text>
+      </View>
+
+      <Pressable onPress={() => Linking.openURL(`tel:9392296850`)}>
+        <Ionicons size={22} color="#EA4C89" name="call" />
       </Pressable>
-      <Pressable onPress={() => navigation.goBack()}>
-        <View style={styles.iconStyle}>
-          <SupportIcons size={20} color="#fff" />
-        </View>
-      </Pressable>
-      <Text style={{ fontSize: 17, fontWeight: "600", color: COLORS.heading }}>
-        Wor Support
-      </Text>
     </View>
   );
 };
@@ -28,7 +34,7 @@ export default SupportChatHeader;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    paddingTop: 10,
+    paddingTop: 25,
     backgroundColor: "#fff",
     paddingHorizontal: 15,
     paddingBottom: 10,
@@ -38,6 +44,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
     elevation: 2,
+    justifyContent: "space-between",
   },
   iconStyle: {
     width: 40,
