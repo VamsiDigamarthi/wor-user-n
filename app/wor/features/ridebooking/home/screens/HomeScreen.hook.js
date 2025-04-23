@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import HomeScreenServices, {
   checkDeviceId,
+  onChangeRole,
   onFetchRideRating,
   ratingNotGivenByUser,
 } from "../services/HomeScreenServices";
@@ -35,24 +36,21 @@ const useFirebaseToken = (token) => {
     // Fetch the Firebase token for the device
     const fetchFbToken = async () => {
       try {
-        
+        const apns = await messaging().getAPNSToken();
 
-        const apns = await messaging().getAPNSToken()
+        console.log("apns ", apns);
 
-        console.log("apns ",apns);
-        
-        
         const token = await messaging().getToken();
         console.log(token, "fbtoken");
-        
+
         const installationId = await installations().getId();
 
         setFbInstallationId(installationId);
         setFbToken(token);
       } catch (error) {
         console.log("fberror", error);
-
-      } };
+      }
+    };
     fetchFbToken();
   }, []);
 
@@ -190,17 +188,21 @@ export const useHomeScreenHook = () => {
     fetchPendingOrderRating,
   } = usePendingOrderRating(token);
 
+  const changeRole = async () => {
+    await onChangeRole({ token });
+  };
+
   useEffect(() => {
     if (isFocused) {
       // console.log("============", isFocused);
-
+      changeRole();
       dispatch(clearDropData());
       fetchPendingOrderRating();
       dispatch(clearHomeOrWorkPlace());
       dispatch(rideHistoryAsyc({ token }));
       dispatch(fetchPriceDetails({}));
     }
-  }, [isFocused, dispatch]);
+  }, [isFocused, dispatch, token]);
 
   useVerificationCheck(profile);
 
