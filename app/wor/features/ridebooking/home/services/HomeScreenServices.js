@@ -155,9 +155,29 @@ export const checkDeviceId = async ({ token, deviceId }) => {
   }
 };
 
+export const onChangeRole = async ({ token }) => {
+  try {
+    await API.patch(
+      "/auth/change-role",
+      { role: "user" },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return true;
+  } catch (error) {
+    console.log("failed to update change role");
+    return null;
+  }
+};
+
 export default {
   onFetchFavoritePlaces,
   fetchPreviousOrdersServ,
   onAddFbTokenToServer,
   generateRandomMarkers,
+  onChangeRole,
 };

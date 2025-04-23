@@ -258,41 +258,31 @@ export const useShowPriceScreenHook = () => {
       if (distance <= 2) {
         return 0;
       }
-      //  else if (distance > 2 && distance <= 10) {
-      //   return newBaseFare;
-      // }
+
       return newBaseFare;
     } else if (vehicleType?.toLowerCase() === "car") {
       if (distance <= 4) {
         return 0;
       }
-      //  else if (distance > 4 && distance <= 20) {
-      //   return newBaseFare;
-      // }
+
       return newBaseFare;
     } else if (vehicleType?.toLowerCase() === "wor-premium") {
       if (distance <= 4) {
         return 0;
       }
-      //  else if (distance > 4 && distance <= 20) {
-      //   return newBaseFare;
-      // }
+
       return newBaseFare;
     } else if (vehicleType?.toLowerCase() === "promax") {
       if (distance <= 4) {
         return 0;
       }
-      // else if (distance > 4 && distance <= 20) {
-      //   return newBaseFare;
-      // }
+
       return newBaseFare;
     } else if (vehicleType?.toLowerCase() || "bookany") {
       if (distance <= 4) {
         return 0;
       }
-      //  else if (distance > 4 && distance <= 20) {
-      //   return newBaseFare;
-      // }
+
       return newBaseFare;
     }
   };
