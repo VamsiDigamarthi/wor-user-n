@@ -42,12 +42,7 @@ export default function DrivingSchools() {
         rightText="Add Business"
         navigationText="https://drivingschools.nuhvin.com"
       >
-        <View
-          style={[
-            styles.container,
-            { paddingTop:  80 },
-          ]}
-        >
+        <View style={[styles.container, { paddingTop: 80 }]}>
           {/* <SliderComponent /> */}
 
           <View style={styles.searchCard}>

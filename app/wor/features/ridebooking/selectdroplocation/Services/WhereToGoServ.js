@@ -9,6 +9,8 @@ export const onAddedHomePlace = async ({
   type,
 }) => {
   try {
+    console.log("type", type);
+
     await API.post(
       "/auth/home-place",
       {
@@ -25,7 +27,7 @@ export const onAddedHomePlace = async ({
       }
     );
     Toast.show({
-      text1: "Home location added successfully",
+      text1: `${type} location added successfully`,
       type: "success",
       position: "bottom",
     });
@@ -66,7 +68,7 @@ export const onEditHomePlace = async ({
       }
     );
     Toast.show({
-      text1: "Home location Edit successfully",
+      text1: "Home location Edited successfully",
       type: "success",
       position: "bottom",
     });

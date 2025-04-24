@@ -131,7 +131,7 @@ const HomeMapPreview = ({
       <Map3Btns
         handleOpenSafetyModal={() => setToggle((prev) => !prev)}
         handleZoomToggle={handleResetZoom}
-        top={400}
+        top={220}
       />
 
       {toggle && <SafetyToolModals toggle={toggle} setToggle={setToggle} />}

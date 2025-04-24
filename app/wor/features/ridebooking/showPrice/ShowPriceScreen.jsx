@@ -77,7 +77,8 @@ const ShowPriceScreen = () => {
             destination={dropDetails.location}
             otpVerified={false}
             rideStarted={false}
-            bottom={knowMoveDownOrUp === "moved down" ? 80 : 200}
+            // bottom={knowMoveDownOrUp === "moved down" ? 80 : 200}
+            mapIconsTop={90}
           />
         </View>
         <BottomSheetComponent

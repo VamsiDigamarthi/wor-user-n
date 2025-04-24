@@ -59,6 +59,7 @@ const LookingForRideScreen = () => {
           }
           otpVerified={false}
           rideStarted={false}
+          mapIconsTop={30}
         />
       </View>
       <BottomSheetComponent
@@ -93,7 +94,7 @@ const LookingForRideScreen = () => {
                 Looking for Captain
               </Text>
               <Image
-                style={{ width: 180, height: 180 }}
+                style={{ width: 200, height: 200 }}
                 source={require("../../../../../assets/looking-for-ride.gif")}
                 resizeMode="contain"
               />
@@ -186,6 +187,7 @@ const styles = StyleSheet.create({
   infoContainer: {
     flexDirection: "row",
     gap: 10,
+    alignItems: "center",
     // marginLeft: 60,
 
     // alignItems: "center",
