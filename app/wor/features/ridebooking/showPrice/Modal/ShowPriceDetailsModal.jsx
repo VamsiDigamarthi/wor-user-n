@@ -10,11 +10,14 @@ const ShowPriceDetailsModal = ({
   openCancelModal,
   closeCancelModal,
   vehicleType,
-  price,
+  
 }) => {
-  const { priceDetails } = useSelector((state) => state.priceDetails); // this is complete price details from admin panel
+
+  const { priceDetails} = useSelector((state) => state.priceDetails); // this is complete price details from admin panel
   const { profile } = useSelector((state) => state.profileSlice);
-  // console.log(profile);
+
+
+   const { price } = useSelector((state) => state.allRideDetails);
 
   let imageUrl;
   switch (vehicleType?.toLowerCase()) {
@@ -68,7 +71,7 @@ const ShowPriceDetailsModal = ({
         </View>
         <View style={styles.rowDirection}>
           <Text style={styles.grayColorText}>Ride Fare</Text>
-          <Text style={styles.grayColorText}>₹ 103.0</Text>
+          <Text style={styles.grayColorText}>₹ {price}</Text>
         </View>
         <View style={styles.rowDirection}>
           <Text style={styles.grayColorText}>Surcharge</Text>

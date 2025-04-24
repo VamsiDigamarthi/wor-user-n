@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Image,
   Alert,
+  Platform,
 } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import LinearGradient from "react-native-linear-gradient";
@@ -63,10 +64,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     // borderRadius: 10,
-    height: 280,
+    height:  270,
     position: "relative",
     zIndex: -1,
-    top: -15,
+    top: Platform.OS === "android" ? -15 : -34,
   },
 
   mainText: {

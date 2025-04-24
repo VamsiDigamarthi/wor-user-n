@@ -1,6 +1,7 @@
 import {
   ActivityIndicator,
   Image,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -101,6 +102,14 @@ const RideHistoryDetailsViewFirst = ({ ride }) => {
                 onPress={() =>
                   clipboard
                     .setStringAsync(ride?._id)
+                    .then(() => {
+                      if (Platform.OS == "ios") {
+                        Toast.show({
+                          text1: "Copied to clipboard",
+                          autoHide: 1000
+                        })
+                      }
+                    })
                     .catch(() => alert("Something went wrong "))
                 }
               >

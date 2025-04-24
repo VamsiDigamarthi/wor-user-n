@@ -31,7 +31,7 @@ const BottomSheetComponent = ({
         {previousCancelFees && (
           <View style={styles.previousCancel}>
             <Text style={{ fontSize: 12, fontWeight: "600", color: "#fff" }}>
-              Previous Cancel Fees
+              Previous Cancellation Charges
             </Text>
             <Text style={{ fontSize: 14, fontWeight: "700", color: "#fff" }}>
               {profile?.cancelCharges}
