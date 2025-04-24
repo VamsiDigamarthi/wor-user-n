@@ -270,7 +270,7 @@ export default function PollyLineNew({
           // bottom={bottom}
         />
         {/* {toggle && <MapModalUi setToggle={setToggle} toggle={toggle} />} */}
-        {toggle && <SafetyToolModals toggle={toggle} setToggle={setToggle} />}
+        {toggle && <SafetyToolModals  toggle={toggle} setToggle={()=>setToggle(!toggle)} />}
       </View>
       <RouteChangeAlertModal
         openCloseState={routeMapToggle && otpVerified}

@@ -7,6 +7,7 @@ import { setToken } from "../../../../../redux/Features/Auth/LoginSlice";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 import { nearPlacesByText } from "../../../../../Constants/displaylocationmap";
 import { PlayInstallReferrer } from "react-native-play-install-referrer";
+import { Platform } from "react-native";
 
 export const useSignupForm = ({ mobile }) => {
   const [errors, setErrors] = useState({ name: "" });
@@ -22,7 +23,7 @@ export const useSignupForm = ({ mobile }) => {
           "Install referrer = " + installReferrerInfo.installReferrer
         );
 
-        if (!installReferrerInfo?.installReferrer.includes("utm")) {
+        if (!installReferrerInfo?.installReferrer.includes("utm") && Platform.OS === "android") {
           setRefCode(installReferrerInfo.installReferrer);
         } else {
           setRefCode("");

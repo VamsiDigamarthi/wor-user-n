@@ -134,7 +134,7 @@ const HomeMapPreview = ({
         top={220}
       />
 
-      {toggle && <SafetyToolModals toggle={toggle} setToggle={setToggle} />}
+      {toggle && <SafetyToolModals toggle={toggle} setToggle={()=>setToggle(!toggle)} />}
     </View>
   );
 };

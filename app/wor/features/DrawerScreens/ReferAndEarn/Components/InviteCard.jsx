@@ -13,7 +13,7 @@ const InviteCard = ({ refCode }) => {
   // App store links
   const PLAY_STORE_LINK =
     "https://play.google.com/store/apps/details?id=com.nuhvin.womenrider";
-  const APP_STORE_LINK = "https://apps.apple.com/us/app/your-app/id1234567890";
+  const APP_STORE_LINK = "https://apps.apple.com/in/app/women-rider/id6744637763";
 
   // Create the direct install link with referral code
   const createInstallLink = () => {

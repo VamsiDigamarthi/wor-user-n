@@ -21,7 +21,7 @@ import PollyLineNew from "../../../utiles/PollyLineNew";
 
 const screenHeight = Dimensions.get("window").height;
 const androidSnapPoints = [0.38, 0.8].map((p) => screenHeight * p); // Example snap points for Android
-const iosSnapPoints = [0.3, 0.65].map((p) => screenHeight * p); // Example snap points for iOS
+const iosSnapPoints = [0.34, 0.68].map((p) => screenHeight * p); // Example snap points for iOS
 
 const ShowPriceScreen = () => {
   const {

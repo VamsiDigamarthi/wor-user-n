@@ -58,19 +58,19 @@ function ListItem({ text }) {
 
 const styles = StyleSheet.create({
   container: {
-    gap: 8,
+    gap: 10,
     // padding: 10,
-    padding: 14,
-    width: "96%",
+    padding: 18,
+    width: "94%",
+    // backgroundColor:"red"
   },
   listItem: {
     flexDirection: "row",
-    gap: 10,
+    gap: 6,
     // alignItems: "center",
   },
   text: {
     fontSize: 12,
-    textAlign: "justify",
   },
   heading: {
     fontSize: 22,

@@ -17,6 +17,7 @@ export default function AadharNewScreen() {
   const [alreadyVerifiedModal, setAlreadyVerifiedModal] = useState(false);
 
   const { profile } = useSelector((state) => state.profileSlice);
+console.log("profile?.aadharCarVerificaation",profile?.aadharCarVerificaation);
 
   return (
     <AppBarLayout title="Gender Identity" isPositionAppbar={true}>
