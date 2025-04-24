@@ -105,6 +105,7 @@ const CaptainAcceptRideScreen = () => {
           otpVerified={otpVerified}
           newLiveCoordinates={newLiveCoordinates}
           markerRef={markerRef}
+          mapIconsTop={80}
         />
       </View>
 

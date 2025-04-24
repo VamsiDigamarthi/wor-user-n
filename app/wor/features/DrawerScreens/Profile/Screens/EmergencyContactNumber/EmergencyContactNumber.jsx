@@ -208,19 +208,14 @@ const ProfileEmergencyContact = () => {
 
   return (
     <AppBarLayout title="Emergency Contact Number" isPositionAppbar={true}>
-      <View
-        style={[
-          styles.container,
-          { paddingTop:  80 },
-        ]}
-      >
+      <View style={[styles.container, { paddingTop: 80 }]}>
         {/* <AddTrusted /> */}
         <View style={styles.bottomCard}>
           <Text style={styles.text}>
             This feature helps you feel safer on your rides. If you feel
-            uncomfortable, you can use "Secure Call." This will pretend to call
-            your emergency contacts. Note: This feature doesn't actually call
-            anyone. It just makes you feel safer.
+            uncomfortable, you can use "Alert Call." This will pretend to get a
+            fake incoming call from your contacts Note: This feature doesn't
+            actually call anyone. It just makes you feel safer.
           </Text>
 
           <Text style={styles.sectionTitle}>You can add up to 5 Numbers</Text>

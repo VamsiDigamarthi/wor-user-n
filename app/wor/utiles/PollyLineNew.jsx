@@ -33,6 +33,7 @@ export default function PollyLineNew({
   newLiveCoordinates,
   markerRef,
   bottom,
+  mapIconsTop = 80,
 }) {
   const mapref = useRef(null);
   const dispatch = useDispatch();
@@ -265,8 +266,8 @@ export default function PollyLineNew({
             setToggle(!toggle);
           }}
           handleZoomToggle={handleResetZoom}
-          top={220}
-          bottom={bottom}
+          top={mapIconsTop}
+          // bottom={bottom}
         />
         {/* {toggle && <MapModalUi setToggle={setToggle} toggle={toggle} />} */}
         {toggle && <SafetyToolModals toggle={toggle} setToggle={setToggle} />}

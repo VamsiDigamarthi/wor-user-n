@@ -22,6 +22,8 @@ import { showMessage } from "react-native-flash-message";
 import Toast from "react-native-toast-message";
 import SendToMailModal from "../../Modals/SendToMailModal";
 import { useState } from "react";
+import * as clipboard from "expo-clipboard";
+// import Feather from "@expo/vector-icons/Feather";
 
 const RideHistoryDetailsViewFirst = ({ ride }) => {
   const dispatch = useDispatch();
@@ -91,7 +93,20 @@ const RideHistoryDetailsViewFirst = ({ ride }) => {
 
           <View style={{ gap: 4 }}>
             <Text style={styles.boldText}>{ride?.orderPlaceDate}</Text>
-            <Text style={styles.semiBoldText}>Id : {ride?._id}</Text>
+            <View
+              style={{ flexDirection: "row", gap: 10, alignItems: "center" }}
+            >
+              <Text style={styles.semiBoldText}>Id : {ride?._id}</Text>
+              <TouchableOpacity
+                onPress={() =>
+                  clipboard
+                    .setStringAsync(ride?._id)
+                    .catch(() => alert("Something went wrong "))
+                }
+              >
+                <Feather name="copy" size={20} color="black" />
+              </TouchableOpacity>
+            </View>
 
             <View
               style={{ flexDirection: "row", gap: 5, alignItems: "center" }}
