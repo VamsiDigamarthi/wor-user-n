@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const StarRating = ({
   initialRating = 0,
-  color = "#EA4C89",
+  color = "#e02e88",
   width = "100%",
   iconSize = 20,
   gap = 2,
@@ -13,12 +13,12 @@ const StarRating = ({
 }) => {
   const [rating, setRating] = useState(initialRating);
 
-  // Function to handle star press with fractional rating support
+  // Function to handle star press with half-star support
   const handleStarPress = (index, event) => {
-    const touchX = event.nativeEvent.locationX; // Get the X position of the touch
-    const starWidth = iconSize; // Each star's width
-    const fraction = touchX / starWidth; // Calculate the fraction of the star that was clicked
-    const newRating = index + fraction; // Create new rating with fraction included
+    const touchX = event.nativeEvent.locationX;
+    const starWidth = iconSize;
+    const isHalf = touchX < starWidth / 2;
+    const newRating = isHalf ? index + 0.5 : index + 1;
 
     setRating(newRating);
     if (onRatingChange) onRatingChange(newRating);
@@ -29,9 +29,8 @@ const StarRating = ({
       {Array(5)
         .fill()
         .map((_, i) => {
-          const isFullStar = i < Math.floor(rating); // Full star condition
-          const isPartialStar = i === Math.floor(rating); // Partial star condition
-          const fractionalValue = rating - Math.floor(rating); // Calculate fractional part
+          const isFullStar = i + 1 <= rating;
+          const isHalfStar = i + 0.5 === rating;
 
           return (
             <TouchableOpacity
@@ -39,20 +38,16 @@ const StarRating = ({
               activeOpacity={0.7}
               onPress={
                 isFunCallable ? (event) => handleStarPress(i, event) : null
-              } // Pass index and event to calculate rating
+              }
             >
               {isFullStar ? (
                 <FontAwesome name="star" color={color} size={iconSize} />
-              ) : isPartialStar ? (
-                fractionalValue > 0 ? (
-                  <FontAwesome
-                    name="star-half-full"
-                    color={color}
-                    size={iconSize}
-                  />
-                ) : (
-                  <FontAwesome name="star-o" color={color} size={iconSize} />
-                )
+              ) : isHalfStar ? (
+                <FontAwesome
+                  name="star-half-full"
+                  color={color}
+                  size={iconSize}
+                />
               ) : (
                 <FontAwesome name="star-o" color={color} size={iconSize} />
               )}

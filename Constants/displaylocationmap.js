@@ -1,4 +1,4 @@
-const YOUR_API_KEY = "AIzaSyAvJUZ3vsynRkQhXSdZL-BIFo26bXH-Al8";
+const YOUR_API_KEY = "AIzaSyCNMAEsU6BwMrrXQRvAHw42i7gd8m6zv2g";
 
 import axios from "axios";
 export const coordinationMap = (lat, lng) => {
@@ -13,8 +13,10 @@ export const fetchNearbyPlaces = async (latitude, longitude) => {
     const response = await fetch(
       `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=1000&key=${YOUR_API_KEY}`
     );
+
     const data = await response.json();
 
+    // console.log(data, "==================");
     const places = data.results.map((place) => ({
       id: place.place_id, // Unique identifier for the place
       name: place.name, // Name of the place
@@ -303,6 +305,3 @@ export const calculateBearing = (startCoords, endCoords) => {
   const bearing = toDegrees(Math.atan2(y, x));
   return (bearing + 360) % 360; // Normalize to 0-360 degrees
 };
-
-
-

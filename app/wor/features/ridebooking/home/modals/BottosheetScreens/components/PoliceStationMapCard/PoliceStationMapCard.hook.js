@@ -29,7 +29,7 @@ export const usePoliceStationMapCardHook = () => {
     heading: 0,
   });
 
-  const googleMapsApiKey = "AIzaSyAvJUZ3vsynRkQhXSdZL-BIFo26bXH-Al8";
+  const googleMapsApiKey = "AIzaSyCNMAEsU6BwMrrXQRvAHw42i7gd8m6zv2g";
 
   // Calculate distance between two points
   const calculateDistance = (lat1, lon1, lat2, lon2) => {

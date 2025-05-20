@@ -95,7 +95,10 @@ export const createOrderDetails = ({
   surgePrice,
   distanceFare,
   previousCalceFee,
+  isNightTime,
 }) => {
+  console.log("selectedVehicleType", selectedVehicleType);
+
   return isParcel
     ? {
         vehicleType: selectedVehicleType,
@@ -147,6 +150,7 @@ export const createOrderDetails = ({
         surgePrice,
         distanceFare,
         previousCalceFee,
+        isNightTime,
         sendReceiverData: [
           {
             personName: profile?.name,
@@ -189,5 +193,6 @@ export const createOrderDetails = ({
         surgePrice,
         distanceFare,
         previousCalceFee,
+        isNightTime,
       };
 };

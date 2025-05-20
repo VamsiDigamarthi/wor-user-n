@@ -45,7 +45,7 @@ export const useLookingForRideScreenHook = () => {
 
   const [cancelRideModal, setCancelRideModal] = useState(false);
 
-  console.log("orderId", orderId, "orderPlaceTime", orderPlaceTime);
+  // console.log("orderId", orderId, "orderPlaceTime", orderPlaceTime);
 
   const startAnimation = () => {
     progress.setValue(0);

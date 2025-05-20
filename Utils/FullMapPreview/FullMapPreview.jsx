@@ -16,7 +16,7 @@ const FullMapPreview = () => {
   });
   const [error, setError] = useState(null);
 
-  const GOOGLE_MAPS_APIKEY = "AIzaSyAvJUZ3vsynRkQhXSdZL-BIFo26bXH-Al8"; // Replace with your Google Maps API Key
+  const GOOGLE_MAPS_APIKEY = "AIzaSyCNMAEsU6BwMrrXQRvAHw42i7gd8m6zv2g"; // Replace with your Google Maps API Key
 
   // Fetch the route when the component mounts or when the origin/destination changes
   useEffect(() => {

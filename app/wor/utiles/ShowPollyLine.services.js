@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-const GOOGLE_MAPS_APIKEY = "AIzaSyAvJUZ3vsynRkQhXSdZL-BIFo26bXH-Al8"; // Google Maps API Key
+const GOOGLE_MAPS_APIKEY = "AIzaSyCNMAEsU6BwMrrXQRvAHw42i7gd8m6zv2g"; // Google Maps API Key
 
 // Helper function to decode polyline
 const decodePolyline = (t, precision = 5) => {

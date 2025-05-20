@@ -24,7 +24,7 @@ const ShowPollyLine = ({
   const mapRef = useRef(null); // Added mapRef for programmatic control
   const [toggle, setToggle] = useState(false);
 
-  const GOOGLE_MAPS_APIKEY = "AIzaSyAvJUZ3vsynRkQhXSdZL-BIFo26bXH-Al8"; // Replace with your Google Maps API Key
+  const GOOGLE_MAPS_APIKEY = "AIzaSyCNMAEsU6BwMrrXQRvAHw42i7gd8m6zv2g"; // Replace with your Google Maps API Key
 
   // Adjust the origin and destination to match MapView expectations
   const adjustedOrigin = {
