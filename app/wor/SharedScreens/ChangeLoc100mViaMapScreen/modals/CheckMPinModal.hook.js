@@ -31,6 +31,8 @@ export const useCheckMPinModalHook = ({ onOpenIsEnterConfirmPinModal }) => {
     platFormValue,
     surgeValue,
     distanceFare,
+    selectScootyOrLite,
+    isNightTime,
   } = useSelector((state) => state.allRideDetails);
 
   const { socket, isConnected } = useSocket();
@@ -76,7 +78,10 @@ export const useCheckMPinModalHook = ({ onOpenIsEnterConfirmPinModal }) => {
       dropDetails,
       profile,
       price: (paymentMethod === "wallet" ? +price - 2 : price).toString(),
-      selectedVehicleType,
+      selectedVehicleType:
+        selectedVehicleType === "scooty"
+          ? selectScootyOrLite
+          : selectedVehicleType,
       parcelType,
       formattedDate,
       formattedTime,
@@ -95,6 +100,7 @@ export const useCheckMPinModalHook = ({ onOpenIsEnterConfirmPinModal }) => {
       surgePrice: surgeValue,
       distanceFare,
       previousCalceFee: profile?.cancelCharges ?? 0,
+      isNightTime,
     });
 
     const orderId = await bookingRide({ token, orderDetails });

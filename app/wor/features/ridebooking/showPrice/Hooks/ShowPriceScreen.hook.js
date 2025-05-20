@@ -8,12 +8,14 @@ import {
   setDistnaceValueSet,
   setDuration,
   setHowManyMens,
+  setIsNightTime,
   setPaymentMethod,
   setPlatFormValue,
   setPlatFormValueSet,
   setPrice,
   setRandomExtraCharge,
   setRandomExtraChrgesWithVehicle,
+  setSelectScootyOrLite,
   setSurgeValue,
   setSurgeValueSet,
   setTimeFareValue,
@@ -25,7 +27,15 @@ import { getTravelDetails } from "../../../../../../Constants/displaylocationmap
 
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import moment from "moment-timezone";
+import {
+  applyNightFare,
+  calcPlatformFeer,
+  calculateDistanceFare,
+  calculateTimeFare,
+  checkNightTime,
+  handleCalBaseFare,
+  otherServicesCharges,
+} from "../priceCalFunc";
 
 export const useShowPriceScreenHook = () => {
   const travelDetailsCache = useRef({});
@@ -78,6 +88,7 @@ export const useShowPriceScreenHook = () => {
   }, []);
 
   const filteredVehicleList = useMemo(() => {
+    // console.log("vehicleInfoWithDistanceDura", vehicleInfoWithDistanceDura);
     if (!vehicleInfoWithDistanceDura) return [];
 
     console.log(isParcScreen, "isParcScreen");
@@ -129,7 +140,7 @@ export const useShowPriceScreenHook = () => {
           (endLon = dropDetails?.location?.lng),
           (endLat = dropDetails?.location?.lat),
         ],
-        vehicleType
+        vehicleType === "scooty-lite" ? "Scooty" : vehicleType
       );
 
       const newData = {
@@ -213,7 +224,7 @@ export const useShowPriceScreenHook = () => {
         (v) => v.vehicleType.toLowerCase() === "wor-premium"
       )?.price;
 
-      const updatedResults = results.map((vehicle) => {
+      let updatedResults = results.map((vehicle) => {
         if (vehicle.vehicleType.toLowerCase() === "bookany") {
           //
           let price =
@@ -245,6 +256,34 @@ export const useShowPriceScreenHook = () => {
         return vehicle;
       });
 
+      const scooty = updatedResults.find((v) => v.vehicleType === "Scooty");
+      const scootyLite = updatedResults.find(
+        (v) => v.vehicleType === "scooty-lite"
+      );
+
+      if (scooty && scootyLite) {
+        let isNight = checkNightTime();
+
+        let randomPick;
+        // Randomly choose one price
+        if (isNight) {
+          randomPick = "Scooty";
+        } else {
+          randomPick = Math.random() < 0.5 ? "Scooty" : "scooty-lite";
+        }
+
+        dispatch(setSelectScootyOrLite(randomPick?.toLocaleLowerCase()));
+        const randomPrice =
+          randomPick === "Scooty" ? scooty.price : scootyLite.price;
+
+        scooty.price = randomPrice;
+        dispatch(setPrice(randomPrice));
+
+        updatedResults = updatedResults?.filter(
+          (v) => v.vehicleType !== "scooty-lite"
+        );
+      }
+
       setVehicleInfoWithDistanceDura(updatedResults);
     } catch (error) {
       console.error("Error fetching travel details:", error);
@@ -252,72 +291,6 @@ export const useShowPriceScreenHook = () => {
   };
 
   // completed
-
-  const handleCalBaseFare = ({ vehicleType, distance, newBaseFare }) => {
-    if (vehicleType?.toLowerCase() === "scooty") {
-      if (distance <= 2) {
-        return 0;
-      }
-
-      return newBaseFare;
-    } else if (vehicleType?.toLowerCase() === "car") {
-      if (distance <= 4) {
-        return 0;
-      }
-
-      return newBaseFare;
-    } else if (vehicleType?.toLowerCase() === "wor-premium") {
-      if (distance <= 4) {
-        return 0;
-      }
-
-      return newBaseFare;
-    } else if (vehicleType?.toLowerCase() === "promax") {
-      if (distance <= 4) {
-        return 0;
-      }
-
-      return newBaseFare;
-    } else if (vehicleType?.toLowerCase() || "bookany") {
-      if (distance <= 4) {
-        return 0;
-      }
-
-      return newBaseFare;
-    }
-  };
-
-  const calcPlatformFeer = ({ vehicleType, distance, platformFee }) => {
-    if (vehicleType?.toLowerCase() === "scooty") {
-      if (distance <= 2) {
-        return 0;
-      }
-      return platformFee;
-    } else if (vehicleType?.toLowerCase() === "car") {
-      if (distance <= 4) {
-        return 0;
-      }
-
-      return platformFee;
-    } else if (vehicleType?.toLowerCase() === "wor-premium") {
-      if (distance <= 4) {
-        return 0;
-      }
-
-      return platformFee;
-    } else if (vehicleType?.toLowerCase() === "promax") {
-      if (distance <= 4) {
-        return 0;
-      }
-
-      return platformFee;
-    } else if (vehicleType?.toLowerCase() || "bookany") {
-      if (distance <= 4) {
-        return 0;
-      }
-      return platformFee;
-    }
-  };
 
   const handleCalculatePrices = (result, vehicleType, vehcilePrices) => {
     const { distance = "0.0 km", duration = 0 } = result || {};
@@ -330,7 +303,8 @@ export const useShowPriceScreenHook = () => {
       vehicleType,
       distance: distanceValue,
       newBaseFare:
-        vehcilePrices?.vehicleType === "scooty"
+        vehcilePrices?.vehicleType === "scooty" ||
+        vehcilePrices?.vehicleType === "scooty-lite"
           ? +vehcilePrices?.baseFare
           : +vehcilePrices?.baseFare * 1.14 || 10,
     });
@@ -450,122 +424,6 @@ export const useShowPriceScreenHook = () => {
     return finalPrice;
   };
 
-  const calculateDistanceFare = (distance, vehcilePrices, vehicleType) => {
-    if (vehcilePrices?.vehicleType?.toLowerCase() === "scooty") {
-      console.log("distance in calculateDistanceFare", distance);
-
-      if (distance <= 2) {
-        return +vehcilePrices?.forTwoKm;
-      } else if (distance > 2 && distance <= 10) {
-        return distance * +vehcilePrices?.twoToTenKmPrice;
-      }
-      return distance * +vehcilePrices?.tenToHunderPrice;
-    } else if (vehcilePrices?.vehicleType?.toLowerCase() === "car") {
-      if (distance <= 4) {
-        return +vehcilePrices?.forTwoKm;
-      } else if (distance > 4 && distance <= 20) {
-        return distance * +vehcilePrices?.twoToTenKmPrice;
-      }
-      return distance * +vehcilePrices?.tenToHunderPrice;
-    } else if (vehcilePrices?.vehicleType?.toLowerCase() === "wor-premium") {
-      if (distance <= 4) {
-        return +vehcilePrices?.forTwoKm;
-      } else if (distance > 4 && distance <= 20) {
-        return distance * +vehcilePrices?.twoToTenKmPrice;
-      }
-      return distance * +vehcilePrices?.tenToHunderPrice;
-    } else if (vehcilePrices?.vehicleType?.toLowerCase() === "promax") {
-      if (distance <= 4) {
-        return +vehcilePrices?.forTwoKm;
-      } else if (distance > 4 && distance <= 20) {
-        return distance * +vehcilePrices?.twoToTenKmPrice;
-      }
-      return distance * +vehcilePrices?.tenToHunderPrice;
-    }
-    //  else if (
-    //   vehcilePrices?.vehicleType?.toLowerCase() === vehicleType?.toLowerCase()
-    // ) {
-    //   if (distance <= 2) {
-    //     return +vehcilePrices?.forTwoKm;
-    //   }
-    //   if (distance > 2 && distance <= 20) {
-    //     return distance * +vehcilePrices?.twoToTenKmPrice;
-    //   }
-    //   return distance * +vehcilePrices?.tenToHunderPrice;
-    // }
-    else if (
-      vehcilePrices?.vehicleType?.toLowerCase() ===
-        vehicleType?.toLowerCase() ||
-      "bookany"
-    ) {
-      return 56;
-    }
-
-    // if (distance <= 2) {
-    //   return 24 + baseFare - 5;
-    // }
-    // if (distance > 2 && distance <= 10) {
-    //   return distance * +priceDetails?.twoToTenKmPrice + baseFare;
-    // }
-    // // if (distance > 5 && distance <= 10) {
-    // //   return distance * 7.2 + baseFare;
-    // // }
-    // return distance * +priceDetails?.tenToHunderPrice + baseFare;
-  };
-
-  const calculateTimeFare = (
-    duration,
-    vehcilePrices,
-    distance,
-    vehicleType
-  ) => {
-    if (vehicleType?.toLowerCase() === "scooty") {
-      if (distance <= 2) {
-        return 0;
-      }
-      return parseFloat((+duration * +vehcilePrices?.timeFace)?.toFixed(2));
-    } else if (vehicleType?.toLowerCase() === "car") {
-      if (distance <= 4) {
-        return 0;
-      }
-
-      return parseFloat((+duration * +vehcilePrices?.timeFace)?.toFixed(2));
-    } else if (vehicleType?.toLowerCase() === "wor-premium") {
-      if (distance <= 4) {
-        return 0;
-      }
-
-      return parseFloat((+duration * +vehcilePrices?.timeFace)?.toFixed(2));
-    } else if (vehicleType?.toLowerCase() === "promax") {
-      if (distance <= 4) {
-        return 0;
-      }
-
-      return parseFloat((+duration * +vehcilePrices?.timeFace)?.toFixed(2));
-    } else if (vehicleType?.toLowerCase() || "bookany") {
-      if (distance <= 4) {
-        return 0;
-      }
-      return parseFloat((+duration * +vehcilePrices?.timeFace)?.toFixed(2));
-    }
-  };
-
-  const checkNightTime = () => {
-    const currentHour = moment().tz("Asia/Kolkata").hour();
-    return currentHour >= 23 || currentHour < 6;
-
-    // return false
-  };
-
-  const applyNightFare = (beforeNightSurgePrice, vehcilePrices) => {
-    // const totalPrice = Math.ceil(price + timeFare + platFormPrice, baseFare);
-    const randomPerc = getRandomNightFare(vehcilePrices);
-    const increasedAmount = Math.ceil(
-      (randomPerc / 100) * beforeNightSurgePrice
-    );
-    return beforeNightSurgePrice + increasedAmount;
-  };
-
   const surgeFare = (
     beforeNightSurgePrice,
     vehcilePrices,
@@ -598,49 +456,9 @@ export const useShowPriceScreenHook = () => {
     return beforeNightSurgePrice + increasedAmount;
   };
 
-  const getRandomNightFare = (vehcilePrices) => {
-    const [min, max] = vehcilePrices?.nightFarePercentage || [0, 0];
-    return Math.ceil(Math.random() * (max - min) + min);
-  };
-
   const getRandomSurgeFare = (vehcilePrices) => {
     const [min, max] = vehcilePrices?.surgePricePercentage || [0, 0];
     return Math.ceil(Math.random() * (max - min) + min);
-  };
-
-  const otherServicesCharges = (vehcilePrices, distance, vehicleType) => {
-    if (vehicleType?.toLowerCase() === "scooty") {
-      if (distance <= 2) {
-        return 0;
-      }
-      const [min, max] = vehcilePrices?.otherServices || [0, 0];
-      return Math.ceil(Math.random() * (max - min) + min);
-    } else if (vehicleType?.toLowerCase() === "car") {
-      if (distance <= 4) {
-        return 0;
-      }
-
-      const [min, max] = vehcilePrices?.otherServices || [0, 0];
-      return Math.ceil(Math.random() * (max - min) + min);
-    } else if (vehicleType?.toLowerCase() === "wor-premium") {
-      if (distance <= 4) {
-        return 0;
-      }
-      const [min, max] = vehcilePrices?.otherServices || [0, 0];
-      return Math.ceil(Math.random() * (max - min) + min);
-    } else if (vehicleType?.toLowerCase() === "promax") {
-      if (distance <= 4) {
-        return 0;
-      }
-      const [min, max] = vehcilePrices?.otherServices || [0, 0];
-      return Math.ceil(Math.random() * (max - min) + min);
-    } else if (vehicleType?.toLowerCase() || "bookany") {
-      if (distance <= 4) {
-        return 0;
-      }
-      const [min, max] = vehcilePrices?.otherServices || [0, 0];
-      return Math.ceil(Math.random() * (max - min) + min);
-    }
   };
 
   return {

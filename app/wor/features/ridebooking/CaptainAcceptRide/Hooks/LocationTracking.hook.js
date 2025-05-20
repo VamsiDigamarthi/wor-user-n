@@ -32,8 +32,8 @@ export const useLocationTracking = (
   };
 
   useEffect(() => {
-    console.log("000000000000000000", isLiveTrackingEnabled);
-    console.log("orderId ---------------", orderId);
+    // console.log("000000000000000000", isLiveTrackingEnabled);
+    // console.log("orderId ---------------", orderId);
 
     if (isLiveTrackingEnabled && isFocused) {
       const locationInterval = setInterval(() => {

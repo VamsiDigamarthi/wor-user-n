@@ -17,12 +17,20 @@ export const vehicles = [
     discountPrice: 2,
   },
   {
-    image: require("../../../../../assets/images/HomeServiceImages/cab.png"),
+    image: require("../../../../../assets/images/HomeServiceImages/scooty.png"),
     personCount: 4,
-    vehicleType: "Car",
-    displayName: "WoR Mini",
+    vehicleType: "scooty-lite",
+    displayName: "Scooty Lite",
     discountPrice: 2,
   },
+
+  // {
+  //   image: require("../../../../../assets/images/HomeServiceImages/cab.png"),
+  //   personCount: 4,
+  //   vehicleType: "Car",
+  //   displayName: "WoR Mini",
+  //   discountPrice: 2,
+  // },
 
   // {
   //   image: require("../../../../../assets/images/HomeServiceImages/auto.png"),
@@ -30,27 +38,27 @@ export const vehicles = [
   //   vehicleType: "Auto",
   //   displayName: "Auto",
   // },
-  {
-    image: require("../../../../../assets/images/HomeServiceImages/cab.png"),
-    personCount: 4,
-    vehicleType: "wor-premium",
-    displayName: "WoR Luxury",
-    discountPrice: 2,
-  },
-  {
-    image: require("../../../../../assets/images/HomeServiceImages/cab.png"),
-    personCount: 3,
-    vehicleType: "bookany",
-    displayName: "Book Any",
-    discountPrice: 2,
-  },
-  {
-    image: require("../../../../../assets/images/HomeServiceImages/cab.png"),
-    personCount: 6,
-    vehicleType: "proMax",
-    displayName: "WoR Pro Max",
-    discountPrice: 2,
-  },
+  // {
+  //   image: require("../../../../../assets/images/HomeServiceImages/cab.png"),
+  //   personCount: 4,
+  //   vehicleType: "wor-premium",
+  //   displayName: "WoR Luxury",
+  //   discountPrice: 2,
+  // },
+  // {
+  //   image: require("../../../../../assets/images/HomeServiceImages/cab.png"),
+  //   personCount: 3,
+  //   vehicleType: "bookany",
+  //   displayName: "Book Any",
+  //   discountPrice: 2,
+  // },
+  // {
+  //   image: require("../../../../../assets/images/HomeServiceImages/cab.png"),
+  //   personCount: 6,
+  //   vehicleType: "proMax",
+  //   displayName: "WoR Pro Max",
+  //   discountPrice: 2,
+  // },
 ];
 
 // Calculate price details based on distance

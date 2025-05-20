@@ -5,28 +5,38 @@ import { fetchNameAndVicinity } from "../../../Constants/displaylocationmap";
 export const fetchLocation = createAsyncThunk(
   "location/fetchLocation",
   async () => {
+    console.log("--------------------------------------");
+
     let { status } = await Location.requestForegroundPermissionsAsync();
+    console.log("status", status);
+
     if (status !== "granted") {
       throw new Error("Permission to access location was denied");
     }
 
-    let currentLocation = await Location.getCurrentPositionAsync({});
+    try {
+      let currentLocation = await Location.getCurrentPositionAsync({});
 
-    const data = await fetchNameAndVicinity(
-      currentLocation.coords.latitude,
-      currentLocation.coords.longitude
-    );
+      console.log("currentLocation-----------", currentLocation);
 
-    console.log("currentLocation", currentLocation);
+      const data = await fetchNameAndVicinity(
+        currentLocation.coords.latitude,
+        currentLocation.coords.longitude
+      );
 
-    return {
-      location: {
-        lat: currentLocation.coords.latitude,
-        lng: currentLocation.coords.longitude,
-      },
-      placeVicinity: data ? data.vicinity : "Location not found",
-      placeName: data ? data.name : "Main Location not found",
-    };
+      // console.log("currentLocation", currentLocation);
+
+      return {
+        location: {
+          lat: currentLocation.coords.latitude,
+          lng: currentLocation.coords.longitude,
+        },
+        placeVicinity: data ? data.vicinity : "Location not found",
+        placeName: data ? data.name : "Main Location not found",
+      };
+    } catch (error) {
+      console.log(error, "error");
+    }
   }
 );
 

@@ -12,7 +12,7 @@ import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import bikeImg from "../../../assets/images/markers/BIKE-removebg-preview.png";
 import MapViewDirections from "react-native-maps-directions";
-const GOOGLE_MAPS_APIKEY = "AIzaSyAvJUZ3vsynRkQhXSdZL-BIFo26bXH-Al8";
+const GOOGLE_MAPS_APIKEY = "AIzaSyCNMAEsU6BwMrrXQRvAHw42i7gd8m6zv2g";
 import { FontAwesome } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import Map3Btns from "./Map3Btn";
@@ -270,7 +270,12 @@ export default function PollyLineNew({
           // bottom={bottom}
         />
         {/* {toggle && <MapModalUi setToggle={setToggle} toggle={toggle} />} */}
-        {toggle && <SafetyToolModals  toggle={toggle} setToggle={()=>setToggle(!toggle)} />}
+        {toggle && (
+          <SafetyToolModals
+            toggle={toggle}
+            setToggle={() => setToggle(!toggle)}
+          />
+        )}
       </View>
       <RouteChangeAlertModal
         openCloseState={routeMapToggle && otpVerified}

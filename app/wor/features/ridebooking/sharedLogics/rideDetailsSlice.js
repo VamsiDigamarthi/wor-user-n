@@ -39,6 +39,9 @@ const initialState = {
   // distance from pick to drop
   distanceFare: 0,
   distanceFareSet: {},
+  // select random scooty-lite or scooty
+  selectScootyOrLite: "scooty",
+  isNightTime: false,
 };
 
 const allRideDetails = createSlice({
@@ -184,6 +187,13 @@ const allRideDetails = createSlice({
       state.distanceFareSet[vehicleType] = price;
     },
 
+    setSelectScootyOrLite: (state, action) => {
+      state.selectScootyOrLite = action.payload;
+    },
+    setIsNightTime: (state, action) => {
+      state.isNightTime = action.payload;
+    },
+
     clearDropData: (state) => {
       state.initialDropDetails = null; // {}
       state.dropDetails = null; // {}
@@ -215,6 +225,8 @@ const allRideDetails = createSlice({
       state.surgeValueSet = {};
       state.distanceFare = 0;
       state.distanceFareSet = {};
+      state.selectScootyOrLite = "scooty";
+      state.isNightTime = false;
     },
   },
 });
@@ -259,6 +271,8 @@ export const {
   // distnace fare
   setDistnaceValue,
   setDistnaceValueSet,
+  setSelectScootyOrLite,
+  setIsNightTime,
 } = allRideDetails.actions;
 
 export default allRideDetails.reducer;

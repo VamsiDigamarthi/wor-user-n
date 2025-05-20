@@ -26,6 +26,7 @@ import analytics from "@react-native-firebase/analytics";
 import { PlayInstallReferrer } from "react-native-play-install-referrer";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { requestTrackingPermissionsAsync } from "expo-tracking-transparency";
+import { checkForUpdate, UpdateFlow } from "react-native-in-app-updates";
 
 LogBox.ignoreLogs([
   "`new NativeEventEmitter()` was called with a non-null argument without the required `addListener` method",
@@ -123,6 +124,17 @@ initializeNotifications();
 
 export default function App() {
   const [isConnected, setIsConnected] = useState(true);
+
+  useEffect(() => {
+    async function getData() {
+      try {
+        await checkForUpdate(UpdateFlow.FLEXIBLE);
+      } catch (e) {
+        console.log("Error Checking update : ", e.message);
+      }
+    }
+    getData();
+  }, []);
 
   useEffect(() => {
     PlayInstallReferrer.getInstallReferrerInfo((installReferrerInfo, error) => {

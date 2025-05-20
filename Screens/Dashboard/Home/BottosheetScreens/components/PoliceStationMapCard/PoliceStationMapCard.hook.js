@@ -55,7 +55,7 @@ export const usePoliceStationMapCardHook = () => {
     const origin = `${userCoordinates.lat},${userCoordinates.lng}`;
     const destination = `${policeStationCoordinates.lat},${policeStationCoordinates.lng}`;
 
-    const googleMapsApiKey = "AIzaSyAvJUZ3vsynRkQhXSdZL-BIFo26bXH-Al8"; // Replace with your API key
+    const googleMapsApiKey = "AIzaSyCNMAEsU6BwMrrXQRvAHw42i7gd8m6zv2g"; // Replace with your API key
 
     try {
       const response = await axios.get(
