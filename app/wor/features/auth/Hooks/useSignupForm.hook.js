@@ -23,7 +23,10 @@ export const useSignupForm = ({ mobile }) => {
           "Install referrer = " + installReferrerInfo.installReferrer
         );
 
-        if (!installReferrerInfo?.installReferrer.includes("utm") && Platform.OS === "android") {
+        if (
+          !installReferrerInfo?.installReferrer.includes("utm") &&
+          Platform.OS === "android"
+        ) {
           setRefCode(installReferrerInfo.installReferrer);
         } else {
           setRefCode("");
@@ -75,20 +78,6 @@ export const useSignupForm = ({ mobile }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const signUpValidation = (formData) => {
-    const newErrors = {};
-
-    if (!formData.name) {
-      newErrors.name = "Full Name is required";
-    } else if (!/^[A-Za-z\s]+$/.test(formData.name)) {
-      newErrors.name = "Name should only contain alphabetic characters";
-    } else if (formData.name?.length < 3) {
-      newErrors.name = "Name should be at least 3 characters long";
-    }
-
-    return Object.keys(newErrors)?.length > 0 ? newErrors : {};
-  };
-
   const onFethcNearLocation = async (text) => {
     const data = await nearPlacesByText(text);
     setStoreNearLocation(data);
@@ -109,6 +98,27 @@ export const useSignupForm = ({ mobile }) => {
       ...prev,
       address: `${address?.name} | ${address?.vicinity}`,
     }));
+  };
+
+  const signUpValidation = (formData) => {
+    const newErrors = {};
+
+    if (!formData.name) {
+      newErrors.name = "Please enter your name";
+    } else if (!/^[A-Za-z\s]+$/.test(formData.name)) {
+      newErrors.name = "Name may only include letters and spaces";
+    } else if (formData.name?.length < 3) {
+      newErrors.name = "Name should be at least 3 characters";
+    }
+
+    if (formData.email?.trim()) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email.trim())) {
+        newErrors.email = "Please enter a valid email address";
+      }
+    }
+
+    return Object.keys(newErrors)?.length > 0 ? newErrors : {};
   };
 
   const handleNavigateToOTP = async () => {

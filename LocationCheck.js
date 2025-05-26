@@ -25,15 +25,15 @@ export const useCheckLocation = () => {
       return { latitude, longitude };
     } catch (error) {
       console.error("Error getting location:", error);
-    //   alert("Failed to retrieve your location. Please try again.");
+      //   alert("Failed to retrieve your location. Please try again.");
       return null;
     }
   };
 
   const isUserWithinRange = (userLocation, cityCoordinates, radiusInKm) => {
     const distance = getDistance(
-    //   { latitude: userLocation.latitude, longitude: userLocation.longitude }, // User's actual location
-      { latitude: 12.9716, longitude: 77.5946 }, // User's actual location
+      { latitude: userLocation.latitude, longitude: userLocation.longitude }, // User's actual location
+      // { latitude: 12.9716, longitude: 77.5946 }, // User's actual location
       {
         latitude: cityCoordinates.latitude,
         longitude: cityCoordinates.longitude,
@@ -77,7 +77,7 @@ export const useCheckLocation = () => {
       for (const zone of zones) {
         if (isUserWithinRange(userLocation, zone.coordinates, zone.radius)) {
           console.log(`User is within ${zone.name} (${zone.radius} km).`);
-        //   alert(`You are within ${zone.name} (${zone.radius} km)!`);
+          //   alert(`You are within ${zone.name} (${zone.radius} km)!`);
           isInZone = true;
           setInRadiusLocation(true);
           break;
@@ -92,7 +92,7 @@ export const useCheckLocation = () => {
     } catch (error) {
       setInRadiusLocation(false);
       console.error("Error:", error);
-    //   alert("An error occurred while checking your location.");
+      //   alert("An error occurred while checking your location.");
     }
   };
 
@@ -103,6 +103,6 @@ export const useCheckLocation = () => {
   return {
     inRadiusLocation,
     getUserLocation,
-    location
+    location,
   };
 };

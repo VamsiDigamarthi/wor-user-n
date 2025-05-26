@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useDispatch } from "react-redux";
 import { setHowManyMens } from "../../features/ridebooking/sharedLogics/rideDetailsSlice";
+import MaleGenderIdentifyModal from "./modals/MaleGenderIdentifyModal";
 
 const ChangeLoc100mViaMapScreen = ({ navigation }) => {
   const {
@@ -26,6 +27,9 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
     onChangeRideBookBeforeCheckPinAddharHandler,
     isOpenEnterConfirmMPinModal,
     onOpenIsEnterConfirmPinModal,
+    // male gender identify
+    maleGenderIdentify,
+    toggelMaleGenderIdentify,
   } = useChangeLoc100mViaMapScreenHook();
 
   // const [displayStartModal, setDisplayStartModal] = useState(false);
@@ -36,8 +40,6 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
       dispatch(setHowManyMens(0));
     };
   }, [dispatch]);
-
-  const insets = useSafeAreaInsets();
 
   const hasSoftwareNavigationBar = false;
 
@@ -80,6 +82,11 @@ const ChangeLoc100mViaMapScreen = ({ navigation }) => {
           onOpenIsEnterConfirmPinModal={onOpenIsEnterConfirmPinModal}
           pickUpPlace={placeName}
           newMarker={{ lat: newMarker.latitude, lng: newMarker.longitude }}
+        />
+        {/* male gender identify */}
+        <MaleGenderIdentifyModal
+          maleGenderIdentify={maleGenderIdentify}
+          toggelMaleGenderIdentify={toggelMaleGenderIdentify}
         />
       </View>
     </>

@@ -28,6 +28,7 @@ const SignupScreen = () => {
     handleInputChange,
     handleNavigateToOTP,
   } = useSignupForm({ mobile });
+  console.log("errors", errors);
 
   return (
     <KeyboardAvoidingView
@@ -54,12 +55,12 @@ const SignupScreen = () => {
               </Text>
 
               <Input
-                label={"Full Name *"}
+                label={errors?.name ? errors?.name : "Full Name *"}
                 icon="person-outline"
                 placeholder="Enter Your Name"
                 value={formData.name}
                 onChangeText={(value) => handleInputChange("name", value)}
-                isValid={!errors?.name}
+                isValid={errors?.name}
               />
 
               <Input
@@ -69,7 +70,7 @@ const SignupScreen = () => {
                 keyboardType="email-address"
                 value={formData.email}
                 onChangeText={(value) => handleInputChange("email", value)}
-                isValid={!errors?.email}
+                isValid={errors?.email}
               />
 
               <Input

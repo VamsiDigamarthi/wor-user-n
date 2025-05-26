@@ -57,6 +57,8 @@ export const useLoginHook = () => {
       errors.mobile = "Mobile number is required.";
     } else if (!/^[0-9]{10}$/.test(mobile)) {
       errors.mobile = "Please enter a valid 10-digit mobile number.";
+    } else if (/^[0-5]/.test(mobile)) {
+      errors.mobile = "Mobile number cannot start with digits 0 to 5.";
     }
 
     return errors.mobile ? errors : {};
