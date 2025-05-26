@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   View,
   Pressable,
@@ -16,7 +16,6 @@ import AProductFromNuhvin from "../Components/AProductFromNuhvin";
 import { useOtpHook } from "../Hooks/Otp.hook";
 import { useNavigation } from "@react-navigation/native";
 import { fonts } from "../../../fonts/Fonts";
-import Input from "../../../utiles/Input";
 import { Feather } from "@expo/vector-icons";
 
 const OtpScreen = ({}) => {
@@ -24,15 +23,14 @@ const OtpScreen = ({}) => {
     message,
     otpError,
     isLoading,
-    handleChange,
+
     justLog,
     otp,
-    inputs,
-    handleKeyPress,
+
     timer,
     isResendAvailable,
     handleResendOtp,
-    setOtp,
+
     handleSetOtpChange,
     mobile,
   } = useOtpHook();
@@ -169,6 +167,7 @@ const styles = StyleSheet.create({
   },
   errorCard: {
     width: "100%",
+    marginBottom: 10,
   },
   errorMsg: {
     color: "red",

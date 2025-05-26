@@ -45,22 +45,21 @@ export const useOtpHook = () => {
   };
 
   const justLog = async () => {
-    // console.log(otp);
-    if (otp[5]?.length <= 0) {
-      setOtpError("Please enter OTP");
+    console.log(otp?.length);
+    if (otp?.length < 11) {
+      setOtpError("Please enter a valid 6-digit OTp to proceed.");
       return;
     }
     setIsLoading(true);
     try {
       const deviceId = await DeviceInfo.getUniqueId();
-      // console.log("deviceId", deviceId);
-      // console.log("otp?.replace(/s/g", otp?.replace(/\s/g, ""));
+
       const response = await API.post("/auth/verify-otp", {
         mobile: mobile,
         otp: otp?.replace(/\s/g, ""),
         isUserApp: false,
         deviceId,
-        userType:"user"
+        userType: "user",
       });
       setIsLoading(false);
 
@@ -89,11 +88,13 @@ export const useOtpHook = () => {
       // console.log(error?.response?.data?.message);
       setIsLoading(false);
       if (error.response?.data?.message === "Invalid OTP") {
-        setOtpError("Invalid Otp");
+        setOtpError("The OTP entered is incorrect. Please try again");
       } else if (error.response?.data?.message === "User does not exist") {
-        // console.log("navigating");
-
         navigation.navigate("signup", { mobile: mobile });
+      } else if (error.response?.data?.message === "This OTP has expired") {
+        setOtpError(
+          "The OTP has expired. Please request a new one to continue"
+        );
       } else {
         setOtpError(error?.response?.data?.message);
       }
@@ -115,7 +116,10 @@ export const useOtpHook = () => {
   const handleResendOtp = async () => {
     setTimer(60);
     setIsResendAvailable(false);
-    loginApi({ mobile });
+    const otpStatus = await loginApi({ mobile });
+    if (!otpStatus) {
+      setOtpError("Unable to send OTP at the moment. Please try again later");
+    }
   };
 
   const handleSetOtpChange = (value) => {

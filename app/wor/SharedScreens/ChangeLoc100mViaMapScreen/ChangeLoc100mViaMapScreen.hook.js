@@ -109,6 +109,11 @@ export const useChangeLoc100mViaMapScreenHook = () => {
     setIsOpenEnterConfirmMPinModal(!isOpenEnterConfirmMPinModal);
   };
 
+  const [maleGenderIdentify, setMaleGenderIdentify] = useState(false);
+  const toggelMaleGenderIdentify = () => {
+    setMaleGenderIdentify(!maleGenderIdentify);
+  };
+
   console.log("ref");
 
   // Function to handle the drag end of the marker
@@ -157,8 +162,19 @@ export const useChangeLoc100mViaMapScreenHook = () => {
   };
 
   const handleCheckMPinSetOrNot = () => {
+    console.log("--------------------------");
+
     if (profile?.mpin === null || profile?.aadharCarVerificaation === null) {
       onChangeRideBookBeforeCheckPinAddharHandler();
+      return;
+    }
+
+    if (
+      profile?.aadharCardDetails?.gender === "M" ||
+      profile?.aadharCardDetails?.gender === "m" ||
+      profile?.aadharCardDetails?.gender === "male"
+    ) {
+      setMaleGenderIdentify(true);
       return;
     }
 
@@ -181,5 +197,9 @@ export const useChangeLoc100mViaMapScreenHook = () => {
     dashedCircleCoordinates,
     lat,
     lng,
+
+    // male gender identify
+    maleGenderIdentify,
+    toggelMaleGenderIdentify,
   };
 };

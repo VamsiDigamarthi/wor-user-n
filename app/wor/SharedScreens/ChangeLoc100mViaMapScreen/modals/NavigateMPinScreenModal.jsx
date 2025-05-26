@@ -15,7 +15,7 @@ const NavigateMPinScreenModal = ({
   const navigation = useNavigation();
 
   const onNavigateAadharUploadUi = () => {
-    onChangeRideBookBeforeCheckPinAddharHandler()
+    onChangeRideBookBeforeCheckPinAddharHandler();
     navigation.navigate("ProfileDocumentScreen");
   };
 
@@ -45,7 +45,7 @@ const NavigateMPinScreenModal = ({
 
         <View
           style={{
-            flexDirection: "row",
+            // flexDirection: "row",
             gap: 10,
             width: "100%",
             justifyContent: "center",
@@ -56,7 +56,7 @@ const NavigateMPinScreenModal = ({
             <CustomBtn
               title="Gender Verification"
               onPress={onNavigateAadharUploadUi}
-              width="50%"
+              width="100%"
               btnBg="#EA4C89"
               btnColor={"#fff"}
             />
@@ -65,7 +65,7 @@ const NavigateMPinScreenModal = ({
             <CustomBtn
               title="Set Mpin"
               onPress={onMpinScreen}
-              width="50%"
+              width="100%"
               btnBg="#EA4C89"
               btnColor={"#fff"}
             />
@@ -86,8 +86,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    fontFamily:fonts.robotoMedium,
-    
+    fontFamily: fonts.robotoMedium,
+
     textAlign: "center",
     lineHeight: 22,
   },
