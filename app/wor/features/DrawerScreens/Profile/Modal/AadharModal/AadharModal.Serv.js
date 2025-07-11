@@ -40,11 +40,15 @@ export const aadharNumberSendOtp = async ({ aadharNumber }) => {
   }
 };
 
-const handleUploadAdharDetailsToServer = async ({ data, token }) => {
+const handleUploadAdharDetailsToServer = async ({
+  data,
+  token,
+  aadharNumber,
+}) => {
   try {
     await API.patch(
       "/auth/aadhar-card-verification",
-      { data },
+      { ...data, aadharNumber },
       {
         headers: {
           "Content-Type": "application/json",
@@ -69,7 +73,12 @@ const handleUploadAdharDetailsToServer = async ({ data, token }) => {
   }
 };
 
-export const aadharCardOtpVerification = async ({ otp, clientId, token }) => {
+export const aadharCardOtpVerification = async ({
+  otp,
+  clientId,
+  token,
+  aadharNumber,
+}) => {
   try {
     const response = await axios.post(
       "https://kyc-api.surepass.io/api/v1/aadhaar-v2/submit-otp",
@@ -99,6 +108,7 @@ export const aadharCardOtpVerification = async ({ otp, clientId, token }) => {
     const ownServerData = await handleUploadAdharDetailsToServer({
       data: response?.data?.data,
       token,
+      aadharNumber,
     });
 
     console.log("ownServerData", ownServerData);
