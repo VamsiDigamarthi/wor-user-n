@@ -33,7 +33,7 @@ const AadharCardNumber = ({
 
   const handleSubmitAadharCard = async () => {
     if (aadharNumber?.length !== 12) {
-      setErrMsg("Please Enter Aadhar Number");
+      setErrMsg("Please Enter Valid 12 digit Aadhar Number");
       return;
     }
 

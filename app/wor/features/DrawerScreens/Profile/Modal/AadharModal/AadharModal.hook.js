@@ -33,6 +33,7 @@ export const useAadharModalHook = () => {
       otp: otp?.join(""),
       clientId,
       token,
+      aadharNumber,
     });
 
     // console.log("submit verified otp end", data);
