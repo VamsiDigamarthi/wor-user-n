@@ -5,7 +5,6 @@ import {
 } from "./AadharModal.Serv";
 import { useDispatch, useSelector } from "react-redux";
 import { onProfileSection } from "../../../../ridebooking/home/redux/profileSlice";
-import { loginApi } from "../../../../auth/services/authServices";
 
 export const useAadharModalHook = () => {
   const dispatch = useDispatch();
