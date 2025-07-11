@@ -2,14 +2,18 @@ import { useState, useEffect } from "react";
 import { API } from "../../../../../Constants/url";
 import DeviceInfo from "react-native-device-info";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setToken } from "../../../../../redux/Features/Auth/LoginSlice";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 import { nearPlacesByText } from "../../../../../Constants/displaylocationmap";
 import { PlayInstallReferrer } from "react-native-play-install-referrer";
 import { Platform } from "react-native";
+import { fetchLocation } from "../../../../../redux/Features/Location/LocationSlice";
 
 export const useSignupForm = ({ mobile }) => {
+  const dispatch = useDispatch();
+
+  const { location } = useSelector((state) => state.location);
   const [errors, setErrors] = useState({ name: "" });
   const [apiError, setApiError] = useState("");
   const [refCode, setRefCode] = useState("");
@@ -17,6 +21,7 @@ export const useSignupForm = ({ mobile }) => {
   console.log(refCode, "refCode");
 
   useEffect(() => {
+    dispatch(fetchLocation());
     PlayInstallReferrer.getInstallReferrerInfo((installReferrerInfo, error) => {
       if (!error) {
         console.log(
@@ -75,7 +80,6 @@ export const useSignupForm = ({ mobile }) => {
     useState(false);
   const [storeNearLocation, setStoreNearLocation] = useState([]);
 
-  const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const onFethcNearLocation = async (text) => {
@@ -138,7 +142,9 @@ export const useSignupForm = ({ mobile }) => {
       const payload = {
         ...formData,
         deviceId,
-        refDetails: formData.refDetails, // Ensure refDetails is included
+        refDetails: formData.refDetails,
+        latitude: location?.lat ?? 0.0,
+        longitude: location?.lng ?? 0.0,
       };
 
       const response = await API.post("/auth/new-register", payload, {

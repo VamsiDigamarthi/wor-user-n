@@ -1,11 +1,5 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Platform,
-} from "react-native";
-import React, { useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useState } from "react";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import AppBarLayout from "../../../ridebooking/sharedLogics/AppBarLayout";
 import AadharModal from "../Modal/AadharModal/AadharModal";
@@ -17,16 +11,11 @@ export default function AadharNewScreen() {
   const [alreadyVerifiedModal, setAlreadyVerifiedModal] = useState(false);
 
   const { profile } = useSelector((state) => state.profileSlice);
-console.log("profile?.aadharCarVerificaation",profile?.aadharCarVerificaation);
+  // console.log("profile?.aadharCarVerificaation",profile?.aadharCarVerificaation);
 
   return (
     <AppBarLayout title="Gender Identity" isPositionAppbar={true}>
-      <View
-        style={[
-          styles.container,
-          { paddingTop: 80 },
-        ]}
-      >
+      <View style={[styles.container, { paddingTop: 80 }]}>
         <Text style={[styles.heading]}>
           Aadhaar verification is an essential step to ensure the authenticity
           of our users. By using Aadhaar, we can confirm your identity quickly

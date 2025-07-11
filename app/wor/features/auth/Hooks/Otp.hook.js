@@ -5,14 +5,16 @@ import {
 } from "@react-navigation/native";
 import { useEffect, useRef, useState } from "react";
 import DeviceInfo from "react-native-device-info";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { API } from "../../../../../Constants/url";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setToken } from "../../../../../redux/Features/Auth/LoginSlice";
 import { Keyboard } from "react-native";
 import { loginApi, removeOtp } from "../services/authServices";
+import { fetchLocation } from "../../../../../redux/Features/Location/LocationSlice";
 
 export const useOtpHook = () => {
+  // const { location } = useSelector((state) => state.location);
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const { mobile, message } = useRoute().params || {};
 
@@ -137,6 +139,10 @@ export const useOtpHook = () => {
   useEffect(() => {
     expireOTP();
   }, [timer, isResendAvailable]);
+
+  // useEffect(() => {
+  //   dispatch(fetchLocation());
+  // }, []);
 
   return {
     message,

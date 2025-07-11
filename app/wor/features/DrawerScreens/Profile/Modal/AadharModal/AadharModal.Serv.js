@@ -8,7 +8,7 @@ const surePassApiKay =
 export const aadharNumberSendOtp = async ({ aadharNumber }) => {
   try {
     const response = await axios.post(
-      "https://kyc-api.surepass.io/api/v1/aadhaar-v2/generate-otp",
+      "https://kyc-api.surepass.app/api/v1/aadhaar-v2/generate-otp",
       {
         id_number: aadharNumber,
       },
@@ -40,48 +40,17 @@ export const aadharNumberSendOtp = async ({ aadharNumber }) => {
   }
 };
 
-const handleUploadAdharDetailsToServer = async ({
-  data,
-  token,
-  aadharNumber,
-}) => {
-  try {
-    await API.patch(
-      "/auth/aadhar-card-verification",
-      { ...data, aadharNumber },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    return { status: true };
-  } catch (error) {
-    if (error?.response?.data?.message === "Aadhar Number Already Exist....!") {
-      return {
-        status: false,
-        errMsg: error?.response?.data?.message,
-      };
-    }
-
-    return {
-      status: false,
-      errMsg: "Wor Server Update Your details failed Please try again later",
-    };
-  }
-};
-
 export const aadharCardOtpVerification = async ({
   otp,
   clientId,
   token,
   aadharNumber,
 }) => {
+  console.log("aadharNumber", aadharNumber);
+
   try {
     const response = await axios.post(
-      "https://kyc-api.surepass.io/api/v1/aadhaar-v2/submit-otp",
+      "https://kyc-api.surepass.app/api/v1/aadhaar-v2/submit-otp",
       {
         otp: otp,
         client_id: clientId,
@@ -123,6 +92,8 @@ export const aadharCardOtpVerification = async ({
       ownServerFailed: ownServerData?.errMsg,
     };
   } catch (error) {
+    console.log("error", error);
+
     if (error?.response?.data?.message === "Verification Failed.") {
       console.log("failed");
       return {
@@ -133,6 +104,41 @@ export const aadharCardOtpVerification = async ({
     return {
       status: false,
       serverError: "Server Error",
+    };
+  }
+};
+
+const handleUploadAdharDetailsToServer = async ({
+  data,
+  token,
+  aadharNumber,
+}) => {
+  console.log("aadharNumber-------", aadharNumber);
+
+  try {
+    await API.patch(
+      "/auth/aadhar-card-verification",
+      { ...data, aadharNumber },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return { status: true };
+  } catch (error) {
+    if (error?.response?.data?.message === "Aadhar Number Already Exist....!") {
+      return {
+        status: false,
+        errMsg: error?.response?.data?.message,
+      };
+    }
+
+    return {
+      status: false,
+      errMsg: "Wor Server Update Your details failed Please try again later",
     };
   }
 };
